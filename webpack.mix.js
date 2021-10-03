@@ -13,8 +13,12 @@ require('vuetifyjs-mix-extension')
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .vuetify('vuetify-loader', {
-        extract: 'css/app.css',
+mix.js('resources/admin/js/app.js', 'public/js/admin')
+    .sass('resources/admin/sass/custom.scss', 'public/css/admin')
+    .vuetify('vuetify-loader', 'resources/admin/sass/variables.scss', {
+        extract: 'css/admin/app.css',
     })
     .vue({ version: 2 })
+
+mix.js('resources/site/js/app.js', 'public/js/site')
+    .sass('resources/site/sass/app.scss', 'public/css/site')

@@ -1,0 +1,14 @@
+@import "../../../node_modules/vuetify/src/styles/tools/functions";
+@import "../../../node_modules/vuetify/src/styles/settings/colors";
+
+$toolbar-content-padding-x: 0;
+
+$material-light: () !default;
+$material-light: map-deep-merge(
+    (
+        'states': (
+            'activated': 0.24,
+        ),
+    ),
+    $material-light
+);

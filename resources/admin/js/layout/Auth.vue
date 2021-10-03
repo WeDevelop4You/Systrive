@@ -5,7 +5,7 @@
             <v-container fluid class="fill-height">
                 <v-row>
                     <v-col cols="12" md="4" lg="3" offset-md="2">
-                        <v-card class="mx-auto" rounded="lg" outlined :elevation="$root.elevation" width="400px">
+                        <v-card class="mx-auto" rounded="lg" outlined :elevation="$config.elevation" width="400px">
                             <slot></slot>
                         </v-card>
                     </v-col>

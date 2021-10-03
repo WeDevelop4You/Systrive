@@ -6,6 +6,7 @@ import Api from './plugins/api'
 import LApp from './layout/App'
 import Auth from './plugins/auth'
 import Router from './plugins/routes'
+import Config from './plugins/config'
 import Login from './pages/auth/Login'
 import Loading from './plugins/loading'
 import Vuetify from './plugins/vuetify'
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 
 Vue.use(Api)
 Vue.use(Auth)
+Vue.use(Config)
 Vue.use(Loading)
 
 Vue.component('l-app', LApp)
@@ -28,10 +30,4 @@ export default new Vue({
     store: Store,
     vuetify: Vuetify,
     router: Router,
-
-    data() {
-        return {
-            elevation: 3,
-        }
-    },
 });

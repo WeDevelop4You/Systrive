@@ -44,12 +44,15 @@
             <v-container fluid>
                 <router-view/>
             </v-container>
+            <Popup/>
         </v-main>
     </v-app>
 </template>
 
 <script>
     import SvgLogoLine from '../components/svg/LogoLine'
+    import Popup from "./Popup";
+    import Simple from "../components/notifications/popup/Simple";
 
     export default {
         name: "App",
@@ -61,6 +64,7 @@
         },
 
         components: {
+            Popup,
             SvgLogoLine,
         },
 
@@ -75,8 +79,8 @@
             },
         },
 
-        async created() {
-            // await this.$store.dispatch('roles/get')
+        created() {
+            this.$store.commit('notifications/addPopup', {time: 1000 * 2, type: 'Simple', message: {type: 'error', text: 'd ddb aubdaw bduwabd abdwb dawbda bduaw bdauwbd awud'}})
         },
 
         methods: {

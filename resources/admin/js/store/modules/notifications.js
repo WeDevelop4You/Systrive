@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { v4 as uuidGenerator } from 'uuid';
 
 const app = Vue.prototype
 
@@ -11,10 +12,13 @@ export default {
 
     mutations: {
         addPopup(state, popup) {
-            const index = state.popups.push(popup) -1
-            const displayTime = popup.time || app.$config.popup.displayTime
+            state.popups.push(popup)
+        },
 
-            setTimeout(() => {state.popups.splice(index, 1)}, displayTime);
+        removePopup(state, uuid) {
+            const index = state.popups.findIndex(popup => popup.uuid === uuid)
+
+            state.popups.splice(index, 1)
         }
     },
 
@@ -25,6 +29,19 @@ export default {
     },
 
     actions: {
+        popup({commit}, popup) {
+            const uuid = uuidGenerator()
 
+            popup.uuid = uuid
+            commit('addPopup', popup)
+
+            if (!popup.stayable) {
+                const displayTime = popup.time || app.$config.popup.displayTime
+
+                setTimeout(() => {
+                    commit('removePopup', uuid)
+                }, displayTime);
+            }
+        }
     },
 }

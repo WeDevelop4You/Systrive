@@ -52,7 +52,6 @@
 <script>
     import SvgLogoLine from '../components/svg/LogoLine'
     import Popup from "./Popup";
-    import Simple from "../components/notifications/popup/Simple";
 
     export default {
         name: "App",
@@ -79,8 +78,8 @@
             },
         },
 
-        created() {
-            this.$store.commit('notifications/addPopup', {time: 1000 * 2, type: 'Simple', message: {type: 'error', text: 'd ddb aubdaw bduwabd abdwb dawbda bduaw bdauwbd awud'}})
+        mounted() {
+            this.$store.dispatch('user/get')
         },
 
         methods: {

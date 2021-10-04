@@ -10,6 +10,7 @@ import Config from './plugins/config'
 import Login from './pages/auth/Login'
 import Loading from './plugins/loading'
 import Vuetify from './plugins/vuetify'
+import Notifications from './plugins/notifications'
 import ResetPassword from './pages/auth/ResetPassword'
 import PasswordRecovery from './pages/auth/PasswordRecovery'
 
@@ -19,6 +20,7 @@ Vue.use(Api)
 Vue.use(Auth)
 Vue.use(Config)
 Vue.use(Loading)
+Vue.use(Notifications)
 
 Vue.component('l-app', LApp)
 Vue.component('login', Login)

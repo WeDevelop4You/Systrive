@@ -33,7 +33,7 @@ export default {
                 url: app.$api.route('auth.user'),
                 method: "GET"
             }).then((response) => {
-                commit('setUser', response.data)
+                commit('setUser', response.data.data)
             })
         },
 

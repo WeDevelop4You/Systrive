@@ -1,8 +1,8 @@
 <template>
     <div class="notification-position" :style="{paddingLeft: $vuetify.application.left + 'px'} ">
-        <v-row class="mx-4" no-gutters v-for="(popup, index) in popups" :key="index">
+        <v-row class="mx-4" no-gutters v-for="popup in popups" :key="popup.uuid">
             <v-col cols="12" sm="9" offset-sm="3" md="6" offset-md="6" lg="4" offset-lg="8">
-                <component :is="popup.type" :message="popup.message"></component>
+                <component :is="popup.type" :uuid="popup.uuid" :message="popup.message" :dismissible="popup.stayable"></component>
             </v-col>
         </v-row>
     </div>

@@ -4,7 +4,7 @@ export default {
             elevation: 3,
 
             popup: {
-                displayTime: 1000 * 10
+                displayTime: 1000 * 10,
             }
         }
     }

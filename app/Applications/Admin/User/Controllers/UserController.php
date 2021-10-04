@@ -8,6 +8,12 @@
     {
         public function index()
         {
-            return response()->json(Auth::user());
+            return response()->json(['data' => Auth::user(), 'popup' => [
+                'type' => 'Simple',
+                'message' => [
+                    'type' => 'success',
+                    'text' => 'dwa dan daoind anda nda'
+                ]
+            ]]);
         }
     }

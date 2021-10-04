@@ -2,18 +2,22 @@
 
     namespace App\Admin\User\Controllers;
 
+    use App\Admin\User\Resources\UserResource;
+    use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
+    use Support\Helpers\Response\Response;
 
     class UserController
     {
-        public function index()
+        /**
+         * @return JsonResponse
+         */
+        public function index(): JsonResponse
         {
-            return response()->json(['data' => Auth::user(), 'popup' => [
-                'type' => 'Simple',
-                'message' => [
-                    'type' => 'success',
-                    'text' => 'dwa dan daoind anda nda'
-                ]
-            ]]);
+            $response = new Response();
+            $response->addData(Auth::user(), UserResource::class);
+            $response->addPopup('this is a text')->setStayable();
+
+            return $response->toJson();
         }
     }

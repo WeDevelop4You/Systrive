@@ -14,7 +14,6 @@ export default {
 
     mutations: {
         setUser(state, user) {
-            state.id = user.id
             state.email = user.email
             state.emailVerifiedAt = user.email_verified_at
             state.verified = user.email_verified_at !== null

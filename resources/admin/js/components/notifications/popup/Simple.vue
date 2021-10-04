@@ -1,6 +1,21 @@
 <template>
-    <v-alert :value="show" border="left" :icon="message.icon" :dismissible="dismissible" @input="remove()" colored-border :type="message.type" transition="scale-transition" :elevation="$config.elevation">
+    <v-alert
+        :value="show"
+        :icon="message.icon"
+        :type="message.type"
+        :color="message.color"
+        :dismissible="dismissible"
+        :elevation="$config.elevation"
+        border="left"
+        colored-border
+        transition="scale-transition"
+    >
         <div v-html="message.text"></div>
+        <template v-slot:close>
+            <v-btn class="v-alert__dismissible" small icon @click="remove">
+                <v-icon>fas fa-times</v-icon>
+            </v-btn>
+        </template>
     </v-alert>
 </template>
 
@@ -28,7 +43,7 @@
 
         data() {
             return {
-                show: false
+                show: false,
             }
         },
 

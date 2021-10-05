@@ -5,7 +5,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
 
-    class CompanyDetailResource extends JsonResource
+    class CompanyResource extends JsonResource
     {
         /**
          * @param Request $request
@@ -16,15 +16,9 @@
             return [
                 'id' => $this->id,
                 'name' => $this->name,
-                'avatar' => $this->createAvatar(),
+                'email' => $this->email,
+                'domain' => $this->domain,
+                'information' => $this->information,
             ];
-        }
-
-        /**
-         * @return string
-         */
-        private function createAvatar(): string
-        {
-            return "https://avatar.oxro.io/avatar.svg?name={$this->name}&rounded=250&caps=1";
         }
     }

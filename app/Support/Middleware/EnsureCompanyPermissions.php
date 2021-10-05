@@ -3,9 +3,11 @@
 namespace Support\Middleware;
 
 use Closure;
+use Domain\Companies\Models\Company;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\PermissionRegistrar;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
@@ -22,9 +24,12 @@ class EnsureCompanyPermissions
         $user = Auth::user();
 
         try {
-            $company = $user->companies()->where('id', $request->route('company'))->firstOrFail();
+            $company = $request->route('company');
+            $id = $company instanceof Company ? $company->id : $company;
 
-            app(\Spatie\Permission\PermissionRegistrar::class)->setPermissionsTeamId($company->id);
+            $user->companies()->where('id', $id)->firstOrFail();
+
+            app(PermissionRegistrar::class)->setPermissionsTeamId($id);
 
             return $next($request);
         } catch (ModelNotFoundException $e) {

@@ -7,6 +7,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route as RouteList;
+use Illuminate\Support\Str;
 
 class ApiRoutes extends Command
 {
@@ -15,7 +16,7 @@ class ApiRoutes extends Command
      *
      * @var string
      */
-    protected $signature = 'make:api-routes';
+    protected $signature = 'make:api-routes {application}';
 
     /**
      * The console command description.
@@ -33,6 +34,11 @@ class ApiRoutes extends Command
      * @var array
      */
     private array $apiRoutes;
+
+    /**
+     * @var string
+     */
+    private string $application;
 
     /**
      * Create a new command instance.
@@ -53,6 +59,8 @@ class ApiRoutes extends Command
      */
     public function handle(): int
     {
+        $this->application = strtolower($this->argument('application'));
+
         $this->create();
 
         $this->info('The file was successfully created');
@@ -71,7 +79,7 @@ class ApiRoutes extends Command
     private function findApiRoutes(): void
     {
         self::getRoutes()->each(function (Route $route) {
-            if (in_array('api', $route->getAction('middleware'))) {
+            if (in_array('api', $route->getAction('middleware')) && Str::startsWith($route->getName(), "{$this->application}.")) {
                 $this->routes->push($route);
             }
         });
@@ -80,7 +88,7 @@ class ApiRoutes extends Command
     private function setToFile(): void
     {
         $file = 'api.json';
-        $path = App::resourcePath('js/config');
+        $path = App::resourcePath("{$this->application}/js/config");
         $output = stripslashes(json_encode($this->apiRoutes, JSON_PRETTY_PRINT));
 
         if (!file_exists($path)) {

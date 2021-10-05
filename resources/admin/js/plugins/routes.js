@@ -4,7 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
 import Dashboard from "../pages/Dashboard";
-import CompanyDashboard from "../pages/company/dashboard";
+import CompanyDashboard from "../pages/company/Dashboard";
 
 const routes = [
     {
@@ -21,8 +21,40 @@ const routes = [
         }
     },
     {
-        path: '/:company',
-        name: 'company',
+        path: '/account',
+        name: 'account',
+        // component: Dashboard,
+        meta: {
+            breadCrumb: [
+                {
+                    text: 'Dashboard',
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: 'Account'
+                }
+            ]
+        }
+    },
+    {
+        path: '/settings',
+        name: 'settings',
+        // component: Dashboard,
+        meta: {
+            breadCrumb: [
+                {
+                    text: 'Dashboard',
+                    to: { name: 'dashboard' }
+                },
+                {
+                    text: 'Settings'
+                }
+            ]
+        }
+    },
+    {
+        path: '/:companyName',
+        name: 'company.dashboard',
         component: CompanyDashboard,
         meta: {
             breadCrumb(route) {
@@ -38,7 +70,13 @@ const routes = [
 
                 ]
             }
-        }
+        },
+        children: [
+            {
+                path: 'test',
+                name: 'company.test'
+            }
+        ]
     }
 ]
 

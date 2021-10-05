@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
             foreach ($applications as $application => $config) {
                 $domain = $config['domain'] ?? null;
                 $name = strtolower($application) . '.';
-                $path = sprintf('%s/../%s/Routes', __DIR__, ucfirst($application));
+                $path = sprintf('%s/../%s/Routes', __DIR__, ucfirst(strtolower($application)));
 
                 Route::prefix('api')
                     ->name($name)

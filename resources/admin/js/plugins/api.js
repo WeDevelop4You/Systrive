@@ -1,7 +1,7 @@
 import axios from 'axios'
 import ApiRoutes from "../config/api.json";
 
-let api = axios.create()
+const api = axios.create()
 
 api.defaults.withCredentials = true
 
@@ -17,18 +17,22 @@ export default {
              * @return {string|null}
              */
             route(route, ...values) {
-                if (ApiRoutes.hasOwnProperty(route)) {
-                    let apiRoute = ApiRoutes[route]
-                    let parameters = apiRoute.match(/\{(.*?)\}/g);
+                const fullRouteName = 'admin.' + route
+
+                if (ApiRoutes.hasOwnProperty(fullRouteName)) {
+                    let apiRoute = ApiRoutes[fullRouteName]
+                    const parameters = apiRoute.match(/\{(.*?)\}/g);
 
                     if (parameters !== null) {
                         for (let index = 0; index < parameters.length; index++) {
                             let value = values[index]
-                            let parameter = parameters[index]
+                            const parameter = parameters[index]
 
-                            parameter.endsWith('?}')
-                                ? value = value ?? ''
-                                : console.error(`Missing parameter for [${parameter}] in API route [${route}]`)
+                            if (parameter.endsWith('?}')) {
+                                 value = value ?? ''
+                            } else if (!value) {
+                                console.error(`Missing parameter for [${parameter}] in API route [${fullRouteName}]`)
+                            }
 
                             apiRoute = apiRoute.replace(parameter, value);
                         }
@@ -41,7 +45,7 @@ export default {
                     return apiRoute
                 }
 
-                console.error(`API route [${route}] not found`)
+                console.error(`API route [${fullRouteName}] not found`)
             },
 
             getCsrfToken() {

@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+import Companies from './user/companies'
+
 const app = Vue.prototype
 
 export default {
@@ -46,7 +48,7 @@ export default {
         },
     },
 
-    module: {
-
+    modules: {
+        companies: Companies,
     }
 }

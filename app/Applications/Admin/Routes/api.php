@@ -7,12 +7,10 @@
         Route::get('auth/user', [UserController::class, 'index'])->name('auth.user');
 
         Route::prefix('companies')->group(function () {
-            Route::get('/', [CompaniesController::class, 'index'])->name('user.company');
+            Route::get('/', [CompaniesController::class, 'navigation'])->name('user.company');
 
             Route::prefix('{company}')->middleware('company')->group(function () {
-                Route::get('/', function() {
-                    dd('test');
-                });
+                Route::get('/', [CompaniesController::class, 'show'])->name('user.company.show');
             });
         });
     });

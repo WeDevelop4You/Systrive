@@ -16,7 +16,6 @@
         {
             $response = new Response();
             $response->addData(Auth::user(), UserResource::class);
-            $response->addPopup('this is a text')->setStayable();
 
             return $response->toJson();
         }

@@ -12,7 +12,7 @@
 
             foreach ($applications as $application) {
                 $namespace = strtolower($application);
-                $path = sprintf('%s/../%s/Views', __DIR__, ucfirst($application));
+                $path = sprintf('%s/../%s/Views', __DIR__, ucfirst($namespace));
 
                 $this->loadViewsFrom($path, $namespace);
             }

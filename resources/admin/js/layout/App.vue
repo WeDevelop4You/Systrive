@@ -11,7 +11,7 @@
                     </template>
                     <template v-else>
                         <v-list-item-group color="primary">
-                            <v-list-item :class="{'pl-2': isMini}" :to="navigation.route" v-for="(navigation, i) in item.navigationItems" :key="i">
+                            <v-list-item :class="{'pl-2': isMini}" :to="navigation.route" v-for="(navigation) in item.navigationItems" :key="index + '_' + navigation.id">
                                 <v-list-item-avatar>
                                     <v-img :src="navigation.avatar"></v-img>
                                 </v-list-item-avatar>
@@ -64,7 +64,9 @@
         <v-main>
             <v-container fluid>
                 <breadcrumb/>
-                <router-view/>
+                <keep-alive max="3">
+                    <router-view/>
+                </keep-alive>
             </v-container>
             <popup/>
         </v-main>
@@ -75,6 +77,7 @@
     import SvgLogoLine from '../components/svg/LogoLine'
     import Breadcrumb from '../components/Breadcrumb'
     import Popup from "./Popup";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "App",
@@ -82,17 +85,6 @@
         data() {
             return {
                 isMini: true,
-                companies: [
-                    {
-                        id:	1,
-                        name: "WeDevelop4You",
-                        avatar: "https://avatar.oxro.io/avatar.svg?name=WeDevelop4You&rounded=250&caps=1",
-                        route: {
-                            name: 'company',
-                            params: { company: "WeDevelop4You" }
-                        }
-                    }
-                ]
             }
         },
 
@@ -106,35 +98,53 @@
             subMenuItems() {
                 return [
                     {icon: 'fas fa-user-circle', text: this.$vuetify.lang.t('word.account'), link: 'account'},
-                    {icon: 'fas fa-cog', text: this.$vuetify.lang.t('word.settings'), link: 'setting'},
+                    {icon: 'fas fa-cog', text: this.$vuetify.lang.t('word.settings'), link: 'settings'},
                     {divider: true},
                     {icon: 'fas fa-sign-out-alt', text: this.$vuetify.lang.t('word.logout'), action: 'logout'},
                 ]
             },
 
             sideMenuItems() {
+                if (this.$route.name.startsWith('company.')) {
+                    return [
+
+                    ]
+                }
+
                 return [
                     {subheader: this.$vuetify.lang.t('$vuetify.word.companies')},
                     {navigationItems: this.companies},
                     {divider: true},
                     {subheader: this.$vuetify.lang.t('$vuetify.word.admin')},
                 ]
-            }
+            },
+
+            ...mapGetters({
+                companies: 'user/companies/navigation',
+            })
         },
 
-        mounted() {
+        created() {
             this.$store.dispatch('user/get')
+            this.$store.dispatch('user/companies/getNavigation')
+        },
 
-            this.$api.call({
-                url: '/api/companies',
-                method: "GET"
-            })
+        watch:{
+            $route (to, from){
+                this.getCompanyIfNeeded(to.params)
+            }
         },
 
         methods: {
             callFunction($name) {
                 if ($name !== undefined) {
                     this[$name]()
+                }
+            },
+
+            getCompanyIfNeeded(params) {
+                if (params.hasOwnProperty('companyName')) {
+                    this.$store.dispatch('user/companies/get', params.companyName)
                 }
             },
 

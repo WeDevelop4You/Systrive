@@ -18546,7 +18546,8 @@ html.overflow-y-hidden {
 .v-icon--disabled {
   pointer-events: none;
 }
-.v-icon--dense__component, .v-icon--dense__svg {
+.v-icon--dense .v-icon__component,
+.v-icon--dense .v-icon__svg {
   height: 20px;
 }
 .v-icon__component {
@@ -19483,7 +19484,7 @@ html.overflow-y-hidden {
   z-index: 5;
 }
 
-.v-app-bar.v-app-bar--hide-shadow {
+.v-app-bar.v-app-bar.v-app-bar--hide-shadow {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
@@ -21155,8 +21156,8 @@ html.overflow-y-hidden {
   color: rgba(0, 0, 0, 0.38);
   background: #eeeeee;
 }
-.theme--light.v-list-item .v-list-item__subtitle,
-.theme--light.v-list-item .v-list-item__action-text {
+.theme--light.v-list-item:not(.v-list-item--disabled) .v-list-item__subtitle,
+.theme--light.v-list-item:not(.v-list-item--disabled) .v-list-item__action-text {
   color: rgba(0, 0, 0, 0.6);
 }
 .theme--light.v-list-item:hover::before {
@@ -21185,8 +21186,8 @@ html.overflow-y-hidden {
   color: rgba(255, 255, 255, 0.5);
   background: #494949;
 }
-.theme--dark.v-list-item .v-list-item__subtitle,
-.theme--dark.v-list-item .v-list-item__action-text {
+.theme--dark.v-list-item:not(.v-list-item--disabled) .v-list-item__subtitle,
+.theme--dark.v-list-item:not(.v-list-item--disabled) .v-list-item__action-text {
   color: rgba(255, 255, 255, 0.7);
 }
 .theme--dark.v-list-item:hover::before {
@@ -22780,14 +22781,14 @@ html.overflow-y-hidden {
 }
 .v-text-field fieldset,
 .v-text-field .v-input__control {
-  color: inherit;
+  color: currentColor;
 }
 .v-text-field.v-input--has-state .v-input__control > .v-text-field__details > .v-counter {
-  color: inherit;
+  color: currentColor;
 }
 .v-text-field.v-input--is-disabled .v-input__control > .v-text-field__details > .v-counter,
 .v-text-field.v-input--is-disabled .v-input__control > .v-text-field__details > .v-messages {
-  color: inherit;
+  color: currentColor;
 }
 .v-text-field.v-input--dense {
   padding-top: 0;
@@ -23100,8 +23101,8 @@ html.overflow-y-hidden {
   position: absolute;
   right: 0;
   top: -5px;
-  transition-duration: 0.3s;
-  transition-property: color, border-width;
+  transition-duration: 0.15s;
+  transition-property: color;
   transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .v-application--is-ltr .v-text-field--outlined fieldset {

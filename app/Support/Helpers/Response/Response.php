@@ -45,13 +45,17 @@
         /**
          * @param $data
          * @param string|null $resourceClass
+         * @param bool $collection
          * @return array|JsonResource|ResourceCollection|mixed
          */
-        public function addData($data, ?string $resourceClass = null)
+        public function addData($data, ?string $resourceClass = null, bool $collection = false)
         {
             $this->data = is_null($resourceClass)
                 ? $data
-                : new $resourceClass($data);
+                : ($collection
+                    ? call_user_func([$resourceClass, 'collection'], $data)
+                    : new $resourceClass($data)
+                );
 
             return $this->data;
         }

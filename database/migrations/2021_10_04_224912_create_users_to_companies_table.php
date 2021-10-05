@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersPermissionsTable extends Migration
+class CreateUsersToCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateUsersPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_permissions', function (Blueprint $table) {
+        Schema::create('users_to_companies', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('permission_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('company_id')->constrained()->cascadeOnDelete();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateUsersPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_permissions');
+        Schema::dropIfExists('users_to_companies');
     }
 }

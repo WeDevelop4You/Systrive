@@ -7,10 +7,9 @@ import LApp from './layout/App'
 import Auth from './plugins/auth'
 import Router from './plugins/routes'
 import Config from './plugins/config'
+import Action from './plugins/actions'
 import Login from './pages/auth/Login'
-import Loading from './plugins/loading'
 import Vuetify from './plugins/vuetify'
-import Notifications from './plugins/notifications'
 import ResetPassword from './pages/auth/ResetPassword'
 import PasswordRecovery from './pages/auth/PasswordRecovery'
 
@@ -19,8 +18,7 @@ Vue.config.productionTip = false
 Vue.use(Api)
 Vue.use(Auth)
 Vue.use(Config)
-Vue.use(Loading)
-Vue.use(Notifications)
+Vue.use(Action)
 
 Vue.component('l-app', LApp)
 Vue.component('login', Login)
@@ -32,4 +30,52 @@ export default new Vue({
     store: Store,
     vuetify: Vuetify,
     router: Router,
+
+    data() {
+        return {
+            requests: 0
+        }
+    },
+
+    created() {
+        let app = this
+
+        this.$api.call.interceptors.request.use(function (config) {
+            app.requests++
+
+            return config
+        }, function (error) {
+            app.requests--
+
+            return Promise.reject(error)
+        });
+
+        this.$api.call.interceptors.response.use(function (response) {
+            const data = response.data
+
+            app.requests--
+
+            app.addPopup(data)
+            app.callAction(data)
+
+            return response
+        }, function (error) {
+            const data = error.response.data
+
+            app.requests--
+
+            app.addPopup(data)
+            app.callAction(data)
+
+            return Promise.reject(error)
+        });
+    },
+
+    methods: {
+        addPopup(data) {
+            if (data.hasOwnProperty('popup')) {
+                this.$store.dispatch('notifications/popup', data.popup);
+            }
+        }
+    }
 });

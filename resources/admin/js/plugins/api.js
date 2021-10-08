@@ -52,5 +52,13 @@ export default {
                 return this.call.get('/sanctum/csrf-cookie')
             },
         }
+
+        Vue.mixin({
+            computed: {
+                $loading() {
+                    return !!this.$root.requests
+                },
+            },
+        })
     }
 }

@@ -8,7 +8,6 @@ export default {
     namespaced: true,
 
     state: () => ({
-        id: 0,
         email: '',
         verified: false,
         emailVerifiedAt: '',
@@ -24,7 +23,11 @@ export default {
 
     getters: {
         get(state) {
-            return state
+            return {
+                email: state.email,
+                verified: state.verified,
+                emailVerifiedAt: state.emailVerifiedAt,
+            }
         },
     },
 
@@ -40,7 +43,7 @@ export default {
 
         logout() {
             app.$api.call({
-                url: app.$api.route('logout'),
+                url: '/logout',
                 method: "GET",
             }).then((response) => {
                 window.location.href = response.data.redirect

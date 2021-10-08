@@ -3,13 +3,17 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter)
 
+const parent = {template: `<router-view></router-view>`}
+
 import Dashboard from "../pages/Dashboard";
+import AdminUsers from "../pages/admin/Users";
+import Profile from "../pages/account/Profile";
 import CompanyDashboard from "../pages/company/Dashboard";
 
 const routes = [
     {
-        path: '/',
-        alias: '/dashboard',
+        path: '/dashboard',
+        alias: '/',
         name: 'dashboard',
         component: Dashboard,
         meta: {
@@ -23,7 +27,7 @@ const routes = [
     {
         path: '/account',
         name: 'account',
-        // component: Dashboard,
+        component: Profile,
         meta: {
             breadCrumb: [
                 {
@@ -53,28 +57,60 @@ const routes = [
         }
     },
     {
-        path: '/:companyName',
-        name: 'company.dashboard',
-        component: CompanyDashboard,
-        meta: {
-            breadCrumb(route) {
-                const companyName = route.params.company;
-                return [
-                    {
-                        text: 'Dashboard',
-                        to: { name: 'dashboard' }
-                    },
-                    {
-                        text: companyName,
-                    }
-
-                ]
-            }
-        },
+        path: '/admin',
+        component: parent,
         children: [
             {
+                path: 'users',
+                name: 'admin.users',
+                component: AdminUsers,
+                meta: {
+                    breadCrumb: [
+                        {
+                            text: 'Dashboard',
+                            to: {name: 'dashboard'}
+                        },
+                        {
+                            text: 'Users'
+                        }
+                    ]
+                }
+            },
+            {
+                path: 'companies',
+                name: 'admin.companies',
+                // component: '',
+            }
+        ]
+    },
+    {
+        path: '/c/:companyName',
+        component: parent,
+        children: [
+            {
+                path: '',
+                name: 'company.dashboard',
+                component: CompanyDashboard,
+                meta: {
+                    breadCrumb(route) {
+                        const companyName = route.params.companyName;
+                        return [
+                            {
+                                text: 'Dashboard',
+                                to: { name: 'dashboard' }
+                            },
+                            {
+                                text: companyName,
+                            }
+
+                        ]
+                    }
+                },
+            },
+            {
                 path: 'test',
-                name: 'company.test'
+                name: 'company.test',
+                component: Profile
             }
         ]
     }

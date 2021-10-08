@@ -10,11 +10,18 @@
                         <v-divider class="my-1" :key="index"/>
                     </template>
                     <template v-else>
-                        <v-list-item-group color="primary">
-                            <v-list-item :class="{'pl-2': isMini}" :to="navigation.route" v-for="(navigation) in item.navigationItems" :key="index + '_' + navigation.id">
-                                <v-list-item-avatar>
-                                    <v-img :src="navigation.avatar"></v-img>
-                                </v-list-item-avatar>
+                        <v-list-item-group :color="isMini ? '' : 'primary'">
+                            <v-list-item :class="{'pl-2': isMini}" :exact-active-class="isMini ? 'none-active' : ''" :to="navigation.route" v-for="(navigation, key) in item.navigationItems" :key="index + '_' + key">
+                                <template v-if="navigation.avatar">
+                                    <v-list-item-avatar>
+                                        <v-img :src="navigation.avatar"></v-img>
+                                    </v-list-item-avatar>
+                                </template>
+                                <template v-else>
+                                    <v-list-item-icon :class="{'mr-4': !isMini}" class="justify-center" style="min-width: 40px">
+                                        <v-icon v-text="navigation.icon"></v-icon>
+                                    </v-list-item-icon>
+                                </template>
                                 <v-list-item-content>
                                     <v-list-item-title v-html="navigation.name"></v-list-item-title>
                                 </v-list-item-content>
@@ -32,7 +39,7 @@
                 </router-link>
                 <v-spacer/>
                 <div class="align-self-center cursor-pointer">
-                    <v-menu transition="slide-y-transition" offset-y bottom>
+                    <v-menu transition="slide-y-transition" offset-y bottom :close-on-content-click="false">
                         <template v-slot:activator="{ on, attrs }">
                             <div class="py-3" v-on="on">
                                 <span v-text="$auth.user().email"/>
@@ -43,6 +50,9 @@
                             <template v-for="(item, i) in subMenuItems">
                                 <template v-if="item.divider">
                                     <v-divider class="my-1" :key="i"/>
+                                </template>
+                                <template v-else-if="item.component">
+                                    <component :is="item.component" :index="i"/>
                                 </template>
                                 <template v-else>
                                     <v-list-item class="py-0 px-2" color="primary" dense link :to="item.link" @click="callFunction(item.action)" :key="i">
@@ -74,6 +84,7 @@
 </template>
 
 <script>
+    import DarkModeSwitchList from "../components/DarkModeSwitchList";
     import SvgLogoLine from '../components/svg/LogoLine'
     import Breadcrumb from '../components/Breadcrumb'
     import Popup from "./Popup";
@@ -92,22 +103,31 @@
             Popup,
             Breadcrumb,
             SvgLogoLine,
+            DarkModeSwitchList
         },
 
         computed: {
             subMenuItems() {
                 return [
-                    {icon: 'fas fa-user-circle', text: this.$vuetify.lang.t('word.account'), link: 'account'},
-                    {icon: 'fas fa-cog', text: this.$vuetify.lang.t('word.settings'), link: 'settings'},
+                    {icon: 'fas fa-user-circle', text: this.$vuetify.lang.t('$vuetify.word.account'), link: {name: 'account'}},
+                    {icon: 'fas fa-cog', text: this.$vuetify.lang.t('$vuetify.word.settings'), link: {name: 'settings'}},
                     {divider: true},
-                    {icon: 'fas fa-sign-out-alt', text: this.$vuetify.lang.t('word.logout'), action: 'logout'},
+                    {component: 'DarkModeSwitchList'},
+                    {divider: true},
+                    {icon: 'fas fa-sign-out-alt', text: this.$vuetify.lang.t('$vuetify.word.logout'), action: 'logout'},
                 ]
             },
 
             sideMenuItems() {
                 if (this.$route.name.startsWith('company.')) {
                     return [
+                        {subheader: this.$vuetify.lang.t('$vuetify.word.domains')},
+                        {navigationItems: []},
+                        {divider: true},
+                        {navigationItems: [
 
+                            ]
+                        },
                     ]
                 }
 
@@ -116,6 +136,11 @@
                     {navigationItems: this.companies},
                     {divider: true},
                     {subheader: this.$vuetify.lang.t('$vuetify.word.admin')},
+                    {navigationItems: [
+                            {icon: 'fas fa-users', name: this.$vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
+                            {icon: 'fas fa-building', name: this.$vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}}
+                        ]
+                    },
                 ]
             },
 
@@ -131,6 +156,8 @@
 
         watch:{
             $route (to, from){
+                this.lastRoute = from.fullPath
+
                 this.getCompanyIfNeeded(to.params)
             }
         },
@@ -149,7 +176,7 @@
             },
 
             logout() {
-                this.$store.dispatch("$auth/logout")
+                this.$store.dispatch("user/logout")
             }
         }
     }

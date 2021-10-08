@@ -4,7 +4,7 @@
 
     use Illuminate\Support\Str;
 
-    class PopupMessageBase
+    abstract class PopupMessageBase
     {
         public const INFO_TYPE = 'info';
         public const ERROR_TYPE = 'error';
@@ -14,17 +14,17 @@
         /**
          * @var array
          */
-        public array $data;
+        private array $data;
 
         /**
          * @var string
          */
-        protected string $text;
+        private string $text;
 
         /**
          * @param string|null $text
          */
-        public function __construct(string $text, int $statusCode)
+        final public function __construct(string $text, int $statusCode)
         {
             $this->text = $text;
             $this->setText($text);
@@ -34,7 +34,7 @@
         /**
          * @return $this
          */
-        protected function setText(?string $text = null): PopupMessageBase
+        final private function setText(?string $text = null): PopupMessageBase
         {
             $this->data['text'] = $text ?? $this->text;
 
@@ -45,7 +45,7 @@
          * @param string $type
          * @return PopupMessageBase
          */
-        public function setType(string $type): PopupMessageBase
+        final public function setType(string $type): PopupMessageBase
         {
             $this->data['type'] = $type;
 
@@ -56,7 +56,7 @@
          * @param string $icon
          * @return PopupMessageBase
          */
-        public function setIcon(string $icon): PopupMessageBase
+        final public function setIcon(string $icon): PopupMessageBase
         {
             $this->data['icon'] = $icon;
 
@@ -67,7 +67,7 @@
          * @param string $color
          * @return PopupMessageBase
          */
-        public function setColor(string $color): PopupMessageBase
+        final public function setColor(string $color): PopupMessageBase
         {
             $this->data['color'] = $color;
 
@@ -75,22 +75,28 @@
         }
 
         /**
-         * @param ...$links
+         * @param string ...$links
          * @return PopupMessageBase
          */
-        public function insertLinksInChat(...$links): PopupMessageBase
+        final public function insertLinkInChat(string ...$links): PopupMessageBase
         {
             foreach ($links as $link) {
-                $htmlLink = "<a class='text--primary' href='{$link}'>";
-                $this->text = Str::of($this->text)
-                    ->replaceFirst('[<', $htmlLink)
-                    ->replaceFirst('>]', '</a>');
+                $htmlLink = "<a class='text--primary' href='{$link}' $1>$2</a>";
+                $this->text = preg_replace('\[(.*)?<(s?.*?s?)>]', $htmlLink, $this->text);
             }
 
             return $this->setText();
         }
 
-        private function selectedTypeByStatusCode(int $statusCode)
+        /**
+         * @return array
+         */
+        final public function getData(): array
+        {
+            return $this->data;
+        }
+
+        final private function selectedTypeByStatusCode(int $statusCode)
         {
             switch ($statusCode) {
                 case 200:

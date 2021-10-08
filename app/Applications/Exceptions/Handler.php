@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Support\Helpers\Response\Action\Methods\RouteMethod;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,6 +42,7 @@ class Handler extends ExceptionHandler
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
                 $response = new Response(ResponseCodes::HTTP_NOT_FOUND);
                 $response->addPopup(trans('response.error.not_found'));
+                $response->addAction(new RouteMethod())->setActionGoToLastRoute();
 
                 return $response->toJson();
             }

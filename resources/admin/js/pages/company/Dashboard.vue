@@ -1,5 +1,7 @@
 <template>
-    <h1>{{ company }}</h1>
+    <div>
+        {{ company }}
+    </div>
 </template>
 
 <script>

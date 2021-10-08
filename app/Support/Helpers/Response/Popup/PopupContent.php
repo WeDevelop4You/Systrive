@@ -57,7 +57,7 @@
 
         public function create(): array
         {
-            $this->content['message'] = $this->message->data;
+            $this->content['message'] = $this->message->getData();
 
             return $this->content;
         }

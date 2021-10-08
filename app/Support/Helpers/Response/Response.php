@@ -5,6 +5,8 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
+    use Support\Helpers\Response\Action\ActionMethodBase;
+    use Support\Helpers\Response\Action\ActionContent;
     use Support\Helpers\Response\Popup\PopupContent;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
@@ -24,6 +26,11 @@
          * @var PopupContent
          */
         private PopupContent $popup;
+
+        /**
+         * @var ActionContent
+         */
+        private ActionContent $action;
 
         /**
          * @param int $statusCode
@@ -72,9 +79,15 @@
             return $this->popup;
         }
 
-        public function addAction()
+        /**
+         * @param ActionMethodBase $methodClass
+         * @return ActionMethodBase
+         */
+        public function addAction(ActionMethodBase $methodClass): ActionMethodBase
         {
+            $this->action = new ActionContent($methodClass);
 
+            return $this->action->getMethod();
         }
 
         /**
@@ -97,7 +110,11 @@
             }
 
             if (isset($this->popup)) {
-                $response['popup'] = $this->popup->create($this->statusCode);
+                $response['popup'] = $this->popup->create();
+            }
+
+            if (isset($this->action)) {
+                $response['action'] = $this->action->create();
             }
 
             return $response;

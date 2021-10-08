@@ -33,3 +33,7 @@ html {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.none-active:before {
+  opacity: 0 !important;
+}

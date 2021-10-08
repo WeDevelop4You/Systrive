@@ -5,7 +5,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
 
-    class UserResource extends JsonResource
+    class UserDataResource extends JsonResource
     {
         /**
          * @param Request $request
@@ -14,8 +14,10 @@
         public function toArray($request): array
         {
             return [
+                'id' => $this->id,
                 'email' => $this->email,
                 'email_verified_at' => $this->email_verified_at->toDatetimeString(),
+                'created_at' => $this->created_at->toDatetimeString()
             ];
         }
     }

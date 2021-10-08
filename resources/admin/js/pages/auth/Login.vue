@@ -58,7 +58,7 @@
 
                 this.$api.getCsrfToken().then(() => {
                     app.$api.call({
-                        url: app.$api.route('login'),
+                        url: '/login',
                         method: "POST",
                         data: {
                             email: app.email,

@@ -2,6 +2,7 @@
 
 namespace Domain\User\Models;
 
+use Database\Factories\UserFactory;
 use Domain\Companies\Models\Company;
 use Domain\Role\Models\Role;
 use Domain\User\Permissions\Models\Permission;
@@ -103,5 +104,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class, 'users_to_companies');
+    }
+
+    /**
+     * @return UserFactory
+     */
+    protected static function newFactory(): UserFactory
+    {
+        return new UserFactory();
     }
 }

@@ -7,6 +7,8 @@
     use Illuminate\Contracts\Pagination\LengthAwarePaginator;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Collection;
+    use Support\Helpers\Table\Queries\SearchQueryBuilder;
     use Support\Helpers\Table\Queries\SortingQueryBuilder;
 
     class DataTableHelper
@@ -22,15 +24,9 @@
         private Request $request;
 
         /**
-         * @var array
+         * @var Collection|TableColumn[]
          */
-        private array $sortableColumns = [];
-
-        /**
-         * @var array
-         */
-
-        private array $searchableColumns = [];
+        private Collection $columns;
 
         /**
          * @param Builder $query
@@ -39,6 +35,7 @@
         public function __construct(Builder $query)
         {
             $this->query = $query;
+            $this->columns = new Collection();
             $this->request = Container::getInstance()->make('request');
         }
 
@@ -53,31 +50,41 @@
         }
 
         /**
-         * @param array $sortableColumns
+         * @param TableColumn $column
+         * @return DataTableHelper
          */
-        public function setSortableColumns(array $sortableColumns): void
+        public function addColumns(TableColumn $column): DataTableHelper
         {
-            $this->sortableColumns = $sortableColumns;
+            $this->columns->push($column);
+
+            return $this;
         }
 
         /**
-         * @param array $searchableColumns
+         * @param array $columns
+         * @return DataTableHelper
          */
-        public function setSearchableColumns(array $searchableColumns): void
+        public function setColumns(array $columns): DataTableHelper
         {
-            $this->searchableColumns = $searchableColumns;
+            $this->columns = new Collection($columns);
+
+            return $this;
         }
 
         private function addSearchToQuery()
         {
-
+            $this->query = SearchQueryBuilder::create(
+                $this->query,
+                $this->columns,
+                $this->request->query('search')
+            )->builder();
         }
 
         private function addSortingToQuery()
         {
             $this->query = SortingQueryBuilder::create(
                 $this->query,
-                $this->sortableColumns,
+                $this->columns,
                 $this->request->query('sorting')
             )->builder();
         }

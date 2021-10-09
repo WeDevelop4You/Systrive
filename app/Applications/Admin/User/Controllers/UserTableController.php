@@ -8,6 +8,7 @@
     use Illuminate\Contracts\Container\BindingResolutionException;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Support\Helpers\Table\DataTableHelper;
+    use Support\Helpers\Table\TableColumn;
 
     class UserTableController extends Controller
     {
@@ -17,6 +18,13 @@
          */
         public function index(): AnonymousResourceCollection
         {
-            return UserDataResource::collection(DataTableHelper::create(User::query())->get());
+            $columns = [
+                TableColumn::create('id'),
+                TableColumn::create('email'),
+                TableColumn::create('email_verified_at'),
+                TableColumn::create('created_at'),
+            ];
+
+            return UserDataResource::collection(DataTableHelper::create(User::query())->setColumns($columns)->get());
         }
     }

@@ -3,7 +3,10 @@
     namespace Support\Helpers\Table\Queries;
 
     use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Support\Collection;
+    use Illuminate\Support\Facades\App;
     use Illuminate\Support\Str;
+    use Support\Helpers\Table\TableColumn;
 
     class SortingQueryBuilder
     {
@@ -18,26 +21,31 @@
         private array $sorting;
 
         /**
-         * @var array
+         * @var Collection|TableColumn[]
          */
-        private array $sortableColumns;
+        private Collection $columns;
 
-        public function __construct(Builder $query, array $sortableColumns, array $sorting)
+        /**
+         * @param Builder $query
+         * @param Collection $columns
+         * @param array $sorting
+         */
+        public function __construct(Builder $query, Collection $columns, array $sorting)
         {
             $this->query = $query;
             $this->sorting = $sorting;
-            $this->sortableColumns = $sortableColumns;
+            $this->columns = $columns;
         }
 
         /**
          * @param Builder $query
-         * @param array $sortableColumns
+         * @param Collection $columns
          * @param array $sorting
          * @return SortingQueryBuilder
          */
-        public static function create(Builder $query, array $sortableColumns, array $sorting): SortingQueryBuilder
+        public static function create(Builder $query, Collection $columns, array $sorting): SortingQueryBuilder
         {
-            return new static($query, $sortableColumns, $sorting);
+            return new static($query, $columns, $sorting);
         }
 
         /**
@@ -46,12 +54,16 @@
         public function builder(): Builder
         {
             foreach ($this->sorting as $sorter) {
-                $sorterDetails = $this->validateSorter($sorter);
+                [$columnName, $direction] = $this->splitSorter($sorter);
 
-                if (!is_null($sorterDetails)) {
-                    [$column, $direction] = $sorterDetails;
+                $column = $this->columns->firstwhere('columnName', $columnName);
 
-                    $this->query->orderBy($column, $direction);
+                if (!is_null($column) && $column->isSortable) {
+                    if ($column->hasSortCallback()) {
+                        $this->query = App::call($column->sortCallback, ['query' => $this->query, 'direction' => $direction]);
+                    } else {
+                        $this->query->orderBy($columnName, $direction);
+                    }
                 }
             }
 
@@ -60,9 +72,9 @@
 
         /**
          * @param string $sorter
-         * @return array|null
+         * @return array
          */
-        private function validateSorter(string $sorter): ?array
+        private function splitSorter(string $sorter): array
         {
             $direction = Str::afterLast($sorter, '_');
 
@@ -73,8 +85,6 @@
                 $direction = 'asc';
             }
 
-            return in_array($column, $this->sortableColumns) || empty($this->sortableColumns)
-                ? [$column, $direction]
-                : null;
+            return [$column, $direction];
         }
     }

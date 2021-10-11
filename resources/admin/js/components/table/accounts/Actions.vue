@@ -2,7 +2,7 @@
     <div>
         <v-tooltip top>
             <template v-slot:activator="{ on }">
-                <v-icon small class="mr-2" @click="editItem()" v-on="on" :disabled="$loading">fas fa-pen</v-icon>
+                <v-icon small class="mr-2" @click="editItem" v-on="on" :disabled="$loading">fas fa-pen</v-icon>
             </template>
             <span>{{ $vuetify.lang.t('$vuetify.word.edit.account') }}</span>
         </v-tooltip>
@@ -42,7 +42,13 @@
 
         methods: {
             editItem() {
-                this.$store.commit('accounts/setAccount', this.item)
+                this.$store.dispatch('accounts/getAccount', this.item.id)
+            },
+
+            deleteItem() {
+                const message = this.$vuetify.lang.t('$vuetify.text.deleteMessage', this.item.profile.full_name)
+
+                this.$store.commit('accounts/setDelete', {id: this.item.id, message: message})
             }
         }
     }

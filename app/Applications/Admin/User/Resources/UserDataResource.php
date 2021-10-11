@@ -18,7 +18,9 @@
                 'email' => $this->email,
                 'email_verified_at' => $this->email_verified_at->toDatetimeString(),
                 'created_at' => $this->created_at->toDatetimeString(),
-                'profile' => UserProfileResource::make($this->profile)
+                'profile' => [
+                    'full_name' => $this->profile->full_name ?? null,
+                ]
             ];
         }
     }

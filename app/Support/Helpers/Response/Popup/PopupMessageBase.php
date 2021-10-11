@@ -101,6 +101,7 @@
             switch ($statusCode) {
                 case 200:
                 case 201:
+                case 204:
                     $this->setType(self::SUCCESS_TYPE);
                     break;
                 case 403:

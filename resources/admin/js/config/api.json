@@ -2,5 +2,7 @@
     "admin.auth.user": "/api/auth/user",
     "admin.user.company": "/api/companies",
     "admin.user.company.show": "/api/companies/{company}",
-    "admin.admin.users": "/api/admin/users"
+    "admin.admin.users": "/api/admin/users",
+    "admin.admin.user.destroy": "/api/admin/users/{user}/delete",
+    "admin.admin.user.destroy.force": "/api/admin/users/{user}/delete/force"
 }

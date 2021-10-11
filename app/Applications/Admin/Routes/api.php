@@ -16,7 +16,14 @@
         });
 
         Route::prefix('admin')->group(function () {
-            Route::get('users', [UserTableController::class, 'index'])->name('admin.users');
+            Route::prefix('users')->group(function ()  {
+                Route::get('/', [UserTableController::class, 'index'])->name('admin.users');
+
+                Route::prefix('{user}')->group(function () {
+                    Route::delete('delete', [UserTableController::class, 'destroy'])->name('admin.user.destroy');
+                    Route::delete('delete/force', [UserTableController::class, 'forceDestroy'])->name('admin.user.destroy.force');
+                });
+            });
         });
 
 

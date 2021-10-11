@@ -41,8 +41,15 @@ class Handler extends ExceptionHandler
         $this->renderable(function (NotFoundHttpException $e, $request) {
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
                 $response = new Response(ResponseCodes::HTTP_NOT_FOUND);
-                $response->addPopup(trans('response.error.not_found'));
-                $response->addAction(new RouteMethod())->setActionGoToLastRoute();
+
+                switch ($request->getMethod()) {
+                    case 'DELETE':
+                        $response->addPopup(trans('response.error.model.delete'));
+                        break;
+                    default:
+                        $response->addPopup(trans('response.error.model.not_found'));
+                        $response->addAction(new RouteMethod())->setActionGoToLastRoute();
+                }
 
                 return $response->toJson();
             }

@@ -1,32 +1,35 @@
 <template>
-    <v-data-table
-        :page="page"
-        :items="items"
-        :headers="headers"
-        :loading="isLoading"
-        :footer-props="{
-            itemsPerPageOptions: itemsPerPageOptions
-        }"
-        :server-items-length="total"
-        multi-sort
-        calculate-widths
-        @update:options="updateTable"
-    >
-        <template v-slot:top>
-            <v-toolbar flat color="transparent">
-                <v-toolbar-title>{{ title }}</v-toolbar-title>
-                <slot name="toolbar.prepend"></slot>
-                <v-divider class="mx-4" inset vertical/>
-                <template v-if="searchable">
-                    <v-text-field v-model="search" @input="updateSearch" hide-details :label="$vuetify.lang.t('$vuetify.word.search')" class="mx-auto" style="max-width: 700px"></v-text-field>
-                </template>
-                <slot name="toolbar.append"></slot>
-            </v-toolbar>
-        </template>
-        <template v-slot:[`item.${customItem.name}`]="{item, isMobile, header, index}" v-for="customItem in customItems">
-            <component :is="customItem.component" :item="item" :is-mobile="isMobile" :header="header" :index="index" :key="customItem.name"/>
-        </template>
-    </v-data-table>
+    <div>
+        <v-data-table
+            :page="page"
+            :items="items"
+            :headers="headers"
+            :loading="isLoading"
+            :footer-props="{
+                itemsPerPageOptions: itemsPerPageOptions
+            }"
+            :server-items-length="total"
+            multi-sort
+            calculate-widths
+            @update:options="updateTable"
+        >
+            <template v-slot:top>
+                <v-toolbar flat color="transparent">
+                    <v-toolbar-title>{{ title }}</v-toolbar-title>
+                    <slot name="toolbar.prepend"></slot>
+                    <v-divider class="mx-4" inset vertical/>
+                    <template v-if="searchable">
+                        <v-text-field v-model="search" @input="updateSearch" hide-details :label="$vuetify.lang.t('$vuetify.word.search')" class="mx-auto" style="max-width: 700px"></v-text-field>
+                    </template>
+                    <slot name="toolbar.append"></slot>
+                </v-toolbar>
+            </template>
+            <template v-slot:[`item.${customItem.name}`]="{item, isMobile, header, index}" v-for="customItem in customItems">
+                <component :is="customItem.component" :item="item" :is-mobile="isMobile" :header="header" :index="index" :key="customItem.name"/>
+            </template>
+        </v-data-table>
+        <slot name="delete"></slot>
+    </div>
 </template>
 
 <script>

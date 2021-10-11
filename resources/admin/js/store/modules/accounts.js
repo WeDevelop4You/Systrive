@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import tableDialog from "./tableDialog";
 
 const app = Vue.prototype
 
@@ -7,28 +8,18 @@ export default {
 
     state: () => ({
         all: [],
-        dialog: false,
         selected: {
             email: '',
             fullName: '',
             verified: false,
             emailVerifiedAt: '',
             createdAt: ''
-        }
+        },
     }),
 
     mutations: {
         setAccounts(state, accounts) {
             state.all = accounts
-        },
-
-        setAccount(state, account) {
-            state.selected = account
-            state.dialog = true
-        },
-
-        changeDialog(state, dialog) {
-            state.dialog = dialog
         },
     },
 
@@ -40,13 +31,33 @@ export default {
         selected(state) {
             return state.selected
         },
-
-        dialog(state) {
-          return state.dialog
-        }
     },
 
     actions: {
+        getAccount() {
 
+        },
+
+        destroy({state, commit}) {
+            app.$api.call({
+                url: app.$api.route('admin.user.destroy', state.tableDialog.deleteId),
+                method: 'DELETE'
+            }).finally(() => {
+                commit('resetDelete')
+            })
+        },
+
+        forceDestroy({state, commit}) {
+            app.$api.call({
+                url: app.$api.route('admin.user.destroy.force', state.tableDialog.deleteId),
+                method: 'DELETE'
+            }).finally(() => {
+                commit('resetDelete')
+            })
+        }
+    },
+
+    modules: {
+        tableDialog: tableDialog
     }
 }

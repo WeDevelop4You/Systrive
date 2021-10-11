@@ -4,12 +4,11 @@
 
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Collection;
-    use Illuminate\Support\Facades\App;
     use Illuminate\Support\Facades\Schema;
-    use Illuminate\Support\Str;
-    use Support\Helpers\Table\TableColumn;
+    use Support\Helpers\Table\Build\Column;
+    use Support\Helpers\Table\ColumnHelper;
 
-    class SearchQueryBuilder
+    class WhereQueryBuilder
     {
         /**
          * @var Builder
@@ -22,7 +21,7 @@
         private string $search;
 
         /**
-         * @var Collection|TableColumn[]
+         * @var Collection|Column[]
          */
         private Collection $columns;
 
@@ -42,26 +41,26 @@
          * @param Builder $query
          * @param Collection $columns
          * @param string $search
-         * @return SearchQueryBuilder
+         * @return WhereQueryBuilder
          */
-        public static function create(Builder $query, Collection $columns, string $search): SearchQueryBuilder
+        public static function create(Builder $query, Collection $columns, string $search): WhereQueryBuilder
         {
             return new static($query, $columns, $search);
         }
 
-        public function builder(): Builder
+        public function build(): Builder
         {
             $searchableColumns = $this->columns->where('isSearchable', true);
 
             if ($searchableColumns->isNotEmpty()) {
                 $this->query->where(function (Builder $subQuery) use ($searchableColumns) {
-                    $searchableColumns->each(function(TableColumn $column) use ($subQuery) {
-                        $hasRelation = Str::contains($this->columns, '.');;
+                    $searchableColumns->each(function(Column $column) use ($subQuery) {
+                        $hasRelation = ColumnHelper::hasRelation($column->columnName);
 
-                        $selectedColumn = '';
+                        $selectedColumn = ColumnHelper::mapToSelected($column->columnName, $this->query);
 
                         if ($column->hasSearchCallback()) {
-                            $this->query = App::call($column->searchCallback, [$subQuery, $this->query]);
+                            ($column->searchCallback)($subQuery, $this->search);
                         } else if (!$hasRelation || $selectedColumn) {
                             $whereColumn = $selectedColumn ?? $column->columnName;
 
@@ -71,8 +70,8 @@
 
                             $subQuery->orWhere($whereColumn, 'like', "%{$this->search}%");
                         } else {
-                            $relationName = Str::beforeLast($column->columnName, '.');
-                            $fieldName = Str::afterLast($column->columnName, '.');
+                            $relationName = ColumnHelper::parseRelation($column->columnName);
+                            $fieldName = ColumnHelper::parseField($column->columnName);
 
                             $subQuery->orWhereHas($relationName, function (Builder $hasQuery) use ($fieldName) {
                                 $hasQuery->where($fieldName, 'like', "%{$this->search}%");

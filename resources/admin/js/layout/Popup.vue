@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import {mapGetters} from "vuex";
-import Simple from '../components/notifications/popup/Simple'
+    import {mapGetters} from "vuex";
+    import Simple from '../components/notifications/popup/Simple'
 
     export default {
         name: "Popup",

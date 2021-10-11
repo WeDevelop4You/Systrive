@@ -1,6 +1,6 @@
 <?php
 
-    namespace Support\Helpers\Table;
+    namespace Support\Helpers\Table\Build;
 
     /**
      * Class TableColumn
@@ -11,7 +11,7 @@
      * @property-read $isSearchable
      * @property-read $searchCallback
      */
-    class TableColumn
+    class Column
     {
         /**
          * @param string $columnName
@@ -25,18 +25,18 @@
 
         /**
          * @param string $columnName
-         * @return TableColumn
+         * @return Column
          */
-        public static function create(string $columnName): TableColumn
+        public static function create(string $columnName): Column
         {
             return new static($columnName);
         }
 
         /**
          * @param $sortCallback
-         * @return TableColumn
+         * @return Column
          */
-        public function sortable($sortCallback = null): TableColumn
+        public function sortable($sortCallback = null): Column
         {
             $this->isSortable = true;
             $this->sortCallback = $sortCallback;
@@ -54,9 +54,9 @@
 
         /**
          * @param $searchCallback
-         * @return TableColumn
+         * @return Column
          */
-        public function searchable($searchCallback = null): TableColumn
+        public function searchable($searchCallback = null): Column
         {
             $this->isSearchable = true;
             $this->searchCallback = $searchCallback;

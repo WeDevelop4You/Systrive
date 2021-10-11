@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import Companies from './user/companies'
+import Companies from './companies'
 
 const app = Vue.prototype
 

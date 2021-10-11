@@ -1,17 +1,17 @@
 <?php
 
-    namespace Support\Helpers\Table;
+    namespace Support\Helpers\Table\Build;
 
     use Illuminate\Container\Container;
     use Illuminate\Contracts\Container\BindingResolutionException;
-    use Illuminate\Contracts\Pagination\LengthAwarePaginator;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\Request;
+    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Collection;
-    use Support\Helpers\Table\Queries\SearchQueryBuilder;
-    use Support\Helpers\Table\Queries\SortingQueryBuilder;
+    use Support\Helpers\Table\Queries\WhereQueryBuilder;
+    use Support\Helpers\Table\Queries\OrderQueryBuilder;
 
-    class DataTableHelper
+    class DataTable
     {
         /**
          * @var Builder
@@ -24,7 +24,7 @@
         private Request $request;
 
         /**
-         * @var Collection|TableColumn[]
+         * @var Collection|Column[]
          */
         private Collection $columns;
 
@@ -41,19 +41,19 @@
 
         /**
          * @param Builder $query
-         * @return DataTableHelper
+         * @return DataTable
          * @throws BindingResolutionException
          */
-        public static function create(Builder $query): DataTableHelper
+        public static function create(Builder $query): DataTable
         {
             return new static($query);
         }
 
         /**
-         * @param TableColumn $column
-         * @return DataTableHelper
+         * @param Column $column
+         * @return DataTable
          */
-        public function addColumns(TableColumn $column): DataTableHelper
+        public function addColumn(Column $column): DataTable
         {
             $this->columns->push($column);
 
@@ -62,9 +62,9 @@
 
         /**
          * @param array $columns
-         * @return DataTableHelper
+         * @return DataTable
          */
-        public function setColumns(array $columns): DataTableHelper
+        public function setColumns(array $columns): DataTable
         {
             $this->columns = new Collection($columns);
 
@@ -73,27 +73,31 @@
 
         private function addSearchToQuery()
         {
-            $this->query = SearchQueryBuilder::create(
+            $this->query = WhereQueryBuilder::create(
                 $this->query,
                 $this->columns,
                 $this->request->query('search')
-            )->builder();
+            )->build();
         }
 
         private function addSortingToQuery()
         {
-            $this->query = SortingQueryBuilder::create(
+            $this->query = OrderQueryBuilder::create(
                 $this->query,
                 $this->columns,
                 $this->request->query('sorting')
-            )->builder();
+            )->build();
         }
 
         /**
-         * @return LengthAwarePaginator
+         * @param string $recourseClass
+         * @return AnonymousResourceCollection
          */
-        public function get(): LengthAwarePaginator
+        public function get(string $recourseClass): AnonymousResourceCollection
         {
+            $page = $this->request->query('page', 1);
+            $perPage = $this->request->query('itemPerPage', 10);
+
             if ($this->request->query->has('search')) {
                 $this->addSearchToQuery();
             }
@@ -102,6 +106,13 @@
                 $this->addSortingToQuery();
             }
 
-            return $this->query->paginate($this->request->query('itemPerPage', 10));
+            $total = $this->query->count();
+            $data = $this->query->skip(($page - 1) * $perPage)->take($perPage + 1)->get();
+
+            return call_user_func([$recourseClass, "collection"], $data)->additional([
+                'meta' => [
+                    'total' => $total
+                ]
+            ]);
         }
     }

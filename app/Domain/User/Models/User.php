@@ -4,15 +4,11 @@ namespace Domain\User\Models;
 
 use Database\Factories\UserFactory;
 use Domain\Companies\Models\Company;
-use Domain\Role\Models\Role;
-use Domain\User\Permissions\Models\Permission;
-use Domain\User\Profile\Models\UserProfile;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;

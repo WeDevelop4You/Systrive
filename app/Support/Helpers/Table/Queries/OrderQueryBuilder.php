@@ -6,9 +6,9 @@
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\App;
     use Illuminate\Support\Str;
-    use Support\Helpers\Table\TableColumn;
+    use Support\Helpers\Table\Build\Column;
 
-    class SortingQueryBuilder
+    class OrderQueryBuilder
     {
         /**
          * @var Builder
@@ -21,7 +21,7 @@
         private array $sorting;
 
         /**
-         * @var Collection|TableColumn[]
+         * @var Collection|Column[]
          */
         private Collection $columns;
 
@@ -41,9 +41,9 @@
          * @param Builder $query
          * @param Collection $columns
          * @param array $sorting
-         * @return SortingQueryBuilder
+         * @return OrderQueryBuilder
          */
-        public static function create(Builder $query, Collection $columns, array $sorting): SortingQueryBuilder
+        public static function create(Builder $query, Collection $columns, array $sorting): OrderQueryBuilder
         {
             return new static($query, $columns, $sorting);
         }
@@ -51,7 +51,7 @@
         /**
          * @return Builder
          */
-        public function builder(): Builder
+        public function build(): Builder
         {
             foreach ($this->sorting as $sorter) {
                 [$columnName, $direction] = $this->splitSorter($sorter);

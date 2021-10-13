@@ -15,7 +15,9 @@
                 <template v-if="forceDeletable">
                     <v-btn color="secondary" @click="$emit('force-delete')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.force-delete') }}</v-btn>
                 </template>
-                <v-btn color="error" @click="$emit('delete')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.delete') }}</v-btn>
+                <template v-if="!hideDeleteButton">
+                    <v-btn color="error" @click="$emit('delete')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.delete') }}</v-btn>
+                </template>
                 <v-btn text @click="resetDelete" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.cancel') }}</v-btn>
             </v-card-actions>
         </v-card>
@@ -50,6 +52,10 @@
 
             deleteMessage() {
                 return this.$store.getters[`${this.vuexNamespace}/deleteMessage`]
+            },
+
+            hideDeleteButton() {
+                return this.$store.getters[`${this.vuexNamespace}/hideDeleteButton`]
             }
         },
 

@@ -16,8 +16,8 @@
             <template v-slot:top>
                 <v-toolbar flat color="transparent">
                     <v-toolbar-title>{{ title }}</v-toolbar-title>
-                    <slot name="toolbar.prepend"></slot>
                     <v-divider class="mx-4" inset vertical/>
+                    <slot name="toolbar.prepend"></slot>
                     <template v-if="searchable">
                         <v-text-field v-model="search" @input="updateSearch" hide-details :label="$vuetify.lang.t('$vuetify.word.search')" class="mx-auto" style="max-width: 700px"></v-text-field>
                     </template>
@@ -54,14 +54,9 @@
                 type: Array
             },
 
-            vuexGetter: {
+            vuexNamespace: {
                 required: true,
                 type: String
-            },
-
-            vuexCommit: {
-                required: true,
-                type: String,
             },
 
             searchable: {
@@ -97,7 +92,7 @@
 
         computed: {
             items() {
-                return this.$store.getters[this.vuexGetter]
+                return this.$store.getters[`${this.vuexNamespace}/data`]
             }
         },
 
@@ -128,7 +123,7 @@
                     app.isLoading = false
                     app.total = data.meta.total
 
-                    app.$store.commit(app.vuexCommit, data.data)
+                    app.$store.commit(`${this.vuexNamespace}/setData`, data.data)
                 })
             },
 

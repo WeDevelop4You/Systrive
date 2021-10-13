@@ -30,19 +30,22 @@
 
         /**
          * @param Builder $query
-         * @throws BindingResolutionException
          */
         public function __construct(Builder $query)
         {
             $this->query = $query;
             $this->columns = new Collection();
-            $this->request = Container::getInstance()->make('request');
+
+            try {
+                $this->request = Container::getInstance()->make('request');
+            } catch (BindingResolutionException $e) {
+                // TODO Do something here
+            }
         }
 
         /**
          * @param Builder $query
          * @return DataTable
-         * @throws BindingResolutionException
          */
         public static function create(Builder $query): DataTable
         {

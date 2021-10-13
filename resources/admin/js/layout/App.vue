@@ -137,8 +137,9 @@
                     {divider: true},
                     {subheader: this.$vuetify.lang.t('$vuetify.word.admin')},
                     {navigationItems: [
-                            {icon: 'fas fa-users', name: this.$vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
-                            {icon: 'fas fa-building', name: this.$vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}}
+                            {icon: 'fas fa-users', name: this.$vuetify.lang.t('$vuetify.word.accounts'), route: {name: 'admin.accounts'}},
+                            {icon: 'fas fa-building', name: this.$vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},
+                            {icon: 'fas fa-language', name: this.$vuetify.lang.t('$vuetify.word.translations'), route: {name: 'admin.translations'}},
                         ]
                     },
                 ]

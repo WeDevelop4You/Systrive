@@ -4,5 +4,8 @@
     "admin.user.company.show": "/api/companies/{company}",
     "admin.admin.users": "/api/admin/users",
     "admin.admin.user.destroy": "/api/admin/users/{user}/delete",
-    "admin.admin.user.destroy.force": "/api/admin/users/{user}/delete/force"
+    "admin.admin.user.destroy.force": "/api/admin/users/{user}/delete/force",
+    "admin.admin.translations.environments": "/api/admin/translations/environments",
+    "admin.admin.translations.environment": "/api/admin/translations/environments/{environment}",
+    "admin.admin.translation": "/api/admin/translations/{translationKey}"
 }

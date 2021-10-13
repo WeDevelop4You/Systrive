@@ -35,8 +35,8 @@
 
         props: {
             buttonTitle: {
-                required: true,
-                type: String
+                type: String,
+                default: 'undefined'
             },
 
             formTitle: {

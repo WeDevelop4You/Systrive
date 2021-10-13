@@ -6,7 +6,6 @@
     use App\Controller;
     use Domain\User\Models\User;
     use Domain\User\Models\UserProfile;
-    use Illuminate\Contracts\Container\BindingResolutionException;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -19,7 +18,6 @@
     {
         /**
          * @return AnonymousResourceCollection
-         * @throws BindingResolutionException
          */
         public function index(): AnonymousResourceCollection
         {
@@ -36,9 +34,10 @@
                 Column::create('email')->sortable()->searchable(),
                 Column::create('email_verified_at')->sortable()->searchable(),
                 Column::create('created_at')->sortable()->searchable(),
+                Column::create('deleted_at')->sortable()->searchable(),
             ];
 
-            return DataTable::create(User::query())->setColumns($columns)->get(UserDataResource::class);
+            return DataTable::create(User::withTrashed())->setColumns($columns)->get(UserDataResource::class);
         }
 
         /**

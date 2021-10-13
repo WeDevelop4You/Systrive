@@ -117,7 +117,7 @@
             $relationName = self::parseRelation($column);
             $fieldName = self::parseField($column);
 
-            if (! $hasRelation) {
+            if (!$hasRelation) {
                 return null;
             }
 
@@ -131,7 +131,7 @@
                 $possibleTable = null;
             }
 
-            if (! is_null($possibleTable)) {
+            if (!is_null($possibleTable)) {
                 $possibleSelectColumn = $possibleTable . '.' . $fieldName;
 
                 $possibleMatch = self::hasMatch($possibleSelectColumn, $select);

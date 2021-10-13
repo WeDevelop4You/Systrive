@@ -1,13 +1,21 @@
 export default {
     state: () => ({
+        data: [],
+
         editDialog: false,
 
         deleteId: null,
         deleteMessage: '',
         deleteDialog: false,
+
+        hideDeleteButton: false,
     }),
 
     mutations: {
+        setData(state, data) {
+            state.data = data;
+        },
+
         changeEditDialog(state, value) {
             state.editDialog = value
         },
@@ -16,20 +24,26 @@ export default {
             state.deleteDialog = value
         },
 
-        setDelete(state, {id, message}) {
+        setDelete(state, {id, message, hideDelete = false}) {
             state.deleteId = id
             state.deleteMessage = message
             state.deleteDialog = true
+            state.hideDeleteButton = hideDelete
         },
 
         resetDelete(state) {
             state.deleteId = null
             state.deleteMessage = ''
             state.deleteDialog = false
+            state.hideDeleteButton = false
         }
     },
 
     getters: {
+        data(state) {
+            return state.data
+        },
+
         editDialog(state) {
             return state.editDialog
         },
@@ -40,6 +54,10 @@ export default {
 
         deleteMessage(state) {
             return state.deleteMessage
+        },
+
+        hideDeleteButton(state) {
+            return state.hideDeleteButton
         }
     }
 }

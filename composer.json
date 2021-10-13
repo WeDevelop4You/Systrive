@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "shweshi/opengraph": "^1.0",
-        "spatie/laravel-permission": "^5.1"
+        "spatie/laravel-permission": "^5.1",
+        "wedevelop4you/laravel-translation-finder": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",

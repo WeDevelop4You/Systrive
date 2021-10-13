@@ -1,0 +1,22 @@
+<?php
+
+    namespace App\Admin\Translation\Resources;
+
+    use Illuminate\Http\Request;
+    use Illuminate\Http\Resources\Json\JsonResource;
+
+    class TranslationResource extends JsonResource
+    {
+        /**
+         * @param Request $request
+         * @return array
+         */
+        public function toArray($request): array
+        {
+            return [
+                'id' => $this->id,
+                'locale' => $this->locale,
+                'translation' => $this->translation,
+            ];
+        }
+    }

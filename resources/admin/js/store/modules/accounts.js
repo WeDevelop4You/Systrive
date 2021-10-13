@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tableDialog from "./tableDialog";
+import tableBase from "./tableBase";
 
 const app = Vue.prototype
 
@@ -7,7 +7,6 @@ export default {
     namespaced: true,
 
     state: () => ({
-        all: [],
         selected: {
             email: '',
             fullName: '',
@@ -18,16 +17,10 @@ export default {
     }),
 
     mutations: {
-        setAccounts(state, accounts) {
-            state.all = accounts
-        },
+
     },
 
     getters: {
-        all(state) {
-            return state.all
-        },
-
         selected(state) {
             return state.selected
         },
@@ -40,7 +33,7 @@ export default {
 
         destroy({state, commit}) {
             app.$api.call({
-                url: app.$api.route('admin.user.destroy', state.tableDialog.deleteId),
+                url: app.$api.route('admin.user.destroy', state.tableBase.deleteId),
                 method: 'DELETE'
             }).finally(() => {
                 commit('resetDelete')
@@ -49,7 +42,7 @@ export default {
 
         forceDestroy({state, commit}) {
             app.$api.call({
-                url: app.$api.route('admin.user.destroy.force', state.tableDialog.deleteId),
+                url: app.$api.route('admin.user.destroy.force', state.tableBase.deleteId),
                 method: 'DELETE'
             }).finally(() => {
                 commit('resetDelete')
@@ -58,6 +51,6 @@ export default {
     },
 
     modules: {
-        tableDialog: tableDialog
+        tableBase: tableBase
     }
 }

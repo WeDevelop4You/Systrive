@@ -1,5 +1,5 @@
 <template>
-    <server-data-table ref="table" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.accounts')" :headers="headers" :route="$api.route('admin.users')" vuex-getter="accounts/all" vuex-commit="accounts/setAccounts" searchable>
+    <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.accounts')" :headers="headers" :route="$api.route('admin.users')" vuex-namespace="accounts" searchable>
         <template v-slot:toolbar.append>
             <edit-dialog :button-title="$vuetify.lang.t('$vuetify.word.new.account')" :form-title="formTitle" vuex-namespace="accounts" disable-create fullscreen @save="save">
 
@@ -12,9 +12,9 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
     import ServerDataTable from "../../components/ServerDataTable";
     import Actions from "../../components/table/accounts/Actions";
-    import {mapGetters} from "vuex";
     import EditDialog from "../../components/table/EditDialog";
     import DeleteDialog from "../../components/table/DeleteDialog";
 
@@ -47,6 +47,7 @@
                     {text: 'E-mail', value: 'email', sortable: true},
                     {text: 'E-mail verified at', value: 'email_verified_at', sortable: true},
                     {text: 'Created at', value: 'created_at', sortable: true},
+                    {text: 'Deleted at', value: 'deleted_at', sortable: true},
                     {text: 'Actions', value: 'actions', sortable: false, align: 'end'},
                 ]
             },
@@ -63,12 +64,12 @@
 
             async destroy() {
                 await this.$store.dispatch('accounts/destroy')
-                this.$refs.table.getData()
+                this.$refs.server.getData()
             },
 
             async forceDestroy() {
                 await this.$store.dispatch('accounts/forceDestroy')
-                this.$refs.table.getData()
+                this.$refs.server.getData()
             }
         }
     }

@@ -6,8 +6,9 @@ Vue.use(VueRouter)
 const parent = {template: `<router-view></router-view>`}
 
 import Dashboard from "../pages/Dashboard";
-import AdminUsers from "../pages/admin/Users";
 import Profile from "../pages/account/Profile";
+import AdminAccounts from "../pages/admin/Accounts";
+import AdminTranslations from "../pages/admin/Translations";
 import CompanyDashboard from "../pages/company/Dashboard";
 
 const routes = [
@@ -61,9 +62,9 @@ const routes = [
         component: parent,
         children: [
             {
-                path: 'users',
-                name: 'admin.users',
-                component: AdminUsers,
+                path: 'accounts',
+                name: 'admin.accounts',
+                component: AdminAccounts,
                 meta: {
                     breadCrumb: [
                         {
@@ -71,7 +72,7 @@ const routes = [
                             to: {name: 'dashboard'}
                         },
                         {
-                            text: 'Users'
+                            text: 'Accounts'
                         }
                     ]
                 }
@@ -80,7 +81,23 @@ const routes = [
                 path: 'companies',
                 name: 'admin.companies',
                 // component: '',
-            }
+            },
+            {
+                path: 'translations',
+                name: 'admin.translations',
+                component: AdminTranslations,
+                meta: {
+                    breadCrumb: [
+                        {
+                            text: 'Dashboard',
+                            to: {name: 'dashboard'}
+                        },
+                        {
+                            text: 'Translations'
+                        }
+                    ]
+                }
+            },
         ]
     },
     {

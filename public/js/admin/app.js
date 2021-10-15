@@ -2083,8 +2083,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  en: _objectSpread(_objectSpread({}, __webpack_require__(/*! vuetify/es5/locale/en */ "./node_modules/vuetify/es5/locale/en.js")), __webpack_require__(/*! ./en/word.json */ "./lang/frontend/en/word.json")),
-  nl: _objectSpread(_objectSpread({}, __webpack_require__(/*! vuetify/es5/locale/nl */ "./node_modules/vuetify/es5/locale/nl.js")), __webpack_require__(/*! ./nl/word.json */ "./lang/frontend/nl/word.json"))
+  en: _objectSpread(_objectSpread(_objectSpread({}, __webpack_require__(/*! vuetify/es5/locale/en */ "./node_modules/vuetify/es5/locale/en.js")), __webpack_require__(/*! ./en/word.json */ "./lang/frontend/en/word.json")), __webpack_require__(/*! ./en/text.json */ "./lang/frontend/en/text.json")),
+  nl: _objectSpread(_objectSpread(_objectSpread({}, __webpack_require__(/*! vuetify/es5/locale/nl */ "./node_modules/vuetify/es5/locale/nl.js")), __webpack_require__(/*! ./nl/word.json */ "./lang/frontend/nl/word.json")), __webpack_require__(/*! ./nl/text.json */ "./lang/frontend/nl/text.json"))
 });
 
 /***/ }),
@@ -65234,6 +65234,17 @@ var index = {
 
 /***/ }),
 
+/***/ "./lang/frontend/en/text.json":
+/*!************************************!*\
+  !*** ./lang/frontend/en/text.json ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"In order to protect your account, you must have:","list":{"characters":"Needs to be longer than 10 characters","uppercase":"Needs at least 1 uppercase letter","number":"Needs at least 1 number","symbol":"Needs at least 1 symbol"}},"forgot":"Enter your email address below to reset password"},"delete":{"message":{"translation":"Are you sure you want to delete this \\"{0}\\" translation?","account":"Are you sure you want to delete account \\"{0}\\"?"}}}}');
+
+/***/ }),
+
 /***/ "./lang/frontend/en/word.json":
 /*!************************************!*\
   !*** ./lang/frontend/en/word.json ***!
@@ -65242,6 +65253,17 @@ var index = {
 
 "use strict";
 module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","domains":"Domains","companies":"Companies","admin":"Admin","search":"Search","cancel":"Cancel","save":"Save","force-delete":"Delete permanently","edit":{"account":"Edit account","translation":"Edit Translation"},"delete":{"account":"Delete account","translation":"Delete translation","delete":"Delete"},"dark-mode":"Dark mode","welcome":"Welcome","email":"Email","password":"Password","remember_me":"Remember me","login":{"login":"Login"},"forgot_password":"Forgot password","reset":{"password":"Reset password"},"confirm":{"password":"Comfirm password"},"accounts":"Accounts","translations":"Translations","not_translated":"Not translated yet","environment":"Environment","group":"Group","key":"Key","translation":{"sources":"Translation sources"},"account":{"account":"Account"},"send_email":"Send email"}}');
+
+/***/ }),
+
+/***/ "./lang/frontend/nl/text.json":
+/*!************************************!*\
+  !*** ./lang/frontend/nl/text.json ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"Om uw account te beschermen, moet u beschikken over:","list":{"characters":"Moet langer zijn dan 10 tekens","uppercase":"Vereist minimaal 1 hoofdletter","number":"Heeft minimaal 1 nummer nodig","symbol":"Heeft minimaal 1 symbool nodig"}},"forgot":"Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"},"delete":{"message":{"translation":"Weet je het zeker dat je deze \\"{0}\\" vertaling wil verwijderen?","account":"Weet je het zeker dat je account \\"{0}\\" wil verwijderen?"}}}}');
 
 /***/ }),
 

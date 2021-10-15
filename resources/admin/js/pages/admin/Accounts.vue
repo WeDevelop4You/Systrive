@@ -6,7 +6,7 @@
             </edit-dialog>
         </template>
         <template v-slot:delete>
-            <delete-dialog :title="$vuetify.lang.t('$vuetify.word.account.delete')" vuex-namespace="accounts" force-deletable @delete="destroy" @force-delete="forceDestroy"></delete-dialog>
+            <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.account')" vuex-namespace="accounts" force-deletable @delete="destroy" @force-delete="forceDestroy"></delete-dialog>
         </template>
     </server-data-table>
 </template>

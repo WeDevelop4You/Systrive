@@ -20,6 +20,7 @@
                 'id' => $this->id,
                 'key' => $this->key,
                 'group' => $this->group,
+                'environment' => $this->environment,
                 'tags' => array_map('ucfirst', $this->tags->toArray()),
                 'sources' => $this->sources->pluck('source')->toArray(),
                 'translations' => $this->createLocalesList(),
@@ -31,9 +32,10 @@
          */
         private function createLocalesList(): array
         {
-            $translations = TranslationKey::find(1)->translations;
+            $translations = $this->translations;
+            $locales = config('applications.admin.locales');
 
-            return Collection::make(['en', 'nl'])->map(function (string $locale) use ($translations) {
+            return Collection::make($locales)->map(function (string $locale) use ($translations) {
                 $translation = $translations->firstWhere('locale', $locale);
 
                 if (is_null($translation)) {

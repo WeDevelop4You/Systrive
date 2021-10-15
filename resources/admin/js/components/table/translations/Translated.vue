@@ -2,7 +2,7 @@
     <v-chip-group column>
         <template v-if="item.translated.length">
             <v-chip small v-for="(locale, index) in item.translated" :key="index">
-                {{ locale }}
+                {{ locale.toUpperCase() }}
             </v-chip>
         </template>
         <template v-else>

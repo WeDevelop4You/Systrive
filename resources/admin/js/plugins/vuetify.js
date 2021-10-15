@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+import translations from '../../../../lang/frontend'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -33,6 +34,11 @@ export default new Vuetify({
         options: {
             customProperties: false
         },
+    },
+
+    lang: {
+        locales: translations,
+        fallbackLocale: 'en',
     },
 
     icons: {

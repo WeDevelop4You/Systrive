@@ -35,6 +35,7 @@
 
                 Route::prefix('{translationKey}')->group(function () {
                      Route::get('/', [TranslationDataController::class, 'edit'])->name('admin.translation');
+                     Route::patch('/', [TranslationDataController::class, 'update'])->name('admin.translation');
                 });
             });
         });

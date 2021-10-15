@@ -14,7 +14,7 @@
             @update:options="updateTable"
         >
             <template v-slot:top>
-                <v-toolbar flat color="transparent">
+                <v-toolbar flat color="transparent" class="px-4">
                     <v-toolbar-title>{{ title }}</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical/>
                     <slot name="toolbar.prepend"></slot>

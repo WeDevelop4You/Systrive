@@ -4,21 +4,57 @@
             <v-select class="mr-4" v-model="environment" :items="environments" dense outlined :label="$vuetify.lang.t('$vuetify.word.environment')" hide-details :disabled="$loading" @change="changeEnvironment" style="max-width: 200px"></v-select>
         </template>
         <template v-slot:toolbar.append>
-            <edit-dialog disable-create :form-title="$vuetify.lang.t('$vuetify.word.translation.edit')" vuex-namespace="translations">
+            <edit-dialog disable-create :form-title="$vuetify.lang.t('$vuetify.word.translation.edit')" vuex-namespace="translations" @save="save">
                 <v-form v-model="valid">
                     <v-row no-gutters>
                         <v-col cols="12">
-
+                            <v-chip-group column>
+                                <v-chip small v-for="(tag, index) in translationData.tags" :key="index">{{ tag }}</v-chip>
+                            </v-chip-group>
                         </v-col>
-                        <v-col cols="12" v-for="translation in translationData.translations" :key="translation.id">
+                        <v-col cols="6">
+                            <v-list-item two-line class="pl-0">
+                                <v-list-item-content>
+                                    <v-list-item-title class="font-weight-bold">{{ $vuetify.lang.t('$vuetify.word.environment') }}</v-list-item-title>
+                                    <v-list-item-subtitle>{{ translationData.environment }}</v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-col>
+                        <v-col cols="6">
+                            <v-list-item two-line class="pr-0">
+                                <v-list-item-content>
+                                    <v-list-item-title class="font-weight-bold">{{ $vuetify.lang.t('$vuetify.word.group') }}</v-list-item-title>
+                                    <v-list-item-subtitle>{{ translationData.group }}</v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-list-item two-line class="px-0">
+                                <v-list-item-content>
+                                    <v-list-item-title class="font-weight-bold">{{ $vuetify.lang.t('$vuetify.word.key') }}</v-list-item-title>
+                                    <v-list-item-subtitle>{{ translationData.key }}</v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-col>
+                        <v-col cols="12" v-for="(translation, index) in translationData.translations" :key="index">
                             <v-text-field v-model="translation.translation" :label="translation.locale.toUpperCase()" dense outlined></v-text-field>
+                        </v-col>
+                        <v-col cols="12">
+                            <v-expansion-panels flat class="text--disabled" style="border: 1px solid;">
+                                <v-expansion-panel>
+                                    <v-expansion-panel-header class="px-3 py-2" style="min-height: 40px">{{ $vuetify.lang.t('$vuetify.word.translation.sources') }}</v-expansion-panel-header>
+                                    <v-expansion-panel-content class="translation">
+                                        <ul><li v-for="(source, index) in translationData.sources" :key="index">{{ source }}</li></ul>
+                                    </v-expansion-panel-content>
+                                </v-expansion-panel>
+                            </v-expansion-panels>
                         </v-col>
                     </v-row>
                 </v-form>
             </edit-dialog>
         </template>
         <template v-slot:delete>
-            <delete-dialog :title="$vuetify.lang.t('$vuetify.word.translation.delete')" vuex-namespace="translations" @delete="destroy"></delete-dialog>
+            <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.translation')" vuex-namespace="translations" @delete="destroy"></delete-dialog>
         </template>
     </server-data-table>
 </template>
@@ -81,6 +117,10 @@
                 this.$nextTick(function () {
                     this.$refs.server.getData()
                 })
+            },
+
+            save() {
+                this.$store.dispatch('translations/updateTranslation', this.translationData)
             },
 
             destroy() {

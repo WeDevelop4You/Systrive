@@ -118,7 +118,7 @@
                     ],
 
                     'storage' => [
-                        'path' => resource_path('lang'),
+                        'path' => base_path('lang/backend'),
                         'extension' => '.php',
                     ],
                 ],
@@ -136,7 +136,7 @@
                     ],
 
                     'storage' => [
-                        'path' => resource_path('lang'),
+                        'path' => base_path('lang/frontend'),
                         'extension' => '.json',
                     ],
                 ],

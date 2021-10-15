@@ -1,0 +1,15 @@
+{
+    "word": {
+        "logout": "Uitloggen",
+        "cancel": "Annuleren",
+        "force-delete": "Permanent verwijderen",
+        "dark-mode": "Donkere modus",
+        "translations": "Vertalingen",
+        "delete": {
+            "translation": "Verwijder vertaling",
+            "delete": "Verwijderen"
+        },
+        "not_translated": "Nog niet vertaald",
+        "environment": "omgeving"
+    }
+}

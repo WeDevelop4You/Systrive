@@ -11,11 +11,11 @@
 |
 */
 
-$app = new \App\Application(
+$app = new App\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-$app->useAppPath('app/Applications');
+$app->useAppPath('src/App');
 
 /*
 |--------------------------------------------------------------------------

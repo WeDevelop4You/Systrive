@@ -49,6 +49,19 @@ export default {
                 commit('setSelected', response.data.data)
                 commit('changeEditDialog', true)
             })
+        },
+
+        updateTranslation({commit, state}, translation) {
+            app.$api.call({
+                url: app.$api.route('admin.translation', translation.id),
+                method: "PATCH",
+                data: {
+                    translations: translation.translations
+                }
+            }).then(() => {
+                commit('changeEditDialog', false)
+                state.selected = {}
+            })
         }
     },
 

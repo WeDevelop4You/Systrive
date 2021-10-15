@@ -1,0 +1,15 @@
+{
+    "word": {
+        "logout": "Logout",
+        "cancel": "Cancel",
+        "force-delete": "Delete permanently",
+        "dark-mode": "Dark mode",
+        "translations": "Translations",
+        "delete": {
+            "translation": "Delete translation",
+            "delete": "Delete"
+        },
+        "not_translated": "Not translated yet",
+        "environment": "Environment"
+    }
+}

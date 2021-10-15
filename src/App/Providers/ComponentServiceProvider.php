@@ -12,7 +12,7 @@
 
             foreach ($applications as $application) {
                 $prefix = strtolower($application);
-                $namespace = sprintf('App\%s\Views\Components\AppLayout', ucfirst($prefix));
+                $namespace = sprintf('App\%s\Views\components\AppLayout', ucfirst($prefix));
 
                 $this->loadViewComponentsAs($prefix, [
                     $namespace,

@@ -7,4 +7,6 @@
     class Application extends ApplicationBase
     {
         protected $namespace = 'App\\';
+
+        protected $langPath = '../lang/backend';
     }

@@ -14,7 +14,6 @@
         public function toArray($request): array
         {
             return [
-                'id' => $this->id,
                 'locale' => $this->locale,
                 'translation' => $this->translation,
             ];

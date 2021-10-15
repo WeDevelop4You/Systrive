@@ -1,15 +1,50 @@
 {
     "word": {
+        "settings": "Settings",
         "logout": "Logout",
+        "domains": "Domains",
+        "companies": "Companies",
+        "admin": "Admin",
+        "search": "Search",
         "cancel": "Cancel",
+        "save": "Save",
         "force-delete": "Delete permanently",
-        "dark-mode": "Dark mode",
-        "translations": "Translations",
+        "edit": {
+            "account": "Edit account",
+            "translation": "Edit Translation"
+        },
         "delete": {
+            "account": "Delete account",
             "translation": "Delete translation",
             "delete": "Delete"
         },
+        "dark-mode": "Dark mode",
+        "welcome": "Welcome",
+        "email": "Email",
+        "password": "Password",
+        "remember_me": "Remember me",
+        "login": {
+            "login": "Login"
+        },
+        "forgot_password": "Forgot password",
+        "reset": {
+            "password": "Reset password"
+        },
+        "confirm": {
+            "password": "Comfirm password"
+        },
+        "accounts": "Accounts",
+        "translations": "Translations",
         "not_translated": "Not translated yet",
-        "environment": "Environment"
+        "environment": "Environment",
+        "group": "Group",
+        "key": "Key",
+        "translation": {
+            "sources": "Translation sources"
+        },
+        "account": {
+            "account": "Account"
+        },
+        "send_email": "Send email"
     }
 }

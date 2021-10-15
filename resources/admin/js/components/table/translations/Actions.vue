@@ -47,7 +47,7 @@
 
             deleteItem() {
                 const item = this.item
-                const message = this.$vuetify.lang.t('$vuetify.text.deleteMessage', item.key)
+                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.translation', item.key)
 
                 this.$store.commit('translations/setDelete', {id: item.id, message: message})
             }

@@ -10,7 +10,7 @@
             <v-text-field v-model="email" class="pb-2" :label="$vuetify.lang.t('$vuetify.word.email')" outlined dense type="text" :error-messages="error_message.email"></v-text-field>
         </v-card-text>
         <v-card-actions class="px-4">
-            <v-btn block color="primary" v-on:click="send" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.sent_email') }}</v-btn>
+            <v-btn block color="primary" v-on:click="send" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.send_email') }}</v-btn>
         </v-card-actions>
     </l-auth>
 </template>

@@ -4,14 +4,13 @@
         :icon="message.icon"
         :type="message.type"
         :color="message.color"
-        :dismissible="dismissible"
         :elevation="$config.elevation"
         border="left"
         colored-border
         transition="scale-transition"
     >
         <div v-html="message.text"></div>
-        <template v-slot:close>
+        <template v-slot:close v-if="dismissible">
             <v-btn class="v-alert__dismissible" small icon @click="remove">
                 <v-icon>fas fa-times</v-icon>
             </v-btn>

@@ -2345,7 +2345,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Simple",
   props: {
@@ -2646,7 +2645,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem() {
       var item = this.item;
-      var message = this.$vuetify.lang.t('$vuetify.text.deleteMessage', item.email);
+      var message = this.$vuetify.lang.t('$vuetify.text.delete.message.account', item.email);
       this.$store.commit('accounts/setDelete', {
         id: item.id,
         message: message,
@@ -2711,7 +2710,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteItem: function deleteItem() {
       var item = this.item;
-      var message = this.$vuetify.lang.t('$vuetify.text.deleteMessage', item.key);
+      var message = this.$vuetify.lang.t('$vuetify.text.delete.message.translation', item.key);
       this.$store.commit('translations/setDelete', {
         id: item.id,
         message: message
@@ -2942,7 +2941,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     subMenuItems: function subMenuItems() {
       return [{
         icon: 'fas fa-user-circle',
-        text: this.$vuetify.lang.t('$vuetify.word.account'),
+        text: this.$vuetify.lang.t('$vuetify.word.account.account'),
         link: {
           name: 'account'
         }
@@ -3333,13 +3332,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_table_translations_Tags__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../components/table/translations/Tags */ "./resources/admin/js/components/table/translations/Tags.vue");
-/* harmony import */ var _components_table_DeleteDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/table/DeleteDialog */ "./resources/admin/js/components/table/DeleteDialog.vue");
-/* harmony import */ var _components_ServerDataTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/ServerDataTable */ "./resources/admin/js/components/ServerDataTable.vue");
-/* harmony import */ var _components_table_translations_Actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/table/translations/Actions */ "./resources/admin/js/components/table/translations/Actions.vue");
-/* harmony import */ var _components_table_translations_Translated__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/table/translations/Translated */ "./resources/admin/js/components/table/translations/Translated.vue");
-/* harmony import */ var _components_table_EditDialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/table/EditDialog */ "./resources/admin/js/components/table/EditDialog.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_table_translations_Tags__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/table/translations/Tags */ "./resources/admin/js/components/table/translations/Tags.vue");
+/* harmony import */ var _components_table_DeleteDialog__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/table/DeleteDialog */ "./resources/admin/js/components/table/DeleteDialog.vue");
+/* harmony import */ var _components_ServerDataTable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/ServerDataTable */ "./resources/admin/js/components/ServerDataTable.vue");
+/* harmony import */ var _components_table_translations_Actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/table/translations/Actions */ "./resources/admin/js/components/table/translations/Actions.vue");
+/* harmony import */ var _components_table_translations_Translated__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/table/translations/Translated */ "./resources/admin/js/components/table/translations/Translated.vue");
+/* harmony import */ var _components_table_EditDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/table/EditDialog */ "./resources/admin/js/components/table/EditDialog.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3417,22 +3424,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Translations",
   components: {
-    EditDialog: _components_table_EditDialog__WEBPACK_IMPORTED_MODULE_5__["default"],
-    DeleteDialog: _components_table_DeleteDialog__WEBPACK_IMPORTED_MODULE_1__["default"],
-    ServerDataTable: _components_ServerDataTable__WEBPACK_IMPORTED_MODULE_2__["default"]
+    EditDialog: _components_table_EditDialog__WEBPACK_IMPORTED_MODULE_6__["default"],
+    DeleteDialog: _components_table_DeleteDialog__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ServerDataTable: _components_ServerDataTable__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
       valid: true,
       customItems: [{
         name: 'tags',
-        component: _components_table_translations_Tags__WEBPACK_IMPORTED_MODULE_0__["default"]
+        component: _components_table_translations_Tags__WEBPACK_IMPORTED_MODULE_1__["default"]
       }, {
         name: 'translated',
-        component: _components_table_translations_Translated__WEBPACK_IMPORTED_MODULE_4__["default"]
+        component: _components_table_translations_Translated__WEBPACK_IMPORTED_MODULE_5__["default"]
       }, {
         name: 'actions',
-        component: _components_table_translations_Actions__WEBPACK_IMPORTED_MODULE_3__["default"]
+        component: _components_table_translations_Actions__WEBPACK_IMPORTED_MODULE_4__["default"]
       }],
       environment: 'frontend'
     };
@@ -3463,7 +3470,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         align: 'end'
       }];
     }
-  }, (0,vuex__WEBPACK_IMPORTED_MODULE_6__.mapGetters)({
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_7__.mapGetters)({
     translationData: 'translations/selected',
     environments: 'translations/environments'
   })),
@@ -3473,13 +3480,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     changeEnvironment: function changeEnvironment() {
       this.$nextTick(function () {
+        this.$refs.server.page = 1;
         this.$refs.server.getData();
       });
     },
     save: function save() {
-      this.$store.dispatch('translations/updateTranslation', this.translationData);
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$store.dispatch('translations/update', _this.translationData);
+
+              case 2:
+                _this.$refs.server.getData();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     },
-    destroy: function destroy() {}
+    destroy: function destroy() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.$store.dispatch('translations/destroy');
+
+              case 2:
+                _this2.$refs.server.getData();
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
   }
 });
 
@@ -4317,7 +4365,7 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
       var state = _ref.state,
           commit = _ref.commit;
       app.$api.call({
-        url: app.$api.route('admin.user.destroy', state.tableBase.deleteId),
+        url: app.$api.route('admin.user', state.tableBase.deleteId),
         method: 'DELETE'
       })["finally"](function () {
         commit('resetDelete');
@@ -4327,7 +4375,7 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
       var state = _ref2.state,
           commit = _ref2.commit;
       app.$api.call({
-        url: app.$api.route('admin.user.destroy.force', state.tableBase.deleteId),
+        url: app.$api.route('admin.user.force', state.tableBase.deleteId),
         method: 'DELETE'
       })["finally"](function () {
         commit('resetDelete');
@@ -4684,7 +4732,7 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('changeEditDialog', true);
       });
     },
-    updateTranslation: function updateTranslation(_ref3, translation) {
+    update: function update(_ref3, translation) {
       var commit = _ref3.commit,
           state = _ref3.state;
       app.$api.call({
@@ -4696,6 +4744,16 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
       }).then(function () {
         commit('changeEditDialog', false);
         state.selected = {};
+      });
+    },
+    destroy: function destroy(_ref4) {
+      var state = _ref4.state,
+          commit = _ref4.commit;
+      app.$api.call({
+        url: app.$api.route('admin.translation', state.tableBase.deleteId),
+        method: 'DELETE'
+      })["finally"](function () {
+        commit('resetDelete');
       });
     }
   },
@@ -25449,32 +25507,37 @@ var render = function() {
         icon: _vm.message.icon,
         type: _vm.message.type,
         color: _vm.message.color,
-        dismissible: _vm.dismissible,
         elevation: _vm.$config.elevation,
         border: "left",
         "colored-border": "",
         transition: "scale-transition"
       },
-      scopedSlots: _vm._u([
-        {
-          key: "close",
-          fn: function() {
-            return [
-              _c(
-                "v-btn",
-                {
-                  staticClass: "v-alert__dismissible",
-                  attrs: { small: "", icon: "" },
-                  on: { click: _vm.remove }
+      scopedSlots: _vm._u(
+        [
+          _vm.dismissible
+            ? {
+                key: "close",
+                fn: function() {
+                  return [
+                    _c(
+                      "v-btn",
+                      {
+                        staticClass: "v-alert__dismissible",
+                        attrs: { small: "", icon: "" },
+                        on: { click: _vm.remove }
+                      },
+                      [_c("v-icon", [_vm._v("fas fa-times")])],
+                      1
+                    )
+                  ]
                 },
-                [_c("v-icon", [_vm._v("fas fa-times")])],
-                1
-              )
-            ]
-          },
-          proxy: true
-        }
-      ])
+                proxy: true
+              }
+            : null
+        ],
+        null,
+        true
+      )
     },
     [_c("div", { domProps: { innerHTML: _vm._s(_vm.message.text) } })]
   )
@@ -26784,9 +26847,6 @@ var render = function() {
           return [
             _c("edit-dialog", {
               attrs: {
-                "button-title": _vm.$vuetify.lang.t(
-                  "$vuetify.word.new.account"
-                ),
                 "form-title": _vm.formTitle,
                 "vuex-namespace": "accounts",
                 "disable-create": "",
@@ -26889,7 +26949,7 @@ var render = function() {
                 attrs: {
                   "disable-create": "",
                   "form-title": _vm.$vuetify.lang.t(
-                    "$vuetify.word.translation.edit"
+                    "$vuetify.word.edit.translation"
                   ),
                   "vuex-namespace": "translations"
                 },
@@ -27404,7 +27464,7 @@ var render = function() {
               attrs: { block: "", color: "primary", disabled: _vm.$loading },
               on: { click: _vm.send }
             },
-            [_vm._v(_vm._s(_vm.$vuetify.lang.t("$vuetify.word.sent_email")))]
+            [_vm._v(_vm._s(_vm.$vuetify.lang.t("$vuetify.word.send_email")))]
           )
         ],
         1
@@ -65181,7 +65241,7 @@ var index = {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"word":{"logout":"Logout","cancel":"Cancel","force-delete":"Delete permanently","dark-mode":"Dark mode","translations":"Translations","delete":{"translation":"Delete translation","delete":"Delete"},"not_translated":"Not translated yet","environment":"Environment"}}');
+module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","domains":"Domains","companies":"Companies","admin":"Admin","search":"Search","cancel":"Cancel","save":"Save","force-delete":"Delete permanently","edit":{"account":"Edit account","translation":"Edit Translation"},"delete":{"account":"Delete account","translation":"Delete translation","delete":"Delete"},"dark-mode":"Dark mode","welcome":"Welcome","email":"Email","password":"Password","remember_me":"Remember me","login":{"login":"Login"},"forgot_password":"Forgot password","reset":{"password":"Reset password"},"confirm":{"password":"Comfirm password"},"accounts":"Accounts","translations":"Translations","not_translated":"Not translated yet","environment":"Environment","group":"Group","key":"Key","translation":{"sources":"Translation sources"},"account":{"account":"Account"},"send_email":"Send email"}}');
 
 /***/ }),
 
@@ -65192,7 +65252,7 @@ module.exports = JSON.parse('{"word":{"logout":"Logout","cancel":"Cancel","force
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"word":{"logout":"Uitloggen","cancel":"Annuleren","force-delete":"Permanent verwijderen","dark-mode":"Donkere modus","translations":"Vertalingen","delete":{"translation":"Verwijder vertaling","delete":"Verwijderen"},"not_translated":"Nog niet vertaald","environment":"omgeving"}}');
+module.exports = JSON.parse('{"word":{"settings":"Instellingen","logout":"Uitloggen","domains":"Domeinen","companies":"Bedrijven","admin":"Beheerder","search":"Zoeken","cancel":"Annuleren","save":"Opslaan","force-delete":"Permanent verwijderen","edit":{"account":"Account bewerken","translation":"Vertaling bewerken"},"delete":{"account":"Account verwijderen","translation":"Verwijder vertaling","delete":"Verwijderen"},"dark-mode":"Donkere modus","welcome":"Welkom","email":"E-mail","password":"Wachtwoord","remember_me":"Onthoud me","login":{"login":"Inloggen"},"forgot_password":"Wachtword vergeten","reset":{"password":"Wachtwoord opnieuw instellen"},"confirm":{"password":"Bevestig wachtwoord"},"accounts":"Accounts","translations":"Vertalingen","not_translated":"Nog niet vertaald","environment":"omgeving","group":"Groep","key":"Sleutel","translation":{"sources":"Vertaalbronnen"},"account":{"account":"Account"},"send_email":"verstuur e-mail"}}');
 
 /***/ }),
 
@@ -65214,7 +65274,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"admin.auth.user":"/api/auth/user","admin.user.company":"/api/companies","admin.user.company.show":"/api/companies/{company}","admin.admin.users":"/api/admin/users","admin.admin.user.destroy":"/api/admin/users/{user}/delete","admin.admin.user.destroy.force":"/api/admin/users/{user}/delete/force","admin.admin.translations.environments":"/api/admin/translations/environments","admin.admin.translations.environment":"/api/admin/translations/environments/{environment}","admin.admin.translation":"/api/admin/translations/{translationKey}","admin.admin.translation.update":"/api/admin/translations/{translationKey}/update"}');
+module.exports = JSON.parse('{"admin.auth.user":"/api/auth/user","admin.user.company":"/api/companies","admin.user.company.show":"/api/companies/{company}","admin.admin.users":"/api/admin/users","admin.admin.user":"/api/admin/users/{user}","admin.admin.user.force":"/api/admin/users/{user}/force","admin.admin.translations.environments":"/api/admin/translations/environments","admin.admin.translations.environment":"/api/admin/translations/environments/{environment}","admin.admin.translation":"/api/admin/translations/{translationKey}"}');
 
 /***/ })
 

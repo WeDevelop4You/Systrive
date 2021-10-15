@@ -21,8 +21,8 @@
                 Route::get('/', [UserTableController::class, 'index'])->name('admin.users');
 
                 Route::prefix('{user}')->group(function () {
-                    Route::delete('delete', [UserTableController::class, 'destroy'])->name('admin.user.destroy');
-                    Route::delete('delete/force', [UserTableController::class, 'forceDestroy'])->name('admin.user.destroy.force')->withTrashed();
+                    Route::delete('/', [UserTableController::class, 'destroy'])->name('admin.user');
+                    Route::delete('force', [UserTableController::class, 'forceDestroy'])->name('admin.user.force')->withTrashed();
                 });
             });
 
@@ -36,6 +36,7 @@
                 Route::prefix('{translationKey}')->group(function () {
                      Route::get('/', [TranslationDataController::class, 'edit'])->name('admin.translation');
                      Route::patch('/', [TranslationDataController::class, 'update'])->name('admin.translation');
+                     Route::delete('/', [TranslationDataController::class, 'destroy'])->name('admin.translation');
                 });
             });
         });

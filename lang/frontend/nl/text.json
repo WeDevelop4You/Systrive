@@ -1,0 +1,22 @@
+{
+    "text": {
+        "password": {
+            "reset": {
+                "info": "Om uw account te beschermen, moet u beschikken over:",
+                "list": {
+                    "characters": "Moet langer zijn dan 10 tekens",
+                    "uppercase": "Vereist minimaal 1 hoofdletter",
+                    "number": "Heeft minimaal 1 nummer nodig",
+                    "symbol": "Heeft minimaal 1 symbool nodig"
+                }
+            },
+            "forgot": "Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"
+        },
+        "delete": {
+            "message": {
+                "translation": "Weet je het zeker dat je deze \"{0}\" vertaling wil verwijderen?",
+                "account": "Weet je het zeker dat je account \"{0}\" wil verwijderen?"
+            }
+        }
+    }
+}

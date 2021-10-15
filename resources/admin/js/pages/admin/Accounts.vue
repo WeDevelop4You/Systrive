@@ -1,7 +1,7 @@
 <template>
     <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.accounts')" :headers="headers" :route="$api.route('admin.users')" vuex-namespace="accounts" searchable>
         <template v-slot:toolbar.append>
-            <edit-dialog :button-title="$vuetify.lang.t('$vuetify.word.new.account')" :form-title="formTitle" vuex-namespace="accounts" disable-create fullscreen @save="save">
+            <edit-dialog :form-title="formTitle" vuex-namespace="accounts" disable-create fullscreen @save="save">
 
             </edit-dialog>
         </template>

@@ -1,15 +1,50 @@
 {
     "word": {
+        "settings": "Instellingen",
         "logout": "Uitloggen",
+        "domains": "Domeinen",
+        "companies": "Bedrijven",
+        "admin": "Beheerder",
+        "search": "Zoeken",
         "cancel": "Annuleren",
+        "save": "Opslaan",
         "force-delete": "Permanent verwijderen",
-        "dark-mode": "Donkere modus",
-        "translations": "Vertalingen",
+        "edit": {
+            "account": "Account bewerken",
+            "translation": "Vertaling bewerken"
+        },
         "delete": {
+            "account": "Account verwijderen",
             "translation": "Verwijder vertaling",
             "delete": "Verwijderen"
         },
+        "dark-mode": "Donkere modus",
+        "welcome": "Welkom",
+        "email": "E-mail",
+        "password": "Wachtwoord",
+        "remember_me": "Onthoud me",
+        "login": {
+            "login": "Inloggen"
+        },
+        "forgot_password": "Wachtword vergeten",
+        "reset": {
+            "password": "Wachtwoord opnieuw instellen"
+        },
+        "confirm": {
+            "password": "Bevestig wachtwoord"
+        },
+        "accounts": "Accounts",
+        "translations": "Vertalingen",
         "not_translated": "Nog niet vertaald",
-        "environment": "omgeving"
+        "environment": "omgeving",
+        "group": "Groep",
+        "key": "Sleutel",
+        "translation": {
+            "sources": "Vertaalbronnen"
+        },
+        "account": {
+            "account": "Account"
+        },
+        "send_email": "verstuur e-mail"
     }
 }

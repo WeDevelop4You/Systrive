@@ -47,7 +47,7 @@
 
             deleteItem() {
                 const item = this.item
-                const message = this.$vuetify.lang.t('$vuetify.text.deleteMessage', item.email)
+                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.account', item.email)
 
                 this.$store.commit('accounts/setDelete', {id: item.id, message: message, hideDelete: item.deleted_at})
             }

@@ -109,7 +109,7 @@
         computed: {
             subMenuItems() {
                 return [
-                    {icon: 'fas fa-user-circle', text: this.$vuetify.lang.t('$vuetify.word.account'), link: {name: 'account'}},
+                    {icon: 'fas fa-user-circle', text: this.$vuetify.lang.t('$vuetify.word.account.account'), link: {name: 'account'}},
                     {icon: 'fas fa-cog', text: this.$vuetify.lang.t('$vuetify.word.settings'), link: {name: 'settings'}},
                     {divider: true},
                     {component: 'DarkModeSwitchList'},

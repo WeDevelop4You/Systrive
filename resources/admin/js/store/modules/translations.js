@@ -51,7 +51,7 @@ export default {
             })
         },
 
-        updateTranslation({commit, state}, translation) {
+        update({commit, state}, translation) {
             app.$api.call({
                 url: app.$api.route('admin.translation', translation.id),
                 method: "PATCH",
@@ -62,7 +62,16 @@ export default {
                 commit('changeEditDialog', false)
                 state.selected = {}
             })
-        }
+        },
+
+        destroy({state, commit}) {
+            app.$api.call({
+                url: app.$api.route('admin.translation', state.tableBase.deleteId),
+                method: 'DELETE'
+            }).finally(() => {
+                commit('resetDelete')
+            })
+        },
     },
 
     modules: {

@@ -54,6 +54,18 @@
         }
 
         /**
+         * @param TranslationKey $translationKey
+         * @return JsonResponse
+         */
+        public function edit(TranslationKey $translationKey): JsonResponse
+        {
+            $response = Response::create();
+            $response->addData($translationKey, TranslationKeyResource::class);
+
+            return $response->toJson();
+        }
+
+        /**
          * @param TranslationUpdateRequests $request
          * @param TranslationKey $translationKey
          * @return JsonResponse
@@ -86,10 +98,12 @@
          * @param TranslationKey $translationKey
          * @return JsonResponse
          */
-        public function edit(TranslationKey $translationKey): JsonResponse
+        public function destroy(TranslationKey $translationKey): JsonResponse
         {
-            $response = Response::create();
-            $response->addData($translationKey, TranslationKeyResource::class);
+            $translationKey->delete();
+
+            $response = new Response();
+            $response->addPopup(trans('response.success.delete.translation'));
 
             return $response->toJson();
         }

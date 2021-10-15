@@ -4,7 +4,7 @@
             <v-select class="mr-4" v-model="environment" :items="environments" dense outlined :label="$vuetify.lang.t('$vuetify.word.environment')" hide-details :disabled="$loading" @change="changeEnvironment" style="max-width: 200px"></v-select>
         </template>
         <template v-slot:toolbar.append>
-            <edit-dialog disable-create :form-title="$vuetify.lang.t('$vuetify.word.translation.edit')" vuex-namespace="translations" @save="save">
+            <edit-dialog disable-create :form-title="$vuetify.lang.t('$vuetify.word.edit.translation')" vuex-namespace="translations" @save="save">
                 <v-form v-model="valid">
                     <v-row no-gutters>
                         <v-col cols="12">
@@ -115,16 +115,19 @@
         methods: {
             changeEnvironment() {
                 this.$nextTick(function () {
+                    this.$refs.server.page = 1
                     this.$refs.server.getData()
                 })
             },
 
-            save() {
-                this.$store.dispatch('translations/updateTranslation', this.translationData)
+            async save() {
+                await this.$store.dispatch('translations/update', this.translationData)
+                this.$refs.server.getData();
             },
 
-            destroy() {
-
+            async destroy() {
+                await this.$store.dispatch('translations/destroy')
+                this.$refs.server.getData();
             }
         }
     }

@@ -110,7 +110,7 @@
             }
 
             $total = $this->query->count();
-            $data = $this->query->skip(($page - 1) * $perPage)->take($perPage + 1)->get();
+            $data = $this->query->skip(($page - 1) * $perPage)->take($perPage)->get();
 
             return call_user_func([$recourseClass, "collection"], $data)->additional([
                 'meta' => [

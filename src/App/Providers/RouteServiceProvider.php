@@ -138,7 +138,6 @@ class RouteServiceProvider extends ServiceProvider
             if (!in_array($name, ['Routes', 'Auth'])) {
                 $prefixes[] = Str::pluralStudly(strtolower($name));
             }
-
         }
 
         return implode('/', $prefixes);

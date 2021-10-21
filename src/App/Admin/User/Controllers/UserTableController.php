@@ -7,10 +7,8 @@
     use Domain\User\Models\User;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Facades\DB;
-    use Support\Helpers\Response\Response;
     use Support\Helpers\Table\Build\Column;
     use Support\Helpers\Table\Build\DataTable;
 

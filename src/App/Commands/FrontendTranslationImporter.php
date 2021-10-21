@@ -4,11 +4,6 @@ namespace App\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route as RouteList;
-use Illuminate\Support\Str;
 
 class FrontendTranslationImporter extends Command
 {
@@ -33,7 +28,7 @@ class FrontendTranslationImporter extends Command
 
     public function __construct()
     {
-        $this->filesystem = new Filesystem;
+        $this->filesystem = new Filesystem();
 
         parent::__construct();
     }

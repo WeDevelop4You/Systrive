@@ -21,7 +21,7 @@
                 'created_at' => $this->created_at->toDatetimeString(),
                 'owner' => [
                     'full_name' => $this->owner_full_name,
-                ]
+                ],
             ];
         }
     }

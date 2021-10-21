@@ -15,9 +15,9 @@
             });
 
             Route::prefix('{translationKey}')->group(function () {
-                 Route::get('/', [TranslationEditController::class, 'index'])->name('admin.translation');
-                 Route::patch('/', [TranslationEditController::class, 'action'])->name('admin.translation');
-                 Route::delete('/', [TranslationDestroyController::class, 'action'])->name('admin.translation');
+                Route::get('/', [TranslationEditController::class, 'index'])->name('admin.translation');
+                Route::patch('/', [TranslationEditController::class, 'action'])->name('admin.translation');
+                Route::delete('/', [TranslationDestroyController::class, 'action'])->name('admin.translation');
             });
         });
     });

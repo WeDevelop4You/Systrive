@@ -6,5 +6,4 @@
 
     class UserCollections extends Collection
     {
-
     }

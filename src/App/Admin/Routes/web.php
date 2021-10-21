@@ -15,7 +15,7 @@
     });
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('{any?}', function (){
+        Route::get('{any?}', function () {
             return view('admin::pages.dashboard');
         })->where('any', '^(?!api|storage|login|password|reset|bot)[\/\w\.-]*')->name('dashboard');
     });

@@ -19,8 +19,8 @@
                 'avatar' => $this->createAvatar(),
                 'route' => [
                     'name' => 'company.dashboard',
-                    'params' => ['companyName' => $this->name]
-                ]
+                    'params' => ['companyName' => $this->name],
+                ],
             ];
         }
 

@@ -53,21 +53,21 @@
         public static function hasWildcardMatch($column, $searchColumns): bool
         {
             return count(array_filter($searchColumns ?? [], function ($searchColumn) use ($column) {
-                    $hasWildcard = Str::endsWith($searchColumn, '*');
+                $hasWildcard = Str::endsWith($searchColumn, '*');
 
-                    if (! $hasWildcard) {
-                        return false;
-                    }
+                if (!$hasWildcard) {
+                    return false;
+                }
 
-                    if (! self::hasRelation($column)) {
-                        return true;
-                    }
+                if (!self::hasRelation($column)) {
+                    return true;
+                }
 
-                    $selectColumnPrefix = self::parseRelation($searchColumn);
-                    $columnPrefix = self::parseRelation($column);
+                $selectColumnPrefix = self::parseRelation($searchColumn);
+                $columnPrefix = self::parseRelation($column);
 
-                    return $selectColumnPrefix === $columnPrefix;
-                })) > 0;
+                return $selectColumnPrefix === $columnPrefix;
+            })) > 0;
         }
 
         /**

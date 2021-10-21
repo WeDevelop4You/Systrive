@@ -6,5 +6,4 @@
 
     class CompanyQueryBuilders extends Builder
     {
-
     }

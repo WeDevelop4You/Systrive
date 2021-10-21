@@ -6,7 +6,6 @@
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Support\Collection;
     use WeDevelop4You\TranslationFinder\Models\Translation;
-    use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationKeyResource extends JsonResource
     {

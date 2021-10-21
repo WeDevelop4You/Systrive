@@ -54,14 +54,14 @@
 
             if ($searchableColumns->isNotEmpty()) {
                 $this->query->where(function (Builder $subQuery) use ($searchableColumns) {
-                    $searchableColumns->each(function(Column $column) use ($subQuery) {
+                    $searchableColumns->each(function (Column $column) use ($subQuery) {
                         $hasRelation = ColumnHelper::hasRelation($column->columnName);
 
                         $selectedColumn = ColumnHelper::mapToSelected($column->columnName, $this->query);
 
                         if ($column->hasSearchCallback()) {
                             ($column->searchCallback)($subQuery, $this->search);
-                        } else if (!$hasRelation || $selectedColumn) {
+                        } elseif (!$hasRelation || $selectedColumn) {
                             $whereColumn = $selectedColumn ?? $column->columnName;
 
                             if (!$hasRelation) {

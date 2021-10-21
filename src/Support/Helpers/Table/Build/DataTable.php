@@ -8,8 +8,8 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Collection;
-    use Support\Helpers\Table\Queries\WhereQueryBuilder;
     use Support\Helpers\Table\Queries\OrderQueryBuilder;
+    use Support\Helpers\Table\Queries\WhereQueryBuilder;
 
     class DataTable
     {
@@ -114,8 +114,8 @@
 
             return call_user_func([$recourseClass, "collection"], $data)->additional([
                 'meta' => [
-                    'total' => $total
-                ]
+                    'total' => $total,
+                ],
             ]);
         }
     }

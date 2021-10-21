@@ -21,7 +21,7 @@
                 'deleted_at' => $this->deleted_at ? $this->deleted_at->toDatetimeString() : null,
                 'profile' => [
                     'full_name' => $this->profile->full_name ?? null,
-                ]
+                ],
             ];
         }
     }

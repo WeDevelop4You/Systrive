@@ -45,6 +45,7 @@ class Handler extends ExceptionHandler
                 switch ($request->getMethod()) {
                     case 'DELETE':
                         $response->addPopup(trans('response.error.model.delete'));
+
                         break;
                     default:
                         $response->addPopup(trans('response.error.model.not_found'));

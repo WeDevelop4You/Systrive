@@ -2,7 +2,6 @@
 
 namespace Domain\Contact\Jobs;
 
-
 use Domain\Contact\Mail\Contact;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +12,10 @@ use Illuminate\Support\Facades\Mail;
 
 class SendEmail implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $email;
     protected $name;

@@ -11,8 +11,8 @@
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Facades\DB;
     use Support\Helpers\Response\Response;
-    use Support\Helpers\Table\Build\DataTable;
     use Support\Helpers\Table\Build\Column;
+    use Support\Helpers\Table\Build\DataTable;
 
     class UserTableController extends Controller
     {
@@ -68,4 +68,3 @@
             return $response->toJson();
         }
     }
-

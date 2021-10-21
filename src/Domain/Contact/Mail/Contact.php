@@ -8,7 +8,8 @@ use Illuminate\Queue\SerializesModels;
 
 class Contact extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     protected $name;
 
@@ -29,11 +30,11 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->from('noreply@wedevelop4you.nl','WeDevelop4You')
+        return $this->from('noreply@wedevelop4you.nl', 'WeDevelop4You')
             ->subject('contact')
             ->markdown('mail.contact')
             ->with([
-                'customer' => $this->name
+                'customer' => $this->name,
             ]);
     }
 }

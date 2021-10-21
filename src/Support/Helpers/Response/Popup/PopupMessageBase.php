@@ -2,8 +2,6 @@
 
     namespace Support\Helpers\Response\Popup;
 
-    use Illuminate\Support\Str;
-
     abstract class PopupMessageBase
     {
         public const INFO_TYPE = 'info';
@@ -103,15 +101,18 @@
                 case 201:
                 case 204:
                     $this->setType(self::SUCCESS_TYPE);
+
                     break;
                 case 403:
                     $this->setType(self::WARNING_TYPE);
+
                     break;
                 case 400:
                 case 401:
                 case 404:
                 case 422:
                     $this->setType(self::ERROR_TYPE);
+
                     break;
                 default:
                     $this->setType(self::INFO_TYPE);

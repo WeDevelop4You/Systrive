@@ -17,7 +17,7 @@
         });
 
         Route::prefix('admin')->group(function () {
-            Route::prefix('users')->group(function ()  {
+            Route::prefix('users')->group(function () {
                 Route::get('/', [UserTableController::class, 'index'])->name('admin.users');
 
                 Route::prefix('{user}')->group(function () {
@@ -27,16 +27,15 @@
             });
 
             Route::prefix('translations')->group(function () {
-
                 Route::prefix('environments')->group(function () {
                     Route::get('/', [TranslationDataController::class, 'environments'])->name('admin.translations.environments');
                     Route::get('{environment}', [TranslationDataController::class, 'index'])->name('admin.translations.environment');
                 });
 
                 Route::prefix('{translationKey}')->group(function () {
-                     Route::get('/', [TranslationDataController::class, 'edit'])->name('admin.translation');
-                     Route::patch('/', [TranslationDataController::class, 'update'])->name('admin.translation');
-                     Route::delete('/', [TranslationDataController::class, 'destroy'])->name('admin.translation');
+                    Route::get('/', [TranslationDataController::class, 'edit'])->name('admin.translation');
+                    Route::patch('/', [TranslationDataController::class, 'update'])->name('admin.translation');
+                    Route::delete('/', [TranslationDataController::class, 'destroy'])->name('admin.translation');
                 });
             });
         });

@@ -16,8 +16,8 @@
             $this->content = [
                 'method' => 'actionGoToRoute',
                 'parameters' => [
-                    $route
-                ]
+                    $route,
+                ],
             ];
         }
 

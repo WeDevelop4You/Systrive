@@ -46,11 +46,11 @@ class UserProfile extends Model
         'last_name',
         'gender',
         'birth_date',
-        'bio'
+        'bio',
     ];
 
     protected $casts = [
-        'birth_date' => 'date:Y-m-d'
+        'birth_date' => 'date:Y-m-d',
     ];
 
     /**

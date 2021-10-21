@@ -14,7 +14,7 @@
         {
             return [
                 'translations.*.locale' => ['required', Rule::in(['en', 'nl'])],
-                'translations.*.translation' => ['nullable', 'string']
+                'translations.*.translation' => ['nullable', 'string'],
             ];
         }
     }

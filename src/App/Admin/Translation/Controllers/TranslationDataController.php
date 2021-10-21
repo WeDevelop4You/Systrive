@@ -49,7 +49,7 @@
                 'data' => TranslationKey::select('environment')
                     ->distinct()
                     ->pluck('environment')
-                    ->toArray()
+                    ->toArray(),
                 ]);
         }
 

@@ -102,7 +102,7 @@ class ApiRoutes extends Command
     {
         $this->findApiRoutes();
 
-        $this->apiRoutes = $this->routes->mapWithKeys(function(Route $route, $index) {
+        $this->apiRoutes = $this->routes->mapWithKeys(function (Route $route, $index) {
             $name = $route->getName() ?: "no_name_{$index}";
             $uri = '/' . trim($route->uri(), '/');
 

@@ -6,5 +6,4 @@
 
     class CompanyCollections extends Collection
     {
-
     }

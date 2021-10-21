@@ -32,10 +32,13 @@ export default {
         },
 
         resetDelete(state) {
-            state.deleteId = null
-            state.deleteMessage = ''
             state.deleteDialog = false
-            state.hideDeleteButton = false
+
+            setTimeout(() => {
+                state.deleteId = null
+                state.deleteMessage = ''
+                state.hideDeleteButton = false
+            }, 300)
         }
     },
 

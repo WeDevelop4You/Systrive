@@ -10,24 +10,12 @@
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Response;
 
-    class CompaniesController extends Controller
+    class CompanyNavigationController extends Controller
     {
         /**
-         * @param Company $company
          * @return JsonResponse
          */
-        public function show(Company $company): JsonResponse
-        {
-            $response = new Response();
-            $response->addData($company, CompanyResource::class);
-
-            return $response->toJson();
-        }
-
-        /**
-         * @return JsonResponse
-         */
-        public function navigation(): JsonResponse
+        public function index(): JsonResponse
         {
             $companies = Auth::user()->companies;
 

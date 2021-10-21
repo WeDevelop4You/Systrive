@@ -1,9 +1,10 @@
 <template>
     <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.translations')" :headers="headers" :route="$api.route('admin.translations.environment', environment)" vuex-namespace="translations" searchable>
         <template v-slot:toolbar.prepend>
-            <v-select class="mr-4" v-model="environment" :items="environments" dense outlined :label="$vuetify.lang.t('$vuetify.word.environment')" hide-details :disabled="$loading" @change="changeEnvironment" style="max-width: 200px"></v-select>
+            <v-select class="mr-4" v-model="environment" :items="environments" dense outlined :label="$vuetify.lang.t('$vuetify.word.environment')" hide-details :disabled="$loading" @change="changeEnvironment" style="max-width: 150px"></v-select>
         </template>
         <template v-slot:toolbar.append>
+            <v-btn @click="publish" color="primary">{{ $vuetify.lang.t('$vuetify.word.publish') }}</v-btn>
             <edit-dialog disable-create :form-title="$vuetify.lang.t('$vuetify.word.edit.translation')" vuex-namespace="translations" @save="save">
                 <v-form v-model="valid">
                     <v-row no-gutters>
@@ -94,11 +95,11 @@
         computed: {
             headers() {
                 return [
-                    {text: 'Key', value: 'key', sortable: true, align: 'start'},
-                    {text: 'Group', value: 'group', sortable: true},
-                    {text: 'Tags', value: 'tags', sortable: true},
-                    {text: 'Translated', value: 'translated', sortable: true},
-                    {text: 'Actions', value: 'actions', sortable: false, align: 'end'},
+                    {text: this.$vuetify.lang.t('$vuetify.word.key'), value: 'key', sortable: true, align: 'start'},
+                    {text: this.$vuetify.lang.t('$vuetify.word.group'), value: 'group', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.tags'), value: 'tags', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.translated'), value: 'translated', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
             },
 
@@ -118,6 +119,10 @@
                     this.$refs.server.page = 1
                     this.$refs.server.getData()
                 })
+            },
+
+            publish() {
+                this.$store.dispatch('translations/publish')
             },
 
             async save() {

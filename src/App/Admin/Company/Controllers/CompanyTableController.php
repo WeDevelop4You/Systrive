@@ -1,29 +1,27 @@
 <?php
 
-    namespace App\Admin\User\Controllers;
+    namespace App\Admin\Company\Controllers;
 
-    use App\Admin\User\Resources\UserDataResource;
+    use App\Admin\Company\Resources\CompanyDataResource;
     use App\Controller;
-    use Domain\User\Models\User;
+    use Domain\Companies\Models\Company;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Facades\DB;
-    use Support\Helpers\Response\Response;
     use Support\Helpers\Table\Build\Column;
     use Support\Helpers\Table\Build\DataTable;
 
-    class UserTableController extends Controller
+    class CompanyTableController extends Controller
     {
         /**
          * @return AnonymousResourceCollection
          */
         public function index(): AnonymousResourceCollection
         {
-            return DataTable::create(User::withTrashed())
+            return DataTable::create(Company::query())
                 ->setColumns($this->createColumns())
-                ->get(UserDataResource::class);
+                ->get(CompanyDataResource::class);
         }
 
         /**
@@ -33,18 +31,18 @@
         {
             return [
                 Column::create('id')->sortable()->searchable(),
-                Column::create('profile.full_name')->sortable(function (Builder $query, string $direction) {
+                Column::create('name')->sortable()->searchable(),
+                Column::create('email')->sortable()->searchable(),
+                Column::create('owner.full_name')->sortable(function (Builder $query, string $direction) {
                     return $query->orderBy(UserProfile::selectRaw("CONCAT_WS(' ', first_name, middle_name, last_name)")
-                        ->whereColumn('users.id', 'user_profiles.user_id'), $direction);
+                        ->whereColumn('companies.owner_id', 'user_profiles.user_id'), $direction);
                 })->searchable(function (Builder $query, string $search) {
-                    return $query->orWhereHas('profile', function (Builder $query) use ($search) {
+                    return $query->orWhereHas('ownerProfile', function (Builder $query) use ($search) {
                         return $query->where(DB::raw("CONCAT_WS(' ', first_name, middle_name, last_name)"), 'like', "%{$search}%");
                     });
                 }),
-                Column::create('email')->sortable()->searchable(),
-                Column::create('email_verified_at')->sortable()->searchable(),
+                Column::create('domain')->sortable()->searchable(),
                 Column::create('created_at')->sortable()->searchable(),
-                Column::create('deleted_at')->sortable()->searchable(),
             ];
         }
     }

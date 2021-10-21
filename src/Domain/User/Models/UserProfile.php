@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\User\Profile\Models\UserProfile
+ * Domain\User\Models\UserProfile
  *
  * @property int $id
  * @property int $user_id

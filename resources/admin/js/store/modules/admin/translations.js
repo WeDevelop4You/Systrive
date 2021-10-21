@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tableBase from "./tableBase";
+import tableBase from "../tableBase";
 
 const app = Vue.prototype
 
@@ -48,6 +48,13 @@ export default {
             }).then((response) => {
                 commit('setSelected', response.data.data)
                 commit('changeEditDialog', true)
+            })
+        },
+
+        publish() {
+            app.$api.call({
+                url: app.$api.route('admin.translation.publish'),
+                method: "POST"
             })
         },
 

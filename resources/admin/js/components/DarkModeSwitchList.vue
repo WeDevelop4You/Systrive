@@ -4,7 +4,7 @@
             <v-icon v-text="$vuetify.theme.dark ? 'fas fa-moon' : 'fas fa-sun'"/>
         </v-list-item-icon>
         <v-list-item-content>
-            <v-switch class="mt-0 pl-4 pt-0" v-model="$vuetify.theme.dark" hide-details dense :label="$vuetify.lang.t('$vuetify.word.dark-mode')"></v-switch>
+            <v-switch class="mt-0 pl-4 pt-0" v-model="$vuetify.theme.dark" hide-details dense :label="$vuetify.lang.t('$vuetify.word.dark_mode')"></v-switch>
         </v-list-item-content>
     </v-list-item>
 </template>

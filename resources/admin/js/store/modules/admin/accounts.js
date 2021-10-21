@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tableBase from "./tableBase";
+import tableBase from "../tableBase";
 
 const app = Vue.prototype
 

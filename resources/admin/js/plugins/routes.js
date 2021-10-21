@@ -8,6 +8,7 @@ const parent = {template: `<router-view></router-view>`}
 import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/account/Profile";
 import AdminAccounts from "../pages/admin/Accounts";
+import AdminCompanies from "../pages/admin/Companies";
 import AdminTranslations from "../pages/admin/Translations";
 import CompanyDashboard from "../pages/company/Dashboard";
 
@@ -80,7 +81,18 @@ const routes = [
             {
                 path: 'companies',
                 name: 'admin.companies',
-                // component: '',
+                component: AdminCompanies,
+                meta: {
+                    breadCrumb: [
+                        {
+                            text: 'Dashboard',
+                            to: {name: 'dashboard'}
+                        },
+                        {
+                            text: 'Companies'
+                        }
+                    ]
+                }
             },
             {
                 path: 'translations',

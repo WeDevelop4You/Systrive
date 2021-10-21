@@ -13,7 +13,7 @@
         /**
          * @return JsonResponse
          */
-        public function auth(): JsonResponse
+        public function index(): JsonResponse
         {
             $response = new Response();
             $response->addData(Auth::user(), UserResource::class);

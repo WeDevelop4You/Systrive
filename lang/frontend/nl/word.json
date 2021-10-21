@@ -8,17 +8,19 @@
         "search": "Zoeken",
         "cancel": "Annuleren",
         "save": "Opslaan",
-        "force-delete": "Permanent verwijderen",
-        "edit": {
-            "account": "Account bewerken",
-            "translation": "Vertaling bewerken"
-        },
         "delete": {
+            "force": "Permanent verwijderen",
             "account": "Account verwijderen",
             "translation": "Verwijder vertaling",
-            "delete": "Verwijderen"
+            "delete": "Verwijderen",
+            "company": "Bedrijf verwijderen"
         },
-        "dark-mode": "Donkere modus",
+        "edit": {
+            "account": "Account bewerken",
+            "translation": "Vertaling bewerken",
+            "company": "Bedrijf bewerken"
+        },
+        "dark_mode": "Donkere modus",
         "welcome": "Welkom",
         "email": "E-mail",
         "password": "Wachtwoord",
@@ -45,6 +47,17 @@
         "account": {
             "account": "Account"
         },
-        "send_email": "verstuur e-mail"
+        "send_email": "verstuur e-mail",
+        "id": "ID",
+        "name": "Naam",
+        "owner": "Eigenaar",
+        "domain": "Domein",
+        "created_at": "Aangemaakt op",
+        "actions": "Acties",
+        "tags": "Tags",
+        "translated": "vertaald",
+        "email_verified_at": "E-mail geverifieerd op",
+        "deleted_at": "Verwijderd op",
+        "publish": "Publiceren"
     }
 }

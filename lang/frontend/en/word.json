@@ -8,17 +8,19 @@
         "search": "Search",
         "cancel": "Cancel",
         "save": "Save",
-        "force-delete": "Delete permanently",
-        "edit": {
-            "account": "Edit account",
-            "translation": "Edit Translation"
-        },
         "delete": {
+            "force": "Delete permanently",
             "account": "Delete account",
             "translation": "Delete translation",
-            "delete": "Delete"
+            "delete": "Delete",
+            "company": "Delete company"
         },
-        "dark-mode": "Dark mode",
+        "edit": {
+            "account": "Edit account",
+            "translation": "Edit Translation",
+            "company": "Edit company"
+        },
+        "dark_mode": "Dark mode",
         "welcome": "Welcome",
         "email": "Email",
         "password": "Password",
@@ -45,6 +47,17 @@
         "account": {
             "account": "Account"
         },
-        "send_email": "Send email"
+        "send_email": "Send email",
+        "id": "ID",
+        "name": "Name",
+        "owner": "Owner",
+        "domain": "Domain",
+        "created_at": "Created at",
+        "actions": "Actions",
+        "tags": "Tags",
+        "translated": "Translated",
+        "email_verified_at": "Email verified oat",
+        "deleted_at": "Deleted at",
+        "publish": "Publish"
     }
 }

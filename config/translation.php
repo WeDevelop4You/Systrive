@@ -1,6 +1,11 @@
 <?php
 
     return [
+        'locales' => [
+            'en',
+            'nl'
+        ],
+
         /*
          * The "default_locale" is the languages where the translations are saved in. when
          * it searches for translations and finds a string key and not a dot key, then the

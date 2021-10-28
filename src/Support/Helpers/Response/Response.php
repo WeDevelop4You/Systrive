@@ -5,8 +5,8 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
-    use Support\Helpers\Response\Action\ActionMethodBase;
     use Support\Helpers\Response\Action\ActionContent;
+    use Support\Helpers\Response\Action\ActionMethodBase;
     use Support\Helpers\Response\Popup\PopupContent;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
@@ -59,7 +59,8 @@
         {
             $this->data = is_null($resourceClass)
                 ? $data
-                : ($collection
+                : (
+                    $collection
                     ? call_user_func([$resourceClass, 'collection'], $data)
                     : new $resourceClass($data)
                 );

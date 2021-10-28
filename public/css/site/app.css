@@ -7627,7 +7627,6 @@ button.bg-accent-2:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -7647,9 +7646,8 @@ button.bg-accent-2:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -10348,7 +10346,7 @@ h3 {
 }
 
 .card-img-top {
-  border-radius: calc(0.625rem - 1px) calc(0.625rem - 1px) 0 0;
+  border-radius: calc(.625rem - 1px) calc(.625rem - 1px) 0 0;
 }
 
 .team-img {

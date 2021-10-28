@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-navigation-drawer app permanent clipped hide-overlay :mini-variant.sync="isMini" :color="isMini ? 'primary' : ''">
+        <v-navigation-drawer app permanent clipped hide-overlay :mini-variant.sync="isMini">
             <v-list shaped>
                 <template v-for="(item, index) in sideMenuItems">
                     <template v-if="item.subheader">
@@ -10,16 +10,22 @@
                         <v-divider class="my-1" :key="index"/>
                     </template>
                     <template v-else>
-                        <v-list-item-group :color="isMini ? '' : 'primary'">
-                            <v-list-item :class="{'pl-2': isMini}" :exact-active-class="isMini ? 'none-active' : ''" :to="navigation.route" v-for="(navigation, key) in item.navigationItems" :key="index + '_' + key">
+                        <v-list-item-group color="primary">
+                            <v-list-item
+                                :class="{'pl-2': isMini}"
+                                :to="navigation.route"
+                                v-for="(navigation, key) in item.navigationItems"
+                                :key="index + '_' + key"
+                                dense
+                            >
                                 <template v-if="navigation.avatar">
-                                    <v-list-item-avatar>
-                                        <v-img :src="navigation.avatar"></v-img>
+                                    <v-list-item-avatar :class="{'mr-2': !isMini}" class="my-1" max-width="28" max-height="28">
+                                        <v-img max-width="28" max-height="28" :src="navigation.avatar"></v-img>
                                     </v-list-item-avatar>
                                 </template>
                                 <template v-else>
-                                    <v-list-item-icon :class="{'mr-4': !isMini}" class="justify-center" style="min-width: 40px">
-                                        <v-icon v-text="navigation.icon"></v-icon>
+                                    <v-list-item-icon :class="{'mr-2': !isMini}" class="justify-center" style="min-width: 40px">
+                                        <v-icon dense v-text="navigation.icon"></v-icon>
                                     </v-list-item-icon>
                                 </template>
                                 <v-list-item-content>
@@ -57,7 +63,7 @@
                                 <template v-else>
                                     <v-list-item class="py-0 px-2" color="primary" dense link :to="item.link" @click="callFunction(item.action)" :key="i">
                                         <v-list-item-icon class="mr-4">
-                                            <v-icon v-text="item.icon"/>
+                                            <v-icon dense v-text="item.icon"/>
                                         </v-list-item-icon>
                                         <v-list-item-content>
                                             <v-list-item-title v-text="item.text"/>
@@ -74,9 +80,11 @@
         <v-main>
             <v-container fluid>
                 <breadcrumb/>
-                <keep-alive max="3">
-                    <router-view/>
-                </keep-alive>
+                <div class="px-6">
+                    <keep-alive max="3">
+                        <router-view/>
+                    </keep-alive>
+                </div>
             </v-container>
             <popup/>
         </v-main>
@@ -118,48 +126,19 @@
                 ]
             },
 
-            sideMenuItems() {
-                if (this.$route.name.startsWith('company.')) {
-                    return [
-                        {subheader: this.$vuetify.lang.t('$vuetify.word.domains')},
-                        {navigationItems: []},
-                        {divider: true},
-                        {navigationItems: [
-
-                            ]
-                        },
-                    ]
-                }
-
-                return [
-                    {subheader: this.$vuetify.lang.t('$vuetify.word.companies')},
-                    {navigationItems: this.companies},
-                    {divider: true},
-                    {subheader: this.$vuetify.lang.t('$vuetify.word.admin')},
-                    {navigationItems: [
-                            {icon: 'fas fa-users', name: this.$vuetify.lang.t('$vuetify.word.accounts'), route: {name: 'admin.accounts'}},
-                            {icon: 'fas fa-building', name: this.$vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},
-                            {icon: 'fas fa-language', name: this.$vuetify.lang.t('$vuetify.word.translations'), route: {name: 'admin.translations'}},
-                        ]
-                    },
-                ]
-            },
-
             ...mapGetters({
-                companies: 'user/companies/navigation',
+                sideMenuItems: 'navigation/menuItems',
             })
         },
 
-        created() {
-            this.$store.dispatch('user/get')
-            this.$store.dispatch('user/companies/getNavigation')
+        async beforeCreate() {
+            await this.$store.dispatch('user/get')
+            await this.$store.dispatch('navigation/getCompanies', true)
         },
 
         watch:{
             $route (to, from){
                 this.lastRoute = from.fullPath
-
-                this.getCompanyIfNeeded(to.params)
             }
         },
 
@@ -167,12 +146,6 @@
             callFunction($name) {
                 if ($name !== undefined) {
                     this[$name]()
-                }
-            },
-
-            getCompanyIfNeeded(params) {
-                if (params.hasOwnProperty('companyName')) {
-                    this.$store.dispatch('user/companies/get', params.companyName)
                 }
             },
 

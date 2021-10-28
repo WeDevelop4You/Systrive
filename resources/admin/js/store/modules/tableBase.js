@@ -1,42 +1,75 @@
 export default {
     state: () => ({
-        data: [],
+        data: {},
+        items: [],
+        errors: {},
+        structure: {},
 
-        editDialog: false,
+        isEditing: false,
+        isCreateOrEditDialogOpen: false,
 
         deleteId: null,
         deleteMessage: '',
-        deleteDialog: false,
+        isDeleteDialogOpen: false,
 
         hideDeleteButton: false,
     }),
 
     mutations: {
-        setData(state, data) {
-            state.data = data;
+        setItems(state, items) {
+            state.items = items
         },
 
-        changeEditDialog(state, value) {
-            state.editDialog = value
+        setErrors(state, error) {
+            state.errors = error
         },
 
-        changeDeleteDialog(state, value) {
-            state.deleteDialog = value
+        setStructure(state, structure) {
+            state.data = structure
+            state.structure = structure
+        },
+
+        setCreate(state) {
+            Object.assign(state.data, state.structure)
+
+            state.isCreateOrEditDialogOpen = true
+        },
+
+        setEdit(state, data) {
+            state.data = data
+            state.isEditing = true
+            state.isCreateOrEditDialogOpen = true
         },
 
         setDelete(state, {id, message, hideDelete = false}) {
             state.deleteId = id
             state.deleteMessage = message
-            state.deleteDialog = true
+            state.isDeleteDialogOpen = true
             state.hideDeleteButton = hideDelete
         },
 
+        resetErrors(state) {
+            state.errors = {}
+        },
+
+        resetCreateOrEdit(state) {
+            state.errors = {}
+            state.isCreateOrEditDialogOpen = false
+
+            setTimeout(() => {
+                state.isEditing = false
+            }, 300)
+        },
+
         resetDelete(state) {
-            state.deleteId = null
-            state.deleteMessage = ''
-            state.deleteDialog = false
-            state.hideDeleteButton = false
-        }
+            state.isDeleteDialogOpen = false
+
+            setTimeout(() => {
+                state.deleteId = null
+                state.deleteMessage = ''
+                state.hideDeleteButton = false
+            }, 300)
+        },
     },
 
     getters: {
@@ -44,12 +77,24 @@ export default {
             return state.data
         },
 
-        editDialog(state) {
-            return state.editDialog
+        items(state) {
+            return state.items
         },
 
-        deleteDialog(state) {
-            return state.deleteDialog
+        errors(state) {
+            return state.errors
+        },
+
+        isEditing(state) {
+            return state.isEditing
+        },
+
+        isCreateOrEditDialogOpen(state) {
+            return state.isCreateOrEditDialogOpen
+        },
+
+        isDeleteDialogOpen(state) {
+            return state.isDeleteDialogOpen
         },
 
         deleteMessage(state) {
@@ -59,5 +104,9 @@ export default {
         hideDeleteButton(state) {
             return state.hideDeleteButton
         }
+    },
+
+    actions: {
+
     }
 }

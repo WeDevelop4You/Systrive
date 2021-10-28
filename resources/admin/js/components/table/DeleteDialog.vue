@@ -13,10 +13,10 @@
             <v-card-text>{{ deleteMessage }}</v-card-text>
             <v-card-actions class="flex-wrap gap-3 justify-end">
                 <template v-if="forceDeletable">
-                    <v-btn color="secondary" @click="$emit('force-delete')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.force-delete') }}</v-btn>
+                    <v-btn color="secondary" @click="$emit('force-delete')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.delete.force') }}</v-btn>
                 </template>
                 <template v-if="!hideDeleteButton">
-                    <v-btn color="error" @click="$emit('delete')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.delete.delete') }}</v-btn>
+                    <v-btn color="error" @click="$emit('delete')" :disabled="$loading">{{ deleteButton || $vuetify.lang.t('$vuetify.word.delete.delete') }}</v-btn>
                 </template>
                 <v-btn text @click="resetDelete" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.cancel') }}</v-btn>
             </v-card-actions>
@@ -42,12 +42,17 @@
             forceDeletable: {
                 type: Boolean,
                 default: false,
+            },
+
+            deleteButton: {
+                type: String,
+                default: null,
             }
         },
 
         computed: {
             dialog() {
-                return this.$store.getters[`${this.vuexNamespace}/deleteDialog`]
+                return this.$store.getters[`${this.vuexNamespace}/isDeleteDialogOpen`]
             },
 
             deleteMessage() {

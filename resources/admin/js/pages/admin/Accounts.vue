@@ -1,9 +1,9 @@
 <template>
     <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.accounts')" :headers="headers" :route="$api.route('admin.users')" vuex-namespace="accounts" searchable>
         <template v-slot:toolbar.append>
-            <edit-dialog :form-title="formTitle" vuex-namespace="accounts" disable-create fullscreen @save="save">
+            <create-or-edit-dialog :form-title="$vuetify.lang.t('$vuetify.word.edit.account')" vuex-namespace="accounts" disable-create fullscreen @save="save">
 
-            </edit-dialog>
+            </create-or-edit-dialog>
         </template>
         <template v-slot:delete>
             <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.account')" vuex-namespace="accounts" force-deletable @delete="destroy" @force-delete="forceDestroy"></delete-dialog>
@@ -15,7 +15,7 @@
     import {mapGetters} from "vuex";
     import ServerDataTable from "../../components/ServerDataTable";
     import Actions from "../../components/table/accounts/Actions";
-    import EditDialog from "../../components/table/EditDialog";
+    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
     import DeleteDialog from "../../components/table/DeleteDialog";
 
     export default {
@@ -23,7 +23,7 @@
 
         components: {
             DeleteDialog,
-            EditDialog,
+            CreateOrEditDialog,
             ServerDataTable
         },
 
@@ -36,24 +36,20 @@
         },
 
         computed: {
-            formTitle() {
-                return 'test'
-            },
-
             headers() {
                 return [
-                    {text: 'ID', value: 'id', sortable: true, align: 'start'},
-                    {text: 'Name', value: 'profile.full_name', sortable: true},
-                    {text: 'E-mail', value: 'email', sortable: true},
-                    {text: 'E-mail verified at', value: 'email_verified_at', sortable: true},
-                    {text: 'Created at', value: 'created_at', sortable: true},
-                    {text: 'Deleted at', value: 'deleted_at', sortable: true},
-                    {text: 'Actions', value: 'actions', sortable: false, align: 'end'},
+                    {text: this.$vuetify.lang.t('$vuetify.word.id'), value: 'id', sortable: true, align: 'start'},
+                    {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'profile.full_name', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.email_verified_at'), value: 'email_verified_at', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.deleted_at'), value: 'deleted_at', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
             },
 
             ...mapGetters({
-                account: 'accounts/selected',
+                account: 'accounts/data',
             })
         },
 

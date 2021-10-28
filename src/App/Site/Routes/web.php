@@ -1,6 +1,5 @@
 <?php
 
-    Route::get('/{any?}', function (){
+    Route::get('/{any?}', function () {
         return view('site::welcome');
     })->where('any', '^(?!api\/)[\/\w\.-]*');
-

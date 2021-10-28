@@ -6,7 +6,6 @@
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Support\Collection;
     use WeDevelop4You\TranslationFinder\Models\Translation;
-    use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationKeyResource extends JsonResource
     {
@@ -33,7 +32,7 @@
         private function createLocalesList(): array
         {
             $translations = $this->translations;
-            $locales = config('applications.admin.locales');
+            $locales = config('translation.locales');
 
             return Collection::make($locales)->map(function (string $locale) use ($translations) {
                 $translation = $translations->firstWhere('locale', $locale);

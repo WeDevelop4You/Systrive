@@ -7,6 +7,9 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+use stdClass;
+use Symfony\Component\Finder\Finder;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -20,6 +23,11 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/';
 
     /**
+     * @var array
+     */
+    private array $routeConfigs;
+
+    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
@@ -28,26 +36,22 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $this->routes(function () {
-            $applications = config('applications');
+        $this->createRouteConfig();
+    }
 
-            foreach ($applications as $application => $config) {
-                $domain = $config['domain'] ?? null;
-                $name = strtolower($application) . '.';
-                $path = sprintf('%s/../%s/Routes', __DIR__, ucfirst(strtolower($application)));
+    public function map()
+    {
+        foreach ($this->routeConfigs as $routeConfig) {
+            foreach ($routeConfig->files as $file) {
+                $prefix = $this->generatePrefix($file->getRelativePath(), $routeConfig->prefix);
 
-                Route::prefix('api')
-                    ->name($name)
-                    ->domain($domain)
-                    ->middleware('api')
-                    ->group("{$path}/api.php");
-
-                Route::middleware('web')
-                    ->name($name)
-                    ->domain($domain)
-                    ->group("{$path}/web.php");
+                Route::prefix($prefix)
+                    ->name($routeConfig->name)
+                    ->domain($routeConfig->domain)
+                    ->middleware($routeConfig->middleware)
+                    ->group($file->getRealPath());
             }
-        });
+        }
     }
 
     /**
@@ -62,8 +66,80 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    protected function getAllRouteFiles()
+    private function createRouteConfig()
     {
+        foreach (config('applications') as $application => $config) {
+            $domain = $config['domain'] ?? null;
 
+            $this->createWebRouteConfig($application, $domain);
+            $this->createApiRouteConfig($application, $domain);
+        }
+    }
+
+    /**
+     * @param string $application
+     * @param string|null $domain
+     */
+    private function createWebRouteConfig(string $application, ?string $domain = null)
+    {
+        $route = new stdClass();
+
+        $route->prefix = null;
+        $route->domain = $domain;
+        $route->middleware = 'web';
+        $route->name = strtolower($application) . '.';
+        $route->files = $this->getAllRouteFiles($application, 'web.php');
+
+        $this->routeConfigs[] = $route;
+    }
+
+    /**
+     * @param string $application
+     * @param string|null $domain
+     */
+    private function createApiRouteConfig(string $application, ?string $domain = null)
+    {
+        $route = new stdClass();
+
+        $route->prefix = 'api';
+        $route->domain = $domain;
+        $route->middleware = 'api';
+        $route->name = strtolower($application) . '.';
+        $route->files = $this->getAllRouteFiles($application, 'api.php');
+
+        $this->routeConfigs[] = $route;
+    }
+
+    /**
+     * @param string $application
+     * @param string $fileName
+     * @return Finder
+     */
+    private function getAllRouteFiles(string $application, string $fileName): Finder
+    {
+        $finder = new Finder();
+        $path = sprintf('%s/../%s', __DIR__, ucfirst(strtolower($application)));
+
+        return $finder->name($fileName)
+            ->in($path)
+            ->files();
+    }
+
+    /**
+     * @param string $path
+     * @param string|null $prefix
+     * @return string
+     */
+    private function generatePrefix(string $path, ?string $prefix = null): string
+    {
+        $prefixes = [$prefix];
+
+        foreach (explode('/', $path) as $name) {
+            if (!in_array($name, ['Routes', 'Auth'])) {
+                $prefixes[] = Str::pluralStudly(strtolower($name));
+            }
+        }
+
+        return implode('/', $prefixes);
     }
 }

@@ -47,5 +47,4 @@ class TeamController extends Controller
 
         return response()->json(['status' => 'success', 'team' => $team]);
     }
-
 }

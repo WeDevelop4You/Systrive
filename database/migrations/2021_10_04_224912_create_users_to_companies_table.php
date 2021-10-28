@@ -14,6 +14,7 @@ class CreateUsersToCompaniesTable extends Migration
     public function up()
     {
         Schema::create('users_to_companies', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('company_id')->constrained()->cascadeOnDelete();
         });

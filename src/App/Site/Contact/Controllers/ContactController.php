@@ -30,7 +30,7 @@ class ContactController extends Controller
         if ($v->fails()) {
             return response()->json([
                 'status' => 'error',
-                'errors' => $v->errors()
+                'errors' => $v->errors(),
             ], 400);
         }
 

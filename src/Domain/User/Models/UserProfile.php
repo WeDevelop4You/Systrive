@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\User\Profile\Models\UserProfile
+ * Domain\User\Models\UserProfile
  *
  * @property int $id
  * @property int $user_id
@@ -46,11 +46,11 @@ class UserProfile extends Model
         'last_name',
         'gender',
         'birth_date',
-        'bio'
+        'bio',
     ];
 
     protected $casts = [
-        'birth_date' => 'date:Y-m-d'
+        'birth_date' => 'date:Y-m-d',
     ];
 
     /**

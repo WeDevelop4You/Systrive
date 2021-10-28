@@ -7,14 +7,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Install modules
+      - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - run: npm install 
+          
+      - name: Checkout code
+        uses: actions/checkout@v2
+          
+      - name: Install modules
+        run: npm install 
       
-      - name: Run ESLint Fixer
-        run: npm run ./node_modules/.bin/eslint resources/admin --ext .js,.vue
+      - name: Run ESLint
+        run: npm run eslint

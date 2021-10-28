@@ -1,4 +1,4 @@
-name: Code Style
+name: PHP Code Style
 
 on: [push]
 
@@ -23,7 +23,7 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v2.3.0
         with:
-            commit_message: Fix styling
+            commit_message: PHP Fix styling
             branch: ${{ steps.extract_branch.outputs.branch }}
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

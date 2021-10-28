@@ -17,4 +17,4 @@ jobs:
       - run: npm install 
       
       - name: Run ESLint Fixer
-        run: npm run eslint
+        run: npm run ./node_modules/.bin/eslint resources/admin --ext .js,.vue

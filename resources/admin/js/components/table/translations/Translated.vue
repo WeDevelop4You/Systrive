@@ -1,7 +1,11 @@
 <template>
     <v-chip-group column>
         <template v-if="item.translated.length">
-            <v-chip small v-for="(locale, index) in item.translated" :key="index">
+            <v-chip
+                v-for="(locale, i) in item.translated"
+                :key="i"
+                small
+            >
                 {{ locale.toUpperCase() }}
             </v-chip>
         </template>
@@ -20,6 +24,7 @@
         props: {
             item: {
                 required: true,
+                type: Object
             },
 
             isMobile: {

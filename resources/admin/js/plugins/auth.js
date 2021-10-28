@@ -7,9 +7,9 @@ export default {
                 return store.getters['user/get']
             },
 
-            hasPermission(...permissions) {
-
-            }
+            // hasPermission(...permissions) {
+            //
+            // }
         }
     }
 }

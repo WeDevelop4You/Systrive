@@ -1,7 +1,12 @@
 <template>
     <v-breadcrumbs :items="breadCrumbs">
-        <template v-slot:item="{ item }">
-            <v-breadcrumbs-item :to="item.to" class="text-subtitle-2 crumb-item" :disabled="item.disabled" exact>
+        <template #item="{ item }">
+            <v-breadcrumbs-item
+                :to="item.to"
+                class="text-subtitle-2 crumb-item"
+                :disabled="item.disabled"
+                exact
+            >
                 {{ item.text }}
             </v-breadcrumbs-item>
         </template>

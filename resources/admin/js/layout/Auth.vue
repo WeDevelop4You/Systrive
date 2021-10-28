@@ -1,12 +1,26 @@
 <template>
     <v-app class="pattern-background">
         <v-main>
-            <svg-mountain class="mountain"/>
-            <v-container fluid class="fill-height">
+            <svg-mountain class="mountain" />
+            <v-container
+                fluid
+                class="fill-height"
+            >
                 <v-row>
-                    <v-col cols="12" md="4" lg="3" offset-md="2">
-                        <v-card class="mx-auto" rounded="lg" outlined :elevation="$config.elevation" width="400px">
-                            <slot></slot>
+                    <v-col
+                        cols="12"
+                        md="4"
+                        lg="3"
+                        offset-md="2"
+                    >
+                        <v-card
+                            class="mx-auto"
+                            rounded="lg"
+                            outlined
+                            :elevation="$config.elevation"
+                            width="400px"
+                        >
+                            <slot />
                         </v-card>
                     </v-col>
                 </v-row>

@@ -67,7 +67,7 @@ export default {
                     commit("setMainMenuItems")
                 }
 
-                if (params.hasOwnProperty('companyName')) {
+                if (Object.prototype.hasOwnProperty.call(params, 'companyName')) {
                     await dispatch('user/companies/getOne', params.companyName, {root:true})
                 }
             })

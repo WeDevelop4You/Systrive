@@ -9,7 +9,7 @@ export default {
 
             methods: {
                 callAction(data) {
-                    if (data.hasOwnProperty('action')) {
+                    if (Object.prototype.hasOwnProperty.call(data, 'action')) {
                         this[data.action.method](...data.action.parameters ?? [])
                     }
                 },

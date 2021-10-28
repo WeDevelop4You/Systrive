@@ -47,6 +47,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ServerDataTable",
@@ -196,8 +221,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "createOrEditDialog",
+  name: "CreateOrEditDialog",
   props: {
     buttonTitle: {
       type: String,
@@ -249,6 +300,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -342,11 +418,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Actions",
   props: {
     item: {
-      required: true
+      required: true,
+      type: Object
     },
     isMobile: {
       required: true,
@@ -396,11 +489,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Tags",
   props: {
     item: {
-      required: true
+      required: true,
+      type: Object
     },
     isMobile: {
       required: true,
@@ -444,11 +542,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Translated",
   props: {
     item: {
-      required: true
+      required: true,
+      type: Object
     },
     isMobile: {
       required: true,
@@ -498,6 +601,85 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1207,7 +1389,11 @@ var render = function() {
                 attrs: { color: "primary" },
                 on: { click: _vm.setDialog }
               },
-              [_vm._v(_vm._s(_vm.buttonTitle))]
+              [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.buttonTitle) + "\n        "
+                )
+              ]
             )
           ]
         : _vm._e(),
@@ -1267,7 +1453,11 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            _vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel"))
+                            "\n                        " +
+                              _vm._s(
+                                _vm.$vuetify.lang.t("$vuetify.word.cancel")
+                              ) +
+                              "\n                    "
                           )
                         ]
                       ),
@@ -1284,7 +1474,11 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            _vm._s(_vm.$vuetify.lang.t("$vuetify.word.save"))
+                            "\n                        " +
+                              _vm._s(
+                                _vm.$vuetify.lang.t("$vuetify.word.save")
+                              ) +
+                              "\n                    "
                           )
                         ]
                       )
@@ -1385,9 +1579,11 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          _vm._s(
-                            _vm.$vuetify.lang.t("$vuetify.word.delete.force")
-                          )
+                          "\n                    " +
+                            _vm._s(
+                              _vm.$vuetify.lang.t("$vuetify.word.delete.force")
+                            ) +
+                            "\n                "
                         )
                       ]
                     )
@@ -1408,10 +1604,14 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          _vm._s(
-                            _vm.deleteButton ||
-                              _vm.$vuetify.lang.t("$vuetify.word.delete.delete")
-                          )
+                          "\n                    " +
+                            _vm._s(
+                              _vm.deleteButton ||
+                                _vm.$vuetify.lang.t(
+                                  "$vuetify.word.delete.delete"
+                                )
+                            ) +
+                            "\n                "
                         )
                       ]
                     )
@@ -1424,7 +1624,13 @@ var render = function() {
                   attrs: { text: "", disabled: _vm.$loading },
                   on: { click: _vm.resetDelete }
                 },
-                [_vm._v(_vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel")))]
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel")) +
+                      "\n            "
+                  )
+                ]
               )
             ],
             2
@@ -1481,7 +1687,7 @@ var render = function() {
                       },
                       on
                     ),
-                    [_vm._v("fas fa-pen")]
+                    [_vm._v("\n                fas fa-pen\n            ")]
                   )
                 ]
               }
@@ -1518,7 +1724,7 @@ var render = function() {
                       },
                       on
                     ),
-                    [_vm._v("fas fa-trash-alt")]
+                    [_vm._v("\n                fas fa-trash-alt\n            ")]
                   )
                 ]
               }
@@ -1563,8 +1769,8 @@ var render = function() {
   return _c(
     "v-chip-group",
     { attrs: { column: "" } },
-    _vm._l(_vm.item.tags, function(tag, index) {
-      return _c("v-chip", { key: index, attrs: { small: "" } }, [
+    _vm._l(_vm.item.tags, function(tag, i) {
+      return _c("v-chip", { key: i, attrs: { small: "" } }, [
         _vm._v("\n        " + _vm._s(tag) + "\n    ")
       ])
     }),
@@ -1598,8 +1804,8 @@ var render = function() {
     { attrs: { column: "" } },
     [
       _vm.item.translated.length
-        ? _vm._l(_vm.item.translated, function(locale, index) {
-            return _c("v-chip", { key: index, attrs: { small: "" } }, [
+        ? _vm._l(_vm.item.translated, function(locale, i) {
+            return _c("v-chip", { key: i, attrs: { small: "" } }, [
               _vm._v(
                 "\n            " + _vm._s(locale.toUpperCase()) + "\n        "
               )
@@ -1686,7 +1892,13 @@ var render = function() {
             _c(
               "v-btn",
               { attrs: { color: "primary" }, on: { click: _vm.publish } },
-              [_vm._v(_vm._s(_vm.$vuetify.lang.t("$vuetify.word.publish")))]
+              [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.$vuetify.lang.t("$vuetify.word.publish")) +
+                    "\n        "
+                )
+              ]
             ),
             _vm._v(" "),
             _c(
@@ -1729,7 +1941,13 @@ var render = function() {
                                 return _c(
                                   "v-chip",
                                   { key: index, attrs: { small: "" } },
-                                  [_vm._v(_vm._s(tag))]
+                                  [
+                                    _vm._v(
+                                      "\n                                " +
+                                        _vm._s(tag) +
+                                        "\n                            "
+                                    )
+                                  ]
                                 )
                               }),
                               1
@@ -1757,11 +1975,13 @@ var render = function() {
                                       { staticClass: "font-weight-bold" },
                                       [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm.$vuetify.lang.t(
-                                              "$vuetify.word.environment"
-                                            )
-                                          )
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$vuetify.lang.t(
+                                                "$vuetify.word.environment"
+                                              )
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     ),
@@ -1802,11 +2022,13 @@ var render = function() {
                                       { staticClass: "font-weight-bold" },
                                       [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm.$vuetify.lang.t(
-                                              "$vuetify.word.group"
-                                            )
-                                          )
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$vuetify.lang.t(
+                                                "$vuetify.word.group"
+                                              )
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     ),
@@ -1845,11 +2067,13 @@ var render = function() {
                                       { staticClass: "font-weight-bold" },
                                       [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm.$vuetify.lang.t(
-                                              "$vuetify.word.key"
-                                            )
-                                          )
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$vuetify.lang.t(
+                                                "$vuetify.word.key"
+                                              )
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     ),
@@ -1919,11 +2143,13 @@ var render = function() {
                                       },
                                       [
                                         _vm._v(
-                                          _vm._s(
-                                            _vm.$vuetify.lang.t(
-                                              "$vuetify.word.translation.sources"
-                                            )
-                                          )
+                                          "\n                                    " +
+                                            _vm._s(
+                                              _vm.$vuetify.lang.t(
+                                                "$vuetify.word.translation.sources"
+                                              )
+                                            ) +
+                                            "\n                                "
                                         )
                                       ]
                                     ),
@@ -1939,7 +2165,11 @@ var render = function() {
                                             index
                                           ) {
                                             return _c("li", { key: index }, [
-                                              _vm._v(_vm._s(source))
+                                              _vm._v(
+                                                "\n                                            " +
+                                                  _vm._s(source) +
+                                                  "\n                                        "
+                                              )
                                             ])
                                           }),
                                           0

@@ -1,12 +1,30 @@
 <template>
-    <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.companies')" :headers="headers" :route="$api.route('admin.companies')" vuex-namespace="companies" searchable>
-        <template v-slot:toolbar.append>
-            <create-or-edit-dialog :form-title="formTitle" :button-title="$vuetify.lang.t('$vuetify.word.create.company')" vuex-namespace="companies" @save="save" @open="dialogOpened">
-                <f-company v-model="data"/>
+    <server-data-table
+        ref="server"
+        :custom-items="customItems"
+        :title="$vuetify.lang.t('$vuetify.word.companies')"
+        :headers="headers"
+        :route="$api.route('admin.companies')"
+        vuex-namespace="companies"
+        searchable
+    >
+        <template #toolbar.append>
+            <create-or-edit-dialog
+                :form-title="formTitle"
+                :button-title="$vuetify.lang.t('$vuetify.word.create.company')"
+                vuex-namespace="companies"
+                @save="save"
+                @open="dialogOpened"
+            >
+                <f-company v-model="data" />
             </create-or-edit-dialog>
         </template>
-        <template v-slot:delete>
-            <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.account')" vuex-namespace="companies" @delete="destroy"></delete-dialog>
+        <template #delete>
+            <delete-dialog
+                :title="$vuetify.lang.t('$vuetify.word.delete.account')"
+                vuex-namespace="companies"
+                @delete="destroy"
+            />
         </template>
     </server-data-table>
 </template>

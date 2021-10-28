@@ -8,8 +8,8 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "eslint": "./node_modules/.bin/eslint resources/admin --ext .js,.vue",
-        "eslint-fix": "eslint --fix"
+        "lint": "./node_modules/.bin/eslint resources/admin --ext .js,.vue",
+        "lint-fix": "./node_modules/.bin/eslint resources/admin --ext .js,.vue --fix"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",

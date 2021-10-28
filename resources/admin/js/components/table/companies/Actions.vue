@@ -1,14 +1,30 @@
 <template>
     <div>
         <v-tooltip top>
-            <template v-slot:activator="{ on }">
-                <v-icon small class="mr-2" @click="editItem" v-on="on" :disabled="$loading">fas fa-pen</v-icon>
+            <template #activator="{ on }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    :disabled="$loading"
+                    @click="editItem"
+                    v-on="on"
+                >
+                    fas fa-pen
+                </v-icon>
             </template>
             <span>{{ $vuetify.lang.t('$vuetify.word.edit.company') }}</span>
         </v-tooltip>
         <v-tooltip top>
-            <template v-slot:activator="{ on }">
-                <v-icon small class="mr-2" @click="deleteItem" v-on="on" :disabled="$loading">fas fa-trash-alt</v-icon>
+            <template #activator="{ on }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    :disabled="$loading"
+                    @click="deleteItem"
+                    v-on="on"
+                >
+                    fas fa-trash-alt
+                </v-icon>
             </template>
             <span>{{ $vuetify.lang.t('$vuetify.word.delete.company') }}</span>
         </v-tooltip>
@@ -22,6 +38,7 @@
         props: {
             item: {
                 required: true,
+                type: Object
             },
 
             isMobile: {

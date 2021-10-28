@@ -9,9 +9,17 @@
         colored-border
         transition="scale-transition"
     >
-        <div v-html="message.text"></div>
-        <template v-slot:close v-if="dismissible">
-            <v-btn class="v-alert__dismissible" small icon @click="remove">
+        <div v-html="message.text" />
+        <template
+            v-if="dismissible"
+            #close
+        >
+            <v-btn
+                class="v-alert__dismissible"
+                small
+                icon
+                @click="remove"
+            >
                 <v-icon>fas fa-times</v-icon>
             </v-btn>
         </template>

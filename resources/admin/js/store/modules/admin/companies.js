@@ -23,7 +23,7 @@ export default {
     },
 
     actions: {
-        create({state, commit}, data) {
+        create({commit}, data) {
             commit('resetErrors')
 
             app.$api.call({

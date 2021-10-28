@@ -8,14 +8,16 @@ module.exports = {
         // add more generic rule sets here, such as:
         'eslint:recommended',
         'plugin:vue/recommended',
-        // 'prettier',
     ],
     "parserOptions": {
         "sourceType": "module"
     },
     rules: {
         // override/add rules settings here, such as:
+        'vue/no-v-html': 'off',
         'vue/no-unused-vars': 'error',
+        'vue/no-mutating-props': 'off',
         'vue/html-indent': ['error', 4],
+        'vue/valid-v-slot': ['error', {allowModifiers: true}]
     }
 }

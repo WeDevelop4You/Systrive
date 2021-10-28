@@ -13,22 +13,47 @@
             calculate-widths
             @update:options="updateTable"
         >
-            <template v-slot:top>
-                <v-toolbar flat color="transparent" class="px-4">
+            <template #top>
+                <v-toolbar
+                    flat
+                    color="transparent"
+                    class="px-4"
+                >
                     <v-toolbar-title>{{ title }}</v-toolbar-title>
-                    <v-divider class="mx-4" inset vertical/>
-                    <slot name="toolbar.prepend"></slot>
+                    <v-divider
+                        class="mx-4"
+                        inset
+                        vertical
+                    />
+                    <slot name="toolbar.prepend" />
                     <template v-if="searchable">
-                        <v-text-field v-model="search" @input="updateSearch" hide-details :label="$vuetify.lang.t('$vuetify.word.search')" class="mx-auto" style="max-width: 700px"></v-text-field>
+                        <v-text-field
+                            v-model="search"
+                            hide-details
+                            :label="$vuetify.lang.t('$vuetify.word.search')"
+                            class="mx-auto"
+                            style="max-width: 700px"
+                            @input="updateSearch"
+                        />
                     </template>
-                    <slot name="toolbar.append"></slot>
+                    <slot name="toolbar.append" />
                 </v-toolbar>
             </template>
-            <template v-slot:[`item.${customItem.name}`]="{item, isMobile, header, index}" v-for="customItem in customItems">
-                <component :is="customItem.component" :item="item" :is-mobile="isMobile" :header="header" :index="index" :key="customItem.name"/>
+            <template
+                v-for="customItem in customItems"
+                #[`item.${customItem.name}`]="{item, isMobile, header, index}"
+            >
+                <component
+                    :is="customItem.component"
+                    :key="customItem.name"
+                    :item="item"
+                    :is-mobile="isMobile"
+                    :header="header"
+                    :index="index"
+                />
             </template>
         </v-data-table>
-        <slot name="delete"></slot>
+        <slot name="delete" />
     </div>
 </template>
 

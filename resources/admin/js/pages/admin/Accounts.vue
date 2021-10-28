@@ -1,12 +1,30 @@
 <template>
-    <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.accounts')" :headers="headers" :route="$api.route('admin.users')" vuex-namespace="accounts" searchable>
-        <template v-slot:toolbar.append>
-            <create-or-edit-dialog :form-title="$vuetify.lang.t('$vuetify.word.edit.account')" vuex-namespace="accounts" disable-create fullscreen @save="save">
-
-            </create-or-edit-dialog>
+    <server-data-table
+        ref="server"
+        :custom-items="customItems"
+        :title="$vuetify.lang.t('$vuetify.word.accounts')"
+        :headers="headers"
+        :route="$api.route('admin.users')"
+        vuex-namespace="accounts"
+        searchable
+    >
+        <template #toolbar.append>
+            <create-or-edit-dialog
+                :form-title="$vuetify.lang.t('$vuetify.word.edit.account')"
+                vuex-namespace="accounts"
+                disable-create
+                fullscreen
+                @save="save"
+            />
         </template>
-        <template v-slot:delete>
-            <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.account')" vuex-namespace="accounts" force-deletable @delete="destroy" @force-delete="forceDestroy"></delete-dialog>
+        <template #delete>
+            <delete-dialog
+                :title="$vuetify.lang.t('$vuetify.word.delete.account')"
+                vuex-namespace="accounts"
+                force-deletable
+                @delete="destroy"
+                @force-delete="forceDestroy"
+            />
         </template>
     </server-data-table>
 </template>

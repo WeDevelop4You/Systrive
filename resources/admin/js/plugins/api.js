@@ -19,7 +19,7 @@ export default {
             route(route, ...values) {
                 const fullRouteName = 'admin.' + route
 
-                if (ApiRoutes.hasOwnProperty(fullRouteName)) {
+                if (Object.prototype.hasOwnProperty.call(ApiRoutes, fullRouteName)) {
                     let apiRoute = ApiRoutes[fullRouteName]
                     const parameters = apiRoute.match(/\{(.*?)\}/g);
 

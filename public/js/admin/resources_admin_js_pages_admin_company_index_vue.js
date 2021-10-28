@@ -47,6 +47,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ServerDataTable",
@@ -196,8 +221,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "createOrEditDialog",
+  name: "CreateOrEditDialog",
   props: {
     buttonTitle: {
       type: String,
@@ -249,6 +300,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -342,11 +418,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Actions",
   props: {
     item: {
-      required: true
+      required: true,
+      type: Object
     },
     isMobile: {
       required: true,
@@ -445,6 +538,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -473,11 +599,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     owners: "companies/owners",
     isEditing: "companies/isEditing"
   })),
-  created: function created() {
-    if (this.isEditing) {
-      this.owner_id = this.value.owner.id;
-    }
-  },
   watch: {
     search: lodash__WEBPACK_IMPORTED_MODULE_0___default().debounce(function () {
       var _this = this;
@@ -488,6 +609,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.isLoading = false;
       });
     }, 500)
+  },
+  created: function created() {
+    if (this.isEditing) {
+      this.owner_id = this.value.owner.id;
+    }
   }
 });
 
@@ -523,6 +649,24 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1147,7 +1291,11 @@ var render = function() {
                 attrs: { color: "primary" },
                 on: { click: _vm.setDialog }
               },
-              [_vm._v(_vm._s(_vm.buttonTitle))]
+              [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.buttonTitle) + "\n        "
+                )
+              ]
             )
           ]
         : _vm._e(),
@@ -1207,7 +1355,11 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            _vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel"))
+                            "\n                        " +
+                              _vm._s(
+                                _vm.$vuetify.lang.t("$vuetify.word.cancel")
+                              ) +
+                              "\n                    "
                           )
                         ]
                       ),
@@ -1224,7 +1376,11 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            _vm._s(_vm.$vuetify.lang.t("$vuetify.word.save"))
+                            "\n                        " +
+                              _vm._s(
+                                _vm.$vuetify.lang.t("$vuetify.word.save")
+                              ) +
+                              "\n                    "
                           )
                         ]
                       )
@@ -1325,9 +1481,11 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          _vm._s(
-                            _vm.$vuetify.lang.t("$vuetify.word.delete.force")
-                          )
+                          "\n                    " +
+                            _vm._s(
+                              _vm.$vuetify.lang.t("$vuetify.word.delete.force")
+                            ) +
+                            "\n                "
                         )
                       ]
                     )
@@ -1348,10 +1506,14 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          _vm._s(
-                            _vm.deleteButton ||
-                              _vm.$vuetify.lang.t("$vuetify.word.delete.delete")
-                          )
+                          "\n                    " +
+                            _vm._s(
+                              _vm.deleteButton ||
+                                _vm.$vuetify.lang.t(
+                                  "$vuetify.word.delete.delete"
+                                )
+                            ) +
+                            "\n                "
                         )
                       ]
                     )
@@ -1364,7 +1526,13 @@ var render = function() {
                   attrs: { text: "", disabled: _vm.$loading },
                   on: { click: _vm.resetDelete }
                 },
-                [_vm._v(_vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel")))]
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel")) +
+                      "\n            "
+                  )
+                ]
               )
             ],
             2
@@ -1421,7 +1589,7 @@ var render = function() {
                       },
                       on
                     ),
-                    [_vm._v("fas fa-pen")]
+                    [_vm._v("\n                fas fa-pen\n            ")]
                   )
                 ]
               }
@@ -1456,7 +1624,7 @@ var render = function() {
                       },
                       on
                     ),
-                    [_vm._v("fas fa-trash-alt")]
+                    [_vm._v("\n                fas fa-trash-alt\n            ")]
                   )
                 ]
               }

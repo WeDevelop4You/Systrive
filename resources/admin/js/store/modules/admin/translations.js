@@ -48,7 +48,7 @@ export default {
             })
         },
 
-        update({commit, state}, data) {
+        update({commit}, data) {
             app.$api.call({
                 url: app.$api.route('admin.translation', data.id),
                 method: "PATCH",

@@ -3,7 +3,7 @@ name: JS Code Style
 on: [push]
 
 jobs:
-  eslint-fixer:
+  ESLint:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,4 +19,4 @@ jobs:
         run: yarn 
       
       - name: Run ESLint
-        run: eslint resources/admin --ext .js,.vue
+        run: ./node_modules/.bin/eslint resources/admin --ext .js,.vue

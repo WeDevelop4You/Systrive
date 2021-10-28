@@ -20,10 +20,10 @@ Vue.use(Auth)
 Vue.use(Config)
 Vue.use(Action)
 
-Vue.component('l-app', LApp)
-Vue.component('login', Login)
-Vue.component('reset-password', ResetPassword)
-Vue.component('password-recovery', PasswordRecovery)
+Vue.component('LApp', LApp)
+Vue.component('Login', Login)
+Vue.component('ResetPassword', ResetPassword)
+Vue.component('PasswordRecovery', PasswordRecovery)
 
 export default new Vue({
     el: '#app',
@@ -73,7 +73,7 @@ export default new Vue({
 
     methods: {
         addPopup(data) {
-            if (data.hasOwnProperty('popup')) {
+            if (Object.prototype.hasOwnProperty.call(data,'popup')) {
                 this.$store.dispatch('notifications/popup', data.popup);
             }
         }

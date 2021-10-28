@@ -7,13 +7,17 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "eslint": "./node_modules/.bin/eslint resources/admin --ext .js,.vue",
+        "eslint-fix": "eslint --fix"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.15.3",
         "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
         "deepmerge": "^4.2.2",
+        "eslint": "^8.1.0",
+        "eslint-plugin-vue": "^7.20.0",
         "jquery": "^3.6",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",

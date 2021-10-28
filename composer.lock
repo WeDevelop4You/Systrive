@@ -3460,16 +3460,16 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "5.1.1",
+            "version": "5.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "58d5eb6c7b0eafa8bdf0a93d1ca5c214a05344cb"
+                "reference": "2843185ab8cec3c08470024248e99ce55606f3ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/58d5eb6c7b0eafa8bdf0a93d1ca5c214a05344cb",
-                "reference": "58d5eb6c7b0eafa8bdf0a93d1ca5c214a05344cb",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/2843185ab8cec3c08470024248e99ce55606f3ac",
+                "reference": "2843185ab8cec3c08470024248e99ce55606f3ac",
                 "shasum": ""
             },
             "require": {
@@ -3530,7 +3530,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/5.1.1"
+                "source": "https://github.com/spatie/laravel-permission/tree/5.2.0"
             },
             "funding": [
                 {
@@ -3538,7 +3538,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-09-01T20:02:17+00:00"
+            "time": "2021-10-28T07:46:03+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7350,16 +7350,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.15.0",
+            "version": "2.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "3ee6e94815462bcf09bca0efc1c9069685df8da3"
+                "reference": "23400e6cc565c9dcae2c53704b4de1c4870c0697"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/3ee6e94815462bcf09bca0efc1c9069685df8da3",
-                "reference": "3ee6e94815462bcf09bca0efc1c9069685df8da3",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/23400e6cc565c9dcae2c53704b4de1c4870c0697",
+                "reference": "23400e6cc565c9dcae2c53704b4de1c4870c0697",
                 "shasum": ""
             },
             "require": {
@@ -7423,7 +7423,7 @@
                 "issues": "https://github.com/facade/ignition/issues",
                 "source": "https://github.com/facade/ignition"
             },
-            "time": "2021-10-11T15:24:06+00:00"
+            "time": "2021-10-28T11:47:23+00:00"
         },
         {
             "name": "facade/ignition-contracts",

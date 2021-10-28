@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
           
       - name: Install modules
-        run: yarn 
+        run: npm install 
       
       - name: Run ESLint
-        run: ./node_modules/.bin/eslint resources/admin --ext .js,.vue
+        run: npm run lint

@@ -34,10 +34,6 @@ html {
   cursor: pointer;
 }
 
-.none-active:before {
-  opacity: 0 !important;
-}
-
 .translation .v-expansion-panel-content__wrap {
   padding: 0 8px 12px;
 }

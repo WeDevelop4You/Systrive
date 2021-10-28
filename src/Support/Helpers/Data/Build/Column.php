@@ -1,6 +1,6 @@
 <?php
 
-    namespace Support\Helpers\Table\Build;
+    namespace Support\Helpers\Data\Build;
 
     /**
      * Class TableColumn

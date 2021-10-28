@@ -1,9 +1,9 @@
 <template>
     <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.companies')" :headers="headers" :route="$api.route('admin.companies')" vuex-namespace="companies" searchable>
         <template v-slot:toolbar.append>
-            <edit-dialog :form-title="formTitle" vuex-namespace="companies" fullscreen @save="save">
-
-            </edit-dialog>
+            <create-or-edit-dialog :form-title="formTitle" :button-title="$vuetify.lang.t('$vuetify.word.create.company')" vuex-namespace="companies" @save="save" @open="dialogOpened">
+                <f-company v-model="data"/>
+            </create-or-edit-dialog>
         </template>
         <template v-slot:delete>
             <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.account')" vuex-namespace="companies" @delete="destroy"></delete-dialog>
@@ -13,18 +13,20 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import ServerDataTable from "../../components/ServerDataTable";
-    import EditDialog from "../../components/table/EditDialog";
-    import DeleteDialog from "../../components/table/DeleteDialog";
-    import Actions from "../../components/table/companies/Actions";
+    import ServerDataTable from "../../../components/ServerDataTable";
+    import CreateOrEditDialog from "../../../components/table/CreateOrEditDialog";
+    import DeleteDialog from "../../../components/table/DeleteDialog";
+    import Actions from "../../../components/table/companies/Actions";
+    import FCompany from "../../../layout/forms/Company";
 
     export default {
         name: "Companies",
 
         components: {
+            FCompany,
             DeleteDialog,
-            EditDialog,
-            ServerDataTable
+            ServerDataTable,
+            CreateOrEditDialog,
         },
 
         data() {
@@ -37,7 +39,7 @@
 
         computed: {
             formTitle() {
-                return 'test';
+                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.create.create');
             },
 
             headers() {
@@ -53,17 +55,41 @@
             },
 
             ...mapGetters({
+                data: "companies/data",
+                isEditing: "companies/isEditing",
+            })
+        },
 
+        beforeCreate() {
+            this.$store.commit('companies/setStructure',{
+                name: '',
+                email: '',
+                domain: '',
+                information: '',
+                owner: {},
             })
         },
 
         methods: {
-            save() {
-
+            dialogOpened() {
+                if (!this.isEditing) {
+                    this.$store.dispatch('companies/userList', '')
+                }
             },
 
-            destroy() {
+            async save() {
+                if (this.isEditing) {
+                    await this.$store.dispatch('companies/update', this.data)
+                } else {
+                    await this.$store.dispatch('companies/create', this.data)
+                }
 
+                this.$refs.server.getData();
+            },
+
+            async destroy() {
+                await this.$store.dispatch('companies/destroy')
+                this.$refs.server.getData();
             },
         }
     }

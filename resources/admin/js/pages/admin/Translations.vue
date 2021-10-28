@@ -10,14 +10,14 @@
                     <v-row no-gutters>
                         <v-col cols="12">
                             <v-chip-group column>
-                                <v-chip small v-for="(tag, index) in translationData.tags" :key="index">{{ tag }}</v-chip>
+                                <v-chip small v-for="(tag, index) in data.tags" :key="index">{{ tag }}</v-chip>
                             </v-chip-group>
                         </v-col>
                         <v-col cols="6">
                             <v-list-item two-line class="pl-0">
                                 <v-list-item-content>
                                     <v-list-item-title class="font-weight-bold">{{ $vuetify.lang.t('$vuetify.word.environment') }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ translationData.environment }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle v-text="data.environment"/>
                                 </v-list-item-content>
                             </v-list-item>
                         </v-col>
@@ -25,7 +25,7 @@
                             <v-list-item two-line class="pr-0">
                                 <v-list-item-content>
                                     <v-list-item-title class="font-weight-bold">{{ $vuetify.lang.t('$vuetify.word.group') }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ translationData.group }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle v-text="data.group"/>
                                 </v-list-item-content>
                             </v-list-item>
                         </v-col>
@@ -33,11 +33,11 @@
                             <v-list-item two-line class="px-0">
                                 <v-list-item-content>
                                     <v-list-item-title class="font-weight-bold">{{ $vuetify.lang.t('$vuetify.word.key') }}</v-list-item-title>
-                                    <v-list-item-subtitle>{{ translationData.key }}</v-list-item-subtitle>
+                                    <v-list-item-subtitle v-text="data.key"/>
                                 </v-list-item-content>
                             </v-list-item>
                         </v-col>
-                        <v-col cols="12" v-for="(translation, index) in translationData.translations" :key="index">
+                        <v-col cols="12" v-for="(translation, index) in data.translations" :key="index">
                             <v-text-field v-model="translation.translation" :label="translation.locale.toUpperCase()" dense outlined></v-text-field>
                         </v-col>
                         <v-col cols="12">
@@ -45,7 +45,7 @@
                                 <v-expansion-panel>
                                     <v-expansion-panel-header class="px-3 py-2" style="min-height: 40px">{{ $vuetify.lang.t('$vuetify.word.translation.sources') }}</v-expansion-panel-header>
                                     <v-expansion-panel-content class="translation">
-                                        <ul><li v-for="(source, index) in translationData.sources" :key="index">{{ source }}</li></ul>
+                                        <ul><li v-for="(source, index) in data.sources" :key="index">{{ source }}</li></ul>
                                     </v-expansion-panel-content>
                                 </v-expansion-panel>
                             </v-expansion-panels>
@@ -66,7 +66,7 @@
     import ServerDataTable from "../../components/ServerDataTable";
     import Actions from "../../components/table/translations/Actions";
     import Translated from "../../components/table/translations/Translated";
-    import EditDialog from "../../components/table/EditDialog";
+    import EditDialog from "../../components/table/CreateOrEditDialog";
     import {mapGetters} from "vuex";
 
     export default {
@@ -104,8 +104,20 @@
             },
 
             ...mapGetters({
-                translationData: 'translations/selected',
+                data: 'translations/data',
                 environments: 'translations/environments',
+            })
+        },
+
+        beforeCreate() {
+            this.$store.commit('translations/setStructure', {
+                id: '',
+                key: '',
+                group: '',
+                environment: '',
+                tags: [],
+                sources: [],
+                translations: [],
             })
         },
 
@@ -126,7 +138,7 @@
             },
 
             async save() {
-                await this.$store.dispatch('translations/update', this.translationData)
+                await this.$store.dispatch('translations/update', this.data)
                 this.$refs.server.getData();
             },
 

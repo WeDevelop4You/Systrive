@@ -7,8 +7,8 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-    use Support\Helpers\Table\Build\Column;
-    use Support\Helpers\Table\Build\DataTable;
+    use Support\Helpers\Data\Build\Column;
+    use Support\Helpers\Data\Build\DataTable;
     use WeDevelop4You\TranslationFinder\Models\Translation;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 

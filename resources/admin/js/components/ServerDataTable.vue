@@ -92,7 +92,7 @@
 
         computed: {
             items() {
-                return this.$store.getters[`${this.vuexNamespace}/data`]
+                return this.$store.getters[`${this.vuexNamespace}/items`]
             }
         },
 
@@ -123,7 +123,7 @@
                     app.isLoading = false
                     app.total = data.meta.total
 
-                    app.$store.commit(`${this.vuexNamespace}/setData`, data.data)
+                    app.$store.commit(`${this.vuexNamespace}/setItems`, data.data)
                 })
             },
 

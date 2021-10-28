@@ -12,8 +12,9 @@
     use Illuminate\Database\Eloquent\Relations\BelongsToMany;
     use Illuminate\Database\Query\Builder;
     use Illuminate\Support\Carbon;
+    use Support\Pivots\UserCompany;
 
-/**
+    /**
  * Domain\Companies\Models\Company
  *
  * @property int $id
@@ -24,7 +25,7 @@
  * @property string|null $information
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read string $owner_full_name
+ * @property-read string|null $owner_full_name
  * @property-read User $owner
  * @property-read UserProfile $ownerProfile
  * @property-read \Domain\User\Collections\UserCollections|User[] $users
@@ -55,9 +56,12 @@ class Company extends Model
         'owner_id',
     ];
 
-    public function getOwnerFullNameAttribute(): string
+    /**
+     * @return string|null
+     */
+    public function getOwnerFullNameAttribute(): ?string
     {
-        return $this->ownerProfile->full_name;
+        return $this->ownerProfile->full_name ?? null;
     }
 
     /**
@@ -81,7 +85,7 @@ class Company extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'users_to_companies');
+        return $this->belongsToMany(User::class);
     }
 
     /**

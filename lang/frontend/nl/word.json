@@ -18,7 +18,8 @@
         "edit": {
             "account": "Account bewerken",
             "translation": "Vertaling bewerken",
-            "company": "Bedrijf bewerken"
+            "company": "Bedrijf bewerken",
+            "edit": "Bewerken"
         },
         "dark_mode": "Donkere modus",
         "welcome": "Welkom",
@@ -58,6 +59,11 @@
         "translated": "vertaald",
         "email_verified_at": "E-mail geverifieerd op",
         "deleted_at": "Verwijderd op",
-        "publish": "Publiceren"
+        "publish": "Publiceren",
+        "information": "Informatie",
+        "create": {
+            "company": "Bedrijf aanmaken",
+            "create": "Aanmaken"
+        }
     }
 }

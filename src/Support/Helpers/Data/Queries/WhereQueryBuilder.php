@@ -1,12 +1,12 @@
 <?php
 
-    namespace Support\Helpers\Table\Queries;
+    namespace Support\Helpers\Data\Queries;
 
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Schema;
-    use Support\Helpers\Table\Build\Column;
-    use Support\Helpers\Table\ColumnHelper;
+    use Support\Helpers\Data\Build\Column;
+    use Support\Helpers\Data\ColumnHelper;
 
     class WhereQueryBuilder
     {

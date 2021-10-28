@@ -18,6 +18,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Support\Pivots\UserCompany;
 
 /**
  * Domain\User\Models\User
@@ -32,7 +33,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property-read \Domain\Companies\Collections\CompanyCollections|Company[] $businesses
  * @property-read \Domain\Companies\Collections\CompanyCollections|Company[] $companies
- * @property-read string $full_name
+ * @property-read string|null $full_name
  * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read \Domain\User\Models\UserProfile|null $profile
  * @method static UserCollections|static[] all($columns = ['*'])
@@ -90,9 +91,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function getFullNameAttribute(): string
+    /**
+     * @return string|null
+     */
+    public function getFullNameAttribute(): ?string
     {
-        return $this->profile->full_name;
+        return $this->profile->full_name ?? null;
     }
 
     /**
@@ -116,7 +120,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function companies(): BelongsToMany
     {
-        return $this->belongsToMany(Company::class, 'users_to_companies');
+        return $this->belongsToMany(Company::class, 'user_company');
     }
 
     /**

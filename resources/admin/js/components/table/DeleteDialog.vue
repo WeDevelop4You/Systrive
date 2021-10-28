@@ -52,7 +52,7 @@
 
         computed: {
             dialog() {
-                return this.$store.getters[`${this.vuexNamespace}/deleteDialog`]
+                return this.$store.getters[`${this.vuexNamespace}/isDeleteDialogOpen`]
             },
 
             deleteMessage() {

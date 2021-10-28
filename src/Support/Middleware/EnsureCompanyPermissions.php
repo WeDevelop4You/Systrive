@@ -27,7 +27,7 @@ class EnsureCompanyPermissions
             $company = $request->route('company');
             $id = $company instanceof Company ? $company->id : $company;
 
-            $user->companies()->where('id', $id)->firstOrFail();
+            $user->companies()->wherePivot('company_id', $id)->firstOrFail();
 
             app(PermissionRegistrar::class)->setPermissionsTeamId($id);
 

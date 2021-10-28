@@ -42,7 +42,7 @@
 
         methods: {
             editItem() {
-                this.$store.dispatch('companies/getCompany', this.item.id)
+                this.$store.dispatch('companies/getOne', this.item.id)
             },
 
             deleteItem() {

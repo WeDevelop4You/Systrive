@@ -8,30 +8,28 @@ export default {
 
     state: () => ({
         environments: [],
-        selected: {}
     }),
 
     mutations: {
         setEnvironments(state, environments) {
             state.environments = environments
         },
-
-        setSelected(stata, translation) {
-            stata.selected = translation
-        }
     },
 
     getters: {
         environments(state) {
             return state.environments
         },
-
-        selected(state) {
-            return state.selected
-        }
     },
 
     actions: {
+        publish() {
+            app.$api.call({
+                url: app.$api.route('admin.translation.publish'),
+                method: "POST"
+            })
+        },
+
         getEnvironments({commit}) {
             app.$api.call({
                 url: app.$api.route('admin.translations.environments'),
@@ -41,33 +39,24 @@ export default {
             })
         },
 
-        getTranslation({commit}, id) {
+        getOne({commit}, id) {
             app.$api.call({
                 url: app.$api.route('admin.translation', id),
                 method: "GET"
             }).then((response) => {
-                commit('setSelected', response.data.data)
-                commit('changeEditDialog', true)
+                commit('setEdit', response.data.data)
             })
         },
 
-        publish() {
+        update({commit, state}, data) {
             app.$api.call({
-                url: app.$api.route('admin.translation.publish'),
-                method: "POST"
-            })
-        },
-
-        update({commit, state}, translation) {
-            app.$api.call({
-                url: app.$api.route('admin.translation', translation.id),
+                url: app.$api.route('admin.translation', data.id),
                 method: "PATCH",
                 data: {
-                    translations: translation.translations
+                    translations: data.translations
                 }
             }).then(() => {
-                commit('changeEditDialog', false)
-                state.selected = {}
+                commit('resetCreateOrEdit')
             })
         },
 

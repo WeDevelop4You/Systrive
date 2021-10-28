@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-if="!disableCreate">
-            <v-btn color="primary" class="mb-2 ml-4" @click="changeDialog(true)">{{ buttonTitle }}</v-btn>
+            <v-btn color="primary" class="mb-2 ml-4" @click="setDialog">{{ buttonTitle }}</v-btn>
         </template>
         <v-dialog :value="dialog" max-width="700" persistent :fullscreen="fullscreen">
             <v-card>
@@ -9,7 +9,7 @@
                     <slot name="title">
                         <span class="headline">{{ formTitle }}</span>
                         <v-spacer/>
-                        <v-btn icon @click="changeDialog(false)">
+                        <v-btn icon @click="resetDialog">
                             <v-icon>fas fa-times</v-icon>
                         </v-btn>
                     </slot>
@@ -20,7 +20,7 @@
                 <v-card-actions class="px-6">
                     <slot name="action">
                         <v-spacer></v-spacer>
-                        <v-btn text @click="changeDialog(false)" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.cancel') }}</v-btn>
+                        <v-btn text @click="resetDialog" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.cancel') }}</v-btn>
                         <v-btn color="primary" @click="$emit('save')" :disabled="$loading">{{ $vuetify.lang.t('$vuetify.word.save') }}</v-btn>
                     </slot>
                 </v-card-actions>
@@ -31,7 +31,7 @@
 
 <script>
     export default {
-        name: "EditDialog",
+        name: "createOrEditDialog",
 
         props: {
             buttonTitle: {
@@ -62,13 +62,21 @@
 
         computed: {
             dialog() {
-                return this.$store.getters[`${this.vuexNamespace}/editDialog`]
+                const dialog = this.$store.getters[`${this.vuexNamespace}/isCreateOrEditDialogOpen`]
+
+                dialog ? this.$emit('open') : this.$emit('close')
+
+                return dialog
             }
         },
 
         methods: {
-            changeDialog(value) {
-                this.$store.commit(`${this.vuexNamespace}/changeEditDialog`, value)
+            setDialog() {
+                this.$store.commit(`${this.vuexNamespace}/setCreate`)
+            },
+
+            resetDialog() {
+                this.$store.commit(`${this.vuexNamespace}/resetCreateOrEdit`)
             }
         }
     }

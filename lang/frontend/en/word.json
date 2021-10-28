@@ -18,7 +18,8 @@
         "edit": {
             "account": "Edit account",
             "translation": "Edit Translation",
-            "company": "Edit company"
+            "company": "Edit company",
+            "edit": "Edit"
         },
         "dark_mode": "Dark mode",
         "welcome": "Welcome",
@@ -58,6 +59,11 @@
         "translated": "Translated",
         "email_verified_at": "Email verified oat",
         "deleted_at": "Deleted at",
-        "publish": "Publish"
+        "publish": "Publish",
+        "information": "Information",
+        "create": {
+            "company": "Create Company",
+            "create": "Create"
+        }
     }
 }

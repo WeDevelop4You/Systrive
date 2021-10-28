@@ -1,12 +1,12 @@
 <?php
 
-    namespace Support\Helpers\Table\Queries;
+    namespace Support\Helpers\Data\Queries;
 
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\App;
     use Illuminate\Support\Str;
-    use Support\Helpers\Table\Build\Column;
+    use Support\Helpers\Data\Build\Column;
 
     class OrderQueryBuilder
     {

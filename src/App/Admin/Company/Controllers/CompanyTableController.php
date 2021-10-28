@@ -9,8 +9,8 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Facades\DB;
-    use Support\Helpers\Table\Build\Column;
-    use Support\Helpers\Table\Build\DataTable;
+    use Support\Helpers\Data\Build\Column;
+    use Support\Helpers\Data\Build\DataTable;
 
     class CompanyTableController extends Controller
     {

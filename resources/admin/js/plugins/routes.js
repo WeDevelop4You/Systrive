@@ -5,19 +5,12 @@ Vue.use(VueRouter)
 
 const parent = {template: `<router-view></router-view>`}
 
-import Dashboard from "../pages/Dashboard";
-import Profile from "../pages/account/Profile";
-import AdminAccounts from "../pages/admin/Accounts";
-import AdminCompanies from "../pages/admin/Companies";
-import AdminTranslations from "../pages/admin/Translations";
-import CompanyDashboard from "../pages/company/Dashboard";
-
 const routes = [
     {
         path: '/dashboard',
         alias: '/',
         name: 'dashboard',
-        component: Dashboard,
+        component: () => import('../pages/Dashboard'),
         meta: {
             breadCrumb: [
                 {
@@ -29,7 +22,7 @@ const routes = [
     {
         path: '/account',
         name: 'account',
-        component: Profile,
+        component: () => import('../pages/account/Profile'),
         meta: {
             breadCrumb: [
                 {
@@ -65,7 +58,7 @@ const routes = [
             {
                 path: 'accounts',
                 name: 'admin.accounts',
-                component: AdminAccounts,
+                component: () => import('../pages/admin/Accounts'),
                 meta: {
                     breadCrumb: [
                         {
@@ -81,7 +74,7 @@ const routes = [
             {
                 path: 'companies',
                 name: 'admin.companies',
-                component: AdminCompanies,
+                component: () => import('../pages/admin/company'),
                 meta: {
                     breadCrumb: [
                         {
@@ -97,7 +90,7 @@ const routes = [
             {
                 path: 'translations',
                 name: 'admin.translations',
-                component: AdminTranslations,
+                component: () => import('../pages/admin/Translations'),
                 meta: {
                     breadCrumb: [
                         {
@@ -114,12 +107,12 @@ const routes = [
     },
     {
         path: '/c/:companyName',
-        component: parent,
+        component: () => import('../layout/Company'),
         children: [
             {
                 path: '',
                 name: 'company.dashboard',
-                component: CompanyDashboard,
+                component: () => import('../pages/company/Dashboard'),
                 meta: {
                     breadCrumb(route) {
                         const companyName = route.params.companyName;
@@ -135,11 +128,6 @@ const routes = [
                         ]
                     }
                 },
-            },
-            {
-                path: 'test',
-                name: 'company.test',
-                component: Profile
             }
         ]
     }

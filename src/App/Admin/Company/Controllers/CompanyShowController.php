@@ -4,6 +4,7 @@
 
     use App\Admin\Company\Resources\CompanyNavigationResource;
     use App\Admin\Company\Resources\CompanyResource;
+    use App\Admin\Company\Resources\CompanyShowResource;
     use App\Controller;
     use Domain\Companies\Models\Company;
     use Illuminate\Http\JsonResponse;
@@ -19,20 +20,7 @@
         public function index(Company $company): JsonResponse
         {
             $response = new Response();
-            $response->addData($company, CompanyResource::class);
-
-            return $response->toJson();
-        }
-
-        /**
-         * @return JsonResponse
-         */
-        public function navigation(): JsonResponse
-        {
-            $companies = Auth::user()->companies;
-
-            $response = new Response();
-            $response->addData($companies, CompanyNavigationResource::class, true);
+            $response->addData($company, CompanyShowResource::class);
 
             return $response->toJson();
         }

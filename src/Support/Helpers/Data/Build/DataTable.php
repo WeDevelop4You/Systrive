@@ -1,6 +1,6 @@
 <?php
 
-    namespace Support\Helpers\Table\Build;
+    namespace Support\Helpers\Data\Build;
 
     use Illuminate\Container\Container;
     use Illuminate\Contracts\Container\BindingResolutionException;
@@ -8,8 +8,8 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Collection;
-    use Support\Helpers\Table\Queries\OrderQueryBuilder;
-    use Support\Helpers\Table\Queries\WhereQueryBuilder;
+    use Support\Helpers\Data\Queries\OrderQueryBuilder;
+    use Support\Helpers\Data\Queries\WhereQueryBuilder;
 
     class DataTable
     {
@@ -93,10 +93,10 @@
         }
 
         /**
-         * @param string $recourseClass
+         * @param string $resourceClass
          * @return AnonymousResourceCollection
          */
-        public function get(string $recourseClass): AnonymousResourceCollection
+        public function get(string $resourceClass): AnonymousResourceCollection
         {
             $page = $this->request->query('page', 1);
             $perPage = $this->request->query('itemPerPage', 10);
@@ -112,7 +112,7 @@
             $total = $this->query->count();
             $data = $this->query->skip(($page - 1) * $perPage)->take($perPage)->get();
 
-            return call_user_func([$recourseClass, "collection"], $data)->additional([
+            return call_user_func([$resourceClass, "collection"], $data)->additional([
                 'meta' => [
                     'total' => $total,
                 ],

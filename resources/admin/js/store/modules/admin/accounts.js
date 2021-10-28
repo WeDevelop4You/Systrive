@@ -7,13 +7,7 @@ export default {
     namespaced: true,
 
     state: () => ({
-        selected: {
-            email: '',
-            fullName: '',
-            verified: false,
-            emailVerifiedAt: '',
-            createdAt: ''
-        },
+
     }),
 
     mutations: {
@@ -21,13 +15,19 @@ export default {
     },
 
     getters: {
-        selected(state) {
-            return state.selected
-        },
+        structure() {
+            return {
+                email: '',
+                fullName: '',
+                verified: false,
+                emailVerifiedAt: '',
+                createdAt: ''
+            }
+        }
     },
 
     actions: {
-        getAccount() {
+        getOne() {
 
         },
 

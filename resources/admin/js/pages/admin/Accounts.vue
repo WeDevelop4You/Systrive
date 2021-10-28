@@ -1,9 +1,9 @@
 <template>
     <server-data-table ref="server" :custom-items="customItems" :title="$vuetify.lang.t('$vuetify.word.accounts')" :headers="headers" :route="$api.route('admin.users')" vuex-namespace="accounts" searchable>
         <template v-slot:toolbar.append>
-            <edit-dialog :form-title="$vuetify.lang.t('$vuetify.word.edit.account')" vuex-namespace="accounts" disable-create fullscreen @save="save">
+            <create-or-edit-dialog :form-title="$vuetify.lang.t('$vuetify.word.edit.account')" vuex-namespace="accounts" disable-create fullscreen @save="save">
 
-            </edit-dialog>
+            </create-or-edit-dialog>
         </template>
         <template v-slot:delete>
             <delete-dialog :title="$vuetify.lang.t('$vuetify.word.delete.account')" vuex-namespace="accounts" force-deletable @delete="destroy" @force-delete="forceDestroy"></delete-dialog>
@@ -15,7 +15,7 @@
     import {mapGetters} from "vuex";
     import ServerDataTable from "../../components/ServerDataTable";
     import Actions from "../../components/table/accounts/Actions";
-    import EditDialog from "../../components/table/EditDialog";
+    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
     import DeleteDialog from "../../components/table/DeleteDialog";
 
     export default {
@@ -23,7 +23,7 @@
 
         components: {
             DeleteDialog,
-            EditDialog,
+            CreateOrEditDialog,
             ServerDataTable
         },
 
@@ -49,7 +49,7 @@
             },
 
             ...mapGetters({
-                account: 'accounts/selected',
+                account: 'accounts/data',
             })
         },
 

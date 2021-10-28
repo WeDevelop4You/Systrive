@@ -1,6 +1,6 @@
 <?php
 
-    namespace Support\Helpers\Table;
+    namespace Support\Helpers\Data;
 
     use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
     use Illuminate\Database\Query\Builder;

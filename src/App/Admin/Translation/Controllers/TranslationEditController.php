@@ -37,14 +37,16 @@
                 ->each(function (array $translationData) use ($translationKey) {
                     $translationData = (object) $translationData;
 
-                    $translation = $translationKey->translations()->where('locale', $translationData->locale)->firstOrNew();
+                    if (!is_null($translationData->translation)) {
+                        $translation = $translationKey->translations()->where('locale', $translationData->locale)->firstOrNew();
 
-                    $translation->locale = $translationData->locale;
-                    $translation->translation = $translationData->translation;
+                        $translation->locale = $translationData->locale;
+                        $translation->translation = $translationData->translation;
 
-                    $translation->isDirty()
-                        ? $translation->save()
-                        : null;
+                        $translation->isDirty()
+                            ? $translation->save()
+                            : null;
+                    }
                 });
 
             $response = new Response();

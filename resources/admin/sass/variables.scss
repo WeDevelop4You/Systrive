@@ -1,6 +1,10 @@
 @import "../../../node_modules/vuetify/src/styles/tools/functions";
 @import "../../../node_modules/vuetify/src/styles/settings/colors";
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&display=swap');
+
+$body-font-family: 'Montserrat', sans-serif;
+
 $toolbar-content-padding-x: 0;
 
 $material-light: () !default;

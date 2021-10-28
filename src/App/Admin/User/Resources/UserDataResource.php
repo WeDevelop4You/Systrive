@@ -20,7 +20,7 @@
                 'created_at' => $this->created_at->toDatetimeString(),
                 'deleted_at' => $this->deleted_at ? $this->deleted_at->toDatetimeString() : null,
                 'profile' => [
-                    'full_name' => $this->full_name
+                    'full_name' => $this->full_name,
                 ],
             ];
         }

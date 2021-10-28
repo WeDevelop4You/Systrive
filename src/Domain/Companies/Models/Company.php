@@ -12,7 +12,6 @@
     use Illuminate\Database\Eloquent\Relations\BelongsToMany;
     use Illuminate\Database\Query\Builder;
     use Illuminate\Support\Carbon;
-    use Support\Pivots\UserCompany;
 
     /**
  * Domain\Companies\Models\Company

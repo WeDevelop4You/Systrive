@@ -32,7 +32,7 @@
             $this->query = $query->orderBy($columnName);
 
             $this->columns = new Collection([
-                Column::create($columnName)->searchable()
+                Column::create($columnName)->searchable(),
             ]);
 
             try {

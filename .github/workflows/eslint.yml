@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
           
       - name: Install modules
-        run: yarn install 
+        run: yarn 
       
       - name: Run ESLint
-        run: yarn run eslint resources/admin --ext .js,.vue
+        run: eslint resources/admin --ext .js,.vue

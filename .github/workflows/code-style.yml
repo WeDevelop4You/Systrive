@@ -1,9 +1,28 @@
-name: PHP Code Style
+name: Code Style
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  php-cs-fixer:
+  ESLint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          
+      - name: Checkout code
+        uses: actions/checkout@v2
+          
+      - name: Install modules
+        run: npm install 
+      
+      - name: Run ESLint
+        run: npm run lint
+        
+        
+  PHP-CS-Fixer:
     runs-on: ubuntu-latest
 
     steps:

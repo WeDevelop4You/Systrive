@@ -52,6 +52,16 @@
                     :index="index"
                 />
             </template>
+            <template #footer.prepend v-if="addRefreshButton">
+                <v-btn icon>
+                    <v-icon
+                        small
+                        @click="getData"
+                    >
+                        fas fa-sync-alt
+                    </v-icon>
+                </v-btn>
+            </template>
         </v-data-table>
         <slot name="delete" />
     </div>
@@ -101,6 +111,11 @@
                     25,
                     50
                 ]
+            },
+
+            addRefreshButton: {
+                type: Boolean,
+                default: false
             }
         },
 

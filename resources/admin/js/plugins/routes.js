@@ -10,7 +10,7 @@ const routes = [
         path: '/dashboard',
         alias: '/',
         name: 'dashboard',
-        component: () => import('../pages/Dashboard'),
+        component: () => import(/* webpackChunkName: "pages/dashboard" */ '../pages/Dashboard'),
         meta: {
             breadCrumb: [
                 {
@@ -22,7 +22,7 @@ const routes = [
     {
         path: '/account',
         name: 'account',
-        component: () => import('../pages/account/Profile'),
+        component: () => import(/* webpackChunkName: "pages/account" */ '../pages/account/Profile'),
         meta: {
             breadCrumb: [
                 {
@@ -58,7 +58,7 @@ const routes = [
             {
                 path: 'accounts',
                 name: 'admin.accounts',
-                component: () => import('../pages/admin/Accounts'),
+                component: () => import(/* webpackChunkName: "pages/admin/accounts" */ '../pages/admin/Accounts'),
                 meta: {
                     breadCrumb: [
                         {
@@ -74,7 +74,7 @@ const routes = [
             {
                 path: 'companies',
                 name: 'admin.companies',
-                component: () => import('../pages/admin/company'),
+                component: () => import(/* webpackChunkName: "pages/admin/companies" */ '../pages/admin/company'),
                 meta: {
                     breadCrumb: [
                         {
@@ -90,7 +90,7 @@ const routes = [
             {
                 path: 'translations',
                 name: 'admin.translations',
-                component: () => import('../pages/admin/Translations'),
+                component: () => import(/* webpackChunkName: "pages/admin/translations" */ '../pages/admin/Translations'),
                 meta: {
                     breadCrumb: [
                         {
@@ -107,12 +107,12 @@ const routes = [
     },
     {
         path: '/c/:companyName',
-        component: () => import('../layout/Company'),
+        component: () => import(/* webpackChunkName: "pages/company" */ '../layout/Company'),
         children: [
             {
                 path: '',
                 name: 'company.dashboard',
-                component: () => import('../pages/company/Dashboard'),
+                component: () => import(/* webpackChunkName: "pages/company/dashboard" */ '../pages/company/Dashboard'),
                 meta: {
                     breadCrumb(route) {
                         const companyName = route.params.companyName;

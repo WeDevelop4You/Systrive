@@ -21,5 +21,5 @@
     });
 
     Route::get('bot/detection', function () {
-        return view('pages.bot');
+        return view('admin::pages.bot');
     })->name('bot.detection');

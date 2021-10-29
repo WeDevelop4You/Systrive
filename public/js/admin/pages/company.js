@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_admin_js_layout_Company_vue"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["pages/company"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/admin/js/layout/Company.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************!*\

@@ -13,11 +13,12 @@
     {
         /**
          * @param CompanyCreateRequests $requests
+         *
          * @return JsonResponse
          */
         public function action(CompanyCreateRequests $requests): JsonResponse
         {
-            $validated = (object) $requests->validated();
+            $validated = (object)$requests->validated();
 
             $company = new Company();
             $company->name = $validated->name;

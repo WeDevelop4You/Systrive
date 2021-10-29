@@ -3420,7 +3420,7 @@ var routes = [{
   alias: '/',
   name: 'dashboard',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ "resources_admin_js_pages_Dashboard_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Dashboard */ "./resources/admin/js/pages/Dashboard.vue"));
+    return __webpack_require__.e(/*! import() | pages/dashboard */ "pages/dashboard").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/Dashboard */ "./resources/admin/js/pages/Dashboard.vue"));
   },
   meta: {
     breadCrumb: [{
@@ -3431,7 +3431,7 @@ var routes = [{
   path: '/account',
   name: 'account',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ "resources_admin_js_pages_account_Profile_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/account/Profile */ "./resources/admin/js/pages/account/Profile.vue"));
+    return __webpack_require__.e(/*! import() | pages/account */ "pages/account").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/account/Profile */ "./resources/admin/js/pages/account/Profile.vue"));
   },
   meta: {
     breadCrumb: [{
@@ -3464,7 +3464,7 @@ var routes = [{
     path: 'accounts',
     name: 'admin.accounts',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("resources_admin_js_pages_admin_Accounts_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Accounts */ "./resources/admin/js/pages/admin/Accounts.vue"));
+      return Promise.all(/*! import() | pages/admin/accounts */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/accounts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Accounts */ "./resources/admin/js/pages/admin/Accounts.vue"));
     },
     meta: {
       breadCrumb: [{
@@ -3480,7 +3480,7 @@ var routes = [{
     path: 'companies',
     name: 'admin.companies',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("resources_admin_js_pages_admin_company_index_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/company */ "./resources/admin/js/pages/admin/company/index.vue"));
+      return Promise.all(/*! import() | pages/admin/companies */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/companies")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/company */ "./resources/admin/js/pages/admin/company/index.vue"));
     },
     meta: {
       breadCrumb: [{
@@ -3496,7 +3496,7 @@ var routes = [{
     path: 'translations',
     name: 'admin.translations',
     component: function component() {
-      return Promise.all(/*! import() */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("resources_admin_js_pages_admin_Translations_vue")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Translations */ "./resources/admin/js/pages/admin/Translations.vue"));
+      return Promise.all(/*! import() | pages/admin/translations */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/translations")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Translations */ "./resources/admin/js/pages/admin/Translations.vue"));
     },
     meta: {
       breadCrumb: [{
@@ -3512,13 +3512,13 @@ var routes = [{
 }, {
   path: '/c/:companyName',
   component: function component() {
-    return __webpack_require__.e(/*! import() */ "resources_admin_js_layout_Company_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../layout/Company */ "./resources/admin/js/layout/Company.vue"));
+    return __webpack_require__.e(/*! import() | pages/company */ "pages/company").then(__webpack_require__.bind(__webpack_require__, /*! ../layout/Company */ "./resources/admin/js/layout/Company.vue"));
   },
   children: [{
     path: '',
     name: 'company.dashboard',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_admin_js_pages_company_Dashboard_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/company/Dashboard */ "./resources/admin/js/pages/company/Dashboard.vue"));
+      return __webpack_require__.e(/*! import() | pages/company/dashboard */ "pages/company/dashboard").then(__webpack_require__.bind(__webpack_require__, /*! ../pages/company/Dashboard */ "./resources/admin/js/pages/company/Dashboard.vue"));
     },
     meta: {
       breadCrumb: function breadCrumb(route) {
@@ -57077,7 +57077,7 @@ module.exports = JSON.parse('{"admin.user.company":"/api/companies","admin.user.
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_admin_js_pages_Dashboard_vue":1,"resources_admin_js_pages_account_Profile_vue":1,"resources_admin_js_pages_admin_Accounts_vue":1,"resources_admin_js_pages_admin_company_index_vue":1,"resources_admin_js_pages_admin_Translations_vue":1,"resources_admin_js_layout_Company_vue":1,"resources_admin_js_pages_company_Dashboard_vue":1}[chunkId]) return "js/admin/" + chunkId + ".js";
+/******/ 			if ({"pages/dashboard":1,"pages/account":1,"pages/admin/accounts":1,"pages/admin/companies":1,"pages/admin/translations":1,"pages/company":1,"pages/company/dashboard":1}[chunkId]) return "js/admin/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

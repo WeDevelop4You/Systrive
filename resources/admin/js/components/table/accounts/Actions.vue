@@ -16,15 +16,18 @@
         </v-tooltip>
         <v-tooltip top>
             <template #activator="{ on }">
-                <v-icon
-                    small
-                    class="mr-2"
-                    :disabled="$loading"
-                    @click="deleteItem"
-                    v-on="on"
-                >
-                    fas fa-trash-alt
-                </v-icon>
+                <v-hover v-slot="{ hover }">
+                    <v-icon
+                        small
+                        class="mr-2"
+                        :disabled="$loading"
+                        @click="deleteItem"
+                        :color="hover ? 'error' : ''"
+                        v-on="on"
+                    >
+                        fas fa-trash-alt
+                    </v-icon>
+                </v-hover>
             </template>
             <span>{{ $vuetify.lang.t('$vuetify.word.delete.account') }}</span>
         </v-tooltip>

@@ -12,14 +12,14 @@ class BotDetection
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->routeIs('bot.detection') && App::isProduction() && Browser::detect()->isBot()) {
-            return redirect()->route('bot.detection');
+        if (!$request->routeIs('admin.bot.detection') && App::isProduction() && Browser::detect()->isBot()) {
+            return redirect()->route('admin.bot.detection');
         }
 
         return $next($request);

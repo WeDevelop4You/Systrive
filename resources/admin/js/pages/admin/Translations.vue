@@ -6,6 +6,7 @@
         :headers="headers"
         :route="$api.route('admin.translations.environment', environment)"
         vuex-namespace="translations"
+        add-refresh-button
         searchable
     >
         <template #toolbar.prepend>

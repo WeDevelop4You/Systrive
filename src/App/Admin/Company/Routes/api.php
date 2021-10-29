@@ -11,7 +11,7 @@
         Route::get('/', [CompanyNavigationController::class, 'index'])->name('user.company');
         Route::get('search/{companyName}', [CompanyShowController::class, 'search'])->name('user.company.search');
 
-        Route::prefix('{company}')->middleware('company')->group(function () {
+        Route::prefix('{company}')->group(function () {
             Route::get('/', [CompanyShowController::class, 'index'])->name('user.company.show');
         });
 

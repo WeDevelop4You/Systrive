@@ -4086,14 +4086,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _plugins_routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../plugins/routes */ "./resources/admin/js/plugins/routes.js");
-/* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../plugins/vuetify */ "./resources/admin/js/plugins/vuetify.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../plugins/vuetify */ "./resources/admin/js/plugins/vuetify.js");
 
 
-
-var app = vue__WEBPACK_IMPORTED_MODULE_2__["default"].prototype;
-var vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_1__["default"].framework;
+var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
+var vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"].framework;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: function state() {
@@ -4156,14 +4154,12 @@ var vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_1__["default"].framework
   },
   actions: {
     getCompanies: function getCompanies(_ref) {
-      var commit = _ref.commit,
-          dispatch = _ref.dispatch;
+      var commit = _ref.commit;
       var setMenuItems = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       app.$api.call({
         url: app.$api.route('user.company'),
         method: "GET"
       }).then(function (response) {
-        var params = _plugins_routes__WEBPACK_IMPORTED_MODULE_0__["default"].currentRoute.params;
         commit('setCompany', response.data.data);
 
         if (setMenuItems) {

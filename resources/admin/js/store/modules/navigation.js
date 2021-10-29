@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import Routes from '../../plugins/routes'
 import Vuetify from "../../plugins/vuetify"
 
 
@@ -54,13 +53,11 @@ export default {
     },
 
     actions: {
-        getCompanies({commit, dispatch}, setMenuItems = false) {
+        getCompanies({commit}, setMenuItems = false) {
             app.$api.call({
                 url: app.$api.route('user.company'),
                 method: "GET"
             }).then((response) => {
-                const params = Routes.currentRoute.params
-
                 commit('setCompany', response.data.data)
 
                 if (setMenuItems) {

@@ -3,7 +3,6 @@
     namespace App\Exceptions;
 
     use App\Exceptions\Handlers\ModelNotFoundException as ModelNotFoundExceptionHandler;
-    use App\Exceptions\Handlers\ModelUnauthorizedExceptionHandler;
     use App\Exceptions\Handlers\UnauthorizedException as UnauthorizedExceptionHandler;
     use Exception;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,10 +10,7 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Spatie\Permission\Exceptions\UnauthorizedException;
-    use Support\Helpers\Response\Action\Methods\RouteMethod;
-    use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-    use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
     use Throwable;
 
     class Handler extends ExceptionHandler
@@ -55,7 +51,7 @@
         public function register()
         {
             foreach ($this->handlerCasts as $exception => $handlerCast) {
-                $this->map($exception, function() use ($handlerCast) {
+                $this->map($exception, function () use ($handlerCast) {
                     return new $handlerCast();
                 });
             }

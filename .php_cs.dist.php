@@ -29,12 +29,11 @@
             'phpdoc_indent' => true,
             'phpdoc_line_span' => true,
             'phpdoc_separation' => true,
-            'phpdoc_order' => true,
             'phpdoc_types_order' => [
                 'sort_algorithm' => 'alpha',
                 'null_adjustment' => 'always_last'
             ],
-            'phpdoc_types' => ['simple', 'alias', 'meta'],
+            'phpdoc_types' => true,
             'phpdoc_trim_consecutive_blank_line_separation' => true,
             'phpdoc_summary' => true,
             'binary_operator_spaces' => true,

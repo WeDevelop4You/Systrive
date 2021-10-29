@@ -11,6 +11,7 @@
     {
         /**
          * @param User $user
+         *
          * @return JsonResponse
          */
         public function action(User $user): JsonResponse

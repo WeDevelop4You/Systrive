@@ -16,14 +16,14 @@ class ApiRoutes extends Command
      *
      * @var string
      */
-    protected $signature = 'make:api-routes {application}';
+    protected string $signature = 'make:api-routes {application}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new file with all api routes';
+    protected string $description = 'Create a new file with all api routes';
 
     /**
      * @var Collection

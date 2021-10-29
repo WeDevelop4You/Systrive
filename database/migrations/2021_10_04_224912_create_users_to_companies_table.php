@@ -11,7 +11,7 @@ class CreateUsersToCompaniesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users_to_companies', function (Blueprint $table) {
             $table->id();
@@ -25,7 +25,7 @@ class CreateUsersToCompaniesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users_to_companies');
     }

@@ -13,7 +13,7 @@
     class Response
     {
         /**
-         * @var JsonResource|ResourceCollection|array
+         * @var array|JsonResource|ResourceCollection
          */
         private $data;
 
@@ -42,6 +42,7 @@
 
         /**
          * @param int $statusCode
+         *
          * @return Response
          */
         public static function create(int $statusCode = ResponseCodes::HTTP_OK): Response
@@ -52,8 +53,9 @@
         /**
          * @param $data
          * @param string|null $resourceClass
-         * @param bool $collection
-         * @return array|JsonResource|ResourceCollection|mixed
+         * @param bool        $collection
+         *
+         * @return array|JsonResource|mixed|ResourceCollection
          */
         public function addData($data, ?string $resourceClass = null, bool $collection = false)
         {
@@ -71,6 +73,7 @@
         /**
          * @param string $message
          * @param string $component
+         *
          * @return PopupContent
          */
         public function addPopup(string $message, string $component = PopupContent::SIMPLE_TYPE): PopupContent
@@ -82,6 +85,7 @@
 
         /**
          * @param ActionMethodBase $methodClass
+         *
          * @return ActionMethodBase
          */
         public function addAction(ActionMethodBase $methodClass): ActionMethodBase

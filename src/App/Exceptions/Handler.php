@@ -19,7 +19,7 @@
          *
          * @var array
          */
-        protected $dontReport = [
+        protected array $dontReport = [
             //
         ];
 
@@ -28,7 +28,7 @@
          *
          * @var array
          */
-        protected $dontFlash = [
+        protected array $dontFlash = [
             'current_password',
             'password',
             'password_confirmation',
@@ -47,7 +47,7 @@
          *
          * @return void
          */
-        public function register()
+        public function register(): void
         {
             foreach ($this->handlerCasts as $exception => $handlerCast) {
                 $this->map($exception, function () use ($handlerCast) {
@@ -60,10 +60,11 @@
          * @param Request   $request
          * @param Throwable $e
          *
-         * @return JsonResponse|\Illuminate\Http\Response|ResponseCodes
+         * @return \Illuminate\Http\Response|JsonResponse|ResponseCodes
+         *
          * @throws Throwable
          */
-        public function render($request, Throwable $e)
+        public function render(Request $request, Throwable $e)
         {
             $e = $this->prepareException($this->mapException($e));
 

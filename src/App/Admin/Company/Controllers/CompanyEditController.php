@@ -13,6 +13,7 @@
     {
         /**
          * @param Company $company
+         *
          * @return JsonResponse
          */
         public function index(Company $company): JsonResponse

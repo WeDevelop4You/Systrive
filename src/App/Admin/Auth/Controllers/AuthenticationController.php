@@ -26,6 +26,7 @@
 
         /**
          * @param LoginRequest $request
+         *
          * @return JsonResponse
          */
         public function login(LoginRequest $request): JsonResponse
@@ -41,7 +42,8 @@
 
         /**
          * @param Request $request
-         * @return Application|Factory|View|JsonResponse
+         *
+         * @return Application|Factory|JsonResponse|View
          */
         public function logout(Request $request)
         {

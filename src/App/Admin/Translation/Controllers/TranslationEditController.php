@@ -14,6 +14,7 @@
     {
         /**
          * @param TranslationKey $translationKey
+         *
          * @return JsonResponse
          */
         public function index(TranslationKey $translationKey): JsonResponse
@@ -26,7 +27,8 @@
 
         /**
          * @param TranslationUpdateRequests $request
-         * @param TranslationKey $translationKey
+         * @param TranslationKey            $translationKey
+         *
          * @return JsonResponse
          */
         public function action(TranslationUpdateRequests $request, TranslationKey $translationKey): JsonResponse

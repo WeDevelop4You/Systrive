@@ -21,21 +21,22 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * Domain\User\Models\User
+ * Domain\User\Models\User.
  *
- * @property int $id
- * @property string $email
+ * @property int         $id
+ * @property string      $email
  * @property Carbon|null $email_verified_at
- * @property string $password
+ * @property string      $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \Domain\Companies\Collections\CompanyCollections|Company[] $businesses
- * @property-read \Domain\Companies\Collections\CompanyCollections|Company[] $companies
+ * @property-read Company[]|\Domain\Companies\Collections\CompanyCollections $businesses
+ * @property-read Company[]|\Domain\Companies\Collections\CompanyCollections $companies
  * @property-read string|null $full_name
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
  * @property-read \Domain\User\Models\UserProfile|null $profile
+ *
  * @method static UserCollections|static[] all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static UserCollections|static[] get($columns = ['*'])
@@ -67,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $fillable = [
+    protected array $fillable = [
         'email',
         'role_id',
         'password',
@@ -78,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $hidden = [
+    protected array $hidden = [
         'password',
         'remember_token',
     ];
@@ -88,7 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
-    protected $casts = [
+    protected array $casts = [
         'email_verified_at' => 'datetime',
     ];
 
@@ -134,6 +135,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * @param array $models
+     *
      * @return UserCollections
      */
     public function newCollection(array $models = []): UserCollections

@@ -9,9 +9,10 @@
     {
         /**
          * @param Request $request
+         *
          * @return array
          */
-        public function toArray($request): array
+        public function toArray(Request $request): array
         {
             return [
                 'locale' => $this->locale,

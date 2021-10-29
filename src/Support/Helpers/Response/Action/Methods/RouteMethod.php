@@ -6,7 +6,6 @@
 
     class RouteMethod extends ActionMethodBase
     {
-
         /**
          * RouteMethod constructor.
          */

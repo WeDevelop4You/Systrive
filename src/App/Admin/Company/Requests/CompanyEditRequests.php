@@ -3,6 +3,7 @@
     namespace App\Admin\Company\Requests;
 
     use Illuminate\Foundation\Http\FormRequest;
+    use Illuminate\Validation\Rule;
 
     class CompanyEditRequests extends FormRequest
     {
@@ -12,7 +13,7 @@
         public function rules(): array
         {
             return [
-                'name' => ['required'],
+                'name' => ['required', Rule::unique('users')->ignore($this->company),],
                 'owner' => ['required', 'exists:users,id'],
                 'email' => ['required', 'email'],
                 'domain' => ['nullable', 'url'],

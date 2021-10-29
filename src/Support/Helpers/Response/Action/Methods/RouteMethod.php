@@ -6,9 +6,21 @@
 
     class RouteMethod extends ActionMethodBase
     {
+
+        /**
+         * RouteMethod constructor.
+         */
         public function __construct()
         {
             //
+        }
+
+        /**
+         * @return RouteMethod
+         */
+        public static function create(): RouteMethod
+        {
+            return new static();
         }
 
         public function setGoToRoute(array $route): void

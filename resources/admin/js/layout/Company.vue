@@ -7,7 +7,7 @@
         name: "Company",
 
         async activated() {
-            await this.$store.dispatch('navigation/getCompanies', this.$route.params.companyName)
+            await this.$store.dispatch('user/companies/search', [this.$route.params.companyName, true])
         },
 
         deactivated() {

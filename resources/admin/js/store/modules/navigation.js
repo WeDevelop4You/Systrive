@@ -58,17 +58,13 @@ export default {
             app.$api.call({
                 url: app.$api.route('user.company'),
                 method: "GET"
-            }).then(async (response) => {
+            }).then((response) => {
                 const params = Routes.currentRoute.params
 
                 commit('setCompany', response.data.data)
 
                 if (setMenuItems) {
                     commit("setMainMenuItems")
-                }
-
-                if (Object.prototype.hasOwnProperty.call(params, 'companyName')) {
-                    await dispatch('user/companies/getOne', params.companyName, {root:true})
                 }
             })
         },

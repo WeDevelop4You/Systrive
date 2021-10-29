@@ -18,6 +18,7 @@ use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Domain\User\Models\User
@@ -56,6 +57,7 @@ use Illuminate\Support\Carbon;
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
+    use HasRoles;
     use HasFactory;
     use Notifiable;
     use SoftDeletes;

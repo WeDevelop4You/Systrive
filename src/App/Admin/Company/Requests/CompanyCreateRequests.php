@@ -12,7 +12,7 @@
         public function rules(): array
         {
             return [
-                'name' => ['required'],
+                'name' => ['required', 'unique:companies,name'],
                 'owner' => ['required', 'exists:users,id'],
                 'email' => ['required', 'email'],
                 'domain' => ['nullable', 'url'],

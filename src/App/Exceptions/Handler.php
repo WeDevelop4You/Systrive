@@ -1,63 +1,77 @@
 <?php
 
-namespace App\Exceptions;
+    namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Support\Helpers\Response\Action\Methods\RouteMethod;
-use Support\Helpers\Response\Response;
-use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
+    use App\Exceptions\Handlers\ModelNotFoundException as ModelNotFoundExceptionHandler;
+    use App\Exceptions\Handlers\ModelUnauthorizedExceptionHandler;
+    use App\Exceptions\Handlers\UnauthorizedException as UnauthorizedExceptionHandler;
+    use Exception;
+    use Illuminate\Database\Eloquent\ModelNotFoundException;
+    use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+    use Illuminate\Http\JsonResponse;
+    use Illuminate\Http\Request;
+    use Spatie\Permission\Exceptions\UnauthorizedException;
+    use Support\Helpers\Response\Action\Methods\RouteMethod;
+    use Support\Helpers\Response\Response;
+    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+    use Throwable;
 
-class Handler extends ExceptionHandler
-{
-    /**
-     * A list of the exception types that are not reported.
-     *
-     * @var array
-     */
-    protected $dontReport = [
-        //
-    ];
-
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
-     */
-    protected $dontFlash = [
-        'current_password',
-        'password',
-        'password_confirmation',
-    ];
-
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
-    public function register()
+    class Handler extends ExceptionHandler
     {
-        $this->renderable(function (NotFoundHttpException $e, $request) {
-            if ($request->is('api/*') && $request->routeIs('admin.*')) {
-                $response = new Response(ResponseCodes::HTTP_NOT_FOUND);
-
-                switch ($request->getMethod()) {
-                    case 'DELETE':
-                        $response->addPopup(trans('response.error.model.delete'));
-
-                        break;
-                    default:
-                        $response->addPopup(trans('response.error.model.not_found'));
-                        $response->addAction(new RouteMethod())->setActionGoToLastRoute();
-                }
-
-                return $response->toJson();
-            }
-        });
-
-        $this->reportable(function (Throwable $e) {
+        /**
+         * A list of the exception types that are not reported.
+         *
+         * @var array
+         */
+        protected $dontReport = [
             //
-        });
+        ];
+
+        /**
+         * A list of the inputs that are never flashed for validation exceptions.
+         *
+         * @var array
+         */
+        protected $dontFlash = [
+            'current_password',
+            'password',
+            'password_confirmation',
+        ];
+
+        /**
+         * @var array
+         */
+        protected array $handlerCasts = [
+            UnauthorizedException::class => UnauthorizedExceptionHandler::class,
+            ModelNotFoundException::class => ModelNotFoundExceptionHandler::class,
+        ];
+
+        /**
+         * Register the exception handling callbacks for the application.
+         *
+         * @return void
+         */
+        public function register()
+        {
+            foreach ($this->handlerCasts as $exception => $handlerCast) {
+                $this->map($exception, function() use ($handlerCast) {
+                    return new $handlerCast();
+                });
+            }
+        }
+
+        /**
+         * @param Request   $request
+         * @param Throwable $e
+         *
+         * @return JsonResponse|\Illuminate\Http\Response|ResponseCodes
+         * @throws Throwable
+         */
+        public function render($request, Throwable $e)
+        {
+            $e = $this->prepareException($this->mapException($e));
+
+            return parent::render($request, $e);
+        }
     }
-}

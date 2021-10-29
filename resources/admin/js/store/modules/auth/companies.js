@@ -32,15 +32,25 @@ export default {
     },
 
     actions: {
-        getOne({commit, rootState}, name) {
-            let company = rootState.navigation.companies.find(company => company.name === name) ?? {id: 0}
-
+        search({commit}, [name, setMenuItems = false]) {
             app.$api.call({
-                url: app.$api.route('user.company.show', company.id),
+                url: app.$api.route('user.company.search', name),
                 method: "GET"
             }).then((response) => {
                 commit('setCompany', response.data.data)
-                commit('navigation/setCompanyMenuItems', null, {root: true})
+
+                if (setMenuItems) {
+                    commit("navigation/setCompanyMenuItems", null, {root: true})
+                }
+            })
+        },
+
+        getOne({commit}, id) {
+            app.$api.call({
+                url: app.$api.route('user.company.show', id),
+                method: "GET"
+            }).then((response) => {
+                commit('setCompany', response.data.data)
             })
         },
     },

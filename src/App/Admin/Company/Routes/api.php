@@ -9,12 +9,13 @@
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [CompanyNavigationController::class, 'index'])->name('user.company');
+        Route::get('search/{companyName}', [CompanyShowController::class, 'search'])->name('user.company.search');
 
         Route::prefix('{company}')->middleware('company')->group(function () {
             Route::get('/', [CompanyShowController::class, 'index'])->name('user.company.show');
         });
 
-        Route::prefix('admin')->group(function () {
+        Route::prefix('admin')->middleware('role:super_admin')->group(function () {
             Route::get('table', [CompanyTableController::class, 'index'])->name('admin.companies');
             Route::post('/', [CompanyCreateController::class, 'action'])->name('admin.company.create');
 

@@ -34,7 +34,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.$store.dispatch('navigation/getCompanies', _this.$route.params.companyName);
+              return _this.$store.dispatch('user/companies/search', [_this.$route.params.companyName, true]);
 
             case 2:
             case "end":

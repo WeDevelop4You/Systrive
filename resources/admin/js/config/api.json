@@ -1,4 +1,11 @@
 {
+    "admin.user.company": "/api/companies",
+    "admin.user.company.search": "/api/companies/search/{companyName}",
+    "admin.user.company.show": "/api/companies/{company}",
+    "admin.admin.companies": "/api/companies/admin/table",
+    "admin.admin.company.create": "/api/companies/admin",
+    "admin.admin.company.edit": "/api/companies/admin/{company}",
+    "admin.admin.company.destroy": "/api/companies/admin/{company}",
     "admin.admin.translation.publish": "/api/translations/admin/publish",
     "admin.admin.translations.environments": "/api/translations/admin/environments",
     "admin.admin.translations.environment": "/api/translations/admin/environments/{environment}/table",
@@ -7,11 +14,5 @@
     "admin.admin.users": "/api/users/admin/table",
     "admin.admin.user.list": "/api/users/admin/list",
     "admin.admin.user": "/api/users/admin/{user}",
-    "admin.admin.user.force": "/api/users/admin/{user}/force",
-    "admin.user.company": "/api/companies",
-    "admin.user.company.show": "/api/companies/{company}",
-    "admin.admin.companies": "/api/companies/admin/table",
-    "admin.admin.company.create": "/api/companies/admin",
-    "admin.admin.company.edit": "/api/companies/admin/{company}",
-    "admin.admin.company.destroy": "/api/companies/admin/{company}"
+    "admin.admin.user.force": "/api/users/admin/{user}/force"
 }

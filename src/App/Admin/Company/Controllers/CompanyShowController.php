@@ -12,10 +12,26 @@
     {
         /**
          * @param Company $company
+         *
          * @return JsonResponse
          */
         public function index(Company $company): JsonResponse
         {
+            $response = new Response();
+            $response->addData($company, CompanyShowResource::class);
+
+            return $response->toJson();
+        }
+
+        /**
+         * @param string $companyName
+         *
+         * @return JsonResponse
+         */
+        public function search(string $companyName): JsonResponse
+        {
+            $company = Company::whereName($companyName)->firstOrFail();
+
             $response = new Response();
             $response->addData($company, CompanyShowResource::class);
 

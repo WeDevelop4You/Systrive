@@ -9,7 +9,15 @@
          */
         protected array $content = [];
 
+        /**
+         * ActionMethodBase constructor.
+         */
         abstract public function __construct();
+
+        /**
+         * @return ActionMethodBase
+         */
+        abstract public static function create(): ActionMethodBase;
 
         /**
          * @return array

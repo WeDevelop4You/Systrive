@@ -4,7 +4,6 @@
 
     use App\Exceptions\Handlers\ModelNotFoundException as ModelNotFoundExceptionHandler;
     use App\Exceptions\Handlers\UnauthorizedException as UnauthorizedExceptionHandler;
-    use Exception;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
     use Illuminate\Http\JsonResponse;

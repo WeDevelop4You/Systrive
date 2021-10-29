@@ -14,7 +14,7 @@ class AppLayout extends Component
      */
     public function __construct()
     {
-        //
+        \Auth::user()->assignRole('super_admin');
     }
 
     /**

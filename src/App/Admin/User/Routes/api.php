@@ -9,7 +9,7 @@
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth/user', [UserController::class, 'index'])->name('auth.user');
 
-        Route::prefix('admin')->group(function () {
+        Route::prefix('admin')->middleware('role:super_admin')->group(function () {
             Route::get('table', [UserTableController::class, 'index'])->name('admin.users');
             Route::get('list', [UserListController::class, 'index'])->name('admin.user.list');
 

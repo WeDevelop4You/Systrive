@@ -6,7 +6,7 @@
     use App\Admin\Translation\Controllers\TranslationTableController;
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::prefix('admin')->group(function () {
+        Route::prefix('admin')->middleware('role:super_admin')->group(function () {
             Route::post('publish', [TranslationPublishController::class, 'action'])->name('admin.translation.publish');
 
             Route::prefix('environments')->group(function () {

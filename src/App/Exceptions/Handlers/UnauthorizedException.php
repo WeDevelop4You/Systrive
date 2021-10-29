@@ -19,7 +19,7 @@
         {
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
                 $response = new Response(ResponseCodes::HTTP_FORBIDDEN);
-                $response->addPopup(trans('response.error.user.not_allowed'));
+                $response->addPopup(trans('response.error.user.not.allowed'));
                 $response->addAction(RouteMethod::create())->setActionGoToLastRoute();
 
                 return $response->toJson();

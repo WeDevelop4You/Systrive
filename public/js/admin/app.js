@@ -2569,8 +2569,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -2586,7 +2584,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      isMini: true
+      isMini: true,
+      lastRoute: '/'
     };
   },
   computed: _objectSpread({
@@ -2620,7 +2619,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })),
   watch: {
     $route: function $route(to, from) {
-      this.lastRoute = from.fullPath;
+      this.$root.lastRoute = from.fullPath;
     }
   },
   beforeCreate: function beforeCreate() {
@@ -3246,11 +3245,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   install: function install(Vue) {
     Vue.mixin({
-      data: function data() {
-        return {
-          lastRoute: '/'
-        };
-      },
       methods: {
         callAction: function callAction(data) {
           if (Object.prototype.hasOwnProperty.call(data, 'action')) {
@@ -3262,8 +3256,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         actionGoToRoute: function actionGoToRoute(route) {
           this.$router.push(route);
         },
-        actionGoToLastRoute: function actionGoToLastRoute(routePath) {
-          this.actionGoToRoute(routePath !== null && routePath !== void 0 ? routePath : this.lastRoute);
+        actionGoToLastRoute: function actionGoToLastRoute() {
+          this.actionGoToRoute(this.$root.lastRoute);
         }
       }
     });
@@ -3571,7 +3565,7 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_2__["default"].use(vuetify_lib__WEBPACK_IMPORTED_MODULE_3__["default"]);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuetify_lib__WEBPACK_IMPORTED_MODULE_3__["default"]({
   theme: {
-    dark: false,
+    dark: true,
     themes: {
       light: {
         primary: '#fc4a1a',
@@ -24963,19 +24957,7 @@ var render = function() {
             [
               _c("breadcrumb"),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "px-6" },
-                [
-                  _c(
-                    "keep-alive",
-                    { attrs: { max: "3" } },
-                    [_c("router-view")],
-                    1
-                  )
-                ],
-                1
-              )
+              _c("div", { staticClass: "px-6" }, [_c("router-view")], 1)
             ],
             1
           ),

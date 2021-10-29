@@ -6,11 +6,11 @@
     export default {
         name: "Company",
 
-        async activated() {
+        async beforeCreate() {
             await this.$store.dispatch('user/companies/search', [this.$route.params.companyName, true])
         },
 
-        deactivated() {
+        beforeDestroy() {
             this.$store.dispatch('navigation/getCompanies', true)
         }
     }

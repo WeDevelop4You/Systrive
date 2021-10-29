@@ -170,9 +170,7 @@
             <v-container fluid>
                 <breadcrumb />
                 <div class="px-6">
-                    <keep-alive max="3">
-                        <router-view />
-                    </keep-alive>
+                    <router-view />
                 </div>
             </v-container>
             <popup />
@@ -200,6 +198,7 @@
         data() {
             return {
                 isMini: true,
+                lastRoute: '/'
             }
         },
 
@@ -221,8 +220,8 @@
         },
 
         watch:{
-            $route (to, from){
-                this.lastRoute = from.fullPath
+            $route (to, from) {
+                this.$root.lastRoute = from.fullPath
             }
         },
 

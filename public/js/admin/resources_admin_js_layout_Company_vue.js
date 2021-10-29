@@ -25,7 +25,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Company",
-  activated: function activated() {
+  beforeCreate: function beforeCreate() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -44,7 +44,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
-  deactivated: function deactivated() {
+  beforeDestroy: function beforeDestroy() {
     this.$store.dispatch('navigation/getCompanies', true);
   }
 });

@@ -21,8 +21,8 @@
                         small
                         class="mr-2"
                         :disabled="$loading"
-                        @click="deleteItem"
                         :color="hover ? 'error' : ''"
+                        @click="deleteItem"
                         v-on="on"
                     >
                         fas fa-trash-alt

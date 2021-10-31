@@ -130,13 +130,11 @@
                 </v-form>
             </edit-dialog>
         </template>
-        <template #delete>
-            <delete-dialog
-                :title="$vuetify.lang.t('$vuetify.word.delete.translation')"
-                vuex-namespace="translations"
-                @delete="destroy"
-            />
-        </template>
+        <delete-dialog
+            :title="$vuetify.lang.t('$vuetify.word.delete.translation')"
+            vuex-namespace="translations"
+            @delete="destroy"
+        />
     </server-data-table>
 </template>
 

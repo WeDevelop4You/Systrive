@@ -7,13 +7,14 @@ export default {
     namespaced: true,
 
     state: () => ({
-        owners: []
+        owners: [],
+
     }),
 
     mutations: {
         setOwners(state, data) {
             state.owners = data
-        }
+        },
     },
 
     getters: {
@@ -40,17 +41,21 @@ export default {
             })
         },
 
-        getOne({commit}, id) {
+        getOne({commit}, [id, showDialog = false]) {
             app.$api.call({
                 url: app.$api.route('admin.company.edit', id),
                 method: 'GET'
             }).then((response) => {
                 let data = response.data.data;
 
-                data.removeUser = false;
+                if (showDialog) {
+                    commit('setShow', data)
+                } else {
+                    data.removeUser = false;
 
-                commit("setOwners", [data.owner])
-                commit('setEdit', data)
+                    commit("setOwners", [data.owner])
+                    commit('setEdit', data)
+                }
             })
         },
 

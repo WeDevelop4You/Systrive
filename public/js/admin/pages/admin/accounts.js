@@ -82,6 +82,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ServerDataTable",
@@ -387,7 +390,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     dialog: function dialog() {
-      return this.$store.getters["".concat(this.vuexNamespace, "/isDeleteDialogOpen")];
+      var dialog = this.$store.getters["".concat(this.vuexNamespace, "/isDeleteDialogOpen")];
+      dialog ? this.$emit('open') : this.$emit('close');
+      return dialog;
     },
     deleteMessage: function deleteMessage() {
       return this.$store.getters["".concat(this.vuexNamespace, "/deleteMessage")];
@@ -518,8 +523,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -1065,7 +1068,7 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _vm._t("delete")
+      _vm._t("default")
     ],
     2
   )
@@ -1501,52 +1504,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("server-data-table", {
-    ref: "server",
-    attrs: {
-      "custom-items": _vm.customItems,
-      title: _vm.$vuetify.lang.t("$vuetify.word.accounts"),
-      headers: _vm.headers,
-      route: _vm.$api.route("admin.users"),
-      "vuex-namespace": "accounts",
-      searchable: ""
-    },
-    scopedSlots: _vm._u([
-      {
-        key: "toolbar.append",
-        fn: function() {
-          return [
-            _c("create-or-edit-dialog", {
-              attrs: {
-                "form-title": _vm.$vuetify.lang.t("$vuetify.word.edit.account"),
-                "vuex-namespace": "accounts",
-                "disable-create": "",
-                fullscreen: ""
-              },
-              on: { save: _vm.save }
-            })
-          ]
-        },
-        proxy: true
+  return _c(
+    "server-data-table",
+    {
+      ref: "server",
+      attrs: {
+        "custom-items": _vm.customItems,
+        title: _vm.$vuetify.lang.t("$vuetify.word.accounts"),
+        headers: _vm.headers,
+        route: _vm.$api.route("admin.users"),
+        "vuex-namespace": "accounts",
+        searchable: ""
       },
-      {
-        key: "delete",
-        fn: function() {
-          return [
-            _c("delete-dialog", {
-              attrs: {
-                title: _vm.$vuetify.lang.t("$vuetify.word.delete.account"),
-                "vuex-namespace": "accounts",
-                "force-deletable": ""
-              },
-              on: { delete: _vm.destroy, "force-delete": _vm.forceDestroy }
-            })
-          ]
+      scopedSlots: _vm._u([
+        {
+          key: "toolbar.append",
+          fn: function() {
+            return [
+              _c("create-or-edit-dialog", {
+                attrs: {
+                  "form-title": _vm.$vuetify.lang.t(
+                    "$vuetify.word.edit.account"
+                  ),
+                  "vuex-namespace": "accounts",
+                  "disable-create": "",
+                  fullscreen: ""
+                },
+                on: { save: _vm.save }
+              })
+            ]
+          },
+          proxy: true
+        }
+      ])
+    },
+    [
+      _vm._v(" "),
+      _c("delete-dialog", {
+        attrs: {
+          title: _vm.$vuetify.lang.t("$vuetify.word.delete.account"),
+          "vuex-namespace": "accounts",
+          "force-deletable": ""
         },
-        proxy: true
-      }
-    ])
-  })
+        on: { delete: _vm.destroy, "force-delete": _vm.forceDestroy }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -82,6 +82,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ServerDataTable",
@@ -387,7 +390,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     dialog: function dialog() {
-      return this.$store.getters["".concat(this.vuexNamespace, "/isDeleteDialogOpen")];
+      var dialog = this.$store.getters["".concat(this.vuexNamespace, "/isDeleteDialogOpen")];
+      dialog ? this.$emit('open') : this.$emit('close');
+      return dialog;
     },
     deleteMessage: function deleteMessage() {
       return this.$store.getters["".concat(this.vuexNamespace, "/deleteMessage")];
@@ -615,8 +620,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -1394,7 +1397,7 @@ var render = function() {
         )
       }),
       _vm._v(" "),
-      _vm._t("delete")
+      _vm._t("default")
     ],
     2
   )
@@ -1890,376 +1893,379 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("server-data-table", {
-    ref: "server",
-    attrs: {
-      "custom-items": _vm.customItems,
-      title: _vm.$vuetify.lang.t("$vuetify.word.translations"),
-      headers: _vm.headers,
-      route: _vm.$api.route("admin.translations.environment", _vm.environment),
-      "vuex-namespace": "translations",
-      "add-refresh-button": "",
-      searchable: ""
-    },
-    scopedSlots: _vm._u([
-      {
-        key: "toolbar.prepend",
-        fn: function() {
-          return [
-            _c("v-select", {
-              staticClass: "mr-4",
-              staticStyle: { "max-width": "150px" },
-              attrs: {
-                items: _vm.environments,
-                dense: "",
-                outlined: "",
-                label: _vm.$vuetify.lang.t("$vuetify.word.environment"),
-                "hide-details": "",
-                disabled: _vm.$loading
-              },
-              on: { change: _vm.changeEnvironment },
-              model: {
-                value: _vm.environment,
-                callback: function($$v) {
-                  _vm.environment = $$v
-                },
-                expression: "environment"
-              }
-            })
-          ]
-        },
-        proxy: true
+  return _c(
+    "server-data-table",
+    {
+      ref: "server",
+      attrs: {
+        "custom-items": _vm.customItems,
+        title: _vm.$vuetify.lang.t("$vuetify.word.translations"),
+        headers: _vm.headers,
+        route: _vm.$api.route(
+          "admin.translations.environment",
+          _vm.environment
+        ),
+        "vuex-namespace": "translations",
+        "add-refresh-button": "",
+        searchable: ""
       },
-      {
-        key: "toolbar.append",
-        fn: function() {
-          return [
-            _c(
-              "v-btn",
-              { attrs: { color: "primary" }, on: { click: _vm.publish } },
-              [
-                _vm._v(
-                  "\n            " +
-                    _vm._s(_vm.$vuetify.lang.t("$vuetify.word.publish")) +
-                    "\n        "
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "edit-dialog",
-              {
+      scopedSlots: _vm._u([
+        {
+          key: "toolbar.prepend",
+          fn: function() {
+            return [
+              _c("v-select", {
+                staticClass: "mr-4",
+                staticStyle: { "max-width": "150px" },
                 attrs: {
-                  "disable-create": "",
-                  "form-title": _vm.$vuetify.lang.t(
-                    "$vuetify.word.edit.translation"
-                  ),
-                  "vuex-namespace": "translations"
+                  items: _vm.environments,
+                  dense: "",
+                  outlined: "",
+                  label: _vm.$vuetify.lang.t("$vuetify.word.environment"),
+                  "hide-details": "",
+                  disabled: _vm.$loading
                 },
-                on: { save: _vm.save }
-              },
-              [
-                _c(
-                  "v-form",
-                  {
-                    model: {
-                      value: _vm.valid,
-                      callback: function($$v) {
-                        _vm.valid = $$v
-                      },
-                      expression: "valid"
-                    }
+                on: { change: _vm.changeEnvironment },
+                model: {
+                  value: _vm.environment,
+                  callback: function($$v) {
+                    _vm.environment = $$v
                   },
-                  [
-                    _c(
-                      "v-row",
-                      { attrs: { "no-gutters": "" } },
-                      [
-                        _c(
-                          "v-col",
-                          { attrs: { cols: "12" } },
-                          [
-                            _c(
-                              "v-chip-group",
-                              { attrs: { column: "" } },
-                              _vm._l(_vm.data.tags, function(tag, index) {
-                                return _c(
-                                  "v-chip",
-                                  { key: index, attrs: { small: "" } },
-                                  [
-                                    _vm._v(
-                                      "\n                                " +
-                                        _vm._s(tag) +
-                                        "\n                            "
-                                    )
-                                  ]
-                                )
-                              }),
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { cols: "6" } },
-                          [
-                            _c(
-                              "v-list-item",
-                              {
-                                staticClass: "pl-0",
-                                attrs: { "two-line": "" }
-                              },
-                              [
-                                _c(
-                                  "v-list-item-content",
-                                  [
-                                    _c(
-                                      "v-list-item-title",
-                                      { staticClass: "font-weight-bold" },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$vuetify.lang.t(
-                                                "$vuetify.word.environment"
-                                              )
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("v-list-item-subtitle", {
-                                      domProps: {
-                                        textContent: _vm._s(
-                                          _vm.data.environment
-                                        )
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { cols: "6" } },
-                          [
-                            _c(
-                              "v-list-item",
-                              {
-                                staticClass: "pr-0",
-                                attrs: { "two-line": "" }
-                              },
-                              [
-                                _c(
-                                  "v-list-item-content",
-                                  [
-                                    _c(
-                                      "v-list-item-title",
-                                      { staticClass: "font-weight-bold" },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$vuetify.lang.t(
-                                                "$vuetify.word.group"
-                                              )
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("v-list-item-subtitle", {
-                                      domProps: {
-                                        textContent: _vm._s(_vm.data.group)
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { cols: "12" } },
-                          [
-                            _c(
-                              "v-list-item",
-                              {
-                                staticClass: "px-0",
-                                attrs: { "two-line": "" }
-                              },
-                              [
-                                _c(
-                                  "v-list-item-content",
-                                  [
-                                    _c(
-                                      "v-list-item-title",
-                                      { staticClass: "font-weight-bold" },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$vuetify.lang.t(
-                                                "$vuetify.word.key"
-                                              )
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("v-list-item-subtitle", {
-                                      domProps: {
-                                        textContent: _vm._s(_vm.data.key)
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _vm._l(_vm.data.translations, function(
-                          translation,
-                          index
-                        ) {
-                          return _c(
+                  expression: "environment"
+                }
+              })
+            ]
+          },
+          proxy: true
+        },
+        {
+          key: "toolbar.append",
+          fn: function() {
+            return [
+              _c(
+                "v-btn",
+                { attrs: { color: "primary" }, on: { click: _vm.publish } },
+                [
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.$vuetify.lang.t("$vuetify.word.publish")) +
+                      "\n        "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "edit-dialog",
+                {
+                  attrs: {
+                    "disable-create": "",
+                    "form-title": _vm.$vuetify.lang.t(
+                      "$vuetify.word.edit.translation"
+                    ),
+                    "vuex-namespace": "translations"
+                  },
+                  on: { save: _vm.save }
+                },
+                [
+                  _c(
+                    "v-form",
+                    {
+                      model: {
+                        value: _vm.valid,
+                        callback: function($$v) {
+                          _vm.valid = $$v
+                        },
+                        expression: "valid"
+                      }
+                    },
+                    [
+                      _c(
+                        "v-row",
+                        { attrs: { "no-gutters": "" } },
+                        [
+                          _c(
                             "v-col",
-                            { key: index, attrs: { cols: "12" } },
+                            { attrs: { cols: "12" } },
                             [
-                              _c("v-text-field", {
-                                attrs: {
-                                  label: translation.locale.toUpperCase(),
-                                  dense: "",
-                                  outlined: ""
+                              _c(
+                                "v-chip-group",
+                                { attrs: { column: "" } },
+                                _vm._l(_vm.data.tags, function(tag, index) {
+                                  return _c(
+                                    "v-chip",
+                                    { key: index, attrs: { small: "" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                " +
+                                          _vm._s(tag) +
+                                          "\n                            "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "6" } },
+                            [
+                              _c(
+                                "v-list-item",
+                                {
+                                  staticClass: "pl-0",
+                                  attrs: { "two-line": "" }
                                 },
-                                model: {
-                                  value: translation.translation,
-                                  callback: function($$v) {
-                                    _vm.$set(translation, "translation", $$v)
+                                [
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c(
+                                        "v-list-item-title",
+                                        { staticClass: "font-weight-bold" },
+                                        [
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(
+                                                _vm.$vuetify.lang.t(
+                                                  "$vuetify.word.environment"
+                                                )
+                                              ) +
+                                              "\n                                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-list-item-subtitle", {
+                                        domProps: {
+                                          textContent: _vm._s(
+                                            _vm.data.environment
+                                          )
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "6" } },
+                            [
+                              _c(
+                                "v-list-item",
+                                {
+                                  staticClass: "pr-0",
+                                  attrs: { "two-line": "" }
+                                },
+                                [
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c(
+                                        "v-list-item-title",
+                                        { staticClass: "font-weight-bold" },
+                                        [
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(
+                                                _vm.$vuetify.lang.t(
+                                                  "$vuetify.word.group"
+                                                )
+                                              ) +
+                                              "\n                                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-list-item-subtitle", {
+                                        domProps: {
+                                          textContent: _vm._s(_vm.data.group)
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-list-item",
+                                {
+                                  staticClass: "px-0",
+                                  attrs: { "two-line": "" }
+                                },
+                                [
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c(
+                                        "v-list-item-title",
+                                        { staticClass: "font-weight-bold" },
+                                        [
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(
+                                                _vm.$vuetify.lang.t(
+                                                  "$vuetify.word.key"
+                                                )
+                                              ) +
+                                              "\n                                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("v-list-item-subtitle", {
+                                        domProps: {
+                                          textContent: _vm._s(_vm.data.key)
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.data.translations, function(
+                            translation,
+                            index
+                          ) {
+                            return _c(
+                              "v-col",
+                              { key: index, attrs: { cols: "12" } },
+                              [
+                                _c("v-text-field", {
+                                  attrs: {
+                                    label: translation.locale.toUpperCase(),
+                                    dense: "",
+                                    outlined: ""
                                   },
-                                  expression: "translation.translation"
-                                }
-                              })
+                                  model: {
+                                    value: translation.translation,
+                                    callback: function($$v) {
+                                      _vm.$set(translation, "translation", $$v)
+                                    },
+                                    expression: "translation.translation"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c(
+                                "v-expansion-panels",
+                                {
+                                  staticClass: "text--disabled",
+                                  staticStyle: { border: "1px solid" },
+                                  attrs: { flat: "" }
+                                },
+                                [
+                                  _c(
+                                    "v-expansion-panel",
+                                    [
+                                      _c(
+                                        "v-expansion-panel-header",
+                                        {
+                                          staticClass: "px-3 py-2",
+                                          staticStyle: { "min-height": "40px" }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                    " +
+                                              _vm._s(
+                                                _vm.$vuetify.lang.t(
+                                                  "$vuetify.word.translation.sources"
+                                                )
+                                              ) +
+                                              "\n                                "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-expansion-panel-content",
+                                        { staticClass: "translation" },
+                                        [
+                                          _c(
+                                            "ul",
+                                            _vm._l(_vm.data.sources, function(
+                                              source,
+                                              index
+                                            ) {
+                                              return _c("li", { key: index }, [
+                                                _vm._v(
+                                                  "\n                                            " +
+                                                    _vm._s(source) +
+                                                    "\n                                        "
+                                                )
+                                              ])
+                                            }),
+                                            0
+                                          )
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
-                        }),
-                        _vm._v(" "),
-                        _c(
-                          "v-col",
-                          { attrs: { cols: "12" } },
-                          [
-                            _c(
-                              "v-expansion-panels",
-                              {
-                                staticClass: "text--disabled",
-                                staticStyle: { border: "1px solid" },
-                                attrs: { flat: "" }
-                              },
-                              [
-                                _c(
-                                  "v-expansion-panel",
-                                  [
-                                    _c(
-                                      "v-expansion-panel-header",
-                                      {
-                                        staticClass: "px-3 py-2",
-                                        staticStyle: { "min-height": "40px" }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                    " +
-                                            _vm._s(
-                                              _vm.$vuetify.lang.t(
-                                                "$vuetify.word.translation.sources"
-                                              )
-                                            ) +
-                                            "\n                                "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-expansion-panel-content",
-                                      { staticClass: "translation" },
-                                      [
-                                        _c(
-                                          "ul",
-                                          _vm._l(_vm.data.sources, function(
-                                            source,
-                                            index
-                                          ) {
-                                            return _c("li", { key: index }, [
-                                              _vm._v(
-                                                "\n                                            " +
-                                                  _vm._s(source) +
-                                                  "\n                                        "
-                                              )
-                                            ])
-                                          }),
-                                          0
-                                        )
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      2
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ]
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ]
+          },
+          proxy: true
+        }
+      ])
+    },
+    [
+      _vm._v(" "),
+      _vm._v(" "),
+      _c("delete-dialog", {
+        attrs: {
+          title: _vm.$vuetify.lang.t("$vuetify.word.delete.translation"),
+          "vuex-namespace": "translations"
         },
-        proxy: true
-      },
-      {
-        key: "delete",
-        fn: function() {
-          return [
-            _c("delete-dialog", {
-              attrs: {
-                title: _vm.$vuetify.lang.t("$vuetify.word.delete.translation"),
-                "vuex-namespace": "translations"
-              },
-              on: { delete: _vm.destroy }
-            })
-          ]
-        },
-        proxy: true
-      }
-    ])
-  })
+        on: { delete: _vm.destroy }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

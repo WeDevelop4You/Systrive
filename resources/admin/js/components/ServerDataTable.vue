@@ -52,7 +52,10 @@
                     :index="index"
                 />
             </template>
-            <template #footer.prepend v-if="addRefreshButton">
+            <template
+                v-if="addRefreshButton"
+                #footer.prepend
+            >
                 <v-btn icon>
                     <v-icon
                         small
@@ -63,7 +66,7 @@
                 </v-btn>
             </template>
         </v-data-table>
-        <slot name="delete" />
+        <slot />
     </div>
 </template>
 

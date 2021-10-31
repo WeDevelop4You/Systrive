@@ -19,13 +19,17 @@
                 <f-company v-model="data" />
             </create-or-edit-dialog>
         </template>
-        <template #delete>
-            <delete-dialog
-                :title="$vuetify.lang.t('$vuetify.word.delete.account')"
-                vuex-namespace="companies"
-                @delete="destroy"
-            />
-        </template>
+        <delete-dialog
+            :title="$vuetify.lang.t('$vuetify.word.delete.account')"
+            vuex-namespace="companies"
+            @delete="destroy"
+        />
+        <show-dialog
+            :title="$vuetify.lang.t('$vuetify.text.show.company')"
+            vuex-namespace="companies"
+        >
+            <show />
+        </show-dialog>
     </server-data-table>
 </template>
 
@@ -36,11 +40,15 @@
     import DeleteDialog from "../../../components/table/DeleteDialog";
     import Actions from "../../../components/table/companies/Actions";
     import FCompany from "../../../layout/forms/Company";
+    import Show from "./Show";
+    import ShowDialog from "../../../components/table/ShowDialog";
 
     export default {
-        name: "Companies",
+        name: "Index",
 
         components: {
+            ShowDialog,
+            Show,
             FCompany,
             DeleteDialog,
             ServerDataTable,

@@ -72,9 +72,9 @@ const routes = [
                 }
             },
             {
-                path: 'companies',
+                path: 'companies/:type?/:id?',
                 name: 'admin.companies',
-                component: () => import(/* webpackChunkName: "pages/admin/companies" */ '../pages/admin/company'),
+                component: () => import(/* webpackChunkName: "pages/admin/companies" */ '../pages/admin/company/Index'),
                 meta: {
                     breadCrumb: [
                         {

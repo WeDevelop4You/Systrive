@@ -1,9 +1,15 @@
+import Router from '../../plugins/routes'
+
+const route = Router.currentRoute
+
 export default {
     state: () => ({
         data: {},
         items: [],
         errors: {},
         structure: {},
+
+        isShowDialogOpen: false,
 
         isEditing: false,
         isCreateOrEditDialogOpen: false,
@@ -13,6 +19,27 @@ export default {
         isDeleteDialogOpen: false,
 
         hideDeleteButton: false,
+
+        loadActions: {
+            'new' : {
+                allowId: false,
+                func: (commit) => {
+                    commit('setCreate')
+                }
+            },
+            'show' : {
+                allowId: true,
+                func: (commit, id) => {
+                    commit('setShow', id)
+                }
+            },
+            'edit' : {
+                allowId: true,
+                func: (commit, id) => {
+                    commit('setEdit', id)
+                }
+            },
+        }
     }),
 
     mutations: {
@@ -35,6 +62,11 @@ export default {
             state.isCreateOrEditDialogOpen = true
         },
 
+        setShow(state, data) {
+            state.data = data
+            state.isShowDialogOpen = true
+        },
+
         setEdit(state, data) {
             state.data = data
             state.isEditing = true
@@ -50,6 +82,10 @@ export default {
 
         resetErrors(state) {
             state.errors = {}
+        },
+
+        resetShow(state) {
+            state.isShowDialogOpen = false
         },
 
         resetCreateOrEdit(state) {
@@ -70,6 +106,10 @@ export default {
                 state.hideDeleteButton = false
             }, 300)
         },
+
+        addLoadAction(state, actionName, action) {
+            state.loadActions[actionName] = action
+        }
     },
 
     getters: {
@@ -83,6 +123,10 @@ export default {
 
         errors(state) {
             return state.errors
+        },
+
+        isShowDialogOpen(state) {
+            return state.isShowDialogOpen
         },
 
         isEditing(state) {
@@ -107,6 +151,22 @@ export default {
     },
 
     actions: {
+        async load({state, commit}) {
+            const type = route.params.type
 
+            if (type !== undefined) {
+                const action = state.loadActions[type]
+
+                if (action) {
+                    if (action.allowId) {
+                        action.func(commit, route.params.id)
+                    } else {
+                        action.func[type](commit)
+                    }
+                } else {
+                    await Router.replace({name: route.name})
+                }
+            }
+        }
     }
 }

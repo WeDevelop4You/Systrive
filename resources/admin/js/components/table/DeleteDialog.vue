@@ -77,7 +77,11 @@
 
         computed: {
             dialog() {
-                return this.$store.getters[`${this.vuexNamespace}/isDeleteDialogOpen`]
+                const dialog = this.$store.getters[`${this.vuexNamespace}/isDeleteDialogOpen`]
+
+                dialog ? this.$emit('open') : this.$emit('close')
+
+                return dialog
             },
 
             deleteMessage() {

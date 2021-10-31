@@ -23,7 +23,7 @@ class SetCompanyPermissions
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && $request->route()->hasParameter('company')) {
+        if (Auth::check() && $request->routeIs('admin.company*') && $request->route()->hasParameter('company')) {
             $company = $request->route('company');
             $id = $company instanceof Company ? $company->id : $company;
 

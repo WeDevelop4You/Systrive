@@ -1,24 +1,14 @@
 {
     "/js/admin/app.js": "/js/admin/app.js",
     "/js/site/app.js": "/js/site/app.js",
-    "/css/admin/app.css": "/css/admin/app.css",
-    "/css/site/app.css": "/css/site/app.css",
-    "/css/admin/custom.css": "/css/admin/custom.css",
-    "/js/admin/group-foo.js": "/js/admin/group-foo.js",
-    "/js/admin/admin-companies.js": "/js/admin/admin-companies.js",
-    "/js/admin/admin-translations.js": "/js/admin/admin-translations.js",
-    "/js/admin/company.js": "/js/admin/company.js",
-    "/js/admin/dashboard.js": "/js/admin/dashboard.js",
-    "/js/admin/account.js": "/js/admin/account.js",
-    "/js/admin/admin-accounts.js": "/js/admin/admin-accounts.js",
-    "/js/admin/admin/accounts.js": "/js/admin/admin/accounts.js",
-    "/js/admin/admin/companies.js": "/js/admin/admin/companies.js",
-    "/js/admin/admin/translations.js": "/js/admin/admin/translations.js",
     "/js/admin/pages/dashboard.js": "/js/admin/pages/dashboard.js",
     "/js/admin/pages/account.js": "/js/admin/pages/account.js",
     "/js/admin/pages/admin/accounts.js": "/js/admin/pages/admin/accounts.js",
     "/js/admin/pages/admin/companies.js": "/js/admin/pages/admin/companies.js",
     "/js/admin/pages/admin/translations.js": "/js/admin/pages/admin/translations.js",
     "/js/admin/pages/company.js": "/js/admin/pages/company.js",
-    "/js/admin/pages/company/dashboard.js": "/js/admin/pages/company/dashboard.js"
+    "/js/admin/pages/company/dashboard.js": "/js/admin/pages/company/dashboard.js",
+    "/css/admin/app.css": "/css/admin/app.css",
+    "/css/site/app.css": "/css/site/app.css",
+    "/css/admin/custom.css": "/css/admin/custom.css"
 }

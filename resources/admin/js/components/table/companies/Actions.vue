@@ -6,7 +6,21 @@
                     small
                     class="mr-2"
                     :disabled="$loading"
-                    @click="editItem"
+                    @click="editItem(true)"
+                    v-on="on"
+                >
+                    fas fa-building
+                </v-icon>
+            </template>
+            <span>{{ $vuetify.lang.t('$vuetify.word.show.company') }}</span>
+        </v-tooltip>
+        <v-tooltip top>
+            <template #activator="{ on }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    :disabled="$loading"
+                    @click="editItem()"
                     v-on="on"
                 >
                     fas fa-pen
@@ -58,8 +72,8 @@
         },
 
         methods: {
-            editItem() {
-                this.$store.dispatch('companies/getOne', this.item.id)
+            editItem(show = false) {
+                this.$store.dispatch('companies/getOne', [this.item.id, show])
             },
 
             deleteItem() {

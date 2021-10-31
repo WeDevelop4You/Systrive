@@ -17,15 +17,13 @@
                 @save="save"
             />
         </template>
-        <template #delete>
-            <delete-dialog
-                :title="$vuetify.lang.t('$vuetify.word.delete.account')"
-                vuex-namespace="accounts"
-                force-deletable
-                @delete="destroy"
-                @force-delete="forceDestroy"
-            />
-        </template>
+        <delete-dialog
+            :title="$vuetify.lang.t('$vuetify.word.delete.account')"
+            vuex-namespace="accounts"
+            force-deletable
+            @delete="destroy"
+            @force-delete="forceDestroy"
+        />
     </server-data-table>
 </template>
 

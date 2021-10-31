@@ -11,6 +11,7 @@
     {
         /**
          * @param Company $company
+         *
          * @return JsonResponse
          */
         public function action(Company $company): JsonResponse

@@ -13,7 +13,7 @@ class TeamController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $team = [];
 //        $users = DB::table('users_profiles')->get(['user_id', 'picture', 'content']);
@@ -33,7 +33,7 @@ class TeamController extends Controller
      *
      * @return JsonResponse
      */
-    public function team()
+    public function team(): JsonResponse
     {
         $team = [];
 //        $users = DB::table('users_profiles')->take(2)->get(['user_id', 'picture', 'content']);

@@ -10,6 +10,7 @@
     {
         /**
          * @param $column
+         *
          * @return bool
          */
         public static function hasRelation($column): bool
@@ -19,6 +20,7 @@
 
         /**
          * @param $column
+         *
          * @return string
          */
         public static function parseRelation($column): string
@@ -28,6 +30,7 @@
 
         /**
          * @param $column
+         *
          * @return string
          */
         public static function parseField($column): string
@@ -38,6 +41,7 @@
         /**
          * @param $column
          * @param $searchColumns
+         *
          * @return bool
          */
         public static function hasMatch($column, $searchColumns): bool
@@ -48,6 +52,7 @@
         /**
          * @param $column
          * @param $searchColumns
+         *
          * @return bool
          */
         public static function hasWildcardMatch($column, $searchColumns): bool
@@ -71,7 +76,7 @@
         }
 
         /**
-         * @param  null  $queryBuilder
+         * @param null $queryBuilder
          *
          * @return array|null
          */
@@ -91,6 +96,7 @@
         /**
          * @param $column
          * @param $queryBuilder
+         *
          * @return string
          */
         public static function mapToSelected($column, $queryBuilder): ?string

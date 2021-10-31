@@ -13,14 +13,14 @@ class UserFactory extends Factory
      *
      * @var string
      */
-    protected $model = User::class;
+    protected string $model = User::class;
 
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'email' => $this->faker->unique()->safeEmail(),
@@ -35,7 +35,7 @@ class UserFactory extends Factory
      *
      * @return \Illuminate\Database\Eloquent\Factories\Factory
      */
-    public function unverified()
+    public function unverified(): \Illuminate\Database\Eloquent\Factories\Factory
     {
         return $this->state(function (array $attributes) {
             return [

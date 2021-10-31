@@ -16,6 +16,7 @@
     {
         /**
          * @param string $environment
+         *
          * @return AnonymousResourceCollection
          */
         public function index(string $environment): AnonymousResourceCollection

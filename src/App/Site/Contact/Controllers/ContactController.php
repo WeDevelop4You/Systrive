@@ -15,9 +15,10 @@ class ContactController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $v = Validator::make($request->all(), [
             'name' => 'required|string',

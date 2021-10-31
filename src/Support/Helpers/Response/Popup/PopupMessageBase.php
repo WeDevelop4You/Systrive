@@ -41,6 +41,7 @@
 
         /**
          * @param string $type
+         *
          * @return PopupMessageBase
          */
         final public function setType(string $type): PopupMessageBase
@@ -52,6 +53,7 @@
 
         /**
          * @param string $icon
+         *
          * @return PopupMessageBase
          */
         final public function setIcon(string $icon): PopupMessageBase
@@ -63,6 +65,7 @@
 
         /**
          * @param string $color
+         *
          * @return PopupMessageBase
          */
         final public function setColor(string $color): PopupMessageBase
@@ -74,6 +77,7 @@
 
         /**
          * @param string ...$links
+         *
          * @return PopupMessageBase
          */
         final public function insertLinkInChat(string ...$links): PopupMessageBase

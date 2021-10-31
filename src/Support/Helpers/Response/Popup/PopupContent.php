@@ -15,7 +15,7 @@
 
         /**
          * @param string $message
-         * @param int $statusCode
+         * @param int    $statusCode
          * @param string $component
          */
         public function __construct(string $message, int $statusCode, string $component = self::SIMPLE_TYPE)
@@ -28,6 +28,7 @@
 
         /**
          * @param $component
+         *
          * @return $this
          */
         public function setComponent($component): PopupContent
@@ -39,6 +40,7 @@
 
         /**
          * @param int $time
+         *
          * @return $this
          */
         public function setTime(int $time): PopupContent

@@ -11,6 +11,7 @@
     {
         /**
          * @param TranslationKey $translationKey
+         *
          * @return JsonResponse
          */
         public function action(TranslationKey $translationKey): JsonResponse

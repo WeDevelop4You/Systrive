@@ -26,9 +26,9 @@
         private Collection $columns;
 
         /**
-         * @param Builder $query
+         * @param Builder    $query
          * @param Collection $columns
-         * @param array $sorting
+         * @param array      $sorting
          */
         public function __construct(Builder $query, Collection $columns, array $sorting)
         {
@@ -38,9 +38,10 @@
         }
 
         /**
-         * @param Builder $query
+         * @param Builder    $query
          * @param Collection $columns
-         * @param array $sorting
+         * @param array      $sorting
+         *
          * @return OrderQueryBuilder
          */
         public static function create(Builder $query, Collection $columns, array $sorting): OrderQueryBuilder
@@ -72,6 +73,7 @@
 
         /**
          * @param string $sorter
+         *
          * @return array
          */
         private function splitSorter(string $sorter): array

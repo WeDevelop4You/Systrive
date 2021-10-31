@@ -14,7 +14,7 @@
          *
          * @return JsonResponse
          */
-        public function about()
+        public function about(): JsonResponse
         {
             $about = new \stdClass();
 
@@ -28,7 +28,7 @@
          *
          * @return JsonResponse
          */
-        public function websites()
+        public function websites(): JsonResponse
         {
             $websites = [];
 

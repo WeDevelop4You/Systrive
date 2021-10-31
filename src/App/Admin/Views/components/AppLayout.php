@@ -4,7 +4,6 @@ namespace App\Admin\Views\components;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use Spatie\Permission\PermissionRegistrar;
 
 class AppLayout extends Component
 {

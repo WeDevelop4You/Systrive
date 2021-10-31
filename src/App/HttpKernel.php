@@ -13,7 +13,7 @@ class HttpKernel extends Kernel
      *
      * @var array
      */
-    protected $middleware = [
+    protected array $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \Support\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
@@ -30,7 +30,7 @@ class HttpKernel extends Kernel
      *
      * @var array
      */
-    protected $middlewarePriority = [
+    protected array $middlewarePriority = [
         \Support\Middleware\BotDetection::class,
         \Illuminate\Cookie\Middleware\EncryptCookies::class,
         \Illuminate\Session\Middleware\StartSession::class,
@@ -49,7 +49,7 @@ class HttpKernel extends Kernel
      *
      * @var array
      */
-    protected $middlewareGroups = [
+    protected array $middlewareGroups = [
         'web' => [
             \Support\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -66,7 +66,7 @@ class HttpKernel extends Kernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Support\Middleware\BotDetection::class,
-            \Support\Middleware\SetCompanyPermissions::class
+            \Support\Middleware\SetCompanyPermissions::class,
         ],
     ];
 
@@ -77,7 +77,7 @@ class HttpKernel extends Kernel
      *
      * @var array
      */
-    protected $routeMiddleware = [
+    protected array $routeMiddleware = [
         'auth' => \Support\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

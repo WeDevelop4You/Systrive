@@ -13,13 +13,13 @@
     use Illuminate\Database\Query\Builder;
     use Illuminate\Support\Carbon;
 
-    /**
- * Domain\Companies\Models\Company
+/**
+ * Domain\Companies\Models\Company.
  *
- * @property int $id
- * @property int $owner_id
- * @property string $name
- * @property string $email
+ * @property int         $id
+ * @property int         $owner_id
+ * @property string      $name
+ * @property string      $email
  * @property string|null $domain
  * @property string|null $information
  * @property Carbon|null $created_at
@@ -28,6 +28,7 @@
  * @property-read User $owner
  * @property-read UserProfile $ownerProfile
  * @property-read \Domain\User\Collections\UserCollections|User[] $users
+ *
  * @method static CompanyCollections|static[] all($columns = ['*'])
  * @method static CompanyCollections|static[] get($columns = ['*'])
  * @method static CompanyQueryBuilders|Company newModelQuery()
@@ -89,15 +90,17 @@ class Company extends Model
 
     /**
      * @param Builder $query
+     *
      * @return CompanyQueryBuilders
      */
-    public function newEloquentBuilder($query): CompanyQueryBuilders
+    public function newEloquentBuilder(Builder $query): CompanyQueryBuilders
     {
         return new CompanyQueryBuilders($query);
     }
 
     /**
      * @param array $models
+     *
      * @return CompanyCollections
      */
     public function newCollection(array $models = []): CompanyCollections

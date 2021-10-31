@@ -14,9 +14,10 @@ class BotDetection
      *
      * @param Request $request
      * @param Closure $next
+     *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (!$request->routeIs('admin.bot.detection') && App::isProduction() && Browser::detect()->isBot()) {
             return redirect()->route('admin.bot.detection');

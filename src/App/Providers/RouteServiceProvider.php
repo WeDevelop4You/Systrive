@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->configureRateLimiting();
 
@@ -59,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configureRateLimiting()
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
@@ -77,7 +77,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param string $application
+     * @param string      $application
      * @param string|null $domain
      */
     private function createWebRouteConfig(string $application, ?string $domain = null)
@@ -94,7 +94,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param string $application
+     * @param string      $application
      * @param string|null $domain
      */
     private function createApiRouteConfig(string $application, ?string $domain = null)
@@ -113,6 +113,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * @param string $application
      * @param string $fileName
+     *
      * @return Finder
      */
     private function getAllRouteFiles(string $application, string $fileName): Finder
@@ -126,8 +127,9 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param string $path
+     * @param string      $path
      * @param string|null $prefix
+     *
      * @return string
      */
     private function generatePrefix(string $path, ?string $prefix = null): string

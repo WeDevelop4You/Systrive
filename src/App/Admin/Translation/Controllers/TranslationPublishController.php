@@ -12,6 +12,7 @@
     {
         /**
          * @return JsonResponse
+         *
          * @throws FailedToBuildTranslationFileException
          */
         public function action(): JsonResponse

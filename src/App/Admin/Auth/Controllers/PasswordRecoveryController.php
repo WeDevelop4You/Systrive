@@ -26,7 +26,7 @@ class PasswordRecoveryController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         //
     }
@@ -35,9 +35,10 @@ class PasswordRecoveryController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
         //
     }
@@ -45,10 +46,11 @@ class PasswordRecoveryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
-    public function show($id)
+    public function show(int $id): Response
     {
         //
     }
@@ -56,10 +58,11 @@ class PasswordRecoveryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
-    public function edit($id)
+    public function edit(int $id): Response
     {
         //
     }
@@ -68,10 +71,11 @@ class PasswordRecoveryController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  int  $id
+     * @param int     $id
+     *
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): Response
     {
         //
     }
@@ -79,10 +83,11 @@ class PasswordRecoveryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(int $id): Response
     {
         //
     }

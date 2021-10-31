@@ -45,6 +45,7 @@
 
         /**
          * @param Builder $query
+         *
          * @return DataTable
          */
         public static function create(Builder $query): DataTable
@@ -54,6 +55,7 @@
 
         /**
          * @param Column $column
+         *
          * @return DataTable
          */
         public function addColumn(Column $column): DataTable
@@ -65,6 +67,7 @@
 
         /**
          * @param array $columns
+         *
          * @return DataTable
          */
         public function setColumns(array $columns): DataTable
@@ -94,6 +97,7 @@
 
         /**
          * @param string $resourceClass
+         *
          * @return AnonymousResourceCollection
          */
         public function get(string $resourceClass): AnonymousResourceCollection

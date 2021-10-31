@@ -3,7 +3,7 @@
     namespace Support\Helpers\Data\Build;
 
     /**
-     * Class TableColumn
+     * Class TableColumn.
      *
      * @property-read string $columnName
      * @property-read $isSortable
@@ -25,6 +25,7 @@
 
         /**
          * @param string $columnName
+         *
          * @return Column
          */
         public static function create(string $columnName): Column
@@ -34,6 +35,7 @@
 
         /**
          * @param $sortCallback
+         *
          * @return Column
          */
         public function sortable($sortCallback = null): Column
@@ -54,6 +56,7 @@
 
         /**
          * @param $searchCallback
+         *
          * @return Column
          */
         public function searchable($searchCallback = null): Column
@@ -74,9 +77,10 @@
 
         /**
          * @param $name
+         *
          * @return mixed
          */
-        public function __get($name)
+        public function __get($name): mixed
         {
             return $this->$name;
         }

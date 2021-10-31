@@ -44,7 +44,8 @@
 
         /**
          * @param Builder $query
-         * @param string $columnName
+         * @param string  $columnName
+         *
          * @return DataList
          */
         public static function create(Builder $query, string $columnName): DataList
@@ -63,6 +64,7 @@
 
         /**
          * @param string $resourceClass
+         *
          * @return AnonymousResourceCollection
          */
         public function get(string $resourceClass): AnonymousResourceCollection

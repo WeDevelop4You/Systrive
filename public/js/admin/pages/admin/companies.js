@@ -988,6 +988,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isEditing: "companies/isEditing"
   })),
   beforeCreate: function beforeCreate() {
+    this.$store.commit('companies/changeAllowedLoadActionState', {
+      actionName: 'show',
+      allowed: true
+    });
     this.$store.commit('companies/setStructure', {
       name: '',
       email: '',

@@ -2584,8 +2584,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      isMini: true,
-      lastRoute: '/'
+      isMini: true
     };
   },
   computed: _objectSpread({
@@ -3159,7 +3158,8 @@ vue__WEBPACK_IMPORTED_MODULE_12__["default"].component('PasswordRecovery', _page
   router: _plugins_routes__WEBPACK_IMPORTED_MODULE_5__["default"],
   data: function data() {
     return {
-      requests: 0
+      requests: 0,
+      lastRoute: '/'
     };
   },
   created: function created() {
@@ -3230,6 +3230,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3254,10 +3262,73 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           }
         },
         actionGoToRoute: function actionGoToRoute(route) {
-          this.$router.push(route);
+          var _this = this;
+
+          return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return _this.$router.push(route);
+
+                  case 2:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }))();
         },
         actionGoToLastRoute: function actionGoToLastRoute() {
-          this.actionGoToRoute(this.$root.lastRoute);
+          var _this2 = this;
+
+          return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+            var originLastRoute;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    originLastRoute = _this2.$root.lastRoute;
+                    _context2.next = 3;
+                    return _this2.actionGoToRoute(originLastRoute);
+
+                  case 3:
+                    _this2.$root.lastRoute = originLastRoute;
+
+                  case 4:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2);
+          }))();
+        },
+        actionGoToMainRoute: function actionGoToMainRoute() {
+          var _this3 = this;
+
+          return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+            var originLastRoute;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    originLastRoute = _this3.$root.lastRoute;
+                    _context3.next = 3;
+                    return _this3.actionGoToRoute({
+                      name: _this3.$route.name
+                    });
+
+                  case 3:
+                    _this3.$root.lastRoute = originLastRoute;
+
+                  case 4:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3);
+          }))();
         }
       }
     });
@@ -4275,15 +4346,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isDeleteDialogOpen: false,
       hideDeleteButton: false,
       loadActions: {
-        'new': {
+        "new": {
           allowId: false,
+          isAllowed: true,
           func: function func(_ref) {
             var commit = _ref.commit;
             commit('setCreate');
           }
         },
-        'show': {
+        show: {
           allowId: true,
+          isAllowed: false,
           func: function func(_ref2, id) {
             var dispatch = _ref2.dispatch;
             dispatch('getOne', {
@@ -4292,8 +4365,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             });
           }
         },
-        'edit': {
+        edit: {
           allowId: true,
+          isAllowed: true,
           func: function func(_ref3, id) {
             var dispatch = _ref3.dispatch;
             dispatch('getOne', {
@@ -4359,8 +4433,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         state.hideDeleteButton = false;
       }, 300);
     },
-    addLoadAction: function addLoadAction(state, actionName, action) {
+    addLoadAction: function addLoadAction(state, _ref5) {
+      var actionName = _ref5.actionName,
+          action = _ref5.action;
       state.loadActions[actionName] = action;
+    },
+    changeAllowedLoadActionState: function changeAllowedLoadActionState(state, _ref6) {
+      var actionName = _ref6.actionName,
+          allowed = _ref6.allowed;
+
+      if (Object.prototype.hasOwnProperty.call(state.loadActions, actionName)) {
+        state.loadActions[actionName].isAllowed = allowed;
+      }
     }
   },
   getters: {
@@ -4410,7 +4494,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 action = service.state.loadActions[type];
 
-                if (!action) {
+                if (!(action && action.isAllowed)) {
                   _context.next = 14;
                   break;
                 }

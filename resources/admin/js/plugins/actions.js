@@ -8,12 +8,24 @@ export default {
                     }
                 },
 
-                actionGoToRoute(route) {
-                    this.$router.push(route)
+                async actionGoToRoute(route) {
+                    await this.$router.push(route)
                 },
 
-                actionGoToLastRoute() {
-                    this.actionGoToRoute(this.$root.lastRoute)
+                async actionGoToLastRoute() {
+                    const originLastRoute = this.$root.lastRoute
+
+                    await this.actionGoToRoute(originLastRoute)
+
+                    this.$root.lastRoute = originLastRoute
+                },
+
+                async actionGoToMainRoute() {
+                    const originLastRoute = this.$root.lastRoute
+
+                    await this.actionGoToRoute({name: this.$route.name})
+
+                    this.$root.lastRoute = originLastRoute
                 },
             }
         })

@@ -188,6 +188,8 @@
         },
 
         beforeCreate() {
+            this.$store.commit('translations/changeAllowedLoadActionState', {actionName: 'new', allowed: false})
+
             this.$store.commit('translations/setStructure', {
                 id: '',
                 key: '',

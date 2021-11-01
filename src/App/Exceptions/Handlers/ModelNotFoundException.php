@@ -20,13 +20,15 @@
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
                 $response = new Response(ResponseCodes::HTTP_NOT_FOUND);
 
+                //TODO Change action when its from a table dialog
+
                 switch ($request->getMethod()) {
                     case 'DELETE':
                         $response->addPopup(trans('response.error.model.delete'));
 
                         break;
                     default:
-                        $response->addPopup(trans('response.error.model.not_found'));
+                        $response->addPopup(trans('response.error.model.not.found'));
                         $response->addAction(RouteMethod::create())->setActionGoToLastRoute();
                 }
 

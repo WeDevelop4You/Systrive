@@ -198,7 +198,6 @@
         data() {
             return {
                 isMini: true,
-                lastRoute: '/'
             }
         },
 

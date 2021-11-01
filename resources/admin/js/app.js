@@ -33,7 +33,8 @@ export default new Vue({
 
     data() {
         return {
-            requests: 0
+            requests: 0,
+            lastRoute: '/'
         }
     },
 

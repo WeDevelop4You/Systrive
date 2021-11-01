@@ -87,6 +87,8 @@
         },
 
         beforeCreate() {
+            this.$store.commit('companies/changeAllowedLoadActionState', {actionName: 'show', allowed: true})
+
             this.$store.commit('companies/setStructure',{
                 name: '',
                 email: '',

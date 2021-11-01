@@ -19,20 +19,23 @@ export default {
         hideDeleteButton: false,
 
         loadActions: {
-            'new' : {
+            new: {
                 allowId: false,
+                isAllowed: true,
                 func: ({commit}) => {
                     commit('setCreate')
                 }
             },
-            'show' : {
+            show: {
                 allowId: true,
+                isAllowed: false,
                 func: ({dispatch}, id) => {
                     dispatch('getOne', {id: id, showDialog: true})
                 }
             },
-            'edit' : {
+            edit: {
                 allowId: true,
+                isAllowed: true,
                 func: ({dispatch}, id) => {
                     dispatch('getOne', {id: id})
                 }
@@ -105,9 +108,15 @@ export default {
             }, 300)
         },
 
-        addLoadAction(state, actionName, action) {
+        addLoadAction(state, {actionName, action}) {
             state.loadActions[actionName] = action
-        }
+        },
+
+        changeAllowedLoadActionState(state, {actionName, allowed}) {
+            if (Object.prototype.hasOwnProperty.call(state.loadActions, actionName)) {
+                state.loadActions[actionName].isAllowed = allowed
+            }
+        },
     },
 
     getters: {
@@ -156,7 +165,7 @@ export default {
             if (type !== undefined) {
                 const action = service.state.loadActions[type]
 
-                if (action) {
+                if (action && action.isAllowed) {
                     if (action.allowId) {
                         const id = route.params.id
 

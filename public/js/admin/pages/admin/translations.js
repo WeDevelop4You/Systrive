@@ -915,6 +915,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     environments: 'translations/environments'
   })),
   beforeCreate: function beforeCreate() {
+    this.$store.commit('translations/changeAllowedLoadActionState', {
+      actionName: 'new',
+      allowed: false
+    });
     this.$store.commit('translations/setStructure', {
       id: '',
       key: '',

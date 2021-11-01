@@ -56,7 +56,7 @@ const routes = [
         component: parent,
         children: [
             {
-                path: 'accounts',
+                path: 'accounts/:type?/:id?',
                 name: 'admin.accounts',
                 component: () => import(/* webpackChunkName: "pages/admin/accounts" */ '../pages/admin/Accounts'),
                 meta: {
@@ -88,7 +88,7 @@ const routes = [
                 }
             },
             {
-                path: 'translations',
+                path: 'translations/:type?/:id?',
                 name: 'admin.translations',
                 component: () => import(/* webpackChunkName: "pages/admin/translations" */ '../pages/admin/Translations'),
                 meta: {

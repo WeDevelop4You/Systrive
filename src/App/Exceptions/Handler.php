@@ -8,6 +8,7 @@
     use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
+    use Illuminate\Http\Response;
     use Spatie\Permission\Exceptions\UnauthorizedException;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
     use Throwable;
@@ -19,7 +20,7 @@
          *
          * @var array
          */
-        protected array $dontReport = [
+        protected $dontReport = [
             //
         ];
 
@@ -28,7 +29,7 @@
          *
          * @var array
          */
-        protected array $dontFlash = [
+        protected $dontFlash = [
             'current_password',
             'password',
             'password_confirmation',
@@ -60,11 +61,11 @@
          * @param Request   $request
          * @param Throwable $e
          *
-         * @return \Illuminate\Http\Response|JsonResponse|ResponseCodes
+         * @return Response|JsonResponse|ResponseCodes
          *
          * @throws Throwable
          */
-        public function render(Request $request, Throwable $e)
+        public function render($request, Throwable $e)
         {
             $e = $this->prepareException($this->mapException($e));
 

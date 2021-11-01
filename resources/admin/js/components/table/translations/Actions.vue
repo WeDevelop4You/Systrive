@@ -58,8 +58,12 @@
         },
 
         methods: {
-            editItem() {
-                this.$store.dispatch('translations/getOne', this.item.id)
+            async editItem() {
+                const id = this.item.id
+
+                await this.$router.replace({name: this.$route.name, params: {type: 'edit', id: id}})
+
+                await this.$store.dispatch('translations/getOne', {id: id})
             },
 
             deleteItem() {

@@ -97,11 +97,15 @@
         },
 
         methods: {
-            setDialog() {
+            async setDialog() {
+                await this.$router.replace({name: this.$route.name, params: {type: 'new'}})
+
                 this.$store.commit(`${this.vuexNamespace}/setCreate`)
             },
 
-            resetDialog() {
+            async resetDialog() {
+                await this.$router.replace({name: this.$route.name})
+
                 this.$store.commit(`${this.vuexNamespace}/resetCreateOrEdit`)
             }
         }

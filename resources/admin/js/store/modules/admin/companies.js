@@ -41,7 +41,7 @@ export default {
             })
         },
 
-        getOne({commit}, [id, showDialog = false]) {
+        getOne({commit}, {id, showDialog = false}) {
             app.$api.call({
                 url: app.$api.route('admin.company.edit', id),
                 method: 'GET'

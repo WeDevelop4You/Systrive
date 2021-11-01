@@ -93,7 +93,7 @@ class Company extends Model
      *
      * @return CompanyQueryBuilders
      */
-    public function newEloquentBuilder(Builder $query): CompanyQueryBuilders
+    public function newEloquentBuilder($query): CompanyQueryBuilders
     {
         return new CompanyQueryBuilders($query);
     }

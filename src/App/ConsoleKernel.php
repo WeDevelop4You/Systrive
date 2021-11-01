@@ -8,15 +8,6 @@
     class ConsoleKernel extends Kernel
     {
         /**
-         * The Artisan commands provided by your application.
-         *
-         * @var array
-         */
-        protected array $commands = [
-            //
-        ];
-
-        /**
          * Define the application's command schedule.
          *
          * @param Schedule $schedule

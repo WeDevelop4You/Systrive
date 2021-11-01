@@ -12,7 +12,7 @@
          *
          * @return array
          */
-        public function toArray(Request $request): array
+        public function toArray($request): array
         {
             return [
                 'first_name' => $this->first_name,

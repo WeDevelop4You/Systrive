@@ -19,9 +19,9 @@ class SetCompanyPermissions
      * @param Request $request
      * @param Closure $next
      *
-     * @return string|null
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): ?string
+    public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && $request->routeIs('admin.company*') && $request->route()->hasParameter('company')) {
             $company = $request->route('company');

@@ -72,8 +72,13 @@
         },
 
         methods: {
-            editItem(show = false) {
-                this.$store.dispatch('companies/getOne', [this.item.id, show])
+            async editItem(show = false) {
+                const id = this.item.id
+                const type = show ? 'show' : 'edit'
+
+                await this.$router.replace({name: this.$route.name, params: {type: type, id: id}})
+
+                await this.$store.dispatch('companies/getOne', {id: id, showDialog: show})
             },
 
             deleteItem() {

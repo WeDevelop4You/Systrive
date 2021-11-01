@@ -12,14 +12,14 @@ class FrontendTranslationImporter extends Command
      *
      * @var string
      */
-    protected string $signature = 'make:frontend-import-translation';
+    protected $signature = 'make:frontend-import-translation';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected string $description = 'Generate a file for frontend translation importer';
+    protected $description = 'Generate a file for frontend translation importer';
 
     /**
      * @var Filesystem

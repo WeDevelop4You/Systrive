@@ -62,7 +62,7 @@
 
         methods: {
             editItem() {
-                this.$store.dispatch('accounts/getOne', this.item.id)
+                this.$store.dispatch('accounts/getOne', {id: this.item.id})
             },
 
             deleteItem() {

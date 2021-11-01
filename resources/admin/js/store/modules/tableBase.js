@@ -1,7 +1,5 @@
 import Router from '../../plugins/routes'
 
-const route = Router.currentRoute
-
 export default {
     state: () => ({
         data: {},
@@ -23,20 +21,20 @@ export default {
         loadActions: {
             'new' : {
                 allowId: false,
-                func: (commit) => {
+                func: ({commit}) => {
                     commit('setCreate')
                 }
             },
             'show' : {
                 allowId: true,
-                func: (commit, id) => {
-                    commit('setShow', id)
+                func: ({dispatch}, id) => {
+                    dispatch('getOne', {id: id, showDialog: true})
                 }
             },
             'edit' : {
                 allowId: true,
-                func: (commit, id) => {
-                    commit('setEdit', id)
+                func: ({dispatch}, id) => {
+                    dispatch('getOne', {id: id})
                 }
             },
         }
@@ -151,21 +149,30 @@ export default {
     },
 
     actions: {
-        async load({state, commit}) {
+        async load(service) {
+            const route = Router.currentRoute
             const type = route.params.type
 
             if (type !== undefined) {
-                const action = state.loadActions[type]
+                const action = service.state.loadActions[type]
 
                 if (action) {
                     if (action.allowId) {
-                        action.func(commit, route.params.id)
+                        const id = route.params.id
+
+                        if (id !== undefined) {
+                            action.func(service, id)
+
+                            return
+                        }
                     } else {
-                        action.func[type](commit)
+                        action.func(service)
+
+                        return
                     }
-                } else {
-                    await Router.replace({name: route.name})
                 }
+
+                await Router.replace({name: route.name})
             }
         }
     }

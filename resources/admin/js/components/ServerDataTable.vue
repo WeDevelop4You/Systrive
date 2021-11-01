@@ -139,6 +139,10 @@
             }
         },
 
+        created() {
+            this.$store.dispatch(`${this.vuexNamespace}/load`)
+        },
+
         methods: {
             getData() {
                 let app = this

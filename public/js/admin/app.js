@@ -3461,7 +3461,7 @@ var routes = [{
   path: '/admin',
   component: parent,
   children: [{
-    path: 'accounts',
+    path: 'accounts/:type?/:id?',
     name: 'admin.accounts',
     component: function component() {
       return Promise.all(/*! import() | pages/admin/accounts */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/accounts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Accounts */ "./resources/admin/js/pages/admin/Accounts.vue"));
@@ -3493,7 +3493,7 @@ var routes = [{
       }]
     }
   }, {
-    path: 'translations',
+    path: 'translations/:type?/:id?',
     name: 'admin.translations',
     component: function component() {
       return Promise.all(/*! import() | pages/admin/translations */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/translations")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Translations */ "./resources/admin/js/pages/admin/Translations.vue"));
@@ -3677,10 +3677,16 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
     }
   },
   actions: {
-    getOne: function getOne() {},
-    destroy: function destroy(_ref) {
-      var state = _ref.state,
-          commit = _ref.commit;
+    getOne: function getOne(_ref, _ref2) {
+      var commit = _ref.commit;
+      var id = _ref2.id,
+          _ref2$showDialog = _ref2.showDialog,
+          showDialog = _ref2$showDialog === void 0 ? false : _ref2$showDialog;
+      console.log(commit, id, showDialog);
+    },
+    destroy: function destroy(_ref3) {
+      var state = _ref3.state,
+          commit = _ref3.commit;
       app.$api.call({
         url: app.$api.route('admin.user', state.tableBase.deleteId),
         method: 'DELETE'
@@ -3688,9 +3694,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('resetDelete');
       });
     },
-    forceDestroy: function forceDestroy(_ref2) {
-      var state = _ref2.state,
-          commit = _ref2.commit;
+    forceDestroy: function forceDestroy(_ref4) {
+      var state = _ref4.state,
+          commit = _ref4.commit;
       app.$api.call({
         url: app.$api.route('admin.user.force', state.tableBase.deleteId),
         method: 'DELETE'
@@ -3719,18 +3725,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _tableBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tableBase */ "./resources/admin/js/store/modules/tableBase.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3777,12 +3771,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
     },
     getOne: function getOne(_ref2, _ref3) {
       var commit = _ref2.commit;
-
-      var _ref4 = _slicedToArray(_ref3, 2),
-          id = _ref4[0],
-          _ref4$ = _ref4[1],
-          showDialog = _ref4$ === void 0 ? false : _ref4$;
-
+      var id = _ref3.id,
+          _ref3$showDialog = _ref3.showDialog,
+          showDialog = _ref3$showDialog === void 0 ? false : _ref3$showDialog;
       app.$api.call({
         url: app.$api.route('admin.company.edit', id),
         method: 'GET'
@@ -3798,10 +3789,10 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         }
       });
     },
-    update: function update(_ref5, data) {
+    update: function update(_ref4, data) {
       var _data$owner2;
 
-      var commit = _ref5.commit;
+      var commit = _ref4.commit;
       app.$api.call({
         url: app.$api.route('admin.company.edit', data.id),
         method: 'PATCH',
@@ -3814,9 +3805,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit("setErrors", error.response.data.errors);
       });
     },
-    destroy: function destroy(_ref6) {
-      var state = _ref6.state,
-          commit = _ref6.commit;
+    destroy: function destroy(_ref5) {
+      var state = _ref5.state,
+          commit = _ref5.commit;
       app.$api.call({
         url: app.$api.route('admin.company.destroy', state.tableBase.deleteId),
         method: 'DELETE'
@@ -3824,8 +3815,8 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('resetDelete');
       });
     },
-    userList: function userList(_ref7, search) {
-      var commit = _ref7.commit;
+    userList: function userList(_ref6, search) {
+      var commit = _ref6.commit;
       var params = {};
 
       if (search) {
@@ -3897,8 +3888,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('setEnvironments', response.data.data);
       });
     },
-    getOne: function getOne(_ref2, id) {
+    getOne: function getOne(_ref2, _ref3) {
       var commit = _ref2.commit;
+      var id = _ref3.id;
       app.$api.call({
         url: app.$api.route('admin.translation', id),
         method: "GET"
@@ -3906,8 +3898,8 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('setEdit', response.data.data);
       });
     },
-    update: function update(_ref3, data) {
-      var commit = _ref3.commit;
+    update: function update(_ref4, data) {
+      var commit = _ref4.commit;
       app.$api.call({
         url: app.$api.route('admin.translation', data.id),
         method: "PATCH",
@@ -3918,9 +3910,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('resetCreateOrEdit');
       });
     },
-    destroy: function destroy(_ref4) {
-      var state = _ref4.state,
-          commit = _ref4.commit;
+    destroy: function destroy(_ref5) {
+      var state = _ref5.state,
+          commit = _ref5.commit;
       app.$api.call({
         url: app.$api.route('admin.translation', state.tableBase.deleteId),
         method: 'DELETE'
@@ -4268,7 +4260,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
-var route = _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   state: function state() {
     return {
@@ -4286,20 +4277,28 @@ var route = _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute
       loadActions: {
         'new': {
           allowId: false,
-          func: function func(commit) {
+          func: function func(_ref) {
+            var commit = _ref.commit;
             commit('setCreate');
           }
         },
         'show': {
           allowId: true,
-          func: function func(commit, id) {
-            commit('setShow', id);
+          func: function func(_ref2, id) {
+            var dispatch = _ref2.dispatch;
+            dispatch('getOne', {
+              id: id,
+              showDialog: true
+            });
           }
         },
         'edit': {
           allowId: true,
-          func: function func(commit, id) {
-            commit('setEdit', id);
+          func: function func(_ref3, id) {
+            var dispatch = _ref3.dispatch;
+            dispatch('getOne', {
+              id: id
+            });
           }
         }
       }
@@ -4329,11 +4328,11 @@ var route = _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute
       state.isEditing = true;
       state.isCreateOrEditDialogOpen = true;
     },
-    setDelete: function setDelete(state, _ref) {
-      var id = _ref.id,
-          message = _ref.message,
-          _ref$hideDelete = _ref.hideDelete,
-          hideDelete = _ref$hideDelete === void 0 ? false : _ref$hideDelete;
+    setDelete: function setDelete(state, _ref4) {
+      var id = _ref4.id,
+          message = _ref4.message,
+          _ref4$hideDelete = _ref4.hideDelete,
+          hideDelete = _ref4$hideDelete === void 0 ? false : _ref4$hideDelete;
       state.deleteId = id;
       state.deleteMessage = message;
       state.isDeleteDialogOpen = true;
@@ -4394,44 +4393,58 @@ var route = _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute
     }
   },
   actions: {
-    load: function load(_ref2) {
+    load: function load(service) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var state, commit, type, action;
+        var route, type, action, id;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                state = _ref2.state, commit = _ref2.commit;
+                route = _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute;
                 type = route.params.type;
 
                 if (!(type !== undefined)) {
+                  _context.next = 16;
+                  break;
+                }
+
+                action = service.state.loadActions[type];
+
+                if (!action) {
+                  _context.next = 14;
+                  break;
+                }
+
+                if (!action.allowId) {
+                  _context.next = 12;
+                  break;
+                }
+
+                id = route.params.id;
+
+                if (!(id !== undefined)) {
                   _context.next = 10;
                   break;
                 }
 
-                action = state.loadActions[type];
+                action.func(service, id);
+                return _context.abrupt("return");
 
-                if (!action) {
-                  _context.next = 8;
-                  break;
-                }
-
-                if (action.allowId) {
-                  action.func(commit, route.params.id);
-                } else {
-                  action.func[type](commit);
-                }
-
-                _context.next = 10;
+              case 10:
+                _context.next = 14;
                 break;
 
-              case 8:
-                _context.next = 10;
+              case 12:
+                action.func(service);
+                return _context.abrupt("return");
+
+              case 14:
+                _context.next = 16;
                 return _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].replace({
                   name: route.name
                 });
 
-              case 10:
+              case 16:
               case "end":
                 return _context.stop();
             }

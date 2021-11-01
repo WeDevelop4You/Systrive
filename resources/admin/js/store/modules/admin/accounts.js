@@ -27,8 +27,8 @@ export default {
     },
 
     actions: {
-        getOne() {
-
+        getOne({commit}, {id, showDialog = false}) {
+            console.log(commit, id, showDialog)
         },
 
         destroy({state, commit}) {

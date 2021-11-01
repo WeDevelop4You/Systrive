@@ -61,7 +61,9 @@
         },
 
         methods: {
-            resetDialog() {
+            async resetDialog() {
+                await this.$router.replace({name: this.$route.name})
+
                 this.$store.commit(`${this.vuexNamespace}/resetShow`)
             }
         }

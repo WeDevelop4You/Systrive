@@ -61,7 +61,7 @@
          * @param Request   $request
          * @param Throwable $e
          *
-         * @return Response|JsonResponse|ResponseCodes
+         * @return JsonResponse|Response|ResponseCodes
          *
          * @throws Throwable
          */

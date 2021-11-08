@@ -45,7 +45,7 @@
 
         /**
          * @param Builder|Relation $query
-         * @param string  $columnName
+         * @param string           $columnName
          *
          * @return DataList
          */

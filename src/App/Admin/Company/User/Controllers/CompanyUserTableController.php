@@ -25,6 +25,7 @@
                 ->setColumns($this->createColumns())
                 ->get(CompanyUserDataResource::class);
         }
+
         /**
          * @return array
          */

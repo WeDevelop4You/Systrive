@@ -27,9 +27,9 @@
         private Collection $columns;
 
         /**
-         * @param Builder|Relation    $query
-         * @param Collection $columns
-         * @param string     $search
+         * @param Builder|Relation $query
+         * @param Collection       $columns
+         * @param string           $search
          */
         public function __construct($query, Collection $columns, string $search)
         {
@@ -39,9 +39,9 @@
         }
 
         /**
-         * @param Builder|Relation    $query
-         * @param Collection $columns
-         * @param string     $search
+         * @param Builder|Relation $query
+         * @param Collection       $columns
+         * @param string           $search
          *
          * @return WhereQueryBuilder
          */

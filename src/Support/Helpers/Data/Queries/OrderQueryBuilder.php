@@ -27,9 +27,9 @@
         private Collection $columns;
 
         /**
-         * @param Builder|Relation    $query
-         * @param Collection $columns
-         * @param array      $sorting
+         * @param Builder|Relation $query
+         * @param Collection       $columns
+         * @param array            $sorting
          */
         public function __construct($query, Collection $columns, array $sorting)
         {
@@ -39,9 +39,9 @@
         }
 
         /**
-         * @param Builder|Relation    $query
-         * @param Collection $columns
-         * @param array      $sorting
+         * @param Builder|Relation $query
+         * @param Collection       $columns
+         * @param array            $sorting
          *
          * @return OrderQueryBuilder
          */

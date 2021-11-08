@@ -56,9 +56,9 @@ const routes = [
         component: parent,
         children: [
             {
-                path: 'accounts/:type?/:id?',
-                name: 'admin.accounts',
-                component: () => import(/* webpackChunkName: "pages/admin/accounts" */ '../pages/admin/Accounts'),
+                path: 'users/:type?/:id?',
+                name: 'admin.users',
+                component: () => import(/* webpackChunkName: "pages/admin/users" */ '../pages/admin/Users'),
                 meta: {
                     breadCrumb: [
                         {
@@ -66,7 +66,7 @@ const routes = [
                             to: {name: 'dashboard'}
                         },
                         {
-                            text: 'Accounts'
+                            text: 'Users'
                         }
                     ]
                 }

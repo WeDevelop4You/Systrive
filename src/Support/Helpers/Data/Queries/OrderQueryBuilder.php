@@ -3,6 +3,7 @@
     namespace Support\Helpers\Data\Queries;
 
     use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Relations\Relation;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\App;
     use Illuminate\Support\Str;
@@ -11,9 +12,9 @@
     class OrderQueryBuilder
     {
         /**
-         * @var Builder
+         * @var Builder|Relation
          */
-        private Builder $query;
+        private $query;
 
         /**
          * @var array
@@ -26,11 +27,11 @@
         private Collection $columns;
 
         /**
-         * @param Builder    $query
+         * @param Builder|Relation    $query
          * @param Collection $columns
          * @param array      $sorting
          */
-        public function __construct(Builder $query, Collection $columns, array $sorting)
+        public function __construct($query, Collection $columns, array $sorting)
         {
             $this->query = $query;
             $this->sorting = $sorting;
@@ -38,21 +39,21 @@
         }
 
         /**
-         * @param Builder    $query
+         * @param Builder|Relation    $query
          * @param Collection $columns
          * @param array      $sorting
          *
          * @return OrderQueryBuilder
          */
-        public static function create(Builder $query, Collection $columns, array $sorting): OrderQueryBuilder
+        public static function create($query, Collection $columns, array $sorting): OrderQueryBuilder
         {
             return new static($query, $columns, $sorting);
         }
 
         /**
-         * @return Builder
+         * @return Builder|Relation
          */
-        public function build(): Builder
+        public function build()
         {
             foreach ($this->sorting as $sorter) {
                 [$columnName, $direction] = $this->splitSorter($sorter);

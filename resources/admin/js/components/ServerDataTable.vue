@@ -119,6 +119,11 @@
             addRefreshButton: {
                 type: Boolean,
                 default: false
+            },
+
+            doLoadAction: {
+                type: Boolean,
+                default: true,
             }
         },
 
@@ -140,7 +145,9 @@
         },
 
         created() {
-            this.$store.dispatch(`${this.vuexNamespace}/load`)
+            if (this.doLoadAction) {
+                this.$store.dispatch(`${this.vuexNamespace}/load`)
+            }
         },
 
         methods: {

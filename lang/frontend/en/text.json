@@ -15,7 +15,7 @@
         "delete": {
             "message": {
                 "translation": "Are you sure you want to delete this \"{0}\" translation?",
-                "account": "Are you sure you want to delete account \"{0}\"?"
+                "user": "Are you sure you want to delete user \"{0}\"?"
             }
         }
     }

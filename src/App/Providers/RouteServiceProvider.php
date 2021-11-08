@@ -121,9 +121,7 @@ class RouteServiceProvider extends ServiceProvider
         $finder = new Finder();
         $path = sprintf('%s/../%s', __DIR__, ucfirst(strtolower($application)));
 
-        return $finder->name($fileName)
-            ->in($path)
-            ->files();
+        return $finder->name($fileName)->in($path)->files();
     }
 
     /**
@@ -134,14 +132,21 @@ class RouteServiceProvider extends ServiceProvider
      */
     private function generatePrefix(string $path, ?string $prefix = null): string
     {
-        $prefixes = [$prefix];
+        $prefixes = [];
+        $pathNames = explode('/', $path);
 
-        foreach (explode('/', $path) as $name) {
-            if (!in_array($name, ['Routes', 'Auth'])) {
-                $prefixes[] = Str::pluralStudly(strtolower($name));
+        foreach ($pathNames as $name) {
+            $name = strtolower($name);
+
+            if (!in_array($name, ['routes', 'auth'])) {
+                $prefixes[] = Str::plural($name);
+
+                if ((count($pathNames) - 1) > count($prefixes)) {
+                    $prefixes[] = "{". Str::singular($name) ."}";
+                }
             }
         }
 
-        return implode('/', $prefixes);
+        return implode('/', ($prefix ? [$prefix, ...$prefixes] : $prefixes));
     }
 }

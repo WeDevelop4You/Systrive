@@ -5,6 +5,7 @@
     use Illuminate\Container\Container;
     use Illuminate\Contracts\Container\BindingResolutionException;
     use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Relations\Relation;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Collection;
@@ -14,9 +15,9 @@
     class DataTable
     {
         /**
-         * @var Builder
+         * @var Builder|Relation
          */
-        private Builder $query;
+        private $query;
 
         /**
          * @var Request
@@ -29,9 +30,9 @@
         private Collection $columns;
 
         /**
-         * @param Builder $query
+         * @param Builder|Relation $query
          */
-        public function __construct(Builder $query)
+        public function __construct($query)
         {
             $this->query = $query;
             $this->columns = new Collection();
@@ -44,11 +45,11 @@
         }
 
         /**
-         * @param Builder $query
+         * @param Builder|Relation $query
          *
          * @return DataTable
          */
-        public static function create(Builder $query): DataTable
+        public static function create($query): DataTable
         {
             return new static($query);
         }

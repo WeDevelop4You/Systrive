@@ -2,24 +2,24 @@
     <server-data-table
         ref="server"
         :custom-items="customItems"
-        :title="$vuetify.lang.t('$vuetify.word.accounts')"
+        :title="$vuetify.lang.t('$vuetify.word.users')"
         :headers="headers"
         :route="$api.route('admin.users')"
-        vuex-namespace="accounts"
+        vuex-namespace="users"
         searchable
     >
         <template #toolbar.append>
             <create-or-edit-dialog
-                :form-title="$vuetify.lang.t('$vuetify.word.edit.account')"
-                vuex-namespace="accounts"
+                :form-title="$vuetify.lang.t('$vuetify.word.edit.user')"
+                vuex-namespace="users"
                 disable-create
                 fullscreen
                 @save="save"
             />
         </template>
         <delete-dialog
-            :title="$vuetify.lang.t('$vuetify.word.delete.account')"
-            vuex-namespace="accounts"
+            :title="$vuetify.lang.t('$vuetify.word.delete.user')"
+            vuex-namespace="users"
             force-deletable
             @delete="destroy"
             @force-delete="forceDestroy"
@@ -28,9 +28,8 @@
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
     import ServerDataTable from "../../components/ServerDataTable";
-    import Actions from "../../components/table/accounts/Actions";
+    import Actions from "../../components/table/users/admin/Actions";
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
     import DeleteDialog from "../../components/table/DeleteDialog";
 
@@ -62,11 +61,7 @@
                     {text: this.$vuetify.lang.t('$vuetify.word.deleted_at'), value: 'deleted_at', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
-            },
-
-            ...mapGetters({
-                account: 'accounts/data',
-            })
+            }
         },
 
         methods: {
@@ -75,12 +70,12 @@
             },
 
             async destroy() {
-                await this.$store.dispatch('accounts/destroy')
+                await this.$store.dispatch('users/destroy')
                 this.$refs.server.getData()
             },
 
             async forceDestroy() {
-                await this.$store.dispatch('accounts/forceDestroy')
+                await this.$store.dispatch('users/forceDestroy')
                 this.$refs.server.getData()
             }
         }

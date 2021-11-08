@@ -12,7 +12,7 @@
                     fas fa-pen
                 </v-icon>
             </template>
-            <span>{{ $vuetify.lang.t('$vuetify.word.edit.account') }}</span>
+            <span>{{ $vuetify.lang.t('$vuetify.word.edit.user') }}</span>
         </v-tooltip>
         <v-tooltip top>
             <template #activator="{ on }">
@@ -29,7 +29,7 @@
                     </v-icon>
                 </v-hover>
             </template>
-            <span>{{ $vuetify.lang.t('$vuetify.word.delete.account') }}</span>
+            <span>{{ $vuetify.lang.t('$vuetify.word.delete.user') }}</span>
         </v-tooltip>
     </div>
 </template>
@@ -62,14 +62,14 @@
 
         methods: {
             editItem() {
-                this.$store.dispatch('accounts/getOne', {id: this.item.id})
+                this.$store.dispatch('users/getOne', {id: this.item.id})
             },
 
             deleteItem() {
                 const item = this.item
-                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.account', item.email)
+                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.user', item.email)
 
-                this.$store.commit('accounts/setDelete', {id: item.id, message: message, hideDelete: item.deleted_at})
+                this.$store.commit('users/setDelete', {id: item.id, message: message, hideDelete: item.deleted_at})
             }
         }
     }

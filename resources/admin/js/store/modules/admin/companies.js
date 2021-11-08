@@ -41,21 +41,17 @@ export default {
             })
         },
 
-        getOne({commit}, {id, showDialog = false}) {
+        getOne({commit}, id) {
             app.$api.call({
                 url: app.$api.route('admin.company.edit', id),
                 method: 'GET'
             }).then((response) => {
                 let data = response.data.data;
 
-                if (showDialog) {
-                    commit('setShow', data)
-                } else {
-                    data.removeUser = false;
+                data.removeUser = false;
 
-                    commit("setOwners", [data.owner])
-                    commit('setEdit', data)
-                }
+                commit("setOwners", [data.owner])
+                commit('setEdit', data)
             })
         },
 

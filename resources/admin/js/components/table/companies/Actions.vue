@@ -6,7 +6,7 @@
                     small
                     class="mr-2"
                     :disabled="$loading"
-                    @click="editItem(true)"
+                    @click="showItem"
                     v-on="on"
                 >
                     fas fa-building
@@ -20,7 +20,7 @@
                     small
                     class="mr-2"
                     :disabled="$loading"
-                    @click="editItem()"
+                    @click="editItem"
                     v-on="on"
                 >
                     fas fa-pen
@@ -72,13 +72,22 @@
         },
 
         methods: {
-            async editItem(show = false) {
+            async showItem() {
                 const id = this.item.id
-                const type = show ? 'show' : 'edit'
 
-                await this.$router.replace({name: this.$route.name, params: {type: type, id: id}})
+                await this.$router.replace({name: this.$route.name, params: {type: 'show', id: id}})
 
-                await this.$store.dispatch('companies/getOne', {id: id, showDialog: show})
+                await this.$store.dispatch('company/getOne', id)
+
+                this.$store.commit('companies/setShow')
+            },
+
+            async editItem() {
+                const id = this.item.id
+
+                await this.$router.replace({name: this.$route.name, params: {type: 'edit', id: id}})
+
+                await this.$store.dispatch('companies/getOne', id)
             },
 
             deleteItem() {

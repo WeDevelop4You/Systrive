@@ -12,7 +12,7 @@
 
         computed: {
             ...mapGetters({
-                company: 'user/companies/selected',
+                company: 'company/data',
             })
         },
     }

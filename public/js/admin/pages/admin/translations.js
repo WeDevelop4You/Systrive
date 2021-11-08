@@ -124,6 +124,10 @@ __webpack_require__.r(__webpack_exports__);
     addRefreshButton: {
       type: Boolean,
       "default": false
+    },
+    doLoadAction: {
+      type: Boolean,
+      "default": true
     }
   },
   data: function data() {
@@ -142,7 +146,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    this.$store.dispatch("".concat(this.vuexNamespace, "/load"));
+    if (this.doLoadAction) {
+      this.$store.dispatch("".concat(this.vuexNamespace, "/load"));
+    }
   },
   methods: {
     getData: function getData() {

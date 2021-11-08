@@ -29,15 +29,17 @@ export default {
             show: {
                 allowId: true,
                 isAllowed: false,
-                func: ({dispatch}, id) => {
-                    dispatch('getOne', {id: id, showDialog: true})
+                func: async ({commit, dispatch}, id) => {
+                    await dispatch('company/getOne', id, {root: true})
+
+                    commit('setShow')
                 }
             },
             edit: {
                 allowId: true,
                 isAllowed: true,
                 func: ({dispatch}, id) => {
-                    dispatch('getOne', {id: id})
+                    dispatch('getOne', id)
                 }
             },
         }
@@ -63,8 +65,7 @@ export default {
             state.isCreateOrEditDialogOpen = true
         },
 
-        setShow(state, data) {
-            state.data = data
+        setShow(state) {
             state.isShowDialogOpen = true
         },
 

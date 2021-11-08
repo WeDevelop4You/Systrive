@@ -3,7 +3,7 @@
     "/js/site/app.js": "/js/site/app.js",
     "/js/admin/pages/dashboard.js": "/js/admin/pages/dashboard.js",
     "/js/admin/pages/account.js": "/js/admin/pages/account.js",
-    "/js/admin/pages/admin/accounts.js": "/js/admin/pages/admin/accounts.js",
+    "/js/admin/pages/admin/users.js": "/js/admin/pages/admin/users.js",
     "/js/admin/pages/admin/companies.js": "/js/admin/pages/admin/companies.js",
     "/js/admin/pages/admin/translations.js": "/js/admin/pages/admin/translations.js",
     "/js/admin/pages/company.js": "/js/admin/pages/company.js",

@@ -3532,10 +3532,10 @@ var routes = [{
   path: '/admin',
   component: parent,
   children: [{
-    path: 'accounts/:type?/:id?',
-    name: 'admin.accounts',
+    path: 'users/:type?/:id?',
+    name: 'admin.users',
     component: function component() {
-      return Promise.all(/*! import() | pages/admin/accounts */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/accounts")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Accounts */ "./resources/admin/js/pages/admin/Accounts.vue"));
+      return Promise.all(/*! import() | pages/admin/users */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("pages/admin/users")]).then(__webpack_require__.bind(__webpack_require__, /*! ../pages/admin/Users */ "./resources/admin/js/pages/admin/Users.vue"));
     },
     meta: {
       breadCrumb: [{
@@ -3544,7 +3544,7 @@ var routes = [{
           name: 'dashboard'
         }
       }, {
-        text: 'Accounts'
+        text: 'Users'
       }]
     }
   }, {
@@ -3683,14 +3683,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_auth_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth/user */ "./resources/admin/js/store/modules/auth/user.js");
-/* harmony import */ var _modules_admin_accounts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/admin/accounts */ "./resources/admin/js/store/modules/admin/accounts.js");
-/* harmony import */ var _modules_admin_companies__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/admin/companies */ "./resources/admin/js/store/modules/admin/companies.js");
-/* harmony import */ var _modules_notifications__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/notifications */ "./resources/admin/js/store/modules/notifications.js");
-/* harmony import */ var _modules_admin_translations__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/admin/translations */ "./resources/admin/js/store/modules/admin/translations.js");
-/* harmony import */ var _modules_navigation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/navigation */ "./resources/admin/js/store/modules/navigation.js");
+/* harmony import */ var _modules_admin_users__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/admin/users */ "./resources/admin/js/store/modules/admin/users.js");
+/* harmony import */ var _modules_company__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/company */ "./resources/admin/js/store/modules/company/index.js");
+/* harmony import */ var _modules_admin_companies__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/admin/companies */ "./resources/admin/js/store/modules/admin/companies.js");
+/* harmony import */ var _modules_notifications__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/notifications */ "./resources/admin/js/store/modules/notifications.js");
+/* harmony import */ var _modules_admin_translations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/admin/translations */ "./resources/admin/js/store/modules/admin/translations.js");
+/* harmony import */ var _modules_navigation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/navigation */ "./resources/admin/js/store/modules/navigation.js");
 
  //Modules
 
@@ -3700,86 +3701,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_6__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_7__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_7__["default"].Store({
+
+vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store({
   modules: {
     user: _modules_auth_user__WEBPACK_IMPORTED_MODULE_0__["default"],
-    accounts: _modules_admin_accounts__WEBPACK_IMPORTED_MODULE_1__["default"],
-    companies: _modules_admin_companies__WEBPACK_IMPORTED_MODULE_2__["default"],
-    navigation: _modules_navigation__WEBPACK_IMPORTED_MODULE_5__["default"],
-    translations: _modules_admin_translations__WEBPACK_IMPORTED_MODULE_4__["default"],
-    notifications: _modules_notifications__WEBPACK_IMPORTED_MODULE_3__["default"]
+    users: _modules_admin_users__WEBPACK_IMPORTED_MODULE_1__["default"],
+    company: _modules_company__WEBPACK_IMPORTED_MODULE_2__["default"],
+    companies: _modules_admin_companies__WEBPACK_IMPORTED_MODULE_3__["default"],
+    navigation: _modules_navigation__WEBPACK_IMPORTED_MODULE_6__["default"],
+    translations: _modules_admin_translations__WEBPACK_IMPORTED_MODULE_5__["default"],
+    notifications: _modules_notifications__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 }));
-
-/***/ }),
-
-/***/ "./resources/admin/js/store/modules/admin/accounts.js":
-/*!************************************************************!*\
-  !*** ./resources/admin/js/store/modules/admin/accounts.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _tableBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tableBase */ "./resources/admin/js/store/modules/tableBase.js");
-
-
-var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  namespaced: true,
-  state: function state() {
-    return {};
-  },
-  mutations: {},
-  getters: {
-    structure: function structure() {
-      return {
-        email: '',
-        fullName: '',
-        verified: false,
-        emailVerifiedAt: '',
-        createdAt: ''
-      };
-    }
-  },
-  actions: {
-    getOne: function getOne(_ref, _ref2) {
-      var commit = _ref.commit;
-      var id = _ref2.id,
-          _ref2$showDialog = _ref2.showDialog,
-          showDialog = _ref2$showDialog === void 0 ? false : _ref2$showDialog;
-      console.log(commit, id, showDialog);
-    },
-    destroy: function destroy(_ref3) {
-      var state = _ref3.state,
-          commit = _ref3.commit;
-      app.$api.call({
-        url: app.$api.route('admin.user', state.tableBase.deleteId),
-        method: 'DELETE'
-      })["finally"](function () {
-        commit('resetDelete');
-      });
-    },
-    forceDestroy: function forceDestroy(_ref4) {
-      var state = _ref4.state,
-          commit = _ref4.commit;
-      app.$api.call({
-        url: app.$api.route('admin.user.force', state.tableBase.deleteId),
-        method: 'DELETE'
-      })["finally"](function () {
-        commit('resetDelete');
-      });
-    }
-  },
-  modules: {
-    tableBase: _tableBase__WEBPACK_IMPORTED_MODULE_0__["default"]
-  }
-});
 
 /***/ }),
 
@@ -3840,30 +3774,22 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit("setErrors", error.response.data.errors);
       });
     },
-    getOne: function getOne(_ref2, _ref3) {
+    getOne: function getOne(_ref2, id) {
       var commit = _ref2.commit;
-      var id = _ref3.id,
-          _ref3$showDialog = _ref3.showDialog,
-          showDialog = _ref3$showDialog === void 0 ? false : _ref3$showDialog;
       app.$api.call({
         url: app.$api.route('admin.company.edit', id),
         method: 'GET'
       }).then(function (response) {
         var data = response.data.data;
-
-        if (showDialog) {
-          commit('setShow', data);
-        } else {
-          data.removeUser = false;
-          commit("setOwners", [data.owner]);
-          commit('setEdit', data);
-        }
+        data.removeUser = false;
+        commit("setOwners", [data.owner]);
+        commit('setEdit', data);
       });
     },
-    update: function update(_ref4, data) {
+    update: function update(_ref3, data) {
       var _data$owner2;
 
-      var commit = _ref4.commit;
+      var commit = _ref3.commit;
       app.$api.call({
         url: app.$api.route('admin.company.edit', data.id),
         method: 'PATCH',
@@ -3876,9 +3802,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit("setErrors", error.response.data.errors);
       });
     },
-    destroy: function destroy(_ref5) {
-      var state = _ref5.state,
-          commit = _ref5.commit;
+    destroy: function destroy(_ref4) {
+      var state = _ref4.state,
+          commit = _ref4.commit;
       app.$api.call({
         url: app.$api.route('admin.company.destroy', state.tableBase.deleteId),
         method: 'DELETE'
@@ -3886,8 +3812,8 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         commit('resetDelete');
       });
     },
-    userList: function userList(_ref6, search) {
-      var commit = _ref6.commit;
+    userList: function userList(_ref5, search) {
+      var commit = _ref5.commit;
       var params = {};
 
       if (search) {
@@ -3999,10 +3925,10 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
 
 /***/ }),
 
-/***/ "./resources/admin/js/store/modules/auth/companies.js":
-/*!************************************************************!*\
-  !*** ./resources/admin/js/store/modules/auth/companies.js ***!
-  \************************************************************/
+/***/ "./resources/admin/js/store/modules/admin/users.js":
+/*!*********************************************************!*\
+  !*** ./resources/admin/js/store/modules/admin/users.js ***!
+  \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -4010,79 +3936,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _tableBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tableBase */ "./resources/admin/js/store/modules/tableBase.js");
 
 
-var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
+var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: function state() {
-    return {
-      selected: {
-        id: 0,
-        name: '',
-        email: '',
-        domain: '',
-        information: ''
-      }
-    };
+    return {};
   },
-  mutations: {
-    setCompany: function setCompany(state, company) {
-      state.selected.id = company.id;
-      state.selected.name = company.name;
-      state.selected.email = company.email;
-      state.selected.domain = company.domain;
-      state.selected.information = company.information;
-    }
-  },
+  mutations: {},
   getters: {
-    selected: function selected(state) {
-      return state.selected;
+    structure: function structure() {
+      return {
+        email: '',
+        fullName: '',
+        verified: false,
+        emailVerifiedAt: '',
+        createdAt: ''
+      };
     }
   },
   actions: {
-    search: function search(_ref, _ref2) {
+    getOne: function getOne(_ref, _ref2) {
       var commit = _ref.commit;
-
-      var _ref3 = _slicedToArray(_ref2, 2),
-          name = _ref3[0],
-          _ref3$ = _ref3[1],
-          setMenuItems = _ref3$ === void 0 ? false : _ref3$;
-
+      var id = _ref2.id,
+          _ref2$showDialog = _ref2.showDialog,
+          showDialog = _ref2$showDialog === void 0 ? false : _ref2$showDialog;
+      console.log(commit, id, showDialog);
+    },
+    destroy: function destroy(_ref3) {
+      var state = _ref3.state,
+          commit = _ref3.commit;
       app.$api.call({
-        url: app.$api.route('user.company.search', name),
-        method: "GET"
-      }).then(function (response) {
-        commit('setCompany', response.data.data);
-
-        if (setMenuItems) {
-          commit("navigation/setCompanyMenuItems", null, {
-            root: true
-          });
-        }
+        url: app.$api.route('admin.user', state.tableBase.deleteId),
+        method: 'DELETE'
+      })["finally"](function () {
+        commit('resetDelete');
       });
     },
-    getOne: function getOne(_ref4, id) {
-      var commit = _ref4.commit;
+    forceDestroy: function forceDestroy(_ref4) {
+      var state = _ref4.state,
+          commit = _ref4.commit;
       app.$api.call({
-        url: app.$api.route('user.company.show', id),
-        method: "GET"
-      }).then(function (response) {
-        commit('setCompany', response.data.data);
+        url: app.$api.route('admin.user.force', state.tableBase.deleteId),
+        method: 'DELETE'
+      })["finally"](function () {
+        commit('resetDelete');
       });
     }
+  },
+  modules: {
+    tableBase: _tableBase__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -4099,11 +4005,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _companies__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./companies */ "./resources/admin/js/store/modules/auth/companies.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 
-
-var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
+var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: function state() {
@@ -4147,9 +4051,176 @@ var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
         window.location.href = response.data.redirect;
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/admin/js/store/modules/company/index.js":
+/*!***********************************************************!*\
+  !*** ./resources/admin/js/store/modules/company/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _users__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users */ "./resources/admin/js/store/modules/company/users.js");
+/* harmony import */ var _roles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./roles */ "./resources/admin/js/store/modules/company/roles.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+var app = vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: function state() {
+    return {
+      data: {
+        id: 0,
+        name: '',
+        email: '',
+        domain: '',
+        information: ''
+      }
+    };
+  },
+  mutations: {
+    setCompany: function setCompany(state, company) {
+      state.data = company;
+    }
+  },
+  getters: {
+    id: function id(state) {
+      return state.data.id;
+    },
+    data: function data(state) {
+      return state.data;
+    }
+  },
+  actions: {
+    search: function search(_ref, _ref2) {
+      var commit = _ref.commit;
+
+      var _ref3 = _slicedToArray(_ref2, 2),
+          name = _ref3[0],
+          _ref3$ = _ref3[1],
+          setMenuItems = _ref3$ === void 0 ? false : _ref3$;
+
+      app.$api.call({
+        url: app.$api.route('company.search', name),
+        method: "GET"
+      }).then(function (response) {
+        commit('setCompany', response.data.data);
+
+        if (setMenuItems) {
+          commit("navigation/setCompanyMenuItems", null, {
+            root: true
+          });
+        }
+      });
+    },
+    getOne: function getOne(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                commit = _ref4.commit;
+                _context.next = 3;
+                return app.$api.call({
+                  url: app.$api.route('company.show', id),
+                  method: "GET"
+                }).then(function (response) {
+                  commit('setCompany', response.data.data);
+                });
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
   },
   modules: {
-    companies: _companies__WEBPACK_IMPORTED_MODULE_0__["default"]
+    users: _users__WEBPACK_IMPORTED_MODULE_1__["default"],
+    roles: _roles__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/admin/js/store/modules/company/roles.js":
+/*!***********************************************************!*\
+  !*** ./resources/admin/js/store/modules/company/roles.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+
+var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/admin/js/store/modules/company/users.js":
+/*!***********************************************************!*\
+  !*** ./resources/admin/js/store/modules/company/users.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _tableBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tableBase */ "./resources/admin/js/store/modules/tableBase.js");
+
+
+var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  namespaced: true,
+  state: function state() {
+    return {};
+  },
+  mutations: {},
+  getters: {},
+  actions: {},
+  modules: {
+    tableBase: _tableBase__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -4193,9 +4264,9 @@ var vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"].framework
       }, {
         navigationItems: [{
           icon: 'fas fa-users',
-          name: vuetify.lang.t('$vuetify.word.accounts'),
+          name: vuetify.lang.t('$vuetify.word.users'),
           route: {
-            name: 'admin.accounts'
+            name: 'admin.users'
           }
         }, {
           icon: 'fas fa-building',
@@ -4237,7 +4308,7 @@ var vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"].framework
       var commit = _ref.commit;
       var setMenuItems = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       app.$api.call({
-        url: app.$api.route('user.company'),
+        url: app.$api.route('user.companies'),
         method: "GET"
       }).then(function (response) {
         commit('setCompany', response.data.data);
@@ -4357,22 +4428,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         show: {
           allowId: true,
           isAllowed: false,
-          func: function func(_ref2, id) {
-            var dispatch = _ref2.dispatch;
-            dispatch('getOne', {
-              id: id,
-              showDialog: true
-            });
-          }
+          func: function () {
+            var _func = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(_ref2, id) {
+              var commit, dispatch;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      commit = _ref2.commit, dispatch = _ref2.dispatch;
+                      _context.next = 3;
+                      return dispatch('company/getOne', id, {
+                        root: true
+                      });
+
+                    case 3:
+                      commit('setShow');
+
+                    case 4:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee);
+            }));
+
+            function func(_x, _x2) {
+              return _func.apply(this, arguments);
+            }
+
+            return func;
+          }()
         },
         edit: {
           allowId: true,
           isAllowed: true,
           func: function func(_ref3, id) {
             var dispatch = _ref3.dispatch;
-            dispatch('getOne', {
-              id: id
-            });
+            dispatch('getOne', id);
           }
         }
       }
@@ -4393,8 +4485,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       Object.assign(state.data, state.structure);
       state.isCreateOrEditDialogOpen = true;
     },
-    setShow: function setShow(state, data) {
-      state.data = data;
+    setShow: function setShow(state) {
       state.isShowDialogOpen = true;
     },
     setEdit: function setEdit(state, data) {
@@ -4478,62 +4569,62 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   actions: {
     load: function load(service) {
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var route, type, action, id;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 route = _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].currentRoute;
                 type = route.params.type;
 
                 if (!(type !== undefined)) {
-                  _context.next = 16;
+                  _context2.next = 16;
                   break;
                 }
 
                 action = service.state.loadActions[type];
 
                 if (!(action && action.isAllowed)) {
-                  _context.next = 14;
+                  _context2.next = 14;
                   break;
                 }
 
                 if (!action.allowId) {
-                  _context.next = 12;
+                  _context2.next = 12;
                   break;
                 }
 
                 id = route.params.id;
 
                 if (!(id !== undefined)) {
-                  _context.next = 10;
+                  _context2.next = 10;
                   break;
                 }
 
                 action.func(service, id);
-                return _context.abrupt("return");
+                return _context2.abrupt("return");
 
               case 10:
-                _context.next = 14;
+                _context2.next = 14;
                 break;
 
               case 12:
                 action.func(service);
-                return _context.abrupt("return");
+                return _context2.abrupt("return");
 
               case 14:
-                _context.next = 16;
+                _context2.next = 16;
                 return _plugins_routes__WEBPACK_IMPORTED_MODULE_1__["default"].replace({
                   name: route.name
                 });
 
               case 16:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }
   }
@@ -57122,7 +57213,7 @@ var index = {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"In order to protect your account, you must have:","list":{"characters":"Needs to be longer than 10 characters","uppercase":"Needs at least 1 uppercase letter","number":"Needs at least 1 number","symbol":"Needs at least 1 symbol"}},"forgot":"Enter your email address below to reset password"},"delete":{"message":{"translation":"Are you sure you want to delete this \\"{0}\\" translation?","account":"Are you sure you want to delete account \\"{0}\\"?"}}}}');
+module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"In order to protect your account, you must have:","list":{"characters":"Needs to be longer than 10 characters","uppercase":"Needs at least 1 uppercase letter","number":"Needs at least 1 number","symbol":"Needs at least 1 symbol"}},"forgot":"Enter your email address below to reset password"},"delete":{"message":{"translation":"Are you sure you want to delete this \\"{0}\\" translation?","user":"Are you sure you want to delete user \\"{0}\\"?"}}}}');
 
 /***/ }),
 
@@ -57133,7 +57224,7 @@ module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"In order to p
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","domains":"Domains","companies":"Companies","admin":"Admin","search":"Search","cancel":"Cancel","save":"Save","delete":{"force":"Delete permanently","account":"Delete account","translation":"Delete translation","delete":"Delete","company":"Delete company"},"edit":{"account":"Edit account","translation":"Edit Translation","company":"Edit company","edit":"Edit"},"dark_mode":"Dark mode","welcome":"Welcome","email":"Email","password":"Password","remember_me":"Remember me","login":{"login":"Login"},"forgot_password":"Forgot password","reset":{"password":"Reset password"},"confirm":{"password":"Comfirm password"},"accounts":"Accounts","translations":"Translations","not_translated":"Not translated yet","environment":"Environment","group":"Group","key":"Key","translation":{"sources":"Translation sources"},"account":{"account":"Account"},"send_email":"Send email","id":"ID","name":"Name","owner":"Owner","domain":"Domain","created_at":"Created at","actions":"Actions","tags":"Tags","translated":"Translated","email_verified_at":"Email verified oat","deleted_at":"Deleted at","publish":"Publish","information":"Information","create":{"company":"Create Company","create":"Create"}}}');
+module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","domains":"Domains","companies":"Companies","admin":"Admin","search":"Search","cancel":"Cancel","save":"Save","delete":{"force":"Delete permanently","user":"Delete user","translation":"Delete translation","delete":"Delete","company":"Delete company"},"edit":{"user":"Edit user","translation":"Edit Translation","company":"Edit company","edit":"Edit"},"dark_mode":"Dark mode","welcome":"Welcome","email":"Email","password":"Password","remember_me":"Remember me","login":{"login":"Login"},"forgot_password":"Forgot password","reset":{"password":"Reset password"},"confirm":{"password":"Comfirm password"},"users":"Users","translations":"Translations","not_translated":"Not translated yet","environment":"Environment","group":"Group","key":"Key","translation":{"sources":"Translation sources"},"account":{"account":"Account"},"send_email":"Send email","id":"ID","name":"Name","owner":"Owner","domain":"Domain","created_at":"Created at","actions":"Actions","tags":"Tags","translated":"Translated","email_verified_at":"Email verified oat","deleted_at":"Deleted at","publish":"Publish","information":"Information","create":{"company":"Create Company","create":"Create"}}}');
 
 /***/ }),
 
@@ -57144,7 +57235,7 @@ module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","d
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"Om uw account te beschermen, moet u beschikken over:","list":{"characters":"Moet langer zijn dan 10 tekens","uppercase":"Vereist minimaal 1 hoofdletter","number":"Heeft minimaal 1 nummer nodig","symbol":"Heeft minimaal 1 symbool nodig"}},"forgot":"Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"},"delete":{"message":{"translation":"Weet je het zeker dat je deze \\"{0}\\" vertaling wil verwijderen?","account":"Weet je het zeker dat je account \\"{0}\\" wil verwijderen?"}}}}');
+module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"Om uw account te beschermen, moet u beschikken over:","list":{"characters":"Moet langer zijn dan 10 tekens","uppercase":"Vereist minimaal 1 hoofdletter","number":"Heeft minimaal 1 nummer nodig","symbol":"Heeft minimaal 1 symbool nodig"}},"forgot":"Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"},"delete":{"message":{"translation":"Weet je het zeker dat je deze \\"{0}\\" vertaling wil verwijderen?","user":"Weet je het zeker dat je gebruiker \\"{0}\\" wil verwijderen?"}}}}');
 
 /***/ }),
 
@@ -57155,7 +57246,7 @@ module.exports = JSON.parse('{"text":{"password":{"reset":{"info":"Om uw account
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"word":{"settings":"Instellingen","logout":"Uitloggen","domains":"Domeinen","companies":"Bedrijven","admin":"Beheerder","search":"Zoeken","cancel":"Annuleren","save":"Opslaan","delete":{"force":"Permanent verwijderen","account":"Account verwijderen","translation":"Verwijder vertaling","delete":"Verwijderen","company":"Bedrijf verwijderen"},"edit":{"account":"Account bewerken","translation":"Vertaling bewerken","company":"Bedrijf bewerken","edit":"Bewerken"},"dark_mode":"Donkere modus","welcome":"Welkom","email":"E-mail","password":"Wachtwoord","remember_me":"Onthoud me","login":{"login":"Inloggen"},"forgot_password":"Wachtword vergeten","reset":{"password":"Wachtwoord opnieuw instellen"},"confirm":{"password":"Bevestig wachtwoord"},"accounts":"Accounts","translations":"Vertalingen","not_translated":"Nog niet vertaald","environment":"omgeving","group":"Groep","key":"Sleutel","translation":{"sources":"Vertaalbronnen"},"account":{"account":"Account"},"send_email":"verstuur e-mail","id":"ID","name":"Naam","owner":"Eigenaar","domain":"Domein","created_at":"Aangemaakt op","actions":"Acties","tags":"Tags","translated":"vertaald","email_verified_at":"E-mail geverifieerd op","deleted_at":"Verwijderd op","publish":"Publiceren","information":"Informatie","create":{"company":"Bedrijf aanmaken","create":"Aanmaken"}}}');
+module.exports = JSON.parse('{"word":{"settings":"Instellingen","logout":"Uitloggen","domains":"Domeinen","companies":"Bedrijven","admin":"Beheerder","search":"Zoeken","cancel":"Annuleren","save":"Opslaan","delete":{"force":"Permanent verwijderen","user":"Gebruiker verwijderen","translation":"Verwijder vertaling","delete":"Verwijderen","company":"Bedrijf verwijderen"},"edit":{"user":"Gebruiker bewerken","translation":"Vertaling bewerken","company":"Bedrijf bewerken","edit":"Bewerken"},"dark_mode":"Donkere modus","welcome":"Welkom","email":"E-mail","password":"Wachtwoord","remember_me":"Onthoud me","login":{"login":"Inloggen"},"forgot_password":"Wachtword vergeten","reset":{"password":"Wachtwoord opnieuw instellen"},"confirm":{"password":"Bevestig wachtwoord"},"users":"Gebruikers","translations":"Vertalingen","not_translated":"Nog niet vertaald","environment":"omgeving","group":"Groep","key":"Sleutel","translation":{"sources":"Vertaalbronnen"},"account":{"account":"Account"},"send_email":"verstuur e-mail","id":"ID","name":"Naam","owner":"Eigenaar","domain":"Domein","created_at":"Aangemaakt op","actions":"Acties","tags":"Tags","translated":"vertaald","email_verified_at":"E-mail geverifieerd op","deleted_at":"Verwijderd op","publish":"Publiceren","information":"Informatie","create":{"company":"Bedrijf aanmaken","create":"Aanmaken"}}}');
 
 /***/ }),
 
@@ -57177,7 +57268,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"admin.user.company":"/api/companies","admin.user.company.search":"/api/companies/search/{companyName}","admin.user.company.show":"/api/companies/{company}","admin.admin.companies":"/api/companies/admin/table","admin.admin.company.create":"/api/companies/admin","admin.admin.company.edit":"/api/companies/admin/{company}","admin.admin.company.destroy":"/api/companies/admin/{company}","admin.admin.translation.publish":"/api/translations/admin/publish","admin.admin.translations.environments":"/api/translations/admin/environments","admin.admin.translations.environment":"/api/translations/admin/environments/{environment}/table","admin.admin.translation":"/api/translations/admin/{translationKey}","admin.auth.user":"/api/users/auth/user","admin.admin.users":"/api/users/admin/table","admin.admin.user.list":"/api/users/admin/list","admin.admin.user":"/api/users/admin/{user}","admin.admin.user.force":"/api/users/admin/{user}/force"}');
+module.exports = JSON.parse('{"admin.admin.translation.publish":"/api/translations/admin/publish","admin.admin.translations.environments":"/api/translations/admin/environments","admin.admin.translations.environment":"/api/translations/admin/environments/{environment}/table","admin.admin.translation":"/api/translations/admin/{translationKey}","admin.auth.user":"/api/users/auth/user","admin.admin.users":"/api/users/admin/table","admin.admin.user.list":"/api/users/admin/list","admin.admin.user":"/api/users/admin/{user}","admin.admin.user.force":"/api/users/admin/{user}/force","admin.company.users":"/api/companies/{company}/users","admin.user.companies":"/api/companies","admin.company.search":"/api/companies/search/{companyName}","admin.company.show":"/api/companies/{company}","admin.admin.companies":"/api/companies/admin/table","admin.admin.company.create":"/api/companies/admin","admin.admin.company.edit":"/api/companies/admin/{company}","admin.admin.company.destroy":"/api/companies/admin/{company}"}');
 
 /***/ })
 
@@ -57288,7 +57379,7 @@ module.exports = JSON.parse('{"admin.user.company":"/api/companies","admin.user.
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"pages/dashboard":1,"pages/account":1,"pages/admin/accounts":1,"pages/admin/companies":1,"pages/admin/translations":1,"pages/company":1,"pages/company/dashboard":1}[chunkId]) return "js/admin/" + chunkId + ".js";
+/******/ 			if ({"pages/dashboard":1,"pages/account":1,"pages/admin/users":1,"pages/admin/companies":1,"pages/admin/translations":1,"pages/company":1,"pages/company/dashboard":1}[chunkId]) return "js/admin/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

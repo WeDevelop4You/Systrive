@@ -3,6 +3,7 @@
     namespace Support\Helpers\Data\Queries;
 
     use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Relations\Relation;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Schema;
     use Support\Helpers\Data\Build\Column;
@@ -11,9 +12,9 @@
     class WhereQueryBuilder
     {
         /**
-         * @var Builder
+         * @var Builder|Relation
          */
-        private Builder $query;
+        private $query;
 
         /**
          * @var string
@@ -26,11 +27,11 @@
         private Collection $columns;
 
         /**
-         * @param Builder    $query
+         * @param Builder|Relation    $query
          * @param Collection $columns
          * @param string     $search
          */
-        public function __construct(Builder $query, Collection $columns, string $search)
+        public function __construct($query, Collection $columns, string $search)
         {
             $this->query = $query;
             $this->columns = $columns;
@@ -38,18 +39,21 @@
         }
 
         /**
-         * @param Builder    $query
+         * @param Builder|Relation    $query
          * @param Collection $columns
          * @param string     $search
          *
          * @return WhereQueryBuilder
          */
-        public static function create(Builder $query, Collection $columns, string $search): WhereQueryBuilder
+        public static function create($query, Collection $columns, string $search): WhereQueryBuilder
         {
             return new static($query, $columns, $search);
         }
 
-        public function build(): Builder
+        /**
+         * @return Builder|Relation
+         */
+        public function build()
         {
             $searchableColumns = $this->columns->where('isSearchable', true);
 

@@ -10,13 +10,13 @@
         "save": "Save",
         "delete": {
             "force": "Delete permanently",
-            "account": "Delete account",
+            "user": "Delete user",
             "translation": "Delete translation",
             "delete": "Delete",
             "company": "Delete company"
         },
         "edit": {
-            "account": "Edit account",
+            "user": "Edit user",
             "translation": "Edit Translation",
             "company": "Edit company",
             "edit": "Edit"
@@ -36,7 +36,7 @@
         "confirm": {
             "password": "Comfirm password"
         },
-        "accounts": "Accounts",
+        "users": "Users",
         "translations": "Translations",
         "not_translated": "Not translated yet",
         "environment": "Environment",

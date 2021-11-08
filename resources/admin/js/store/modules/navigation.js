@@ -21,7 +21,7 @@ export default {
                 {divider: true},
                 {subheader: vuetify.lang.t('$vuetify.word.admin')},
                 {navigationItems: [
-                        {icon: 'fas fa-users', name: vuetify.lang.t('$vuetify.word.accounts'), route: {name: 'admin.accounts'}},
+                        {icon: 'fas fa-users', name: vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
                         {icon: 'fas fa-building', name: vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},
                         {icon: 'fas fa-language', name: vuetify.lang.t('$vuetify.word.translations'), route: {name: 'admin.translations'}},
                     ]
@@ -55,7 +55,7 @@ export default {
     actions: {
         getCompanies({commit}, setMenuItems = false) {
             app.$api.call({
-                url: app.$api.route('user.company'),
+                url: app.$api.route('user.companies'),
                 method: "GET"
             }).then((response) => {
                 commit('setCompany', response.data.data)

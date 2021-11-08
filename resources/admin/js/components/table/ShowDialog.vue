@@ -5,7 +5,7 @@
         hide-overlay
         transition="dialog-bottom-transition"
     >
-        <v-card>
+        <v-card :color="$vuetify.theme.dark ? '#121212' : ''">
             <v-toolbar dense>
                 <v-toolbar-title
                     class="ml-5"

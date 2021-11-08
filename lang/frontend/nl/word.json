@@ -10,13 +10,13 @@
         "save": "Opslaan",
         "delete": {
             "force": "Permanent verwijderen",
-            "account": "Account verwijderen",
+            "user": "Gebruiker verwijderen",
             "translation": "Verwijder vertaling",
             "delete": "Verwijderen",
             "company": "Bedrijf verwijderen"
         },
         "edit": {
-            "account": "Account bewerken",
+            "user": "Gebruiker bewerken",
             "translation": "Vertaling bewerken",
             "company": "Bedrijf bewerken",
             "edit": "Bewerken"
@@ -36,7 +36,7 @@
         "confirm": {
             "password": "Bevestig wachtwoord"
         },
-        "accounts": "Accounts",
+        "users": "Gebruikers",
         "translations": "Vertalingen",
         "not_translated": "Nog niet vertaald",
         "environment": "omgeving",

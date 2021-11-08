@@ -5,6 +5,7 @@
     use Illuminate\Container\Container;
     use Illuminate\Contracts\Container\BindingResolutionException;
     use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Relations\Relation;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Collection;
@@ -13,9 +14,9 @@
     class DataList
     {
         /**
-         * @var Builder
+         * @var Builder|Relation
          */
-        private Builder $query;
+        private $query;
 
         /**
          * @var Request
@@ -27,7 +28,7 @@
          */
         private Collection $columns;
 
-        public function __construct(Builder $query, string $columnName)
+        public function __construct($query, string $columnName)
         {
             $this->query = $query->orderBy($columnName);
 
@@ -43,12 +44,12 @@
         }
 
         /**
-         * @param Builder $query
+         * @param Builder|Relation $query
          * @param string  $columnName
          *
          * @return DataList
          */
-        public static function create(Builder $query, string $columnName): DataList
+        public static function create($query, string $columnName): DataList
         {
             return new static($query, $columnName);
         }

@@ -7,7 +7,7 @@
         name: "Company",
 
         async beforeCreate() {
-            await this.$store.dispatch('user/companies/search', [this.$route.params.companyName, true])
+            await this.$store.dispatch('company/search', [this.$route.params.companyName, true])
         },
 
         beforeDestroy() {

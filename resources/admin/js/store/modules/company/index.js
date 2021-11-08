@@ -1,12 +1,15 @@
 import Vue from 'vue';
 
+import Users from "./users";
+import Roles from "./roles";
+
 const app = Vue.prototype
 
 export default {
     namespaced: true,
 
     state: () => ({
-        selected: {
+        data: {
             id: 0,
             name: '',
             email: '',
@@ -17,24 +20,24 @@ export default {
 
     mutations: {
         setCompany(state, company) {
-            state.selected.id = company.id
-            state.selected.name = company.name
-            state.selected.email = company.email
-            state.selected.domain = company.domain
-            state.selected.information = company.information
+            state.data = company
         }
     },
 
     getters: {
-        selected(state) {
-            return state.selected
+        id(state) {
+            return state.data.id
+        },
+
+        data(state) {
+            return state.data
         },
     },
 
     actions: {
         search({commit}, [name, setMenuItems = false]) {
             app.$api.call({
-                url: app.$api.route('user.company.search', name),
+                url: app.$api.route('company.search', name),
                 method: "GET"
             }).then((response) => {
                 commit('setCompany', response.data.data)
@@ -45,13 +48,18 @@ export default {
             })
         },
 
-        getOne({commit}, id) {
-            app.$api.call({
-                url: app.$api.route('user.company.show', id),
+        async getOne({commit}, id) {
+            await app.$api.call({
+                url: app.$api.route('company.show', id),
                 method: "GET"
             }).then((response) => {
                 commit('setCompany', response.data.data)
             })
         },
     },
+
+    modules: {
+        users: Users,
+        roles: Roles
+    }
 }

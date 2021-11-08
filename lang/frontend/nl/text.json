@@ -15,7 +15,7 @@
         "delete": {
             "message": {
                 "translation": "Weet je het zeker dat je deze \"{0}\" vertaling wil verwijderen?",
-                "account": "Weet je het zeker dat je account \"{0}\" wil verwijderen?"
+                "user": "Weet je het zeker dat je gebruiker \"{0}\" wil verwijderen?"
             }
         }
     }

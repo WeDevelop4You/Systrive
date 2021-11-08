@@ -8,11 +8,11 @@
     use App\Admin\Company\Controllers\CompanyTableController;
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/', [CompanyNavigationController::class, 'index'])->name('user.company');
-        Route::get('search/{companyName}', [CompanyShowController::class, 'search'])->name('user.company.search');
+        Route::get('/', [CompanyNavigationController::class, 'index'])->name('user.companies');
+        Route::get('search/{companyName}', [CompanyShowController::class, 'search'])->name('company.search');
 
         Route::prefix('{company}')->group(function () {
-            Route::get('/', [CompanyShowController::class, 'index'])->name('user.company.show');
+            Route::get('/', [CompanyShowController::class, 'index'])->name('company.show');
         });
 
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {

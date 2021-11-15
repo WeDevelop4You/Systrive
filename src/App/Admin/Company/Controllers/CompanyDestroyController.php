@@ -2,12 +2,12 @@
 
     namespace App\Admin\Company\Controllers;
 
-    use App\Controller;
-    use Domain\Companies\Models\Company;
+
+    use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Response;
 
-    class CompanyDestroyController extends Controller
+    class CompanyDestroyController
     {
         /**
          * @param Company $company

@@ -3,12 +3,14 @@
     namespace App\Admin\Company\Controllers;
 
     use App\Admin\Company\Resources\CompanyShowResource;
-    use App\Controller;
-    use Domain\Companies\Models\Company;
+
+    use Domain\Company\Models\Company;
+    use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\JsonResponse;
+    use Support\Exceptions\Handlers\ModelNotFoundException as ModelNotFoundExceptionHandler;
     use Support\Helpers\Response\Response;
 
-    class CompanyShowController extends Controller
+    class CompanyShowController
     {
         /**
          * @param Company $company
@@ -26,11 +28,19 @@
         /**
          * @param string $companyName
          *
+         * @throws ModelNotFoundExceptionHandler
          * @return JsonResponse
          */
         public function search(string $companyName): JsonResponse
         {
-            $company = Company::whereName($companyName)->firstOrFail();
+            try {
+                $company = Company::whereName($companyName)->firstOrFail();
+            } catch (ModelNotFoundException) {
+                $throw = new ModelNotFoundExceptionHandler();
+                $throw->lastRouteAction = true;
+
+                throw $throw;
+            }
 
             $response = new Response();
             $response->addData($company, CompanyShowResource::class);

@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController
 {
     /**
      * Display a listing of the resource.

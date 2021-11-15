@@ -17,7 +17,7 @@
         /**
          * @var Builder|Relation
          */
-        private $query;
+        private Builder|Relation $query;
 
         /**
          * @var Request
@@ -27,12 +27,12 @@
         /**
          * @var Collection|Column[]
          */
-        private Collection $columns;
+        private Collection|array $columns;
 
         /**
          * @param Builder|Relation $query
          */
-        public function __construct($query)
+        public function __construct(Relation|Builder $query)
         {
             $this->query = $query;
             $this->columns = new Collection();
@@ -49,7 +49,7 @@
          *
          * @return DataTable
          */
-        public static function create($query): DataTable
+        public static function create(Relation|Builder $query): DataTable
         {
             return new static($query);
         }

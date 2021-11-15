@@ -75,17 +75,13 @@
             async showItem() {
                 const id = this.item.id
 
-                await this.$router.replace({name: this.$route.name, params: {type: 'show', id: id}})
-
                 await this.$store.dispatch('company/getOne', id)
 
-                this.$store.commit('companies/setShow')
+                this.$store.commit('companies/setShow', id)
             },
 
             async editItem() {
                 const id = this.item.id
-
-                await this.$router.replace({name: this.$route.name, params: {type: 'edit', id: id}})
 
                 await this.$store.dispatch('companies/getOne', id)
             },

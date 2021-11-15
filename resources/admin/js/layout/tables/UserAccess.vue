@@ -14,9 +14,10 @@
                 :form-title="formTitle"
                 :button-title="$vuetify.lang.t('$vuetify.word.invite.user')"
                 :vuex-namespace="vuexNamespace"
+                rerender
                 @save="save"
             >
-
+                <company-user v-model="data" />
             </create-or-edit-dialog>
         </template>
         <delete-dialog
@@ -32,11 +33,13 @@
     import Actions from "../../components/table/users/access/Actions";
     import DeleteDialog from "../../components/table/DeleteDialog";
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
+    import CompanyUser from "../forms/CompanyUser";
 
     export default {
         name: "UserAccess",
 
         components: {
+            CompanyUser,
             CreateOrEditDialog,
             DeleteDialog,
             ServerDataTable
@@ -74,14 +77,22 @@
             },
 
             formTitle() {
-                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.invite');
+                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.invite.invite');
             },
+        },
+
+        created() {
+            this.$store.commit(`${this.vuexNamespace}/setStructure`, {
+                email: "",
+                roles: [],
+                permissions: [],
+            });
         },
 
         methods: {
             async save() {
                 if (this.isEditing) {
-                    await this.$store.dispatch(`${this.vuexNamespace}/edit`, this.data)
+                    await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)
                 } else {
                     await this.$store.dispatch(`${this.vuexNamespace}/invite`, this.data)
                 }

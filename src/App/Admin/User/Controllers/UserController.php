@@ -3,12 +3,11 @@
     namespace App\Admin\User\Controllers;
 
     use App\Admin\User\Resources\UserResource;
-    use App\Controller;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Response;
 
-    class UserController extends Controller
+    class UserController
     {
         /**
          * @return JsonResponse

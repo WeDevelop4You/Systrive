@@ -1,5 +1,6 @@
 <template>
     <v-dialog
+        v-if="render"
         v-model="dialog"
         fullscreen
         hide-overlay
@@ -48,6 +49,17 @@
                 required: true,
                 type: String
             },
+
+            rerender: {
+                type: Boolean,
+                default: false
+            }
+        },
+
+        data() {
+            return {
+                render: false
+            }
         },
 
         computed: {
@@ -60,10 +72,20 @@
             }
         },
 
-        methods: {
-            async resetDialog() {
-                await this.$router.replace({name: this.$route.name})
+        watch: {
+            dialog: function (value) {
+                if (value) {
+                    this.render = true
+                } else if (this.rerender) {
+                    setTimeout(() => {
+                        this.render = false
+                    }, 300)
+                }
+            }
+        },
 
+        methods: {
+            resetDialog() {
                 this.$store.commit(`${this.vuexNamespace}/resetShow`)
             }
         }

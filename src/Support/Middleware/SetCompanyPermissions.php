@@ -3,7 +3,7 @@
 namespace Support\Middleware;
 
 use Closure;
-use Domain\Companies\Models\Company;
+use Domain\Company\Models\Company;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,23 +21,29 @@ class SetCompanyPermissions
      *
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
-        if (Auth::check() && $request->routeIs('admin.company*') && $request->route()->hasParameter('company')) {
-            $company = $request->route('company');
-            $id = $company instanceof Company ? $company->id : $company;
+        if (Auth::check()) {
+            $user = Auth::user();
 
-            try {
-                Auth::user()->companies()->wherePivot('company_id', $id)->firstOrFail();
-            } catch (ModelNotFoundException $e) {
-                $response = new Response(ResponseCodes::HTTP_FORBIDDEN);
-                $response->addPopup(trans('response.forbidden.company'));
+            setPermissionsTeamId(0);
 
-                return $response->toJson();
+            if ($request->route()->hasParameter('company') && !$user->hasRole('super_admin')) {
+                $company = $request->route('company');
+                $id = $company instanceof Company ? $company->id : $company;
+
+                try {
+                    $user->companies()->wherePivot('company_id', $id)->firstOrFail();
+                } catch (ModelNotFoundException) {
+                    $response = new Response(ResponseCodes::HTTP_FORBIDDEN);
+                    $response->addPopup(trans('response.forbidden.company'));
+
+                    return $response->toJson();
+                }
+
+                setPermissionsTeamId($id);
             }
         }
-
-        app(PermissionRegistrar::class)->setPermissionsTeamId($id ?? 0);
 
         return $next($request);
     }

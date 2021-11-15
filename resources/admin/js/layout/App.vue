@@ -130,6 +130,7 @@
                                     <component
                                         :is="item.component"
                                         :key="i"
+                                        :index="i"
                                     />
                                 </template>
                                 <template v-else>

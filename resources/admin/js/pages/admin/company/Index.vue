@@ -20,13 +20,14 @@
             </create-or-edit-dialog>
         </template>
         <delete-dialog
-            :title="$vuetify.lang.t('$vuetify.word.delete.account')"
+            :title="$vuetify.lang.t('$vuetify.word.delete.company')"
             vuex-namespace="companies"
             @delete="destroy"
         />
         <show-dialog
-            :title="$vuetify.lang.t('$vuetify.text.show.company')"
+            :title="$vuetify.lang.t('$vuetify.word.show.company')"
             vuex-namespace="companies"
+            rerender
         >
             <show />
         </show-dialog>
@@ -34,7 +35,6 @@
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
     import ServerDataTable from "../../../components/ServerDataTable";
     import CreateOrEditDialog from "../../../components/table/CreateOrEditDialog";
     import DeleteDialog from "../../../components/table/DeleteDialog";
@@ -59,11 +59,17 @@
             return {
                 customItems: [
                     {name: 'actions', component: Actions}
-                ]
+                ],
+
+                vuexNamespace: "companies"
             }
         },
 
         computed: {
+            data() {
+                return this.$store.getters[`${this.vuexNamespace}/data`]
+            },
+
             formTitle() {
                 return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.create.create');
             },
@@ -80,43 +86,55 @@
                 ]
             },
 
-            ...mapGetters({
-                data: "companies/data",
-                isEditing: "companies/isEditing",
-            })
+            isEditing() {
+                return this.$store.getters[`${this.vuexNamespace}/isEditing`]
+            },
         },
 
-        beforeCreate() {
-            this.$store.commit('companies/changeAllowedLoadActionState', {actionName: 'show', allowed: true})
+        created() {
+            this.$store.commit(`${this.vuexNamespace}/addLoadAction`, {
+                actionName: 'show',
+                action: {
+                    isAllowed: true,
+                    isIdAllowed: true,
+                    func: async ({commit, dispatch}, id) => {
+                        await dispatch('company/getOne', id, {root: true})
 
-            this.$store.commit('companies/setStructure',{
+                        commit('setShow', id)
+                    }
+                }
+            })
+
+            this.$store.commit(`${this.vuexNamespace}/setStructure`,{
                 name: '',
                 email: '',
                 domain: '',
                 information: '',
                 owner: {},
             })
+
+            this.$store.dispatch('permissions/getList')
         },
 
         methods: {
             dialogOpened() {
                 if (!this.isEditing) {
-                    this.$store.dispatch('companies/userList', '')
+                    this.$store.dispatch(`${this.vuexNamespace}/searchList`, '')
                 }
             },
 
             async save() {
                 if (this.isEditing) {
-                    await this.$store.dispatch('companies/update', this.data)
+                    await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)
                 } else {
-                    await this.$store.dispatch('companies/create', this.data)
+                    await this.$store.dispatch(`${this.vuexNamespace}/create`, this.data)
                 }
 
                 this.$refs.server.getData();
             },
 
             async destroy() {
-                await this.$store.dispatch('companies/destroy')
+                await this.$store.dispatch(`${this.vuexNamespace}/destroy`)
                 this.$refs.server.getData();
             },
         }

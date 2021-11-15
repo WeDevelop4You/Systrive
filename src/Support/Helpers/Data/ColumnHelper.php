@@ -97,7 +97,7 @@
          * @param $column
          * @param $queryBuilder
          *
-         * @return string
+         * @return string|null
          */
         public static function mapToSelected($column, $queryBuilder): ?string
         {

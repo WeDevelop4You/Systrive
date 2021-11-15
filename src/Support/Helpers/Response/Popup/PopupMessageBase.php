@@ -20,7 +20,8 @@
         private string $text;
 
         /**
-         * @param string|null $text
+         * @param string $text
+         * @param int    $statusCode
          */
         final public function __construct(string $text, int $statusCode)
         {
@@ -32,7 +33,7 @@
         /**
          * @return $this
          */
-        final private function setText(?string $text = null): PopupMessageBase
+        private function setText(?string $text = null): PopupMessageBase
         {
             $this->data['text'] = $text ?? $this->text;
 
@@ -98,7 +99,7 @@
             return $this->data;
         }
 
-        final private function selectedTypeByStatusCode(int $statusCode)
+        private function selectedTypeByStatusCode(int $statusCode)
         {
             switch ($statusCode) {
                 case 200:

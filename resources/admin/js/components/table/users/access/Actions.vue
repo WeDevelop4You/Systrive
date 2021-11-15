@@ -62,7 +62,8 @@
 
         methods: {
             editItem() {
-                this.$store.dispatch('company/users/getOne', {id: this.item.id})
+                this.$store.dispatch('company/users/getOne',  this.item.id)
+                this.$store.dispatch('company/roles/dropList');
             },
 
             deleteItem() {

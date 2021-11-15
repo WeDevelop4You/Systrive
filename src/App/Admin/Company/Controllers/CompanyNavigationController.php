@@ -3,12 +3,12 @@
     namespace App\Admin\Company\Controllers;
 
     use App\Admin\Company\Resources\CompanyNavigationResource;
-    use App\Controller;
+
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Response;
 
-    class CompanyNavigationController extends Controller
+    class CompanyNavigationController
     {
         /**
          * @return JsonResponse

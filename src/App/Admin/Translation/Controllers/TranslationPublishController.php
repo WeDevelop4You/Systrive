@@ -2,13 +2,13 @@
 
     namespace App\Admin\Translation\Controllers;
 
-    use App\Controller;
+
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Response;
     use WeDevelop4You\TranslationFinder\Classes\Manager;
     use WeDevelop4You\TranslationFinder\Exceptions\FailedToBuildTranslationFileException;
 
-    class TranslationPublishController extends Controller
+    class TranslationPublishController
     {
         /**
          * @return JsonResponse

@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import User from './modules/auth/user'
 import Users from './modules/admin/users'
 import Company from './modules/company'
+import Permissions from './modules/permissions'
 import Companies from './modules/admin/companies'
 import Notifications from "./modules/notifications";
 import translations from "./modules/admin/translations";
@@ -19,6 +20,7 @@ export default new Vuex.Store({
         company: Company,
         companies: Companies,
         navigation: Navigation,
+        permissions: Permissions,
         translations: translations,
         notifications: Notifications,
     }

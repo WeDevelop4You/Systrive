@@ -3,7 +3,7 @@
 namespace Domain\User\Models;
 
 use Database\Factories\UserFactory;
-use Domain\Companies\Models\Company;
+use Domain\Company\Models\Company;
 use Domain\User\Collections\UserCollections;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -31,8 +31,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Company[]|\Domain\Companies\Collections\CompanyCollections $businesses
- * @property-read Company[]|\Domain\Companies\Collections\CompanyCollections $companies
+ * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $businesses
+ * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
  * @property-read string|null $full_name
  * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
  * @property-read \Domain\User\Models\UserProfile|null $profile

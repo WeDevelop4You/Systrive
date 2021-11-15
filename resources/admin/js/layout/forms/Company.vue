@@ -16,7 +16,7 @@
                 :search-input.sync="search"
                 :loading="isLoading"
                 :label="$vuetify.lang.t('$vuetify.word.owner')"
-                :error-messages="errors.owner"
+                :error-messages="errors.owner_id"
                 :hide-details="isEditing && showCheckbox"
                 item-text="email"
                 open-on-clear
@@ -118,7 +118,7 @@
                 if (this.isLoading || !this.search) return
 
                 this.isLoading = true
-                this.$store.dispatch('companies/userList', this.search).finally(() => {
+                this.$store.dispatch('companies/searchList', this.search).finally(() => {
                     this.isLoading = false
                 })
             }, 500),

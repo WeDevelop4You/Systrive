@@ -18,26 +18,18 @@ export default {
 
         hideDeleteButton: false,
 
+        isLoadActionAllowed: false,
         loadActions: {
             new: {
-                allowId: false,
                 isAllowed: true,
+                isIdAllowed: false,
                 func: ({commit}) => {
                     commit('setCreate')
                 }
             },
-            show: {
-                allowId: true,
-                isAllowed: false,
-                func: async ({commit, dispatch}, id) => {
-                    await dispatch('company/getOne', id, {root: true})
-
-                    commit('setShow')
-                }
-            },
             edit: {
-                allowId: true,
                 isAllowed: true,
+                isIdAllowed: true,
                 func: ({dispatch}, id) => {
                     dispatch('getOne', id)
                 }
@@ -59,17 +51,41 @@ export default {
             state.structure = structure
         },
 
-        setCreate(state) {
+        async setCreate(state) {
             Object.assign(state.data, state.structure)
+
+            if (state.isLoadActionAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name,
+                    params: {type: 'new'}
+                }).catch(() => {
+                })
+            }
 
             state.isCreateOrEditDialogOpen = true
         },
 
-        setShow(state) {
+        async setShow(state, id) {
+            if (state.isLoadActionAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name,
+                    params: {type: 'show', id: id}
+                }).catch(() => {
+                })
+            }
+
             state.isShowDialogOpen = true
         },
 
-        setEdit(state, data) {
+        async setEdit(state, data) {
+            if (state.isLoadActionAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name,
+                    params: {type: 'edit', id: data.id}
+                }).catch(() => {
+                })
+            }
+
             state.data = data
             state.isEditing = true
             state.isCreateOrEditDialogOpen = true
@@ -86,11 +102,25 @@ export default {
             state.errors = {}
         },
 
-        resetShow(state) {
+        async resetShow(state) {
+            if (state.isLoadActionAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name
+                }).catch(() => {
+                })
+            }
+
             state.isShowDialogOpen = false
         },
 
-        resetCreateOrEdit(state) {
+        async resetCreateOrEdit(state) {
+            if (state.isLoadActionAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name
+                }).catch(() => {
+                })
+            }
+
             state.errors = {}
             state.isCreateOrEditDialogOpen = false
 
@@ -109,11 +139,15 @@ export default {
             }, 300)
         },
 
+        changeAllowedLoadAction(state, allowed) {
+            state.isLoadActionAllowed = allowed
+        },
+
         addLoadAction(state, {actionName, action}) {
             state.loadActions[actionName] = action
         },
 
-        changeAllowedLoadActionState(state, {actionName, allowed}) {
+        changeAllowedForSpecificLoadAction(state, {actionName, allowed}) {
             if (Object.prototype.hasOwnProperty.call(state.loadActions, actionName)) {
                 state.loadActions[actionName].isAllowed = allowed
             }
@@ -163,11 +197,13 @@ export default {
             const route = Router.currentRoute
             const type = route.params.type
 
+            service.commit('changeAllowedLoadAction', true)
+
             if (type !== undefined) {
                 const action = service.state.loadActions[type]
 
                 if (action && action.isAllowed) {
-                    if (action.allowId) {
+                    if (action.isIdAllowed) {
                         const id = route.params.id
 
                         if (id !== undefined) {

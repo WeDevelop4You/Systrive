@@ -15,7 +15,7 @@
         /**
          * @var array|JsonResource|ResourceCollection
          */
-        private $data;
+        private JsonResource|array|ResourceCollection $data;
 
         /**
          * @var int
@@ -55,9 +55,9 @@
          * @param string|null $resourceClass
          * @param bool        $collection
          *
-         * @return array|JsonResource|mixed|ResourceCollection
+         * @return array|JsonResource|ResourceCollection
          */
-        public function addData($data, ?string $resourceClass = null, bool $collection = false)
+        public function addData($data, ?string $resourceClass = null, bool $collection = false): ResourceCollection|array|JsonResource
         {
             $this->data = is_null($resourceClass)
                 ? $data

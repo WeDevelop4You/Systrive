@@ -9,7 +9,7 @@ export default {
                 },
 
                 async actionGoToRoute(route) {
-                    await this.$router.push(route)
+                    await this.$router.push(route).catch(() => {})
                 },
 
                 async actionGoToLastRoute() {

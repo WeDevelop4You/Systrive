@@ -3,7 +3,7 @@
     namespace App\Admin\Auth\Controllers;
 
     use App\Admin\Auth\Requests\LoginRequest;
-    use App\Controller;
+
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
     use Illuminate\Contracts\View\View;
@@ -12,7 +12,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Validation\ValidationException;
 
-    class AuthenticationController extends Controller
+    class AuthenticationController
     {
         /**
          * Display a listing of the resource.

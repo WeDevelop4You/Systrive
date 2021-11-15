@@ -8,7 +8,6 @@ export default {
 
     state: () => ({
         owners: [],
-
     }),
 
     mutations: {
@@ -32,7 +31,7 @@ export default {
                 method: "POST",
                 data: {
                     ...data,
-                    owner: data.owner?.id,
+                    owner_id: data.owner?.id,
                 }
             }).then(() => {
                 commit('resetCreateOrEdit')
@@ -79,7 +78,7 @@ export default {
             })
         },
 
-        userList({commit}, search) {
+        searchList({commit}, search) {
             const params = {}
 
             if (search) {

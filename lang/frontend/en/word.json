@@ -64,6 +64,23 @@
         "create": {
             "company": "Create Company",
             "create": "Create"
+        },
+        "user": {
+            "access": "User access"
+        },
+        "invite": {
+            "user": "Invite user"
+        },
+        "revoke": {
+            "user": "Revoke user"
+        },
+        "roles": "Roles",
+        "show": {
+            "company": "Show company"
+        },
+        "no_content": "No content",
+        "company": {
+            "details": "Company details"
         }
     }
 }

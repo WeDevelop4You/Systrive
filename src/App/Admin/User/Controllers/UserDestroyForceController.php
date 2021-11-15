@@ -2,12 +2,12 @@
 
     namespace App\Admin\User\Controllers;
 
-    use App\Controller;
+
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Response;
 
-    class UserDestroyForceController extends Controller
+    class UserDestroyForceController
     {
         /**
          * @param User $user

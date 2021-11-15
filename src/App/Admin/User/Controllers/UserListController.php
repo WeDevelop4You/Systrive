@@ -3,12 +3,12 @@
     namespace App\Admin\User\Controllers;
 
     use App\Admin\User\Resources\UserListResource;
-    use App\Controller;
+
     use Domain\User\Models\User;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Support\Helpers\Data\Build\DataList;
 
-    class UserListController extends Controller
+    class UserListController
     {
         /**
          * @return AnonymousResourceCollection

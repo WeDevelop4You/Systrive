@@ -6,7 +6,7 @@ use App\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 
-class TeamController extends Controller
+class TeamController
 {
     /**
      * Display a listing of the resource.

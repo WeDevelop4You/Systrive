@@ -2,14 +2,14 @@
 
     namespace App\Site\Contact\Controllers;
 
-    use App\Controller;
+
     use Domain\Contact\Jobs\SendEmail;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Validator;
 
-class ContactController extends Controller
+class ContactController
 {
     /**
      * Store a newly created resource in storage.

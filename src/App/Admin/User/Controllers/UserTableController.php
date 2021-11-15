@@ -3,7 +3,7 @@
     namespace App\Admin\User\Controllers;
 
     use App\Admin\User\Resources\UserDataResource;
-    use App\Controller;
+
     use Domain\User\Models\User;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
@@ -12,7 +12,7 @@
     use Support\Helpers\Data\Build\Column;
     use Support\Helpers\Data\Build\DataTable;
 
-    class UserTableController extends Controller
+    class UserTableController
     {
         /**
          * @return AnonymousResourceCollection

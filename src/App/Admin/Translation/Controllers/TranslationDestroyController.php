@@ -2,12 +2,12 @@
 
     namespace App\Admin\Translation\Controllers;
 
-    use App\Controller;
+
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
-    class TranslationDestroyController extends Controller
+    class TranslationDestroyController
     {
         /**
          * @param TranslationKey $translationKey

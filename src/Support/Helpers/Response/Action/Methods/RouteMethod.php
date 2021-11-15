@@ -22,7 +22,7 @@
             return new static();
         }
 
-        public function setGoToRoute(array $route): void
+        public function goToRoute(array $route): void
         {
             $this->content = [
                 'method' => 'actionGoToRoute',
@@ -32,10 +32,17 @@
             ];
         }
 
-        public function setActionGoToLastRoute(): void
+        public function goToLastRoute(): void
         {
             $this->content = [
                 'method' => 'actionGoToLastRoute',
+            ];
+        }
+
+        public function goToMainRoute(): void
+        {
+            $this->content = [
+                'method' => 'actionGoToMainRoute'
             ];
         }
     }

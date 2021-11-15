@@ -16,7 +16,7 @@
         /**
          * @var Builder|Relation
          */
-        private $query;
+        private Builder|Relation $query;
 
         /**
          * @var Request
@@ -26,9 +26,15 @@
         /**
          * @var Collection|Column[]
          */
-        private Collection $columns;
+        private Collection|array $columns;
 
-        public function __construct($query, string $columnName)
+        /**
+         * DataList constructor.
+         *
+         * @param Builder|Relation $query
+         * @param string           $columnName
+         */
+        public function __construct(Relation|Builder $query, string $columnName)
         {
             $this->query = $query->orderBy($columnName);
 
@@ -49,7 +55,7 @@
          *
          * @return DataList
          */
-        public static function create($query, string $columnName): DataList
+        public static function create(Relation|Builder $query, string $columnName): DataList
         {
             return new static($query, $columnName);
         }

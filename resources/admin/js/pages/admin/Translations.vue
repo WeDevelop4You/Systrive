@@ -30,7 +30,7 @@
             >
                 {{ $vuetify.lang.t('$vuetify.word.publish') }}
             </v-btn>
-            <edit-dialog
+            <create-or-edit-dialog
                 disable-create
                 :form-title="$vuetify.lang.t('$vuetify.word.edit.translation')"
                 vuex-namespace="translations"
@@ -128,7 +128,7 @@
                         </v-col>
                     </v-row>
                 </v-form>
-            </edit-dialog>
+            </create-or-edit-dialog>
         </template>
         <delete-dialog
             :title="$vuetify.lang.t('$vuetify.word.delete.translation')"
@@ -144,14 +144,14 @@
     import ServerDataTable from "../../components/ServerDataTable";
     import Actions from "../../components/table/translations/Actions";
     import Translated from "../../components/table/translations/Translated";
-    import EditDialog from "../../components/table/CreateOrEditDialog";
+    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
     import {mapGetters} from "vuex";
 
     export default {
         name: "Translations",
 
         components: {
-            EditDialog,
+            CreateOrEditDialog,
             DeleteDialog,
             ServerDataTable
         },
@@ -188,7 +188,7 @@
         },
 
         beforeCreate() {
-            this.$store.commit('translations/changeAllowedLoadActionState', {actionName: 'new', allowed: false})
+            this.$store.commit('translations/changeAllowedForSpecificLoadAction', {actionName: 'new', allowed: false})
 
             this.$store.commit('translations/setStructure', {
                 id: '',

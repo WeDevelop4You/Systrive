@@ -201,7 +201,18 @@
             updateSearch: _.debounce(function () {
                 this.page = 1
                 this.getData()
-            }, 500)
+            }, 500),
+
+            reset() {
+                this.page = 1
+                this.total = 0
+                this.search = ''
+                this.sorting = []
+                this.isLoading = true
+                this.itemsPerPage = 10
+
+                this.getData()
+            }
         }
     }
 </script>

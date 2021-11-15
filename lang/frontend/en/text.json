@@ -15,8 +15,12 @@
         "delete": {
             "message": {
                 "translation": "Are you sure you want to delete this \"{0}\" translation?",
-                "user": "Are you sure you want to delete user \"{0}\"?"
+                "user": "Are you sure you want to delete this \"{0}\" user?",
+                "companies": "Are you sure you want to delete this \"{0}\" company?"
             }
+        },
+        "remove": {
+            "owner": "Remove the owner with it"
         }
     }
 }

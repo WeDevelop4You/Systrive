@@ -64,6 +64,23 @@
         "create": {
             "company": "Bedrijf aanmaken",
             "create": "Aanmaken"
+        },
+        "user": {
+            "access": "Gebruikerstoegang"
+        },
+        "invite": {
+            "user": "Gebruiker uitnodigen"
+        },
+        "revoke": {
+            "user": "Gebruiker intrekken"
+        },
+        "roles": "Rollen",
+        "show": {
+            "company": "Toon bedrijf"
+        },
+        "no_content": "Geen inhoud",
+        "company": {
+            "details": "Bedrijfsgegevens"
         }
     }
 }

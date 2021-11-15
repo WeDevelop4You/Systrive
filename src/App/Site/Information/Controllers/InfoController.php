@@ -2,12 +2,12 @@
 
     namespace App\Site\Information\Controllers;
 
-    use App\Controller;
+
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\DB;
     use shweshi\OpenGraph\OpenGraph;
 
-    class InfoController extends Controller
+    class InfoController
     {
         /**
          * Display a listing of the resource.

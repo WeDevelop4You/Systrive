@@ -14,7 +14,7 @@
         /**
          * @var Builder|Relation
          */
-        private $query;
+        private Builder|Relation $query;
 
         /**
          * @var string
@@ -24,14 +24,14 @@
         /**
          * @var Collection|Column[]
          */
-        private Collection $columns;
+        private Collection|array $columns;
 
         /**
          * @param Builder|Relation $query
          * @param Collection       $columns
          * @param string           $search
          */
-        public function __construct($query, Collection $columns, string $search)
+        public function __construct(Relation|Builder $query, Collection $columns, string $search)
         {
             $this->query = $query;
             $this->columns = $columns;
@@ -45,7 +45,7 @@
          *
          * @return WhereQueryBuilder
          */
-        public static function create($query, Collection $columns, string $search): WhereQueryBuilder
+        public static function create(Relation|Builder $query, Collection $columns, string $search): WhereQueryBuilder
         {
             return new static($query, $columns, $search);
         }
@@ -53,7 +53,7 @@
         /**
          * @return Builder|Relation
          */
-        public function build()
+        public function build(): Relation|Builder
         {
             $searchableColumns = $this->columns->where('isSearchable', true);
 

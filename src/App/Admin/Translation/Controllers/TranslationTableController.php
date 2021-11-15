@@ -3,7 +3,7 @@
     namespace App\Admin\Translation\Controllers;
 
     use App\Admin\Translation\Resources\TranslationKeyDataResource;
-    use App\Controller;
+
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -12,7 +12,7 @@
     use WeDevelop4You\TranslationFinder\Models\Translation;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
-    class TranslationTableController extends Controller
+    class TranslationTableController
     {
         /**
          * @param string $environment

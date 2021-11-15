@@ -14,7 +14,7 @@
         /**
          * @var Builder|Relation
          */
-        private $query;
+        private Builder|Relation $query;
 
         /**
          * @var array
@@ -24,14 +24,14 @@
         /**
          * @var Collection|Column[]
          */
-        private Collection $columns;
+        private Collection|array $columns;
 
         /**
          * @param Builder|Relation $query
          * @param Collection       $columns
          * @param array            $sorting
          */
-        public function __construct($query, Collection $columns, array $sorting)
+        public function __construct(Relation|Builder $query, Collection $columns, array $sorting)
         {
             $this->query = $query;
             $this->sorting = $sorting;
@@ -45,7 +45,7 @@
          *
          * @return OrderQueryBuilder
          */
-        public static function create($query, Collection $columns, array $sorting): OrderQueryBuilder
+        public static function create(Relation|Builder $query, Collection $columns, array $sorting): OrderQueryBuilder
         {
             return new static($query, $columns, $sorting);
         }
@@ -53,7 +53,7 @@
         /**
          * @return Builder|Relation
          */
-        public function build()
+        public function build(): Relation|Builder
         {
             foreach ($this->sorting as $sorter) {
                 [$columnName, $direction] = $this->splitSorter($sorter);

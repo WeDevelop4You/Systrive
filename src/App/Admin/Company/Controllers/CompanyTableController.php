@@ -3,8 +3,7 @@
     namespace App\Admin\Company\Controllers;
 
     use App\Admin\Company\Resources\CompanyDataResource;
-    use App\Controller;
-    use Domain\Companies\Models\Company;
+    use Domain\Company\Models\Company;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -12,7 +11,7 @@
     use Support\Helpers\Data\Build\Column;
     use Support\Helpers\Data\Build\DataTable;
 
-    class CompanyTableController extends Controller
+    class CompanyTableController
     {
         /**
          * @return AnonymousResourceCollection

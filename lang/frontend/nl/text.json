@@ -14,9 +14,13 @@
         },
         "delete": {
             "message": {
-                "translation": "Weet je het zeker dat je deze \"{0}\" vertaling wil verwijderen?",
-                "user": "Weet je het zeker dat je gebruiker \"{0}\" wil verwijderen?"
+                "translation": "Weet je het zeker dat je deze \"{0}\" vertaling wilt verwijderen?",
+                "user": "Weet je het zeker dat je deze \"{0}\" gebruiker wilt verwijderen?",
+                "companies": "Weet je het zeker dat je deze \"{0}\" bedrijf wilt verwijderen?"
             }
+        },
+        "remove": {
+            "owner": "Verwijder de eigenaar ermee"
         }
     }
 }

@@ -4,13 +4,13 @@
 
     use App\Admin\Translation\Requests\TranslationUpdateRequests;
     use App\Admin\Translation\Resources\TranslationKeyResource;
-    use App\Controller;
+
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
     use Support\Helpers\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
-    class TranslationEditController extends Controller
+    class TranslationEditController
     {
         /**
          * @param TranslationKey $translationKey

@@ -10,7 +10,8 @@
             </v-btn>
         </template>
         <v-dialog
-            :value="dialog"
+            v-if="render"
+            v-model="dialog"
             max-width="700"
             persistent
             :fullscreen="fullscreen"
@@ -83,6 +84,17 @@
             fullscreen: {
                 type: Boolean,
                 default: false
+            },
+
+            rerender: {
+                type: Boolean,
+                default: false
+            }
+        },
+
+        data() {
+            return {
+                render: false,
             }
         },
 
@@ -96,16 +108,24 @@
             }
         },
 
-        methods: {
-            async setDialog() {
-                await this.$router.replace({name: this.$route.name, params: {type: 'new'}})
+        watch: {
+            dialog: function (value) {
+                if (value) {
+                    this.render = true
+                } else if (this.rerender) {
+                    setTimeout(() => {
+                        this.render = false
+                    }, 300)
+                }
+            }
+        },
 
+        methods: {
+            setDialog() {
                 this.$store.commit(`${this.vuexNamespace}/setCreate`)
             },
 
-            async resetDialog() {
-                await this.$router.replace({name: this.$route.name})
-
+            resetDialog() {
                 this.$store.commit(`${this.vuexNamespace}/resetCreateOrEdit`)
             }
         }

@@ -2,7 +2,6 @@
 
     namespace App\Site\Contact\Controllers;
 
-
     use Domain\Contact\Jobs\SendEmail;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;

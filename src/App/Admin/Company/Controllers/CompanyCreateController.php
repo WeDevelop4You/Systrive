@@ -21,7 +21,7 @@
         {
             $data = new CompanyData(...$requests->validated());
 
-            (new CreateCompanyAction)($data);
+            (new CreateCompanyAction())($data);
 
             $response = new Response(ResponseCode::HTTP_CREATED);
             $response->addPopup(trans('response.success.create.company'));

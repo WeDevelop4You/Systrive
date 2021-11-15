@@ -20,12 +20,12 @@
                 [$group] = explode('.', $permission->name, 2);
 
                 return $group;
-            })->map(function(Collection $permissions, string $group) {
+            })->map(function (Collection $permissions, string $group) {
                 return new PermissionGroupData($group, $permissions);
             });
 
             $response = new Response();
-            $response->addData($data,PermissionGroupResource::class, true);
+            $response->addData($data, PermissionGroupResource::class, true);
 
             return $response->toJson();
         }

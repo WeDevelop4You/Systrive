@@ -29,6 +29,7 @@
          * @param string $companyName
          *
          * @throws ModelNotFoundExceptionHandler
+         *
          * @return JsonResponse
          */
         public function search(string $companyName): JsonResponse

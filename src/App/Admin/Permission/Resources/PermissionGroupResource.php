@@ -2,7 +2,6 @@
 
     namespace App\Admin\Permission\Resources;
 
-    use App\Admin\User\Resources\UserListResource;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
 

@@ -15,7 +15,7 @@
                 'roles' => ['present', 'array'],
                 'roles.*' => ['exists:roles,id'],
                 'permissions' => ['present', 'array'],
-                'permissions.*' => ['exists:permissions,id']
+                'permissions.*' => ['exists:permissions,id'],
             ];
         }
     }

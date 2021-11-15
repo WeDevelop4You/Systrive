@@ -18,7 +18,7 @@
             return [
                 'id' => $this->id,
                 'roles' => RoleListResource::collection($this->roles),
-                'permissions' => $this->permissions()->pluck('id')
+                'permissions' => $this->permissions()->pluck('id'),
             ];
         }
     }

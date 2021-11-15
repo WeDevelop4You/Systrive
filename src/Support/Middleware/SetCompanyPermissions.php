@@ -7,7 +7,6 @@ use Domain\Company\Models\Company;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\PermissionRegistrar;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 

@@ -23,7 +23,7 @@
             public string $group,
             public Collection $permissions,
         ) {
-            $viewPermission = $this->permissions->filter(function(Permission $permission) {
+            $viewPermission = $this->permissions->filter(function (Permission $permission) {
                 return Str::endsWith($permission->name, '.view');
             })->first();
 

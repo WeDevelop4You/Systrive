@@ -2,16 +2,16 @@
 
     namespace Support\Exceptions;
 
-    use Illuminate\Database\QueryException;
-    use Support\Exceptions\Handlers\ModelNotFoundException as ModelNotFoundExceptionHandler;
-    use Support\Exceptions\Handlers\QueryException as QueryExceptionHandler;
-    use Support\Exceptions\Handlers\UnauthorizedException as UnauthorizedExceptionHandler;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
+    use Illuminate\Database\QueryException;
     use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Illuminate\Http\Response;
     use Spatie\Permission\Exceptions\UnauthorizedException;
+    use Support\Exceptions\Handlers\ModelNotFoundException as ModelNotFoundExceptionHandler;
+    use Support\Exceptions\Handlers\QueryException as QueryExceptionHandler;
+    use Support\Exceptions\Handlers\UnauthorizedException as UnauthorizedExceptionHandler;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
     use Throwable;
 

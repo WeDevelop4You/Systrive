@@ -2,7 +2,6 @@
 
     namespace App\Admin\Translation\Controllers;
 
-
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Response;
     use WeDevelop4You\TranslationFinder\Classes\Manager;

@@ -2,7 +2,6 @@
 
     namespace App\Admin\Company\Controllers;
 
-
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Response;

@@ -2,7 +2,6 @@
 
 namespace App\Site\Team\Controllers;
 
-use App\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 

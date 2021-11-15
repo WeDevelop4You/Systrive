@@ -42,7 +42,7 @@
         public function goToMainRoute(): void
         {
             $this->content = [
-                'method' => 'actionGoToMainRoute'
+                'method' => 'actionGoToMainRoute',
             ];
         }
     }

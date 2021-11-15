@@ -1,8 +1,8 @@
 <?php
 
-    use App\Admin\Company\User\Controllers\CompanyUserRevokeController;
     use App\Admin\Company\User\Controllers\CompanyUserEditController;
     use App\Admin\Company\User\Controllers\CompanyUserInviteController;
+    use App\Admin\Company\User\Controllers\CompanyUserRevokeController;
     use App\Admin\Company\User\Controllers\CompanyUserTableController;
 
     Route::middleware('auth:sanctum')->group(function () {

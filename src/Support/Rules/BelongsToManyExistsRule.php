@@ -29,7 +29,6 @@
             //
         }
 
-
         /**
          * @param string $attribute
          * @param mixed  $value
@@ -49,9 +48,8 @@
             return $this->exists === $this->pivotQuery->wherePivot($this->pivotColumn, $searchValue->id)->exists();
         }
 
-
         /**
-         * @return array|Application|Translator|string|null
+         * @return Application|array|string|Translator|null
          */
         public function message(): array|string|Translator|Application|null
         {

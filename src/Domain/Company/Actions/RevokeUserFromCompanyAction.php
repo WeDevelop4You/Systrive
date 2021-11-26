@@ -5,8 +5,6 @@
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
-    use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Database\Eloquent\Model;
 
     class RevokeUserFromCompanyAction
     {

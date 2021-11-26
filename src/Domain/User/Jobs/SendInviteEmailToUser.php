@@ -2,13 +2,11 @@
 
 namespace Domain\User\Jobs;
 
-use Domain\Contact\Mail\Contact;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
 
 class SendInviteEmailToUser implements ShouldQueue
 {
@@ -22,7 +20,6 @@ class SendInviteEmailToUser implements ShouldQueue
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -32,6 +29,5 @@ class SendInviteEmailToUser implements ShouldQueue
      */
     public function handle(): void
     {
-
     }
 }

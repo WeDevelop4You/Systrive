@@ -30,7 +30,7 @@ class ResetPasswordController
     {
         return view('admin::pages.auth.reset-password')->with([
             'token' => $token,
-            'encryptEmail' => $encryptEmail
+            'encryptEmail' => $encryptEmail,
         ]);
     }
 
@@ -45,7 +45,7 @@ class ResetPasswordController
             $request->only('email', 'password', 'password_confirmed', 'token'),
             function ($user, $password) {
                 $user->forceFill([
-                    'password' => Hash::make($password)
+                    'password' => Hash::make($password),
                 ])->setRememberToken(Str::random(60));
 
                 $user->save();

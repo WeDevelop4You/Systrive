@@ -1,93 +1,44 @@
 <?php
 
-namespace App\Admin\Auth\Controllers;
+    namespace App\Admin\Auth\Controllers;
 
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+    use App\Admin\Auth\Requests\PasswordRecoveryRequest;
+    use Illuminate\Contracts\Foundation\Application;
+    use Illuminate\Contracts\View\Factory;
+    use Illuminate\Contracts\View\View;
+    use Illuminate\Http\JsonResponse;
+    use Illuminate\Support\Facades\Password;
+    use Support\Helpers\Response\Response;
 
-class PasswordRecoveryController
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     */
-    public function index()
+    class PasswordRecoveryController
     {
-        return view('admin::pages.auth.password-recovery');
-    }
+        /**
+         * @return Application|Factory|View
+         */
+        public function index(): Factory|View|Application
+        {
+            return view('admin::pages.auth.password-recovery');
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create(): Response
-    {
-        //
-    }
+        /**
+         * @param PasswordRecoveryRequest $request
+         *
+         * @return JsonResponse
+         */
+        public function action(PasswordRecoveryRequest $request): JsonResponse
+        {
+            $email = $request->only('email');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function store(Request $request): Response
-    {
-        //
-    }
+            $status = Password::sendResetLink($email);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show(int $id): Response
-    {
-        //
-    }
+            $response = new Response();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit(int $id): Response
-    {
-        //
-    }
+            if ($status === Password::RESET_LINK_SENT) {
+                $response->addPopup(trans($status));
+            } else {
+                $response->addErrors('email', [trans($status)]);
+            }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
-     */
-    public function update(Request $request, int $id): Response
-    {
-        //
+            return $response->toJson();
+        }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function destroy(int $id): Response
-    {
-        //
-    }
-}

@@ -52,27 +52,26 @@ export default new Vue({
         });
 
         this.$api.call.interceptors.response.use(function (response) {
-            const data = response.data
-
             app.requests--
 
-            app.addPopup(data)
-            app.callAction(data)
+            app.responseActions(response.data)
 
             return response
         }, function (error) {
-            const data = error.response.data
-
             app.requests--
 
-            app.addPopup(data)
-            app.callAction(data)
+            app.responseActions(error.response.data)
 
             return Promise.reject(error)
         });
     },
 
     methods: {
+        responseActions(data) {
+            this.addPopup(data)
+            this.callAction(data)
+        },
+
         addPopup(data) {
             if (Object.prototype.hasOwnProperty.call(data,'popup')) {
                 this.$store.dispatch('notifications/popup', data.popup);

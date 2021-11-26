@@ -99,7 +99,7 @@
             return $this->data;
         }
 
-        private function selectedTypeByStatusCode(int $statusCode)
+        public function selectedTypeByStatusCode(int $statusCode)
         {
             switch ($statusCode) {
                 case 200:
@@ -124,4 +124,6 @@
                     $this->setText(trans('response.unknown.status_code'));
             }
         }
+
+        abstract public static function getComponent(): string;
     }

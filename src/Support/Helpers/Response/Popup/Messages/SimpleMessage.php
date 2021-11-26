@@ -6,4 +6,8 @@
 
     class SimpleMessage extends PopupMessageBase
     {
+        public static function getComponent(): string
+        {
+            return 'Simple';
+        }
     }

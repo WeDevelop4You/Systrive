@@ -52,7 +52,7 @@ export default {
         },
 
         async setCreate(state) {
-            Object.assign(state.data, state.structure)
+            state.data = Object.assign({}, state.structure)
 
             if (state.isLoadActionAllowed) {
                 await Router.replace({

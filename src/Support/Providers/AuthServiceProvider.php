@@ -2,8 +2,12 @@
 
 namespace Support\Providers;
 
+use Domain\User\Models\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rules\Password;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,8 +29,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function ($user) {
-            return $user->hasRole('Super Admin') ? true : null;
+        Password::defaults(function () {
+            return Password::min(10)
+                ->mixedCase()
+                ->numbers()
+                ->symbols()
+                ->uncompromised();
+        });
+
+        ResetPassword::createUrlUsing(function (User $user, string $token) {
+            return route('admin.reset.password.link', [
+                $token,
+                Crypt::encryptString($user->email)
+            ]);
         });
     }
 }

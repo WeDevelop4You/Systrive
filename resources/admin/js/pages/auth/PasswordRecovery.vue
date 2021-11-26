@@ -18,7 +18,7 @@
                 outlined
                 dense
                 type="text"
-                :error-messages="error_message.email"
+                :error-messages="errors.email"
             />
         </v-card-text>
         <v-card-actions class="px-4">
@@ -38,7 +38,7 @@
     import LAuth from '../../layout/Auth'
 
     export default {
-        name: "RecoverPassword",
+        name: "PasswordRecovery",
 
         components: {
             LAuth
@@ -47,7 +47,7 @@
         data() {
             return {
                 email: '',
-                error_message: {},
+                errors: {},
             }
         },
 
@@ -61,7 +61,20 @@
 
         methods: {
             send() {
+                let app = this
 
+                this.errors = {}
+                this.$api.call({
+                    url: '/password/recovery',
+                    method: "post",
+                    data: {
+                        email: app.email
+                    }
+                }).then(() => {
+                    app.email = ''
+                }).catch((error) => {
+                    app.errors = error.response.data.errors || {}
+                })
             },
 
             enter(e) {

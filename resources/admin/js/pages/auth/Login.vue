@@ -79,6 +79,11 @@
             link: {
                 required: true,
                 type: String,
+            },
+
+            responseData: {
+                required: true,
+                type: Object,
             }
         },
 
@@ -95,6 +100,8 @@
 
         created() {
             window.addEventListener('keydown', this.enter)
+
+            this.$root.responseActions(this.responseData)
         },
 
         beforeDestroy() {

@@ -196,6 +196,13 @@
             DarkModeSwitchList
         },
 
+        props: {
+            responseData: {
+                required: true,
+                type: Object
+            }
+        },
+
         data() {
             return {
                 isMini: true,
@@ -228,6 +235,10 @@
         async beforeCreate() {
             await this.$store.dispatch('user/get')
             await this.$store.dispatch('navigation/getCompanies', true)
+        },
+
+        created() {
+            this.$root.responseActions(this.responseData)
         },
 
         methods: {

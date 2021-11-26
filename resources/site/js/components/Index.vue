@@ -40,7 +40,7 @@
                     url: 'data/about',
                     method: 'get'
                 }).then((res) => {
-                    this.about = res.data.about.about.replace(/<\/?[^>]+(>|$)/g, "");
+                    this.about = res.data.about.replace(/<\/?[^>]+(>|$)/g, "");
                 })
             },
         },

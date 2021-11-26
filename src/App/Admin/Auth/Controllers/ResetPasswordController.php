@@ -2,92 +2,72 @@
 
 namespace App\Admin\Auth\Controllers;
 
+use App\Admin\Auth\Requests\ResetPasswordRequest;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
+use Support\Helpers\Response\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
 class ResetPasswordController
 {
     /**
      * Display a listing of the resource.
      *
+     * @param string $token
+     * @param string $encryptEmail
+     *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(string $token, string $encryptEmail): View|Factory|Application
     {
-        return view('admin::pages.auth.reset-password');
+        return view('admin::pages.auth.reset-password')->with([
+            'token' => $token,
+            'encryptEmail' => $encryptEmail
+        ]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @param ResetPasswordRequest $request
      *
-     * @return Response
+     * @return JsonResponse|RedirectResponse
      */
-    public function create(): Response
+    public function action(ResetPasswordRequest $request): JsonResponse|RedirectResponse
     {
-        //
-    }
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmed', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function store(Request $request): Response
-    {
-        //
-    }
+                $user->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show(int $id): Response
-    {
-        //
-    }
+                event(new PasswordReset($user));
+            }
+        );
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit(int $id): Response
-    {
-        //
-    }
+        $response = new Response();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
-     */
-    public function update(Request $request, int $id): Response
-    {
-        //
-    }
+        if ($status === Password::PASSWORD_RESET) {
+            $data = new Response();
+            $data->addPopup(trans($status));
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function destroy(int $id): Response
-    {
-        //
+            Session::put('responseData', $data->createResponseContent());
+
+            $response->addRedirect(route('admin.login'));
+        } else {
+            $response->addPopup(trans($status));
+            $response->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+        }
+
+        return $response->toJson();
     }
 }

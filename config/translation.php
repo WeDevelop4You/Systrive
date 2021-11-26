@@ -108,7 +108,7 @@
 
                 'backend' => [
                     'finder' => [
-                        'path' => app_path(),
+                        'path' => base_path('src'),
                         'extension' => '*.php',
                         'exclude_paths' => [],
                         'functions' => [
@@ -186,15 +186,17 @@
          * https://github.com/WeDevelop4You/LaravelTranslationFinder/wiki
          */
         'packages' => [
-            'use_packages' => false,
+            'use_packages' => true,
 
             'tag' => 'packages',
 
             'use_packages_name_tags' => true,
 
-            'default_environment' => 'default',
+            'default_environment' => 'backend',
 
-            'paths' => [],
+            'paths' => [
+                'lang/backend/en/validation.php',
+            ],
         ],
 
         /*

@@ -4,6 +4,7 @@
             v-if="!isEditing"
             v-model="value.email"
             :label="$vuetify.lang.t('$vuetify.word.email')"
+            :error-messages="errors.email"
             dense
             outlined
         />
@@ -114,6 +115,7 @@
             },
 
             ...mapGetters({
+                errors: 'company/users/errors',
                 isEditing: 'company/users/isEditing',
                 roleItems: 'company/roles/listItems',
                 permissionGroupsItems: 'permissions/items'
@@ -125,6 +127,10 @@
                 this.value.roles = this.roles.map(role => role.id)
                 this.value.permissions = this.permissions.filter(x => !this.rolesPermissions.includes(x))
             }
+        },
+
+        beforeCreate() {
+            this.$store.dispatch('company/roles/dropList');
         },
 
         mounted() {

@@ -23,7 +23,7 @@
         <delete-dialog
             :title="$vuetify.lang.t('$vuetify.word.revoke.user')"
             :vuex-namespace="vuexNamespace"
-            @destroy="destroy"
+            @delete="destroy"
         />
     </server-data-table>
 </template>
@@ -101,7 +101,7 @@
             },
 
             async destroy() {
-                await this.$store.dispatch(`${this.vuexNamespace}/destroy`)
+                await this.$store.dispatch(`${this.vuexNamespace}/revoke`)
                 this.$refs.server.getData();
             },
         }

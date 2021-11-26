@@ -23,7 +23,7 @@ export default {
         invite({commit, rootGetters}, data) {
             app.$api.call({
                 url: app.$api.route('company.user.invite', rootGetters["company/id"]),
-                method: "get",
+                method: "POST",
                 data: data
             }).then(() => {
                 commit('resetCreateOrEdit')
@@ -58,7 +58,8 @@ export default {
 
         revoke({state, commit, rootGetters}) {
             app.$api.call({
-                url: app.$api.route('company.user.revoke', rootGetters["company/id"], state.tableBase.deleteId)
+                url: app.$api.route('company.user.revoke', rootGetters["company/id"], state.tableBase.deleteId),
+                method: 'DELETE'
             }).finally(() => {
                 commit('resetDelete')
             })

@@ -23,6 +23,11 @@
         private int $statusCode;
 
         /**
+         * @var array
+         */
+        private array $errors = [];
+
+        /**
          * @var PopupContent
          */
         private PopupContent $popup;
@@ -31,6 +36,11 @@
          * @var ActionContent
          */
         private ActionContent $action;
+
+        /**
+         * @var string
+         */
+        private string $redirect;
 
         /**
          * @param int $statusCode
@@ -48,6 +58,42 @@
         public static function create(int $statusCode = ResponseCodes::HTTP_OK): Response
         {
             return new static($statusCode);
+        }
+
+        /**
+         * @param $statusCode
+         *
+         * @return Response
+         */
+        public function setStatusCode($statusCode): Response
+        {
+            $this->statusCode = $statusCode;
+
+            if (isset($this->popup)) {
+                $this->popup->message->selectedTypeByStatusCode($statusCode);
+            }
+
+            return $this;
+        }
+
+        /**
+         * @param string     $key
+         * @param array|null $errors
+         * @param int        $statusCode
+         *
+         * @return Response
+         */
+        public function addErrors(string $key, ?array $errors = null, int $statusCode = ResponseCodes::HTTP_BAD_REQUEST): Response
+        {
+            $this->statusCode = $statusCode;
+
+            if (is_null($errors)) {
+                $this->errors = array_merge($this->errors, $key);
+            } else {
+                $this->errors[$key] = array_merge($this->errors[$key] ?? [], $errors);
+            }
+
+            return $this;
         }
 
         /**
@@ -95,6 +141,11 @@
             return $this->action->getMethod();
         }
 
+        public function addRedirect(string $route)
+        {
+            $this->redirect = $route;
+        }
+
         /**
          * @return JsonResponse
          */
@@ -106,9 +157,13 @@
         /**
          * @return array
          */
-        private function createResponseContent(): array
+        public function createResponseContent(): array
         {
             $response = [];
+
+            if (!empty($this->errors)) {
+                $response['errors'] = $this->errors;
+            }
 
             if (isset($this->data)) {
                 $response['data'] = $this->data;
@@ -120,6 +175,10 @@
 
             if (isset($this->action)) {
                 $response['action'] = $this->action->create();
+            }
+
+            if (isset($this->redirect)) {
+                $response['redirect'] = $this->redirect;
             }
 
             return $response;

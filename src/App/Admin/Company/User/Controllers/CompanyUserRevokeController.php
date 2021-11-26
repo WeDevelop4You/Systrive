@@ -2,6 +2,7 @@
 
     namespace App\Admin\Company\User\Controllers;
 
+    use Domain\Company\Actions\RevokeUserFromCompanyAction;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
@@ -17,7 +18,7 @@
          */
         public function action(Company $company, User $user): JsonResponse
         {
-            $company->users()->detach($user->id);
+            (new RevokeUserFromCompanyAction($company))($user);
 
             $response = new Response();
             $response->addPopup(trans('response.success.revoke.user.company'));

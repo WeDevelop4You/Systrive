@@ -2,6 +2,7 @@
 
 namespace Support\Providers;
 
+use Domain\Company\Models\Company;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

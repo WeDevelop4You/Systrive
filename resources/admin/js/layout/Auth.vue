@@ -25,17 +25,20 @@
                     </v-col>
                 </v-row>
             </v-container>
+            <popup />
         </v-main>
     </v-app>
 </template>
 
 <script>
     import SvgMountain from '../components/svg/Mountain'
+    import Popup from "./Popup";
 
     export default {
         name: "Auth",
 
         components: {
+            Popup,
             SvgMountain,
         },
     }

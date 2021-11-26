@@ -2,9 +2,11 @@
 
     namespace Support\Helpers\Response\Popup;
 
+    use Support\Helpers\Response\Popup\Messages\SimpleMessage;
+
     class PopupContent
     {
-        public const SIMPLE_TYPE = 'Simple';
+        public const SIMPLE_TYPE = SimpleMessage::class;
 
         private array $content;
 
@@ -16,14 +18,12 @@
         /**
          * @param string $message
          * @param int    $statusCode
-         * @param string $component
+         * @param string $class
          */
-        public function __construct(string $message, int $statusCode, string $component = self::SIMPLE_TYPE)
+        public function __construct(string $message, int $statusCode, string $class = self::SIMPLE_TYPE)
         {
-            $messageClass = __namespace__ . "\\Messages\\{$component}Message";
-
-            $this->setComponent($component);
-            $this->message = new $messageClass($message, $statusCode);
+            $this->message = new $class($message, $statusCode);
+            $this->setComponent(call_user_func([$class, 'getComponent']));
         }
 
         /**

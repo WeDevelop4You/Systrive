@@ -13,7 +13,7 @@ class UserFactory extends Factory
      *
      * @var string
      */
-    protected string $model = User::class;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
@@ -33,9 +33,9 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
-    public function unverified(): \Illuminate\Database\Eloquent\Factories\Factory
+    public function unverified(): Factory
     {
         return $this->state(function (array $attributes) {
             return [

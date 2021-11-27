@@ -3026,10 +3026,10 @@ progress {
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12) !important;
 }
 
-.carousel-transition-enter {
+.v-application .carousel-transition-enter {
   transform: translate(100%, 0);
 }
-.carousel-transition-leave, .carousel-transition-leave-to {
+.v-application .carousel-transition-leave, .v-application .carousel-transition-leave-to {
   position: absolute;
   top: 0;
   transform: translate(-100%, 0);
@@ -3044,9 +3044,6 @@ progress {
   transform: translate(100%, 0);
 }
 
-.dialog-transition-enter-active, .dialog-transition-leave-active {
-  pointer-events: none !important;
-}
 .dialog-transition-enter, .dialog-transition-leave-to {
   transform: scale(0.5);
   opacity: 0;
@@ -3493,17 +3490,17 @@ html.overflow-y-hidden {
     display: none !important;
   }
 }
-@media only screen and (max-width: 599.98px) {
+@media only screen and (max-width: 599px) {
   .v-application .hidden-xs-only {
     display: none !important;
   }
 }
-@media only screen and (min-width: 600px) and (max-width: 959.98px) {
+@media only screen and (min-width: 600px) and (max-width: 959px) {
   .v-application .hidden-sm-only {
     display: none !important;
   }
 }
-@media only screen and (max-width: 959.98px) {
+@media only screen and (max-width: 959px) {
   .v-application .hidden-sm-and-down {
     display: none !important;
   }
@@ -3513,12 +3510,12 @@ html.overflow-y-hidden {
     display: none !important;
   }
 }
-@media only screen and (min-width: 960px) and (max-width: 1263.98px) {
+@media only screen and (min-width: 960px) and (max-width: 1263px) {
   .v-application .hidden-md-only {
     display: none !important;
   }
 }
-@media only screen and (max-width: 1263.98px) {
+@media only screen and (max-width: 1263px) {
   .v-application .hidden-md-and-down {
     display: none !important;
   }
@@ -3528,12 +3525,12 @@ html.overflow-y-hidden {
     display: none !important;
   }
 }
-@media only screen and (min-width: 1264px) and (max-width: 1903.98px) {
+@media only screen and (min-width: 1264px) and (max-width: 1903px) {
   .v-application .hidden-lg-only {
     display: none !important;
   }
 }
-@media only screen and (max-width: 1903.98px) {
+@media only screen and (max-width: 1903px) {
   .v-application .hidden-lg-and-down {
     display: none !important;
   }
@@ -17806,7 +17803,7 @@ html.overflow-y-hidden {
   color: rgba(0, 0, 0, 0.38);
 }
 .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 .theme--light.v-list-item .v-list-item__mask {
   color: rgba(0, 0, 0, 0.38);
@@ -17836,7 +17833,7 @@ html.overflow-y-hidden {
   color: rgba(255, 255, 255, 0.5);
 }
 .theme--dark.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 .theme--dark.v-list-item .v-list-item__mask {
   color: rgba(255, 255, 255, 0.5);
@@ -18440,6 +18437,14 @@ html.overflow-y-hidden {
   max-width: 100%;
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
 }
+.theme--light.v-input--selection-controls.v-input--is-disabled:not(.v-input--indeterminate) .v-icon {
+  color: rgba(0, 0, 0, 0.26) !important;
+}
+
+.theme--dark.v-input--selection-controls.v-input--is-disabled:not(.v-input--indeterminate) .v-icon {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
 .v-input--selection-controls {
   margin-top: 16px;
   padding-top: 4px;
@@ -18539,9 +18544,6 @@ html.overflow-y-hidden {
 .v-input--selection-controls .v-radio--is-focused .v-input--selection-controls__ripple:before {
   background: currentColor;
   transform: scale(1.2);
-}
-.v-input--selection-controls.v-input--is-disabled:not(.v-input--indeterminate) .v-icon {
-  color: inherit;
 }
 
 .v-input--selection-controls__input:hover .v-input--selection-controls__ripple:before {
@@ -18815,14 +18817,6 @@ html.overflow-y-hidden {
 }
 .v-input--has-state.error--text .v-label {
   animation: v-shake 0.6s cubic-bezier(0.25, 0.8, 0.5, 1);
-}
-.v-input--hide-spin-buttons input::-webkit-outer-spin-button,
-.v-input--hide-spin-buttons input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.v-input--hide-spin-buttons input[type=number] {
-  -moz-appearance: textfield;
 }
 .theme--light.v-label {
   color: rgba(0, 0, 0, 0.6);
@@ -24245,11 +24239,8 @@ html.overflow-y-hidden {
   position: absolute;
   text-transform: initial;
   width: auto;
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
-}
-.v-tooltip__content.menuable__content__active {
-  opacity: 0.9;
 }
 .v-tooltip__content--fixed {
   position: fixed;
@@ -24269,6 +24260,7 @@ html.overflow-y-hidden {
   overflow-y: auto;
   pointer-events: auto;
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 100%;
   z-index: inherit;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
 }
@@ -24325,7 +24317,6 @@ html.overflow-y-hidden {
 .v-dialog--fullscreen {
   border-radius: 0;
   margin: 0;
-  width: 100%;
   height: 100%;
   position: fixed;
   overflow-y: auto;

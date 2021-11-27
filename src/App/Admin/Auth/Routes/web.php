@@ -3,6 +3,7 @@
     use App\Admin\Auth\Controllers\AuthenticationController;
     use App\Admin\Auth\Controllers\PasswordRecoveryController;
     use App\Admin\Auth\Controllers\ResetPasswordController;
+    use App\Admin\Company\User\Controllers\CompanyUserInviteController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');
@@ -21,6 +22,8 @@
             Route::post('/', [ResetPasswordController::class, 'action'])->name('reset.password');
         });
     });
+
+    Route::get('invite/company/{company}/{token}/{encryptEmail}', [CompanyUserInviteController::class, 'index'])->name('company.user.invite.accepted');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('{any?}', function () {

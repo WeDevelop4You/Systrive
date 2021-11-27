@@ -4,7 +4,9 @@
 
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
+    use Domain\User\Jobs\SendInviteEmailToUser;
     use Domain\User\Models\User;
+    use Domain\User\Models\UserInvite;
 
     class InviteUserToCompanyAction
     {
@@ -28,11 +30,11 @@
                 $user->save();
             }
 
-            $this->company->users()->attach($user->id);
-
             (new UserPermissionsForCompanyAction($this->company, $user))($companyUserData);
 
-            // TODO write invite email
+            SendInviteEmailToUser::dispatch($user, $this->company, UserInvite::INVITE_USER_TYPE);
+
+            $this->company->users()->attach($user->id);
 
             return $user;
         }

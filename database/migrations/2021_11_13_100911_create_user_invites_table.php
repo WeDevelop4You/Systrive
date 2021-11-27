@@ -14,8 +14,11 @@ class CreateUserInvitesTable extends Migration
     public function up()
     {
         Schema::create('user_invites', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->foreignId('company_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('email');
+            $table->string('token');
+            $table->string('type');
+            $table->timestamp('created_at');
         });
     }
 

@@ -15751,6 +15751,13 @@
      * 
      *
      */ 
+        class Js {
+         
+    }
+            /**
+     * 
+     *
+     */ 
         class Str {
          
     }
@@ -19712,6 +19719,7 @@ namespace  {
             class Gate extends \Illuminate\Support\Facades\Gate {}
             class Hash extends \Illuminate\Support\Facades\Hash {}
             class Http extends \Illuminate\Support\Facades\Http {}
+            class Js extends \Illuminate\Support\Js {}
             class Lang extends \Illuminate\Support\Facades\Lang {}
             class Log extends \Illuminate\Support\Facades\Log {}
             class Mail extends \Illuminate\Support\Facades\Mail {}

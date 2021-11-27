@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\User\Models\UserProfile.
+ * Domain\User\Models\UserProfile
  *
- * @property int                             $id
- * @property int                             $user_id
- * @property string                          $first_name
- * @property string|null                     $middle_name
- * @property string                          $last_name
- * @property string                          $gender
- * @property mixed                           $birth_date
- * @property string|null                     $bio
+ * @property int $id
+ * @property int $user_id
+ * @property string $first_name
+ * @property string|null $middle_name
+ * @property string $last_name
+ * @property string $gender
+ * @property mixed $birth_date
+ * @property string|null $bio
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read string $full_name
- *
  * @method static \Illuminate\Database\Eloquent\Builder|UserProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserProfile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserProfile query()

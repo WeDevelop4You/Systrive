@@ -8,7 +8,8 @@
 
     class UserInviteMail extends Mailable
     {
-        use Queueable, SerializesModels;
+        use Queueable;
+        use SerializesModels;
 
         /**
          * UserInviteMail constructor.
@@ -32,9 +33,11 @@
          */
         public function build(): UserInviteMail
         {
-            return $this->markdown('admin::mails.invite-user', [
+            return $this->markdown(
+                'admin::mails.invite-user',
+                [
                     'url' => $this->url,
-                    'name' => $this->name
+                    'name' => $this->name,
                 ]
             );
         }

@@ -51,7 +51,7 @@ class SendInviteEmailToUser implements ShouldQueue
         $url = route('admin.company.user.invite.accepted', [
             $this->company->id,
             $token,
-            Crypt::encryptString($this->user->email)
+            Crypt::encryptString($this->user->email),
         ]);
 
         if ($this->type === UserInvite::INVITE_USER_TYPE) {

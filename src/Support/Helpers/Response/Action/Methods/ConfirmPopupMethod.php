@@ -11,7 +11,6 @@
          */
         public function __construct()
         {
-
         }
 
         /**

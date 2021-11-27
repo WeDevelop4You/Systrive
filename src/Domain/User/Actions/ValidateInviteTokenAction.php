@@ -5,7 +5,6 @@
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Domain\User\Models\UserInvite;
-    use Exception;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Support\Carbon;
@@ -36,6 +35,7 @@
 
         /**
          * @throws InvalidTokenException|ModelNotFoundException
+         *
          * @return bool
          */
         public function __invoke(): bool

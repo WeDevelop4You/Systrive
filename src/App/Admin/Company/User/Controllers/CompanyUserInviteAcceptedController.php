@@ -31,12 +31,13 @@
             try {
                 $userInvite = (new ValidateInviteTokenAction($company, $token))();
 
-                $response->addPopup(ConfirmModal::create()
+                $response->addPopup(
+                    ConfirmModal::create()
                     ->setTitle(trans('modal.confirm.accepted.invite.company.title'))
                     ->setText(trans('modal.confirm.accepted.invite.company.text'))
                     ->setAcceptUrl(route('admin.company.user.invite.accepted', [
                         $userInvite->company_id,
-                        $token
+                        $token,
                     ]))
                     ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
                 );

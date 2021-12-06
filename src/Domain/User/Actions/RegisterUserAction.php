@@ -6,7 +6,6 @@
     use Domain\Company\Models\Company;
     use Domain\User\DataTransferObjects\UserProfileData;
     use Domain\User\Models\User;
-    use Domain\User\Models\UserInvite;
     use Domain\User\Models\UserProfile;
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Auth;

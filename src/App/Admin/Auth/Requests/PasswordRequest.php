@@ -2,9 +2,7 @@
 
 namespace App\Admin\Auth\Requests;
 
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rules\Password;
 
 class PasswordRequest extends FormRequest

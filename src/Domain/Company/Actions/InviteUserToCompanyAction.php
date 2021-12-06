@@ -30,7 +30,7 @@
                 $user->save();
 
                 $user->delete();
-            } else if ($user->trashed()) {
+            } elseif ($user->trashed()) {
                 $user->restore();
             }
 

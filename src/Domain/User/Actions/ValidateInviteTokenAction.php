@@ -42,6 +42,7 @@
 
         /**
          * @throws InvalidTokenException
+         *
          * @return UserInvite
          */
         public function __invoke(): UserInvite

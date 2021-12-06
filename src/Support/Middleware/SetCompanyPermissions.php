@@ -6,7 +6,6 @@ use Closure;
 use Domain\Company\Models\Company;
 use Domain\User\Models\UserInvite;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Support\Helpers\Response\Popups\Notifications\SimpleNotification;

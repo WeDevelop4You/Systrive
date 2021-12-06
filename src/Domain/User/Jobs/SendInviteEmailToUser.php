@@ -5,7 +5,6 @@ namespace Domain\User\Jobs;
 use Domain\Company\Models\Company;
 use Domain\User\Models\User;
 use Domain\User\Models\UserInvite;
-use Domain\User\Notifications\InviteUser;
 use Domain\User\Notifications\InviteUserNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Encryption\MissingAppKeyException;

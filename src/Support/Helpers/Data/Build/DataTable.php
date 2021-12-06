@@ -30,7 +30,7 @@
         private Collection|array $columns;
 
         /**
-         * @param Relation|Builder $query
+         * @param Builder|Relation $query
          */
         public function __construct(Relation|Builder $query)
         {

@@ -3,11 +3,9 @@
     namespace App\Admin\Auth\Controllers;
 
     use App\Admin\Auth\Requests\RegistrationRequest;
-    use Domain\User\Actions\EditPasswordAction;
     use Domain\User\Actions\RegisterUserAction;
     use Domain\User\Actions\ValidateInviteTokenAction;
     use Domain\User\DataTransferObjects\UserProfileData;
-    use Domain\User\Models\User;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
@@ -24,7 +22,7 @@
     class RegistrationController
     {
         /**
-         * @return Application|Factory|View|RedirectResponse
+         * @return Application|Factory|RedirectResponse|View
          */
         public function index(): View|Factory|RedirectResponse|Application
         {
@@ -34,7 +32,9 @@
 
                     return view('admin::pages.auth.registration')->with('email', $userInvite->email);
                 } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
-                    Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+                    Session::put(
+                        Response::SESSION_KEY_DEFAULT,
+                        Response::create()
                         ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
                         ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
                         ->createResponseContent()
@@ -66,7 +66,9 @@
                 try {
                     (new RegisterUserAction($request->get('password')))($data);
 
-                    Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+                    Session::put(
+                        Response::SESSION_KEY_DEFAULT,
+                        Response::create()
                         ->addPopup(new SimpleNotification(trans('response.success.registered.and.accepted')))
                         ->createResponseContent()
                     );

@@ -5,7 +5,6 @@
     use App\Admin\Auth\Controllers\RegistrationController;
     use App\Admin\Auth\Controllers\ResetPasswordController;
     use App\Admin\Company\Controllers\CompanyInviteController;
-    use App\Admin\Company\User\Controllers\CompanyUserInviteController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');

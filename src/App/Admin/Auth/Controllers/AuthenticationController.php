@@ -39,7 +39,9 @@
             try {
                 $request->authenticate();
 
-                Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+                Session::put(
+                    Response::SESSION_KEY_DEFAULT,
+                    Response::create()
                         ->addPopup(new SimpleNotification(trans('response.success.login')))
                         ->createResponseContent()
                 );
@@ -65,7 +67,9 @@
 
             $request->session()->regenerateToken();
 
-            Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+            Session::put(
+                Response::SESSION_KEY_DEFAULT,
+                Response::create()
                 ->addPopup(new SimpleNotification(trans('response.success.logout')))
                 ->createResponseContent()
             );

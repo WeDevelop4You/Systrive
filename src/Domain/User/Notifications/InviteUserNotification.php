@@ -20,14 +20,15 @@ class InviteUserNotification extends Notification implements ShouldQueue
         private string $url,
         private string $name,
         private string $subject
-    ){
+    ) {
         //
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via(mixed $notifiable): array
@@ -41,19 +42,20 @@ class InviteUserNotification extends Notification implements ShouldQueue
     public function viaQueues(): array
     {
         return [
-            'mail' => 'mail'
+            'mail' => 'mail',
         ];
     }
 
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return MailMessage
      */
     public function toMail(mixed $notifiable): MailMessage
     {
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject($this->subject)
 //            ->greeting(trans(''))
             ->line(trans('You are receiving this email because you are invited for :name.', ['name' => $this->name]))

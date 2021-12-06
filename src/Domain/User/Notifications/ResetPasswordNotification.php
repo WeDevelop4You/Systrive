@@ -18,14 +18,15 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
      */
     public function __construct(
 
-    ){
+    ) {
         //
     }
 
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return array
      */
     public function via(mixed $notifiable): array
@@ -39,18 +40,19 @@ class ResetPasswordNotification extends Notification implements ShouldQueue
     public function viaQueues(): array
     {
         return [
-            'mail' => 'mail'
+            'mail' => 'mail',
         ];
     }
 
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param mixed $notifiable
+     *
      * @return MailMessage
      */
     public function toMail(mixed $notifiable): MailMessage
     {
-        return (new MailMessage);
+        return (new MailMessage());
     }
 }

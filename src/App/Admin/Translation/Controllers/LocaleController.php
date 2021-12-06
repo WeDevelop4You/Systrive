@@ -23,7 +23,7 @@
                 : Session::get('locale', App::getFallbackLocale());
 
             return Response::create()->addData([
-                'locale' => $locale
+                'locale' => $locale,
             ])->toJson();
         }
 
@@ -40,7 +40,7 @@
                 (new EditLocaleAction())($locale);
 
                 $response->addData([
-                    'locale' => $locale
+                    'locale' => $locale,
                 ]);
             } else {
                 $response->addPopup(new SimpleNotification(trans('response.error.locale')))

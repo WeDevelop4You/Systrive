@@ -2,9 +2,7 @@
 
 namespace App\Admin\Auth\Requests;
 
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
@@ -25,7 +23,7 @@ class RegistrationRequest extends FormRequest
             'birth_date' => ['required', 'string', 'date_format:Y-m-d'],
             'password' => ['required', Password::default()],
             'password_confirm' => ['required', 'same:password'],
-            'accept' => ['required', 'accepted']
+            'accept' => ['required', 'accepted'],
         ];
     }
 

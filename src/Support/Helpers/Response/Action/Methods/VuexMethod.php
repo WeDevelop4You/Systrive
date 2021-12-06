@@ -23,8 +23,8 @@
         }
 
         /**
-         * @param string     $type
-         * @param mixed $params
+         * @param string $type
+         * @param mixed  $params
          *
          * @return VuexMethod
          */
@@ -34,8 +34,8 @@
                 'method' => 'vuexDispatchMethod',
                 'parameters' => [
                     $type,
-                    $params
-                ]
+                    $params,
+                ],
             ];
 
             return $this;

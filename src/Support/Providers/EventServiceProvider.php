@@ -22,8 +22,8 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         PasswordReset::class => [
-            ResetPasswordNotification::class
-        ]
+            ResetPasswordNotification::class,
+        ],
     ];
 
     /**

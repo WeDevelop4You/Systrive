@@ -30,7 +30,9 @@
 
                 return (new InviteTokenAction($token, $encryptEmail))($userInvite);
             } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
-                Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+                Session::put(
+                    Response::SESSION_KEY_DEFAULT,
+                    Response::create()
                     ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
                     ->createResponseContent()

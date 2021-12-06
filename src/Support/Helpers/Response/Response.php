@@ -74,7 +74,7 @@
         }
 
         /**
-         * @param string|array $key
+         * @param array|string $key
          * @param array|null   $errors
          * @param int          $statusCode
          *
@@ -94,7 +94,7 @@
         }
 
         /**
-         * @param array|AnonymousResourceCollection|JsonResource $data
+         * @param AnonymousResourceCollection|array|JsonResource $data
          *
          * @return Response
          */

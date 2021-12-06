@@ -18,7 +18,7 @@
         {
             $companies = Auth::user()
                 ->companies()
-                ->wherePivot('status',UserInvite::INVITE_USER_ACCEPTED)
+                ->wherePivot('status', UserInvite::INVITE_USER_ACCEPTED)
                 ->get();
 
             $response = new Response();

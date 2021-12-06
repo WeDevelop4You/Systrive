@@ -4,16 +4,13 @@ namespace App\Admin\Auth\Controllers;
 
 use App\Admin\Auth\Requests\ResetPasswordRequest;
 use Domain\User\Actions\EditPasswordAction;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -53,7 +50,9 @@ class ResetPasswordController
         $response = new Response();
 
         if ($status === Password::PASSWORD_RESET) {
-            Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+            Session::put(
+                Response::SESSION_KEY_DEFAULT,
+                Response::create()
                 ->addPopup(new SimpleNotification(trans($status)))
                 ->createResponseContent()
             );

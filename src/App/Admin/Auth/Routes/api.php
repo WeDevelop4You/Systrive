@@ -10,7 +10,7 @@
     use Illuminate\Http\Request;
     use Support\Helpers\Response\Response;
 
-    Route::middleware(['guest', 'csrf'])->group(function() {
+    Route::middleware(['guest', 'csrf'])->group(function () {
         Route::post('login', [AuthenticationController::class, 'login'])->name('login');
 
         Route::post('password/recovery', [PasswordRecoveryController::class, 'action'])->name('password.recovery');
@@ -21,11 +21,11 @@
             Route::post('/', [RegistrationController::class, 'action'])->name('registration');
 
             Route::prefix('validation')->group(function () {
-                Route::post('password', function(PasswordRequest $request) {
+                Route::post('password', function (PasswordRequest $request) {
                     return Response::create()->toJson();
                 })->name('registration.validation.password');
 
-                Route::post('profile', function(ProfileRequest $request) {
+                Route::post('profile', function (ProfileRequest $request) {
                     return Response::create()->toJson();
                 })->name('registration.validation.profile');
             });
@@ -35,7 +35,7 @@
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth/user', [UserController::class, 'auth'])->name('auth.user');
 
-        Route::delete('delete/session', function(Request $request) {
+        Route::delete('delete/session', function (Request $request) {
             Session::forget($request->query('key'));
 
             return Response::create()->toJson();

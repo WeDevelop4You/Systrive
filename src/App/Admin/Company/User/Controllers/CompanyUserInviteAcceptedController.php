@@ -33,13 +33,13 @@
 
                 $response->addPopup(
                     ConfirmModal::create()
-                    ->setTitle(trans('modal.confirm.accepted.invite.company.title'))
-                    ->setText(trans('modal.confirm.accepted.invite.company.text'))
-                    ->setAcceptUrl(route('admin.company.user.invite.accepted', [
-                        $userInvite->company_id,
-                        $token,
-                    ]))
-                    ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
+                        ->setTitle(trans('modal.confirm.accepted.invite.company.title'))
+                        ->setText(trans('modal.confirm.accepted.invite.company.text'))
+                        ->setAcceptUrl(route('admin.company.user.invite.accepted', [
+                            $userInvite->company_id,
+                            $token,
+                        ]))
+                        ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
                 );
             } catch (ModelNotFoundException | InvalidTokenException) {
                 Session::forget(Response::SESSION_KEY_MODAL);

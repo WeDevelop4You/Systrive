@@ -53,8 +53,8 @@ class ResetPasswordController
             Session::put(
                 Response::SESSION_KEY_DEFAULT,
                 Response::create()
-                ->addPopup(new SimpleNotification(trans($status)))
-                ->createResponseContent()
+                    ->addPopup(new SimpleNotification(trans($status)))
+                    ->createResponseContent()
             );
 
             $response->addRedirect(route('admin.login'));

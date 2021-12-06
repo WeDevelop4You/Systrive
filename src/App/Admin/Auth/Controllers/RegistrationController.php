@@ -35,9 +35,9 @@
                     Session::put(
                         Response::SESSION_KEY_DEFAULT,
                         Response::create()
-                        ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
-                        ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
-                        ->createResponseContent()
+                            ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+                            ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
+                            ->createResponseContent()
                     );
                 }
             }
@@ -69,8 +69,8 @@
                     Session::put(
                         Response::SESSION_KEY_DEFAULT,
                         Response::create()
-                        ->addPopup(new SimpleNotification(trans('response.success.registered.and.accepted')))
-                        ->createResponseContent()
+                            ->addPopup(new SimpleNotification(trans('response.success.registered.and.accepted')))
+                            ->createResponseContent()
                     );
 
                     return $response->addRedirect(route('admin.dashboard'))->toJson();

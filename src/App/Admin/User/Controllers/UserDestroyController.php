@@ -4,6 +4,7 @@
 
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
 
     class UserDestroyController
@@ -17,9 +18,8 @@
         {
             $user->delete();
 
-            $response = new Response();
-            $response->addPopup(trans('response.success.delete.account'));
-
-            return $response->toJson();
+            return Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.delete.account')))
+                ->toJson();
         }
     }

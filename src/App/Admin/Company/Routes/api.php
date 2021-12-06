@@ -3,9 +3,11 @@
     use App\Admin\Company\Controllers\CompanyCreateController;
     use App\Admin\Company\Controllers\CompanyDestroyController;
     use App\Admin\Company\Controllers\CompanyEditController;
+    use App\Admin\Company\Controllers\CompanyInviteController;
     use App\Admin\Company\Controllers\CompanyNavigationController;
     use App\Admin\Company\Controllers\CompanyShowController;
     use App\Admin\Company\Controllers\CompanyTableController;
+    use App\Admin\Company\User\Controllers\CompanyUserInviteController;
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [CompanyNavigationController::class, 'index'])->name('user.companies');

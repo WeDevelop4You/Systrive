@@ -25,7 +25,7 @@
             });
 
             $response = new Response();
-            $response->addData($data, PermissionGroupResource::class, true);
+            $response->addData(PermissionGroupResource::collection($data));
 
             return $response->toJson();
         }

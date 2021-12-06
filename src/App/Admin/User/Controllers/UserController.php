@@ -15,7 +15,7 @@
         public function index(): JsonResponse
         {
             $response = new Response();
-            $response->addData(Auth::user(), UserResource::class);
+            $response->addData(UserResource::make(Auth::user()));
 
             return $response->toJson();
         }

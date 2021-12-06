@@ -23,7 +23,7 @@
         {
             return DataTable::create($company->users())
                 ->setColumns($this->createColumns())
-                ->get(CompanyUserDataResource::class);
+                ->getData(CompanyUserDataResource::class);
         }
 
         /**

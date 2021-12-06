@@ -2,26 +2,30 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 //Modules
+import Guest from './modules/guest'
+import Popups from "./modules/popups"
+import Locale from "./modules/locale"
 import User from './modules/auth/user'
-import Users from './modules/admin/users'
 import Company from './modules/company'
+import Users from './modules/admin/users'
+import Navigation from "./modules/navigation"
 import Permissions from './modules/permissions'
 import Companies from './modules/admin/companies'
-import Notifications from "./modules/notifications";
-import translations from "./modules/admin/translations";
-import Navigation from "./modules/navigation";
+import translations from "./modules/admin/translations"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
         user: User,
+        guest: Guest,
         users: Users,
+        locale: Locale,
+        popups: Popups,
         company: Company,
         companies: Companies,
         navigation: Navigation,
         permissions: Permissions,
         translations: translations,
-        notifications: Notifications,
     }
 })

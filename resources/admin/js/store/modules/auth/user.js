@@ -43,8 +43,6 @@ export default {
             app.$api.call({
                 url: '/logout',
                 method: "GET",
-            }).then((response) => {
-                window.location.href = response.data.redirect
             })
         },
     },

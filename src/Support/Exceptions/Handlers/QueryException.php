@@ -5,6 +5,7 @@
     use Exception;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\App;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
@@ -18,10 +19,10 @@
         public function render($request): bool|JsonResponse
         {
             if (App::isProduction()) {
-                $response = new Response(ResponseCodes::HTTP_INTERNAL_SERVER_ERROR);
-                $response->addPopup(trans('response.error.server'));
-
-                return $response->toJson();
+                return Response::create()
+                    ->addPopup(new SimpleNotification(trans('response.error.server')))
+                    ->setStatusCode(ResponseCodes::HTTP_INTERNAL_SERVER_ERROR)
+                    ->toJson();
             }
 
             return false;

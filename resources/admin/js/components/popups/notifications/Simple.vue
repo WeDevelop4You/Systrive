@@ -11,7 +11,7 @@
     >
         <div v-html="message.text" />
         <template
-            v-if="dismissible"
+            v-if="data.dismissible"
             #close
         >
             <v-btn
@@ -31,26 +31,16 @@
         name: "Simple",
 
         props: {
-            uuid: {
-                type: String,
-                required: true
-            },
-
-            message: {
+            data: {
                 type: Object,
                 required: true
             },
-
-            dismissible: {
-                type: Boolean,
-                Required: true,
-                default: false,
-            }
         },
 
         data() {
             return {
                 show: false,
+                message: this.data.message
             }
         },
 
@@ -60,7 +50,7 @@
 
         methods: {
             remove() {
-                this.$store.commit('notifications/removePopup', this.uuid)
+                this.$store.commit('popups/removeNotifications', this.data.uuid)
             }
         }
     }

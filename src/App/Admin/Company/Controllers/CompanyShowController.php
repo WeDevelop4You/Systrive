@@ -20,7 +20,7 @@
         public function index(Company $company): JsonResponse
         {
             $response = new Response();
-            $response->addData($company, CompanyShowResource::class);
+            $response->addData(CompanyShowResource::make($company));
 
             return $response->toJson();
         }
@@ -44,7 +44,7 @@
             }
 
             $response = new Response();
-            $response->addData($company, CompanyShowResource::class);
+            $response->addData(CompanyShowResource::make($company));
 
             return $response->toJson();
         }

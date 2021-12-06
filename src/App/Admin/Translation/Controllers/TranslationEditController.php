@@ -7,6 +7,7 @@
 
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
@@ -20,7 +21,7 @@
         public function index(TranslationKey $translationKey): JsonResponse
         {
             $response = Response::create();
-            $response->addData($translationKey, TranslationKeyResource::class);
+            $response->addData(TranslationKeyResource::make($translationKey));
 
             return $response->toJson();
         }
@@ -51,9 +52,8 @@
                     }
                 });
 
-            $response = new Response();
-            $response->addPopup(trans('response.success.update.translation'));
-
-            return $response->toJson();
+            return Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.update.translation')))
+                ->toJson();
         }
     }

@@ -1,11 +1,11 @@
 {
     "text": {
         "password": {
+            "requirements": "In order to protect your account, your password:",
             "reset": {
-                "info": "In order to protect your account, you must have:",
                 "list": {
                     "characters": "Needs to be longer than 10 characters",
-                    "uppercase": "Needs at least 1 uppercase letter",
+                    "mixed_case": "Needs at least 1 uppercase and lowercase letter",
                     "number": "Needs at least 1 number",
                     "symbol": "Needs at least 1 symbol"
                 }

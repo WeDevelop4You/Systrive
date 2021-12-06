@@ -200,6 +200,11 @@
             responseData: {
                 required: true,
                 type: Object
+            },
+
+            responseDataModal: {
+                required: true,
+                type: Object
             }
         },
 
@@ -239,6 +244,7 @@
 
         created() {
             this.$root.responseActions(this.responseData)
+            this.$root.responseActions(this.responseDataModal)
         },
 
         methods: {

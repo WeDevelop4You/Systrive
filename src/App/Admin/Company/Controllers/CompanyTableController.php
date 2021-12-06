@@ -20,7 +20,7 @@
         {
             return DataTable::create(Company::query())
                 ->setColumns($this->createColumns())
-                ->get(CompanyDataResource::class);
+                ->getData(CompanyDataResource::class);
         }
 
         /**

@@ -7,6 +7,7 @@
     use Domain\Company\Actions\CreateCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyData;
     use Illuminate\Http\JsonResponse;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
@@ -23,9 +24,9 @@
 
             (new CreateCompanyAction())($data);
 
-            $response = new Response(ResponseCode::HTTP_CREATED);
-            $response->addPopup(trans('response.success.create.company'));
-
-            return $response->toJson();
+            return Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.create.company')))
+                ->setStatusCode(ResponseCode::HTTP_CREATED)
+                ->toJson();
         }
     }

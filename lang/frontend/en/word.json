@@ -57,7 +57,7 @@
         "actions": "Actions",
         "tags": "Tags",
         "translated": "Translated",
-        "email_verified_at": "Email verified oat",
+        "email_verified_at": "Email verified at",
         "deleted_at": "Deleted at",
         "publish": "Publish",
         "information": "Information",
@@ -69,7 +69,8 @@
             "access": "User access"
         },
         "invite": {
-            "user": "Invite user"
+            "user": "Invite user",
+            "invite": "Invite"
         },
         "revoke": {
             "user": "Revoke user"

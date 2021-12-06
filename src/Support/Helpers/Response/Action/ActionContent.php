@@ -5,16 +5,24 @@
     class ActionContent
     {
         /**
-         * @var ActionMethodBase
+         * ActionContent constructor.
+         *
+         * @param ActionMethodBase $instance
          */
-        private ActionMethodBase $method;
+        public function __construct(
+            private ActionMethodBase $instance
+        ) {
+            //
+        }
 
         /**
-         * @param ActionMethodBase $methodClass
+         * @param ActionMethodBase $instance
+         *
+         * @return static
          */
-        public function __construct(ActionMethodBase $methodClass)
+        public static function create(ActionMethodBase $instance): ActionContent
         {
-            $this->method = new $methodClass();
+            return new static($instance);
         }
 
         /**
@@ -22,14 +30,14 @@
          */
         public function getMethod(): ActionMethodBase
         {
-            return $this->method;
+            return $this->instance;
         }
 
         /**
          * @return array
          */
-        public function create(): array
+        public function getData(): array
         {
-            return $this->method->get();
+            return $this->instance->getData();
         }
     }

@@ -5,6 +5,7 @@
     use Exception;
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Action\Methods\RouteMethod;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
@@ -23,22 +24,22 @@
         public function render($request): bool|JsonResponse
         {
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
-                $response = new Response(ResponseCodes::HTTP_NOT_FOUND);
+                $response = new Response();
 
                 switch ($request->getMethod()) {
                     case 'DELETE':
-                        $response->addPopup(trans('response.error.model.delete'));
+                        $response->addPopup(new SimpleNotification(trans('response.error.model.delete')));
 
                         break;
                     default:
-                        $response->addPopup(trans('response.error.model.not.found'));
+                        $response->addPopup(new SimpleNotification(trans('response.error.model.not.found')));
 
                         $this->lastRouteAction
-                            ? $response->addAction(RouteMethod::create())->goToLastRoute()
-                            : $response->addAction(RouteMethod::create())->goToMainRoute();
+                            ? $response->addAction(RouteMethod::create()->goToLastRoute())
+                            : $response->addAction(RouteMethod::create()->goToMainRoute());
                 }
 
-                return $response->toJson();
+                return $response->setStatusCode(ResponseCodes::HTTP_NOT_FOUND)->toJson();
             }
 
             return false;

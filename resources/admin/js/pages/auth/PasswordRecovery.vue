@@ -1,79 +1,84 @@
 <template>
     <l-auth>
-        <v-card-title>
-            <div class="mx-auto font-weight-bold">
-                {{ $vuetify.lang.t('$vuetify.word.forgot_password') }}
-            </div>
-        </v-card-title>
-        <v-card-subtitle class="pa-4">
-            <div class="text-center text--disabled">
-                {{ $vuetify.lang.t('$vuetify.text.password.forgot') }}
-            </div>
-        </v-card-subtitle>
-        <v-card-text class="pb-0">
-            <v-text-field
-                v-model="email"
-                class="pb-2"
-                :label="$vuetify.lang.t('$vuetify.word.email')"
-                outlined
-                dense
-                type="text"
-                :error-messages="errors.email"
-            />
-        </v-card-text>
-        <v-card-actions class="px-4">
-            <v-btn
-                block
-                color="primary"
-                :disabled="$loading"
-                @click="send"
-            >
-                {{ $vuetify.lang.t('$vuetify.word.send_email') }}
-            </v-btn>
-        </v-card-actions>
+        <v-card
+            class="mx-auto"
+            rounded="lg"
+            outlined
+            :elevation="$config.elevation"
+            width="400px"
+        >
+            <v-card-title>
+                <svg-logo-line class="ma-6" />
+                <div
+                    class="mx-auto font-weight-bold"
+                    v-text="$vuetify.lang.t('$vuetify.word.forgot_password')"
+                />
+            </v-card-title>
+            <v-card-subtitle class="pa-4">
+                <div class="text-center text--disabled">
+                    {{ $vuetify.lang.t('$vuetify.text.password.forgot') }}
+                </div>
+            </v-card-subtitle>
+            <v-card-text class="pb-0">
+                <v-text-field
+                    v-model="email"
+                    class="pb-2"
+                    :label="$vuetify.lang.t('$vuetify.word.email')"
+                    outlined
+                    dense
+                    type="email"
+                    :error-messages="errors.email"
+                />
+            </v-card-text>
+            <v-card-actions class="px-4">
+                <v-btn
+                    block
+                    color="primary"
+                    :disabled="$loading"
+                    @click="send"
+                >
+                    {{ $vuetify.lang.t('$vuetify.word.send_email') }}
+                </v-btn>
+            </v-card-actions>
+        </v-card>
     </l-auth>
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
     import LAuth from '../../layout/Auth'
+    import SvgLogoLine from '../../components/svg/LogoLine'
 
     export default {
         name: "PasswordRecovery",
 
         components: {
-            LAuth
+            LAuth,
+            SvgLogoLine
         },
 
         data() {
             return {
                 email: '',
-                errors: {},
             }
+        },
+
+        computed: {
+            ...mapGetters({
+                errors: 'guest/errors'
+            })
         },
 
         created() {
             window.addEventListener('keydown', this.enter)
         },
 
-        beforeDestroy() {
-            window.removeEventListener('keydown', this.enter);
-        },
-
         methods: {
             send() {
                 let app = this
 
-                this.errors = {}
-                this.$api.call({
-                    url: '/password/recovery',
-                    method: "post",
-                    data: {
-                        email: app.email
-                    }
-                }).then(() => {
-                    app.email = ''
-                }).catch((error) => {
-                    app.errors = error.response.data.errors || {}
+                this.$store.dispatch('guest/sendEmail', this.email).then((response) => {
+                    if (response) app.email = ''
                 })
             },
 

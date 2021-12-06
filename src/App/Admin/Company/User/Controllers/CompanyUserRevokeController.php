@@ -6,6 +6,7 @@
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
 
     class CompanyUserRevokeController
@@ -20,9 +21,8 @@
         {
             (new RevokeUserFromCompanyAction($company))($user);
 
-            $response = new Response();
-            $response->addPopup(trans('response.success.revoke.user.company'));
-
-            return $response->toJson();
+            return Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.revoke.user.company')))
+                ->toJson();
         }
     }

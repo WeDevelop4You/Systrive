@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Domain\User\Models\UserInvite.
+ * Domain\User\Models\UserInvite
  *
- * @property string                     $email
- * @property string                     $token
- * @property string                     $type
- * @property int|null                   $company_id
- * @property \Illuminate\Support\Carbon $created_at
- *
+ * @property int|null $company_id
+ * @property string $email
+ * @property string $token
+ * @property string $type
+ * @property string $created_at
  * @method static UserInviteQueryBuilders|UserInvite deleteExisting(string $email, int $companyId)
  * @method static UserInviteQueryBuilders|UserInvite newModelQuery()
  * @method static UserInviteQueryBuilders|UserInvite newQuery()
@@ -30,6 +29,9 @@ class UserInvite extends Model
 {
     public const INVITE_USER_TYPE = 'user_invite';
     public const INVITE_OWNER_TYPE = 'owner_invite';
+
+    public const INVITE_USER_ACCEPTED = 'accepted';
+    public const INVITE_USER_REQUESTED = 'requested';
 
     public $timestamps = false;
 

@@ -9,6 +9,7 @@
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
 
     class CompanyUserEditController
@@ -24,7 +25,7 @@
             setPermissionsTeamId($company->id);
 
             $response = new Response();
-            $response->addData($user, CompanyUserResource::class);
+            $response->addData(CompanyUserResource::make($user));
 
             return $response->toJson();
         }
@@ -42,9 +43,8 @@
 
             (new UserPermissionsForCompanyAction($company, $user))($data);
 
-            $response = new Response();
-            $response->addPopup(trans('response.success.update.user.company.access'));
-
-            return $response->toJson();
+            return Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.update.user.company.access')))
+                ->toJson();
         }
     }

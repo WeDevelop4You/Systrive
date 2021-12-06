@@ -1,69 +1,81 @@
 <template>
     <l-auth>
-        <v-card-title>
-            <svg-logo-line class="ma-6" />
-            <div class="mx-auto font-weight-bold">
-                {{ $vuetify.lang.t('$vuetify.word.welcome') }}
-            </div>
-        </v-card-title>
-        <v-card-text class="pb-0">
-            <v-text-field
-                v-model="email"
-                class="pb-2"
-                :label="$vuetify.lang.t('$vuetify.word.email')"
-                outlined
-                dense
-                type="text"
-                :error="error"
-                :error-messages="errorMessages.email"
-                hide-details
-                autofocus
-                required
-            />
-            <v-text-field
-                v-model="password"
-                :label="$vuetify.lang.t('$vuetify.word.password')"
-                outlined
-                dense
-                :type="show ? 'text' : 'password'"
-                :error-messages="errorMessages.password"
-                :append-icon="show ? 'faSvg fa-eye' : 'fas fa-eye-slash'"
-                required
-                @click:append="show = !show"
-            />
-            <v-checkbox
-                v-model="remember"
-                class="ma-0"
-                :label="$vuetify.lang.t('$vuetify.word.remember_me')"
-                dense
-                hide-details
-            />
-        </v-card-text>
-        <v-card-actions class="px-4">
-            <v-row no-gutters>
-                <v-btn
-                    class="mb-2"
-                    color="primary"
-                    block
-                    :disabled="$loading"
-                    @click="send"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.login.login') }}
-                </v-btn>
-                <v-btn
-                    x-small
-                    text
-                    block
-                    :href="link"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.forgot_password') }}
-                </v-btn>
-            </v-row>
-        </v-card-actions>
+        <v-card
+            class="mx-auto"
+            rounded="lg"
+            outlined
+            :elevation="$config.elevation"
+            width="400px"
+        >
+            <v-card-title>
+                <svg-logo-line class="ma-6" />
+                <div
+                    class="mx-auto text-h6 font-weight-bold"
+                    v-text="$vuetify.lang.t('$vuetify.word.welcome')"
+                />
+            </v-card-title>
+            <v-card-text class="pb-0">
+                <v-text-field
+                    class="pb-2"
+                    v-model="data.email"
+                    :error="error"
+                    :error-messages="errors.email"
+                    :label="$vuetify.lang.t('$vuetify.word.email')"
+                    dense
+                    outlined
+                    required
+                    autofocus
+                    type="email"
+                    hide-details
+                />
+                <v-text-field
+                    v-model="data.password"
+                    :class="{'mb-2': !errors.password}"
+                    :error-messages="errors.password"
+                    :type="show ? 'text' : 'password'"
+                    :label="$vuetify.lang.t('$vuetify.word.password')"
+                    :append-icon="show ? 'faSvg fa-eye' : 'fas fa-eye-slash'"
+                    dense
+                    required
+                    outlined
+                    hide-details="auto"
+                    @click:append="show = !show"
+                />
+                <v-checkbox
+                    class="ma-0"
+                    v-model="data.remember"
+                    :label="$vuetify.lang.t('$vuetify.word.remember_me')"
+                    dense
+                    hide-details
+                />
+            </v-card-text>
+            <v-card-actions class="px-4">
+                <v-row no-gutters>
+                    <v-btn
+                        class="mb-2 mt-1"
+                        :disabled="$loading"
+                        block
+                        color="primary"
+                        @click="send"
+                    >
+                        {{ $vuetify.lang.t('$vuetify.word.login.login') }}
+                    </v-btn>
+                    <v-btn
+                        :href="link"
+                        text
+                        block
+                        x-small
+                    >
+                        {{ $vuetify.lang.t('$vuetify.word.forgot_password') }}
+                    </v-btn>
+                </v-row>
+            </v-card-actions>
+        </v-card>
     </l-auth>
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
     import LAuth from '../../layout/Auth'
     import SvgLogoLine from '../../components/svg/LogoLine'
 
@@ -89,13 +101,20 @@
 
         data() {
             return {
-                email: '',
                 show: false,
-                password: '',
-                error: false,
-                remember: false,
-                errorMessages: {},
+                data: {
+                    email: '',
+                    password: '',
+                    remember: false,
+                }
             }
+        },
+
+        computed: {
+            ...mapGetters({
+                error: 'guest/error',
+                errors: 'guest/errors'
+            })
         },
 
         created() {
@@ -104,36 +123,9 @@
             this.$root.responseActions(this.responseData)
         },
 
-        beforeDestroy() {
-            window.removeEventListener('keydown', this.enter);
-        },
-
         methods: {
             send() {
-                let app = this
-
-                this.$api.getCsrfToken().then(() => {
-                    app.$api.call({
-                        url: '/login',
-                        method: "POST",
-                        data: {
-                            email: app.email,
-                            password: app.password,
-                            remember: app.remember
-                        },
-                    }).then((response) => {
-                        window.location.href = response.data.redirect
-                    }).catch((error) => {
-                        const errors = error.response.data.errors
-
-                        if (Object.prototype.hasOwnProperty.call(errors,'failed')) {
-                            app.error = true
-                            app.errorMessages = {'password': errors.failed}
-                        } else {
-                            app.errorMessages = errors
-                        }
-                    })
-                })
+                this.$store.dispatch('guest/login', this.data)
             },
 
             enter(e) {

@@ -17,9 +17,9 @@
             return [
                 'id' => $this->id,
                 'email' => $this->email,
-                'email_verified_at' => $this->email_verified_at->toDatetimeString(),
+                'email_verified_at' => $this->email_verified_at?->toDatetimeString(),
                 'created_at' => $this->created_at->toDatetimeString(),
-                'deleted_at' => $this->deleted_at ? $this->deleted_at->toDatetimeString() : null,
+                'deleted_at' => $this->deleted_at?->toDatetimeString(),
                 'profile' => [
                     'full_name' => $this->full_name,
                 ],

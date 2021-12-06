@@ -1,9 +1,15 @@
 <?php
 
+    use App\Admin\Translation\Controllers\LocaleController;
     use App\Admin\Translation\Controllers\TranslationDestroyController;
     use App\Admin\Translation\Controllers\TranslationEditController;
     use App\Admin\Translation\Controllers\TranslationPublishController;
     use App\Admin\Translation\Controllers\TranslationTableController;
+
+    Route::prefix('locale')->group(function () {
+        Route::get('/', [LocaleController::class, 'index'])->name('locale');
+        Route::put('{locale}', [LocaleController::class, 'action'])->middleware('csrf')->name('locale.change');
+    });
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {

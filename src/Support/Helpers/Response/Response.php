@@ -3,15 +3,22 @@
     namespace Support\Helpers\Response;
 
     use Illuminate\Http\JsonResponse;
+    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
     use Support\Helpers\Response\Action\ActionContent;
     use Support\Helpers\Response\Action\ActionMethodBase;
-    use Support\Helpers\Response\Popup\PopupContent;
+    use Support\Helpers\Response\Popups\Notifications\NotificationBase;
+    use Support\Helpers\Response\Popups\PopupBase;
+    use Support\Helpers\Response\Popups\PopupContent;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class Response
     {
+        public const SESSION_KEY_DEFAULT = 'responseData';
+        public const SESSION_KEY_MODAL = 'responseDataModal';
+        public const SESSION_KEY_REGISTRATION = 'registrationData';
+
         /**
          * @var array|JsonResource|ResourceCollection
          */
@@ -20,7 +27,7 @@
         /**
          * @var int
          */
-        private int $statusCode;
+        private int $statusCode = ResponseCodes::HTTP_OK;
 
         /**
          * @var array
@@ -43,21 +50,11 @@
         private string $redirect;
 
         /**
-         * @param int $statusCode
-         */
-        public function __construct(int $statusCode = ResponseCodes::HTTP_OK)
-        {
-            $this->statusCode = $statusCode;
-        }
-
-        /**
-         * @param int $statusCode
-         *
          * @return Response
          */
-        public static function create(int $statusCode = ResponseCodes::HTTP_OK): Response
+        public static function create(): Response
         {
-            return new static($statusCode);
+            return new static();
         }
 
         /**
@@ -69,23 +66,23 @@
         {
             $this->statusCode = $statusCode;
 
-            if (isset($this->popup)) {
-                $this->popup->message->selectedTypeByStatusCode($statusCode);
+            if (isset($this->popup) && $this->popup->instance instanceof NotificationBase) {
+                $this->popup->instance->selectedTypeByStatusCode($statusCode);
             }
 
             return $this;
         }
 
         /**
-         * @param string     $key
-         * @param array|null $errors
-         * @param int        $statusCode
+         * @param string|array $key
+         * @param array|null   $errors
+         * @param int          $statusCode
          *
          * @return Response
          */
-        public function addErrors(string $key, ?array $errors = null, int $statusCode = ResponseCodes::HTTP_BAD_REQUEST): Response
+        public function addErrors(string|array $key, ?array $errors = null, int $statusCode = ResponseCodes::HTTP_BAD_REQUEST): Response
         {
-            $this->statusCode = $statusCode;
+            $this->setStatusCode($statusCode);
 
             if (is_null($errors)) {
                 $this->errors = array_merge($this->errors, $key);
@@ -97,53 +94,54 @@
         }
 
         /**
-         * @param $data
-         * @param string|null $resourceClass
-         * @param bool        $collection
+         * @param array|AnonymousResourceCollection|JsonResource $data
          *
-         * @return array|JsonResource|ResourceCollection
+         * @return Response
          */
-        public function addData($data, ?string $resourceClass = null, bool $collection = false): ResourceCollection|array|JsonResource
+        public function addData(AnonymousResourceCollection|array|JsonResource $data): Response
         {
-            $this->data = is_null($resourceClass)
-                ? $data
-                : (
-                    $collection
-                    ? call_user_func([$resourceClass, 'collection'], $data)
-                    : new $resourceClass($data)
-                );
+            $this->data = $data;
 
-            return $this->data;
+            return $this;
         }
 
         /**
-         * @param string $message
-         * @param string $component
+         * @param PopupBase $instance
+         * @param int|null  $statusCode
          *
-         * @return PopupContent
+         * @return Response
          */
-        public function addPopup(string $message, string $component = PopupContent::SIMPLE_TYPE): PopupContent
+        public function addPopup(PopupBase $instance, ?int $statusCode = null): Response
         {
-            $this->popup = new PopupContent($message, $this->statusCode, $component);
+            $this->popup = new PopupContent($instance);
 
-            return $this->popup;
+            $this->setStatusCode($statusCode ?: $this->statusCode);
+
+            return $this;
         }
 
         /**
          * @param ActionMethodBase $methodClass
          *
-         * @return ActionMethodBase
+         * @return Response
          */
-        public function addAction(ActionMethodBase $methodClass): ActionMethodBase
+        public function addAction(ActionMethodBase $methodClass): Response
         {
             $this->action = new ActionContent($methodClass);
 
-            return $this->action->getMethod();
+            return $this;
         }
 
-        public function addRedirect(string $route)
+        /**
+         * @param string $route
+         *
+         * @return Response
+         */
+        public function addRedirect(string $route): Response
         {
             $this->redirect = $route;
+
+            return $this;
         }
 
         /**
@@ -170,11 +168,11 @@
             }
 
             if (isset($this->popup)) {
-                $response['popup'] = $this->popup->create();
+                $response['popup'] = $this->popup->getData();
             }
 
             if (isset($this->action)) {
-                $response['action'] = $this->action->create();
+                $response['action'] = $this->action->getData();
             }
 
             if (isset($this->redirect)) {

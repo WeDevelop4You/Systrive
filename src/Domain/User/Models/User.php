@@ -21,24 +21,24 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * Domain\User\Models\User.
+ * Domain\User\Models\User
  *
- * @property int         $id
- * @property string      $email
+ * @property int $id
+ * @property string $email
+ * @property string $locale
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $businesses
- * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
+ * @property-read \Domain\Company\Collections\CompanyCollections|Company[] $businesses
+ * @property-read \Domain\Company\Collections\CompanyCollections|Company[] $companies
  * @property-read string|null $full_name
- * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Domain\User\Models\UserProfile|null $profile
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
- *
  * @method static UserCollections|static[] all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static UserCollections|static[] get($columns = ['*'])
@@ -53,6 +53,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
  * @method static Builder|User whereId($value)
+ * @method static Builder|User whereLocale($value)
  * @method static Builder|User wherePassword($value)
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
@@ -76,6 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'email',
+        'locale',
         'role_id',
         'password',
     ];
@@ -147,5 +149,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function newCollection(array $models = []): UserCollections
     {
         return new UserCollections($models);
+    }
+
+    /**
+     * Get the user's preferred locale.
+     *
+     * @return string
+     */
+    public function preferredLocale(): string
+    {
+        return $this->locale;
     }
 }

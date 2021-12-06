@@ -23,7 +23,7 @@
         {
             return DataTable::create(TranslationKey::whereEnvironment($environment))
                 ->setColumns($this->createColumns())
-                ->get(TranslationKeyDataResource::class);
+                ->getData(TranslationKeyDataResource::class);
         }
 
         /**

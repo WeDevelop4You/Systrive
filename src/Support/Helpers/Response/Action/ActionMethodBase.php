@@ -22,7 +22,7 @@
         /**
          * @return array
          */
-        final public function get(): array
+        final public function getData(): array
         {
             return $this->content;
         }

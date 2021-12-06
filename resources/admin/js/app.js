@@ -10,6 +10,7 @@ import Config from './plugins/config'
 import Action from './plugins/actions'
 import Login from './pages/auth/Login'
 import Vuetify from './plugins/vuetify'
+import Registration from "./pages/auth/Registration"
 import ResetPassword from './pages/auth/ResetPassword'
 import PasswordRecovery from './pages/auth/PasswordRecovery'
 
@@ -22,6 +23,7 @@ Vue.use(Action)
 
 Vue.component('LApp', LApp)
 Vue.component('Login', Login)
+Vue.component('registration', Registration)
 Vue.component('ResetPassword', ResetPassword)
 Vue.component('PasswordRecovery', PasswordRecovery)
 
@@ -64,17 +66,26 @@ export default new Vue({
 
             return Promise.reject(error)
         });
+
+        this.$store.dispatch('locale/getLocale')
     },
 
     methods: {
         responseActions(data) {
+            this.redirect(data)
             this.addPopup(data)
             this.callAction(data)
         },
 
         addPopup(data) {
             if (Object.prototype.hasOwnProperty.call(data,'popup')) {
-                this.$store.dispatch('notifications/popup', data.popup);
+                this.$store.dispatch('popups/addPopup', data.popup);
+            }
+        },
+
+        redirect(data) {
+            if (Object.prototype.hasOwnProperty.call(data,'redirect')) {
+                window.location.href = data.redirect
             }
         }
     }

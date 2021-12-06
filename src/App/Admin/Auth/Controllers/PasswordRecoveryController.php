@@ -8,6 +8,7 @@
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Password;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
 
     class PasswordRecoveryController
@@ -27,14 +28,12 @@
          */
         public function action(PasswordRecoveryRequest $request): JsonResponse
         {
-            $email = $request->only('email');
-
-            $status = Password::sendResetLink($email);
+            $status = Password::sendResetLink($request->only('email'));
 
             $response = new Response();
 
             if ($status === Password::RESET_LINK_SENT) {
-                $response->addPopup(trans($status));
+                $response->addPopup(new SimpleNotification(trans($status)));
             } else {
                 $response->addErrors('email', [trans($status)]);
             }

@@ -12,6 +12,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
     use Illuminate\Validation\ValidationException;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
 
     class AuthenticationController
@@ -38,10 +39,10 @@
             try {
                 $request->authenticate();
 
-                $data = new Response();
-                $data->addPopup(trans('response.success.login'));
-
-                Session::put('responseData', $data->createResponseContent());
+                Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+                        ->addPopup(new SimpleNotification(trans('response.success.login')))
+                        ->createResponseContent()
+                );
 
                 $response->addRedirect(route('admin.dashboard'));
             } catch (ValidationException $e) {
@@ -64,16 +65,13 @@
 
             $request->session()->regenerateToken();
 
-            $data = new Response();
-            $data->addPopup(trans('response.success.logout'));
-
-            $response = new Response();
-            $response->addRedirect(route('admin.login'));
-
-            Session::put('responseData', $data->createResponseContent());
+            Session::put(Response::SESSION_KEY_DEFAULT, Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.logout')))
+                ->createResponseContent()
+            );
 
             return $request->expectsJson()
-                ? $response->toJson()
+                ? Response::create()->addRedirect(route('admin.web.login'))->toJson()
                 : view('admin::pages.auth.login');
         }
     }

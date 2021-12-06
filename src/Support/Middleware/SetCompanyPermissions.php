@@ -4,14 +4,21 @@ namespace Support\Middleware;
 
 use Closure;
 use Domain\Company\Models\Company;
+use Domain\User\Models\UserInvite;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
 class SetCompanyPermissions
 {
+    private const IGNORE_USER_ACCEPTED_ROUTES = [
+        'admin.company.user.invite.accepted',
+    ];
+
     /**
      * Get the path the user should be redirected to when they are not authenticated.
      *
@@ -27,23 +34,53 @@ class SetCompanyPermissions
 
             setPermissionsTeamId(0);
 
-            if ($request->route()->hasParameter('company') && !$user->hasRole('super_admin')) {
-                $company = $request->route('company');
-                $id = $company instanceof Company ? $company->id : $company;
-
+            if (!$user->hasRole('super_admin') && $this->hasCompanyParameter($request)) {
                 try {
-                    $user->companies()->wherePivot('company_id', $id)->firstOrFail();
+                    $query = $user->companies();
+                    $parameter = $this->getCompanyParameter($request);
+
+                    is_string($parameter)
+                        ? $query->where('name', $parameter)
+                        : $query->wherePivot('company_id', $parameter);
+
+                    if (!$request->routeIs(self::IGNORE_USER_ACCEPTED_ROUTES)) {
+                        $query->wherePivot('status', UserInvite::INVITE_USER_ACCEPTED);
+                    }
+
+                    $company = $query->firstOrFail();
+
+                    setPermissionsTeamId($company->id);
                 } catch (ModelNotFoundException) {
-                    $response = new Response(ResponseCodes::HTTP_FORBIDDEN);
-                    $response->addPopup(trans('response.forbidden.company'));
-
-                    return $response->toJson();
+                    return Response::create()
+                        ->addPopup(new SimpleNotification(trans('response.forbidden.company')))
+                        ->setStatusCode(ResponseCodes::HTTP_FORBIDDEN)
+                        ->toJson();
                 }
-
-                setPermissionsTeamId($id);
             }
         }
 
         return $next($request);
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    private function hasCompanyParameter(Request $request): bool
+    {
+        return $request->route()->hasParameter('company') ||
+            $request->route()->hasParameter('companyName');
+    }
+
+    private function getCompanyParameter(Request $request): int|string
+    {
+        if ($request->route()->hasParameter('companyName')) {
+            return (string) $request->route('companyName');
+        }
+
+        $company = $request->route('company');
+
+        return (int) ($company instanceof Company ? $company->id : $company);
     }
 }

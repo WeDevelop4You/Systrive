@@ -69,7 +69,8 @@
             "access": "Gebruikerstoegang"
         },
         "invite": {
-            "user": "Gebruiker uitnodigen"
+            "user": "Gebruiker uitnodigen",
+            "invite": "Uitnodigen"
         },
         "revoke": {
             "user": "Gebruiker intrekken"

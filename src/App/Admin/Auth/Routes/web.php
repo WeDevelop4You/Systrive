@@ -2,28 +2,25 @@
 
     use App\Admin\Auth\Controllers\AuthenticationController;
     use App\Admin\Auth\Controllers\PasswordRecoveryController;
+    use App\Admin\Auth\Controllers\RegistrationController;
     use App\Admin\Auth\Controllers\ResetPasswordController;
+    use App\Admin\Company\Controllers\CompanyInviteController;
     use App\Admin\Company\User\Controllers\CompanyUserInviteController;
     use Illuminate\Support\Facades\Route;
 
     Route::get('logout', [AuthenticationController::class, 'logout'])->name('logout');
 
+    Route::get('invite/company/{company}/{token}/{encryptEmail}', [CompanyInviteController::class, 'index'])->name('company.user.invite.link');
+
     Route::middleware('guest')->group(function () {
-        Route::get('login', [AuthenticationController::class, 'index'])->name('login');
-        Route::post('login', [AuthenticationController::class, 'login'])->name('login');
+        Route::get('login', [AuthenticationController::class, 'index'])->name('web.login');
 
-        Route::prefix('password/recovery')->group(function () {
-            Route::get('/', [PasswordRecoveryController::class, 'index'])->name('password.recovery');
-            Route::post('/', [PasswordRecoveryController::class, 'action'])->name('password.recovery');
-        });
+        Route::get('password/recovery', [PasswordRecoveryController::class, 'index'])->name('web.password.recovery');
 
-        Route::prefix('reset/password')->group(function () {
-            Route::get('{token}/{encryptEmail}', [ResetPasswordController::class, 'index'])->name('reset.password.link');
-            Route::post('/', [ResetPasswordController::class, 'action'])->name('reset.password');
-        });
+        Route::get('reset/password/{token}/{encryptEmail}', [ResetPasswordController::class, 'index'])->name('reset.password.link');
+
+        Route::get('registration', [RegistrationController::class, 'index'])->name('web.registration');
     });
-
-    Route::get('invite/company/{company}/{token}/{encryptEmail}', [CompanyUserInviteController::class, 'index'])->name('company.user.invite.accepted');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('{any?}', function () {

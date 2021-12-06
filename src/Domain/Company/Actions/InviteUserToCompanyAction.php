@@ -28,13 +28,17 @@
             if (!$user->exists) {
                 $user->email = $companyUserData->email;
                 $user->save();
+
+                $user->delete();
+            } else if ($user->trashed()) {
+                $user->restore();
             }
 
             (new UserPermissionsForCompanyAction($this->company, $user))($companyUserData);
 
             SendInviteEmailToUser::dispatch($user, $this->company, UserInvite::INVITE_USER_TYPE);
 
-            $this->company->users()->attach($user->id);
+            $this->company->users()->attach($user->id, ['status' => UserInvite::INVITE_USER_REQUESTED]);
 
             return $user;
         }

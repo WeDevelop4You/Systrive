@@ -21,7 +21,7 @@
         {
             return DataTable::create(User::withTrashed())
                 ->setColumns($this->createColumns())
-                ->get(UserDataResource::class);
+                ->getData(UserDataResource::class);
         }
 
         /**

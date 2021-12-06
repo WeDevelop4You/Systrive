@@ -7,7 +7,7 @@
     use App\Admin\User\Controllers\UserTableController;
 
     Route::middleware('auth:sanctum')->group(function () {
-        Route::get('auth/user', [UserController::class, 'index'])->name('auth.user');
+        Route::get('auth', [UserController::class, 'index'])->name('auth.user');
 
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {
             Route::get('table', [UserTableController::class, 'index'])->name('admin.users');

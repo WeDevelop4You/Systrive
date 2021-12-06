@@ -14,7 +14,8 @@ class HttpKernel extends Kernel
      * @var array
      */
     protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
+        \Support\Middleware\BotDetection::class,
+        \Support\Middleware\TrustHosts::class,
         \Support\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
         \Support\Middleware\PreventRequestsDuringMaintenance::class,
@@ -31,9 +32,9 @@ class HttpKernel extends Kernel
      * @var array
      */
     protected $middlewarePriority = [
-        \Support\Middleware\BotDetection::class,
         \Illuminate\Cookie\Middleware\EncryptCookies::class,
         \Illuminate\Session\Middleware\StartSession::class,
+        \Support\Middleware\SetLocale::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests::class,
         \Illuminate\Routing\Middleware\ThrottleRequests::class,
@@ -58,14 +59,14 @@ class HttpKernel extends Kernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Support\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Support\Middleware\BotDetection::class,
+            \Support\Middleware\SetLocale::class,
         ],
 
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Support\Middleware\BotDetection::class,
+            \Support\Middleware\SetLocale::class,
             \Support\Middleware\SetCompanyPermissions::class,
         ],
     ];
@@ -87,8 +88,8 @@ class HttpKernel extends Kernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'csrf' => \Support\Middleware\VerifyCsrfToken::class,
     ];
 }

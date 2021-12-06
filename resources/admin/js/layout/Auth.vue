@@ -13,19 +13,39 @@
                         lg="3"
                         offset-md="2"
                     >
-                        <v-card
-                            class="mx-auto"
-                            rounded="lg"
-                            outlined
-                            :elevation="$config.elevation"
-                            width="400px"
-                        >
-                            <slot />
-                        </v-card>
+                        <slot />
                     </v-col>
                 </v-row>
             </v-container>
             <popup />
+            <v-menu top offset-y>
+                <template v-slot:activator="{ on, attrs, value }">
+                    <v-btn
+                        right
+                        fixed
+                        bottom
+                        outlined
+                        color="#ffffff"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                        {{ $vuetify.lang.t('$vuetify.word.language') }}
+                        <v-icon right>
+                            {{ value ? 'fa-chevron-down' : 'fa-chevron-up' }}
+                        </v-icon>
+                    </v-btn>
+                </template>
+
+                <v-list dense>
+                    <v-list-item
+                        v-for="(item, index) in items"
+                        :key="index"
+                        @click="changeLocale(item)"
+                    >
+                        <v-list-item-action-text>{{ item }}</v-list-item-action-text>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </v-main>
     </v-app>
 </template>
@@ -41,5 +61,20 @@
             Popup,
             SvgMountain,
         },
+
+        data() {
+            return {
+                items: [
+                    'test',
+                    'dada',
+                ]
+            }
+        },
+
+        methods: {
+            changeLocale(locale) {
+
+            }
+        }
     }
 </script>

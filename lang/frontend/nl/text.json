@@ -1,13 +1,13 @@
 {
     "text": {
         "password": {
+            "requirements": "Om uw account te beschermen, moet uw wachtwoord:",
             "reset": {
-                "info": "Om uw account te beschermen, moet u beschikken over:",
                 "list": {
-                    "characters": "Moet langer zijn dan 10 tekens",
-                    "uppercase": "Vereist minimaal 1 hoofdletter",
-                    "number": "Heeft minimaal 1 nummer nodig",
-                    "symbol": "Heeft minimaal 1 symbool nodig"
+                    "characters": "Minimaal langer zijn dan 10 tekens",
+                    "mixed_case": "Minimaal 1 hoofd- en kleine letter bevatten",
+                    "number": "Minimaal 1 nummer bevatten",
+                    "symbol": "Minimaal 1 symbool bevatten"
                 }
             },
             "forgot": "Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"

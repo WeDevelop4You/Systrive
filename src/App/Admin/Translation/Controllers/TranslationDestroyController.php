@@ -3,6 +3,7 @@
     namespace App\Admin\Translation\Controllers;
 
     use Illuminate\Http\JsonResponse;
+    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
@@ -17,9 +18,8 @@
         {
             $translationKey->delete();
 
-            $response = new Response();
-            $response->addPopup(trans('response.success.delete.translation'));
-
-            return $response->toJson();
+            return Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.delete.translation')))
+                ->toJson();
         }
     }

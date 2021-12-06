@@ -30,7 +30,7 @@
         private Collection|array $columns;
 
         /**
-         * @param Builder|Relation $query
+         * @param Relation|Builder $query
          */
         public function __construct(Relation|Builder $query)
         {
@@ -39,7 +39,7 @@
 
             try {
                 $this->request = Container::getInstance()->make('request');
-            } catch (BindingResolutionException $e) {
+            } catch (BindingResolutionException) {
                 // TODO Do something here
             }
         }
@@ -101,7 +101,7 @@
          *
          * @return AnonymousResourceCollection
          */
-        public function get(string $resourceClass): AnonymousResourceCollection
+        public function getData(string $resourceClass): AnonymousResourceCollection
         {
             $page = $this->request->query('page', 1);
             $perPage = $this->request->query('itemPerPage', 10);

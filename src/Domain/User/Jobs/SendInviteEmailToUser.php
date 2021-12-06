@@ -3,21 +3,20 @@
 namespace Domain\User\Jobs;
 
 use Domain\Company\Models\Company;
-use Domain\User\Mails\UserInviteMail;
 use Domain\User\Models\User;
 use Domain\User\Models\UserInvite;
+use Domain\User\Notifications\InviteUser;
+use Domain\User\Notifications\InviteUserNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class SendInviteEmailToUser implements ShouldQueue
+class SendInviteEmailToUser
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -48,14 +47,14 @@ class SendInviteEmailToUser implements ShouldQueue
     {
         $token = $this->insertToDatabase();
 
-        $url = route('admin.company.user.invite.accepted', [
+        $url = route('admin.company.user.invite.link', [
             $this->company->id,
             $token,
             Crypt::encryptString($this->user->email),
         ]);
 
         if ($this->type === UserInvite::INVITE_USER_TYPE) {
-            $name = $this->company->name;
+            $name = trans('', ['name', $this->company->name]);
             $subject = trans('mail.subject.invited.company', ['name' => $this->company->name]);
         } else {
             $appName = config('app.name');
@@ -64,7 +63,7 @@ class SendInviteEmailToUser implements ShouldQueue
             $subject = trans('mail.subject.invited.new.company', ['name' => $appName]);
         }
 
-        Mail::to($this->user)->send(new UserInviteMail($url, $name, $subject));
+        $this->user->notify(new InviteUserNotification($url, $name, $subject));
     }
 
     private function getHashKey(): string

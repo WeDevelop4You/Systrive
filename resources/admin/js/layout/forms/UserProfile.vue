@@ -53,7 +53,7 @@
                 offset-y
                 min-width="auto"
             >
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                     <v-text-field
                         v-model="value.birth_date"
                         :error-messages="errors.birth_date"
@@ -65,14 +65,14 @@
                         hide-details="auto"
                         v-bind="attrs"
                         v-on="on"
-                    ></v-text-field>
+                    />
                 </template>
                 <v-date-picker
                     v-model="value.birth_date"
                     :max="maxDate"
                     no-title
                     @input="dateMenu = false"
-                ></v-date-picker>
+                />
             </v-menu>
         </v-col>
     </v-row>

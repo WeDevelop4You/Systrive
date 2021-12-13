@@ -29,10 +29,12 @@
                     <template v-if="searchable">
                         <v-text-field
                             v-model="search"
-                            hide-details
+                            class="mr-auto"
                             :label="$vuetify.lang.t('$vuetify.word.search')"
-                            class="mx-auto"
-                            style="max-width: 700px"
+                            dense
+                            outlined
+                            hide-details
+                            style="max-width: 500px"
                             @input="updateSearch"
                         />
                     </template>

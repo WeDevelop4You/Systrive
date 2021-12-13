@@ -23,15 +23,13 @@
          */
         public function __invoke(CompanyUserData $companyUserData): User
         {
-            $user = User::whereEmail($companyUserData->email)->firstOrNew();
+            $user = User::withTrashed()->whereEmail($companyUserData->email)->firstOrNew();
 
             if (!$user->exists) {
                 $user->email = $companyUserData->email;
                 $user->save();
 
                 $user->delete();
-            } elseif ($user->trashed()) {
-                $user->restore();
             }
 
             (new UserPermissionsForCompanyAction($this->company, $user))($companyUserData);

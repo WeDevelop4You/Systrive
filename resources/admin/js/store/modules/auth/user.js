@@ -9,6 +9,7 @@ export default {
         email: '',
         verified: false,
         emailVerifiedAt: '',
+        permissions: []
     }),
 
     mutations: {
@@ -16,6 +17,10 @@ export default {
             state.email = user.email
             state.emailVerifiedAt = user.email_verified_at
             state.verified = user.email_verified_at !== null
+        },
+
+        setPermissions(state, permissions) {
+            state.permissions = permissions
         }
     },
 
@@ -27,6 +32,10 @@ export default {
                 emailVerifiedAt: state.emailVerifiedAt,
             }
         },
+
+        getPermissions(state) {
+            return state.permissions
+        }
     },
 
     actions: {
@@ -37,6 +46,26 @@ export default {
             }).then((response) => {
                 commit('setUser', response.data.data)
             })
+        },
+
+        getPermissions({commit}) {
+            app.$api.call({
+                url: app.$api.route('auth.user.permissions'),
+                method: "GET"
+            }).then((response) => {
+                commit("setPermissions", response.data.data)
+            })
+        },
+
+        getCompanyPermissions({commit, rootGetters}) {
+            if (app.$auth.cannot('super_admin')) {
+                app.$api.call({
+                    url: app.$api.route('company.user.permissions', rootGetters['company/id']),
+                    method: "GET"
+                }).then((response) => {
+                    commit("setPermissions", response.data.data)
+                })
+            }
         },
 
         logout() {

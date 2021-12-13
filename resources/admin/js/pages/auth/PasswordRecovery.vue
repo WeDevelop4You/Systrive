@@ -22,12 +22,13 @@
             <v-card-text class="pb-0">
                 <v-text-field
                     v-model="email"
-                    class="pb-2"
-                    :label="$vuetify.lang.t('$vuetify.word.email')"
-                    outlined
-                    dense
-                    type="email"
                     :error-messages="errors.email"
+                    :class="{'pb-2': !errors.email}"
+                    :label="$vuetify.lang.t('$vuetify.word.email')"
+                    dense
+                    outlined
+                    type="email"
+                    hide-details="auto"
                 />
             </v-card-text>
             <v-card-actions class="px-4">

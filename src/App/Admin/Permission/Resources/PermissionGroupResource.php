@@ -17,7 +17,7 @@
             return [
                 'id' => $this->id,
                 'type' => $this->group,
-                'name' => sprintf('$vuetify.word.%s.%s', $this->group, $this->group),
+                'name' => translateToVuetify("word.{$this->group}.{$this->group}"),
                 'permissions' => PermissionResource::collection($this->permissions),
             ];
         }

@@ -41,7 +41,7 @@
          * @var array
          */
         protected array $handlerCasts = [
-            QueryException::class => QueryExceptionHandler::class,
+//            QueryException::class => QueryExceptionHandler::class,
             UnauthorizedException::class => UnauthorizedExceptionHandler::class,
             ModelNotFoundException::class => ModelNotFoundExceptionHandler::class,
         ];

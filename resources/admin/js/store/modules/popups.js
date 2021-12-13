@@ -60,6 +60,23 @@ export default {
 
                 commit('setModal', content)
             }
+        },
+
+        addNotification({dispatch}, {message, type = 'error'}) {
+            dispatch(
+                'addPopup',
+                {
+                    type: "notification",
+                    component: "Simple",
+                    data: {
+                        stayable: false,
+                        message: {
+                            type: type,
+                            text: message
+                        }
+                    }
+                },
+            )
         }
     },
 }

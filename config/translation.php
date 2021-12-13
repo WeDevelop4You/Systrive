@@ -2,8 +2,8 @@
 
     return [
         'locales' => [
-            'en',
-            'nl'
+            'us' => 'en',
+            'nl' => 'nl'
         ],
 
         /*

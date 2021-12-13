@@ -29,20 +29,28 @@
             </v-card>
         </v-col>
         <v-col cols="9">
-            <user-access />
+            <v-row>
+                <v-col cols="12">
+                    <user-access />
+                </v-col>
+                <v-col cols="12">
+                    <roles />
+                </v-col>
+            </v-row>
         </v-col>
-        <v-col cols="9" />
     </v-row>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
+    import Roles from "../../../layout/tables/Roles";
     import UserAccess from "../../../layout/tables/UserAccess";
 
     export default {
         name: "Show",
 
         components: {
+            Roles,
             UserAccess
         },
 

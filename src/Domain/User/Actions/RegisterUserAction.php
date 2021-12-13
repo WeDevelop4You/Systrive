@@ -48,7 +48,7 @@
          */
         public function __invoke(UserProfileData $userProfileData): void
         {
-            (new EditPasswordAction($this->user))($this->password);
+            (new UpdatePasswordAction($this->user))($this->password);
 
             $userProfile = new UserProfile();
             $userProfile->first_name = $userProfileData->first_name;

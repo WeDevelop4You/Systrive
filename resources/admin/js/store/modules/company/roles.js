@@ -1,4 +1,5 @@
 import Vue from "vue";
+import tableBase from "../tableBase";
 
 const app = Vue.prototype
 
@@ -10,20 +11,12 @@ export default {
     }),
 
     mutations: {
-        setItems(state, items) {
-            state.items = items
-        },
-
         setListItems(state, listItems) {
             state.listItems = listItems
         },
     },
 
     getters: {
-        items(state) {
-            return state.items
-        },
-
         listItems(state) {
             return state.listItems
         }
@@ -37,6 +30,64 @@ export default {
             }).then((response) => {
                 commit('setListItems', response.data.data)
             })
-        }
+        },
+
+        create({commit, dispatch, rootGetters}, data) {
+            app.$api.call({
+                url: app.$api.route('company.role.create', rootGetters["company/id"]),
+                method: "POST",
+                data: data
+            }).then(() => {
+                commit('resetCreateOrEdit')
+            }).catch((error) => {
+                const errors = error.response.data.errors
+
+                commit("setErrors", errors)
+
+                if (Object.prototype.hasOwnProperty.call(errors, 'permissions')) {
+                    dispatch('popups/addNotification', {message: errors.permissions[0]}, {root: true})
+                }
+            })
+        },
+
+        getOne({commit, rootGetters}, id) {
+            app.$api.call({
+                url: app.$api.route('company.role.edit', rootGetters["company/id"], id),
+                method: "GET"
+            }).then((response) => {
+                commit('setEdit', response.data.data)
+            })
+        },
+
+        update({commit, dispatch, rootGetters}, data) {
+            app.$api.call({
+                url: app.$api.route('company.role.edit', rootGetters["company/id"], data.id),
+                method: 'PATCH',
+                data: data
+            }).then(() => {
+                commit('resetCreateOrEdit')
+            }).catch((error) => {
+                const errors = error.response.data.errors
+
+                commit("setErrors", errors)
+
+                if (Object.prototype.hasOwnProperty.call(errors, 'permissions')) {
+                    dispatch('popups/addNotification', {message: errors.permissions[0]}, {root: true})
+                }
+            })
+        },
+
+        destroy({state, commit, rootGetters}) {
+            app.$api.call({
+                url: app.$api.route('company.role.destroy', rootGetters["company/id"], state.tableBase.deleteId),
+                method: 'DELETE'
+            }).finally(() => {
+                commit('resetDelete')
+            })
+        },
+    },
+
+    modules: {
+        tableBase: tableBase
     }
 }

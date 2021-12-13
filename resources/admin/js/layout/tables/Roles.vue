@@ -1,0 +1,114 @@
+<template>
+    <server-data-table
+        ref="server"
+        :custom-items="customItems"
+        :title="$vuetify.lang.t('$vuetify.word.roles')"
+        :headers="headers"
+        :route="route"
+        :do-load-action="false"
+        :vuex-namespace="vuexNamespace"
+        searchable
+    >
+        <template #toolbar.append>
+            <create-or-edit-dialog
+                :form-title="formTitle"
+                :vuex-namespace="vuexNamespace"
+                :button-title="$vuetify.lang.t('$vuetify.word.create.role')"
+                rerender
+                create-permission="role.create"
+                @save="save"
+            >
+                <company-role v-model="data" />
+            </create-or-edit-dialog>
+        </template>
+        <delete-dialog
+            :title="$vuetify.lang.t('$vuetify.word.delete.role')"
+            :vuex-namespace="vuexNamespace"
+            @delete="destroy"
+        />
+    </server-data-table>
+</template>
+
+<script>
+    import ServerDataTable from "../../components/ServerDataTable"
+    import DeleteDialog from "../../components/table/DeleteDialog"
+    import CompanyRole from "../../layout/forms/company/CompanyRole"
+    import Actions from "../../components/table/company/role/Actions"
+    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog"
+
+    export default {
+        name: "Roles",
+
+        components: {
+            CompanyRole,
+            DeleteDialog,
+            ServerDataTable,
+            CreateOrEditDialog
+        },
+
+        data() {
+            return {
+                customItems: [
+                    {name: 'actions', component: Actions}
+                ],
+
+                vuexNamespace: 'company/roles',
+            }
+        },
+
+        computed: {
+            data() {
+                return this.$store.getters[`${this.vuexNamespace}/data`]
+            },
+
+            route() {
+                return this.$api.route('company.roles', this.$store.getters['company/id']);
+            },
+
+            headers() {
+                return [
+                    {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'name', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.total.permissions'), value: 'permissions_count', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true, divider: this.showActions()},
+                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: this.showActions() ? 'end' : ' d-none'},
+                ]
+            },
+
+            isEditing() {
+                return this.$store.getters[`${this.vuexNamespace}/isEditing`]
+            },
+
+            formTitle() {
+                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.create.create');
+            },
+        },
+
+        created() {
+            this.$store.commit(`${this.vuexNamespace}/setStructure`, {
+                name: '',
+                permissions: [],
+            });
+        },
+
+        methods: {
+            async save() {
+                if (this.isEditing) {
+                    await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)
+                } else {
+                    await this.$store.dispatch(`${this.vuexNamespace}/create`, this.data)
+                }
+
+                this.$refs.server.getData();
+            },
+
+            async destroy() {
+                await this.$store.dispatch(`${this.vuexNamespace}/destroy`)
+                this.$refs.server.getData();
+            },
+
+            showActions() {
+                return this.$auth.can('role.edit') || this.$auth.can('role.delete')
+            }
+        }
+    }
+</script>

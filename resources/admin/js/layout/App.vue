@@ -12,6 +12,7 @@
                     <template v-if="item.subheader">
                         <v-subheader
                             v-show="!isMini"
+                            v-can="item.can"
                             :key="index"
                         >
                             {{ item.subheader }}
@@ -19,12 +20,14 @@
                     </template>
                     <template v-else-if="item.divider">
                         <v-divider
+                            v-can="item.can"
                             :key="index"
                             class="my-1"
                         />
                     </template>
                     <template v-else>
                         <v-list-item-group
+                            v-can="item.can"
                             :key="index"
                             color="primary"
                         >
@@ -239,6 +242,7 @@
 
         async beforeCreate() {
             await this.$store.dispatch('user/get')
+            await this.$store.dispatch('user/getPermissions')
             await this.$store.dispatch('navigation/getCompanies', true)
         },
 

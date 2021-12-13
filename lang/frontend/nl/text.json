@@ -14,9 +14,14 @@
         },
         "delete": {
             "message": {
-                "translation": "Weet je het zeker dat je deze \"{0}\" vertaling wilt verwijderen?",
-                "user": "Weet je het zeker dat je deze \"{0}\" gebruiker wilt verwijderen?",
-                "companies": "Weet je het zeker dat je deze \"{0}\" bedrijf wilt verwijderen?"
+                "translation": "Weet je het zeker dat je vertaling \"{0}\" wilt verwijderen?",
+                "user": "Weet je het zeker dat je gebruiker \"{0}\" wilt verwijderen?",
+                "companies": "Weet je het zeker dat je bedrijf  \"{0}\" wilt verwijderen?",
+                "revoke": {
+                    "user": "Weet je het zeker dat je gebruiker \"{0}\" wilt verwijderen?"
+                },
+                "company": "Weet je het zeker dat je deze \"{0}\" bedrijf wilt verwijderen?",
+                "role": "Weet je het zeker dat je rol \"{0}\" wilt verwijderen?"
             }
         },
         "remove": {

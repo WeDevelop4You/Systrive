@@ -1,8 +1,12 @@
 import Vue from 'vue'
+import Vuetify from './vuetify'
+import store from '../store'
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter)
 
+const app = Vue.prototype
+const $vuetify = Vuetify.framework
 const parent = {template: `<router-view></router-view>`}
 
 const routes = [
@@ -68,7 +72,7 @@ const routes = [
                         {
                             text: 'Users'
                         }
-                    ]
+                    ],
                 }
             },
             {
@@ -124,7 +128,6 @@ const routes = [
                             {
                                 text: companyName,
                             }
-
                         ]
                     }
                 },
@@ -133,8 +136,19 @@ const routes = [
     }
 ]
 
-export default new VueRouter({
-    history: true,
+const router = new VueRouter({
     mode: 'history',
     routes: routes
 })
+
+router.beforeEach(async (to, from, next) => {
+    if (app.$auth.cannot(to.meta.can)) {
+        await store.dispatch('popups/addNotification', {message: $vuetify.lang.t('$vuetify.text.route.not_allowed')})
+
+        return next(from.fullPath)
+    }
+
+    return next()
+})
+
+export default router

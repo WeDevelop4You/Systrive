@@ -176,7 +176,7 @@
                     {text: this.$vuetify.lang.t('$vuetify.word.key'), value: 'key', sortable: true, align: 'start'},
                     {text: this.$vuetify.lang.t('$vuetify.word.group'), value: 'group', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.tags'), value: 'tags', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.translated'), value: 'translated', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.translated'), value: 'translated', sortable: true, divider: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
             },

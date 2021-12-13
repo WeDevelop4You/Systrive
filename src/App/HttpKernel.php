@@ -66,6 +66,7 @@ class HttpKernel extends Kernel
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Session\Middleware\StartSession::class,
             \Support\Middleware\SetLocale::class,
             \Support\Middleware\SetCompanyPermissions::class,
         ],

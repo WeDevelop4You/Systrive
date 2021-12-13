@@ -31,7 +31,7 @@
         public function dispatch(string $type, mixed $params = null): VuexMethod
         {
             $this->content = [
-                'method' => 'vuexDispatchMethod',
+                'method' => 'actionVuexDispatchMethod',
                 'parameters' => [
                     $type,
                     $params,

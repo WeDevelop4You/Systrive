@@ -58,7 +58,7 @@
             $searchableColumns = $this->columns->where('isSearchable', true);
 
             if ($searchableColumns->isNotEmpty()) {
-                $this->query->where(function (Builder $subQuery) use ($searchableColumns) {
+                $this->query->where(function (Relation|Builder $subQuery) use ($searchableColumns) {
                     $searchableColumns->each(function (Column $column) use ($subQuery) {
                         $hasRelation = ColumnHelper::hasRelation($column->columnName);
 

@@ -18,8 +18,11 @@
                 </v-row>
             </v-container>
             <popup />
-            <v-menu top offset-y>
-                <template v-slot:activator="{ on, attrs, value }">
+            <v-menu
+                top
+                offset-y
+            >
+                <template #activator="{ on, attrs, value }">
                     <v-btn
                         right
                         fixed
@@ -29,7 +32,11 @@
                         v-bind="attrs"
                         v-on="on"
                     >
-                        {{ $vuetify.lang.t('$vuetify.word.language') }}
+                        <gb-flag
+                            class="mx-auto rounded"
+                            :code="getFlag"
+                            size="mini"
+                        />
                         <v-icon right>
                             {{ value ? 'fa-chevron-down' : 'fa-chevron-up' }}
                         </v-icon>
@@ -40,9 +47,14 @@
                     <v-list-item
                         v-for="(item, index) in items"
                         :key="index"
+                        style="min-height: 28px"
                         @click="changeLocale(item)"
                     >
-                        <v-list-item-action-text>{{ item }}</v-list-item-action-text>
+                        <gb-flag
+                            class="mx-auto rounded"
+                            :code="index"
+                            size="mini"
+                        />
                     </v-list-item>
                 </v-list>
             </v-menu>
@@ -51,8 +63,9 @@
 </template>
 
 <script>
+    import Popup from "./Popup"
+    import {mapGetters} from "vuex";
     import SvgMountain from '../components/svg/Mountain'
-    import Popup from "./Popup";
 
     export default {
         name: "Auth",
@@ -62,18 +75,20 @@
             SvgMountain,
         },
 
-        data() {
-            return {
-                items: [
-                    'test',
-                    'dada',
-                ]
-            }
+        computed: {
+            getFlag() {
+                return Object.keys(this.items).find(flag => this.items[flag] === this.locale) || 'us'
+            },
+
+            ...mapGetters({
+                items: 'locale/items',
+                locale: 'locale/locale',
+            })
         },
 
         methods: {
             changeLocale(locale) {
-
+                this.$store.dispatch('locale/setLocale', locale)
             }
         }
     }

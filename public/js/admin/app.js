@@ -12,6 +12,26 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
+/***/ "./node_modules/@growthbunker/vueflags/dist/vueflags.esm.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@growthbunker/vueflags/dist/vueflags.esm.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "continents": () => (/* binding */ n),
+/* harmony export */   "countries": () => (/* binding */ e),
+/* harmony export */   "countryCodes": () => (/* binding */ m),
+/* harmony export */   "countryNames": () => (/* binding */ s)
+/* harmony export */ });
+var n=[{code:"af",name:"Africa"},{code:"an",name:"Antarctica"},{code:"as",name:"Asia"},{code:"eu",name:"Europe"},{code:"na",name:"North America"},{code:"oc",name:"Oceania"},{code:"sa",name:"South America"}],e=[{code:"ad",name:"Andorra",continent:"Europe",continent_code:"eu"},{code:"ae",name:"United Arab Emirates",continent:"Asia",continent_code:"as"},{code:"af",name:"Afghanistan",continent:"Asia",continent_code:"as"},{code:"ag",name:"Antigua and Barbuda",continent:"North America",continent_code:"na"},{code:"ai",name:"Anguilla",continent:"North America",continent_code:"na"},{code:"al",name:"Albania",continent:"Europe",continent_code:"eu"},{code:"am",name:"Armenia",continent:"Asia",continent_code:"as"},{code:"ao",name:"Angola",continent:"Africa",continent_code:"af"},{code:"aq",name:"Antarctica",continent:"Antarctica",continent_code:"an"},{code:"ar",name:"Argentina",continent:"South America",continent_code:"sa"},{code:"as",name:"American Samoa",continent:"Oceania",continent_code:"oc"},{code:"at",name:"Austria",continent:"Europe",continent_code:"eu"},{code:"au",name:"Australia",continent:"Oceania",continent_code:"oc"},{code:"aw",name:"Aruba",continent:"North America",continent_code:"na"},{code:"ax",name:"Aland Islands",continent:"Europe",continent_code:"eu"},{code:"az",name:"Azerbaijan",continent:"Asia",continent_code:"as"},{code:"ba",name:"Bosnia and Herzegovina",continent:"Europe",continent_code:"eu"},{code:"bb",name:"Barbados",continent:"North America",continent_code:"na"},{code:"bd",name:"Bangladesh",continent:"Asia",continent_code:"as"},{code:"be",name:"Belgium",continent:"Europe",continent_code:"eu"},{code:"bf",name:"Burkina Faso",continent:"Africa",continent_code:"af"},{code:"bg",name:"Bulgaria",continent:"Europe",continent_code:"eu"},{code:"bh",name:"Bahrain",continent:"Asia",continent_code:"as"},{code:"bi",name:"Burundi",continent:"Africa",continent_code:"af"},{code:"bj",name:"Benin",continent:"Africa",continent_code:"af"},{code:"bl",name:"Saint-Barthélemy",continent:"North America",continent_code:"na"},{code:"bm",name:"Bermuda",continent:"North America",continent_code:"na"},{code:"bn",name:"Brunei Darussalam",continent:"Asia",continent_code:"as"},{code:"bo",name:"Bolivia",continent:"South America",continent_code:"sa"},{code:"bq",name:"Caribbean Netherlands",continent:"South America",continent_code:"sa"},{code:"br",name:"Brazil",continent:"South America",continent_code:"sa"},{code:"bs",name:"Bahamas",continent:"North America",continent_code:"na"},{code:"bt",name:"Bhutan",continent:"Asia",continent_code:"as"},{code:"bv",name:"Bouvet Island",continent:"Antarctica",continent_code:"an"},{code:"bw",name:"Botswana",continent:"Africa",continent_code:"af"},{code:"by",name:"Belarus",continent:"Europe",continent_code:"eu"},{code:"bz",name:"Belize",continent:"North America",continent_code:"na"},{code:"ca",name:"Canada",continent:"North America",continent_code:"na"},{code:"cc",name:"Cocos (Keeling) Islands",continent:"Asia",continent_code:"as"},{code:"cd",name:"Democratic Republic of the Congo",continent:"Africa",continent_code:"af"},{code:"cf",name:"Central African Republic",continent:"Africa",continent_code:"af"},{code:"cg",name:"Republic of the Congo",continent:"Africa",continent_code:"af"},{code:"ch",name:"Switzerland",continent:"Europe",continent_code:"eu"},{code:"ci",name:"Côte d'Ivoire",continent:"Africa",continent_code:"af"},{code:"ck",name:"Cook Islands",continent:"Oceania",continent_code:"oc"},{code:"cl",name:"Chile",continent:"South America",continent_code:"sa"},{code:"cm",name:"Cameroon",continent:"Africa",continent_code:"af"},{code:"cn",name:"China",continent:"Asia",continent_code:"as"},{code:"co",name:"Colombia",continent:"South America",continent_code:"sa"},{code:"cr",name:"Costa Rica",continent:"North America",continent_code:"na"},{code:"cu",name:"Cuba",continent:"North America",continent_code:"na"},{code:"cv",name:"Cabo Verde",continent:"Africa",continent_code:"af"},{code:"cw",name:"Curaçao",continent:"South America",continent_code:"sa"},{code:"cx",name:"Christmas Island",continent:"Asia",continent_code:"as"},{code:"cy",name:"Cyprus",continent:"Europe",continent_code:"eu"},{code:"cz",name:"Czech Republic",continent:"Europe",continent_code:"eu"},{code:"de",name:"Germany",continent:"Europe",continent_code:"eu"},{code:"dj",name:"Djibouti",continent:"Africa",continent_code:"af"},{code:"dk",name:"Denmark",continent:"Europe",continent_code:"eu"},{code:"dm",name:"Dominica",continent:"North America",continent_code:"na"},{code:"do",name:"Dominican Republic",continent:"North America",continent_code:"na"},{code:"dz",name:"Algeria",continent:"Africa",continent_code:"af"},{code:"ec",name:"Ecuador",continent:"South America",continent_code:"sa"},{code:"ee",name:"Estonia",continent:"Europe",continent_code:"eu"},{code:"eg",name:"Egypt",continent:"Africa",continent_code:"af"},{code:"eh",name:"Western Sahara",continent:"Africa",continent_code:"af"},{code:"er",name:"Eritrea",continent:"Africa",continent_code:"af"},{code:"es",name:"Spain",continent:"Europe",continent_code:"eu"},{code:"et",name:"Ethiopia",continent:"Africa",continent_code:"af"},{code:"fi",name:"Finland",continent:"Europe",continent_code:"eu"},{code:"fj",name:"Fiji",continent:"Oceania",continent_code:"oc"},{code:"fk",name:"Falkland Islands",continent:"South America",continent_code:"sa"},{code:"fm",name:"Micronesia",continent:"Oceania",continent_code:"oc"},{code:"fo",name:"Faroe Islands",continent:"Europe",continent_code:"eu"},{code:"fr",name:"France",continent:"Europe",continent_code:"eu"},{code:"ga",name:"Gabon",continent:"Africa",continent_code:"af"},{code:"gb",name:"United Kingdom",continent:"Europe",continent_code:"eu"},{code:"gd",name:"Grenada",continent:"North America",continent_code:"na"},{code:"ge",name:"Georgia",continent:"Asia",continent_code:"as"},{code:"gf",name:"French Guiana",continent:"South America",continent_code:"sa"},{code:"gg",name:"Guernsey",continent:"Europe",continent_code:"eu"},{code:"gh",name:"Ghana",continent:"Africa",continent_code:"af"},{code:"gi",name:"Gibraltar",continent:"Europe",continent_code:"eu"},{code:"gl",name:"Greenland",continent:"North America",continent_code:"na"},{code:"gm",name:"The Gambia",continent:"Africa",continent_code:"af"},{code:"gn",name:"Guinea",continent:"Africa",continent_code:"af"},{code:"gp",name:"Guadeloupe",continent:"North America",continent_code:"na"},{code:"gq",name:"Equatorial Guinea",continent:"Africa",continent_code:"af"},{code:"gr",name:"Greece",continent:"Europe",continent_code:"eu"},{code:"gs",name:"South Georgia and the South Sandwich Islands",continent:"Antarctica",continent_code:"an"},{code:"gt",name:"Guatemala",continent:"North AMerica",continent_code:"na"},{code:"gu",name:"Guam",continent:"Oceania",continent_code:"oc"},{code:"gw",name:"Guinea Bissau",continent:"Africa",continent_code:"af"},{code:"gy",name:"Guyana",continent:"South America",continent_code:"sa"},{code:"hk",name:"Hong Kong",continent:"Asia",continent_code:"as"},{code:"hm",name:"Heard Island and McDonald Islands",continent:"Antarctica",continent_code:"an"},{code:"hn",name:"Honduras",continent:"North America",continent_code:"na"},{code:"hr",name:"Croatia",continent:"Europe",continent_code:"eu"},{code:"ht",name:"Haiti",continent:"North America",continent_code:"na"},{code:"hu",name:"Hungary",continent:"Europe",continent_code:"eu"},{code:"id",name:"Indonesia",continent:"Asia",continent_code:"as"},{code:"ie",name:"Ireland",continent:"Europe",continent_code:"eu"},{code:"il",name:"Israel",continent:"Asia",continent_code:"as"},{code:"im",name:"Isle of Man",continent:"Europe",continent_code:"eu"},{code:"in",name:"India",continent:"Asia",continent_code:"as"},{code:"io",name:"British Indian Ocean Territory",continent:"Asia",continent_code:"as"},{code:"iq",name:"Iraq",continent:"Asia",continent_code:"as"},{code:"ir",name:"Iran",continent:"Asia",continent_code:"as"},{code:"is",name:"Iceland",continent:"Europe",continent_code:"eu"},{code:"it",name:"Italy",continent:"Europe",continent_code:"eu"},{code:"je",name:"Jersey",continent:"Europe",continent_code:"eu"},{code:"jm",name:"Jamaica",continent:"North America",continent_code:"na"},{code:"jo",name:"Jordan",continent:"Asia",continent_code:"as"},{code:"jp",name:"Japan",continent:"Asia",continent_code:"as"},{code:"ke",name:"Kenya",continent:"Africa",continent_code:"af"},{code:"kg",name:"Kyrgyzstan",continent:"Asia",continent_code:"as"},{code:"kh",name:"Cambodia",continent:"Asia",continent_code:"as"},{code:"ki",name:"Kiribati",continent:"Oceania",continent_code:"oc"},{code:"km",name:"Comoros",continent:"Africa",continent_code:"af"},{code:"kn",name:"Saint Kitts and Nevis",continent:"North America",continent_code:"na"},{code:"kp",name:"North Korea",continent:"Asia",continent_code:"as"},{code:"kr",name:"South Korea",continent:"Asia",continent_code:"as"},{code:"kw",name:"Kuwait",continent:"Asia",continent_code:"as"},{code:"ky",name:"Cayman Islands",continent:"North America",continent_code:"na"},{code:"kz",name:"Kazakhstan",continent:"Asia",continent_code:"as"},{code:"la",name:"Laos",continent:"Asia",continent_code:"as"},{code:"lb",name:"Lebanon",continent:"Asia",continent_code:"as"},{code:"lc",name:"Saint Lucia",continent:"North America",continent_code:"na"},{code:"li",name:"Liechtenstein",continent:"Europe",continent_code:"eu"},{code:"lk",name:"Sri Lanka",continent:"Asia",continent_code:"as"},{code:"lr",name:"Liberia",continent:"Africa",continent_code:"af"},{code:"ls",name:"Lesotho",continent:"Africa",continent_code:"af"},{code:"lt",name:"Lithuania",continent:"Europe",continent_code:"eu"},{code:"lu",name:"Luxembourg",continent:"Europe",continent_code:"eu"},{code:"lv",name:"Latvia",continent:"Europe",continent_code:"eu"},{code:"ly",name:"Libya",continent:"Africa",continent_code:"af"},{code:"ma",name:"Morocco",continent:"Africa",continent_code:"af"},{code:"mc",name:"Monaco",continent:"Europe",continent_code:"eu"},{code:"md",name:"Moldova",continent:"Europe",continent_code:"eu"},{code:"me",name:"Montenegro",continent:"Europe",continent_code:"eu"},{code:"mf",name:"Saint Martin (French part)",continent:"North America",continent_code:"na"},{code:"mg",name:"Madagascar",continent:"Africa",continent_code:"af"},{code:"mh",name:"Marshall Islands",continent:"Oceania",continent_code:"oc"},{code:"mk",name:"North Macedonia",continent:"Europe",continent_code:"eu"},{code:"ml",name:"Mali",continent:"Africa",continent_code:"af"},{code:"mm",name:"Myanmar",continent:"Asia",continent_code:"as"},{code:"mn",name:"Mongolia",continent:"Asia",continent_code:"as"},{code:"mo",name:"Macao",continent:"Asia",continent_code:"as"},{code:"mp",name:"Northern Mariana Islands",continent:"Oceania",continent_code:"oc"},{code:"mq",name:"Martinique",continent:"North America",continent_code:"na"},{code:"mr",name:"Mauritania",continent:"Africa",continent_code:"af"},{code:"ms",name:"Montserrat",continent:"North America",continent_code:"na"},{code:"mt",name:"Malta",continent:"Europe",continent_code:"eu"},{code:"mu",name:"Mauritius",continent:"Africa",continent_code:"af"},{code:"mv",name:"Maldives",continent:"Asia",continent_code:"as"},{code:"mw",name:"Malawi",continent:"Africa",continent_code:"af"},{code:"mx",name:"Mexico",continent:"North America",continent_code:"na"},{code:"my",name:"Malaysia",continent:"Asia",continent_code:"as"},{code:"mz",name:"Mozambique",continent:"Africa",continent_code:"af"},{code:"na",name:"Namibia",continent:"Africa",continent_code:"af"},{code:"nc",name:"New Caledonia",continent:"Oceania",continent_code:"oc"},{code:"ne",name:"Niger",continent:"Africa",continent_code:"af"},{code:"nf",name:"Norfolk Island",continent:"Oceania",continent_code:"oc"},{code:"ng",name:"Nigeria",continent:"Africa",continent_code:"af"},{code:"ni",name:"Nicaragua",continent:"North America",continent_code:"na"},{code:"nl",name:"The Netherlands",continent:"Europe",continent_code:"eu"},{code:"no",name:"Norway",continent:"Europe",continent_code:"eu"},{code:"np",name:"Nepal",continent:"Asia",continent_code:"as"},{code:"nr",name:"Nauru",continent:"Oceania",continent_code:"oc"},{code:"nu",name:"Niue",continent:"Oceania",continent_code:"oc"},{code:"nz",name:"New Zealand",continent:"Oceania",continent_code:"oc"},{code:"om",name:"Oman",continent:"Asia",continent_code:"as"},{code:"pa",name:"Panama",continent:"North America",continent_code:"na"},{code:"pe",name:"Peru",continent:"South America",continent_code:"sa"},{code:"pf",name:"French Polynesia",continent:"Oceania",continent_code:"oc"},{code:"pg",name:"Papua New Guinea",continent:"Oceania",continent_code:"oc"},{code:"ph",name:"Philippines",continent:"Asia",continent_code:"as"},{code:"pk",name:"Pakistan",continent:"Asia",continent_code:"as"},{code:"pl",name:"Poland",continent:"Europe",continent_code:"eu"},{code:"pm",name:"Saint Pierre and Miquelon",continent:"North America",continent_code:"na"},{code:"pn",name:"Pitcairn",continent:"Oceania",continent_code:"oc"},{code:"pr",name:"Puerto Rico",continent:"North America",continent_code:"na"},{code:"ps",name:"Palestine",continent:"Asia",continent_code:"as"},{code:"pt",name:"Portugal",continent:"Europe",continent_code:"eu"},{code:"pw",name:"Palau",continent:"Oceania",continent_code:"oc"},{code:"py",name:"Paraguay",continent:"South America",continent_code:"sa"},{code:"qa",name:"Qatar",continent:"Asia",continent_code:"as"},{code:"re",name:"Réunion",continent:"Africa",continent_code:"af"},{code:"ro",name:"Romania",continent:"Europe",continent_code:"eu"},{code:"rs",name:"Serbia",continent:"Europe",continent_code:"eu"},{code:"ru",name:"Russia",continent:"Europe",continent_code:"eu"},{code:"rw",name:"Rwanda",continent:"Africa",continent_code:"af"},{code:"sa",name:"Saudi Arabia",continent:"Asia",continent_code:"as"},{code:"sb",name:"Solomon Islands",continent:"Oceania",continent_code:"oc"},{code:"sc",name:"Seychelles",continent:"Africa",continent_code:"af"},{code:"sd",name:"Sudan",continent:"Africa",continent_code:"af"},{code:"se",name:"Sweden",continent:"Europe",continent_code:"eu"},{code:"sg",name:"Singapore",continent:"Asia",continent_code:"as"},{code:"sh",name:"Saint Helena",continent:"Africa",continent_code:"af"},{code:"si",name:"Slovenia",continent:"Europe",continent_code:"eu"},{code:"sj",name:"Svalbard and Jan Mayen",continent:"Europe",continent_code:"eu"},{code:"sk",name:"Slovakia",continent:"Europe",continent_code:"eu"},{code:"sl",name:"Sierra Leone",continent:"Africa",continent_code:"af"},{code:"sm",name:"San Marino",continent:"Europe",continent_code:"eu"},{code:"sn",name:"Sénégal",continent:"Africa",continent_code:"af"},{code:"so",name:"Somalia",continent:"Africa",continent_code:"af"},{code:"sr",name:"Suriname",continent:"South America",continent_code:"sa"},{code:"ss",name:"South Sudan",continent:"Africa",continent_code:"af"},{code:"st",name:"São Tomé and Príncipe",continent:"Africa",continent_code:"af"},{code:"sv",name:"El Salvador",continent:"North America",continent_code:"na"},{code:"sx",name:"Saint Martin (Dutch part)",continent:"North America",continent_code:"na"},{code:"sy",name:"Syria",continent:"Asia",continent_code:"as"},{code:"sz",name:"Swaziland",continent:"Africa",continent_code:"af"},{code:"tc",name:"Turks and Caicos Islands",continent:"North America",continent_code:"na"},{code:"td",name:"Chad",continent:"Africa",continent_code:"af"},{code:"tf",name:"French Southern and Antarctic Lands",continent:"Antarctica",continent_code:"an"},{code:"tg",name:"Togo",continent:"Africa",continent_code:"af"},{code:"th",name:"Thailand",continent:"Asia",continent_code:"as"},{code:"tj",name:"Tajikistan",continent:"Asia",continent_code:"as"},{code:"tk",name:"Tokelau",continent:"Oceania",continent_code:"oc"},{code:"tl",name:"Timor-Leste",continent:"Asia",continent_code:"as"},{code:"tm",name:"Turkmenistan",continent:"Asia",continent_code:"as"},{code:"tn",name:"Tunisia",continent:"Africa",continent_code:"af"},{code:"to",name:"Tonga",continent:"Oceania",continent_code:"oc"},{code:"tr",name:"Turkey",continent:"Europe",continent_code:"eu"},{code:"tt",name:"Trinidad and Tobago",continent:"North America",continent_code:"na"},{code:"tv",name:"Tuvalu",continent:"Oceania",continent_code:"oc"},{code:"tw",name:"Taiwan",continent:"Asia",continent_code:"as"},{code:"tz",name:"Tanzania",continent:"Africa",continent_code:"af"},{code:"ua",name:"Ukraine",continent:"Europe",continent_code:"eu"},{code:"ug",name:"Uganda",continent:"Africa",continent_code:"af"},{code:"um",name:"United States Minor Outlying Islands",continent:"Oceania",continent_code:"oc"},{code:"us",name:"United States",continent:"North America",continent_code:"na"},{code:"uy",name:"Uruguay",continent:"South America",continent_code:"sa"},{code:"uz",name:"Uzbekistan",continent:"Asia",continent_code:"as"},{code:"va",name:"City of the Vatican",continent:"Europe",continent_code:"eu"},{code:"vc",name:"Saint Vincent and the Grenadines",continent:"North America",continent_code:"na"},{code:"ve",name:"Venezuela",continent:"South America",continent_code:"sa"},{code:"vg",name:"British Virgin Islands",continent:"North America",continent_code:"na"},{code:"vi",name:"United States Virgin Islands",continent:"North America",continent_code:"na"},{code:"vn",name:"Vietnam",continent:"Asia",continent_code:"as"},{code:"vu",name:"Vanuatu",continent:"Oceania",continent_code:"oc"},{code:"wf",name:"Wallis and Futuna",continent:"Oceania",continent_code:"oc"},{code:"ws",name:"Samoa",continent:"Oceania",continent_code:"oc"},{code:"ye",name:"Yemen",continent:"Asia",continent_code:"as"},{code:"yt",name:"Mayotte",continent:"Africa",continent_code:"af"},{code:"za",name:"South Africa",continent:"Africa",continent_code:"af"},{code:"zm",name:"Zambia",continent:"Africa",continent_code:"af"},{code:"zw",name:"Zimbabwe",continent:"Africa",continent_code:"af"}],t={props:{code:{type:String,required:!0},height:{type:String,default:null},iconPath:{type:String,default:null},size:{type:String,default:"default",validator:function(n){return["nano","micro","mini","small","default","medium","large","huge"].includes(n)}},width:{type:String,default:null}},computed:{path:function(){var n=(this.code||"").toLowerCase(),t=this.$gb.vueflags.iconPath||this.iconPath||"";return t=t.replace(/\/$/,""),e.map((function(n){return n.code})).includes(n)||(n="unknown"),t+"/"+n+".svg"}},methods:{onClick:function(n){this.$emit("click",n)}}};var o,c="undefined"!=typeof navigator&&/msie [6-9]\\b/.test(navigator.userAgent.toLowerCase());var a={};var i=function(n,e,t,o,c,a,i,d,r,m){"boolean"!=typeof i&&(r=d,d=i,i=!1);var s,u="function"==typeof t?t.options:t;if(n&&n.render&&(u.render=n.render,u.staticRenderFns=n.staticRenderFns,u._compiled=!0,c&&(u.functional=!0)),o&&(u._scopeId=o),a?(s=function(n){(n=n||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(n=__VUE_SSR_CONTEXT__),e&&e.call(this,r(n)),n&&n._registeredComponents&&n._registeredComponents.add(a)},u._ssrRegister=s):e&&(s=i?function(n){e.call(this,m(n,this.$root.$options.shadowRoot))}:function(n){e.call(this,d(n))}),s)if(u.functional){var _=u.render;u.render=function(n,e){return s.call(e),_(n,e)}}else{var l=u.beforeCreate;u.beforeCreate=l?[].concat(l,s):[s]}return t}({render:function(){var n=this.$createElement;return(this._self._c||n)("img",{class:["gb-flag","gb-flag--"+this.size,{"gb-flag--clickable":this.$listeners.click}],style:{height:this.height,width:this.width},attrs:{alt:this.code,src:this.path}})},staticRenderFns:[]},(function(n){n&&n("data-v-6432aa7f_0",{source:".gb-flag{display:inline-block;background-size:cover;background-repeat:no-repeat;user-select:none}.gb-flag--nano{height:10px}.gb-flag--micro{height:15px}.gb-flag--mini{height:20px}.gb-flag--small{height:25px}.gb-flag--default{height:30px}.gb-flag--medium{height:35px}.gb-flag--large{height:40px}.gb-flag--huge{height:45px}.gb-flag--clickable{cursor:pointer}",map:void 0,media:void 0})}),t,void 0,!1,void 0,!1,(function(n){return function(n,e){return function(n,e){var t=c?e.media||"default":n,i=a[t]||(a[t]={ids:new Set,styles:[]});if(!i.ids.has(n)){i.ids.add(n);var d=e.source;if(e.map&&(d+="\n/*# sourceURL="+e.map.sources[0]+" */",d+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(e.map))))+" */"),i.element||(i.element=document.createElement("style"),i.element.type="text/css",e.media&&i.element.setAttribute("media",e.media),void 0===o&&(o=document.head||document.getElementsByTagName("head")[0]),o.appendChild(i.element)),"styleSheet"in i.element)i.styles.push(d),i.element.styleSheet.cssText=i.styles.filter(Boolean).join("\n");else{var r=i.ids.size-1,m=document.createTextNode(d),s=i.element.childNodes;s[r]&&i.element.removeChild(s[r]),s.length?i.element.insertBefore(m,s[r]):i.element.appendChild(m)}}}(n,e)}}),void 0,void 0);var d={install:function n(e,t){n.installed||(n.installed=!0,e.component("gb-flag",i),e.prototype.$gb||(e.prototype.$gb={}),e.prototype.$gb.vueflags={},e.prototype.$gb.vueflags.iconPath=(t||{}).iconPath||null)}},r=null;"undefined"!=typeof window?r=window.Vue:"undefined"!=typeof __webpack_require__.g&&(r=__webpack_require__.g.Vue),r&&r.use(d);var m=e.map((function(n){return n.code})),s=e.map((function(n){return n.names}));/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (d);
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2205,6 +2225,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PasswordRequirements",
   props: {
@@ -2228,6 +2256,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -2662,6 +2693,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2737,9 +2771,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             case 2:
               _context.next = 4;
-              return _this.$store.dispatch('navigation/getCompanies', true);
+              return _this.$store.dispatch('user/getPermissions');
 
             case 4:
+              _context.next = 6;
+              return _this.$store.dispatch('navigation/getCompanies', true);
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -2776,8 +2814,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_svg_Mountain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/svg/Mountain */ "./resources/admin/js/components/svg/Mountain.vue");
-/* harmony import */ var _Popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Popup */ "./resources/admin/js/layout/Popup.vue");
+/* harmony import */ var _Popup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Popup */ "./resources/admin/js/layout/Popup.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_svg_Mountain__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/svg/Mountain */ "./resources/admin/js/components/svg/Mountain.vue");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2830,21 +2875,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Auth",
   components: {
-    Popup: _Popup__WEBPACK_IMPORTED_MODULE_1__["default"],
-    SvgMountain: _components_svg_Mountain__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Popup: _Popup__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SvgMountain: _components_svg_Mountain__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  data: function data() {
-    return {
-      items: ['test', 'dada']
-    };
-  },
+  computed: _objectSpread({
+    getFlag: function getFlag() {
+      var _this = this;
+
+      return Object.keys(this.items).find(function (flag) {
+        return _this.items[flag] === _this.locale;
+      }) || 'us';
+    }
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
+    items: 'locale/items',
+    locale: 'locale/locale'
+  })),
   methods: {
-    changeLocale: function changeLocale(locale) {}
+    changeLocale: function changeLocale(locale) {
+      this.$store.dispatch('locale/setLocale', locale);
+    }
   }
 });
 
@@ -2920,7 +2987,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Simple: _components_popups_notifications_Simple__WEBPACK_IMPORTED_MODULE_1__["default"],
     Confirm: _components_popups_modals_Confirm__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
+  computed: _objectSpread({
+    show: function show() {
+      return this.modal.show || false;
+    }
+  }, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)({
     modal: 'popups/modal',
     notifications: 'popups/notifications'
   }))
@@ -3328,6 +3399,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3388,6 +3460,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3706,6 +3791,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PasswordReset",
+  components: {
+    LAuth: _layout_Auth__WEBPACK_IMPORTED_MODULE_0__["default"],
+    FPassword: _layout_forms_Password__WEBPACK_IMPORTED_MODULE_1__["default"],
+    SvgLogoLine: _components_svg_LogoLine__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PasswordRequirements: _components_PasswordRequirements__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
   props: {
     token: {
       required: true,
@@ -3715,12 +3806,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true,
       type: String
     }
-  },
-  components: {
-    LAuth: _layout_Auth__WEBPACK_IMPORTED_MODULE_0__["default"],
-    FPassword: _layout_forms_Password__WEBPACK_IMPORTED_MODULE_1__["default"],
-    SvgLogoLine: _components_svg_LogoLine__WEBPACK_IMPORTED_MODULE_2__["default"],
-    PasswordRequirements: _components_PasswordRequirements__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
@@ -3766,7 +3851,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/admin/js/bootstrap.js");
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./store */ "./resources/admin/js/store/index.js");
 /* harmony import */ var _plugins_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./plugins/api */ "./resources/admin/js/plugins/api.js");
 /* harmony import */ var _layout_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./layout/App */ "./resources/admin/js/layout/App.vue");
@@ -3776,9 +3861,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _plugins_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./plugins/actions */ "./resources/admin/js/plugins/actions.js");
 /* harmony import */ var _pages_auth_Login__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/auth/Login */ "./resources/admin/js/pages/auth/Login.vue");
 /* harmony import */ var _plugins_vuetify__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./plugins/vuetify */ "./resources/admin/js/plugins/vuetify.js");
-/* harmony import */ var _pages_auth_Registration__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/auth/Registration */ "./resources/admin/js/pages/auth/Registration.vue");
-/* harmony import */ var _pages_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/auth/ResetPassword */ "./resources/admin/js/pages/auth/ResetPassword.vue");
-/* harmony import */ var _pages_auth_PasswordRecovery__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/auth/PasswordRecovery */ "./resources/admin/js/pages/auth/PasswordRecovery.vue");
+/* harmony import */ var _growthbunker_vueflags__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @growthbunker/vueflags */ "./node_modules/@growthbunker/vueflags/dist/vueflags.esm.js");
+/* harmony import */ var _pages_auth_Registration__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/auth/Registration */ "./resources/admin/js/pages/auth/Registration.vue");
+/* harmony import */ var _pages_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/auth/ResetPassword */ "./resources/admin/js/pages/auth/ResetPassword.vue");
+/* harmony import */ var _pages_auth_PasswordRecovery__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/auth/PasswordRecovery */ "./resources/admin/js/pages/auth/PasswordRecovery.vue");
 
 
 
@@ -3793,17 +3879,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].config.productionTip = false;
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].use(_plugins_api__WEBPACK_IMPORTED_MODULE_2__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].use(_plugins_auth__WEBPACK_IMPORTED_MODULE_4__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].use(_plugins_config__WEBPACK_IMPORTED_MODULE_6__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].use(_plugins_actions__WEBPACK_IMPORTED_MODULE_7__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].component('LApp', _layout_App__WEBPACK_IMPORTED_MODULE_3__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].component('Login', _pages_auth_Login__WEBPACK_IMPORTED_MODULE_8__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].component('registration', _pages_auth_Registration__WEBPACK_IMPORTED_MODULE_10__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].component('ResetPassword', _pages_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_11__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_13__["default"].component('PasswordRecovery', _pages_auth_PasswordRecovery__WEBPACK_IMPORTED_MODULE_12__["default"]);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue__WEBPACK_IMPORTED_MODULE_13__["default"]({
+
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].config.productionTip = false;
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].use(_plugins_api__WEBPACK_IMPORTED_MODULE_2__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].use(_plugins_auth__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].use(_plugins_config__WEBPACK_IMPORTED_MODULE_6__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].use(_plugins_actions__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].use(_growthbunker_vueflags__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  iconPath: '/images/flags/'
+});
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('LApp', _layout_App__WEBPACK_IMPORTED_MODULE_3__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('Login', _pages_auth_Login__WEBPACK_IMPORTED_MODULE_8__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('Registration', _pages_auth_Registration__WEBPACK_IMPORTED_MODULE_11__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('ResetPassword', _pages_auth_ResetPassword__WEBPACK_IMPORTED_MODULE_12__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_14__["default"].component('PasswordRecovery', _pages_auth_PasswordRecovery__WEBPACK_IMPORTED_MODULE_13__["default"]);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue__WEBPACK_IMPORTED_MODULE_14__["default"]({
   el: '#app',
   store: _store__WEBPACK_IMPORTED_MODULE_1__["default"],
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_9__["default"],
@@ -3832,7 +3922,8 @@ vue__WEBPACK_IMPORTED_MODULE_13__["default"].component('PasswordRecovery', _page
       app.responseActions(error.response.data);
       return Promise.reject(error);
     });
-    this.$store.dispatch('locale/getLocale');
+    this.$store.dispatch('locale/getOne');
+    this.$store.dispatch('locale/getMany');
   },
   methods: {
     responseActions: function responseActions(data) {
@@ -3989,13 +4080,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
             }, _callee3);
           }))();
         },
-        getRequestAction: function getRequestAction(url) {
+        actionGetRequest: function actionGetRequest(url) {
           this.$api.call({
             url: url,
             method: 'GET'
           });
         },
-        vuexDispatchMethod: function vuexDispatchMethod(type, params) {
+        actionVuexDispatchMethod: function actionVuexDispatchMethod(type, params) {
           var _this4 = this;
 
           return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
@@ -4110,18 +4201,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/admin/js/store/index.js");
 
+
+var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   install: function install(Vue) {
     Vue.prototype.$auth = {
       user: function user() {
         return _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters["user/get"];
-      } // hasPermission(...permissions) {
-      //
-      // }
+      },
+      can: function can(permission) {
+        if (permission !== undefined) {
+          var permissions = _store__WEBPACK_IMPORTED_MODULE_0__["default"].getters["user/getPermissions"];
+          return permissions.includes('super_admin') || permissions.includes(permission);
+        }
 
+        return true;
+      },
+      cannot: function cannot(permission) {
+        return !this.can(permission);
+      }
     };
+    Vue.directive('can', {
+      bind: function bind(el, binding, vNode) {
+        if (app.$auth.cannot(binding.value)) {
+          el.style.display = 'none';
+        }
+      }
+    });
   }
 });
 
@@ -4175,11 +4284,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./vuetify */ "./resources/admin/js/plugins/vuetify.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store */ "./resources/admin/js/store/index.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 
 
-vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]);
+var app = vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype;
+var $vuetify = _vuetify__WEBPACK_IMPORTED_MODULE_1__["default"].framework;
 var parent = {
   template: "<router-view></router-view>"
 };
@@ -4303,11 +4426,45 @@ var routes = [{
     }
   }]
 }];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-  history: true,
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_4__["default"]({
   mode: 'history',
   routes: routes
-}));
+});
+router.beforeEach( /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(to, from, next) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!app.$auth.cannot(to.meta.can)) {
+              _context.next = 4;
+              break;
+            }
+
+            _context.next = 3;
+            return _store__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch('popups/addNotification', {
+              message: $vuetify.lang.t('$vuetify.text.route.not_allowed')
+            });
+
+          case 3:
+            return _context.abrupt("return", next(from.fullPath));
+
+          case 4:
+            return _context.abrupt("return", next());
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}());
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),
 
@@ -4720,7 +4877,8 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
     return {
       email: '',
       verified: false,
-      emailVerifiedAt: ''
+      emailVerifiedAt: '',
+      permissions: []
     };
   },
   mutations: {
@@ -4728,6 +4886,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
       state.email = user.email;
       state.emailVerifiedAt = user.email_verified_at;
       state.verified = user.email_verified_at !== null;
+    },
+    setPermissions: function setPermissions(state, permissions) {
+      state.permissions = permissions;
     }
   },
   getters: {
@@ -4737,6 +4898,9 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
         verified: state.verified,
         emailVerifiedAt: state.emailVerifiedAt
       };
+    },
+    getPermissions: function getPermissions(state) {
+      return state.permissions;
     }
   },
   actions: {
@@ -4748,6 +4912,28 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
       }).then(function (response) {
         commit('setUser', response.data.data);
       });
+    },
+    getPermissions: function getPermissions(_ref2) {
+      var commit = _ref2.commit;
+      app.$api.call({
+        url: app.$api.route('auth.user.permissions'),
+        method: "GET"
+      }).then(function (response) {
+        commit("setPermissions", response.data.data);
+      });
+    },
+    getCompanyPermissions: function getCompanyPermissions(_ref3) {
+      var commit = _ref3.commit,
+          rootGetters = _ref3.rootGetters;
+
+      if (app.$auth.cannot('super_admin')) {
+        app.$api.call({
+          url: app.$api.route('company.user.permissions', rootGetters['company/id']),
+          method: "GET"
+        }).then(function (response) {
+          commit("setPermissions", response.data.data);
+        });
+      }
     },
     logout: function logout() {
       app.$api.call({
@@ -4778,10 +4964,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _roles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./roles */ "./resources/admin/js/store/modules/company/roles.js");
 
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4793,6 +4975,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
 
@@ -4826,35 +5012,46 @@ var app = vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype;
   },
   actions: {
     search: function search(_ref, _ref2) {
-      var commit = _ref.commit;
-
-      var _ref3 = _slicedToArray(_ref2, 2),
-          name = _ref3[0],
-          _ref3$ = _ref3[1],
-          setMenuItems = _ref3$ === void 0 ? false : _ref3$;
-
-      app.$api.call({
-        url: app.$api.route('company.search', name),
-        method: "GET"
-      }).then(function (response) {
-        commit('setCompany', response.data.data);
-
-        if (setMenuItems) {
-          commit("navigation/setCompanyMenuItems", null, {
-            root: true
-          });
-        }
-      });
-    },
-    getOne: function getOne(_ref4, id) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var commit;
+        var commit, _ref3, name, _ref3$, setMenuItems;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                commit = _ref.commit;
+                _ref3 = _slicedToArray(_ref2, 2), name = _ref3[0], _ref3$ = _ref3[1], setMenuItems = _ref3$ === void 0 ? false : _ref3$;
+                _context.next = 4;
+                return app.$api.call({
+                  url: app.$api.route('company.search', name),
+                  method: "GET"
+                }).then(function (response) {
+                  commit('setCompany', response.data.data);
+
+                  if (setMenuItems) {
+                    commit("navigation/setCompanyMenuItems", null, {
+                      root: true
+                    });
+                  }
+                });
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getOne: function getOne(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var commit;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
                 commit = _ref4.commit;
-                _context.next = 3;
+                _context2.next = 3;
                 return app.$api.call({
                   url: app.$api.route('company.show', id),
                   method: "GET"
@@ -4864,10 +5061,10 @@ var app = vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype;
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }
   },
@@ -4890,9 +5087,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var _tableBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../tableBase */ "./resources/admin/js/store/modules/tableBase.js");
 
-var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
+
+var app = vue__WEBPACK_IMPORTED_MODULE_1__["default"].prototype;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   namespaced: true,
   state: function state() {
@@ -4901,17 +5100,11 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
     };
   },
   mutations: {
-    setItems: function setItems(state, items) {
-      state.items = items;
-    },
     setListItems: function setListItems(state, listItems) {
       state.listItems = listItems;
     }
   },
   getters: {
-    items: function items(state) {
-      return state.items;
-    },
     listItems: function listItems(state) {
       return state.listItems;
     }
@@ -4926,7 +5119,77 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
       }).then(function (response) {
         commit('setListItems', response.data.data);
       });
+    },
+    create: function create(_ref2, data) {
+      var commit = _ref2.commit,
+          dispatch = _ref2.dispatch,
+          rootGetters = _ref2.rootGetters;
+      app.$api.call({
+        url: app.$api.route('company.role.create', rootGetters["company/id"]),
+        method: "POST",
+        data: data
+      }).then(function () {
+        commit('resetCreateOrEdit');
+      })["catch"](function (error) {
+        var errors = error.response.data.errors;
+        commit("setErrors", errors);
+
+        if (Object.prototype.hasOwnProperty.call(errors, 'permissions')) {
+          dispatch('popups/addNotification', {
+            message: errors.permissions[0]
+          }, {
+            root: true
+          });
+        }
+      });
+    },
+    getOne: function getOne(_ref3, id) {
+      var commit = _ref3.commit,
+          rootGetters = _ref3.rootGetters;
+      app.$api.call({
+        url: app.$api.route('company.role.edit', rootGetters["company/id"], id),
+        method: "GET"
+      }).then(function (response) {
+        commit('setEdit', response.data.data);
+      });
+    },
+    update: function update(_ref4, data) {
+      var commit = _ref4.commit,
+          dispatch = _ref4.dispatch,
+          rootGetters = _ref4.rootGetters;
+      app.$api.call({
+        url: app.$api.route('company.role.edit', rootGetters["company/id"], data.id),
+        method: 'PATCH',
+        data: data
+      }).then(function () {
+        commit('resetCreateOrEdit');
+      })["catch"](function (error) {
+        var errors = error.response.data.errors;
+        commit("setErrors", errors);
+
+        if (Object.prototype.hasOwnProperty.call(errors, 'permissions')) {
+          dispatch('popups/addNotification', {
+            message: errors.permissions[0]
+          }, {
+            root: true
+          });
+        }
+      });
+    },
+    destroy: function destroy(_ref5) {
+      var state = _ref5.state,
+          commit = _ref5.commit,
+          rootGetters = _ref5.rootGetters;
+      app.$api.call({
+        url: app.$api.route('company.role.destroy', rootGetters["company/id"], state.tableBase.deleteId),
+        method: 'DELETE'
+      })["finally"](function () {
+        commit('resetDelete');
+      });
     }
+  },
+  modules: {
+    tableBase: _tableBase__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -5079,8 +5342,7 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
     passwordError: function passwordError(_ref2, errors) {
       var _errors$password;
 
-      var state = _ref2.state,
-          commit = _ref2.commit;
+      var commit = _ref2.commit;
       var newErrors = {};
       (_errors$password = errors.password) === null || _errors$password === void 0 ? void 0 : _errors$password.forEach(function (message) {
         commit('setError', true);
@@ -5185,6 +5447,7 @@ var $vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"].framewor
   namespaced: true,
   state: function state() {
     return {
+      items: {},
       locale: $vuetify.lang.defaultLocale
     };
   },
@@ -5192,30 +5455,47 @@ var $vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"].framewor
     setLocale: function setLocale(state, locale) {
       state.locale = locale;
       $vuetify.lang.current = locale;
+    },
+    setItems: function setItems(state, data) {
+      state.items = data;
     }
   },
   getters: {
     locale: function locale(state) {
       return state.locale;
+    },
+    items: function items(state) {
+      return state.items;
     }
   },
   actions: {
-    getLocale: function getLocale(_ref) {
+    getOne: function getOne(_ref) {
       var commit = _ref.commit;
       app.$api.call({
         url: app.$api.route('locale'),
         method: "GET"
       }).then(function (response) {
-        commit('setLocale', response.data.locale);
+        commit('setLocale', response.data.data.locale);
       });
     },
-    setLocale: function setLocale(_ref2, locale) {
+    getMany: function getMany(_ref2) {
       var commit = _ref2.commit;
       app.$api.call({
-        url: app.$api.route('locale.change', locale),
-        method: "PUT"
+        url: app.$api.route('locales'),
+        method: "GET"
       }).then(function (response) {
-        commit('setLocale', response.data.locale);
+        commit('setItems', response.data.data);
+      });
+    },
+    setLocale: function setLocale(_ref3, locale) {
+      var commit = _ref3.commit;
+      app.$api.getCsrfToken().then(function () {
+        app.$api.call({
+          url: app.$api.route('locale.change', locale),
+          method: "PUT"
+        }).then(function (response) {
+          commit('setLocale', response.data.data.locale);
+        });
       });
     }
   }
@@ -5255,10 +5535,13 @@ var vuetify = _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"].framework
       }, {
         navigationItems: state.companies
       }, {
+        can: 'super_admin',
         divider: true
       }, {
+        can: 'super_admin',
         subheader: vuetify.lang.t('$vuetify.word.admin')
       }, {
+        can: 'super_admin',
         navigationItems: [{
           icon: 'fas fa-users',
           name: vuetify.lang.t('$vuetify.word.users'),
@@ -5433,6 +5716,23 @@ var app = vue__WEBPACK_IMPORTED_MODULE_0__["default"].prototype;
         content.show = true;
         commit('setModal', content);
       }
+    },
+    addNotification: function addNotification(_ref2, _ref3) {
+      var dispatch = _ref2.dispatch;
+      var message = _ref3.message,
+          _ref3$type = _ref3.type,
+          type = _ref3$type === void 0 ? 'error' : _ref3$type;
+      dispatch('addPopup', {
+        type: "notification",
+        component: "Simple",
+        data: {
+          stayable: false,
+          message: {
+            type: type,
+            text: message
+          }
+        }
+      });
     }
   }
 });
@@ -26169,33 +26469,45 @@ var render = function () {
     _c("ul", { staticClass: "text--disabled" }, [
       _c("li", { class: { "red--text": _vm.errors.characters } }, [
         _vm._v(
-          _vm._s(
-            _vm.$vuetify.lang.t("$vuetify.text.password.reset.list.characters")
-          )
+          "\n            " +
+            _vm._s(
+              _vm.$vuetify.lang.t(
+                "$vuetify.text.password.reset.list.characters"
+              )
+            ) +
+            "\n        "
         ),
       ]),
       _vm._v(" "),
       _c("li", { class: { "red--text": _vm.errors.mixedCase } }, [
         _vm._v(
-          _vm._s(
-            _vm.$vuetify.lang.t("$vuetify.text.password.reset.list.mixed_case")
-          )
+          "\n            " +
+            _vm._s(
+              _vm.$vuetify.lang.t(
+                "$vuetify.text.password.reset.list.mixed_case"
+              )
+            ) +
+            "\n        "
         ),
       ]),
       _vm._v(" "),
       _c("li", { class: { "red--text": _vm.errors.number } }, [
         _vm._v(
-          _vm._s(
-            _vm.$vuetify.lang.t("$vuetify.text.password.reset.list.number")
-          )
+          "\n            " +
+            _vm._s(
+              _vm.$vuetify.lang.t("$vuetify.text.password.reset.list.number")
+            ) +
+            "\n        "
         ),
       ]),
       _vm._v(" "),
       _c("li", { class: { "red--text": _vm.errors.symbol } }, [
         _vm._v(
-          _vm._s(
-            _vm.$vuetify.lang.t("$vuetify.text.password.reset.list.symbol")
-          )
+          "\n            " +
+            _vm._s(
+              _vm.$vuetify.lang.t("$vuetify.text.password.reset.list.symbol")
+            ) +
+            "\n        "
         ),
       ]),
     ]),
@@ -26543,6 +26855,12 @@ var render = function () {
                                 value: !_vm.isMini,
                                 expression: "!isMini",
                               },
+                              {
+                                name: "can",
+                                rawName: "v-can",
+                                value: item.can,
+                                expression: "item.can",
+                              },
                             ],
                             key: index,
                           },
@@ -26556,11 +26874,35 @@ var render = function () {
                         ),
                       ]
                     : item.divider
-                    ? [_c("v-divider", { key: index, staticClass: "my-1" })]
+                    ? [
+                        _c("v-divider", {
+                          directives: [
+                            {
+                              name: "can",
+                              rawName: "v-can",
+                              value: item.can,
+                              expression: "item.can",
+                            },
+                          ],
+                          key: index,
+                          staticClass: "my-1",
+                        }),
+                      ]
                     : [
                         _c(
                           "v-list-item-group",
-                          { key: index, attrs: { color: "primary" } },
+                          {
+                            directives: [
+                              {
+                                name: "can",
+                                rawName: "v-can",
+                                value: item.can,
+                                expression: "item.can",
+                              },
+                            ],
+                            key: index,
+                            attrs: { color: "primary" },
+                          },
                           _vm._l(
                             item.navigationItems,
                             function (navigation, key) {
@@ -26942,13 +27284,11 @@ var render = function () {
                           on
                         ),
                         [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(
-                                _vm.$vuetify.lang.t("$vuetify.word.language")
-                              ) +
-                              "\n                    "
-                          ),
+                          _c("gb-flag", {
+                            staticClass: "mx-auto rounded",
+                            attrs: { code: _vm.getFlag, size: "mini" },
+                          }),
+                          _vm._v(" "),
                           _c("v-icon", { attrs: { right: "" } }, [
                             _vm._v(
                               "\n                        " +
@@ -26976,13 +27316,19 @@ var render = function () {
                     "v-list-item",
                     {
                       key: index,
+                      staticStyle: { "min-height": "28px" },
                       on: {
                         click: function ($event) {
                           return _vm.changeLocale(item)
                         },
                       },
                     },
-                    [_c("v-list-item-action-text", [_vm._v(_vm._s(item))])],
+                    [
+                      _c("gb-flag", {
+                        staticClass: "mx-auto rounded",
+                        attrs: { code: index, size: "mini" },
+                      }),
+                    ],
                     1
                   )
                 }),
@@ -27029,11 +27375,11 @@ var render = function () {
         {
           attrs: { persistent: "" },
           model: {
-            value: _vm.modal.show || false,
+            value: _vm.show,
             callback: function ($$v) {
-              _vm.$set(_vm.modal, "show || false", $$v)
+              _vm.show = $$v
             },
-            expression: "modal.show || false",
+            expression: "show",
           },
         },
         [
@@ -27133,7 +27479,7 @@ var render = function () {
               error: _vm.error,
               "error-messages": _vm.errors.password,
               type: _vm.show_1 ? "text" : "password",
-              label: _vm.$vuetify.lang.t("$vuetify.word.password"),
+              label: _vm.$vuetify.lang.t("$vuetify.word.password.password"),
               "append-icon": _vm.show_1 ? "fas fa-eye" : "fas fa-eye-slash",
               dense: "",
               outlined: "",
@@ -27667,13 +28013,14 @@ var render = function () {
             { staticClass: "pb-0" },
             [
               _c("v-text-field", {
-                staticClass: "pb-2",
+                class: { "pb-2": !_vm.errors.email },
                 attrs: {
-                  label: _vm.$vuetify.lang.t("$vuetify.word.email"),
-                  outlined: "",
-                  dense: "",
-                  type: "email",
                   "error-messages": _vm.errors.email,
+                  label: _vm.$vuetify.lang.t("$vuetify.word.email"),
+                  dense: "",
+                  outlined: "",
+                  type: "email",
+                  "hide-details": "auto",
                 },
                 model: {
                   value: _vm.email,
@@ -27753,6 +28100,7 @@ var render = function () {
             rounded: "lg",
             outlined: "",
             vertical: "",
+            "max-width": "500px",
           },
           model: {
             value: _vm.step,
@@ -43958,10 +44306,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuetify/lib/components/VIcon */ "./node_modules/vuetify/lib/components/VIcon/VIcon.js");
 /* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VList.js");
 /* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/VListItem.js");
-/* harmony import */ var vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VList */ "./node_modules/vuetify/lib/components/VList/index.js");
-/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
-/* harmony import */ var vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VMenu */ "./node_modules/vuetify/lib/components/VMenu/VMenu.js");
-/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
+/* harmony import */ var vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuetify/lib/components/VMain */ "./node_modules/vuetify/lib/components/VMain/VMain.js");
+/* harmony import */ var vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vuetify/lib/components/VMenu */ "./node_modules/vuetify/lib/components/VMenu/VMenu.js");
+/* harmony import */ var vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vuetify/lib/components/VGrid */ "./node_modules/vuetify/lib/components/VGrid/VRow.js");
 
 
 
@@ -43992,8 +44339,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 
 
-
-_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["default"],VList: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__["default"],VListItemActionText: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_11__.VListItemActionText,VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_12__["default"],VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_13__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_14__["default"]})
+_node_modules_vuetify_loader_lib_runtime_installComponents_js__WEBPACK_IMPORTED_MODULE_3___default()(component, {VApp: vuetify_lib_components_VApp__WEBPACK_IMPORTED_MODULE_4__["default"],VBtn: vuetify_lib_components_VBtn__WEBPACK_IMPORTED_MODULE_5__["default"],VCol: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_6__["default"],VContainer: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_7__["default"],VIcon: vuetify_lib_components_VIcon__WEBPACK_IMPORTED_MODULE_8__["default"],VList: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_9__["default"],VListItem: vuetify_lib_components_VList__WEBPACK_IMPORTED_MODULE_10__["default"],VMain: vuetify_lib_components_VMain__WEBPACK_IMPORTED_MODULE_11__["default"],VMenu: vuetify_lib_components_VMenu__WEBPACK_IMPORTED_MODULE_12__["default"],VRow: vuetify_lib_components_VGrid__WEBPACK_IMPORTED_MODULE_13__["default"]})
 
 
 /* hot reload */
@@ -64783,7 +65129,7 @@ var index = {
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"text":{"password":{"requirements":"In order to protect your account, your password:","reset":{"list":{"characters":"Needs to be longer than 10 characters","mixed_case":"Needs at least 1 uppercase and lowercase letter","number":"Needs at least 1 number","symbol":"Needs at least 1 symbol"}},"forgot":"Enter your email address below to reset password"},"delete":{"message":{"translation":"Are you sure you want to delete this \\"{0}\\" translation?","user":"Are you sure you want to delete this \\"{0}\\" user?","companies":"Are you sure you want to delete this \\"{0}\\" company?"}},"remove":{"owner":"Remove the owner with it"}}}');
+module.exports = JSON.parse('{"text":{"password":{"requirements":"In order to protect your account, your password:","reset":{"list":{"characters":"Needs to be longer than 10 characters","mixed_case":"Needs at least 1 uppercase and lowercase letter","number":"Needs at least 1 number","symbol":"Needs at least 1 symbol"}},"forgot":"Enter your email address below to reset password"},"delete":{"message":{"translation":"Are you sure you want to delete translation\\"{0}\\"?","user":"Are you sure you want to delete user \\"{0}\\"?","companies":"Are you sure you want to delete company \\"{0}\\"?","revoke":{"user":"Are you sure you want to revoke user \\"{0}\\"?"},"company":"Are you sure you want to delete this \\"{0}\\" company?","role":"Are you sure you want to delete role \\"{0}\\"?"}},"remove":{"owner":"Remove the owner with it"}}}');
 
 /***/ }),
 
@@ -64794,7 +65140,7 @@ module.exports = JSON.parse('{"text":{"password":{"requirements":"In order to pr
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","domains":"Domains","companies":"Companies","admin":"Admin","search":"Search","cancel":"Cancel","save":"Save","delete":{"force":"Delete permanently","user":"Delete user","translation":"Delete translation","delete":"Delete","company":"Delete company"},"edit":{"user":"Edit user","translation":"Edit Translation","company":"Edit company","edit":"Edit"},"dark_mode":"Dark mode","welcome":"Welcome","email":"Email","password":"Password","remember_me":"Remember me","login":{"login":"Login"},"forgot_password":"Forgot password","reset":{"password":"Reset password"},"confirm":{"password":"Comfirm password"},"users":"Users","translations":"Translations","not_translated":"Not translated yet","environment":"Environment","group":"Group","key":"Key","translation":{"sources":"Translation sources"},"account":{"account":"Account"},"send_email":"Send email","id":"ID","name":"Name","owner":"Owner","domain":"Domain","created_at":"Created at","actions":"Actions","tags":"Tags","translated":"Translated","email_verified_at":"Email verified at","deleted_at":"Deleted at","publish":"Publish","information":"Information","create":{"company":"Create Company","create":"Create"},"user":{"access":"User access"},"invite":{"user":"Invite user","invite":"Invite"},"revoke":{"user":"Revoke user"},"roles":"Roles","show":{"company":"Show company"},"no_content":"No content","company":{"details":"Company details"}}}');
+module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","domains":"Domains","companies":"Companies","admin":"Admin","search":"Search","cancel":{"cancel":"Cancel"},"save":"Save","delete":{"force":"Delete permanently","user":"Delete user","translation":"Delete translation","delete":"Delete","company":"Delete company","role":"Delete Role"},"edit":{"user":"Edit user","translation":"Edit Translation","company":"Edit company","edit":"Edit","role":"Edit Role"},"dark_mode":"Dark mode","welcome":"Welcome","email":"Email","password":{"password":"Password"},"remember_me":"Remember me","login":{"login":"Login"},"forgot_password":"Forgot password","reset":{"password":"Reset password"},"confirm":{"password":"Comfirm password"},"users":"Users","translations":"Translations","not_translated":"Not translated yet","environment":"Environment","group":"Group","key":"Key","translation":{"sources":"Translation sources"},"account":{"account":"Account"},"send_email":"Send email","id":"ID","name":"Name","owner":"Owner","domain":"Domain","created_at":"Created at","actions":"Actions","tags":"Tags","translated":"Translated","email_verified_at":"Email verified at","deleted_at":"Deleted at","publish":"Publish","information":"Information","create":{"company":"Create Company","create":"Create","role":"Create role"},"user":{"access":"User access"},"invite":{"user":"Invite user","invite":"Invite"},"revoke":{"user":"Revoke user"},"roles":"Roles","show":{"company":"Show company"},"no_content":"No content","company":{"details":"Company details"},"accept":{"accept":"Accept"},"next":"Next","profile":{"profile":"Profile"},"first_name":"First name","middle_name":"Middle name","last_name":"Surname","gender":"Gender","birth_date":"Birth date","registration":"Registration","back":"Back","total":{"permissions":"Total permissions"},"status":"Status"}}');
 
 /***/ }),
 
@@ -64805,7 +65151,7 @@ module.exports = JSON.parse('{"word":{"settings":"Settings","logout":"Logout","d
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"text":{"password":{"requirements":"Om uw account te beschermen, moet uw wachtwoord:","reset":{"list":{"characters":"Minimaal langer zijn dan 10 tekens","mixed_case":"Minimaal 1 hoofd- en kleine letter bevatten","number":"Minimaal 1 nummer bevatten","symbol":"Minimaal 1 symbool bevatten"}},"forgot":"Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"},"delete":{"message":{"translation":"Weet je het zeker dat je deze \\"{0}\\" vertaling wilt verwijderen?","user":"Weet je het zeker dat je deze \\"{0}\\" gebruiker wilt verwijderen?","companies":"Weet je het zeker dat je deze \\"{0}\\" bedrijf wilt verwijderen?"}},"remove":{"owner":"Verwijder de eigenaar ermee"}}}');
+module.exports = JSON.parse('{"text":{"password":{"requirements":"Om uw account te beschermen, moet uw wachtwoord:","reset":{"list":{"characters":"Minimaal langer zijn dan 10 tekens","mixed_case":"Minimaal 1 hoofd- en kleine letter bevatten","number":"Minimaal 1 nummer bevatten","symbol":"Minimaal 1 symbool bevatten"}},"forgot":"Voer hieronder uw e-mailadres in om het wachtwoord opnieuw in te stellen"},"delete":{"message":{"translation":"Weet je het zeker dat je vertaling \\"{0}\\" wilt verwijderen?","user":"Weet je het zeker dat je gebruiker \\"{0}\\" wilt verwijderen?","companies":"Weet je het zeker dat je bedrijf  \\"{0}\\" wilt verwijderen?","revoke":{"user":"Weet je het zeker dat je gebruiker \\"{0}\\" wilt verwijderen?"},"company":"Weet je het zeker dat je deze \\"{0}\\" bedrijf wilt verwijderen?","role":"Weet je het zeker dat je rol \\"{0}\\" wilt verwijderen?"}},"remove":{"owner":"Verwijder de eigenaar ermee"}}}');
 
 /***/ }),
 
@@ -64816,7 +65162,7 @@ module.exports = JSON.parse('{"text":{"password":{"requirements":"Om uw account 
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"word":{"settings":"Instellingen","logout":"Uitloggen","domains":"Domeinen","companies":"Bedrijven","admin":"Beheerder","search":"Zoeken","cancel":"Annuleren","save":"Opslaan","delete":{"force":"Permanent verwijderen","user":"Gebruiker verwijderen","translation":"Verwijder vertaling","delete":"Verwijderen","company":"Bedrijf verwijderen"},"edit":{"user":"Gebruiker bewerken","translation":"Vertaling bewerken","company":"Bedrijf bewerken","edit":"Bewerken"},"dark_mode":"Donkere modus","welcome":"Welkom","email":"E-mail","password":"Wachtwoord","remember_me":"Onthoud me","login":{"login":"Inloggen"},"forgot_password":"Wachtword vergeten","reset":{"password":"Wachtwoord opnieuw instellen"},"confirm":{"password":"Bevestig wachtwoord"},"users":"Gebruikers","translations":"Vertalingen","not_translated":"Nog niet vertaald","environment":"omgeving","group":"Groep","key":"Sleutel","translation":{"sources":"Vertaalbronnen"},"account":{"account":"Account"},"send_email":"verstuur e-mail","id":"ID","name":"Naam","owner":"Eigenaar","domain":"Domein","created_at":"Aangemaakt op","actions":"Acties","tags":"Tags","translated":"vertaald","email_verified_at":"E-mail geverifieerd op","deleted_at":"Verwijderd op","publish":"Publiceren","information":"Informatie","create":{"company":"Bedrijf aanmaken","create":"Aanmaken"},"user":{"access":"Gebruikerstoegang"},"invite":{"user":"Gebruiker uitnodigen","invite":"Uitnodigen"},"revoke":{"user":"Gebruiker intrekken"},"roles":"Rollen","show":{"company":"Toon bedrijf"},"no_content":"Geen inhoud","company":{"details":"Bedrijfsgegevens"}}}');
+module.exports = JSON.parse('{"word":{"settings":"Instellingen","logout":"Uitloggen","domains":"Domeinen","companies":"Bedrijven","admin":"Beheerder","search":"Zoeken","cancel":{"cancel":"Annuleren"},"save":"Opslaan","delete":{"force":"Permanent verwijderen","user":"Gebruiker verwijderen","translation":"Verwijder vertaling","delete":"Verwijderen","company":"Bedrijf verwijderen","role":"Rol verwijderen"},"edit":{"user":"Gebruiker bewerken","translation":"Vertaling bewerken","company":"Bedrijf bewerken","edit":"Bewerken","role":"Rol bewerken"},"dark_mode":"Donkere modus","welcome":"Welkom","email":"E-mail","password":{"password":"Wachtword"},"remember_me":"Onthoud me","login":{"login":"Inloggen"},"forgot_password":"Wachtword vergeten","reset":{"password":"Wachtwoord opnieuw instellen"},"confirm":{"password":"Bevestig wachtwoord"},"users":"Gebruikers","translations":"Vertalingen","not_translated":"Nog niet vertaald","environment":"omgeving","group":"Groep","key":"Sleutel","translation":{"sources":"Vertaalbronnen"},"account":{"account":"Account"},"send_email":"verstuur e-mail","id":"ID","name":"Naam","owner":"Eigenaar","domain":"Domein","created_at":"Aangemaakt op","actions":"Acties","tags":"Tags","translated":"vertaald","email_verified_at":"E-mail geverifieerd op","deleted_at":"Verwijderd op","publish":"Publiceren","information":"Informatie","create":{"company":"Bedrijf aanmaken","create":"Aanmaken","role":"Rol aanmaken"},"user":{"access":"Gebruikerstoegang"},"invite":{"user":"Gebruiker uitnodigen","invite":"Uitnodigen"},"revoke":{"user":"Gebruiker intrekken"},"roles":"Rollen","show":{"company":"Toon bedrijf"},"no_content":"Geen inhoud","company":{"details":"Bedrijfsgegevens"},"accept":{"accept":"Accepteren"},"next":"Volgende","profile":{"profile":"Profiel"},"first_name":"Voornaam","middle_name":"Tussenvoegsels","last_name":"Achternaam","gender":"Geslacht","birth_date":"Geboortedatum","registration":"Registratie","back":"Terug","total":{"permissions":"Totaal aantal rechten"},"status":"Status"}}');
 
 /***/ }),
 
@@ -64838,7 +65184,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"admin.locale":"/api/translations/locale","admin.locale.set":"/api/translations/locale/{locale}","admin.admin.translation.publish":"/api/translations/admin/publish","admin.admin.translations.environments":"/api/translations/admin/environments","admin.admin.translations.environment":"/api/translations/admin/environments/{environment}/table","admin.admin.translation":"/api/translations/admin/{translationKey}","admin.login":"/api/login","admin.password.recovery":"/api/password/recovery","admin.reset.password":"/api/reset/password","admin.registration":"/api/registration","admin.registration.validation.password":"/api/registration/validation/password","admin.registration.validation.profile":"/api/registration/validation/profile","admin.auth.user":"/api/users/auth","admin.session.delete":"/api/delete/session","admin.admin.users":"/api/users/admin/table","admin.admin.user.list":"/api/users/admin/list","admin.admin.user":"/api/users/admin/{user}","admin.admin.user.force":"/api/users/admin/{user}/force","admin.permissions":"/api/permissions","admin.company.role.list":"/api/companies/{company}/roles/list","admin.company.users":"/api/companies/{company}/users","admin.company.user.invite":"/api/companies/{company}/users/invite","admin.company.user.invite.accepted":"/api/companies/{company}/users/invite/{token}","admin.company.user.edit":"/api/companies/{company}/users/{user}","admin.company.user.revoke":"/api/companies/{company}/users/{user}","admin.user.companies":"/api/companies","admin.company.search":"/api/companies/search/{companyName}","admin.company.show":"/api/companies/{company}","admin.admin.companies":"/api/companies/admin/table","admin.admin.company.create":"/api/companies/admin","admin.admin.company.edit":"/api/companies/admin/{company}","admin.admin.company.destroy":"/api/companies/admin/{company}"}');
+module.exports = JSON.parse('{"admin.company.roles":"/api/companies/{company}/roles","admin.company.role.list":"/api/companies/{company}/roles/list","admin.company.role.create":"/api/companies/{company}/roles/create","admin.company.role.edit":"/api/companies/{company}/roles/{role}","admin.company.role.destroy":"/api/companies/{company}/roles/{role}","admin.user.companies":"/api/companies","admin.company.search":"/api/companies/search/{companyName}","admin.company.show":"/api/companies/{company}","admin.admin.companies":"/api/companies/admin/table","admin.admin.company.create":"/api/companies/admin","admin.admin.company.edit":"/api/companies/admin/{company}","admin.admin.company.destroy":"/api/companies/admin/{company}","admin.company.users":"/api/companies/{company}/users","admin.company.user.permissions":"/api/companies/{company}/users/permissions","admin.company.user.invite":"/api/companies/{company}/users/invite","admin.company.user.invite.accepted":"/api/companies/{company}/users/invite/{token}","admin.company.user.edit":"/api/companies/{company}/users/{user}","admin.company.user.revoke":"/api/companies/{company}/users/{user}","admin.permissions":"/api/permissions","admin.locales":"/api/translations/locales","admin.locale":"/api/translations/locale","admin.locale.change":"/api/translations/locale/{locale}","admin.admin.translation.publish":"/api/translations/admin/publish","admin.admin.translations.environments":"/api/translations/admin/environments","admin.admin.translations.environment":"/api/translations/admin/environments/{environment}/table","admin.admin.translation":"/api/translations/admin/{translationKey}","admin.login":"/api/login","admin.password.recovery":"/api/password/recovery","admin.reset.password":"/api/reset/password","admin.registration":"/api/registration","admin.registration.validation.password":"/api/registration/validation/password","admin.registration.validation.profile":"/api/registration/validation/profile","admin.auth.user":"/api/users/auth","admin.session.delete":"/api/delete/session","admin.auth.user.permissions":"/api/users/auth/permissions","admin.admin.users":"/api/users/admin/table","admin.admin.user.list":"/api/users/admin/list","admin.admin.user":"/api/users/admin/{user}","admin.admin.user.force":"/api/users/admin/{user}/force"}');
 
 /***/ })
 

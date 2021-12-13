@@ -1,14 +1,14 @@
 <template>
     <div>
         <v-dialog
-            v-model="modal.show || false"
+            v-model="show"
             persistent
         >
-           <component
+            <component
                 :is="modal.component"
                 :data="modal.data"
                 @close="modal.show = false"
-           />
+            />
         </v-dialog>
         <div
             class="notification-position"
@@ -53,6 +53,10 @@
         },
 
         computed: {
+            show() {
+                return this.modal.show || false
+            },
+
             ...mapGetters({
                 modal: 'popups/modal',
                 notifications: 'popups/notifications'

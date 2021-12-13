@@ -16,8 +16,8 @@
             </v-card-title>
             <v-card-text class="pb-0">
                 <v-text-field
-                    class="pb-2"
                     v-model="data.email"
+                    class="pb-2"
                     :error="error"
                     :error-messages="errors.email"
                     :label="$vuetify.lang.t('$vuetify.word.email')"
@@ -42,8 +42,8 @@
                     @click:append="show = !show"
                 />
                 <v-checkbox
-                    class="ma-0"
                     v-model="data.remember"
+                    class="ma-0"
                     :label="$vuetify.lang.t('$vuetify.word.remember_me')"
                     dense
                     hide-details

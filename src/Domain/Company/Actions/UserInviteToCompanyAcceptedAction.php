@@ -28,6 +28,10 @@
         {
             UserInvite::deleteExisting($this->user->email, $company->id);
 
+            if ($this->user->trashed()) {
+                $this->user->restore();
+            }
+
             $company->users()->updateExistingPivot($this->user->id, ['status' => UserInvite::INVITE_USER_ACCEPTED]);
         }
     }

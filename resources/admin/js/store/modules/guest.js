@@ -36,7 +36,7 @@ export default {
             commit('setErrors', {})
         },
 
-        passwordError({state, commit}, errors) {
+        passwordError({commit}, errors) {
             let newErrors = {}
 
             errors.password?.forEach((message) => {

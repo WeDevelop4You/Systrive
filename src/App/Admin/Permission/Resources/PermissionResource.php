@@ -18,7 +18,7 @@
 
             return [
                 'id' => $this->id,
-                'name' => sprintf('$vuetify.permission.%s', $permission),
+                'name' => translateToVuetify("permission.{$permission}"),
             ];
         }
     }

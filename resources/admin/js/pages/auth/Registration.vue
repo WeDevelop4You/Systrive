@@ -6,6 +6,7 @@
             rounded="lg"
             outlined
             vertical
+            max-width="500px"
         >
             <svg-logo-line class="ma-6" />
             <div
@@ -32,8 +33,11 @@
                         disabled
                         hide-details
                     />
-                    <v-col cols="12" class="py-4">
-                        <password-requirements :errors="errors"/>
+                    <v-col
+                        cols="12"
+                        class="py-4"
+                    >
+                        <password-requirements :errors="errors" />
                     </v-col>
                 </v-row>
                 <f-password
@@ -41,16 +45,19 @@
                     :error="error"
                     :errors="errors"
                 />
-                <v-row no-gutters class="justify-end gap-3">
+                <v-row
+                    no-gutters
+                    class="justify-end gap-3"
+                >
                     <v-btn
                         text
-                        v-text="$vuetify.lang.t('$vuetify.word.cancel.cancel')"
                         @click="GoToLogin"
+                        v-text="$vuetify.lang.t('$vuetify.word.cancel.cancel')"
                     />
                     <v-btn
                         color="primary"
-                        v-text="$vuetify.lang.t('$vuetify.word.next')"
                         @click="NextProfile"
+                        v-text="$vuetify.lang.t('$vuetify.word.next')"
                     />
                 </v-row>
             </v-stepper-content>
@@ -63,20 +70,23 @@
             </v-stepper-step>
             <v-stepper-content step="2">
                 <f-user-profile
-                    class="pt-2"
                     v-model="data"
+                    class="pt-2"
                     :errors="errors"
                 />
-                <v-row no-gutters class="justify-end gap-3">
+                <v-row
+                    no-gutters
+                    class="justify-end gap-3"
+                >
                     <v-btn
                         text
-                        v-text="$vuetify.lang.t('$vuetify.word.back')"
                         @click="backToPassword"
+                        v-text="$vuetify.lang.t('$vuetify.word.back')"
                     />
                     <v-btn
                         color="primary"
-                        v-text="$vuetify.lang.t('$vuetify.word.next')"
                         @click="nextAccept"
+                        v-text="$vuetify.lang.t('$vuetify.word.next')"
                     />
                 </v-row>
             </v-stepper-content>
@@ -89,12 +99,12 @@
             <v-stepper-content step="3">
                 <v-row no-gutters>
                     <v-col cols="12">
-                        <p v-text="$vuetify.lang.t('$vuetify.text.complete.registration')"/>
+                        <p v-text="$vuetify.lang.t('$vuetify.text.complete.registration')" />
                     </v-col>
                     <v-col cols="12">
                         <v-checkbox
-                            class="ma-0"
                             v-model="data.accept"
+                            class="ma-0"
                             :error-messages="errors.accept"
                             :label="$vuetify.lang.t('$vuetify.word.terms_and_conditions')"
                             dense
@@ -102,16 +112,19 @@
                         />
                     </v-col>
                     <v-col cols="12">
-                        <v-row no-gutters class="justify-end gap-3">
+                        <v-row
+                            no-gutters
+                            class="justify-end gap-3"
+                        >
                             <v-btn
                                 text
-                                v-text="$vuetify.lang.t('$vuetify.word.back')"
                                 @click="backToProfile"
+                                v-text="$vuetify.lang.t('$vuetify.word.back')"
                             />
                             <v-btn
                                 color="primary"
-                                v-text="$vuetify.lang.t('$vuetify.word.accept.accept')"
                                 @click="send"
+                                v-text="$vuetify.lang.t('$vuetify.word.accept.accept')"
                             />
                         </v-row>
                     </v-col>

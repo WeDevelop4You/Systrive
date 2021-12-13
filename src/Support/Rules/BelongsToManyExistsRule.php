@@ -5,7 +5,9 @@
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\Translation\Translator;
     use Illuminate\Contracts\Validation\Rule;
-    use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+    use Illuminate\Database\Eloquent\ModelNotFoundException;
+    use Illuminate\Database\Query\Builder as QueryBuilder;
     use Illuminate\Database\Eloquent\Relations\Relation;
 
     class BelongsToManyExistsRule implements Rule
@@ -13,15 +15,15 @@
         /**
          * BelongsToManyExists constructor.
          *
-         * @param Builder|Relation $relatedQuery
-         * @param Builder|Relation $pivotQuery
-         * @param string           $pivotColumn
-         * @param string|null      $column
-         * @param bool             $exists
+         * @param Relation|EloquentBuilder|QueryBuilder $relatedQuery
+         * @param Relation|EloquentBuilder|QueryBuilder $pivotQuery
+         * @param string                                $pivotColumn
+         * @param string|null                           $column
+         * @param bool                                  $exists
          */
         public function __construct(
-            private Relation|Builder $relatedQuery,
-            private Relation|Builder $pivotQuery,
+            private Relation|EloquentBuilder|QueryBuilder $relatedQuery,
+            private Relation|EloquentBuilder|QueryBuilder $pivotQuery,
             private string $pivotColumn,
             private ?string $column = null,
             private bool $exists = true
@@ -37,15 +39,15 @@
          */
         public function passes($attribute, $value): bool
         {
-            $column = $this->column ?: $attribute;
+            try {
+                $column = $this->column ?: $attribute;
 
-            $searchValue = $this->relatedQuery->where($column, $value)->first();
+                $searchValue = $this->relatedQuery->where($column, $value)->firstOrFail();
 
-            if (is_null($searchValue)) {
+                return $this->exists === $this->pivotQuery->wherePivot($this->pivotColumn, $searchValue->id)->exists();
+            } catch (ModelNotFoundException) {
                 return !$this->exists;
             }
-
-            return $this->exists === $this->pivotQuery->wherePivot($this->pivotColumn, $searchValue->id)->exists();
         }
 
         /**

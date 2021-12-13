@@ -7,7 +7,7 @@
                 :error-messages="errors.password"
                 :class="{'pb-2': !errors.password}"
                 :type="show_1 ? 'text' : 'password'"
-                :label="$vuetify.lang.t('$vuetify.word.password')"
+                :label="$vuetify.lang.t('$vuetify.word.password.password')"
                 :append-icon="show_1 ? 'fas fa-eye' : 'fas fa-eye-slash'"
                 dense
                 outlined

@@ -6,25 +6,31 @@
         "companies": "Bedrijven",
         "admin": "Beheerder",
         "search": "Zoeken",
-        "cancel": "Annuleren",
+        "cancel": {
+            "cancel": "Annuleren"
+        },
         "save": "Opslaan",
         "delete": {
             "force": "Permanent verwijderen",
             "user": "Gebruiker verwijderen",
             "translation": "Verwijder vertaling",
             "delete": "Verwijderen",
-            "company": "Bedrijf verwijderen"
+            "company": "Bedrijf verwijderen",
+            "role": "Rol verwijderen"
         },
         "edit": {
             "user": "Gebruiker bewerken",
             "translation": "Vertaling bewerken",
             "company": "Bedrijf bewerken",
-            "edit": "Bewerken"
+            "edit": "Bewerken",
+            "role": "Rol bewerken"
         },
         "dark_mode": "Donkere modus",
         "welcome": "Welkom",
         "email": "E-mail",
-        "password": "Wachtwoord",
+        "password": {
+            "password": "Wachtword"
+        },
         "remember_me": "Onthoud me",
         "login": {
             "login": "Inloggen"
@@ -63,7 +69,8 @@
         "information": "Informatie",
         "create": {
             "company": "Bedrijf aanmaken",
-            "create": "Aanmaken"
+            "create": "Aanmaken",
+            "role": "Rol aanmaken"
         },
         "user": {
             "access": "Gebruikerstoegang"
@@ -82,6 +89,24 @@
         "no_content": "Geen inhoud",
         "company": {
             "details": "Bedrijfsgegevens"
-        }
+        },
+        "accept": {
+            "accept": "Accepteren"
+        },
+        "next": "Volgende",
+        "profile": {
+            "profile": "Profiel"
+        },
+        "first_name": "Voornaam",
+        "middle_name": "Tussenvoegsels",
+        "last_name": "Achternaam",
+        "gender": "Geslacht",
+        "birth_date": "Geboortedatum",
+        "registration": "Registratie",
+        "back": "Terug",
+        "total": {
+            "permissions": "Totaal aantal rechten"
+        },
+        "status": "Status"
     }
 }

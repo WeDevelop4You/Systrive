@@ -5,6 +5,13 @@
     use App\Admin\Translation\Controllers\TranslationEditController;
     use App\Admin\Translation\Controllers\TranslationPublishController;
     use App\Admin\Translation\Controllers\TranslationTableController;
+    use Support\Helpers\Response\Response;
+
+    Route::get('locales', function () {
+        return Response::create()
+            ->addData(config('translation.locales'))
+            ->toJson();
+    })->name('locales');
 
     Route::prefix('locale')->group(function () {
         Route::get('/', [LocaleController::class, 'index'])->name('locale');

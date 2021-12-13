@@ -8,6 +8,8 @@ use Domain\User\Models\UserInvite;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Spatie\Permission\PermissionRegistrar;
 use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -31,7 +33,7 @@ class SetCompanyPermissions
         if (Auth::check()) {
             $user = Auth::user();
 
-            setPermissionsTeamId(0);
+            app(PermissionRegistrar::class)->setPermissionsTeamId(0);
 
             if (!$user->hasRole('super_admin') && $this->hasCompanyParameter($request)) {
                 try {
@@ -48,7 +50,7 @@ class SetCompanyPermissions
 
                     $company = $query->firstOrFail();
 
-                    setPermissionsTeamId($company->id);
+                    app(PermissionRegistrar::class)->setPermissionsTeamId($company->id);
                 } catch (ModelNotFoundException) {
                     return Response::create()
                         ->addPopup(new SimpleNotification(trans('response.forbidden.company')))
@@ -56,6 +58,8 @@ class SetCompanyPermissions
                         ->toJson();
                 }
             }
+
+            $user->load('roles');
         }
 
         return $next($request);

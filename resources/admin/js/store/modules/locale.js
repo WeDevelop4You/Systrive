@@ -8,6 +8,7 @@ export default {
     namespaced: true,
 
     state: () => ({
+        items: {},
         locale: $vuetify.lang.defaultLocale,
     }),
 
@@ -16,31 +17,51 @@ export default {
             state.locale = locale;
 
             $vuetify.lang.current = locale
+        },
+
+        setItems(state, data) {
+            state.items = data
         }
     },
 
     getters: {
         locale(state) {
             return state.locale;
+        },
+
+        items(state) {
+            return state.items
         }
     },
 
     actions: {
-        getLocale({commit}) {
+        getOne({commit}) {
             app.$api.call({
                 url: app.$api.route('locale'),
                 method: "GET"
             }).then((response) => {
-                commit('setLocale', response.data.locale)
+                commit('setLocale', response.data.data.locale)
+                
+            })
+        },
+
+        getMany({commit}) {
+            app.$api.call({
+                url: app.$api.route('locales'),
+                method: "GET"
+            }).then((response) => {
+                commit('setItems', response.data.data)
             })
         },
 
         setLocale({commit}, locale) {
-            app.$api.call({
-                url: app.$api.route('locale.change', locale),
-                method: "PUT"
-            }).then((response) => {
-                commit('setLocale', response.data.locale)
+            app.$api.getCsrfToken().then(() => {
+                app.$api.call({
+                    url: app.$api.route('locale.change', locale),
+                    method: "PUT"
+                }).then((response) => {
+                    commit('setLocale', response.data.data.locale)
+                })
             })
         }
     }

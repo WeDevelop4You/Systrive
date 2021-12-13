@@ -4,16 +4,19 @@
 
     use Domain\Company\Collections\CompanyCollections;
     use Domain\Company\QueryBuilders\CompanyQueryBuilders;
+    use Domain\User\Collections\UserCollections;
     use Domain\User\Models\User;
     use Domain\User\Models\UserProfile;
     use Eloquent;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+    use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Database\Query\Builder;
     use Illuminate\Support\Carbon;
+    use Spatie\Permission\Models\Role;
 
-/**
+    /**
  * Domain\Company\Models\Company.
  *
  * @property int         $id
@@ -27,7 +30,7 @@
  * @property-read string|null $owner_full_name
  * @property-read User $owner
  * @property-read UserProfile $ownerProfile
- * @property-read \Domain\User\Collections\UserCollections|User[] $users
+ * @property-read UserCollections|User[] $users
  *
  * @method static CompanyCollections|static[] all($columns = ['*'])
  * @method static CompanyCollections|static[] get($columns = ['*'])
@@ -85,7 +88,15 @@ class Company extends Model
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_company');
+        return $this->belongsToMany(User::class, 'user_company')->withPivot('status');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function roles(): HasMany
+    {
+        return $this->hasMany(Role::class);
     }
 
     /**

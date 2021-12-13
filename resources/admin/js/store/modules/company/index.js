@@ -35,8 +35,8 @@ export default {
     },
 
     actions: {
-        search({commit}, [name, setMenuItems = false]) {
-            app.$api.call({
+        async search({commit}, [name, setMenuItems = false]) {
+            await app.$api.call({
                 url: app.$api.route('company.search', name),
                 method: "GET"
             }).then((response) => {

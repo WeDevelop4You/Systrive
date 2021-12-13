@@ -2,7 +2,7 @@
 
     namespace App\Admin\Translation\Controllers;
 
-    use Domain\User\Actions\EditLocaleAction;
+    use Domain\User\Actions\UpdateLocaleAction;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\App;
     use Illuminate\Support\Facades\Auth;
@@ -37,7 +37,7 @@
             $response = new Response();
 
             if (in_array($locale, config('translation.locales'))) {
-                (new EditLocaleAction())($locale);
+                (new UpdateLocaleAction())($locale);
 
                 $response->addData([
                     'locale' => $locale,

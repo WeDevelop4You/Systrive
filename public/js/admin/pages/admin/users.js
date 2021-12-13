@@ -85,6 +85,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ServerDataTable",
@@ -283,6 +285,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CreateOrEditDialog",
   props: {
@@ -301,6 +305,10 @@ __webpack_require__.r(__webpack_exports__);
     disableCreate: {
       type: Boolean,
       "default": false
+    },
+    createPermission: {
+      type: String,
+      "default": undefined
     },
     fullscreen: {
       type: Boolean,
@@ -358,6 +366,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -633,7 +642,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, {
         text: this.$vuetify.lang.t('$vuetify.word.deleted_at'),
         value: 'deleted_at',
-        sortable: true
+        sortable: true,
+        divider: true
       }, {
         text: this.$vuetify.lang.t('$vuetify.word.actions'),
         value: 'actions',
@@ -967,13 +977,15 @@ var render = function () {
                       _vm.searchable
                         ? [
                             _c("v-text-field", {
-                              staticClass: "mx-auto",
-                              staticStyle: { "max-width": "700px" },
+                              staticClass: "mr-auto",
+                              staticStyle: { "max-width": "500px" },
                               attrs: {
-                                "hide-details": "",
                                 label: _vm.$vuetify.lang.t(
                                   "$vuetify.word.search"
                                 ),
+                                dense: "",
+                                outlined: "",
+                                "hide-details": "",
                               },
                               on: { input: _vm.updateSearch },
                               model: {
@@ -1088,8 +1100,16 @@ var render = function () {
             _c(
               "v-btn",
               {
-                staticClass: "mb-2 ml-4",
-                attrs: { color: "primary" },
+                directives: [
+                  {
+                    name: "can",
+                    rawName: "v-can",
+                    value: _vm.createPermission,
+                    expression: "createPermission",
+                  },
+                ],
+                staticClass: "ml-4",
+                attrs: { small: "", color: "primary" },
                 on: { click: _vm.setDialog },
               },
               [
@@ -1168,7 +1188,9 @@ var render = function () {
                               _vm._v(
                                 "\n                        " +
                                   _vm._s(
-                                    _vm.$vuetify.lang.t("$vuetify.word.cancel")
+                                    _vm.$vuetify.lang.t(
+                                      "$vuetify.word.cancel.cancel"
+                                    )
                                   ) +
                                   "\n                    "
                               ),
@@ -1239,7 +1261,7 @@ var render = function () {
   return _c(
     "v-dialog",
     {
-      attrs: { persistent: "", "max-width": "450" },
+      attrs: { persistent: "", width: "100%", "max-width": "450px" },
       model: {
         value: _vm.dialog,
         callback: function ($$v) {
@@ -1344,7 +1366,9 @@ var render = function () {
                 [
                   _vm._v(
                     "\n                " +
-                      _vm._s(_vm.$vuetify.lang.t("$vuetify.word.cancel")) +
+                      _vm._s(
+                        _vm.$vuetify.lang.t("$vuetify.word.cancel.cancel")
+                      ) +
                       "\n            "
                   ),
                 ]

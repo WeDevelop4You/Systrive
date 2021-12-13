@@ -2,8 +2,10 @@
     <div>
         <template v-if="!disableCreate">
             <v-btn
+                v-can="createPermission"
+                small
                 color="primary"
-                class="mb-2 ml-4"
+                class="ml-4"
                 @click="setDialog"
             >
                 {{ buttonTitle }}
@@ -40,7 +42,7 @@
                             :disabled="$loading"
                             @click="resetDialog"
                         >
-                            {{ $vuetify.lang.t('$vuetify.word.cancel') }}
+                            {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
                         </v-btn>
                         <v-btn
                             color="primary"
@@ -79,6 +81,11 @@
             disableCreate: {
                 type: Boolean,
                 default: false
+            },
+
+            createPermission: {
+                type: String,
+                default: undefined
             },
 
             fullscreen: {

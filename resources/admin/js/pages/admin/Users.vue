@@ -58,7 +58,7 @@
                     {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.email_verified_at'), value: 'email_verified_at', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.deleted_at'), value: 'deleted_at', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.deleted_at'), value: 'deleted_at', sortable: true, divider: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
             }

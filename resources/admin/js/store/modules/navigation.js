@@ -18,9 +18,11 @@ export default {
             state.menuItems = [
                 {subheader: vuetify.lang.t('$vuetify.word.companies')},
                 {navigationItems: state.companies},
-                {divider: true},
-                {subheader: vuetify.lang.t('$vuetify.word.admin')},
-                {navigationItems: [
+                {can: 'super_admin', divider: true},
+                {can: 'super_admin', subheader: vuetify.lang.t('$vuetify.word.admin')},
+                {
+                    can: 'super_admin',
+                    navigationItems: [
                         {icon: 'fas fa-users', name: vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
                         {icon: 'fas fa-building', name: vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},
                         {icon: 'fas fa-language', name: vuetify.lang.t('$vuetify.word.translations'), route: {name: 'admin.translations'}},

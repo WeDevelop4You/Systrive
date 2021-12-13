@@ -6,25 +6,31 @@
         "companies": "Companies",
         "admin": "Admin",
         "search": "Search",
-        "cancel": "Cancel",
+        "cancel": {
+            "cancel": "Cancel"
+        },
         "save": "Save",
         "delete": {
             "force": "Delete permanently",
             "user": "Delete user",
             "translation": "Delete translation",
             "delete": "Delete",
-            "company": "Delete company"
+            "company": "Delete company",
+            "role": "Delete Role"
         },
         "edit": {
             "user": "Edit user",
             "translation": "Edit Translation",
             "company": "Edit company",
-            "edit": "Edit"
+            "edit": "Edit",
+            "role": "Edit Role"
         },
         "dark_mode": "Dark mode",
         "welcome": "Welcome",
         "email": "Email",
-        "password": "Password",
+        "password": {
+            "password": "Password"
+        },
         "remember_me": "Remember me",
         "login": {
             "login": "Login"
@@ -63,7 +69,8 @@
         "information": "Information",
         "create": {
             "company": "Create Company",
-            "create": "Create"
+            "create": "Create",
+            "role": "Create role"
         },
         "user": {
             "access": "User access"
@@ -82,6 +89,24 @@
         "no_content": "No content",
         "company": {
             "details": "Company details"
-        }
+        },
+        "accept": {
+            "accept": "Accept"
+        },
+        "next": "Next",
+        "profile": {
+            "profile": "Profile"
+        },
+        "first_name": "First name",
+        "middle_name": "Middle name",
+        "last_name": "Surname",
+        "gender": "Gender",
+        "birth_date": "Birth date",
+        "registration": "Registration",
+        "back": "Back",
+        "total": {
+            "permissions": "Total permissions"
+        },
+        "status": "Status"
     }
 }

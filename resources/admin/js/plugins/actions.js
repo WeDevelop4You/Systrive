@@ -28,16 +28,16 @@ export default {
                     this.$root.lastRoute = originLastRoute
                 },
 
-                getRequestAction(url) {
+                actionGetRequest(url) {
                     this.$api.call({
                         url: url,
                         method: 'GET',
                     })
                 },
 
-                async vuexDispatchMethod(type, params) {
+                async actionVuexDispatchMethod(type, params) {
                     await this.$store.dispatch(type, params)
-                }
+                },
             }
         })
     }

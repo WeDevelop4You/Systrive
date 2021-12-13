@@ -4,7 +4,7 @@
 
     use App\Admin\Company\Requests\CompanyUpdateRequest;
     use App\Admin\Company\Resources\CompanyResource;
-    use Domain\Company\Actions\EditCompanyAction;
+    use Domain\Company\Actions\UpdateCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyData;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
@@ -31,7 +31,7 @@
             $data = new CompanyData(...$request->validated());
             $removeUser = $request->get('removeUser', false);
 
-            (new EditCompanyAction($company, $removeUser))($data);
+            (new UpdateCompanyAction($company, $removeUser))($data);
 
             return Response::create()
                 ->addPopup(new SimpleNotification(trans('response.success.update.company')))

@@ -38,8 +38,8 @@
     import ServerDataTable from "../../../components/ServerDataTable";
     import CreateOrEditDialog from "../../../components/table/CreateOrEditDialog";
     import DeleteDialog from "../../../components/table/DeleteDialog";
-    import Actions from "../../../components/table/companies/Actions";
-    import FCompany from "../../../layout/forms/Company";
+    import Actions from "../../../components/table/company/Actions";
+    import FCompany from "../../../layout/forms/company/Company";
     import Show from "./Show";
     import ShowDialog from "../../../components/table/ShowDialog";
 
@@ -81,7 +81,7 @@
                     {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.owner'), value: 'owner.full_name', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.domain'), value: 'domain', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true},
+                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true, divider: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
             },

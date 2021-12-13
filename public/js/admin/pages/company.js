@@ -37,6 +37,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return _this.$store.dispatch('company/search', [_this.$route.params.companyName, true]);
 
             case 2:
+              _context.next = 4;
+              return _this.$store.dispatch('user/getCompanyPermissions');
+
+            case 4:
             case "end":
               return _context.stop();
           }
@@ -46,6 +50,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   beforeDestroy: function beforeDestroy() {
     this.$store.dispatch('navigation/getCompanies', true);
+    this.$store.dispatch('user/getPermissions');
   }
 });
 

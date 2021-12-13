@@ -12,9 +12,10 @@
         <template #toolbar.append>
             <create-or-edit-dialog
                 :form-title="formTitle"
-                :button-title="$vuetify.lang.t('$vuetify.word.invite.user')"
                 :vuex-namespace="vuexNamespace"
+                :button-title="$vuetify.lang.t('$vuetify.word.invite.user')"
                 rerender
+                create-permission="user.invite"
                 @save="save"
             >
                 <company-user v-model="data" />
@@ -29,11 +30,12 @@
 </template>
 
 <script>
+    import CompanyUser from "../forms/company/CompanyUser";
     import ServerDataTable from "../../components/ServerDataTable";
-    import Actions from "../../components/table/users/access/Actions";
     import DeleteDialog from "../../components/table/DeleteDialog";
+    import Status from "../../components/table/company/access/Status";
+    import Actions from "../../components/table/company/access/Actions";
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
-    import CompanyUser from "../forms/CompanyUser";
 
     export default {
         name: "UserAccess",
@@ -48,7 +50,8 @@
         data() {
             return {
                 customItems: [
-                    {name: 'actions', component: Actions}
+                    {name: 'actions', component: Actions},
+                    {name: 'status', component: Status}
                 ],
 
                 vuexNamespace: 'company/users',
@@ -68,7 +71,8 @@
                 return [
                     {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'profile.full_name', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
+                    {text: this.$vuetify.lang.t('$vuetify.word.status'), value: 'status', sortable: true, divider: this.showActions()},
+                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: this.showActions() ? 'end' : ' d-none'},
                 ]
             },
 
@@ -104,6 +108,10 @@
                 await this.$store.dispatch(`${this.vuexNamespace}/revoke`)
                 this.$refs.server.getData();
             },
+
+            showActions() {
+                return this.$auth.can('user.edit_role') || this.$auth.can('user.invoke')
+            }
         }
     }
 </script>

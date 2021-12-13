@@ -2,7 +2,8 @@
     <v-dialog
         v-model="dialog"
         persistent
-        max-width="450"
+        width="100%"
+        max-width="450px"
     >
         <v-card>
             <v-card-title class="text-h5">
@@ -42,7 +43,7 @@
                     :disabled="$loading"
                     @click="resetDelete"
                 >
-                    {{ $vuetify.lang.t('$vuetify.word.cancel') }}
+                    {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
                 </v-btn>
             </v-card-actions>
         </v-card>

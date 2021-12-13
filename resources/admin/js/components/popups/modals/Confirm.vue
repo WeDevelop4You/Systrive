@@ -1,18 +1,21 @@
 <template>
     <v-card>
-        <v-card-title class="text-h5" v-text="data.title"/>
-        <v-card-text v-text="data.text"/>
+        <v-card-title
+            class="text-h5"
+            v-text="data.title"
+        />
+        <v-card-text v-text="data.text" />
         <v-card-actions>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn
                 text
-                v-text="data.cancel_text || $vuetify.lang.t('$vuetify.word.cancel.cancel')"
                 @click="cancel"
+                v-text="data.cancel_text || $vuetify.lang.t('$vuetify.word.cancel.cancel')"
             />
             <v-btn
                 color="primary"
-                v-text="data.accept_text || $vuetify.lang.t('$vuetify.word.accept.accept')"
                 @click="accept"
+                v-text="data.accept_text || $vuetify.lang.t('$vuetify.word.accept.accept')"
             />
         </v-card-actions>
     </v-card>

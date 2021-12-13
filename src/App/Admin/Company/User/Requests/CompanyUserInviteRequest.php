@@ -15,7 +15,7 @@
         {
             return [
                 'email' => ['required', 'email', new BelongsToManyExistsRule(
-                    User::query(),
+                    User::withTrashed(),
                     $this->company->users(),
                     'user_id',
                     null,

@@ -30,7 +30,7 @@
         public function get(string $url): RequestMethod
         {
             $this->content = [
-                'method' => 'getRequestAction',
+                'method' => 'actionGetRequest',
                 'parameters' => [
                     $url,
                 ],

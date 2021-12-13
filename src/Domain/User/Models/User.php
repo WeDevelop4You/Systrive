@@ -71,6 +71,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $table = 'users';
 
+    protected $guard_name = 'sanctum';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -79,7 +81,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'email',
         'locale',
-        'role_id',
         'password',
     ];
 

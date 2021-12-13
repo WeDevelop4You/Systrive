@@ -2,7 +2,7 @@
 
     namespace App\Admin\Company\User\Resources;
 
-    use App\Admin\Company\Role\Resources\RoleListResource;
+    use App\Admin\Company\Role\Resources\CompanyRoleListResource;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +17,7 @@
         {
             return [
                 'id' => $this->id,
-                'roles' => RoleListResource::collection($this->roles),
+                'roles' => CompanyRoleListResource::collection($this->roles),
                 'permissions' => $this->permissions()->pluck('id'),
             ];
         }

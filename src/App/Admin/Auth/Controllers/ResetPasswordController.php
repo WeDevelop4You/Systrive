@@ -3,7 +3,7 @@
 namespace App\Admin\Auth\Controllers;
 
 use App\Admin\Auth\Requests\ResetPasswordRequest;
-use Domain\User\Actions\EditPasswordAction;
+use Domain\User\Actions\UpdatePasswordAction;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -43,7 +43,7 @@ class ResetPasswordController
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmed', 'token'),
             function ($user, $password) {
-                (new editPasswordAction($user))($password);
+                (new UpdatePasswordAction($user))($password);
             }
         );
 

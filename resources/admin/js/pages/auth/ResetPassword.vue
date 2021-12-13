@@ -15,7 +15,7 @@
                 />
             </v-card-title>
             <v-card-subtitle class="pa-4">
-                <password-requirements :errors="errors"/>
+                <password-requirements :errors="errors" />
             </v-card-subtitle>
             <v-card-text class="pb-0">
                 <f-password
@@ -48,6 +48,13 @@
     export default {
         name: "PasswordReset",
 
+        components: {
+            LAuth,
+            FPassword,
+            SvgLogoLine,
+            PasswordRequirements
+        },
+
         props: {
             token: {
                 required: true,
@@ -58,13 +65,6 @@
                 required: true,
                 type: String,
             }
-        },
-
-        components: {
-            LAuth,
-            FPassword,
-            SvgLogoLine,
-            PasswordRequirements
         },
 
         data() {

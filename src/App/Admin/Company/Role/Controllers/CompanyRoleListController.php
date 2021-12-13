@@ -5,7 +5,6 @@
     use App\Admin\Company\Role\Resources\CompanyRoleListResource;
     use Domain\Company\Models\Company;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-    use Spatie\Permission\Models\Role;
 
     class CompanyRoleListController
     {

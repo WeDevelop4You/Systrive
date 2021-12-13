@@ -23,7 +23,7 @@
                 'profile' => [
                     'full_name' => $this->full_name,
                 ],
-                'isOwner' => $this->id === $request->company->owner_id
+                'isOwner' => $this->id === $request->company->owner_id,
             ];
         }
 
@@ -44,4 +44,3 @@
             return $data;
         }
     }
-

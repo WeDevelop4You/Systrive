@@ -14,8 +14,7 @@
          */
         public function __construct(
             private Role $role
-        ){
-
+        ) {
         }
 
         /**

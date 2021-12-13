@@ -16,7 +16,7 @@
     use Illuminate\Support\Carbon;
     use Spatie\Permission\Models\Role;
 
-    /**
+/**
  * Domain\Company\Models\Company.
  *
  * @property int         $id
@@ -30,7 +30,7 @@
  * @property-read string|null $owner_full_name
  * @property-read User $owner
  * @property-read UserProfile $ownerProfile
- * @property-read UserCollections|User[] $users
+ * @property-read User[]|UserCollections $users
  *
  * @method static CompanyCollections|static[] all($columns = ['*'])
  * @method static CompanyCollections|static[] get($columns = ['*'])

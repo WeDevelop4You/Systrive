@@ -8,7 +8,6 @@ use Domain\User\Models\UserInvite;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Spatie\Permission\PermissionRegistrar;
 use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
 use Support\Helpers\Response\Response;

@@ -7,16 +7,16 @@
     use Illuminate\Contracts\Validation\Rule;
     use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
-    use Illuminate\Database\Query\Builder as QueryBuilder;
     use Illuminate\Database\Eloquent\Relations\Relation;
+    use Illuminate\Database\Query\Builder as QueryBuilder;
 
     class BelongsToManyExistsRule implements Rule
     {
         /**
          * BelongsToManyExists constructor.
          *
-         * @param Relation|EloquentBuilder|QueryBuilder $relatedQuery
-         * @param Relation|EloquentBuilder|QueryBuilder $pivotQuery
+         * @param EloquentBuilder|QueryBuilder|Relation $relatedQuery
+         * @param EloquentBuilder|QueryBuilder|Relation $pivotQuery
          * @param string                                $pivotColumn
          * @param string|null                           $column
          * @param bool                                  $exists

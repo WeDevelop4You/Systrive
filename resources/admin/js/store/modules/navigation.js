@@ -18,10 +18,10 @@ export default {
             state.menuItems = [
                 {subheader: vuetify.lang.t('$vuetify.word.companies')},
                 {navigationItems: state.companies},
-                {can: 'super_admin', divider: true},
-                {can: 'super_admin', subheader: vuetify.lang.t('$vuetify.word.admin')},
+                {can: app.$config.permissions.superAdmin, divider: true},
+                {can: app.$config.permissions.superAdmin, subheader: vuetify.lang.t('$vuetify.word.admin')},
                 {
-                    can: 'super_admin',
+                    can: app.$config.permissions.superAdmin,
                     navigationItems: [
                         {icon: 'fas fa-users', name: vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
                         {icon: 'fas fa-building', name: vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},

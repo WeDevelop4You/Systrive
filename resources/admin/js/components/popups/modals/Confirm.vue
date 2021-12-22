@@ -38,7 +38,7 @@
 
                 this.$api.call({
                     url: app.data.accept_url,
-                    method: "POST",
+                    method:  app.data.accept_method || "POST",
                 }).finally(() => {
                     app.$emit('close')
                 })

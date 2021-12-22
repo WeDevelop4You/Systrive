@@ -1,8 +1,7 @@
 <template>
     <div>
-        <template v-if="!disableCreate">
+        <template v-if="!disableCreate && $auth.can(createPermission)">
             <v-btn
-                v-can="createPermission"
                 small
                 color="primary"
                 class="ml-4"
@@ -109,7 +108,7 @@
             dialog() {
                 const dialog = this.$store.getters[`${this.vuexNamespace}/isCreateOrEditDialogOpen`]
 
-                dialog ? this.$emit('open') : this.$emit('close')
+                dialog ? this.$emit('opened') : this.$emit('closed')
 
                 return dialog
             }

@@ -9,7 +9,7 @@
     use Illuminate\Http\JsonResponse;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCode;
+    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class CompanyCreateController
     {
@@ -26,7 +26,7 @@
 
             return Response::create()
                 ->addPopup(new SimpleNotification(trans('response.success.create.company')))
-                ->setStatusCode(ResponseCode::HTTP_CREATED)
+                ->setStatusCode(ResponseCodes::HTTP_CREATED)
                 ->toJson();
         }
     }

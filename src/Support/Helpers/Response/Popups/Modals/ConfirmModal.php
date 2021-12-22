@@ -6,7 +6,7 @@
     {
         public function getComponent(): string
         {
-            return 'Confirm';
+            return 'ConfirmModal';
         }
 
         /**
@@ -46,6 +46,18 @@
         }
 
         /**
+         * @param string $method
+         *
+         * @return ConfirmModal
+         */
+        public function setAcceptMethod(string $method): ConfirmModal
+        {
+            $this->data['accept_method'] = $method;
+
+            return $this;
+        }
+
+        /**
          * @param string $text
          *
          * @return ConfirmModal
@@ -60,7 +72,7 @@
         /**
          * @param string $url
          *
-         * @return $this
+         * @return ConfirmModal
          */
         public function setCancelUrl(string $url): ConfirmModal
         {

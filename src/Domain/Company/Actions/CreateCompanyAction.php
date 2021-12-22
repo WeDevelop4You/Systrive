@@ -3,7 +3,10 @@
     namespace Domain\Company\Actions;
 
     use Domain\Company\DataTransferObjects\CompanyData;
+    use Domain\Company\Jobs\SendCompanyInvite;
     use Domain\Company\Models\Company;
+    use Domain\User\Jobs\SendInviteToUser;
+    use Domain\Invite\Models\Invite;
 
     class CreateCompanyAction
     {
@@ -17,11 +20,9 @@
             $company = new Company();
             $company->name = $companyData->name;
             $company->email = $companyData->email;
-            $company->domain = $companyData->domain;
-            $company->owner_id = $companyData->owner_id;
             $company->save();
 
-            $company->users()->attach($companyData->owner_id);
+            SendCompanyInvite::dispatch($companyData->email, $company);
 
             return $company;
         }

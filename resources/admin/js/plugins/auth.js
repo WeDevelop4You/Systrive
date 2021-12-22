@@ -14,7 +14,7 @@ export default {
                 if (permission !== undefined) {
                     const permissions = store.getters['user/getPermissions']
 
-                    return permissions.includes('super_admin') || permissions.includes(permission)
+                    return permissions.includes(app.$config.permissions.superAdmin) || permissions.includes(permission)
                 }
 
                 return true
@@ -24,13 +24,5 @@ export default {
                 return !this.can(permission)
             }
         }
-
-        Vue.directive('can', {
-            bind: function (el, binding, vNode) {
-                if (app.$auth.cannot(binding.value)) {
-                    el.style.display = 'none'
-                }
-            }
-        })
     }
 }

@@ -33,7 +33,7 @@
                     :class="{'mb-2': !errors.password}"
                     :error-messages="errors.password"
                     :type="show ? 'text' : 'password'"
-                    :label="$vuetify.lang.t('$vuetify.word.password')"
+                    :label="$vuetify.lang.t('$vuetify.word.password.password')"
                     :append-icon="show ? 'faSvg fa-eye' : 'fas fa-eye-slash'"
                     dense
                     required

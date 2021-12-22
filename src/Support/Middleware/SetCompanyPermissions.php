@@ -4,7 +4,7 @@ namespace Support\Middleware;
 
 use Closure;
 use Domain\Company\Models\Company;
-use Domain\User\Models\UserInvite;
+use Domain\Invite\Models\Invite;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +44,7 @@ class SetCompanyPermissions
                         : $query->wherePivot('company_id', $parameter);
 
                     if (!$request->routeIs(self::IGNORE_USER_ACCEPTED_ROUTES)) {
-                        $query->wherePivot('status', UserInvite::INVITE_USER_ACCEPTED);
+                        $query->wherePivot('status', Invite::COMPANY_USER_ACCEPTED);
                     }
 
                     $company = $query->firstOrFail();

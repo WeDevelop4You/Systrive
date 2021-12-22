@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\User\Models;
+namespace Domain\Invite\Models;
 
 use Domain\User\QueryBuilders\UserInviteQueryBuilders;
 use Illuminate\Database\Eloquent\Model;
@@ -15,28 +15,29 @@ use Illuminate\Database\Query\Builder;
  * @property string   $type
  * @property string   $created_at
  *
- * @method static UserInviteQueryBuilders|UserInvite deleteExisting(string $email, int $companyId)
- * @method static UserInviteQueryBuilders|UserInvite newModelQuery()
- * @method static UserInviteQueryBuilders|UserInvite newQuery()
- * @method static UserInviteQueryBuilders|UserInvite query()
- * @method static UserInviteQueryBuilders|UserInvite whereCompanyId($value)
- * @method static UserInviteQueryBuilders|UserInvite whereCreatedAt($value)
- * @method static UserInviteQueryBuilders|UserInvite whereEmail($value)
- * @method static UserInviteQueryBuilders|UserInvite whereToken($value)
- * @method static UserInviteQueryBuilders|UserInvite whereType($value)
+ * @method static UserInviteQueryBuilders|Invite deleteExisting(string $email, int $companyId)
+ * @method static UserInviteQueryBuilders|Invite newModelQuery()
+ * @method static UserInviteQueryBuilders|Invite newQuery()
+ * @method static UserInviteQueryBuilders|Invite query()
+ * @method static UserInviteQueryBuilders|Invite whereCompanyId($value)
+ * @method static UserInviteQueryBuilders|Invite whereCreatedAt($value)
+ * @method static UserInviteQueryBuilders|Invite whereEmail($value)
+ * @method static UserInviteQueryBuilders|Invite whereToken($value)
+ * @method static UserInviteQueryBuilders|Invite whereType($value)
  * @mixin \Eloquent
  */
-class UserInvite extends Model
+class Invite extends Model
 {
-    public const INVITE_USER_TYPE = 'user_invite';
-    public const INVITE_OWNER_TYPE = 'owner_invite';
+    public const NEW_USER_TYPE = 'new_user';
+    public const NEW_COMPANY_TYPE = 'new_company';
+    public const COMPANY_USER_TYPE = 'company_user';
 
-    public const INVITE_USER_ACCEPTED = 'accepted';
-    public const INVITE_USER_REQUESTED = 'requested';
+    public const COMPANY_USER_ACCEPTED = 'accepted';
+    public const COMPANY_USER_REQUESTED = 'requested';
 
     public $timestamps = false;
 
-    protected $table = 'user_invites';
+    protected $table = 'invites';
 
     /**
      * The attributes that are mass assignable.

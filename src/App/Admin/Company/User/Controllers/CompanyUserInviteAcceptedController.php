@@ -4,7 +4,7 @@
 
     use Domain\Company\Actions\UserInviteToCompanyAcceptedAction;
     use Domain\Company\Models\Company;
-    use Domain\User\Actions\ValidateInviteTokenAction;
+    use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
@@ -29,16 +29,13 @@
             $response = new Response();
 
             try {
-                $userInvite = (new ValidateInviteTokenAction($company, $token))();
+                (new ValidateInviteTokenAction($company, $token))();
 
                 $response->addPopup(
                     ConfirmModal::create()
                         ->setTitle(trans('modal.confirm.accepted.invite.company.title'))
                         ->setText(trans('modal.confirm.accepted.invite.company.text'))
-                        ->setAcceptUrl(route('admin.company.user.invite.accepted', [
-                            $userInvite->company_id,
-                            $token,
-                        ]))
+                        ->setAcceptUrl(route('admin.company.user.invite.accepted', [$company->id, $token]))
                         ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
                 );
             } catch (ModelNotFoundException | InvalidTokenException) {

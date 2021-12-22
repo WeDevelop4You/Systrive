@@ -4,7 +4,7 @@
 
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
-    use Domain\User\Models\UserInvite;
+    use Domain\Invite\Models\Invite;
 
     class UserInviteToCompanyAcceptedAction
     {
@@ -26,12 +26,12 @@
          */
         public function __invoke(Company $company): void
         {
-            UserInvite::deleteExisting($this->user->email, $company->id);
+            Invite::deleteExisting($this->user->email, $company->id, Invite::COMPANY_USER_TYPE);
 
             if ($this->user->trashed()) {
                 $this->user->restore();
             }
 
-            $company->users()->updateExistingPivot($this->user->id, ['status' => UserInvite::INVITE_USER_ACCEPTED]);
+            $company->users()->updateExistingPivot($this->user->id, ['status' => Invite::COMPANY_USER_ACCEPTED]);
         }
     }

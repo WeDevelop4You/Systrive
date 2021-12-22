@@ -12,8 +12,11 @@
          *
          * @return mixed
          */
-        public function deleteExisting(string $email, int $companyId): mixed
+        public function deleteExisting(string $email, int $companyId, string $type): mixed
         {
-            return $this->where('email', $email)->where('company_id', $companyId)->delete();
+            return $this->where('email', $email)
+                ->where('company_id', $companyId)
+                ->where('type', $type)
+                ->delete();
         }
     }

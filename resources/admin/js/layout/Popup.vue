@@ -41,15 +41,14 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Confirm from "../components/popups/modals/Confirm";
-    import Simple from '../components/popups/notifications/Simple'
 
     export default {
         name: "Popup",
 
         components: {
-            Simple,
-            Confirm,
+            FormModal: () => import(/* webpackChunkName: "components/popups/modals/form" */ '../components/popups/modals/Form'),
+            ConfirmModal: () => import(/* webpackChunkName: "components/popups/modals/confirm" */ '../components/popups/modals/Confirm'),
+            SimpleNotification: () => import(/* webpackChunkName: "components/popups/notifications/simple" */ '../components/popups/notifications/Simple'),
         },
 
         computed: {

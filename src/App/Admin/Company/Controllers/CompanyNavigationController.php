@@ -4,7 +4,7 @@
 
     use App\Admin\Company\Resources\CompanyNavigationResource;
 
-    use Domain\User\Models\UserInvite;
+    use Domain\Invite\Models\Invite;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Response;
@@ -18,7 +18,7 @@
         {
             $companies = Auth::user()
                 ->companies()
-                ->wherePivot('status', UserInvite::INVITE_USER_ACCEPTED)
+                ->wherePivot('status', Invite::COMPANY_USER_ACCEPTED)
                 ->get();
 
             $response = new Response();

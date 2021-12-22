@@ -15,7 +15,27 @@ export default {
                 {value: 'male', text: $vuetify.lang.t('$vuetify.word.male')},
                 {value: 'female', text: $vuetify.lang.t('$vuetify.word.female')},
                 {value: 'other', text: $vuetify.lang.t('$vuetify.word.other')},
-            ]
+            ],
+
+            permissions: {
+                superAdmin: 'super_admin',
+
+                user: {
+                    invite: 'user.invite',
+                    revoke: 'user.revoke',
+                    editRoles: 'user.edit_roles',
+                },
+
+                role: {
+                    edit: 'role.edit',
+                    create: 'role.create',
+                    delete: 'role.delete',
+                },
+
+                company: {
+
+                },
+            }
         }
     }
 }

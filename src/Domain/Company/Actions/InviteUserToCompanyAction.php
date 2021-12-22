@@ -4,9 +4,9 @@
 
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
-    use Domain\User\Jobs\SendInviteEmailToUser;
+    use Domain\User\Jobs\SendInviteToUser;
     use Domain\User\Models\User;
-    use Domain\User\Models\UserInvite;
+    use Domain\Invite\Models\Invite;
 
     class InviteUserToCompanyAction
     {
@@ -34,9 +34,9 @@
 
             (new UserPermissionsForCompanyAction($this->company, $user))($companyUserData);
 
-            SendInviteEmailToUser::dispatch($user, $this->company, UserInvite::INVITE_USER_TYPE);
+            SendInviteToUser::dispatch($user, $this->company);
 
-            $this->company->users()->attach($user->id, ['status' => UserInvite::INVITE_USER_REQUESTED]);
+            $this->company->users()->attach($user->id, ['status' => Invite::COMPANY_USER_REQUESTED]);
 
             return $user;
         }

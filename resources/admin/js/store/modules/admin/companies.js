@@ -60,7 +60,7 @@ export default {
                 method: 'PATCH',
                 data: {
                     ...data,
-                    owner: data.owner?.id,
+                    owner_id: data.owner?.id,
                 }
             }).then(() => {
                 commit('resetCreateOrEdit')

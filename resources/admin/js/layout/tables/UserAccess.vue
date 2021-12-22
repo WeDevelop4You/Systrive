@@ -13,9 +13,9 @@
             <create-or-edit-dialog
                 :form-title="formTitle"
                 :vuex-namespace="vuexNamespace"
+                :create-permission="$config.permissions.user.invite"
                 :button-title="$vuetify.lang.t('$vuetify.word.invite.user')"
                 rerender
-                create-permission="user.invite"
                 @save="save"
             >
                 <company-user v-model="data" />

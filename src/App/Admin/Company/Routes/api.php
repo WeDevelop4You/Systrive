@@ -1,5 +1,6 @@
 <?php
 
+    use App\Admin\Company\Controllers\CompanyCompleteController;
     use App\Admin\Company\Controllers\CompanyCreateController;
     use App\Admin\Company\Controllers\CompanyDestroyController;
     use App\Admin\Company\Controllers\CompanyEditController;
@@ -13,6 +14,11 @@
 
         Route::prefix('{company}')->group(function () {
             Route::get('/', [CompanyShowController::class, 'index'])->name('company.show');
+
+            Route::prefix('complete/{token}')->group(function () {
+                Route::get('/', [CompanyCompleteController::class, 'index'])->name('company.complete');
+                Route::patch('/', [CompanyCompleteController::class, 'action'])->name('company.complete');
+            });
         });
 
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {

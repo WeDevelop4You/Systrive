@@ -3,8 +3,8 @@
     namespace App\Admin\Company\Controllers;
 
     use Domain\Company\Models\Company;
-    use Domain\User\Actions\InviteTokenAction;
-    use Domain\User\Actions\ValidateInviteTokenAction;
+    use Domain\Invite\Actions\InviteTokenAction;
+    use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\RedirectResponse;
@@ -26,17 +26,14 @@
         public function index(Company $company, string $token, string $encryptEmail): RedirectResponse
         {
             try {
-                $userInvite = (new ValidateInviteTokenAction($company, $token, $encryptEmail))();
+                $invite = (new ValidateInviteTokenAction($company, $token, $encryptEmail))();
 
-                return (new InviteTokenAction($token, $encryptEmail))($userInvite);
+                return (new InviteTokenAction($token, $encryptEmail))($invite);
             } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
-                Session::put(
-                    Response::SESSION_KEY_DEFAULT,
-                    Response::create()
-                        ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
-                        ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
-                        ->createResponseContent()
-                );
+                Response::create()
+                    ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
+                    ->toSession();
             }
 
             return redirect()->route('admin.dashboard');

@@ -15,7 +15,7 @@
         {
             Schema::create('companies', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
+                $table->foreignId('owner_id')->nullable()->constrained('users')->cascadeOnDelete();
                 $table->string('name');
                 $table->string('email');
                 $table->string('domain')->nullable();

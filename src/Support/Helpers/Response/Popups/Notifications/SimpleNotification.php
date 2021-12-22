@@ -6,6 +6,6 @@
     {
         public function getComponent(): string
         {
-            return 'Simple';
+            return 'SimpleNotification';
         }
     }

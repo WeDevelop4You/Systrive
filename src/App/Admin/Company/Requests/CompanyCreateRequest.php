@@ -13,9 +13,7 @@
         {
             return [
                 'name' => ['required', 'unique:companies,name'],
-                'owner_id' => ['required', 'exists:users,id'],
                 'email' => ['required', 'email'],
-                'domain' => ['nullable', 'url'],
             ];
         }
     }

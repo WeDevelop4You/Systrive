@@ -4,7 +4,7 @@
 
     use App\Admin\Auth\Requests\RegistrationRequest;
     use Domain\User\Actions\RegisterUserAction;
-    use Domain\User\Actions\ValidateInviteTokenAction;
+    use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\User\DataTransferObjects\UserProfileData;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Contracts\Foundation\Application;
@@ -28,17 +28,14 @@
         {
             if (Session::has(Response::SESSION_KEY_REGISTRATION)) {
                 try {
-                    $userInvite = (new ValidateInviteTokenAction(...Session::get(Response::SESSION_KEY_REGISTRATION)))();
+                    $invite = (new ValidateInviteTokenAction(...Session::get(Response::SESSION_KEY_REGISTRATION . '.data')))();
 
-                    return view('admin::pages.auth.registration')->with('email', $userInvite->email);
+                    return view('admin::pages.auth.registration')->with('email', $invite->email);
                 } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
-                    Session::put(
-                        Response::SESSION_KEY_DEFAULT,
-                        Response::create()
-                            ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
-                            ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
-                            ->createResponseContent()
-                    );
+                    Response::create()
+                        ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+                        ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
+                        ->toSession();
                 }
             }
 
@@ -66,12 +63,9 @@
                 try {
                     (new RegisterUserAction($request->get('password')))($data);
 
-                    Session::put(
-                        Response::SESSION_KEY_DEFAULT,
-                        Response::create()
-                            ->addPopup(new SimpleNotification(trans('response.success.registered.and.accepted')))
-                            ->createResponseContent()
-                    );
+                    Response::create()
+                        ->addPopup(new SimpleNotification(trans('response.success.registered.and.accepted')))
+                        ->toSession();
 
                     return $response->addRedirect(route('admin.dashboard'))->toJson();
                 } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {

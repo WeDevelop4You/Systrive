@@ -9,7 +9,9 @@ export default {
         email: '',
         verified: false,
         emailVerifiedAt: '',
-        permissions: []
+        permissions: [],
+        hasPermission: false,
+        hasCompanyPermission: false,
     }),
 
     mutations: {
@@ -21,6 +23,14 @@ export default {
 
         setPermissions(state, permissions) {
             state.permissions = permissions
+            state.hasPermission = true
+            state.hasCompanyPermission = false
+        },
+
+        setCompanyPermissions(state, permissions) {
+            state.permissions = permissions
+            state.hasCompanyPermission = true
+            state.hasPermission = false
         }
     },
 
@@ -58,12 +68,12 @@ export default {
         },
 
         getCompanyPermissions({commit, rootGetters}) {
-            if (app.$auth.cannot('super_admin')) {
+            if (app.$auth.cannot(app.$config.permissions.superAdmin)) {
                 app.$api.call({
                     url: app.$api.route('company.user.permissions', rootGetters['company/id']),
                     method: "GET"
                 }).then((response) => {
-                    commit("setPermissions", response.data.data)
+                    commit("setCompanyPermissions", response.data.data)
                 })
             }
         },

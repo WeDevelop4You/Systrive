@@ -3,17 +3,12 @@ import './bootstrap'
 import Vue from 'vue'
 import Store from './store'
 import Api from './plugins/api'
-import LApp from './layout/App'
 import Auth from './plugins/auth'
 import Router from './plugins/routes'
 import Config from './plugins/config'
 import Action from './plugins/actions'
-import Login from './pages/auth/Login'
 import Vuetify from './plugins/vuetify'
 import VueFlags from "@growthbunker/vueflags"
-import Registration from "./pages/auth/Registration"
-import ResetPassword from './pages/auth/ResetPassword'
-import PasswordRecovery from './pages/auth/PasswordRecovery'
 
 Vue.config.productionTip = false
 
@@ -25,11 +20,11 @@ Vue.use(VueFlags, {
     iconPath: '/images/flags/',
 })
 
-Vue.component('LApp', LApp)
-Vue.component('Login', Login)
-Vue.component('Registration', Registration)
-Vue.component('ResetPassword', ResetPassword)
-Vue.component('PasswordRecovery', PasswordRecovery)
+Vue.component('LApp', () => import(/* webpackChunkName: "layout/app" */ './layout/App'))
+Vue.component('Login', () => import(/* webpackChunkName: "pages/auth/login" */ './pages/auth/Login'))
+Vue.component('Registration', () => import(/* webpackChunkName: "pages/auth/registration" */ './pages/auth/Registration'))
+Vue.component('ResetPassword', () => import(/* webpackChunkName: "pages/auth/reset_password" */ './pages/auth/ResetPassword'))
+Vue.component('PasswordRecovery', () => import(/* webpackChunkName: "pages/auth/password_recovery" */ './pages/auth/PasswordRecovery'))
 
 export default new Vue({
     el: '#app',

@@ -13,9 +13,9 @@
             <create-or-edit-dialog
                 :form-title="formTitle"
                 :vuex-namespace="vuexNamespace"
+                :create-permission="$config.permissions.role.create"
                 :button-title="$vuetify.lang.t('$vuetify.word.create.role')"
                 rerender
-                create-permission="role.create"
                 @save="save"
             >
                 <company-role v-model="data" />

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserInvitesTable extends Migration
+class CreateCompanyInvitesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserInvitesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_invites', function (Blueprint $table) {
+        Schema::create('company_invites', function (Blueprint $table) {
             $table->foreignId('company_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('email');
             $table->string('token');

@@ -6,6 +6,7 @@
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
+    use Illuminate\Support\Facades\Session;
     use Support\Helpers\Response\Action\ActionContent;
     use Support\Helpers\Response\Action\ActionMethodBase;
     use Support\Helpers\Response\Popups\Notifications\NotificationBase;
@@ -18,6 +19,7 @@
         public const SESSION_KEY_DEFAULT = 'responseData';
         public const SESSION_KEY_MODAL = 'responseDataModal';
         public const SESSION_KEY_REGISTRATION = 'registrationData';
+        public const SESSION_KEY_MODAL_LOGIN = 'responseDataModalLogin';
 
         /**
          * @var array|JsonResource|ResourceCollection
@@ -145,14 +147,6 @@
         }
 
         /**
-         * @return JsonResponse
-         */
-        public function toJson(): JsonResponse
-        {
-            return response()->json($this->createResponseContent(), $this->statusCode);
-        }
-
-        /**
          * @return array
          */
         public function createResponseContent(): array
@@ -180,5 +174,23 @@
             }
 
             return $response;
+        }
+
+        /**
+         * @return JsonResponse
+         */
+        public function toJson(): JsonResponse
+        {
+            return response()->json($this->createResponseContent(), $this->statusCode);
+        }
+
+        /**
+         * @param string $key
+         *
+         * @return void
+         */
+        public function toSession(string $key = self::SESSION_KEY_DEFAULT): void
+        {
+            Session::put($key, $this->createResponseContent());
         }
     }

@@ -1,9 +1,9 @@
 <?php
 
-    namespace Domain\User\Actions;
+    namespace Domain\Invite\Actions;
 
     use Domain\Company\Models\Company;
-    use Domain\User\Models\UserInvite;
+    use Domain\Invite\Models\Invite;
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Crypt;
@@ -43,11 +43,11 @@
         /**
          * @throws InvalidTokenException
          *
-         * @return UserInvite
+         * @return Invite
          */
-        public function __invoke(): UserInvite
+        public function __invoke(): Invite
         {
-            $invite = UserInvite::where('company_id', $this->company->id)
+            $invite = Invite::where('company_id', $this->company->id)
                 ->where('email', $this->email)
                 ->firstOrFail();
 

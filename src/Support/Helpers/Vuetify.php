@@ -4,13 +4,16 @@
 
     class Vuetify
     {
-        public const COLOR_PRIMARY = 'primary';
-        public const COLOR_SECONDARY = 'secondary';
-        public const COLOR_ACCENT = 'accent';
-        public const COLOR_ERROR = 'error';
-        public const COLOR_INFO = 'info';
-        public const COLOR_SUCCESS = 'success';
-        public const COLOR_WARNING = 'warning';
+        public const PRIMARY_COLOR = 'primary';
+        public const SECONDARY_COLOR = 'secondary';
+        public const ACCENT_COLOR = 'accent';
+        public const ERROR_COLOR = 'error';
+        public const INFO_COLOR = 'info';
+        public const SUCCESS_COLOR = 'success';
+        public const WARNING_COLOR = 'warning';
+
+        public const GET_METHOD = 'GET';
+        public const PATCH_METHOD = 'PATCH';
 
         /**
          * @param string $translation

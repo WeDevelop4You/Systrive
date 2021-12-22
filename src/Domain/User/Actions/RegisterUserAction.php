@@ -4,6 +4,7 @@
 
     use Domain\Company\Actions\UserInviteToCompanyAcceptedAction;
     use Domain\Company\Models\Company;
+    use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\User\DataTransferObjects\UserProfileData;
     use Domain\User\Models\User;
     use Domain\User\Models\UserProfile;
@@ -35,10 +36,10 @@
         public function __construct(
             private string $password,
         ) {
-            $userInvite = (new ValidateInviteTokenAction(...Session::get(Response::SESSION_KEY_REGISTRATION)))();
+            $invite = (new ValidateInviteTokenAction(...Session::get(Response::SESSION_KEY_REGISTRATION)))();
 
-            $this->company = Company::findOrFail($userInvite->company_id);
-            $this->user = User::withTrashed()->whereEmail($userInvite->email)->firstOrFail();
+            $this->company = Company::findOrFail($invite->company_id);
+            $this->user = User::withTrashed()->whereEmail($invite->email)->firstOrFail();
         }
 
         /**

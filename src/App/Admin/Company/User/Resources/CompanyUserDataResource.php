@@ -2,7 +2,7 @@
 
     namespace App\Admin\Company\User\Resources;
 
-    use Domain\User\Models\UserInvite;
+    use Domain\Invite\Models\Invite;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Support\Helpers\Vuetify;
@@ -37,8 +37,8 @@
             $data['text'] = translateToVuetify("word.{$status}.{$status}");
 
             $data['color'] = match ($status) {
-                UserInvite::INVITE_USER_REQUESTED => Vuetify::COLOR_INFO,
-                UserInvite::INVITE_USER_ACCEPTED => Vuetify::COLOR_SUCCESS,
+                Invite::COMPANY_USER_REQUESTED => Vuetify::INFO_COLOR,
+                Invite::COMPANY_USER_ACCEPTED => Vuetify::SUCCESS_COLOR,
             };
 
             return $data;

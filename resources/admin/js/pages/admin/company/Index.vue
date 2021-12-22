@@ -12,11 +12,15 @@
             <create-or-edit-dialog
                 :form-title="formTitle"
                 :button-title="$vuetify.lang.t('$vuetify.word.create.company')"
+                rerender
                 vuex-namespace="companies"
                 @save="save"
-                @open="dialogOpened"
             >
-                <f-company v-model="data" />
+                <f-company
+                    v-model="data"
+                    :is-editing="isEditing"
+                    :errors="$store.getters[`${vuexNamespace}/errors`]"
+                />
             </create-or-edit-dialog>
         </template>
         <delete-dialog
@@ -117,12 +121,6 @@
         },
 
         methods: {
-            dialogOpened() {
-                if (!this.isEditing) {
-                    this.$store.dispatch(`${this.vuexNamespace}/searchList`, '')
-                }
-            },
-
             async save() {
                 if (this.isEditing) {
                     await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)

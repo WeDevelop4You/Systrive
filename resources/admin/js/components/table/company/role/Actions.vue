@@ -1,9 +1,11 @@
 <template>
     <div>
         <v-tooltip top>
-            <template #activator="{ on }">
+            <template
+                v-if="$auth.can($config.permissions.role.edit)"
+                #activator="{ on }"
+            >
                 <v-icon
-                    v-can="'role.edit'"
                     small
                     class="mr-2"
                     :disabled="$loading"
@@ -16,9 +18,11 @@
             <span>{{ $vuetify.lang.t('$vuetify.word.edit.role') }}</span>
         </v-tooltip>
         <v-tooltip top>
-            <template #activator="{ on }">
+            <template
+                v-if="$auth.can($config.permissions.role.delete)"
+                #activator="{ on }"
+            >
                 <v-icon
-                    v-can="'role.delete'"
                     small
                     class="mr-2"
                     :disabled="$loading"

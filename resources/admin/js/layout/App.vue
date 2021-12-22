@@ -9,25 +9,22 @@
         >
             <v-list shaped>
                 <template v-for="(item, index) in sideMenuItems">
-                    <template v-if="item.subheader">
+                    <template v-if="item.subheader && $auth.can(item.can)">
                         <v-subheader
                             v-show="!isMini"
-                            v-can="item.can"
                             :key="index"
                         >
                             {{ item.subheader }}
                         </v-subheader>
                     </template>
-                    <template v-else-if="item.divider">
+                    <template v-else-if="item.divider && $auth.can(item.can)">
                         <v-divider
-                            v-can="item.can"
                             :key="index"
                             class="my-1"
                         />
                     </template>
-                    <template v-else>
+                    <template v-else-if="$auth.can(item.can)">
                         <v-list-item-group
-                            v-can="item.can"
                             :key="index"
                             color="primary"
                         >
@@ -174,7 +171,7 @@
             <v-container fluid>
                 <breadcrumb />
                 <div class="px-6">
-                    <router-view />
+                    <router-view v-if="$store.state.user.hasPermission" />
                 </div>
             </v-container>
             <popup />

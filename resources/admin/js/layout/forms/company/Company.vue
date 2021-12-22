@@ -1,6 +1,9 @@
 <template>
     <v-row no-gutters>
-        <v-col cols="12">
+        <v-col
+            v-if="$auth.can($config.permissions.superAdmin)"
+            cols="12"
+        >
             <v-text-field
                 v-model="value.name"
                 :label="$vuetify.lang.t('$vuetify.word.name')"
@@ -9,7 +12,10 @@
                 outlined
             />
         </v-col>
-        <v-col cols="12">
+        <v-col
+            v-if="isEditing && $auth.can($config.permissions.superAdmin)"
+            cols="12"
+        >
             <v-autocomplete
                 v-model="value.owner"
                 :items="owners"
@@ -38,7 +44,7 @@
             </v-autocomplete>
         </v-col>
         <v-col
-            v-if="isEditing"
+            v-if="isEditing && $auth.can($config.permissions.superAdmin)"
             v-show="showCheckbox"
             cols="12"
         >
@@ -59,7 +65,10 @@
                 outlined
             />
         </v-col>
-        <v-col cols="12">
+        <v-col
+            v-if="isEditing"
+            cols="12"
+        >
             <v-text-field
                 v-model="value.domain"
                 :label="$vuetify.lang.t('$vuetify.word.domain')"
@@ -68,7 +77,10 @@
                 outlined
             />
         </v-col>
-        <v-col cols="12">
+        <v-col
+            v-if="isEditing"
+            cols="12"
+        >
             <v-textarea
                 v-model="value.information"
                 :label="$vuetify.lang.t('$vuetify.word.information')"
@@ -91,6 +103,16 @@
                 required: true,
                 type: Object,
             },
+
+            errors: {
+                required: true,
+                type: Object,
+            },
+
+            isEditing: {
+                required: true,
+                type: Boolean,
+            }
         },
 
         data() {
@@ -107,9 +129,7 @@
             },
 
             ...mapGetters({
-                errors: 'companies/errors',
                 owners: "companies/owners",
-                isEditing: "companies/isEditing",
             })
         },
 

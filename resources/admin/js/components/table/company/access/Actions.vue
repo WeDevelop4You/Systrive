@@ -1,9 +1,11 @@
 <template>
     <div>
-        <v-tooltip top>
+        <v-tooltip
+            v-if="$auth.can($config.permissions.user.editRoles)"
+            top
+        >
             <template #activator="{ on }">
                 <v-icon
-                    v-can="'user.edit_roles'"
                     small
                     class="mr-2"
                     :disabled="$loading"
@@ -19,10 +21,12 @@
             v-if="!item.isOwner"
             top
         >
-            <template #activator="{ on }">
+            <template
+                v-if="$auth.can($config.permissions.user.revoke)"
+                #activator="{ on }"
+            >
                 <v-hover v-slot="{ hover }">
                     <v-icon
-                        v-can="'user.revoke'"
                         small
                         class="mr-2"
                         :disabled="$loading"

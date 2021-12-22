@@ -39,12 +39,9 @@
             try {
                 $request->authenticate();
 
-                Session::put(
-                    Response::SESSION_KEY_DEFAULT,
-                    Response::create()
-                        ->addPopup(new SimpleNotification(trans('response.success.login')))
-                        ->createResponseContent()
-                );
+                Response::create()
+                    ->addPopup(new SimpleNotification(trans('response.success.login')))
+                    ->toSession();
 
                 $response->addRedirect(route('admin.dashboard'));
             } catch (ValidationException $e) {
@@ -67,12 +64,9 @@
 
             $request->session()->regenerateToken();
 
-            Session::put(
-                Response::SESSION_KEY_DEFAULT,
-                Response::create()
-                    ->addPopup(new SimpleNotification(trans('response.success.logout')))
-                    ->createResponseContent()
-            );
+            Response::create()
+                ->addPopup(new SimpleNotification(trans('response.success.logout')))
+                ->toSession();
 
             return $request->expectsJson()
                 ? Response::create()->addRedirect(route('admin.web.login'))->toJson()

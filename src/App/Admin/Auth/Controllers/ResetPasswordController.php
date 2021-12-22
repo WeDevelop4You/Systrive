@@ -10,7 +10,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Facades\Session;
 use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;

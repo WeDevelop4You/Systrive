@@ -2,8 +2,8 @@
 
     namespace Domain\Invite\Actions;
 
-    use Domain\User\Models\User;
     use Domain\Invite\Models\Invite;
+    use Domain\User\Models\User;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Action\Methods\RequestMethod;
@@ -41,7 +41,7 @@
                         route('admin.company.user.invite.accepted', [$userInvite->company_id, $this->token])
                     )
                 )->toSession(Response::SESSION_KEY_MODAL);
-            } else if ($userInvite->type === Invite::NEW_COMPANY_TYPE) {
+            } elseif ($userInvite->type === Invite::NEW_COMPANY_TYPE) {
                 if (Auth::check()) {
                     $this->createConfirmUseAuthUser($userInvite->company_id);
                 }
@@ -86,7 +86,8 @@
         private function createNewUser()
         {
             Response::create()
-                ->addPopup(ConfirmModal::create()
+                ->addPopup(
+                    ConfirmModal::create()
                     ->setTitle(trans('modal.confirm.login.user.title'))
                     ->setText(trans('modal.confirm.login.user.text'))
                     ->setAcceptText(trans('modal.confirm.login.new.user'))
@@ -105,7 +106,8 @@
         private function createConfirmUseAuthUser(int $companyId): void
         {
             Response::create()
-                ->addPopup(ConfirmModal::create()
+                ->addPopup(
+                    ConfirmModal::create()
                     ->setTitle(trans('modal.confirm.auth.user.title'))
                     ->setText(trans('modal.confirm.auth.user.text'))
                     ->setAcceptText(trans('modal.confirm.auth.existing.user'))

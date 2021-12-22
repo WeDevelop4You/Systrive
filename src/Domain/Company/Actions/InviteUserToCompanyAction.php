@@ -4,9 +4,9 @@
 
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
+    use Domain\Invite\Models\Invite;
     use Domain\User\Jobs\SendInviteToUser;
     use Domain\User\Models\User;
-    use Domain\Invite\Models\Invite;
 
     class InviteUserToCompanyAction
     {

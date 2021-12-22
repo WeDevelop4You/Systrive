@@ -3,17 +3,14 @@
 namespace Domain\User\Jobs;
 
 use Domain\Company\Models\Company;
-use Domain\User\Models\User;
 use Domain\Invite\Models\Invite;
+use Domain\User\Models\User;
 use Domain\User\Notifications\InviteNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 use Support\Helpers\TokenGeneratorHelper;
 
 class SendInviteToUser

@@ -3,8 +3,8 @@
     namespace App\Admin\Auth\Controllers;
 
     use App\Admin\Auth\Requests\RegistrationRequest;
-    use Domain\User\Actions\RegisterUserAction;
     use Domain\Invite\Actions\ValidateInviteTokenAction;
+    use Domain\User\Actions\RegisterUserAction;
     use Domain\User\DataTransferObjects\UserProfileData;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Contracts\Foundation\Application;

@@ -50,6 +50,5 @@
 
         public function action()
         {
-
         }
     }

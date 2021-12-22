@@ -3,8 +3,8 @@
     namespace Domain\Company\Actions;
 
     use Domain\Company\Models\Company;
-    use Domain\User\Models\User;
     use Domain\Invite\Models\Invite;
+    use Domain\User\Models\User;
 
     class UserInviteToCompanyAcceptedAction
     {

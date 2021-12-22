@@ -8,7 +8,6 @@
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\RedirectResponse;
-    use Illuminate\Support\Facades\Session;
     use Support\Exceptions\InvalidTokenException;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;

@@ -96,6 +96,11 @@
             responseData: {
                 required: true,
                 type: Object,
+            },
+
+            responseDataModalLogin: {
+                required: true,
+                type: Object,
             }
         },
 
@@ -121,6 +126,7 @@
             window.addEventListener('keydown', this.enter)
 
             this.$root.responseActions(this.responseData)
+            this.$root.responseActions(this.responseDataModalLogin)
         },
 
         methods: {

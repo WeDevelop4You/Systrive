@@ -56,7 +56,7 @@ __webpack_require__.r(__webpack_exports__);
       var app = this;
       this.$api.call({
         url: app.data.cancel_url,
-        method: "DELETE"
+        method: app.data.cancel_method || "DELETE"
       })["finally"](function () {
         app.$emit('close');
       });

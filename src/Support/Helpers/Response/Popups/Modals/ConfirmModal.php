@@ -92,4 +92,16 @@
 
             return $this;
         }
+
+        /**
+         * @param string $method
+         *
+         * @return ConfirmModal
+         */
+        public function setCancelMethod(string $method): ConfirmModal
+        {
+            $this->data['cancel_method'] = $method;
+
+            return $this;
+        }
     }

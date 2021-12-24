@@ -4,6 +4,7 @@
 
     use App\Admin\Auth\Requests\LoginRequest;
 
+    use Domain\User\Actions\LogoutAction;
     use Illuminate\Contracts\Foundation\Application;
     use Illuminate\Contracts\View\Factory;
     use Illuminate\Contracts\View\View;
@@ -57,15 +58,7 @@
          */
         public function logout(Request $request): View|Factory|JsonResponse|Application
         {
-            Auth::logout();
-
-            $request->session()->invalidate();
-
-            $request->session()->regenerateToken();
-
-            Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.logout')))
-                ->toSession();
+            (new LogoutAction())($request);
 
             return $request->expectsJson()
                 ? Response::create()->addRedirect(route('admin.web.login'))->toJson()

@@ -418,6 +418,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     responseData: {
       required: true,
       type: Object
+    },
+    responseDataModalLogin: {
+      required: true,
+      type: Object
     }
   },
   data: function data() {
@@ -437,6 +441,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     window.addEventListener('keydown', this.enter);
     this.$root.responseActions(this.responseData);
+    this.$root.responseActions(this.responseDataModalLogin);
   },
   methods: {
     send: function send() {

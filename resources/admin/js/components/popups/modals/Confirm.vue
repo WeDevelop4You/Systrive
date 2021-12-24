@@ -49,7 +49,7 @@
 
                 this.$api.call({
                     url: app.data.cancel_url,
-                    method: "DELETE",
+                    method: app.data.cancel_method || "DELETE",
                 }).finally(() => {
                     app.$emit('close')
                 })

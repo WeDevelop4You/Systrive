@@ -32,12 +32,12 @@
         });
     });
 
+    Route::delete('delete/session', function (Request $request) {
+        Session::forget($request->query('key'));
+
+        return Response::create()->toJson();
+    })->name('session.delete');
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth/user', [UserController::class, 'auth'])->name('auth.user');
-
-        Route::delete('delete/session', function (Request $request) {
-            Session::forget($request->query('key'));
-
-            return Response::create()->toJson();
-        })->name('session.delete');
     });

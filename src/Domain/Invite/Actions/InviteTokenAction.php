@@ -6,6 +6,7 @@
     use Domain\User\Models\User;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Session;
     use Support\Helpers\Response\Action\Methods\RequestMethod;
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
@@ -46,7 +47,7 @@
                     $this->createConfirmUseAuthUser($userInvite->company_id);
                 }
 
-                $this->createNewUser();
+                $this->createNewUser($userInvite->company_id);
             } else {
                 $response->addPopup(new SimpleNotification(trans('response.error.invite.unknown.type')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
@@ -83,18 +84,17 @@
             return redirect()->route('admin.web.registration');
         }
 
-        private function createNewUser()
+        private function createNewUser(int $companyId): void
         {
             Response::create()
                 ->addPopup(
                     ConfirmModal::create()
-                    ->setTitle(trans('modal.confirm.login.user.title'))
-                    ->setText(trans('modal.confirm.login.user.text'))
-                    ->setAcceptText(trans('modal.confirm.login.new.user'))
-                    ->setAcceptUrl()
-                    ->setAcceptMethod()
-                    ->setCancelText()
-                    ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL_LOGIN]))
+                        ->setTitle(trans('modal.confirm.login.user.title'))
+                        ->setText(trans('modal.confirm.login.user.text'))
+                        ->setAcceptText(trans('modal.confirm.login.new.user'))
+                        ->setAcceptUrl(route('admin.user.create', [$companyId, $this->token, $this->encryptEmail]))
+                        ->setCancelText(trans('modal.confirm.login.login'))
+                        ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL_LOGIN]))
                 )->toSession(Response::SESSION_KEY_MODAL_LOGIN);
         }
 
@@ -108,13 +108,14 @@
             Response::create()
                 ->addPopup(
                     ConfirmModal::create()
-                    ->setTitle(trans('modal.confirm.auth.user.title'))
-                    ->setText(trans('modal.confirm.auth.user.text'))
-                    ->setAcceptText(trans('modal.confirm.auth.existing.user'))
-                    ->setAcceptUrl(route('admin.company.complete', [$companyId, $this->token]))
-                    ->setAcceptMethod(Vuetify::GET_METHOD)
-                    ->setCancelText(trans('modal.confirm.auth.other.user'))
-                    ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
+                        ->setTitle(trans('modal.confirm.auth.user.title'))
+                        ->setText(trans('modal.confirm.auth.user.text'))
+                        ->setAcceptText(trans('modal.confirm.auth.existing.user'))
+                        ->setAcceptUrl(route('admin.company.complete', [$companyId, $this->token]))
+                        ->setAcceptMethod(Vuetify::GET_METHOD)
+                        ->setCancelText(trans('modal.confirm.auth.other.user'))
+                        ->setCancelUrl(route('admin.user.logout'))
+                    ->setCancelMethod(Vuetify::GET_METHOD)
                 )->toSession(Response::SESSION_KEY_MODAL);
         }
     }

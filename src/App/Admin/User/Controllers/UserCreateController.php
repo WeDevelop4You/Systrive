@@ -41,8 +41,6 @@
 
             try {
                 (new ValidateInviteTokenAction($company, $token, $encryptEmail))();
-
-
             } catch (ModelNotFoundException | InvalidTokenException | EncryptException) {
                 Session::forget(Response::SESSION_KEY_MODAL_LOGIN);
 

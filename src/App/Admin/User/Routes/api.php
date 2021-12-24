@@ -8,7 +8,6 @@
     use App\Admin\User\Controllers\UserPermissionsController;
     use App\Admin\User\Controllers\UserTableController;
 
-
     Route::post('create/{company}/{token}/{encryptEmail}', [UserCreateController::class, 'action'])->name('user.create');
 
     Route::middleware('auth:sanctum')->group(function () {

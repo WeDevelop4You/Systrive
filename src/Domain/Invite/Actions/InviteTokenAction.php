@@ -6,7 +6,6 @@
     use Domain\User\Models\User;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\Session;
     use Support\Helpers\Response\Action\Methods\RequestMethod;
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;

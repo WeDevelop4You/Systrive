@@ -10,7 +10,6 @@
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
     use Illuminate\Validation\ValidationException;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;

@@ -32,25 +32,16 @@
 </template>
 
 <script>
+    import FromProps from "../../mixins/FormProps";
+
     export default {
         name: "Password",
 
+        mixins: [
+            FromProps
+        ],
+
         props: {
-            value: {
-                required: true,
-                type: Object
-            },
-
-            errors: {
-                required: true,
-                type: Object
-            },
-
-            error: {
-                required: true,
-                type: Boolean
-            },
-
             requiredOldPassword: {
                 type: Boolean,
                 default: false,

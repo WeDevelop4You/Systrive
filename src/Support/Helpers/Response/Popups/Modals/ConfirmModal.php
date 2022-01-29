@@ -2,6 +2,8 @@
 
     namespace Support\Helpers\Response\Popups\Modals;
 
+    use Support\Helpers\Response\Popups\Components\Button;
+
     class ConfirmModal extends ModalBase
     {
         public function getComponent(): string
@@ -34,73 +36,13 @@
         }
 
         /**
-         * @param string $url
+         * @param Button $button
          *
          * @return ConfirmModal
          */
-        public function setAcceptUrl(string $url): ConfirmModal
+        public function addButton(Button $button): ConfirmModal
         {
-            $this->data['accept_url'] = $url;
-
-            return $this;
-        }
-
-        /**
-         * @param string $method
-         *
-         * @return ConfirmModal
-         */
-        public function setAcceptMethod(string $method): ConfirmModal
-        {
-            $this->data['accept_method'] = $method;
-
-            return $this;
-        }
-
-        /**
-         * @param string $text
-         *
-         * @return ConfirmModal
-         */
-        public function setAcceptText(string $text): ConfirmModal
-        {
-            $this->data['accept_text'] = $text;
-
-            return $this;
-        }
-
-        /**
-         * @param string $url
-         *
-         * @return ConfirmModal
-         */
-        public function setCancelUrl(string $url): ConfirmModal
-        {
-            $this->data['cancel_url'] = $url;
-
-            return $this;
-        }
-
-        /**
-         * @param string $text
-         *
-         * @return ConfirmModal
-         */
-        public function setCancelText(string $text): ConfirmModal
-        {
-            $this->data['cancel_text'] = $text;
-
-            return $this;
-        }
-
-        /**
-         * @param string $method
-         *
-         * @return ConfirmModal
-         */
-        public function setCancelMethod(string $method): ConfirmModal
-        {
-            $this->data['cancel_method'] = $method;
+            $this->data['buttons'][] = $button->export();
 
             return $this;
         }

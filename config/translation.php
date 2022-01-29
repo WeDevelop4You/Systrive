@@ -3,7 +3,7 @@
     return [
         'locales' => [
             'us' => 'en',
-            'nl' => 'nl'
+            'nl' => 'nl',
         ],
 
         /*
@@ -82,10 +82,10 @@
                         'functions' => [
                             '__',
                             'trans',
-                            'trans_choice'
+                            'trans_choice',
                         ],
                         'ignore_groups' => [
-                            'auth'
+                            'auth',
                         ],
                         'tag' => 'project',
                     ],
@@ -114,10 +114,10 @@
                         'functions' => [
                             '__',
                             'trans',
-                            'trans_choice'
+                            'trans_choice',
                         ],
                         'ignore_groups' => [
-                            'auth'
+                            'auth',
                         ],
                         'tag' => 'project',
                     ],

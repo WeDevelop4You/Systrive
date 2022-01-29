@@ -15,11 +15,11 @@
         {
             Schema::create('companies', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('owner_id')->nullable()->constrained('users')->cascadeOnDelete();
                 $table->string('name');
-                $table->string('email');
+                $table->string('email')->nullable();
                 $table->string('domain')->nullable();
                 $table->text('information')->nullable();
+                $table->string('status');
                 $table->timestamps();
             });
         }

@@ -41,7 +41,6 @@ export default {
                 method: "GET"
             }).then((response) => {
                 commit('setLocale', response.data.data.locale)
-                
             })
         },
 

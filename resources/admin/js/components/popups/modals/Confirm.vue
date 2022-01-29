@@ -8,14 +8,12 @@
         <v-card-actions>
             <v-spacer />
             <v-btn
-                text
-                @click="cancel"
-                v-text="data.cancel_text || $vuetify.lang.t('$vuetify.word.cancel.cancel')"
-            />
-            <v-btn
-                color="primary"
-                @click="accept"
-                v-text="data.accept_text || $vuetify.lang.t('$vuetify.word.accept.accept')"
+                v-for="(button, index) in data.buttons"
+                :key="index"
+                :color="button.color"
+                :text="button.type === 'text'"
+                @click="action(button.request_url, button.request_method)"
+                v-text="button.title"
             />
         </v-card-actions>
     </v-card>
@@ -33,27 +31,16 @@
         },
 
         methods: {
-            accept() {
+            action(url, method) {
                 let app = this
 
                 this.$api.call({
-                    url: app.data.accept_url,
-                    method:  app.data.accept_method || "POST",
+                    url: url,
+                    method: method,
                 }).finally(() => {
                     app.$emit('close')
                 })
             },
-
-            cancel() {
-                let app = this
-
-                this.$api.call({
-                    url: app.data.cancel_url,
-                    method: app.data.cancel_method || "DELETE",
-                }).finally(() => {
-                    app.$emit('close')
-                })
-            }
         }
     }
 </script>

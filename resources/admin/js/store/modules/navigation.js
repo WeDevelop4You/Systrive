@@ -1,51 +1,93 @@
 import Vue from 'vue'
 import Vuetify from "../../plugins/vuetify"
-
+import Permissions from "../../config/permissions"
 
 const app = Vue.prototype
-const vuetify = Vuetify.framework
+const $vuetify = Vuetify.framework
+const $permissions = Permissions
 
 export default {
     namespaced: true,
 
     state: () => ({
         menuItems: [],
-        companies: [],
     }),
 
     mutations: {
-        setMainMenuItems(state) {
+        setMainMenuItems(state, companies) {
             state.menuItems = [
-                {subheader: vuetify.lang.t('$vuetify.word.companies')},
-                {navigationItems: state.companies},
-                {can: app.$config.permissions.superAdmin, divider: true},
-                {can: app.$config.permissions.superAdmin, subheader: vuetify.lang.t('$vuetify.word.admin')},
+                {subheader: $vuetify.lang.t('$vuetify.word.companies')},
+                {navigationItems: companies},
+                {can: $permissions.superAdmin, divider: true},
+                {can: $permissions.superAdmin, subheader: $vuetify.lang.t('$vuetify.word.admin')},
                 {
-                    can: app.$config.permissions.superAdmin,
+                    can: $permissions.superAdmin,
                     navigationItems: [
-                        {icon: 'fas fa-users', name: vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
-                        {icon: 'fas fa-building', name: vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},
-                        {icon: 'fas fa-language', name: vuetify.lang.t('$vuetify.word.translations'), route: {name: 'admin.translations'}},
+                        {icon: 'fas fa-users', name: $vuetify.lang.t('$vuetify.word.users'), route: {name: 'admin.users'}},
+                        {icon: 'fas fa-address-card', name: $vuetify.lang.t('$vuetify.word.companies'), route: {name: 'admin.companies'}},
+                        {icon: 'fas fa-language', name: $vuetify.lang.t('$vuetify.word.translations'), route: {name: 'admin.translations'}},
                     ]
                 },
             ]
         },
 
-        setCompanyMenuItems(state) {
+        setCompanyMenuItems(state, company) {
+            const companyAdmin = app.$config.permissions.companyAdmin
+
             state.menuItems = [
-                {subheader: vuetify.lang.t('$vuetify.word.domains')},
-                {navigationItems: []},
+                {
+                    navigationItems: [
+                        {
+                            icon: 'fas fa-home',
+                            name: $vuetify.lang.t('$vuetify.word.dashboard'),
+                            route: {name: 'company.dashboard', params: {companyName: company.name}}},
+                    ]
+                },
+                {
+                    type: 'expand',
+                    icon: 'fas fa-globe',
+                    title: $vuetify.lang.t('$vuetify.word.domains'),
+                    navigationItems: company.domains
+                },
+                {
+                    type: 'expand',
+                    icon: 'fas fa-sitemap',
+                    title: $vuetify.lang.t('$vuetify.word.dns'),
+                    navigationItems: company.dns
+                },
+                {
+                    type: 'expand',
+                    icon: 'fas fa-server',
+                    title: $vuetify.lang.t('$vuetify.word.databases'),
+                    navigationItems: company.databases
+                },
+                {
+                    type: 'expand',
+                    icon: 'fas fa-mail-bulk',
+                    title: $vuetify.lang.t('$vuetify.word.mail.domains'),
+                    navigationItems: company.mail_domains
+                },
                 {divider: true},
-                {navigationItems: [
-
+                {can: companyAdmin, subheader: $vuetify.lang.t('$vuetify.word.admin')},
+                {
+                    can: companyAdmin,
+                    navigationItems: [
+                        {
+                            can: $permissions.user.view,
+                            icon: 'fas fa-users-cog',
+                            name: $vuetify.lang.t('$vuetify.word.users'),
+                            route: {name: 'company.users'}
+                        },
+                        {
+                            can: $permissions.role.view,
+                            icon: 'fas fa-user-shield',
+                            name: $vuetify.lang.t('$vuetify.word.roles'),
+                            route: {name: 'company.roles'}
+                        },
                     ]
                 },
             ]
         },
-
-        setCompany(state, data) {
-            state.companies = data
-        }
     },
 
     getters: {
@@ -55,16 +97,21 @@ export default {
     },
 
     actions: {
-        getCompanies({commit}, setMenuItems = false) {
+        getCompanies({commit}) {
             app.$api.call({
-                url: app.$api.route('user.companies'),
+                url: app.$api.route('auth.navigation'),
                 method: "GET"
             }).then((response) => {
-                commit('setCompany', response.data.data)
+                commit("setMainMenuItems", response.data.data)
+            })
+        },
 
-                if (setMenuItems) {
-                    commit("setMainMenuItems")
-                }
+        getCompanyMenuItems({commit}, id) {
+            app.$api.call({
+                url: app.$api.route('company.navigation', id),
+                method: "GET"
+            }).then((response) => {
+                commit("setCompanyMenuItems", response.data.data)
             })
         },
     },

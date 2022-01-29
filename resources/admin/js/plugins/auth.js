@@ -1,7 +1,7 @@
-import Vue from 'vue';
 import store from '../store'
+import Permissions from "../config/permissions";
 
-const app = Vue.prototype
+const $permissions = Permissions
 
 export default {
     install(Vue) {
@@ -10,18 +10,28 @@ export default {
                 return store.getters['user/get']
             },
 
-            can(permission) {
-                if (permission !== undefined) {
-                    const permissions = store.getters['user/getPermissions']
+            can(permissions, requiresAll = false) {
+                const userPermissions = store.getters['user/getPermissions']
 
-                    return permissions.includes(app.$config.permissions.superAdmin) || permissions.includes(permission)
+                if (permissions !== undefined && !userPermissions.includes($permissions.superAdmin)) {
+                    permissions = Array.isArray(permissions)
+                        ? permissions
+                        : new Array(permissions)
+
+                    const hasPermissions = permissions.map((permission) => {
+                        return userPermissions.includes(permission)
+                    }).filter(Boolean).length
+
+                    return requiresAll
+                        ? hasPermissions === permissions.length
+                        : hasPermissions > 0
                 }
 
                 return true
             },
 
-            cannot(permission) {
-                return !this.can(permission)
+            cannot(permissions, requiresAll = false) {
+                return !this.can(permissions, requiresAll)
             }
         }
     }

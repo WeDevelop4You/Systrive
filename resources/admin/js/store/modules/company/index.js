@@ -35,16 +35,15 @@ export default {
     },
 
     actions: {
-        async search({commit}, [name, setMenuItems = false]) {
+        async search({commit, dispatch}, name) {
             await app.$api.call({
                 url: app.$api.route('company.search', name),
                 method: "GET"
             }).then((response) => {
-                commit('setCompany', response.data.data)
+                const data = response.data.data;
 
-                if (setMenuItems) {
-                    commit("navigation/setCompanyMenuItems", null, {root: true})
-                }
+                commit('setCompany', data)
+                dispatch("navigation/getCompanyMenuItems", data.id, {root: true})
             })
         },
 

@@ -4,6 +4,7 @@
 
     use Domain\Company\DataTransferObjects\CompanyData;
     use Domain\Company\Models\Company;
+    use Domain\User\Models\User;
 
     class UpdateCompanyAction
     {
@@ -26,17 +27,15 @@
             $company->name = $companyData->name;
             $company->email = $companyData->email;
             $company->domain = $companyData->domain;
-            $company->owner_id = $companyData->owner_id;
-
-            if ($company->isDirty('owner_id')) {
-                $company->users()->syncWithoutDetaching([$companyData->owner_id]);
-
-                if ($this->removeUser) {
-                    $company->users()->detach($company->getRawOriginal('owner_id'));
-                }
-            }
-
             $company->save();
+
+            $owner = $company->whereOwner()->first();
+
+            if (is_null($owner) || $owner->id !== $companyData->owner_id) {
+                $newOwner = User::find($companyData->owner_id);
+
+                (new ChangeCompanyOwnershipAction($newOwner, $owner, $this->removeUser))($company);
+            }
 
             return $company;
         }

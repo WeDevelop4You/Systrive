@@ -2,25 +2,26 @@
 
     namespace Domain\Company\Actions;
 
-    use Domain\Company\DataTransferObjects\CompanyData;
-    use Domain\Company\Jobs\SendCompanyInvite;
+    use Domain\Company\Mappings\CompanyTableMap;
     use Domain\Company\Models\Company;
+    use Domain\Invite\DataTransferObject\CompanyInviteData;
+    use Domain\Invite\Jobs\SendCompanyInvite;
 
     class CreateCompanyAction
     {
         /**
-         * @param CompanyData $companyData
+         * @param CompanyInviteData $companyInviteData
          *
          * @return Company
          */
-        public function __invoke(CompanyData $companyData): Company
+        public function __invoke(CompanyInviteData $companyInviteData): Company
         {
             $company = new Company();
-            $company->name = $companyData->name;
-            $company->email = $companyData->email;
+            $company->name = $companyInviteData->name;
+            $company->status = CompanyTableMap::INVITED_STATUS;
             $company->save();
 
-            SendCompanyInvite::dispatch($companyData->email, $company);
+            SendCompanyInvite::dispatch($companyInviteData->email, $company);
 
             return $company;
         }

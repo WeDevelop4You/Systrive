@@ -7,7 +7,10 @@
             hide-overlay
             :mini-variant.sync="isMini"
         >
-            <v-list shaped>
+            <v-list
+                shaped
+                dense
+            >
                 <template v-for="(item, index) in sideMenuItems">
                     <template v-if="item.subheader && $auth.can(item.can)">
                         <v-subheader
@@ -24,48 +27,39 @@
                         />
                     </template>
                     <template v-else-if="$auth.can(item.can)">
-                        <v-list-item-group
-                            :key="index"
-                            color="primary"
-                        >
-                            <v-list-item
-                                v-for="(navigation, key) in item.navigationItems"
-                                :key="index + '_' + key"
-                                :class="{'pl-2': isMini}"
-                                :to="navigation.route"
-                                dense
+                        <template v-if="item.type === 'expand'">
+                            <v-list-group
+                                :key="index"
+                                color="text--primary"
                             >
-                                <template v-if="navigation.avatar">
-                                    <v-list-item-avatar
-                                        :class="{'mr-2': !isMini}"
-                                        class="my-1"
-                                        max-width="28"
-                                        max-height="28"
-                                    >
-                                        <v-img
-                                            max-width="28"
-                                            max-height="28"
-                                            :src="navigation.avatar"
-                                        />
-                                    </v-list-item-avatar>
-                                </template>
-                                <template v-else>
+                                <template #activator>
                                     <v-list-item-icon
-                                        :class="{'mr-2': !isMini}"
+                                        :class="[isMini ? 'ml-n2' : 'mr-2']"
                                         class="justify-center"
                                         style="min-width: 40px"
                                     >
                                         <v-icon
-                                            dense
-                                            v-text="navigation.icon"
+                                            v-text="item.icon"
                                         />
                                     </v-list-item-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title v-text="item.title" />
+                                    </v-list-item-content>
                                 </template>
-                                <v-list-item-content>
-                                    <v-list-item-title v-html="navigation.name" />
-                                </v-list-item-content>
-                            </v-list-item>
-                        </v-list-item-group>
+                                <navigation-item
+                                    v-show="!isMini"
+                                    :item="item"
+                                    :is-mini="isMini"
+                                />
+                            </v-list-group>
+                        </template>
+                        <template v-else>
+                            <navigation-item
+                                :key="index"
+                                :item="item"
+                                :is-mini="isMini"
+                            />
+                        </template>
                     </template>
                 </template>
             </v-list>
@@ -185,11 +179,13 @@
     import Breadcrumb from '../components/Breadcrumb'
     import Popup from "./Popup";
     import {mapGetters} from "vuex";
+    import NavigationItem from "./NavigationItem";
 
     export default {
         name: "App",
 
         components: {
+            NavigationItem,
             Popup,
             Breadcrumb,
             SvgLogoLine,
@@ -240,7 +236,7 @@
         async beforeCreate() {
             await this.$store.dispatch('user/get')
             await this.$store.dispatch('user/getPermissions')
-            await this.$store.dispatch('navigation/getCompanies', true)
+            await this.$store.dispatch('navigation/getCompanies')
         },
 
         created() {

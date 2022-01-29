@@ -93,27 +93,15 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import FromProps from "../../../mixins/FormProps"
     import _ from "lodash";
 
     export default {
         name: "Company",
 
-        props: {
-            value: {
-                required: true,
-                type: Object,
-            },
-
-            errors: {
-                required: true,
-                type: Object,
-            },
-
-            isEditing: {
-                required: true,
-                type: Boolean,
-            }
-        },
+        mixins: [
+            FromProps
+        ],
 
         data() {
             return {

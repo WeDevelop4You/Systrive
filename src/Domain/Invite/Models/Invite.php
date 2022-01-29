@@ -2,39 +2,40 @@
 
 namespace Domain\Invite\Models;
 
-use Domain\User\QueryBuilders\UserInviteQueryBuilders;
+use Domain\Company\Models\Company;
+use Domain\Invite\Mappings\InviteTableMap;
+use Domain\Invite\QueryBuilders\InviteQueryBuilders;
+use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Domain\User\Models\UserInvite.
+ * Domain\Invite\Models\Invite.
  *
  * @property int|null $company_id
  * @property string   $email
  * @property string   $token
  * @property string   $type
  * @property string   $created_at
+ * @property-read Company|null $company
  *
- * @method static UserInviteQueryBuilders|Invite deleteExisting(string $email, int $companyId)
- * @method static UserInviteQueryBuilders|Invite newModelQuery()
- * @method static UserInviteQueryBuilders|Invite newQuery()
- * @method static UserInviteQueryBuilders|Invite query()
- * @method static UserInviteQueryBuilders|Invite whereCompanyId($value)
- * @method static UserInviteQueryBuilders|Invite whereCreatedAt($value)
- * @method static UserInviteQueryBuilders|Invite whereEmail($value)
- * @method static UserInviteQueryBuilders|Invite whereToken($value)
- * @method static UserInviteQueryBuilders|Invite whereType($value)
- * @mixin \Eloquent
+ * @method static InviteQueryBuilders|Invite newModelQuery()
+ * @method static InviteQueryBuilders|Invite newQuery()
+ * @method static InviteQueryBuilders|Invite query()
+ * @method static InviteQueryBuilders|Invite whereCompanyId($value)
+ * @method static InviteQueryBuilders|Invite whereCompanyType()
+ * @method static InviteQueryBuilders|Invite whereCreatedAt($value)
+ * @method static InviteQueryBuilders|Invite whereEmail($value)
+ * @method static InviteQueryBuilders|Invite whereExpired()
+ * @method static InviteQueryBuilders|Invite whereInviteByEmailAndCompany(string $email, int $companyId, ?string $type = null)
+ * @method static InviteQueryBuilders|Invite whereToken($value)
+ * @method static InviteQueryBuilders|Invite whereType($value)
+ * @method static InviteQueryBuilders|Invite whereUserType()
+ * @mixin Eloquent
  */
 class Invite extends Model
 {
-    public const NEW_USER_TYPE = 'new_user';
-    public const NEW_COMPANY_TYPE = 'new_company';
-    public const COMPANY_USER_TYPE = 'company_user';
-
-    public const COMPANY_USER_ACCEPTED = 'accepted';
-    public const COMPANY_USER_REQUESTED = 'requested';
-
     public $timestamps = false;
 
     protected $table = 'invites';
@@ -45,10 +46,10 @@ class Invite extends Model
      * @var array
      */
     protected $fillable = [
-        'email',
-        'token',
-        'type',
-        'company_id',
+        InviteTableMap::EMAIL,
+        InviteTableMap::TOKEN,
+        InviteTableMap::TYPE,
+        InviteTableMap::COMPANY_ID,
     ];
 
     public static function boot()
@@ -61,12 +62,20 @@ class Invite extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /**
      * @param Builder $query
      *
-     * @return UserInviteQueryBuilders
+     * @return InviteQueryBuilders
      */
-    public function newEloquentBuilder($query): UserInviteQueryBuilders
+    public function newEloquentBuilder($query): InviteQueryBuilders
     {
-        return new UserInviteQueryBuilders($query);
+        return new InviteQueryBuilders($query);
     }
 }

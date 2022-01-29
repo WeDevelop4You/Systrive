@@ -3,7 +3,7 @@
     namespace App\Admin\Company\User\Controllers;
 
     use App\Admin\Company\User\Requests\CompanyUserInviteRequest;
-    use Domain\Company\Actions\InviteUserToCompanyAction;
+    use Domain\Company\Actions\User\InviteUserToCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;

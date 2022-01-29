@@ -11,7 +11,7 @@ export default {
         emailVerifiedAt: '',
         permissions: [],
         hasPermission: false,
-        hasCompanyPermission: false,
+        permissionType: 'main',
     }),
 
     mutations: {
@@ -22,15 +22,12 @@ export default {
         },
 
         setPermissions(state, permissions) {
-            state.permissions = permissions
             state.hasPermission = true
-            state.hasCompanyPermission = false
+            state.permissions = permissions
         },
 
-        setCompanyPermissions(state, permissions) {
-            state.permissions = permissions
-            state.hasCompanyPermission = true
-            state.hasPermission = false
+        changePermissionType(state, type) {
+            state.permissionType = type
         }
     },
 
@@ -45,6 +42,10 @@ export default {
 
         getPermissions(state) {
             return state.permissions
+        },
+
+        getPermissionType(state) {
+            return state.permissionType
         }
     },
 
@@ -59,12 +60,16 @@ export default {
         },
 
         getPermissions({commit}) {
-            app.$api.call({
-                url: app.$api.route('auth.user.permissions'),
-                method: "GET"
-            }).then((response) => {
-                commit("setPermissions", response.data.data)
-            })
+            if (app.$auth.cannot(app.$config.permissions.superAdmin)) {
+                app.$api.call({
+                    url: app.$api.route('auth.user.permissions'),
+                    method: "GET"
+                }).then((response) => {
+                    commit("setPermissions", response.data.data)
+                })
+            }
+
+            commit('changePermissionType', app.$config.permissions.types.main)
         },
 
         getCompanyPermissions({commit, rootGetters}) {
@@ -73,9 +78,11 @@ export default {
                     url: app.$api.route('company.user.permissions', rootGetters['company/id']),
                     method: "GET"
                 }).then((response) => {
-                    commit("setCompanyPermissions", response.data.data)
+                    commit("setPermissions", response.data.data)
                 })
             }
+
+            commit('changePermissionType', app.$config.permissions.types.company)
         },
 
         logout() {

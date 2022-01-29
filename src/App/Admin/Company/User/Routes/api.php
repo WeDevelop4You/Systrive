@@ -4,10 +4,11 @@
     use App\Admin\Company\User\Controllers\CompanyUserInviteAcceptedController;
     use App\Admin\Company\User\Controllers\CompanyUserInviteController;
     use App\Admin\Company\User\Controllers\CompanyUserPermissionController;
+    use App\Admin\Company\User\Controllers\CompanyUserResendInviteController;
     use App\Admin\Company\User\Controllers\CompanyUserRevokeController;
     use App\Admin\Company\User\Controllers\CompanyUserTableController;
 
-    Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('{company}/users')->middleware('auth:sanctum')->group(function () {
         Route::get('/', [CompanyUserTableController::class, 'index'])->name('company.users');
         Route::get('permissions', [CompanyUserPermissionController::class, 'index'])->name('company.user.permissions');
 
@@ -24,5 +25,7 @@
             Route::get('/', [CompanyUserEditController::class, 'index'])->name('company.user.edit');
             Route::patch('/', [CompanyUserEditController::class, 'action'])->name('company.user.edit');
             Route::delete('/', [CompanyUserRevokeController::class, 'action'])->name('company.user.revoke')->withTrashed();
+
+            Route::post('invite/resend', [CompanyUserResendInviteController::class, 'action'])->name('company.user.invite.resend')->withTrashed();
         });
     });

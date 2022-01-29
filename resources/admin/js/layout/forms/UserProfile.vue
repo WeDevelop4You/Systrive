@@ -79,20 +79,14 @@
 </template>
 
 <script>
+    import FromProps from "../../mixins/FormProps";
+
     export default {
         name: "UserProfile",
 
-        props: {
-            value: {
-                required: true,
-                type: Object,
-            },
-
-            errors: {
-                required: true,
-                type: Object,
-            },
-        },
+        mixins: [
+            FromProps
+        ],
 
         data() {
             return {

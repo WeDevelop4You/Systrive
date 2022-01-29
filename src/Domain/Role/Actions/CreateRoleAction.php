@@ -4,7 +4,7 @@
 
     use Domain\Company\Models\Company;
     use Domain\Role\DataTransferObjects\RoleData;
-    use Spatie\Permission\Models\Role;
+    use Domain\Role\Models\Role;
 
     class CreateRoleAction
     {
@@ -24,6 +24,7 @@
             $role = new Role();
             $role->name = $roleData->name;
             $role->company_id = $this->company->id;
+            $role->guard_name = 'sanctum';
             $role->save();
 
             $role->givePermissionTo(...$roleData->permissions);

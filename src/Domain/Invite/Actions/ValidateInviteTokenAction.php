@@ -2,58 +2,50 @@
 
     namespace Domain\Invite\Actions;
 
-    use Domain\Company\Models\Company;
+    use Domain\Company\Mappings\CompanyTableMap;
+    use Domain\Company\Mappings\CompanyUserTableMap;
+    use Domain\Invite\DataTransferObject\InviteData;
+    use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
     use Illuminate\Support\Carbon;
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\Crypt;
     use Illuminate\Support\Facades\Hash;
     use Support\Exceptions\InvalidTokenException;
 
     class ValidateInviteTokenAction
     {
-        private Company $company;
-
         /**
-         * @var string
-         */
-        private string $email;
-
-        /**
-         * ValidateInviteTokenAction constructor.
+         * @param InviteData $inviteData
          *
-         * @param Company|int $company
-         * @param string      $token
-         * @param string|null $encryptEmail
-         */
-        public function __construct(
-            Company|int $company,
-            private string $token,
-            ?string $encryptEmail = null
-        ) {
-            $this->company = $company instanceof Company
-                ? $company
-                : Company::findOrFail($company);
-
-            $this->email = is_null($encryptEmail)
-                ? Auth::user()->email
-                : Crypt::decryptString($encryptEmail);
-        }
-
-        /**
          * @throws InvalidTokenException
          *
          * @return Invite
          */
-        public function __invoke(): Invite
+        public function __invoke(InviteData $inviteData): Invite
         {
-            $invite = Invite::where('company_id', $this->company->id)
-                ->where('email', $this->email)
+            $invite = Invite::where('company_id', $inviteData->companyId)
+                ->where('email', $inviteData->decryptEmail())
                 ->firstOrFail();
 
-            if ($this->validateToken($invite->created_at, $invite->token)) {
+            if ($this->validateToken($invite->created_at, $inviteData->token, $invite->token)) {
                 return $invite;
             }
+
+            switch ($invite->type) {
+                case InviteTableMap::USER_TYPE:
+                    $oldStatus = CompanyUserTableMap::REQUESTED_STATUS;
+                    $newStatus = CompanyUserTableMap::EXPIRED_STATUS;
+
+                    break;
+                case InviteTableMap::COMPANY_TYPE:
+                    $oldStatus = CompanyTableMap::INVITED_STATUS;
+                    $newStatus = CompanyTableMap::EXPIRED_STATUS;
+
+                    break;
+                default:
+                    throw new InvalidTokenException();
+            }
+
+            (new ChangeInviteStatusAction($oldStatus, $newStatus))($invite);
 
             throw new InvalidTokenException();
         }
@@ -61,12 +53,13 @@
         /**
          * @param string $created_at
          * @param string $token
+         * @param string $hashToken
          *
          * @return bool
          */
-        private function validateToken(string $created_at, string $token): bool
+        private function validateToken(string $created_at, string $token, string $hashToken): bool
         {
-            return !$this->tokenExpired($created_at) && Hash::check($this->token, $token);
+            return !$this->tokenExpired($created_at) && Hash::check($token, $hashToken);
         }
 
         /**

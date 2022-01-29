@@ -78,16 +78,14 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import FromProps from "../../../mixins/FormProps";
 
     export default {
         name: "CompanyUser",
 
-        props: {
-            value: {
-                required: true,
-                type: Object
-            }
-        },
+        mixins: [
+            FromProps
+        ],
 
         data() {
             return {
@@ -115,8 +113,6 @@
             },
 
             ...mapGetters({
-                errors: 'company/users/errors',
-                isEditing: 'company/users/isEditing',
                 roleItems: 'company/roles/listItems',
                 permissionGroupsItems: 'permissions/items'
             })

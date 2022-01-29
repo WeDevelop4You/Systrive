@@ -19,8 +19,6 @@
         public const SESSION_KEY_DEFAULT = 'responseData';
         public const SESSION_KEY_MODAL = 'responseDataModal';
         public const SESSION_KEY_REGISTRATION = 'registrationData';
-        public const SESSION_KEY_MODAL_LOGIN = 'responseDataModalLogin';
-
         /**
          * @var array|JsonResource|ResourceCollection
          */
@@ -192,5 +190,15 @@
         public function toSession(string $key = self::SESSION_KEY_DEFAULT): void
         {
             Session::put($key, $this->createResponseContent());
+        }
+
+        /**
+         * @param string $key
+         *
+         * @return mixed
+         */
+        public static function getSessionData(string $key = self::SESSION_KEY_MODAL): mixed
+        {
+            return Session::get("{$key}.data");
         }
     }

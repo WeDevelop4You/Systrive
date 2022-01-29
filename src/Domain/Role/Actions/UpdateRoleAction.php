@@ -3,7 +3,7 @@
     namespace Domain\Role\Actions;
 
     use Domain\Role\DataTransferObjects\RoleData;
-    use Spatie\Permission\Models\Role;
+    use Domain\Role\Models\Role;
 
     class UpdateRoleAction
     {

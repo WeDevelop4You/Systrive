@@ -4,7 +4,7 @@
 
     use App\Admin\Company\User\Requests\CompanyUserUpdateRequest;
     use App\Admin\Company\User\Resources\CompanyUserResource;
-    use Domain\Company\Actions\UserPermissionsForCompanyAction;
+    use Domain\Company\Actions\User\UserPermissionsForCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;

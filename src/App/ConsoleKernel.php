@@ -2,6 +2,7 @@
 
     namespace App;
 
+    use Domain\Invite\Jobs\CheckInviteHasExpired;
     use Illuminate\Console\Scheduling\Schedule;
     use Illuminate\Foundation\Console\Kernel;
 
@@ -16,7 +17,11 @@
          */
         protected function schedule(Schedule $schedule): void
         {
-            // $schedule->command('inspire')->hourly();
+            $schedule->job(new CheckInviteHasExpired())
+                 ->name('User invites')
+                 ->runInBackground()
+                 ->everyFiveMinutes()
+                 ->withoutOverlapping();
         }
 
         /**
@@ -26,7 +31,7 @@
          */
         protected function commands(): void
         {
-            $this->load(__DIR__ . '/Commands');
+            $this->load(__DIR__ . '/Console/Commands');
 
             require base_path('routes/console.php');
         }

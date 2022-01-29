@@ -4,26 +4,25 @@
 
     use App\Admin\Company\Resources\CompanyNavigationResource;
 
-    use Domain\Invite\Models\Invite;
+    use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
-    use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Response;
 
     class CompanyNavigationController
     {
         /**
+         * @param Company $company
+         *
          * @return JsonResponse
          */
-        public function index(): JsonResponse
+        public function index(Company $company): JsonResponse
         {
-            $companies = Auth::user()
-                ->companies()
-                ->wherePivot('status', Invite::COMPANY_USER_ACCEPTED)
-                ->get();
-
-            $response = new Response();
-            $response->addData(CompanyNavigationResource::collection($companies));
-
-            return $response->toJson();
+            return Response::create()
+                ->addData(new CompanyNavigationResource(
+                    $company->systemUser()
+                        ->with(['domains', 'dns', 'databases', 'mailDomains'])
+                        ->first()
+                ))
+                ->toJson();
         }
     }

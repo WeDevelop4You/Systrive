@@ -40,7 +40,7 @@
                         return $query->where(DB::raw("CONCAT_WS(' ', first_name, middle_name, last_name)"), 'like', "%{$search}%");
                     });
                 }),
-                Column::create('domain')->sortable()->searchable(),
+                Column::create('status')->sortable()->searchable(),
                 Column::create('created_at')->sortable()->searchable(),
             ];
         }

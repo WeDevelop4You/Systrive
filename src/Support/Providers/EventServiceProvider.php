@@ -2,12 +2,18 @@
 
 namespace Support\Providers;
 
+use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyUser;
+use Domain\Company\Observers\CompanyDeletedObserver;
+use Domain\Company\Observers\CompanyUserDetachObserver;
+use Domain\Company\Observers\CompanyUserUpdatingObserver;
+use Domain\Invite\Models\Invite;
+use Domain\Invite\Observers\InviteCreatedObserver;
+use Domain\Permission\Observers\PermissionCreatedObserver;
 use Domain\User\Notifications\ResetPasswordNotification;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+use Spatie\Permission\Models\Permission;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,10 +23,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-
         PasswordReset::class => [
             ResetPasswordNotification::class,
         ],
@@ -33,6 +35,21 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Company::observe([
+            CompanyDeletedObserver::class,
+        ]);
+
+        CompanyUser::observe([
+            CompanyUserUpdatingObserver::class,
+            CompanyUserDetachObserver::class,
+        ]);
+
+        Permission::observe([
+            PermissionCreatedObserver::class,
+        ]);
+
+        Invite::observe([
+            InviteCreatedObserver::class,
+        ]);
     }
 }

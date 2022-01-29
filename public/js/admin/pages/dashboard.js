@@ -67,7 +67,10 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Dashboard")])
+  return _c("h1", [
+    _c("i", { staticClass: "las la-bars" }),
+    _vm._v(_vm._s(_vm.$vuetify.lang.t("$vuetify.word.dashboard"))),
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

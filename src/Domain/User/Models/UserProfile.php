@@ -2,6 +2,7 @@
 
 namespace Domain\User\Models;
 
+use Domain\User\Mappings\UserProfileTableMap;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,16 +43,16 @@ class UserProfile extends Model
     protected $table = 'user_profiles';
 
     protected $fillable = [
-        'first_name',
-        'middle_name',
-        'last_name',
-        'gender',
-        'birth_date',
-        'bio',
+        UserProfileTableMap::FIRST_NAME,
+        UserProfileTableMap::MIDDLE_NAME,
+        UserProfileTableMap::LAST_NAME,
+        UserProfileTableMap::GENDER,
+        UserProfileTableMap::BIRTH_DATE,
+        UserProfileTableMap::BIO,
     ];
 
     protected $casts = [
-        'birth_date' => 'date:Y-m-d',
+        UserProfileTableMap::BIRTH_DATE => 'date:Y-m-d',
     ];
 
     /**

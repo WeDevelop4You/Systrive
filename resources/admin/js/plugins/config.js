@@ -1,6 +1,8 @@
 import Vuetify from "./vuetify"
+import Permissions from "../config/permissions"
 
 const $vuetify = Vuetify.framework
+const $permissions = Permissions
 
 export default {
     install(Vue) {
@@ -18,23 +20,12 @@ export default {
             ],
 
             permissions: {
-                superAdmin: 'super_admin',
+                ...$permissions,
 
-                user: {
-                    invite: 'user.invite',
-                    revoke: 'user.revoke',
-                    editRoles: 'user.edit_roles',
-                },
-
-                role: {
-                    edit: 'role.edit',
-                    create: 'role.create',
-                    delete: 'role.delete',
-                },
-
-                company: {
-
-                },
+                companyAdmin: [
+                    $permissions.user.view,
+                    $permissions.role.view,
+                ]
             }
         }
     }

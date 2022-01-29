@@ -21,7 +21,7 @@
                 'email' => $this->email,
                 'domain' => $this->domain,
                 'information' => $this->information,
-                'owner' => new UserListResource($this->owner),
+                'owner' => new UserListResource($this->whereOwner()->first()),
             ];
         }
     }

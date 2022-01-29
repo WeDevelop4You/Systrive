@@ -7,10 +7,12 @@
     use Domain\Company\Models\Company;
     use Domain\Role\Actions\UpdateRoleAction;
     use Domain\Role\DataTransferObjects\RoleData;
+    use Domain\Role\Mappings\RoleTableMap;
+    use Domain\Role\Models\Role;
     use Illuminate\Http\JsonResponse;
-    use Spatie\Permission\Models\Role;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
+    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class CompanyRoleEditController
     {
@@ -22,8 +24,14 @@
          */
         public function index(Company $company, Role $role): JsonResponse
         {
-            return Response::create()
-                ->addData(CompanyRoleResource::make($role))
+            $response = new Response();
+
+            if ($role->name !== RoleTableMap::MAIN_ROLE) {
+                return $response->addData(CompanyRoleResource::make($role))
+                    ->toJson();
+            }
+
+            return $response->addPopup(new SimpleNotification(trans('response.error.edit.admin.role')))
                 ->toJson();
         }
 
@@ -36,12 +44,21 @@
          */
         public function action(CompanyRoleRequest $request, Company $company, Role $role): JsonResponse
         {
-            $data = new RoleData(...$request->validated());
+            $response = new Response();
 
-            (new UpdateRoleAction($role))($data);
+            if ($role->name !== RoleTableMap::MAIN_ROLE) {
+                $data = new RoleData(...$request->validated());
 
-            return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.company.role')))
+                (new UpdateRoleAction($role))($data);
+
+                return $response->addPopup(new SimpleNotification(trans('response.success.update.company.role')))
+                    ->toJson();
+            }
+
+            return $response->addPopup(
+                new SimpleNotification(trans('response.error.update.admin.role')),
+                ResponseCodes::HTTP_BAD_REQUEST
+            )
                 ->toJson();
         }
     }

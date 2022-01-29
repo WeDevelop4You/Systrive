@@ -67,7 +67,7 @@ export default {
                 'addPopup',
                 {
                     type: "notification",
-                    component: "Simple",
+                    component: "SimpleNotification",
                     data: {
                         stayable: false,
                         message: {

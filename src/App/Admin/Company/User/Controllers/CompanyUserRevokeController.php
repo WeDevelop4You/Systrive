@@ -2,7 +2,7 @@
 
     namespace App\Admin\Company\User\Controllers;
 
-    use Domain\Company\Actions\RevokeUserFromCompanyAction;
+    use Domain\Company\Actions\User\RevokeUserFromCompanyAction;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;

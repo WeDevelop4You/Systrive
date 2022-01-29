@@ -62,16 +62,14 @@
 
 <script>
     import {mapGetters} from "vuex";
+    import FromProps from "../../../mixins/FormProps";
 
     export default {
         name: "CompanyRole",
 
-        props: {
-            value: {
-                required: true,
-                type: Object
-            }
-        },
+        mixins: [
+            FromProps
+        ],
 
         computed: {
             isViewSelected() {
@@ -97,7 +95,6 @@
             },
 
             ...mapGetters({
-                errors: 'company/roles/errors',
                 permissionGroupsItems: 'permissions/items'
             })
         }

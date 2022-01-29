@@ -29,10 +29,7 @@ export default {
             app.$api.call({
                 url: app.$api.route('admin.company.create'),
                 method: "POST",
-                data: {
-                    ...data,
-                    owner_id: data.owner?.id,
-                }
+                data: data
             }).then(() => {
                 commit('resetCreateOrEdit')
             }).catch((error) => {
@@ -58,10 +55,7 @@ export default {
             app.$api.call({
                 url: app.$api.route('admin.company.edit', data.id),
                 method: 'PATCH',
-                data: {
-                    ...data,
-                    owner_id: data.owner?.id,
-                }
+                data: data,
             }).then(() => {
                 commit('resetCreateOrEdit')
             }).catch((error) => {
@@ -93,6 +87,13 @@ export default {
                 commit('setOwners', response.data.data)
             })
         },
+
+        async resendInvite(_, id) {
+            await app.$api.call({
+                url: app.$api.route('admin.company.invite.resend', id),
+                method: "POST"
+            })
+        }
     },
 
     modules: {

@@ -5,11 +5,11 @@
         :title="$vuetify.lang.t('$vuetify.word.user.access')"
         :headers="headers"
         :route="route"
-        :do-load-action="false"
+        :do-load-action="allowAction"
         :vuex-namespace="vuexNamespace"
         searchable
     >
-        <template #toolbar.append>
+        <template #toolbar.prepend>
             <create-or-edit-dialog
                 :form-title="formTitle"
                 :vuex-namespace="vuexNamespace"
@@ -18,7 +18,11 @@
                 rerender
                 @save="save"
             >
-                <company-user v-model="data" />
+                <company-user
+                    v-model="data"
+                    :is-editing="isEditing"
+                    :errors="errors"
+                />
             </create-or-edit-dialog>
         </template>
         <delete-dialog
@@ -30,12 +34,14 @@
 </template>
 
 <script>
+    import Index from "../../components/table/column";
+    import Chip from "../../components/table/column/Chip";
     import CompanyUser from "../forms/company/CompanyUser";
-    import ServerDataTable from "../../components/ServerDataTable";
     import DeleteDialog from "../../components/table/DeleteDialog";
-    import Status from "../../components/table/company/access/Status";
-    import Actions from "../../components/table/company/access/Actions";
+    import ServerDataTable from "../../components/table/ServerDataTable";
+    import Actions from "../../components/table/column/company/access/Actions";
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
+    import FormProperties from "../../mixins/FormProperties";
 
     export default {
         name: "UserAccess",
@@ -47,11 +53,16 @@
             ServerDataTable
         },
 
+        mixins: [
+            FormProperties
+        ],
+
         data() {
             return {
                 customItems: [
+                    {name: 'index', component: Index},
+                    {name: 'status', component: Chip},
                     {name: 'actions', component: Actions},
-                    {name: 'status', component: Status}
                 ],
 
                 vuexNamespace: 'company/users',
@@ -59,16 +70,13 @@
         },
 
         computed: {
-            data() {
-                return this.$store.getters[`${this.vuexNamespace}/data`]
-            },
-
             route() {
                 return this.$api.route('company.users', this.$store.getters['company/id']);
             },
 
             headers() {
                 return [
+                    {text: '#', value: 'index', align: 'start'},
                     {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'profile.full_name', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.status'), value: 'status', sortable: true, divider: this.showActions()},
@@ -76,8 +84,8 @@
                 ]
             },
 
-            isEditing() {
-                return this.$store.getters[`${this.vuexNamespace}/isEditing`]
+            allowAction() {
+                return this.$store.getters['user/getPermissionType'] === this.$config.permissions.types.company
             },
 
             formTitle() {
@@ -110,7 +118,13 @@
             },
 
             showActions() {
-                return this.$auth.can('user.edit_role') || this.$auth.can('user.invoke')
+                const permissions = this.$config.permissions
+
+                return this.$auth.can([
+                    permissions.user.invite,
+                    permissions.user.revoke,
+                    permissions.user.editRoles,
+                ])
             }
         }
     }

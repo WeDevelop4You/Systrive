@@ -1,18 +1,16 @@
 <?php
 
     use App\Admin\User\Controllers\UserController;
-    use App\Admin\User\Controllers\UserCreateController;
     use App\Admin\User\Controllers\UserDestroyController;
     use App\Admin\User\Controllers\UserDestroyForceController;
     use App\Admin\User\Controllers\UserListController;
+    use App\Admin\User\Controllers\UserNavigationController;
     use App\Admin\User\Controllers\UserPermissionsController;
     use App\Admin\User\Controllers\UserTableController;
 
-    Route::post('create/{company}/{token}/{encryptEmail}', [UserCreateController::class, 'action'])->name('user.create');
-
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth', [UserController::class, 'index'])->name('auth.user');
-        Route::get('logout', [UserCreateController::class, 'index'])->name('user.logout');
+        Route::get('navigation', [UserNavigationController::class, 'index'])->name('auth.navigation');
         Route::get('auth/permissions', [UserPermissionsController::class, 'index'])->name('auth.user.permissions');
 
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {

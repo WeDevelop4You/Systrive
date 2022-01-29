@@ -5,15 +5,14 @@ namespace Domain\User\Models;
 use Database\Factories\UserFactory;
 use Domain\Company\Models\Company;
 use Domain\User\Collections\UserCollections;
+use Domain\User\Mappings\UserTableMap;
+use Domain\User\ModelQueries\User as UserModelQueries;
+use Domain\User\QueryBuilders\UserQueryBuilders;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
@@ -32,7 +31,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $businesses
  * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
  * @property-read string|null $full_name
  * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
@@ -43,26 +41,26 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static UserCollections|static[] all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static UserCollections|static[] get($columns = ['*'])
- * @method static Builder|User newModelQuery()
- * @method static Builder|User newQuery()
- * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
- * @method static Builder|User permission($permissions)
- * @method static Builder|User query()
- * @method static Builder|User role($roles, $guard = null)
- * @method static Builder|User whereCreatedAt($value)
- * @method static Builder|User whereDeletedAt($value)
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User whereEmailVerifiedAt($value)
- * @method static Builder|User whereId($value)
- * @method static Builder|User whereLocale($value)
- * @method static Builder|User wherePassword($value)
- * @method static Builder|User whereRememberToken($value)
- * @method static Builder|User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|User withTrashed()
- * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @method static UserQueryBuilders|User newModelQuery()
+ * @method static UserQueryBuilders|User newQuery()
+ * @method static Builder|User onlyTrashed()
+ * @method static UserQueryBuilders|User permission($permissions)
+ * @method static UserQueryBuilders|User query()
+ * @method static UserQueryBuilders|User role($roles, $guard = null)
+ * @method static UserQueryBuilders|User whereCreatedAt($value)
+ * @method static UserQueryBuilders|User whereDeletedAt($value)
+ * @method static UserQueryBuilders|User whereEmail($value)
+ * @method static UserQueryBuilders|User whereEmailVerifiedAt($value)
+ * @method static UserQueryBuilders|User whereId($value)
+ * @method static UserQueryBuilders|User whereLocale($value)
+ * @method static UserQueryBuilders|User wherePassword($value)
+ * @method static UserQueryBuilders|User whereRememberToken($value)
+ * @method static UserQueryBuilders|User whereUpdatedAt($value)
+ * @method static Builder|User withTrashed()
+ * @method static Builder|User withoutTrashed()
  * @mixin Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends UserModelQueries implements MustVerifyEmail
 {
     use HasRoles;
     use HasFactory;
@@ -79,9 +77,10 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'email',
-        'locale',
-        'password',
+        UserTableMap::EMAIL,
+        UserTableMap::EMAIL_VERIFIED_AT,
+        UserTableMap::LOCALE,
+        UserTableMap::PASSWORD,
     ];
 
     /**
@@ -90,8 +89,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        UserTableMap::PASSWORD,
+        UserTableMap::REMEMBER_TOKEN,
     ];
 
     /**
@@ -100,40 +99,8 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        UserTableMap::EMAIL_VERIFIED_AT => 'datetime',
     ];
-
-    /**
-     * @return string|null
-     */
-    public function getFullNameAttribute(): ?string
-    {
-        return $this->profile->full_name ?? null;
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function profile(): HasOne
-    {
-        return $this->hasOne(UserProfile::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function businesses(): HasMany
-    {
-        return $this->hasMany(Company::class, 'owner_id');
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function companies(): BelongsToMany
-    {
-        return $this->belongsToMany(Company::class, 'user_company');
-    }
 
     /**
      * @return UserFactory
@@ -151,6 +118,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function newCollection(array $models = []): UserCollections
     {
         return new UserCollections($models);
+    }
+
+    /**
+     * @param Builder $query
+     *
+     * @return UserQueryBuilders
+     */
+    public function newEloquentBuilder($query): UserQueryBuilders
+    {
+        return new UserQueryBuilders($query);
     }
 
     /**

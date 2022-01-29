@@ -1,6 +1,7 @@
 <?php
 
-    use Support\Helpers\Vuetify;
+    use Spatie\Permission\PermissionRegistrar;
+    use Support\Helpers\VuetifyHelper;
 
     if (!function_exists('translateToVuetify')) {
         /**
@@ -10,6 +11,13 @@
          */
         function translateToVuetify(string $translation): string
         {
-            return Vuetify::translateToVuetify($translation);
+            return VuetifyHelper::translateToVuetify($translation);
+        }
+    }
+
+    if (!function_exists('setCompanyId')) {
+        function setCompanyId(int $id = 0)
+        {
+            app(PermissionRegistrar::class)->setPermissionsTeamId($id);
         }
     }

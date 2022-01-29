@@ -32,8 +32,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Confirm",
   props: {
@@ -43,20 +41,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    accept: function accept() {
+    action: function action(url, method) {
       var app = this;
       this.$api.call({
-        url: app.data.accept_url,
-        method: app.data.accept_method || "POST"
-      })["finally"](function () {
-        app.$emit('close');
-      });
-    },
-    cancel: function cancel() {
-      var app = this;
-      this.$api.call({
-        url: app.data.cancel_url,
-        method: app.data.cancel_method || "DELETE"
+        url: url,
+        method: method
       })["finally"](function () {
         app.$emit('close');
       });
@@ -139,29 +128,20 @@ var render = function () {
         [
           _c("v-spacer"),
           _vm._v(" "),
-          _c("v-btn", {
-            attrs: { text: "" },
-            domProps: {
-              textContent: _vm._s(
-                _vm.data.cancel_text ||
-                  _vm.$vuetify.lang.t("$vuetify.word.cancel.cancel")
-              ),
-            },
-            on: { click: _vm.cancel },
-          }),
-          _vm._v(" "),
-          _c("v-btn", {
-            attrs: { color: "primary" },
-            domProps: {
-              textContent: _vm._s(
-                _vm.data.accept_text ||
-                  _vm.$vuetify.lang.t("$vuetify.word.accept.accept")
-              ),
-            },
-            on: { click: _vm.accept },
+          _vm._l(_vm.data.buttons, function (button, index) {
+            return _c("v-btn", {
+              key: index,
+              attrs: { color: button.color, text: button.type === "text" },
+              domProps: { textContent: _vm._s(button.title) },
+              on: {
+                click: function ($event) {
+                  return _vm.action(button.request_url, button.request_method)
+                },
+              },
+            })
           }),
         ],
-        1
+        2
       ),
     ],
     1

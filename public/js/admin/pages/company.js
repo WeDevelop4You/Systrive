@@ -34,7 +34,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this.$store.dispatch('company/search', [_this.$route.params.companyName, true]);
+              return _this.$store.dispatch('company/search', _this.$route.params.companyName);
 
             case 2:
               _context.next = 4;
@@ -49,8 +49,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   beforeDestroy: function beforeDestroy() {
-    this.$store.dispatch('navigation/getCompanies', true);
     this.$store.dispatch('user/getPermissions');
+    this.$store.dispatch('navigation/getCompanies');
   }
 });
 
@@ -102,7 +102,8 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.$store.state.user.hasCompanyPermission
+  return _vm.$store.getters["user/getPermissionType"] ===
+    _vm.$config.permissions.types.company
     ? _c("router-view")
     : _vm._e()
 }

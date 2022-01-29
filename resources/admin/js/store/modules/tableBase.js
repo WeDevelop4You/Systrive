@@ -18,21 +18,13 @@ export default {
 
         hideDeleteButton: false,
 
-        isLoadActionAllowed: false,
+        isActionsAllowed: true,
         loadActions: {
-            new: {
-                isAllowed: true,
-                isIdAllowed: false,
-                func: ({commit}) => {
-                    commit('setCreate')
-                }
+            new: ({commit}) => {
+                commit('setCreate')
             },
-            edit: {
-                isAllowed: true,
-                isIdAllowed: true,
-                func: ({dispatch}, id) => {
-                    dispatch('getOne', id)
-                }
+            edit: ({dispatch}, params) => {
+                dispatch('getOne', params.id)
             },
         }
     }),
@@ -43,7 +35,7 @@ export default {
         },
 
         setErrors(state, error) {
-            state.errors = error
+            state.errors = error || {}
         },
 
         setStructure(state, structure) {
@@ -54,36 +46,33 @@ export default {
         async setCreate(state) {
             state.data = Object.assign({}, state.structure)
 
-            if (state.isLoadActionAllowed) {
+            if (state.isActionsAllowed) {
                 await Router.replace({
                     name: Router.currentRoute.name,
                     params: {type: 'new'}
-                }).catch(() => {
-                })
+                }).catch(() => {})
             }
 
             state.isCreateOrEditDialogOpen = true
         },
 
         async setShow(state, id) {
-            if (state.isLoadActionAllowed) {
+            if (state.isActionsAllowed) {
                 await Router.replace({
                     name: Router.currentRoute.name,
                     params: {type: 'show', id: id}
-                }).catch(() => {
-                })
+                }).catch(() => {})
             }
 
             state.isShowDialogOpen = true
         },
 
         async setEdit(state, data) {
-            if (state.isLoadActionAllowed) {
+            if (state.isActionsAllowed) {
                 await Router.replace({
                     name: Router.currentRoute.name,
                     params: {type: 'edit', id: data.id}
-                }).catch(() => {
-                })
+                }).catch(() => {})
             }
 
             state.data = data
@@ -103,22 +92,20 @@ export default {
         },
 
         async resetShow(state) {
-            if (state.isLoadActionAllowed) {
+            if (state.isActionsAllowed) {
                 await Router.replace({
                     name: Router.currentRoute.name
-                }).catch(() => {
-                })
+                }).catch(() => {})
             }
 
             state.isShowDialogOpen = false
         },
 
         async resetCreateOrEdit(state) {
-            if (state.isLoadActionAllowed) {
+            if (state.isActionsAllowed) {
                 await Router.replace({
                     name: Router.currentRoute.name
-                }).catch(() => {
-                })
+                }).catch(() => {})
             }
 
             state.errors = {}
@@ -139,19 +126,17 @@ export default {
             }, 300)
         },
 
-        changeAllowedLoadAction(state, allowed) {
-            state.isLoadActionAllowed = allowed
+        useActions(state, allowed) {
+            state.isActionsAllowed = allowed
         },
 
-        addLoadAction(state, {actionName, action}) {
-            state.loadActions[actionName] = action
+        addLoadAction(state, {actionType, action}) {
+            state.loadActions[actionType] = action
         },
 
-        changeAllowedForSpecificLoadAction(state, {actionName, allowed}) {
-            if (Object.prototype.hasOwnProperty.call(state.loadActions, actionName)) {
-                state.loadActions[actionName].isAllowed = allowed
-            }
-        },
+        removeLoadAction(state, actionType) {
+            delete state.loadActions[actionType]
+        }
     },
 
     getters: {
@@ -164,7 +149,7 @@ export default {
         },
 
         errors(state) {
-            return state.errors
+            return state.errors || {}
         },
 
         isShowDialogOpen(state) {
@@ -195,27 +180,15 @@ export default {
     actions: {
         async load(service) {
             const route = Router.currentRoute
-            const type = route.params.type
+            const params = route.params
 
-            service.commit('changeAllowedLoadAction', true)
+            if (params.type !== undefined) {
+                const actionType = service.state.loadActions[params.type]
 
-            if (type !== undefined) {
-                const action = service.state.loadActions[type]
+                if (actionType) {
+                    actionType(service, params)
 
-                if (action && action.isAllowed) {
-                    if (action.isIdAllowed) {
-                        const id = route.params.id
-
-                        if (id !== undefined) {
-                            action.func(service, id)
-
-                            return
-                        }
-                    } else {
-                        action.func(service)
-
-                        return
-                    }
+                    return
                 }
 
                 await Router.replace({name: route.name})

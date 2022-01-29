@@ -107,6 +107,7 @@
         "total": {
             "permissions": "Total permissions"
         },
-        "status": "Status"
+        "status": "Status",
+        "dashboard": "Dashboard"
     }
 }

@@ -2,10 +2,10 @@
 
     namespace App\Admin\Company\User\Resources;
 
-    use Domain\Invite\Models\Invite;
+    use Domain\Company\Mappings\CompanyUserTableMap;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
-    use Support\Helpers\Vuetify;
+    use Support\Helpers\VuetifyHelper;
 
     class CompanyUserDataResource extends JsonResource
     {
@@ -20,6 +20,7 @@
                 'id' => $this->id,
                 'email' => $this->email,
                 'status' => $this->getStatus(),
+                'resend' => $this->pivot->status === CompanyUserTableMap::EXPIRED_STATUS,
                 'profile' => [
                     'full_name' => $this->full_name,
                 ],
@@ -37,8 +38,9 @@
             $data['text'] = translateToVuetify("word.{$status}.{$status}");
 
             $data['color'] = match ($status) {
-                Invite::COMPANY_USER_REQUESTED => Vuetify::INFO_COLOR,
-                Invite::COMPANY_USER_ACCEPTED => Vuetify::SUCCESS_COLOR,
+                CompanyUserTableMap::REQUESTED_STATUS => VuetifyHelper::INFO_COLOR,
+                CompanyUserTableMap::EXPIRED_STATUS => VuetifyHelper::WARNING_COLOR,
+                CompanyUserTableMap::ACCEPTED_STATUS => VuetifyHelper::SUCCESS_COLOR,
             };
 
             return $data;

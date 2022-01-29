@@ -12,11 +12,6 @@
     class ModelNotFoundException extends Exception
     {
         /**
-         * @var bool
-         */
-        public bool $lastRouteAction = false;
-
-        /**
          * @param $request
          *
          * @return false|JsonResponse
@@ -32,11 +27,8 @@
 
                         break;
                     default:
-                        $response->addPopup(new SimpleNotification(trans('response.error.model.not.found')));
-
-                        $this->lastRouteAction
-                            ? $response->addAction(RouteMethod::create()->goToLastRoute())
-                            : $response->addAction(RouteMethod::create()->goToMainRoute());
+                        $response->addPopup(new SimpleNotification(trans('response.error.model.not.found')))
+                            ->addAction(RouteMethod::create()->goToMainRoute());
                 }
 
                 return $response->setStatusCode(ResponseCodes::HTTP_NOT_FOUND)->toJson();

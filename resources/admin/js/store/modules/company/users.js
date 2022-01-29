@@ -63,6 +63,13 @@ export default {
             }).finally(() => {
                 commit('resetDelete')
             })
+        },
+
+        async resendInvite({rootGetters}, id) {
+            await app.$api.call({
+                url: app.$api.route('company.user.invite.resend', rootGetters["company/id"], id),
+                method: "POST"
+            })
         }
     },
 

@@ -1,4 +1,5 @@
 import './bootstrap'
+import 'line-awesome/dist/font-awesome-line-awesome/css/all.min.css';
 
 import Vue from 'vue'
 import Store from './store'
@@ -35,11 +36,13 @@ export default new Vue({
     data() {
         return {
             requests: 0,
-            lastRoute: '/'
+            lastRoute: {
+                name: 'dashboard'
+            }
         }
     },
 
-    created() {
+    async created() {
         let app = this
 
         this.$api.call.interceptors.request.use(function (config) {
@@ -66,8 +69,7 @@ export default new Vue({
             return Promise.reject(error)
         });
 
-        this.$store.dispatch('locale/getOne')
-        this.$store.dispatch('locale/getMany')
+        await this.load()
     },
 
     methods: {
@@ -87,6 +89,11 @@ export default new Vue({
             if (Object.prototype.hasOwnProperty.call(data,'redirect')) {
                 window.location.href = data.redirect
             }
+        },
+
+        async load() {
+            await this.$store.dispatch('locale/getOne')
+            await this.$store.dispatch('locale/getMany')
         }
     }
 });

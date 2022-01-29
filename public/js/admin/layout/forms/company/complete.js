@@ -11,6 +11,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _mixins_FormProps__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/FormProps */ "./resources/admin/js/mixins/FormProps.js");
 //
 //
 //
@@ -47,16 +48,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Complete",
+  mixins: [_mixins_FormProps__WEBPACK_IMPORTED_MODULE_0__["default"]]
+});
+
+/***/ }),
+
+/***/ "./resources/admin/js/mixins/FormProps.js":
+/*!************************************************!*\
+  !*** ./resources/admin/js/mixins/FormProps.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     value: {
       required: true,
       type: Object
     },
     errors: {
-      required: true,
-      type: Object
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    isEditing: {
+      type: Boolean,
+      "default": false
     }
   }
 });

@@ -2,6 +2,8 @@
 
     namespace Support\Helpers\Response\Popups;
 
+    use Illuminate\Support\Str;
+
     class PopupContent
     {
         private array $content;
@@ -12,6 +14,7 @@
         public function __construct(
             public PopupBase $instance
         ) {
+            $this->setId();
             $this->setType($instance->getType());
             $this->setComponent($instance->getComponent());
         }
@@ -24,6 +27,11 @@
         public static function create(PopupBase $instance): PopupContent
         {
             return new static($instance);
+        }
+
+        private function setId()
+        {
+            $this->content['id'] = Str::uuid();
         }
 
         /**

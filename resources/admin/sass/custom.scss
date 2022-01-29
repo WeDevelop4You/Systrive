@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&display=swap');
 
+$light-gray: #F3F3F3;
+
 html {
     overflow: auto !important;
 }
@@ -43,4 +45,12 @@ html {
 
 .theme--dark.v-stepper {
     background: #1E1E1E;
+}
+
+.theme--light.v-data-table {
+    background: $light-gray;
+}
+
+.theme--light.dialog-divide-color {
+    background: $light-gray;
 }

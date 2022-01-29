@@ -13,11 +13,19 @@
     "/js/admin/pages/admin/translations.js": "/js/admin/pages/admin/translations.js",
     "/js/admin/pages/company.js": "/js/admin/pages/company.js",
     "/js/admin/pages/company/dashboard.js": "/js/admin/pages/company/dashboard.js",
+    "/js/admin/pages/company/users.js": "/js/admin/pages/company/users.js",
+    "/js/admin/pages/company/roles.js": "/js/admin/pages/company/roles.js",
     "/js/admin/components/popups/modals/form.js": "/js/admin/components/popups/modals/form.js",
     "/js/admin/components/popups/modals/confirm.js": "/js/admin/components/popups/modals/confirm.js",
     "/js/admin/components/popups/notifications/simple.js": "/js/admin/components/popups/notifications/simple.js",
     "/js/admin/layout/forms/company/complete.js": "/js/admin/layout/forms/company/complete.js",
     "/css/admin/app.css": "/css/admin/app.css",
     "/css/site/app.css": "/css/site/app.css",
-    "/css/admin/custom.css": "/css/admin/custom.css"
+    "/css/admin/custom.css": "/css/admin/custom.css",
+    "/js/admin/pages/super_admin/users.js": "/js/admin/pages/super_admin/users.js",
+    "/js/admin/pages/super_admin/companies.js": "/js/admin/pages/super_admin/companies.js",
+    "/js/admin/pages/super_admin/translations.js": "/js/admin/pages/super_admin/translations.js",
+    "/js/admin/pages/company/admin/users.js": "/js/admin/pages/company/admin/users.js",
+    "/js/admin/pages/company/admin/roles.js": "/js/admin/pages/company/admin/roles.js",
+    "/js/admin/pages/company/domain/index.js": "/js/admin/pages/company/domain/index.js"
 }

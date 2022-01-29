@@ -3,12 +3,10 @@
 namespace Support\Middleware;
 
 use Closure;
-use Domain\Company\Models\Company;
-use Domain\Invite\Models\Invite;
+use Domain\Company\Mappings\CompanyUserTableMap;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\PermissionRegistrar;
 use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
 use Support\Helpers\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -31,25 +29,23 @@ class SetCompanyPermissions
     {
         if (Auth::check()) {
             $user = Auth::user();
+            setCompanyId();
 
-            app(PermissionRegistrar::class)->setPermissionsTeamId(0);
-
-            if (!$user->hasRole('super_admin') && $this->hasCompanyParameter($request)) {
+            if (!$user->hasRole('super_admin') && $request->route()->hasParameter('company')) {
                 try {
-                    $query = $user->companies();
-                    $parameter = $this->getCompanyParameter($request);
-
-                    is_string($parameter)
-                        ? $query->where('name', $parameter)
-                        : $query->wherePivot('company_id', $parameter);
+                    $company = $request->route('company');
+                    $query = $user->companies()->wherePivot('company_id', $company->id);
 
                     if (!$request->routeIs(self::IGNORE_USER_ACCEPTED_ROUTES)) {
-                        $query->wherePivot('status', Invite::COMPANY_USER_ACCEPTED);
+                        $query->wherePivot(
+                            CompanyUserTableMap::STATUS,
+                            CompanyUserTableMap::ACCEPTED_STATUS
+                        );
                     }
 
-                    $company = $query->firstOrFail();
+                    $query->firstOrFail();
 
-                    app(PermissionRegistrar::class)->setPermissionsTeamId($company->id);
+                    setCompanyId($company->id);
                 } catch (ModelNotFoundException) {
                     return Response::create()
                         ->addPopup(new SimpleNotification(trans('response.forbidden.company')))
@@ -62,27 +58,5 @@ class SetCompanyPermissions
         }
 
         return $next($request);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return bool
-     */
-    private function hasCompanyParameter(Request $request): bool
-    {
-        return $request->route()->hasParameter('company') ||
-            $request->route()->hasParameter('companyName');
-    }
-
-    private function getCompanyParameter(Request $request): int|string
-    {
-        if ($request->route()->hasParameter('companyName')) {
-            return (string) $request->route('companyName');
-        }
-
-        $company = $request->route('company');
-
-        return (int) ($company instanceof Company ? $company->id : $company);
     }
 }

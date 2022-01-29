@@ -4,7 +4,6 @@
             <v-btn
                 small
                 color="primary"
-                class="ml-4"
                 @click="setDialog"
             >
                 {{ buttonTitle }}

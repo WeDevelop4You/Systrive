@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
-import translations from '../../../../lang/frontend'
-
-import '@fortawesome/fontawesome-free/css/all.css'
+import translations from '../config/translations'
 
 Vue.use(Vuetify)
 
@@ -43,6 +41,13 @@ export default new Vuetify({
 
     icons: {
         iconfont: 'fa',
+        values: {
+            prev: 'fas fa-angle-left',
+            next: 'fas fa-angle-right',
+            dropdown: 'fas fa-angle-down',
+            expand: 'fas fa-angle-down',
+            sort: 'fas fa-angle-up'
+        }
     },
 })
 

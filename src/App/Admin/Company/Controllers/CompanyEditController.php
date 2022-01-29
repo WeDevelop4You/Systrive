@@ -28,7 +28,7 @@
 
         public function action(CompanyUpdateRequest $request, Company $company): JsonResponse
         {
-            $data = new CompanyData(...$request->only('name', 'owner_id', 'email', 'domain', 'information'));
+            $data = new CompanyData(...$request->only('name', 'owner', 'email', 'domain', 'information'));
             $removeUser = $request->get('removeUser', false);
 
             (new UpdateCompanyAction($company, $removeUser))($data);

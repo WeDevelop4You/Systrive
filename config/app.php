@@ -172,10 +172,8 @@ return [
         Support\Providers\AppServiceProvider::class,
         Support\Providers\AuthServiceProvider::class,
         // Support\Providers\BroadcastServiceProvider::class,
-        Support\Providers\ComponentServiceProvider::class,
         Support\Providers\EventServiceProvider::class,
         Support\Providers\RouteServiceProvider::class,
-        Support\Providers\ViewServiceProvider::class,
 
     ],
 

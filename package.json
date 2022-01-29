@@ -12,7 +12,6 @@
         "lint-fix": "./node_modules/.bin/eslint resources/admin --ext .js,.vue --fix"
     },
     "devDependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.3",
         "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
         "deepmerge": "^4.2.2",
@@ -35,6 +34,7 @@
     "dependencies": {
         "@growthbunker/vueflags": "^0.1.14",
         "aos": "^3.0.0-beta.6",
+        "line-awesome": "^1.3.0",
         "uuid": "^8.3.2",
         "vue-meta": "^2.3.1",
         "vue-recaptcha": "^1.3.0",

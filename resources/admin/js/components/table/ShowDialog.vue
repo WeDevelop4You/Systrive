@@ -5,6 +5,7 @@
         fullscreen
         persistent
         hide-overlay
+        no-click-animation
         transition="dialog-bottom-transition"
     >
         <v-card :color="$vuetify.theme.dark ? '#121212' : ''">

@@ -77,7 +77,8 @@
         },
         "invite": {
             "user": "Gebruiker uitnodigen",
-            "invite": "Uitnodigen"
+            "invite": "Uitnodigen",
+            "resend": "Uitnodiging opnieuw verzenden"
         },
         "revoke": {
             "user": "Gebruiker intrekken"
@@ -104,10 +105,19 @@
         "birth_date": "Geboortedatum",
         "registration": "Registratie",
         "back": "Terug",
+        "terms_and_conditions": "Algemene voorwaarden",
         "total": {
             "permissions": "Totaal aantal rechten"
         },
         "status": "Status",
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "male": "Man",
+        "female": "Vrouw",
+        "other": "Anders",
+        "dns": "DNS",
+        "databases": "Databases",
+        "mail": {
+            "domains": "Mail domeinen"
+        }
     }
 }

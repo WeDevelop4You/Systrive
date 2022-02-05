@@ -48,7 +48,7 @@ const routes = [
                     to: { name: 'dashboard' }
                 },
                 {
-                    text: $vuetify.lang.t('$vuetify.word.setting.setting'),
+                    text: $vuetify.lang.t('$vuetify.word.settings'),
                 }
             ]
         }

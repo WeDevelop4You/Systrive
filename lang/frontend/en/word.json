@@ -77,7 +77,8 @@
         },
         "invite": {
             "user": "Invite user",
-            "invite": "Invite"
+            "invite": "Invite",
+            "resend": "Resend invite"
         },
         "revoke": {
             "user": "Revoke user"
@@ -104,10 +105,19 @@
         "birth_date": "Birth date",
         "registration": "Registration",
         "back": "Back",
+        "terms_and_conditions": "Terms and Conditions",
         "total": {
             "permissions": "Total permissions"
         },
         "status": "Status",
-        "dashboard": "Dashboard"
+        "dashboard": "Dashboard",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "dns": "DNS",
+        "databases": "Databases",
+        "mail": {
+            "domains": "Mail domains"
+        }
     }
 }

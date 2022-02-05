@@ -39,7 +39,7 @@ export default {
             })
         },
 
-        getOne({commit}, {id}) {
+        getOne({commit}, id) {
             app.$api.call({
                 url: app.$api.route('admin.translation', id),
                 method: "GET"

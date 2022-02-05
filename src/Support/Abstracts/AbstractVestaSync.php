@@ -2,11 +2,22 @@
 
     namespace Support\Abstracts;
 
+    use Illuminate\Bus\Queueable;
+    use Illuminate\Contracts\Queue\ShouldBeUnique;
+    use Illuminate\Contracts\Queue\ShouldQueue;
     use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Foundation\Bus\Dispatchable;
+    use Illuminate\Queue\InteractsWithQueue;
+    use Illuminate\Queue\SerializesModels;
     use Illuminate\Support\Collection;
 
-    abstract class AbstractVestaSync
+    abstract class AbstractVestaSync implements ShouldQueue, ShouldBeUnique
     {
+        use Dispatchable;
+        use InteractsWithQueue;
+        use Queueable;
+        use SerializesModels;
+
         /**
          * @var Collection
          */
@@ -18,16 +29,30 @@
         protected Collection $vesta;
 
         /**
+         * AbstractVestaSync constructor.
+         *
+         * @param ...$arguments
+         */
+        public function __construct(...$arguments)
+        {
+            $this->onQueue('system');
+
+            if (method_exists(static::class, 'setup')) {
+                $this->setup(...$arguments);
+            }
+        }
+
+        /**
          * Execute the job.
          *
          * @return void
          */
-        public function handle(): void
+        final public function handle(): void
         {
             $this->sync();
         }
 
-        protected function sync()
+        private function sync()
         {
             $this->database->each(function (Model $model) {
                 $this->contains($this->vesta, $model)
@@ -37,6 +62,8 @@
 
             $this->save($this->vesta);
         }
+
+        abstract public function uniqueId(): string;
 
         /**
          * @param Collection $vesta

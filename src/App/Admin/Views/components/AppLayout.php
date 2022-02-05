@@ -7,6 +7,8 @@ use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
+    public $name = '';
+
     /**
      * Create a new component instance.
      *

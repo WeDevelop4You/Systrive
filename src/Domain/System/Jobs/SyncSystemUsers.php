@@ -4,11 +4,7 @@ namespace Domain\System\Jobs;
 
 use Domain\System\Mappings\SystemUserTableMap;
 use Domain\System\Models\SystemUser;
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Helpers\Vesta\VestaAPIHelper;
@@ -16,12 +12,10 @@ use Support\Helpers\Vesta\VestaCommandsHelper;
 
 class SyncSystemUsers extends AbstractVestaSync
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
-    public function __construct()
+    /**
+     * @return void
+     */
+    protected function setup(): void
     {
         $this->database = SystemUser::all();
         $this->vesta = VestaAPIHelper::create()->getCommand(

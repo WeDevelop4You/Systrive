@@ -41,9 +41,7 @@
 
         methods: {
             async editItem() {
-                const id = this.item.id
-
-                await this.$store.dispatch('translations/getOne', {id: id})
+                await this.$store.dispatch('translations/getOne', this.item.id)
             },
 
             deleteItem() {

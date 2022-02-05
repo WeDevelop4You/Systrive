@@ -76,8 +76,8 @@
                      *  with a tag where the translation key is found
                      */
                     'finder' => [
-                        'path' => base_path(),
-                        'extension' => '*.php',
+                        'paths' => base_path(),
+                        'extensions' => '*.php',
                         'exclude_paths' => [],
                         'functions' => [
                             '__',
@@ -87,7 +87,7 @@
                         'ignore_groups' => [
                             'auth',
                         ],
-                        'tag' => 'project',
+                        'tags' => 'project',
                     ],
 
                     /*
@@ -108,8 +108,8 @@
 
                 'backend' => [
                     'finder' => [
-                        'path' => base_path('src'),
-                        'extension' => '*.php',
+                        'paths' => base_path('src'),
+                        'extensions' => '*.php',
                         'exclude_paths' => [],
                         'functions' => [
                             '__',
@@ -119,7 +119,7 @@
                         'ignore_groups' => [
                             'auth',
                         ],
-                        'tag' => 'project',
+                        'tags' => 'project',
                     ],
 
                     'storage' => [
@@ -130,14 +130,20 @@
 
                 'frontend' => [
                     'finder' => [
-                        'path' => resource_path('admin/js'),
-                        'extension' => '*.vue',
+                        'paths' => resource_path('admin/js'),
+                        'extensions' => [
+                            '*.vue',
+                            '*.js',
+                        ],
                         'exclude_paths' => [],
                         'functions' => [
                             't',
                         ],
                         'ignore_groups' => [],
-                        'tag' => 'project',
+                        'tags' => [
+                            'project',
+                            'admin',
+                        ],
                     ],
 
                     'storage' => [
@@ -164,7 +170,7 @@
         'database' => [
             'use_database' => false,
 
-            'tag' => 'database',
+            'tags' => 'database',
 
             'default_environment' => 'default',
 
@@ -188,7 +194,7 @@
         'packages' => [
             'use_packages' => true,
 
-            'tag' => 'packages',
+            'tags' => 'packages',
 
             'use_packages_name_tags' => true,
 

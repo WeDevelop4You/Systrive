@@ -16,7 +16,7 @@ class CreateSystemUsersTable extends Migration
         Schema::create('system_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('company_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('username');
+            $table->string('username')->unique();
             $table->timestamps();
         });
     }

@@ -29,4 +29,15 @@
                 'main' => 'admin',
             ],
         ],
+
+        \Domain\System\Models\SystemUsageStatistic::class => [
+            'morph' => [
+                'model' => 'model',
+            ],
+            'type' => [
+                'disk' => 'disk',
+                'bandwidth' => 'bandwidth',
+            ],
+
+        ],
     ];

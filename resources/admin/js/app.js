@@ -64,7 +64,14 @@ export default new Vue({
         }, function (error) {
             app.requests--
 
-            app.responseActions(error.response.data)
+            if (error.response.status === 419) {
+                app.$api.getCsrfToken()
+                app.$store.dispatch('popups/addNotification', {
+                    message: app.$vuetify.lang.t('Please try again')
+                })
+            } else {
+                app.responseActions(error.response.data)
+            }
 
             return Promise.reject(error)
         });

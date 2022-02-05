@@ -26,6 +26,9 @@
         },
         "remove": {
             "owner": "Verwijder de eigenaar ermee"
+        },
+        "complete": {
+            "registration": "Voltooi registratie"
         }
     }
 }

@@ -185,14 +185,17 @@ export default {
             if (params.type !== undefined) {
                 const actionType = service.state.loadActions[params.type]
 
-                if (actionType) {
+                if (actionType !== undefined) {
+                    console.log(params)
+
                     actionType(service, params)
 
                     return
                 }
 
-                await Router.replace({name: route.name})
             }
+
+            await Router.replace({name: route.name})
         }
     }
 }

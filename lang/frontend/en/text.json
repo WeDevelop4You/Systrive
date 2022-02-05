@@ -26,6 +26,9 @@
         },
         "remove": {
             "owner": "Remove the owner with it"
+        },
+        "complete": {
+            "registration": "Complete registration"
         }
     }
 }

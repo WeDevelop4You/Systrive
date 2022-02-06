@@ -33,6 +33,7 @@
     "admin.company.user.edit": "/api/companies/{company}/users/{user}",
     "admin.company.user.revoke": "/api/companies/{company}/users/{user}",
     "admin.company.user.invite.resend": "/api/companies/{company}/users/{user}/invite/resend",
+    "admin.company.domain.usage": "/api/companies/{company}/domains/{systemUserDomain}/usage",
     "admin.company.search": "/api/companies/search/{company}",
     "admin.company.show": "/api/companies/{company}",
     "admin.company.navigation": "/api/companies/{company}/navigation",

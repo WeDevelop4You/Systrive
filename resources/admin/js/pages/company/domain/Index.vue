@@ -9,7 +9,7 @@
                 <v-card-text>
                     <line-chart
                         :custom-options="options"
-                        :labels="labels"
+                        :labels="chartData.labels"
                         :datasets="data"
                         style="height: 200px"
                     />
@@ -25,7 +25,7 @@
                 <v-card-text>
                     <line-chart
                         :custom-options="options"
-                        :labels="labels"
+                        :labels="chartData.labels"
                         :datasets="data2"
                         style="height: 200px"
                     />
@@ -52,7 +52,7 @@
                         displayColors: false
                     }
                 },
-                labels: ['January', 'February', 'April', 'Mei', 'Test'],
+                chartData: {}
             }
         },
 
@@ -66,7 +66,7 @@
                         pointBorderColor: this.$vuetify.theme.currentTheme.primary,
                         pointBackgroundColor: this.$vuetify.theme.dark ? '#1e1e1e' : '#ffffff',
                         backgroundColor: 'transparent',
-                        data: [40, 20, 70, 200, 10]
+                        data: this.chartData.data.disk
                     }
                 ]
             },
@@ -80,10 +80,21 @@
                         pointBorderColor: this.$vuetify.theme.currentTheme.primary,
                         pointBackgroundColor: this.$vuetify.theme.dark ? '#1e1e1e' : '#ffffff',
                         backgroundColor: 'transparent',
-                        data: [100, 150, 40, 20, 200]
+                        data: this.chartData.data.bandwidth
                     }
                 ]
             }
+        },
+
+        beforeCreate() {
+            let app = this
+
+            this.$api.call({
+                url: app.$api.route('company.domain.usage', 3, 7),
+                method: "GET"
+            }).then((response) => {
+                app.chartData = response.data.data
+            })
         }
     }
 </script>

@@ -12,6 +12,11 @@ use Support\Helpers\Vesta\VestaCommandsHelper;
 
 class SyncSystemUsers extends AbstractVestaSync
 {
+    public function uniqueId(): string
+    {
+        return "system_users";
+    }
+
     /**
      * @return void
      */

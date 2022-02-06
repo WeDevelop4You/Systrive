@@ -18,6 +18,11 @@ class SyncSystemUserDatabases extends AbstractVestaSync
      */
     private SystemUser $systemUser;
 
+    public function uniqueId(): string
+    {
+        return "{$this->systemUser->username}_databases";
+    }
+
     public function setup(SystemUser $systemUser)
     {
         $this->systemUser = $systemUser;

@@ -19,6 +19,7 @@
         public const SESSION_KEY_DEFAULT = 'responseData';
         public const SESSION_KEY_MODAL = 'responseDataModal';
         public const SESSION_KEY_REGISTRATION = 'registrationData';
+
         /**
          * @var array|JsonResource|ResourceCollection
          */

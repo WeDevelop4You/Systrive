@@ -18,6 +18,11 @@ class SyncSystemUserDNS extends AbstractVestaSync
      */
     private SystemUser $systemUser;
 
+    public function uniqueId(): string
+    {
+        return "{$this->systemUser->username}_DNS";
+    }
+
     public function setup(SystemUser $systemUser)
     {
         $this->systemUser = $systemUser;

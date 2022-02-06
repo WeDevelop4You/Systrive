@@ -12,6 +12,7 @@
     use Illuminate\Console\Scheduling\Schedule;
     use Illuminate\Foundation\Console\Kernel;
     use Illuminate\Support\Facades\Bus;
+    use Illuminate\Support\Facades\Log;
 
     class ConsoleKernel extends Kernel
     {
@@ -44,6 +45,12 @@
                 ->dailyAt('3:00')
                 ->withoutOverlapping()
                 ->emailOutputOnFailure('pmhuberts@gmail.com');
+
+            if (env('TESTING', false)) {
+                $schedule->call(function () {
+                    Log::notice('Schedule is working');
+                })->everyMinute();
+            }
         }
 
         /**

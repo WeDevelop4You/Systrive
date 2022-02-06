@@ -8,9 +8,9 @@ use Domain\System\Models\SystemUsageStatistic;
 use Domain\System\Models\SystemUser;
 use Domain\System\Models\SystemUserDomain;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
+use Support\Helpers\SystemStatisticHelper;
 use Support\Helpers\Vesta\VestaAPIHelper;
 use Support\Helpers\Vesta\VestaCommandsHelper;
 
@@ -84,22 +84,15 @@ class SyncSystemUserDomains extends AbstractVestaSync
         $usage = $this->systemUser->domains->map(function (SystemUserDomain $systemUserDomain) use ($vesta) {
             $domain = $vesta->get($systemUserDomain->name);
 
-            $usage = new SystemUsageStatistic();
-            $usage->date = Carbon::yesterday();
-            $usage->statisticFrom()->associate($systemUserDomain);
-
-            $disk = clone $usage;
-            $bandwidth = clone $usage;
-
-            $disk->type = SystemUsageStatisticTableMap::DISK_TYPE;
-            $disk->total = $domain['U_DISK'];
-
-            $bandwidth->type = SystemUsageStatisticTableMap::BANDWIDTH_TYPE;
-            $bandwidth->total = $domain['U_BANDWIDTH'];
-
             return [
-                $disk->attributesToArray(),
-                $bandwidth->attributesToArray(),
+                SystemStatisticHelper::create($systemUserDomain)
+                    ->setType(SystemUsageStatisticTableMap::DISK_TYPE)
+                    ->setTotal($domain['U_DISK'])
+                    ->toArray(),
+                SystemStatisticHelper::create($systemUserDomain)
+                    ->setType(SystemUsageStatisticTableMap::BANDWIDTH_TYPE)
+                    ->setTotal($domain['U_BANDWIDTH'])
+                    ->toArray(),
             ];
         })->flatten(1)->toArray();
 

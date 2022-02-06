@@ -18,6 +18,11 @@ class SyncSystemUserMailDomains extends AbstractVestaSync
      */
     private SystemUser $systemUser;
 
+    public function uniqueId(): string
+    {
+        return "{$this->systemUser->username}_mail_domains";
+    }
+
     public function setup(SystemUser $systemUser)
     {
         $this->systemUser = $systemUser;

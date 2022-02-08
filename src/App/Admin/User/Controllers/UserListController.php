@@ -4,17 +4,21 @@
 
     use App\Admin\User\Resources\UserListResource;
 
+    use Domain\User\Mappings\UserTableMap;
     use Domain\User\Models\User;
-    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-    use Support\Helpers\Data\Build\DataList;
+    use Illuminate\Http\JsonResponse;
+    use Support\Helpers\Response\Response;
 
     class UserListController
     {
         /**
-         * @return AnonymousResourceCollection
+         * @return JsonResponse
          */
-        public function index(): AnonymousResourceCollection
+        public function index(): JsonResponse
         {
-            return DataList::create(User::query(), 'email')->get(UserListResource::class);
+            return Response::create()
+                ->addData(UserListResource::collection(
+                    User::withTrashed()->with('profile')->orderBy(UserTableMap::EMAIL)->get()
+                ))->toJson();
         }
     }

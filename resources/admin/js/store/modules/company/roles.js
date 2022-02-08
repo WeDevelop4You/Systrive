@@ -40,7 +40,7 @@ export default {
             }).then(() => {
                 commit('resetCreateOrEdit')
             }).catch((error) => {
-                const errors = error.response.data.errors
+                const errors = error.response.data.errors || {}
 
                 commit("setErrors", errors)
 
@@ -67,7 +67,7 @@ export default {
             }).then(() => {
                 commit('resetCreateOrEdit')
             }).catch((error) => {
-                const errors = error.response.data.errors
+                const errors = error.response.data.errors || {}
 
                 commit("setErrors", errors)
 

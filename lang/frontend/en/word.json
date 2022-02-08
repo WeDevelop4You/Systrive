@@ -52,7 +52,8 @@
             "sources": "Translation sources"
         },
         "account": {
-            "account": "Account"
+            "account": "Account",
+            "settings": "Account settings"
         },
         "send_email": "Send email",
         "id": "ID",
@@ -118,6 +119,22 @@
         "databases": "Databases",
         "mail": {
             "domains": "Mail domains"
-        }
+        },
+        "usage": {
+            "disk": "Disk usage",
+            "bandwidth": "Bandwidth usages"
+        },
+        "usages": "Usages",
+        "personal": {
+            "data": "Personal data"
+        },
+        "security": "Security",
+        "current": {
+            "password": "Current password"
+        },
+        "change": {
+            "password": "Change password"
+        },
+        "2fa": "Two-factor authentication"
     }
 }

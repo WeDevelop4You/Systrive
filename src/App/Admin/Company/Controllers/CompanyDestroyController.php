@@ -19,7 +19,7 @@
             $company->delete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.delete.company')))
+                ->addPopup(new SimpleNotification(trans('response.success.deleted')))
                 ->toJson();
         }
     }

@@ -25,7 +25,7 @@
             if ($role->name !== RoleTableMap::MAIN_ROLE) {
                 $role->delete();
 
-                return $response->addPopup(new SimpleNotification(trans('response.success.delete.company.role')))
+                return $response->addPopup(new SimpleNotification(trans('response.success.deleted')))
                     ->toJson();
             }
 

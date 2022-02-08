@@ -13,35 +13,32 @@
             />
         </v-col>
         <v-col
-            v-if="isEditing && $auth.can($config.permissions.superAdmin)"
+            v-if="$auth.can($config.permissions.superAdmin)"
             cols="12"
         >
-            <v-autocomplete
-                v-model="value.owner"
-                :items="owners"
-                :search-input.sync="search"
-                :loading="isLoading"
+            <v-combobox
+                v-model="value.owner_email"
+                :items="users"
                 :label="$vuetify.lang.t('$vuetify.word.owner')"
-                :error-messages="errors.owner_id"
+                :error-messages="errors.owner_email"
                 :hide-details="isEditing && showCheckbox"
+                :return-object="false"
+                item-value="email"
                 item-text="email"
-                open-on-clear
-                return-object
                 clearable
-                no-filter
                 dense
                 outlined
             >
                 <template #selection="{ item }">
-                    <span>{{ item.full_name }} ({{ item.email }})</span>
+                    <span v-text="selectedText(item)" />
                 </template>
                 <template #item="{ item }">
                     <v-list-item-content>
-                        <v-list-item-title v-text="item.full_name" />
-                        <v-list-item-subtitle v-text="item.email" />
+                        <v-list-item-title v-text="item.email" />
+                        <v-list-item-subtitle v-text="item.full_name" />
                     </v-list-item-content>
                 </template>
-            </v-autocomplete>
+            </v-combobox>
         </v-col>
         <v-col
             v-if="isEditing && $auth.can($config.permissions.superAdmin)"
@@ -51,12 +48,15 @@
             <v-checkbox
                 v-model="value.removeUser"
                 :label="$vuetify.lang.t('$vuetify.text.remove.owner')"
-                :error-messages="errors.owner"
+                :error-messages="errors.owner_email"
                 dense
                 class="mb-2"
             />
         </v-col>
-        <v-col cols="12">
+        <v-col
+            v-if="isEditing"
+            cols="12"
+        >
             <v-text-field
                 v-model="value.email"
                 :label="$vuetify.lang.t('$vuetify.word.email')"
@@ -94,7 +94,6 @@
 <script>
     import {mapGetters} from "vuex";
     import FromProps from "../../../mixins/FormProps"
-    import _ from "lodash";
 
     export default {
         name: "Company",
@@ -105,36 +104,40 @@
 
         data() {
             return {
-                search: '',
-                owner_id: null,
-                isLoading: false,
+                owner_email: null,
             }
         },
 
         computed: {
             showCheckbox() {
-                return this.owner_id !== this.value.owner?.id
+                return this.owner_email
+                    ? this.owner_email !== this.value.owner_email
+                    : false
+            },
+
+            selectedText() {
+                return (value) => {
+                    if (value.email || value.full_name) {
+                        return value.full_name
+                            ? `${value.email} (${value.full_name})`
+                            : value.email
+                    }
+
+                    return value
+                }
+
             },
 
             ...mapGetters({
-                owners: "companies/owners",
+                users: "companies/owners",
             })
         },
 
-        watch: {
-            search: _.debounce(function () {
-                if (this.isLoading || !this.search) return
-
-                this.isLoading = true
-                this.$store.dispatch('companies/searchList', this.search).finally(() => {
-                    this.isLoading = false
-                })
-            }, 500),
-        },
-
         created() {
+            this.$store.dispatch('companies/getMany')
+
             if (this.isEditing) {
-                this.owner_id = this.value.owner.id;
+                this.owner_email = this.value.owner_email;
             }
         },
     }

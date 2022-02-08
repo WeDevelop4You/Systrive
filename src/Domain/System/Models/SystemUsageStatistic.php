@@ -2,7 +2,7 @@
 
 namespace Domain\System\Models;
 
-use Domain\System\Mappings\SystemUsageStatisticTableMap;
+use Domain\System\Mappings\SystemStatisticTableMap;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,9 +43,9 @@ class SystemUsageStatistic extends Model
     protected $table = 'system_usage_statistics';
 
     protected $fillable = [
-        SystemUsageStatisticTableMap::TYPE,
-        SystemUsageStatisticTableMap::TOTAL,
-        SystemUsageStatisticTableMap::DATE,
+        SystemStatisticTableMap::TYPE,
+        SystemStatisticTableMap::TOTAL,
+        SystemStatisticTableMap::DATE,
     ];
 
     /**
@@ -53,6 +53,6 @@ class SystemUsageStatistic extends Model
      */
     public function statisticFrom(): MorphTo
     {
-        return $this->morphTo(SystemUsageStatisticTableMap::MODEL_MORPH);
+        return $this->morphTo(SystemStatisticTableMap::MODEL_MORPH);
     }
 }

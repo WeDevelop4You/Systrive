@@ -13,7 +13,7 @@
         {
             return [
                 'name' => ['required', 'unique:companies,name'],
-                'email' => ['required', 'email'],
+                'owner_email' => ['required', 'email'],
             ];
         }
     }

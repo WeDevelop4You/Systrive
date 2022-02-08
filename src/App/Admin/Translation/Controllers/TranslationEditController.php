@@ -53,7 +53,7 @@
                 });
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.translation')))
+                ->addPopup(new SimpleNotification(trans('response.success.saved')))
                 ->toJson();
         }
     }

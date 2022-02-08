@@ -5,12 +5,14 @@
             md="6"
         >
             <v-card>
-                <v-card-title />
+                <v-card-title>
+                    <span v-text="$vuetify.lang.t('$vuetify.word.usage.disk')" />
+                </v-card-title>
                 <v-card-text>
                     <line-chart
                         :custom-options="options"
                         :labels="chartData.labels"
-                        :datasets="data"
+                        :datasets="diskData"
                         style="height: 200px"
                     />
                 </v-card-text>
@@ -21,12 +23,14 @@
             md="6"
         >
             <v-card>
-                <v-card-title />
+                <v-card-title>
+                    <span v-text="$vuetify.lang.t('$vuetify.word.usage.bandwidth')" />
+                </v-card-title>
                 <v-card-text>
                     <line-chart
                         :custom-options="options"
                         :labels="chartData.labels"
-                        :datasets="data2"
+                        :datasets="bandwidthData"
                         style="height: 200px"
                     />
                 </v-card-text>
@@ -37,12 +41,21 @@
 
 <script>
     import LineChart from "../../../components/charts/LineChart";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "Index",
 
         components: {
             LineChart
+        },
+
+        beforeRouteUpdate(to, from, next) {
+            this.$store.commit('company/domain/reset')
+
+            this.setup(to.params.domainName)
+
+            next()
         },
 
         data() {
@@ -52,49 +65,51 @@
                         displayColors: false
                     }
                 },
-                chartData: {}
             }
         },
 
         computed: {
-            data() {
+            diskData() {
                 return  [
                     {
-                        label: this.$vuetify.lang.t('$vuetify.word.usage.disk'),
+                        label: this.$vuetify.lang.t('$vuetify.word.usages'),
                         borderWidth: 1,
                         borderColor: this.$vuetify.theme.currentTheme.primary,
                         pointBorderColor: this.$vuetify.theme.currentTheme.primary,
-                        pointBackgroundColor: this.$vuetify.theme.dark ? '#1e1e1e' : '#ffffff',
+                        pointBackgroundColor: this.$vuetify.theme.currentTheme.chartPoint,
                         backgroundColor: 'transparent',
                         data: this.chartData.data.disk
                     }
                 ]
             },
 
-            data2() {
+            bandwidthData() {
                 return  [
                     {
-                        label: this.$vuetify.lang.t('$vuetify.word.usage.bandwidth'),
+                        label: this.$vuetify.lang.t('$vuetify.word.usages'),
                         borderWidth: 1,
                         borderColor: this.$vuetify.theme.currentTheme.primary,
                         pointBorderColor: this.$vuetify.theme.currentTheme.primary,
-                        pointBackgroundColor: this.$vuetify.theme.dark ? '#1e1e1e' : '#ffffff',
+                        pointBackgroundColor: this.$vuetify.theme.currentTheme.chartPoint,
                         backgroundColor: 'transparent',
                         data: this.chartData.data.bandwidth
                     }
                 ]
-            }
+            },
+
+            ...mapGetters({
+                chartData: 'company/domain/chartData'
+            })
         },
 
-        beforeCreate() {
-            let app = this
+        created() {
+            this.setup(this.$route.params.domainName)
+        },
 
-            this.$api.call({
-                url: app.$api.route('company.domain.usage', 3, 7),
-                method: "GET"
-            }).then((response) => {
-                app.chartData = response.data.data
-            })
+        methods: {
+            setup(domain) {
+                this.$store.dispatch('company/domain/search', domain)
+            }
         }
     }
 </script>

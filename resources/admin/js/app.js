@@ -21,7 +21,7 @@ Vue.use(VueFlags, {
     iconPath: '/images/flags/',
 })
 
-Vue.component('LApp', () => import(/* webpackChunkName: "layout/app" */ './layout/App'))
+Vue.component('LApp', () => import(/* webpackChunkName: "layout/app" */ './layout/base/App'))
 Vue.component('Login', () => import(/* webpackChunkName: "pages/auth/login" */ './pages/auth/Login'))
 Vue.component('Registration', () => import(/* webpackChunkName: "pages/auth/registration" */ './pages/auth/Registration'))
 Vue.component('ResetPassword', () => import(/* webpackChunkName: "pages/auth/reset_password" */ './pages/auth/ResetPassword'))
@@ -67,7 +67,7 @@ export default new Vue({
             if (error.response.status === 419) {
                 app.$api.getCsrfToken()
                 app.$store.dispatch('popups/addNotification', {
-                    message: app.$vuetify.lang.t('Please try again')
+                    message: app.$vuetify.lang.t('$vuetify.text.csrf')
                 })
             } else {
                 app.responseActions(error.response.data)

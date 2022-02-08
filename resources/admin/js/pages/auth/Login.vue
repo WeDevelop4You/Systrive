@@ -76,7 +76,7 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import LAuth from '../../layout/Auth'
+    import LAuth from '../../layout/base/Auth'
     import SvgLogoLine from '../../components/svg/LogoLine'
 
     export default {

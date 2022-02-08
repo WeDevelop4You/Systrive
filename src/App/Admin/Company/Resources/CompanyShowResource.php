@@ -20,6 +20,7 @@
                 'email' => $this->email,
                 'domain' => $this->domain,
                 'information' => $this->information,
+                'system_id' => $this->system->id,
             ];
         }
     }

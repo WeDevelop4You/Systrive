@@ -2,10 +2,12 @@
 
     namespace Domain\Company\ModelQueries;
 
+    use Domain\Company\Mappings\CompanyUserTableMap;
     use Domain\Company\Models\CompanyUser;
     use Domain\Invite\Models\Invite;
     use Domain\Role\Models\Role;
-    use Domain\System\Models\SystemUser;
+    use Domain\System\Models\System;
+    use Domain\User\Mappings\UserTableMap;
     use Domain\User\Models\User;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -16,7 +18,6 @@
      * Domain\Company\ModelQueries\Company.
      *
      * @property int                             $id
-     * @property int|null                        $owner_id
      * @property string                          $name
      * @property string|null                     $email
      * @property string|null                     $domain
@@ -26,7 +27,7 @@
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property-read \Illuminate\Database\Eloquent\Collection|Invite[] $invites
      * @property-read \Illuminate\Database\Eloquent\Collection|Role[] $roles
-     * @property-read SystemUser|null $systemUser
+     * @property-read System|null $system
      * @property-read \Domain\User\Collections\UserCollections|User[] $users
      * @property-read \Domain\User\Collections\UserCollections|User[] $whereOwner
      *
@@ -39,7 +40,6 @@
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereInformation($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereOwnerId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
      * @mixin \Eloquent
@@ -47,19 +47,16 @@
     class Company extends Model
     {
         /**
-         * @return HasOne
-         */
-        public function systemUser(): HasOne
-        {
-            return $this->hasOne(SystemUser::class);
-        }
-
-        /**
          * @return BelongsToMany
          */
         public function users(): BelongsToMany
         {
-            return $this->belongsToMany(User::class)->using(CompanyUser::class)->withPivot('status', 'is_owner');
+            return $this->belongsToMany(User::class)
+                ->using(CompanyUser::class)
+                ->withPivot(
+                    CompanyUserTableMap::STATUS,
+                    CompanyUserTableMap::IS_OWNER
+                );
         }
 
         /**
@@ -67,17 +64,17 @@
          */
         public function whereOwner(): BelongsToMany
         {
-            return $this->users()->wherePivot('is_owner', true);
+            return $this->users()->wherePivot(CompanyUserTableMap::IS_OWNER, true)->withTrashed();
         }
 
         /**
-         * @param User $user
+         * @param string $email
          *
          * @return BelongsToMany
          */
-        public function whereUser(User $user): BelongsToMany
+        public function whereUserEmail(string $email): BelongsToMany
         {
-            return $this->users()->wherePivot('user_id', $user->id);
+            return $this->users()->where(UserTableMap::EMAIL, $email);
         }
 
         /**
@@ -88,7 +85,7 @@
          */
         public function updateOwnership(User $user, bool $value = false): int
         {
-            return $this->users()->updateExistingPivot($user->id, ['is_owner' => $value]);
+            return $this->users()->updateExistingPivot($user->id, [CompanyUserTableMap::IS_OWNER => $value]);
         }
 
         /**
@@ -105,5 +102,13 @@
         public function invites(): HasMany
         {
             return $this->hasMany(Invite::class);
+        }
+
+        /**
+         * @return HasOne
+         */
+        public function system(): HasOne
+        {
+            return $this->hasOne(System::class);
         }
     }

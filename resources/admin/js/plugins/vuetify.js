@@ -17,6 +17,7 @@ export default new Vuetify({
                 info: '#2196F3',
                 success: '#4CAF50',
                 warning: '#FFC107',
+                chartPoint: '#ffffff'
             },
             dark: {
                 primary: '#fc4a1a',
@@ -26,6 +27,7 @@ export default new Vuetify({
                 info: '#2196F3',
                 success: '#4CAF50',
                 warning: '#FFC107',
+                chartPoint: '#1e1e1e'
             }
         },
 

@@ -42,7 +42,7 @@
                 </v-row>
                 <f-password
                     v-model="data"
-                    :error="error"
+                    :error="passwordError"
                     :errors="errors"
                 />
                 <v-row
@@ -136,11 +136,12 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import LAuth from '../../layout/Auth'
+    import LAuth from '../../layout/base/Auth'
     import FPassword from '../../layout/forms/Password'
     import SvgLogoLine from '../../components/svg/LogoLine'
     import FUserProfile from '../../layout/forms/UserProfile'
     import PasswordRequirements from "../../components/PasswordRequirements";
+    import password from "../../mixins/Password";
 
     export default {
         name: "Registration",
@@ -152,6 +153,10 @@
             FUserProfile,
             PasswordRequirements,
         },
+
+        mixins: [
+            password
+        ],
 
         props: {
             link: {
@@ -206,7 +211,6 @@
             },
 
             ...mapGetters({
-                error: 'guest/error',
                 errors: 'guest/errors',
             })
         },
@@ -227,7 +231,8 @@
             NextProfile() {
                 let app = this
 
-                this.$store.dispatch('guest/resetError')
+                this.passwordError = false
+                this.$store.commit('guest/setErrors', {})
 
                 app.$api.getCsrfToken().then(() => {
                     this.$api.call({
@@ -242,13 +247,15 @@
                     }).catch((error) => {
                         let errors = error.response.data.errors || {}
 
-                        app.$store.dispatch('guest/passwordError', errors)
+                        app.$store.commit('guest/setErrors', app.passwordError(errors))
                     })
                 });
             },
 
             nextAccept() {
                 let app = this
+
+                this.$store.commit('guest/setErrors', {})
 
                 app.$api.getCsrfToken().then(() => {
                     this.$api.call({
@@ -274,7 +281,8 @@
             send() {
                 let app = this
 
-                this.$store.dispatch('guest/resetError')
+                this.passwordError = false
+                this.$store.commit('guest/setErrors', {})
 
                 app.$api.getCsrfToken().then(() => {
                     this.$api.call({
@@ -284,7 +292,7 @@
                     }).catch((error) => {
                         let errors = error.response.data.errors || {}
 
-                        app.$store.dispatch('guest/passwordError', errors)
+                        app.$store.commit('guest/setErrors', app.passwordError(errors))
                     })
                 })
             }

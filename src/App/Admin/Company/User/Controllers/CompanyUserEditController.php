@@ -44,7 +44,7 @@
             (new UserPermissionsForCompanyAction($company, $user))($data);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.user.company.access')))
+                ->addPopup(new SimpleNotification(trans('response.success.saved')))
                 ->toJson();
         }
     }

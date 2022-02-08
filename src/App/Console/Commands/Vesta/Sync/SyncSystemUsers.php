@@ -2,7 +2,7 @@
 
     namespace App\Console\Commands\Vesta\Sync;
 
-    use Domain\System\Jobs\SyncSystemUsers as SyncSystemUsersJob;
+    use Domain\System\Jobs\SyncSystem as SyncSystemUsersJob;
     use Illuminate\Console\Command;
 
     class SyncSystemUsers extends Command

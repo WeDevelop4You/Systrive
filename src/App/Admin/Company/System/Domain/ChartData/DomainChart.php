@@ -3,18 +3,27 @@
     namespace App\Admin\Company\System\Domain\ChartData;
 
     use Carbon\CarbonPeriod;
-    use Domain\System\Mappings\SystemUsageStatisticTableMap;
-    use Domain\System\Models\SystemUserDomain;
+    use Domain\System\Mappings\SystemStatisticTableMap;
+    use Domain\System\Models\SystemDomain;
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Collection;
     use Support\Abstracts\AbstractChart;
 
     class DomainChart extends AbstractChart
     {
+        /**
+         * DomainChart constructor.
+         *
+         * @param SystemDomain $domain
+         */
+        public function __construct(
+            private SystemDomain $domain
+        ) {
+            //
+        }
+
         protected function handle(): void
         {
-            $domain = SystemUserDomain::find(7);
-
             $endDate = Carbon::now();
             $startDate = Carbon::now()->subWeeks(2);
             $period = new Collection(CarbonPeriod::create($startDate, $endDate));
@@ -27,25 +36,25 @@
             $this->setLabels($periodDates->toArray());
 
             $this->setData(
-                $domain->usageStatistics()
+                $this->domain->usageStatistics()
                     ->whereDate(
-                        SystemUsageStatisticTableMap::DATE,
+                        SystemStatisticTableMap::DATE,
                         '>=',
                         $startDate->toDateString(),
                     )->whereIn(
-                        SystemUsageStatisticTableMap::TYPE,
+                        SystemStatisticTableMap::TYPE,
                         [
-                            SystemUsageStatisticTableMap::DISK_TYPE,
-                            SystemUsageStatisticTableMap::BANDWIDTH_TYPE,
+                            SystemStatisticTableMap::DISK_TYPE,
+                            SystemStatisticTableMap::BANDWIDTH_TYPE,
                         ]
                     )
                     ->get()
                     ->groupBy([
-                        SystemUsageStatisticTableMap::TYPE,
+                        SystemStatisticTableMap::TYPE,
                     ])->map(function (Collection $dates) use ($periodDates) {
                         return $periodDates->map(function (string $date) use ($dates) {
                             $usage = $dates->firstWhere(
-                                SystemUsageStatisticTableMap::DATE,
+                                SystemStatisticTableMap::DATE,
                                 $date
                             );
 

@@ -51,7 +51,7 @@
 
                 (new UpdateRoleAction($role))($data);
 
-                return $response->addPopup(new SimpleNotification(trans('response.success.update.company.role')))
+                return $response->addPopup(new SimpleNotification(trans('response.success.saved')))
                     ->toJson();
             }
 

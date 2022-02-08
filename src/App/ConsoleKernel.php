@@ -3,12 +3,12 @@
     namespace App;
 
     use Domain\Invite\Jobs\CheckInviteHasExpired;
-    use Domain\System\Jobs\SyncSystemUserDatabases;
-    use Domain\System\Jobs\SyncSystemUserDNS;
-    use Domain\System\Jobs\SyncSystemUserDomains;
-    use Domain\System\Jobs\SyncSystemUserMailDomains;
-    use Domain\System\Jobs\SyncSystemUsers;
-    use Domain\System\Models\SystemUser;
+    use Domain\System\Jobs\SyncSystem;
+    use Domain\System\Jobs\SyncSystemDatabases;
+    use Domain\System\Jobs\SyncSystemDNS;
+    use Domain\System\Jobs\SyncSystemDomains;
+    use Domain\System\Jobs\SyncSystemMailDomains;
+    use Domain\System\Models\System;
     use Illuminate\Console\Scheduling\Schedule;
     use Illuminate\Foundation\Console\Kernel;
     use Illuminate\Support\Facades\Bus;
@@ -30,14 +30,14 @@
                  ->everyFiveMinutes()
                  ->withoutOverlapping();
 
-            $schedule->job(new SyncSystemUsers())
+            $schedule->job(new SyncSystem())
                 ->then(function (Schedule $schedule) {
-                    SystemUser::all()->each(function (SystemUser $systemUser) {
+                    System::all()->each(function (System $system) {
                         Bus::chain([
-                            new SyncSystemUserDomains($systemUser),
-                            new SyncSystemUserDNS($systemUser),
-                            new SyncSystemUserDatabases($systemUser),
-                            new SyncSystemUserMailDomains($systemUser),
+                            new SyncSystemDomains($system),
+                            new SyncSystemDNS($system),
+                            new SyncSystemDatabases($system),
+                            new SyncSystemMailDomains($system),
                         ])->dispatch();
                     });
                 })

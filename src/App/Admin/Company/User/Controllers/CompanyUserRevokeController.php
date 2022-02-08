@@ -22,7 +22,7 @@
             (new RevokeUserFromCompanyAction($company))($user);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.revoke.user.company')))
+                ->addPopup(new SimpleNotification(trans('response.success.deleted')))
                 ->toJson();
         }
     }

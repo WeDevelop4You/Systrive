@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import security from "./settings/security";
 
 const app = Vue.prototype
 
@@ -92,4 +93,8 @@ export default {
             })
         },
     },
+
+    modules: {
+        security: security
+    }
 }

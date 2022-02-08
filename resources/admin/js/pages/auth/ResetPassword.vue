@@ -20,7 +20,7 @@
             <v-card-text class="pb-0">
                 <f-password
                     v-model="data"
-                    :error="error"
+                    :error="passwordError"
                     :errors="errors"
                 />
             </v-card-text>
@@ -39,11 +39,11 @@
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
-    import LAuth from "../../layout/Auth";
+    import LAuth from "../../layout/base/Auth";
     import FPassword from '../../layout/forms/Password'
     import SvgLogoLine from '../../components/svg/LogoLine'
     import PasswordRequirements from "../../components/PasswordRequirements";
+    import password from "../../mixins/Password";
 
     export default {
         name: "PasswordReset",
@@ -54,6 +54,10 @@
             SvgLogoLine,
             PasswordRequirements
         },
+
+        mixins: [
+            password
+        ],
 
         props: {
             token: {
@@ -79,10 +83,9 @@
         },
 
         computed: {
-            ...mapGetters({
-                error: 'guest/error',
-                errors: 'guest/errors'
-            })
+            errors() {
+                return this.passwordErrors(this.$store.getters["guest/errors"])
+            },
         },
 
         created() {
@@ -91,6 +94,7 @@
 
         methods: {
             send() {
+                this.passwordError = false
                 this.$store.dispatch('guest/resetPassword', this.data)
             },
 

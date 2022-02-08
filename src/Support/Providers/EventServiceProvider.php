@@ -6,7 +6,7 @@ use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyUser;
 use Domain\Company\Observers\CompanyDeletedObserver;
 use Domain\Company\Observers\CompanyUserDetachObserver;
-use Domain\Company\Observers\CompanyUserUpdatingObserver;
+use Domain\Company\Observers\CompanyUserUpdatedObserver;
 use Domain\Invite\Models\Invite;
 use Domain\Invite\Observers\InviteCreatedObserver;
 use Domain\Permission\Observers\PermissionCreatedObserver;
@@ -40,7 +40,7 @@ class EventServiceProvider extends ServiceProvider
         ]);
 
         CompanyUser::observe([
-            CompanyUserUpdatingObserver::class,
+            CompanyUserUpdatedObserver::class,
             CompanyUserDetachObserver::class,
         ]);
 

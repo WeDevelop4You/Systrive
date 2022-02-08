@@ -38,20 +38,49 @@ const routes = [
         }
     },
     {
-        path: '/settings',
-        name: 'settings',
-        // component: Dashboard,
-        meta: {
-            breadCrumb: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: { name: 'dashboard' }
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.settings'),
+        path: '/s',
+        component: () => import(/* webpackChunkName: "pages/account/settings" */ '../layout/base/settings/Account'),
+        redirect: {name: 'user.setting.personal'},
+        children: [
+            {
+                path: 'personal',
+                name: 'user.setting.personal',
+                component: () => import(/* webpackChunkName: "pages/account/settings/personal" */ '../pages/account/settings/Personal'),
+                meta: {
+                    breadCrumb: [
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.dashboard'),
+                            to: { name: 'dashboard' }
+                        },
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.settings'),
+                        },
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.personal.data'),
+                        }
+                    ]
                 }
-            ]
-        }
+            },
+            {
+                path: 'security',
+                name: 'user.setting.security',
+                component: () => import(/* webpackChunkName: "pages/account/settings/security" */ '../pages/account/settings/Security'),
+                meta: {
+                    breadCrumb: [
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.dashboard'),
+                            to: { name: 'dashboard' }
+                        },
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.settings'),
+                        },
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.security'),
+                        }
+                    ]
+                }
+            }
+        ],
     },
     {
         path: '/admin',
@@ -109,7 +138,7 @@ const routes = [
     },
     {
         path: '/c/:companyName',
-        component: () => import(/* webpackChunkName: "pages/company" */ '../layout/Company'),
+        component: () => import(/* webpackChunkName: "pages/company" */ '../layout/base/Company'),
         children: [
             {
                 path: 'dashboard',

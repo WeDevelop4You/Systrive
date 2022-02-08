@@ -5,7 +5,6 @@
     class CompanyTableMap
     {
         public const ID = 'id';
-        public const OWNER_ID = 'owner_id';
         public const NAME = 'name';
         public const EMAIL = 'email';
         public const DOMAIN = 'domain';

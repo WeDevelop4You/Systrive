@@ -7,7 +7,7 @@
     use Domain\Company\ModelQueries\Company as CompanyModelQueries;
     use Domain\Invite\Models\Invite;
     use Domain\Role\Models\Role;
-    use Domain\System\Models\SystemUser;
+    use Domain\System\Models\System;
     use Domain\User\Collections\UserCollections;
     use Domain\User\Models\User;
     use Eloquent;
@@ -18,7 +18,6 @@
      * Domain\Company\Models\Company.
      *
      * @property int         $id
-     * @property int|null    $owner_id
      * @property string      $name
      * @property string|null $email
      * @property string|null $domain
@@ -28,7 +27,7 @@
      * @property Carbon|null $updated_at
      * @property-read Collection|Invite[] $invites
      * @property-read Collection|Role[] $roles
-     * @property-read SystemUser|null $systemUser
+     * @property-read System|null $system
      * @property-read User[]|UserCollections $users
      * @property-read User[]|UserCollections $whereOwner
      *
@@ -43,7 +42,6 @@
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereInformation($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereOwnerId($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereStatus($value)
      * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
      * @mixin Eloquent

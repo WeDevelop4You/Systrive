@@ -32,6 +32,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
+ * @property-read \Domain\Company\Models\CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
  * @property-read string|null $full_name
  * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions

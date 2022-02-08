@@ -19,7 +19,7 @@
         {
             return Response::create()
                 ->addData(new CompanyNavigationResource(
-                    $company->systemUser()
+                    $company->system()
                         ->with(['domains', 'dns', 'databases', 'mailDomains'])
                         ->first()
                 ))

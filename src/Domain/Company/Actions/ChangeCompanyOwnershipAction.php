@@ -5,7 +5,6 @@
     use Domain\Company\Actions\User\InviteUserToCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
-    use Domain\Role\Mappings\RoleTableMap;
     use Domain\User\Models\User;
 
     class ChangeCompanyOwnershipAction
@@ -14,12 +13,12 @@
          * ChangeCompanyOwnershipAction constructor.
          *
          * @param User|null $oldOwner
-         * @param User      $newOwner
+         * @param string    $newOwnerEmail
          * @param bool      $removeUser
          */
         public function __construct(
-            private User $newOwner,
             private ?User $oldOwner,
+            private string $newOwnerEmail,
             private bool $removeUser = false
         ) {
             //
@@ -27,13 +26,15 @@
 
         public function __invoke(Company $company)
         {
-            if (!$company->whereUser($this->newOwner)->exists()) {
-                $companyUserData = new CompanyUserData([RoleTableMap::MAIN_ROLE], [], $this->newOwner->email);
+            $newOwner = $company->whereUserEmail($this->newOwnerEmail)->first();
 
-                (new InviteUserToCompanyAction($company))($companyUserData);
+            if (is_null($newOwner)) {
+                $companyUserData = new CompanyUserData([], [], $this->newOwnerEmail);
+
+                $newOwner = (new InviteUserToCompanyAction($company))($companyUserData);
             }
 
-            $company->updateOwnership($this->newOwner, true);
+            $company->updateOwnership($newOwner, true);
 
             if ($this->oldOwner instanceof User) {
                 if ($this->removeUser) {

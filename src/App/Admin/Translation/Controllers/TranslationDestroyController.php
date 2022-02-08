@@ -19,7 +19,7 @@
             $translationKey->delete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.delete.translation')))
+                ->addPopup(new SimpleNotification(trans('response.success.deleted')))
                 ->toJson();
         }
     }

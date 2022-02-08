@@ -22,8 +22,8 @@
         });
 
         Route::prefix('{user}')->group(function () {
-            Route::get('/', [CompanyUserEditController::class, 'index'])->name('company.user.edit');
-            Route::patch('/', [CompanyUserEditController::class, 'action'])->name('company.user.edit');
+            Route::get('/', [CompanyUserEditController::class, 'index'])->name('company.user.edit')->withTrashed();
+            Route::patch('/', [CompanyUserEditController::class, 'action'])->name('company.user.edit')->withTrashed();
             Route::delete('/', [CompanyUserRevokeController::class, 'action'])->name('company.user.revoke')->withTrashed();
 
             Route::post('invite/resend', [CompanyUserResendInviteController::class, 'action'])->name('company.user.invite.resend')->withTrashed();

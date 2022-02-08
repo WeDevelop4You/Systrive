@@ -28,13 +28,13 @@
 
         public function action(CompanyUpdateRequest $request, Company $company): JsonResponse
         {
-            $data = new CompanyData(...$request->only('name', 'owner', 'email', 'domain', 'information'));
+            $data = new CompanyData(...$request->only('name', 'email', 'domain', 'information', 'owner_email'));
             $removeUser = $request->get('removeUser', false);
 
             (new UpdateCompanyAction($company, $removeUser))($data);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.company')))
+                ->addPopup(new SimpleNotification(trans('response.success.saved')))
                 ->toJson();
         }
     }

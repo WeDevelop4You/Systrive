@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import Users from "./users";
 import Roles from "./roles";
+import domain from "./system/domain";
 
 const app = Vue.prototype
 
@@ -15,6 +16,7 @@ export default {
             email: '',
             domain: '',
             information: '',
+            system_id: 0,
         }
     }),
 
@@ -32,6 +34,13 @@ export default {
         data(state) {
             return state.data
         },
+
+        system(state) {
+            return {
+                companyId: state.data.id,
+                systemId: state.data.system_id
+            }
+        }
     },
 
     actions: {
@@ -55,10 +64,13 @@ export default {
                 commit('setCompany', response.data.data)
             })
         },
+
+
     },
 
     modules: {
         users: Users,
-        roles: Roles
+        roles: Roles,
+        domain: domain,
     }
 }

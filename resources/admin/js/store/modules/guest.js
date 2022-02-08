@@ -31,43 +31,9 @@ export default {
     },
 
     actions: {
-        resetError({commit}) {
-            commit('setError', false)
+        login({commit}, data) {
             commit('setErrors', {})
-        },
-
-        passwordError({commit}, errors) {
-            let newErrors = {}
-
-            errors.password?.forEach((message) => {
-                commit('setError', true)
-
-                if (message.includes('characters')) {
-                    newErrors.characters = true
-                } else if (message.includes('uppercase')) {
-                    newErrors.mixedCase = true
-                } else if (message.includes('number')) {
-                    newErrors.number = true
-                } else if (message.includes('symbol')) {
-                    newErrors.symbol = true
-                } else {
-                    newErrors.password = [
-                        ...newErrors.password || [],
-                        message
-                    ]
-                }
-            })
-
-            delete errors.password
-
-            commit('setErrors', {
-                ...errors,
-                ...newErrors
-            })
-        },
-
-        login({dispatch, commit}, data) {
-            dispatch('resetError')
+            commit('setError', false)
 
             app.$api.getCsrfToken().then(() => {
                 app.$api.call({
@@ -87,8 +53,8 @@ export default {
             })
         },
 
-        sendEmail({dispatch, commit}, email) {
-            dispatch('resetError')
+        sendEmail({commit}, email) {
+            commit('setErrors', {})
 
             return app.$api.getCsrfToken().then(() => {
                 return app.$api.call({
@@ -111,8 +77,8 @@ export default {
             })
         },
 
-        resetPassword({dispatch}, data) {
-            dispatch('resetError')
+        resetPassword({dispatch, commit}, data) {
+            commit('setErrors', {})
 
             app.$api.getCsrfToken().then(() => {
                 app.$api.call({

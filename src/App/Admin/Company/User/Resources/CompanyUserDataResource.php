@@ -24,7 +24,7 @@
                 'profile' => [
                     'full_name' => $this->full_name,
                 ],
-                'isOwner' => $this->id === $request->company->owner_id,
+                'isOwner' => (bool) $this->pivot->is_owner,
             ];
         }
 

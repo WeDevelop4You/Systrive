@@ -21,7 +21,7 @@
             $company->status = CompanyTableMap::INVITED_STATUS;
             $company->save();
 
-            SendCompanyInvite::dispatch($companyInviteData->email, $company);
+            SendCompanyInvite::dispatch($companyInviteData->owner_email, $company);
 
             return $company;
         }

@@ -15,11 +15,13 @@
         private array $data = [];
 
         /**
+         * @param mixed ...$attribute
+         *
          * @return array
          */
-        public static function create(): array
+        public static function create(...$attribute): array
         {
-            $instance = new static();
+            $instance = new static(...$attribute);
             $instance->handle();
 
             return $instance->toArray();

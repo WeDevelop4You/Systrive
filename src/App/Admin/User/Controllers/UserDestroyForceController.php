@@ -19,7 +19,7 @@
             $user->forceDelete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.delete.force.account')))
+                ->addPopup(new SimpleNotification(trans('response.success.deleted')))
                 ->toJson();
         }
     }

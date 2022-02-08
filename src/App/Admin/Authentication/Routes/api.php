@@ -5,7 +5,7 @@
     use App\Admin\Authentication\Controllers\RegistrationController;
     use App\Admin\Authentication\Controllers\ResetPasswordController;
     use App\Admin\Authentication\Requests\PasswordRequest;
-    use App\Admin\User\Requests\ProfileRequest;
+    use App\Admin\User\Account\Requests\ProfileRequest;
     use Illuminate\Http\Request;
     use Support\Helpers\Response\Response;
 

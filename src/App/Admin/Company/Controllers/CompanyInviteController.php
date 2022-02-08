@@ -55,7 +55,7 @@
             (new CreateCompanyAction())($data);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.create.company')))
+                ->addPopup(new SimpleNotification(trans('response.success.saved')))
                 ->setStatusCode(ResponseCodes::HTTP_CREATED)
                 ->toJson();
         }

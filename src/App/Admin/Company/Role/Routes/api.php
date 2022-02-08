@@ -11,7 +11,7 @@
         Route::get('list', [CompanyRoleListController::class, 'index'])->name('company.role.list');
         Route::post('create', [CompanyRoleCreateController::class, 'action'])->name('company.role.create');
 
-        Route::prefix('{role}')->scopeBindings()->group(function () {
+        Route::prefix('{role}')->group(function () {
             Route::get('/', [CompanyRoleEditController::class, 'index'])->name('company.role.edit');
             Route::patch('/', [CompanyRoleEditController::class, 'action'])->name('company.role.edit');
             Route::delete('/', [CompanyRoleDestroyController::class, 'action'])->name('company.role.destroy');

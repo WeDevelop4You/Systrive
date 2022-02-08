@@ -20,11 +20,18 @@
                 Column::create('name')->sortable()->searchable(),
                 Column::create('email')->sortable()->searchable(),
                 Column::create('owner.full_name')->sortable(function (Builder $query, string $direction) {
-                    return $query->orderBy(UserProfile::selectRaw("CONCAT_WS(' ', first_name, middle_name, last_name)")
-                        ->whereColumn('companies.owner_id', 'user_profiles.user_id'), $direction);
+                    return $query->orderBy(UserProfile::orWhereHas('user', function (Builder $query) {
+                        $query->whereHas('companyUser', function (Builder $query) {
+                            $query->where('company_user.is_owner', true)
+                                ->whereColumn('company_user.company_id', 'companies.id');
+                        })->withTrashed();
+                    })->selectRaw("CONCAT_WS(' ', first_name, middle_name, last_name)"), $direction);
                 })->searchable(function (Builder $query, string $search) {
-                    return $query->orWhereHas('ownerProfile', function (Builder $query) use ($search) {
-                        return $query->where(DB::raw("CONCAT_WS(' ', first_name, middle_name, last_name)"), 'like', "%{$search}%");
+                    return $query->orWhereHas('users', function (Builder $query) use ($search) {
+                        $query->where('company_user.is_owner', true)
+                            ->whereHas('profile', function (Builder $query) use ($search) {
+                                $query->where(DB::raw("CONCAT_WS(' ', first_name, middle_name, last_name)"), 'like', "%{$search}%");
+                            })->withTrashed();
                     });
                 }),
                 Column::create('status')->sortable()->searchable(),

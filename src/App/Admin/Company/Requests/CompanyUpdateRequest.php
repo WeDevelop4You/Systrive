@@ -21,9 +21,7 @@
                 'domain' => ['nullable', 'url'],
                 'information' => ['nullable', 'string'],
                 'removeUser' => ['required', 'boolean'],
-                'owner' => [$ifSuperAdmin],
-                'owner.id' => [$ifSuperAdmin, 'exists:users,id'],
-                'owner.email' => [$ifSuperAdmin, 'email'],
+                'owner_email' => [$ifSuperAdmin, 'email'],
             ];
         }
     }

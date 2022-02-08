@@ -2,8 +2,8 @@
 
     namespace App\Console\Commands\Vesta\Sync;
 
-    use Domain\System\Jobs\SyncSystemUserDatabases;
-    use Domain\System\Models\SystemUser;
+    use Domain\System\Jobs\SyncSystemDatabases;
+    use Domain\System\Models\System;
     use Illuminate\Console\Command;
 
     class SyncDatabases extends Command
@@ -29,9 +29,9 @@
          */
         public function handle(): int
         {
-            SystemUser::with('domains')->get()
-                ->each(function (SystemUser $systemUser) {
-                    SyncSystemUserDatabases::dispatch($systemUser);
+            System::with('domains')->get()
+                ->each(function (System $system) {
+                    SyncSystemDatabases::dispatch($system);
                 });
 
             return 1;

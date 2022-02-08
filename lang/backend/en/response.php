@@ -10,6 +10,8 @@ return array (
         'success' => 'Command has been successfuly performed',
       ),
     ),
+    'deleted' => 'Successfully deleted',
+    'saved' => 'Successfully saved',
   ),
   'error' => 
   array (

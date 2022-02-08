@@ -25,7 +25,7 @@
             (new CreateRoleAction($company))($data);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.create.company.role')))
+                ->addPopup(new SimpleNotification(trans('response.success.saved')))
                 ->toJson();
         }
     }

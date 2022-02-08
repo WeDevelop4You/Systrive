@@ -52,7 +52,8 @@
             "sources": "Vertaalbronnen"
         },
         "account": {
-            "account": "Account"
+            "account": "Account",
+            "settings": "Account instellingen"
         },
         "send_email": "verstuur e-mail",
         "id": "ID",
@@ -118,6 +119,22 @@
         "databases": "Databases",
         "mail": {
             "domains": "Mail domeinen"
-        }
+        },
+        "usage": {
+            "disk": "Schijfgebruik",
+            "bandwidth": "Bandbreedtegebruik"
+        },
+        "usages": "Gebruik",
+        "personal": {
+            "data": "Persoonlijke gegevens"
+        },
+        "security": "Veiligheid",
+        "current": {
+            "password": "Huidig wachtwoord"
+        },
+        "change": {
+            "password": "Wachtwoord wijzigen"
+        },
+        "2fa": "Twee-factor-authenticatie"
     }
 }

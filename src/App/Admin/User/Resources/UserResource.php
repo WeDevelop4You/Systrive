@@ -17,6 +17,7 @@
             return [
                 'email' => $this->email,
                 'email_verified_at' => $this->email_verified_at->toDatetimeString(),
+                'is_secured' => (bool) $this->security?->enabled
             ];
         }
     }

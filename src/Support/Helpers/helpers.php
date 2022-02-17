@@ -21,3 +21,10 @@
             app(PermissionRegistrar::class)->setPermissionsTeamId($id);
         }
     }
+
+    if (!function_exists('createBase64Image')) {
+        function createBase64Image(string $base64): string
+        {
+            return "data:image/png;base64,{$base64}";
+        }
+    }

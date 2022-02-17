@@ -2,6 +2,10 @@
 
     namespace Support\Helpers\Response\Popups\Components;
 
+    use Support\Abstracts\Response\AbstractAction;
+    use Support\Enums\Vuetify\VuetifyButtonTypes;
+    use Support\Enums\Vuetify\VuetifyColors;
+
     class Button
     {
         /**
@@ -10,24 +14,24 @@
         private string $title;
 
         /**
-         * @var string|null
+         * @var VuetifyColors|null
          */
-        private ?string $type = null;
+        private VuetifyColors|null $color = null;
 
         /**
-         * @var string|null
+         * @var VuetifyButtonTypes|null
          */
-        private ?string $color = null;
+        private VuetifyButtonTypes|null $type = null;
 
         /**
-         * @var string|null
+         * @var AbstractAction|null
          */
-        private ?string $requestUrl = null;
+        private AbstractAction|null $action = null;
 
         /**
-         * @var string|null
+         * @var bool
          */
-        private ?string $requestMethod = null;
+        private bool $isListener = false;
 
         /**
          * @return Button
@@ -50,23 +54,11 @@
         }
 
         /**
-         * @param string $type
+         * @param VuetifyColors $color
          *
          * @return Button
          */
-        public function setType(string $type): Button
-        {
-            $this->type = $type;
-
-            return $this;
-        }
-
-        /**
-         * @param string $color
-         *
-         * @return Button
-         */
-        public function setColor(string $color): Button
+        public function setColor(VuetifyColors $color = VuetifyColors::PRIMARY): Button
         {
             $this->color = $color;
 
@@ -74,25 +66,35 @@
         }
 
         /**
-         * @param string $requestUrl
+         * @param VuetifyButtonTypes $type
          *
          * @return Button
          */
-        public function setRequestUrl(string $requestUrl): Button
+        public function setType(VuetifyButtonTypes $type): Button
         {
-            $this->requestUrl = $requestUrl;
+            $this->type = $type;
 
             return $this;
         }
 
         /**
-         * @param string $requestMethod
+         * @param AbstractAction $action
          *
          * @return Button
          */
-        public function setRequestMethod(string $requestMethod): Button
+        public function setAction(AbstractAction $action): Button
         {
-            $this->requestMethod = $requestMethod;
+            $this->action = $action;
+
+            return $this;
+        }
+
+        /**
+         * @return $this
+         */
+        public function setListener(): Button
+        {
+            $this->isListener = true;
 
             return $this;
         }
@@ -103,11 +105,11 @@
         public function export(): array
         {
             return [
-                'type' => $this->type,
                 'title' => $this->title,
-                'color' => $this->color,
-                'request_url' => $this->requestUrl,
-                'request_method' => $this->requestMethod,
+                'type' => $this->type?->value,
+                'color' => $this->color?->value,
+                'hasListener' => $this->isListener,
+                'action' => $this->action?->export(),
             ];
         }
     }

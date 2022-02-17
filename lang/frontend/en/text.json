@@ -29,6 +29,17 @@
         },
         "complete": {
             "registration": "Complete registration"
-        }
+        },
+        "how": {
+            "to": {
+                "enable": {
+                    "2fa": "Scan the image below with the two-factor authentication app on your phone."
+                }
+            }
+        },
+        "check": {
+            "2fa": "Check the two-factor authentication by entering the six-digit code that's displayed in the app"
+        },
+        "csrf": "Please try again"
     }
 }

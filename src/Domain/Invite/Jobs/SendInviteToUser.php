@@ -31,11 +31,11 @@ class SendInviteToUser
      * SendInviteEmailToUser constructor.
      *
      * @param string|User $notifiable
-     * @param Company     $company
+     * @param Company            $company
      */
     public function __construct(
         User|string $notifiable,
-        private Company $company,
+        private Company    $company,
     ) {
         $this->user = $notifiable instanceof User
             ? $notifiable

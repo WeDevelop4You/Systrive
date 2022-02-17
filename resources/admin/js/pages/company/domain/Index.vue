@@ -4,7 +4,11 @@
             cols="12"
             md="6"
         >
-            <v-card>
+            <v-card
+                :elevation="$config.elevation"
+                outlined
+                rounded="lg"
+            >
                 <v-card-title>
                     <span v-text="$vuetify.lang.t('$vuetify.word.usage.disk')" />
                 </v-card-title>
@@ -22,7 +26,11 @@
             cols="12"
             md="6"
         >
-            <v-card>
+            <v-card
+                :elevation="$config.elevation"
+                outlined
+                rounded="lg"
+            >
                 <v-card-title>
                     <span v-text="$vuetify.lang.t('$vuetify.word.usage.bandwidth')" />
                 </v-card-title>

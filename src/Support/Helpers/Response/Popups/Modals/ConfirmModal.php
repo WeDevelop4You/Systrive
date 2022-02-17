@@ -2,9 +2,10 @@
 
     namespace Support\Helpers\Response\Popups\Modals;
 
+    use Support\Abstracts\Response\ModalAbstract;
     use Support\Helpers\Response\Popups\Components\Button;
 
-    class ConfirmModal extends ModalBase
+    class ConfirmModal extends ModalAbstract
     {
         public function getComponent(): string
         {

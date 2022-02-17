@@ -7,23 +7,18 @@
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
     use Illuminate\Support\Facades\Session;
-    use Support\Helpers\Response\Action\ActionContent;
-    use Support\Helpers\Response\Action\ActionMethodBase;
-    use Support\Helpers\Response\Popups\Notifications\NotificationBase;
-    use Support\Helpers\Response\Popups\PopupBase;
-    use Support\Helpers\Response\Popups\PopupContent;
+    use Support\Abstracts\Response\AbstractPopup;
+    use Support\Abstracts\Response\AbstractAction;
+    use Support\Abstracts\Response\NotificationAbstract;
+    use Support\Enums\SessionKeyTypes;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class Response
     {
-        public const SESSION_KEY_DEFAULT = 'responseData';
-        public const SESSION_KEY_MODAL = 'responseDataModal';
-        public const SESSION_KEY_REGISTRATION = 'registrationData';
-
         /**
-         * @var array|JsonResource|ResourceCollection
+         * @var array|string|JsonResource|ResourceCollection
          */
-        private JsonResource|array|ResourceCollection $data;
+        private JsonResource|array|string|ResourceCollection $data;
 
         /**
          * @var int
@@ -36,14 +31,14 @@
         private array $errors = [];
 
         /**
-         * @var PopupContent
+         * @var AbstractPopup
          */
-        private PopupContent $popup;
+        private AbstractPopup $popup;
 
         /**
-         * @var ActionContent
+         * @var AbstractAction
          */
-        private ActionContent $action;
+        private AbstractAction $action;
 
         /**
          * @var string
@@ -67,8 +62,8 @@
         {
             $this->statusCode = $statusCode;
 
-            if (isset($this->popup) && $this->popup->instance instanceof NotificationBase) {
-                $this->popup->instance->selectedTypeByStatusCode($statusCode);
+            if (isset($this->popup) && $this->popup instanceof NotificationAbstract) {
+                $this->popup->selectedTypeByStatusCode($statusCode);
             }
 
             return $this;
@@ -95,11 +90,11 @@
         }
 
         /**
-         * @param AnonymousResourceCollection|array|JsonResource $data
+         * @param AnonymousResourceCollection|array|string|JsonResource $data
          *
          * @return Response
          */
-        public function addData(AnonymousResourceCollection|array|JsonResource $data): Response
+        public function addData(AnonymousResourceCollection|array|string|JsonResource $data): Response
         {
             $this->data = $data;
 
@@ -107,14 +102,14 @@
         }
 
         /**
-         * @param PopupBase $instance
-         * @param int|null  $statusCode
+         * @param AbstractPopup $popup
+         * @param int|null      $statusCode
          *
          * @return Response
          */
-        public function addPopup(PopupBase $instance, ?int $statusCode = null): Response
+        public function addPopup(AbstractPopup $popup, ?int $statusCode = null): Response
         {
-            $this->popup = new PopupContent($instance);
+            $this->popup = $popup;
 
             $this->setStatusCode($statusCode ?: $this->statusCode);
 
@@ -122,13 +117,13 @@
         }
 
         /**
-         * @param ActionMethodBase $methodClass
+         * @param AbstractAction $action
          *
          * @return Response
          */
-        public function addAction(ActionMethodBase $methodClass): Response
+        public function addAction(AbstractAction $action): Response
         {
-            $this->action = new ActionContent($methodClass);
+            $this->action = $action;
 
             return $this;
         }
@@ -161,11 +156,11 @@
             }
 
             if (isset($this->popup)) {
-                $response['popup'] = $this->popup->getData();
+                $response['popup'] = $this->popup->export();
             }
 
             if (isset($this->action)) {
-                $response['action'] = $this->action->getData();
+                $response['action'] = $this->action->export();
             }
 
             if (isset($this->redirect)) {
@@ -184,22 +179,22 @@
         }
 
         /**
-         * @param string $key
+         * @param SessionKeyTypes $key
          *
          * @return void
          */
-        public function toSession(string $key = self::SESSION_KEY_DEFAULT): void
+        public function toSession(SessionKeyTypes $key = SessionKeyTypes::ONCE): void
         {
-            Session::put($key, $this->createResponseContent());
+            Session::put($key->value, $this->createResponseContent());
         }
 
         /**
-         * @param string $key
+         * @param SessionKeyTypes $key
          *
          * @return mixed
          */
-        public static function getSessionData(string $key = self::SESSION_KEY_MODAL): mixed
+        public static function getSessionData(SessionKeyTypes $key = SessionKeyTypes::KEEP): mixed
         {
-            return Session::get("{$key}.data");
+            return Session::get("{$key->value}.data");
         }
     }

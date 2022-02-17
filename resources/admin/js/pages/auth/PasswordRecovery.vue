@@ -78,9 +78,9 @@
             send() {
                 let app = this
 
-                this.$store.dispatch('guest/sendEmail', this.email).then((response) => {
-                    if (response) app.email = ''
-                })
+                this.$store.dispatch('guest/sendEmail', this.email).then(() => {
+                    app.email = ''
+                }).catch(() => {})
             },
 
             enter(e) {

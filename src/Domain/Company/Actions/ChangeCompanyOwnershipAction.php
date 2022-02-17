@@ -13,13 +13,13 @@
          * ChangeCompanyOwnershipAction constructor.
          *
          * @param User|null $oldOwner
-         * @param string    $newOwnerEmail
-         * @param bool      $removeUser
+         * @param string           $newOwnerEmail
+         * @param bool             $removeUser
          */
         public function __construct(
             private ?User $oldOwner,
-            private string $newOwnerEmail,
-            private bool $removeUser = false
+            private string       $newOwnerEmail,
+            private bool         $removeUser = false
         ) {
             //
         }

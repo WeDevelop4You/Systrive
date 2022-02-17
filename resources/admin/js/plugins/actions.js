@@ -2,41 +2,48 @@ export default {
     install(Vue) {
         Vue.mixin({
             methods: {
-                callAction(data) {
-                    if (Object.prototype.hasOwnProperty.call(data, 'action')) {
-                        this[data.action.method](...data.action.parameters ?? [])
-                    }
+                callAction(action) {
+                    return this[action.method](action.data ?? {})
                 },
 
-                async actionGoToRoute(route) {
-                    await this.$router.push(route).catch(() => {})
+                actionGoToRoute({route}) {
+                    return this.$router.push(route)
                 },
 
-                async actionGoToLastRoute() {
+                actionGoToLastRoute() {
                     const originLastRoute = this.$root.lastRoute
 
-                    await this.actionGoToRoute(originLastRoute)
+                    const promise = this.actionGoToRoute({route: originLastRoute})
 
                     this.$root.lastRoute = originLastRoute
+
+                    return promise
                 },
 
-                async actionGoToMainRoute() {
+                actionGoToMainRoute() {
                     const originLastRoute = this.$root.lastRoute
 
-                    await this.actionGoToRoute({name: this.$route.name})
+                    const promise = this.actionGoToRoute({route: {name: this.$route.name}})
 
                     this.$root.lastRoute = originLastRoute
+
+                    return promise
                 },
 
-                actionGetRequest(url) {
-                    this.$api.call({
+                actionRequest({url, method, params}) {
+                    return this.$api.call({
                         url: url,
-                        method: 'GET',
+                        method: method,
+                        data: params
                     })
                 },
 
-                async actionVuexDispatchMethod(type, params) {
-                    await this.$store.dispatch(type, params)
+                actionVuexCommitMethod({type, params}) {
+                    return this.$store.commit(type, params)
+                },
+
+                actionVuexDispatchMethod({type, params}) {
+                    return this.$store.dispatch(type, params)
                 },
             }
         })

@@ -4,6 +4,7 @@
             <v-card
                 class="mx-12"
                 :elevation="$config.elevation"
+                rounded="lg"
             >
                 <v-card-title v-text="$vuetify.lang.t('$vuetify.word.account.settings')" />
                 <v-card-text>

@@ -10,8 +10,13 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
+    use Support\Enums\RequestMethodTypes;
+    use Support\Enums\SessionKeyTypes;
+    use Support\Enums\Vuetify\VuetifyButtonTypes;
+    use Support\Enums\Vuetify\VuetifyColors;
     use Support\Exceptions\InvalidTokenException;
-    use Support\Helpers\Response\Action\Methods\VuexMethod;
+    use Support\Helpers\Response\Action\Methods\RequestMethods;
+    use Support\Helpers\Response\Action\Methods\VuexMethods;
     use Support\Helpers\Response\Popups\Components\Button;
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
@@ -38,11 +43,26 @@
                     ConfirmModal::create()
                         ->setTitle(trans('modal.confirm.accepted.invite.company.title'))
                         ->setText(trans('modal.confirm.accepted.invite.company.text'))
-                        ->addButton($this->createCancelButton())
-                        ->addButton($this->createAcceptButton($company->id, $token))
+                        ->addButton(
+                            Button::create()
+                                ->setTitle(trans('modal.confirm.cancel.cancel'))
+                                ->setType(VuetifyButtonTypes::TEXT)
+                                ->setAction(
+                                    RequestMethods::create()
+                                        ->delete(route('admin.session.delete', ['key' => SessionKeyTypes::KEEP->value]))
+                                )
+                        )->addButton(
+                            Button::create()
+                                ->setTitle(trans('modal.confirm.accept.accept'))
+                                ->setColor()
+                                ->setAction(
+                                    RequestMethods::create()
+                                        ->post(route('admin.company.user.invite.accepted', [$company->id, $token]))
+                                )
+                        )
                 );
             } catch (ModelNotFoundException | InvalidTokenException) {
-                Session::forget(Response::SESSION_KEY_MODAL);
+                Session::forget(SessionKeyTypes::KEEP->value);
 
                 $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
@@ -67,41 +87,14 @@
                 (new UserInviteToCompanyAcceptedAction(Auth::user()))($company);
 
                 $response->addPopup(new SimpleNotification(trans('response.success.company.invite.accepted')))
-                    ->addAction(VuexMethod::create()->dispatch('navigation/getCompanies'));
+                    ->addAction(VuexMethods::create()->dispatch('navigation/getCompanies'));
             } catch (ModelNotFoundException | InvalidTokenException) {
                 $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
             }
 
-            Session::forget(Response::SESSION_KEY_MODAL);
+            Session::forget(SessionKeyTypes::KEEP->value);
 
             return $response->toJson();
-        }
-
-        /**
-         * @param int    $companyId
-         * @param string $token
-         *
-         * @return Button
-         */
-        private function createAcceptButton(int $companyId, string $token): Button
-        {
-            return Button::create()
-                ->setTitle(trans('modal.confirm.accept.accept'))
-                ->setColor(VuetifyHelper::PRIMARY_COLOR)
-                ->setRequestUrl(route('admin.company.user.invite.accepted', [$companyId, $token]))
-                ->setRequestMethod(VuetifyHelper::POST_METHOD);
-        }
-
-        /**
-         * @return Button
-         */
-        private function createCancelButton(): Button
-        {
-            return Button::create()
-                ->setTitle(trans('modal.confirm.cancel.cancel'))
-                ->setType(VuetifyHelper::TEXT_BUTTON_TYPE)
-                ->setRequestUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
-                ->setRequestMethod(VuetifyHelper::DELETE_METHOD);
         }
     }

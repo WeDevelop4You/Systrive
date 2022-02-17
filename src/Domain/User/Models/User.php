@@ -6,8 +6,8 @@ use Database\Factories\UserFactory;
 use Domain\Company\Models\Company;
 use Domain\User\Collections\UserCollections;
 use Domain\User\Mappings\UserTableMap;
-use Domain\User\ModelQueries\User as UserModelQueries;
-use Domain\User\QueryBuilders\UserQueryBuilders;
+use Domain\User\Queries\UserQueries;
+use Domain\User\Queries\UserQueryBuilders;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,25 +20,25 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * Domain\User\Models\User.
+ * Domain\User\Models\User
  *
- * @property int         $id
- * @property string      $email
- * @property string      $locale
+ * @property int $id
+ * @property string $email
+ * @property string $locale
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
- * @property-read \Domain\Company\Models\CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
+ * @property-read \Domain\Company\Collections\CompanyCollections|Company[] $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Company\Models\CompanyUser[] $companyUser
  * @property-read string|null $full_name
- * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Domain\User\Models\UserProfile|null $profile
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
- *
+ * @property-read \Domain\User\Models\UserSecurity|null $security
  * @method static UserCollections|static[] all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static UserCollections|static[] get($columns = ['*'])
@@ -61,7 +61,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User withoutTrashed()
  * @mixin Eloquent
  */
-class User extends UserModelQueries implements MustVerifyEmail
+class User extends UserQueries implements MustVerifyEmail
 {
     use HasRoles;
     use HasFactory;

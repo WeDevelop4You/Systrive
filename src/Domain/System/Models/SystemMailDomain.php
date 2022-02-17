@@ -6,14 +6,13 @@ use Domain\System\Mappings\SystemMailDomainTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\System\Models\SystemMailDomain.
+ * Domain\System\Models\SystemMailDomain
  *
- * @property int                             $id
- * @property int                             $system_id
- * @property string                          $name
+ * @property int $id
+ * @property int $system_id
+ * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain query()
@@ -30,6 +29,6 @@ class SystemMailDomain extends Model
 
     protected $fillable = [
         SystemMailDomainTableMap::NAME,
-        SystemMailDomainTableMap::SYSTEM_USER_ID,
+        SystemMailDomainTableMap::SYSTEM_ID,
     ];
 }

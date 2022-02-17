@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tableBase from "../tableBase";
+import dataTableBase from "../base/dataTableBase";
 
 const app = Vue.prototype
 
@@ -62,7 +62,7 @@ export default {
 
         destroy({state, commit}) {
             app.$api.call({
-                url: app.$api.route('admin.translation', state.tableBase.deleteId),
+                url: app.$api.route('admin.translation', state.dataTable.delete.id),
                 method: 'DELETE'
             }).finally(() => {
                 commit('resetDelete')
@@ -71,6 +71,6 @@ export default {
     },
 
     modules: {
-        tableBase: tableBase
+        dataTable: dataTableBase
     }
 }

@@ -79,7 +79,7 @@
                 const item = this.item
                 const message = this.$vuetify.lang.t('$vuetify.text.delete.message.revoke.user', item.email)
 
-                this.$store.commit('company/users/setDelete', {id: item.id, message: message, hideDelete: item.deleted_at})
+                this.$store.commit('company/users/setDelete', {id: item.id, message: message, hideButton: item.deleted_at})
             }
         },
     }

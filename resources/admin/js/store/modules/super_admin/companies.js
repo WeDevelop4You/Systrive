@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import tableBase from "../tableBase";
+import dataTableBase from "../base/dataTableBase";
 
 const app = Vue.prototype
 
@@ -51,6 +51,15 @@ export default {
             })
         },
 
+        getMany({commit}) {
+            app.$api.call({
+                url: app.$api.route('admin.user.list'),
+                method: "GET",
+            }).then((response) => {
+                commit('setOwners', response.data.data)
+            })
+        },
+
         update({commit}, data) {
             app.$api.call({
                 url: app.$api.route('admin.company.edit', data.id),
@@ -63,33 +72,24 @@ export default {
             })
         },
 
-        destroy({state, commit}) {
-            app.$api.call({
-                url: app.$api.route('admin.company.destroy', state.tableBase.deleteId),
-                method: 'DELETE'
-            }).finally(() => {
-                commit('resetDelete')
-            })
-        },
-
-        getMany({commit}) {
-            app.$api.call({
-                url: app.$api.route('admin.user.list'),
-                method: "GET",
-            }).then((response) => {
-                commit('setOwners', response.data.data)
-            })
-        },
-
         async resendInvite(_, id) {
             await app.$api.call({
                 url: app.$api.route('admin.company.invite.resend', id),
                 method: "POST"
             })
-        }
+        },
+
+        destroy({state, commit}) {
+            app.$api.call({
+                url: app.$api.route('admin.company.destroy', state.dataTable.delete.id),
+                method: 'DELETE'
+            }).finally(() => {
+                commit('resetDelete')
+            })
+        },
     },
 
     modules: {
-        tableBase: tableBase
+        dataTable: dataTableBase
     }
 }

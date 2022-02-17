@@ -38,10 +38,12 @@
                 :error="error"
                 :type="show_3 ? 'text' : 'password'"
                 :error-messages="errors.password_confirm"
+                :class="{'pb-2': !errors.password_confirm}"
                 :append-icon="show_3 ? 'fas fa-eye' : 'fas fa-eye-slash'"
                 :label="$vuetify.lang.t('$vuetify.word.confirm.password')"
                 dense
                 outlined
+                hide-details="auto"
                 @click:append="show_3 = !show_3"
             />
         </v-col>

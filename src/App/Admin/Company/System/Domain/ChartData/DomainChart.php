@@ -24,9 +24,11 @@
 
         protected function handle(): void
         {
-            $endDate = Carbon::now();
-            $startDate = Carbon::now()->subWeeks(2);
-            $period = new Collection(CarbonPeriod::create($startDate, $endDate));
+            $addDay = (int) Carbon::now()->lt(Carbon::today()->addHours(4));
+
+            $endDate = Carbon::now()->subDays($addDay);
+            $startDate = Carbon::now()->subWeeks(2)->subDays($addDay);
+            $period = Collection::make(CarbonPeriod::create($startDate, $endDate));
 
 
             $periodDates = $period->map(function (Carbon $date) {

@@ -4,9 +4,11 @@
             v-if="!isEditing"
             v-model="value.email"
             :error-messages="errors.email"
+            :class="{'mb-2': !errors.email}"
             :label="$vuetify.lang.t('$vuetify.word.email')"
             dense
             outlined
+            hide-details="auto"
         />
         <v-autocomplete
             v-model="roles"
@@ -17,8 +19,10 @@
             outlined
             multiple
             small-chips
+            hide-details
             return-object
             deletable-chips
+            class="mb-2"
             item-text="name"
             @change="changeRolePermissions"
         />

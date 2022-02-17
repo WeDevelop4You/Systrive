@@ -39,7 +39,7 @@
     import ServerDataTable from "../../components/table/ServerDataTable"
     import Actions from "../../components/table/column/company/role/Actions"
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog"
-    import FormProperties from  "../../mixins/FormProperties"
+    import FormProperties from "../../mixins/FormTableProperties"
 
     export default {
         name: "Roles",
@@ -82,7 +82,7 @@
             },
 
             allowAction() {
-                return this.$store.getters['user/getPermissionType'] === this.$config.permissions.types.company
+                return this.$store.getters['user/permissions/getType'] === this.$config.permissions.types.company
             },
 
             formTitle() {

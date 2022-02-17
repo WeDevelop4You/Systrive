@@ -58,7 +58,7 @@ export default new Vue({
         this.$api.call.interceptors.response.use(function (response) {
             app.requests--
 
-            app.responseActions(response.data)
+            app.responseMethodChain(response.data)
 
             return response
         }, function (error) {
@@ -70,7 +70,7 @@ export default new Vue({
                     message: app.$vuetify.lang.t('$vuetify.text.csrf')
                 })
             } else {
-                app.responseActions(error.response.data)
+                app.responseMethodChain(error.response.data)
             }
 
             return Promise.reject(error)
@@ -80,21 +80,17 @@ export default new Vue({
     },
 
     methods: {
-        responseActions(data) {
-            this.redirect(data)
-            this.addPopup(data)
-            this.callAction(data)
-        },
+        responseMethodChain(data) {
+            if (Object.prototype.hasOwnProperty.call(data,'redirect')) {
+                window.location.href = data.redirect
+            }
 
-        addPopup(data) {
             if (Object.prototype.hasOwnProperty.call(data,'popup')) {
                 this.$store.dispatch('popups/addPopup', data.popup);
             }
-        },
 
-        redirect(data) {
-            if (Object.prototype.hasOwnProperty.call(data,'redirect')) {
-                window.location.href = data.redirect
+            if (Object.prototype.hasOwnProperty.call(data, 'action')) {
+                this.callAction(data.action)
             }
         },
 

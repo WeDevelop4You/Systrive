@@ -1,7 +1,11 @@
 <template>
     <v-row>
         <v-col cols="3">
-            <v-card flat>
+            <v-card
+                :elevation="$config.elevation"
+                outlined
+                rounded="lg"
+            >
                 <v-list
                     dense
                     class="dialog-divide-color"

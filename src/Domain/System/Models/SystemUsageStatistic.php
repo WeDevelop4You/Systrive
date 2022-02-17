@@ -11,24 +11,21 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\System\Models\SystemUsageStatistic.
+ * Domain\System\Models\SystemUsageStatistic
  *
- * @property int         $id
- * @property string      $model_type
- * @property int         $model_id
- * @property string      $type
- * @property int         $total
- * @property string      $date
+ * @property string $model_type
+ * @property int $model_id
+ * @property string $type
+ * @property int $total
+ * @property string $date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read \Eloquent|Model $statisticFrom
- *
+ * @property-read Model|\Eloquent $statisticFrom
  * @method static Builder|SystemUsageStatistic newModelQuery()
  * @method static Builder|SystemUsageStatistic newQuery()
  * @method static Builder|SystemUsageStatistic query()
  * @method static Builder|SystemUsageStatistic whereCreatedAt($value)
  * @method static Builder|SystemUsageStatistic whereDate($value)
- * @method static Builder|SystemUsageStatistic whereId($value)
  * @method static Builder|SystemUsageStatistic whereModelId($value)
  * @method static Builder|SystemUsageStatistic whereModelType($value)
  * @method static Builder|SystemUsageStatistic whereTotal($value)

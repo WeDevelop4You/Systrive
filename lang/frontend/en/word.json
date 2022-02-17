@@ -135,6 +135,20 @@
         "change": {
             "password": "Change password"
         },
-        "2fa": "Two-factor authentication"
+        "2fa": "Two-factor authentication",
+        "setup": {
+            "2fa": "Setup two-factor authentication"
+        },
+        "enable": {
+            "enable": "Enable"
+        },
+        "scan": {
+            "qr": {
+                "code": "Scan QR code"
+            }
+        },
+        "check": {
+            "2fa": "Check two-factor authentication"
+        }
     }
 }

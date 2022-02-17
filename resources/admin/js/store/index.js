@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 //Modules
-import Guest from './modules/guest'
+import Guest from './modules/authentication/guest'
 import Popups from "./modules/popups"
 import Locale from "./modules/locale"
-import User from './modules/auth/user'
+import User from './modules/authentication/user'
 import Company from './modules/company'
 import Users from './modules/super_admin/users'
 import Navigation from "./modules/navigation"

@@ -4,7 +4,7 @@
 
     use Exception;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Action\Methods\RouteMethod;
+    use Support\Helpers\Response\Action\Methods\RouteMethods;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -20,7 +20,7 @@
         {
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
                 return Response::create()
-                    ->addAction(RouteMethod::create()->goToLastRoute())
+                    ->addAction(RouteMethods::create()->goToLastRoute())
                     ->addPopup(new SimpleNotification(trans('response.error.user.not.allowed')))
                     ->setStatusCode(ResponseCodes::HTTP_FORBIDDEN)
                     ->toJson();

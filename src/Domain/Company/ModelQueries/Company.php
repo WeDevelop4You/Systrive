@@ -15,35 +15,34 @@
     use Illuminate\Database\Eloquent\Relations\HasOne;
 
     /**
-     * Domain\Company\ModelQueries\Company.
-     *
-     * @property int                             $id
-     * @property string                          $name
-     * @property string|null                     $email
-     * @property string|null                     $domain
-     * @property string|null                     $information
-     * @property string                          $status
-     * @property \Illuminate\Support\Carbon|null $created_at
-     * @property \Illuminate\Support\Carbon|null $updated_at
-     * @property-read \Illuminate\Database\Eloquent\Collection|Invite[] $invites
-     * @property-read \Illuminate\Database\Eloquent\Collection|Role[] $roles
-     * @property-read System|null $system
-     * @property-read \Domain\User\Collections\UserCollections|User[] $users
-     * @property-read \Domain\User\Collections\UserCollections|User[] $whereOwner
-     *
-     * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
-     * @method static \Illuminate\Database\Eloquent\Builder|Company query()
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereCreatedAt($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereDomain($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereEmail($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereInformation($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereStatus($value)
-     * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
-     * @mixin \Eloquent
-     */
+ * Domain\Company\ModelQueries\Company
+ *
+ * @property int $id
+ * @property string $name
+ * @property string|null $email
+ * @property string|null $domain
+ * @property string|null $information
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|Invite[] $invites
+ * @property-read \Illuminate\Database\Eloquent\Collection|Role[] $roles
+ * @property-read System|null $system
+ * @property-read \Domain\User\Collections\UserCollections|User[] $users
+ * @property-read \Domain\User\Collections\UserCollections|User[] $whereOwner
+ * @method static \Illuminate\Database\Eloquent\Builder|Company newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereDomain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereInformation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Company whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
     class Company extends Model
     {
         /**
@@ -79,7 +78,7 @@
 
         /**
          * @param User $user
-         * @param bool $value
+         * @param bool        $value
          *
          * @return int
          */

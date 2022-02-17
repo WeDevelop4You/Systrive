@@ -2,10 +2,12 @@
     <div>
         <v-text-field
             v-model="value.name"
-            :label="$vuetify.lang.t('$vuetify.word.name')"
             :error-messages="errors.name"
+            :class="{'mb-2': !errors.name}"
+            :label="$vuetify.lang.t('$vuetify.word.name')"
             dense
             outlined
+            hide-details="auto"
         />
         <v-row
             v-for="(group, key) in permissionGroupsItems"

@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import tableBase from "../tableBase";
+import dataTableBase from "../base/dataTableBase";
 
 const app = Vue.prototype
 
@@ -56,24 +56,24 @@ export default {
             })
         },
 
-        revoke({state, commit, rootGetters}) {
-            app.$api.call({
-                url: app.$api.route('company.user.revoke', rootGetters["company/id"], state.tableBase.deleteId),
-                method: 'DELETE'
-            }).finally(() => {
-                commit('resetDelete')
-            })
-        },
-
         async resendInvite({rootGetters}, id) {
             await app.$api.call({
                 url: app.$api.route('company.user.invite.resend', rootGetters["company/id"], id),
                 method: "POST"
             })
-        }
+        },
+
+        revoke({state, commit, rootGetters}) {
+            app.$api.call({
+                url: app.$api.route('company.user.revoke', rootGetters["company/id"], state.dataTable.delete.id),
+                method: 'DELETE'
+            }).finally(() => {
+                commit('resetDelete')
+            })
+        },
     },
 
     modules: {
-        tableBase: tableBase
+        dataTable: dataTableBase
     }
 }

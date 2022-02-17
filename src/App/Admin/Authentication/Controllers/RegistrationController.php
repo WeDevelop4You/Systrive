@@ -15,6 +15,7 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Support\Facades\Session;
+    use Support\Enums\SessionKeyTypes;
     use function redirect;
     use function route;
     use Support\Exceptions\InvalidTokenException;
@@ -31,9 +32,9 @@
          */
         public function index(): View|Factory|RedirectResponse|Application
         {
-            if (Session::has(Response::SESSION_KEY_REGISTRATION)) {
+            if (Session::has(SessionKeyTypes::REGISTRATION->value)) {
                 try {
-                    $inviteData = new InviteData(...Response::getSessionData(Response::SESSION_KEY_REGISTRATION));
+                    $inviteData = new InviteData(...Response::getSessionData());
 
                     $invite = (new ValidateInviteTokenAction())($inviteData);
 
@@ -58,7 +59,7 @@
         {
             $response = new Response();
 
-            if (Session::has(Response::SESSION_KEY_REGISTRATION)) {
+            if (Session::has(SessionKeyTypes::REGISTRATION->value)) {
                 $data = new UserProfileData(...$request->only([
                     'first_name',
                     'middle_name',

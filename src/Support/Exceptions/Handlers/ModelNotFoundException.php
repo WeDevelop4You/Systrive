@@ -4,7 +4,7 @@
 
     use Exception;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Action\Methods\RouteMethod;
+    use Support\Helpers\Response\Action\Methods\RouteMethods;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -28,7 +28,7 @@
                         break;
                     default:
                         $response->addPopup(new SimpleNotification(trans('response.error.model.not.found')))
-                            ->addAction(RouteMethod::create()->goToMainRoute());
+                            ->addAction(RouteMethods::create()->goToMainRoute());
                 }
 
                 return $response->setStatusCode(ResponseCodes::HTTP_NOT_FOUND)->toJson();

@@ -11,7 +11,13 @@
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Session;
+    use Support\Enums\FormTypes;
+    use Support\Enums\RequestMethodTypes;
+    use Support\Enums\SessionKeyTypes;
+    use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Exceptions\InvalidTokenException;
+    use Support\Helpers\Response\Action\Methods\RequestMethods;
+    use Support\Helpers\Response\Popups\Components\Button;
     use Support\Helpers\Response\Popups\Modals\FormModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
@@ -35,15 +41,28 @@
 
                 $response->addPopup(
                     FormModal::create()
-                        ->setFormComponent(FormModal::CompanyForm)
+                        ->setFormComponent(FormTypes::COMPANY)
                         ->setTitle(translateToVuetify('word.company.complete'))
-                        ->setRequestMethod(VuetifyHelper::PATCH_METHOD)
-                        ->setRequestUrl(route('admin.company.complete', [$company->id, $token]))
-                        ->setCancelUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
-                        ->setMaxWidth()
+                        ->addButton(
+                            Button::create()
+                                ->setTitle(trans('modal.cancel.cancel'))
+                                ->setType(VuetifyButtonTypes::TEXT)
+                                ->setAction(
+                                    RequestMethods::create()
+                                        ->patch(route('admin.company.complete', [$company->id, $token]))
+                                )
+                        )->addButton(
+                            Button::create()
+                                ->setTitle(trans('modal.save.save'))
+                                ->setColor()
+                                ->setAction(
+                                    RequestMethods::create()
+                                        ->delete(route('admin.session.delete', ['key' => SessionKeyTypes::KEEP->value]))
+                                )
+                        )
                 );
             } catch (ModelNotFoundException | InvalidTokenException) {
-                Session::forget(Response::SESSION_KEY_MODAL);
+                Session::forget(SessionKeyTypes::KEEP->value);
 
                 $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
@@ -72,7 +91,7 @@
 
                 $response->addPopup(new SimpleNotification(trans('response.success.company.complete')));
             } catch (ModelNotFoundException | InvalidTokenException) {
-                Session::forget(Response::SESSION_KEY_MODAL);
+                Session::forget(SessionKeyTypes::KEEP->value);
 
                 $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);

@@ -7,7 +7,10 @@ export default {
     namespaced: true,
 
     state: () => ({
-        modal: {},
+        modal: {
+            data: {},
+            show: false
+        },
         notifications: []
     }),
 
@@ -20,10 +23,16 @@ export default {
             state.notifications.push(data)
         },
 
-        removeNotifications(state, uuid) {
-            const index = state.notifications.findIndex(notification => notification.uuid === uuid)
+        removeNotifications(state, id) {
+            const index = state.notifications.findIndex(notification => notification.id === id)
 
-            state.notifications.splice(index, 1)
+            if (index !== -1) {
+                state.notifications.splice(index, 1)
+            }
+        },
+
+        closeModal(state) {
+            state.modal.show = false
         }
     },
 
@@ -39,25 +48,20 @@ export default {
 
     actions: {
         addPopup({commit}, content) {
-            let data = content.data
+            const data = content.data
             const type = content.type
 
             if (type === 'notification') {
-                const uuid = uuidGenerator()
-
-                data.uuid = uuid
                 commit('addNotifications', content)
 
                 if (!data.stayable) {
                     const displayTime = data.time || app.$config.notification.displayTime
 
                     setTimeout(() => {
-                        commit('removeNotifications', uuid)
+                        commit('removeNotifications', content.id)
                     }, displayTime);
                 }
             } else if (type === 'modal') {
-                content.show = true
-
                 commit('setModal', content)
             }
         },
@@ -66,6 +70,7 @@ export default {
             dispatch(
                 'addPopup',
                 {
+                    id: uuidGenerator(),
                     type: "notification",
                     component: "SimpleNotification",
                     data: {

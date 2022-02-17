@@ -6,14 +6,13 @@ use Domain\System\Mappings\SystemDNSTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\System\Models\SystemDNS.
+ * Domain\System\Models\SystemDNS
  *
- * @property int                             $id
- * @property int                             $system_id
- * @property string                          $domain
+ * @property int $id
+ * @property int $system_id
+ * @property string $domain
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS query()
@@ -30,6 +29,6 @@ class SystemDNS extends Model
 
     protected $fillable = [
         SystemDNSTableMap::DOMAIN,
-        SystemDNSTableMap::SYSTEM_USER_ID,
+        SystemDNSTableMap::SYSTEM_ID,
     ];
 }

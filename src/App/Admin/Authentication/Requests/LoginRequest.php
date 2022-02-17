@@ -2,15 +2,16 @@
 
 namespace App\Admin\Authentication\Requests;
 
-use function __;
-use function event;
+use Domain\User\Models\User;
+use Domain\User\Models\UserSecurity;
+use Support\Exceptions\RequiredOneTimePasswordException;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use function trans;
+use Support\Rules\OneTimePasswordRule;
 
 class LoginRequest extends FormRequest
 {
@@ -22,27 +23,30 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+            'email' => ['required', 'string', 'email'],
+            'password' => ['required', 'string'],
+            'one_time_password' => ['bail', 'sometimes', 'digits:6', new OneTimePasswordRule()]
         ];
     }
 
     /**
      * Attempt to authenticate the request's credentials.
      *
-     * @return void
-     *
      * @throws ValidationException
+     * @throws RequiredOneTimePasswordException
+     *
+     * @return void
      */
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
+        $this->requiresOneTimePassword();
 
         if (!Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'failed' => __('auth.failed'),
+                'password' => trans('auth.failed'),
             ]);
         }
 
@@ -67,11 +71,25 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'failed' => trans('auth.throttle', [
+            'password' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
         ]);
+    }
+
+    /**
+     * @throws RequiredOneTimePasswordException
+     */
+    public function requiresOneTimePassword(): void
+    {
+        if (config('app.security') && !$this->has('one_time_password')) {
+            $user = User::whereEmail($this->get('email'))->first();
+
+            if ($user instanceof User && $user->security instanceof UserSecurity && $user->security->enabled) {
+                throw new RequiredOneTimePasswordException();
+            }
+        }
     }
 
     /**

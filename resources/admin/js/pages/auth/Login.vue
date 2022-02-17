@@ -6,6 +6,7 @@
             outlined
             :elevation="$config.elevation"
             width="400px"
+            @keyup.enter="send"
         >
             <v-card-title>
                 <svg-logo-line class="ma-6" />
@@ -15,38 +16,10 @@
                 />
             </v-card-title>
             <v-card-text class="pb-0">
-                <v-text-field
-                    v-model="data.email"
-                    class="pb-2"
+                <f-login
+                    v-model="data"
+                    :errors="errors"
                     :error="error"
-                    :error-messages="errors.email"
-                    :label="$vuetify.lang.t('$vuetify.word.email')"
-                    dense
-                    outlined
-                    required
-                    autofocus
-                    type="email"
-                    hide-details
-                />
-                <v-text-field
-                    v-model="data.password"
-                    :class="{'mb-2': !errors.password}"
-                    :error-messages="errors.password"
-                    :type="show ? 'text' : 'password'"
-                    :label="$vuetify.lang.t('$vuetify.word.password.password')"
-                    :append-icon="show ? 'faSvg fa-eye' : 'fas fa-eye-slash'"
-                    dense
-                    required
-                    outlined
-                    hide-details="auto"
-                    @click:append="show = !show"
-                />
-                <v-checkbox
-                    v-model="data.remember"
-                    class="ma-0"
-                    :label="$vuetify.lang.t('$vuetify.word.remember_me')"
-                    dense
-                    hide-details
                 />
             </v-card-text>
             <v-card-actions class="px-4">
@@ -56,6 +29,7 @@
                         :disabled="$loading"
                         block
                         color="primary"
+                        small
                         @click="send"
                     >
                         {{ $vuetify.lang.t('$vuetify.word.login.login') }}
@@ -77,6 +51,7 @@
 <script>
     import {mapGetters} from "vuex";
     import LAuth from '../../layout/base/Auth'
+    import FLogin from '../../layout/forms/Login'
     import SvgLogoLine from '../../components/svg/LogoLine'
 
     export default {
@@ -84,6 +59,7 @@
 
         components: {
             LAuth,
+            FLogin,
             SvgLogoLine,
         },
 
@@ -99,18 +75,17 @@
             },
         },
 
-        data() {
-            return {
-                show: false,
-                data: {
-                    email: '',
-                    password: '',
-                    remember: false,
-                }
-            }
-        },
-
         computed: {
+            data: {
+                get() {
+                    return this.$store.getters["guest/credentials"]
+                },
+
+                set(values) {
+                    this.$store.commit('guest/setCredentials', values)
+                }
+            },
+
             ...mapGetters({
                 error: 'guest/error',
                 errors: 'guest/errors'
@@ -118,20 +93,12 @@
         },
 
         created() {
-            window.addEventListener('keydown', this.enter)
-
-            this.$root.responseActions(this.responseData)
+            this.$root.responseMethodChain(this.responseData)
         },
 
         methods: {
             send() {
-                this.$store.dispatch('guest/login', this.data)
-            },
-
-            enter(e) {
-                if (e.key === 'Enter') {
-                    this.send()
-                }
+                this.$store.dispatch('guest/login').catch(() => {})
             }
         },
     }

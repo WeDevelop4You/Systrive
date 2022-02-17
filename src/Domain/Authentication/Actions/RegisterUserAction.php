@@ -15,9 +15,10 @@
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
+    use Support\Enums\SessionKeyTypes;
     use function route;
     use Support\Exceptions\InvalidTokenException;
-    use Support\Helpers\Response\Action\Methods\RequestMethod;
+    use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Response;
 
     class RegisterUserAction
@@ -53,7 +54,7 @@
         public function __construct(
             private string $password,
         ) {
-            $this->inviteData = new InviteData(...Response::getSessionData(Response::SESSION_KEY_REGISTRATION));
+            $this->inviteData = new InviteData(...Response::getSessionData());
 
             $this->invite = (new ValidateInviteTokenAction())($this->inviteData);
 
@@ -85,7 +86,7 @@
 
             $this->InviteTypeAction();
 
-            Session::forget(Response::SESSION_KEY_REGISTRATION);
+            Session::forget(SessionKeyTypes::REGISTRATION->value);
 
             Auth::login($this->user, true);
         }
@@ -105,10 +106,10 @@
                 case InviteTableMap::COMPANY_TYPE:
                     Response::create()
                         ->addAction(
-                            RequestMethod::create()
+                            RequestMethods::create()
                             ->get(route('admin.company.complete', [$this->invite->company_id, $this->inviteData->token]))
                         )
-                        ->toSession(Response::SESSION_KEY_MODAL);
+                        ->toSession(SessionKeyTypes::KEEP);
 
                     break;
                 default:

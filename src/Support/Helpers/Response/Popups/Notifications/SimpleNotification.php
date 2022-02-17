@@ -2,7 +2,9 @@
 
     namespace Support\Helpers\Response\Popups\Notifications;
 
-    class SimpleNotification extends NotificationBase
+    use Support\Abstracts\Response\NotificationAbstract;
+
+    class SimpleNotification extends NotificationAbstract
     {
         public function getComponent(): string
         {

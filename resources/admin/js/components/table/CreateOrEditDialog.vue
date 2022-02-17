@@ -12,15 +12,18 @@
         <v-dialog
             v-if="render"
             v-model="dialog"
+            :fullscreen="fullscreen"
+            :elevation="$config.elevation"
             max-width="700"
             persistent
-            :fullscreen="fullscreen"
         >
-            <v-card>
-                <v-card-title>
+            <v-card
+                :elevation="$config.elevation"
+                outlined
+                rounded="lg">
+                <v-card-title class="gap-3 flex-nowrap justify-space-between">
                     <slot name="title">
                         <span class="headline">{{ formTitle }}</span>
-                        <v-spacer />
                         <v-btn
                             icon
                             @click="resetDialog"
@@ -29,27 +32,30 @@
                         </v-btn>
                     </slot>
                 </v-card-title>
-                <v-card-text>
+                <v-card-text class="pb-0">
                     <slot />
                 </v-card-text>
-                <v-card-actions class="px-6">
-                    <slot name="action">
-                        <v-spacer />
-                        <v-btn
-                            text
-                            :disabled="$loading"
-                            @click="resetDialog"
-                        >
-                            {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
-                        </v-btn>
-                        <v-btn
-                            color="primary"
-                            :disabled="$loading"
-                            @click="$emit('save')"
-                        >
-                            {{ $vuetify.lang.t('$vuetify.word.save') }}
-                        </v-btn>
-                    </slot>
+                <v-card-actions>
+                    <f-buttons>
+                        <slot name="action">
+                            <v-btn
+                                text
+                                small
+                                :disabled="$loading"
+                                @click="resetDialog"
+                            >
+                                {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
+                            </v-btn>
+                            <v-btn
+                                small
+                                color="primary"
+                                :disabled="$loading"
+                                @click="$emit('save')"
+                            >
+                                {{ $vuetify.lang.t('$vuetify.word.save') }}
+                            </v-btn>
+                        </slot>
+                    </f-buttons>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -57,6 +63,8 @@
 </template>
 
 <script>
+    import FButtons from "../../layout/Buttons";
+
     export default {
         name: "CreateOrEditDialog",
 
@@ -95,6 +103,10 @@
                 type: Boolean,
                 default: false
             }
+        },
+
+        components: {
+            FButtons,
         },
 
         data() {

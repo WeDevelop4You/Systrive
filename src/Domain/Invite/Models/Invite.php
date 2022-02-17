@@ -11,15 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 
 /**
- * Domain\Invite\Models\Invite.
+ * Domain\Invite\Models\Invite
  *
  * @property int|null $company_id
- * @property string   $email
- * @property string   $token
- * @property string   $type
- * @property string   $created_at
+ * @property string $email
+ * @property string $token
+ * @property string $type
+ * @property string $created_at
  * @property-read Company|null $company
- *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
  * @method static InviteQueryBuilders|Invite query()

@@ -5,6 +5,7 @@
     use Domain\Company\Mappings\CompanyUserTableMap;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
+    use Support\Enums\Vuetify\VuetifyColors;
     use Support\Helpers\VuetifyHelper;
 
     class CompanyUserDataResource extends JsonResource
@@ -38,9 +39,9 @@
             $data['text'] = translateToVuetify("word.{$status}.{$status}");
 
             $data['color'] = match ($status) {
-                CompanyUserTableMap::REQUESTED_STATUS => VuetifyHelper::INFO_COLOR,
-                CompanyUserTableMap::EXPIRED_STATUS => VuetifyHelper::WARNING_COLOR,
-                CompanyUserTableMap::ACCEPTED_STATUS => VuetifyHelper::SUCCESS_COLOR,
+                CompanyUserTableMap::REQUESTED_STATUS => VuetifyColors::INFO,
+                CompanyUserTableMap::EXPIRED_STATUS => VuetifyColors::WARNING,
+                CompanyUserTableMap::ACCEPTED_STATUS => VuetifyColors::SUCCESS,
             };
 
             return $data;

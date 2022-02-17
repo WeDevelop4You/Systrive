@@ -2,10 +2,12 @@
 
     namespace Support\Helpers\Response\Popups\Modals;
 
-    class FormModal extends ModalBase
-    {
-        public const CompanyForm = 'Company';
+    use Support\Abstracts\Response\ModalAbstract;
+    use Support\Enums\FormTypes;
+    use Support\Helpers\Response\Popups\Components\Button;
 
+    class FormModal extends ModalAbstract
+    {
         /**
          * @inheritDoc
          */
@@ -15,25 +17,13 @@
         }
 
         /**
-         * @param string $formComponent
+         * @param FormTypes $formComponent
          *
          * @return FormModal
          */
-        public function setFormComponent(string $formComponent): FormModal
+        public function setFormComponent(FormTypes $formComponent): FormModal
         {
             $this->data['form_component'] = $formComponent;
-
-            return $this;
-        }
-
-        /**
-         * @param int $maxWidth
-         *
-         * @return FormModal
-         */
-        public function setMaxWidth(int $maxWidth = 500): FormModal
-        {
-            $this->data['max_width'] = $maxWidth;
 
             return $this;
         }
@@ -51,61 +41,25 @@
         }
 
         /**
-         * @param $saveText
+         * @param int $maxWidth
          *
-         * @return $this
+         * @return FormModal
          */
-        public function setSaveText($saveText): FormModal
+        public function setMaxWidth(int $maxWidth): FormModal
         {
-            $this->data['saveText'] = $saveText;
+            $this->data['max_width'] = $maxWidth;
 
             return $this;
         }
 
         /**
-         * @param string $requestUrl
+         * @param Button $button
          *
          * @return FormModal
          */
-        public function setRequestUrl(string $requestUrl): FormModal
+        public function addButton(Button $button): FormModal
         {
-            $this->data['request_url'] = $requestUrl;
-
-            return $this;
-        }
-
-        /**
-         * @param string $RequestMethod
-         *
-         * @return FormModal
-         */
-        public function setRequestMethod(string $RequestMethod): FormModal
-        {
-            $this->data['request_method'] = $RequestMethod;
-
-            return $this;
-        }
-
-        /**
-         * @param string $url
-         *
-         * @return FormModal
-         */
-        public function setCancelUrl(string $url): FormModal
-        {
-            $this->data['cancel_url'] = $url;
-
-            return $this;
-        }
-
-        /**
-         * @param string $text
-         *
-         * @return FormModal
-         */
-        public function setCancelText(string $text): FormModal
-        {
-            $this->data['cancel_text'] = $text;
+            $this->data['buttons'][] = $button->export();
 
             return $this;
         }

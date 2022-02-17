@@ -135,6 +135,9 @@
         "change": {
             "password": "Wachtwoord wijzigen"
         },
-        "2fa": "Twee-factor-authenticatie"
+        "2fa": "Twee-factor-authenticatie",
+        "enable": {
+            "enable": "Inschakelen"
+        }
     }
 }

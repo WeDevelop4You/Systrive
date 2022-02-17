@@ -11,6 +11,8 @@
             :server-items-length="total"
             multi-sort
             calculate-widths
+            :class="'elevation-' + $config.elevation"
+            class="rounded-lg v-sheet--outlined"
             @update:options="updateTable"
         >
             <template #top>

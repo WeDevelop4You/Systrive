@@ -6,10 +6,12 @@
         >
             <v-text-field
                 v-model="value.name"
-                :label="$vuetify.lang.t('$vuetify.word.name')"
                 :error-messages="errors.name"
+                :class="{'mb-2': !errors.name}"
+                :label="$vuetify.lang.t('$vuetify.word.name')"
                 dense
                 outlined
+                hide-details="auto"
             />
         </v-col>
         <v-col
@@ -19,9 +21,10 @@
             <v-combobox
                 v-model="value.owner_email"
                 :items="users"
-                :label="$vuetify.lang.t('$vuetify.word.owner')"
                 :error-messages="errors.owner_email"
-                :hide-details="isEditing && showCheckbox"
+                :class="{'mb-2': !errors.owner_email && !showCheckbox}"
+                :label="$vuetify.lang.t('$vuetify.word.owner')"
+                :hide-details="isEditing ? true : 'auto'"
                 :return-object="false"
                 item-value="email"
                 item-text="email"
@@ -47,10 +50,11 @@
         >
             <v-checkbox
                 v-model="value.removeUser"
-                :label="$vuetify.lang.t('$vuetify.text.remove.owner')"
                 :error-messages="errors.owner_email"
+                :label="$vuetify.lang.t('$vuetify.text.remove.owner')"
                 dense
                 class="mb-2"
+                hide-details="auto"
             />
         </v-col>
         <v-col
@@ -59,10 +63,12 @@
         >
             <v-text-field
                 v-model="value.email"
-                :label="$vuetify.lang.t('$vuetify.word.email')"
                 :error-messages="errors.email"
+                :class="{'mb-2': !errors.email}"
+                :label="$vuetify.lang.t('$vuetify.word.email')"
                 dense
                 outlined
+                hide-details="auto"
             />
         </v-col>
         <v-col
@@ -71,10 +77,12 @@
         >
             <v-text-field
                 v-model="value.domain"
-                :label="$vuetify.lang.t('$vuetify.word.domain')"
                 :error-messages="errors.domain"
+                :class="{'mb-2': !errors.domain}"
+                :label="$vuetify.lang.t('$vuetify.word.domain')"
                 dense
                 outlined
+                hide-details="auto"
             />
         </v-col>
         <v-col
@@ -86,6 +94,7 @@
                 :label="$vuetify.lang.t('$vuetify.word.information')"
                 dense
                 outlined
+                hide-details
             />
         </v-col>
     </v-row>

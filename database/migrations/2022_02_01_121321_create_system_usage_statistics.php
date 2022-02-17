@@ -14,7 +14,6 @@ class CreateSystemUsageStatistics extends Migration
     public function up()
     {
         Schema::create('system_usage_statistics', function (Blueprint $table) {
-            $table->id();
             $table->morphs('model');
             $table->string('type');
             $table->integer('total')->default(0);

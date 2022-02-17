@@ -165,7 +165,8 @@
             <v-container fluid>
                 <breadcrumb />
                 <div class="px-6">
-                    <router-view v-if="$store.state.user.hasPermission" />
+                    <!--                    <router-view v-if="$store.state.user.hasPermission" />-->
+                    <router-view />
                 </div>
             </v-container>
             <popup />
@@ -177,7 +178,7 @@
     import DarkModeSwitchList from "../../components/DarkModeSwitchList";
     import SvgLogoLine from '../../components/svg/LogoLine'
     import Breadcrumb from '../../components/Breadcrumb'
-    import Popup from "../Popup";
+    import Popup from "../popups";
     import {mapGetters} from "vuex";
     import NavigationItem from "../NavigationItem";
 
@@ -198,7 +199,7 @@
                 type: Object
             },
 
-            responseDataModal: {
+            responseDataKeep: {
                 required: true,
                 type: Object
             }
@@ -234,14 +235,14 @@
         },
 
         async beforeCreate() {
-            await this.$store.dispatch('user/get')
-            await this.$store.dispatch('user/getPermissions')
+            await this.$store.dispatch('user/getOne')
             await this.$store.dispatch('navigation/getCompanies')
+            await this.$store.dispatch('user/permissions/getDefault')
         },
 
         created() {
-            this.$root.responseActions(this.responseData)
-            this.$root.responseActions(this.responseDataModal)
+            this.$root.responseMethodChain(this.responseData)
+            this.$root.responseMethodChain(this.responseDataKeep)
         },
 
         methods: {

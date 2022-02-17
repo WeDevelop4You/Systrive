@@ -1,23 +1,23 @@
 <?php
 
 return array (
-  'success' => 
+  'success' =>
   array (
-    'vesta' => 
+    'vesta' =>
     array (
-      'api' => 
+      'api' =>
       array (
-        'success' => 'Command has been successfuly performed',
+        'success' => 'Command has been successfully performed',
       ),
     ),
     'deleted' => 'Successfully deleted',
     'saved' => 'Successfully saved',
   ),
-  'error' => 
+  'error' =>
   array (
-    'vesta' => 
+    'vesta' =>
     array (
-      'api' => 
+      'api' =>
       array (
         'args' => 'Not enough arguments provided',
         'invalid' => 'Object or argument is not valid',

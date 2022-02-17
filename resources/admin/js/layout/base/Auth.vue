@@ -63,7 +63,7 @@
 </template>
 
 <script>
-    import Popup from "../Popup"
+    import Popup from "../popups"
     import {mapGetters} from "vuex";
     import SvgMountain from '../../components/svg/Mountain'
 

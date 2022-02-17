@@ -6,10 +6,9 @@
         max-width="450px"
     >
         <v-card>
-            <v-card-title class="text-h5">
+            <v-card-title class="gap-3 flex-nowrap justify-space-between">
                 <slot name="title">
                     <span class="headline">{{ title }}</span>
-                    <v-spacer />
                     <v-btn
                         icon
                         @click="resetDelete"
@@ -19,40 +18,51 @@
                 </slot>
             </v-card-title>
             <v-card-text>{{ deleteMessage }}</v-card-text>
-            <v-card-actions class="flex-wrap gap-3 justify-end">
-                <template v-if="forceDeletable">
+            <v-card-actions>
+                <l-buttons>
+                    <template v-if="forceDeletable">
+                        <v-btn
+                            small
+                            color="secondary"
+                            :disabled="$loading"
+                            @click="$emit('force-delete')"
+                        >
+                            {{ $vuetify.lang.t('$vuetify.word.delete.force') }}
+                        </v-btn>
+                    </template>
+                    <template v-if="!hideDeleteButton">
+                        <v-btn
+                            small
+                            color="error"
+                            :disabled="$loading"
+                            @click="$emit('delete')"
+                        >
+                            {{ deleteButton || $vuetify.lang.t('$vuetify.word.delete.delete') }}
+                        </v-btn>
+                    </template>
                     <v-btn
-                        color="secondary"
+                        text
+                        small
                         :disabled="$loading"
-                        @click="$emit('force-delete')"
+                        @click="resetDelete"
                     >
-                        {{ $vuetify.lang.t('$vuetify.word.delete.force') }}
+                        {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
                     </v-btn>
-                </template>
-                <template v-if="!hideDeleteButton">
-                    <v-btn
-                        color="error"
-                        :disabled="$loading"
-                        @click="$emit('delete')"
-                    >
-                        {{ deleteButton || $vuetify.lang.t('$vuetify.word.delete.delete') }}
-                    </v-btn>
-                </template>
-                <v-btn
-                    text
-                    :disabled="$loading"
-                    @click="resetDelete"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
-                </v-btn>
+                </l-buttons>
             </v-card-actions>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
+    import LButtons from "../../layout/Buttons"
+
     export default {
         name: "DeleteDialog",
+
+        components: {
+            LButtons
+        },
 
         props: {
             title: {

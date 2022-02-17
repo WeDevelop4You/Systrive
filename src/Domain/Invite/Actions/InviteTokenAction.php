@@ -7,7 +7,10 @@
     use Domain\Invite\Models\Invite;
     use Domain\User\Models\User;
     use Illuminate\Http\RedirectResponse;
-    use Support\Helpers\Response\Action\Methods\RequestMethod;
+    use Support\Enums\RequestMethodTypes;
+    use Support\Enums\SessionKeyTypes;
+    use Support\Enums\Vuetify\VuetifyButtonTypes;
+    use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Popups\Components\Button;
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
@@ -34,7 +37,7 @@
             if ($this->isNewUser($invite->email)) {
                 $inviteData = new InviteData($invite->company_id, $this->token, $this->encryptEmail);
 
-                Response::create()->addData($inviteData->export())->toSession(Response::SESSION_KEY_REGISTRATION);
+                Response::create()->addData($inviteData->export())->toSession(SessionKeyTypes::REGISTRATION);
 
                 return redirect()->route('admin.web.registration');
             }
@@ -72,34 +75,35 @@
         {
             Response::create()
                 ->addAction(
-                    RequestMethod::create()
+                    RequestMethods::create()
                         ->get(route('admin.company.user.invite.accepted', [$companyId, $this->token]))
                 )
-                ->toSession(Response::SESSION_KEY_MODAL);
+                ->toSession(SessionKeyTypes::KEEP);
         }
 
         private function createCompanyComplete(int $companyId)
         {
-            $cancelButton = Button::create()
-                ->setTitle(trans('modal.confirm.cancel.cancel'))
-                ->setType(VuetifyHelper::TEXT_BUTTON_TYPE)
-                ->setRequestUrl(route('admin.session.delete', ['key' => Response::SESSION_KEY_MODAL]))
-                ->setRequestMethod(VuetifyHelper::DELETE_METHOD);
-
-            $completeButton = Button::create()
-                ->setTitle(trans('modal.confirm.company.complete.accept'))
-                ->setColor(VuetifyHelper::PRIMARY_COLOR)
-                ->setRequestUrl(route('admin.company.complete', [$companyId, $this->token]))
-                ->setRequestMethod(VuetifyHelper::GET_METHOD);
-
-            Response::create()
-                ->addPopup(
-                    ConfirmModal::create()
-                        ->setTitle(trans('modal.confirm.company.complete.title'))
-                        ->setText(trans('modal.confirm.company.complete.text'))
-                        ->addButton($cancelButton)
-                        ->addButton($completeButton)
-                )
-                ->toSession(Response::SESSION_KEY_MODAL);
+            Response::create()->addPopup(
+                ConfirmModal::create()
+                    ->setTitle(trans('modal.confirm.company.complete.title'))
+                    ->setText(trans('modal.confirm.company.complete.text'))
+                    ->addButton(
+                        Button::create()
+                            ->setTitle(trans('modal.cancel.cancel'))
+                            ->setType(VuetifyButtonTypes::TEXT)
+                            ->setAction(
+                                RequestMethods::create()
+                                    ->delete(route('admin.session.delete', ['key' => SessionKeyTypes::KEEP->value]))
+                            )
+                    )->addButton(
+                        Button::create()
+                            ->setTitle(trans('modal.complete.complete'))
+                            ->setColor()
+                            ->setAction(
+                                RequestMethods::create()
+                                    ->get(route('admin.company.complete', [$companyId, $this->token]))
+                            )
+                    )
+            )->toSession(SessionKeyTypes::KEEP);
         }
     }

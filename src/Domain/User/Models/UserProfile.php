@@ -11,20 +11,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\User\Models\UserProfile
+ * Domain\User\Models\UserProfile.
  *
- * @property int $id
- * @property int $user_id
- * @property string $first_name
+ * @property int         $id
+ * @property int         $user_id
+ * @property string      $first_name
  * @property string|null $middle_name
- * @property string $last_name
- * @property string $gender
- * @property mixed $birth_date
+ * @property string      $last_name
+ * @property string      $gender
+ * @property mixed       $birth_date
  * @property string|null $bio
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read string $full_name
  * @property-read \Domain\User\Models\User $user
+ *
  * @method static Builder|UserProfile newModelQuery()
  * @method static Builder|UserProfile newQuery()
  * @method static Builder|UserProfile query()

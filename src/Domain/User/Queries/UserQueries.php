@@ -14,16 +14,16 @@
     use Illuminate\Database\Eloquent\Relations\HasMany;
     use Illuminate\Database\Eloquent\Relations\HasOne;
     use Illuminate\Foundation\Auth\User as Authenticatable;
-    use Illuminate\Support\Carbon;
 
 /**
- * Domain\User\Queries\UserQueries
+ * Domain\User\Queries\UserQueries.
  *
- * @property-read CompanyCollections|Company[] $companies
- * @property-read \Illuminate\Database\Eloquent\Collection|CompanyUser[] $companyUser
+ * @property-read Company[]|CompanyCollections $companies
+ * @property-read CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
  * @property-read string|null $full_name
  * @property-read UserProfile|null $profile
  * @property-read UserSecurity|null $security
+ *
  * @method static Builder|UserQueries newModelQuery()
  * @method static Builder|UserQueries newQuery()
  * @method static Builder|UserQueries query()

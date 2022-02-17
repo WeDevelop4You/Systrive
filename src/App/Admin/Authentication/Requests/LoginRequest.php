@@ -4,13 +4,13 @@ namespace App\Admin\Authentication\Requests;
 
 use Domain\User\Models\User;
 use Domain\User\Models\UserSecurity;
-use Support\Exceptions\RequiredOneTimePasswordException;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Support\Exceptions\RequiredOneTimePasswordException;
 use Support\Rules\OneTimePasswordRule;
 
 class LoginRequest extends FormRequest
@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'one_time_password' => ['bail', 'sometimes', 'digits:6', new OneTimePasswordRule()]
+            'one_time_password' => ['bail', 'sometimes', 'digits:6', new OneTimePasswordRule()],
         ];
     }
 

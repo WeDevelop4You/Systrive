@@ -23,7 +23,6 @@
         public function __construct(
             public bool $creating = false
         ) {
-
         }
 
         public function setData($data)

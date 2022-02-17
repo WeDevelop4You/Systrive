@@ -6,5 +6,4 @@
 
     class RequiredOneTimePasswordException extends Exception
     {
-
     }

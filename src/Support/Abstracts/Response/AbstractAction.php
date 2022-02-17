@@ -50,7 +50,7 @@
         {
             return [
                 'method' => $this->method,
-                'data' => $this->data
+                'data' => $this->data,
             ];
         }
     }

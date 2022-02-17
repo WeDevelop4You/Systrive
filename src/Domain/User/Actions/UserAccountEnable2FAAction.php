@@ -11,7 +11,7 @@
     {
         public function __invoke(int $oneTimePassword)
         {
-            $recoveryCodes = Collection::times(8, function() {
+            $recoveryCodes = Collection::times(8, function () {
                 return Str::random(10).'-'.Str::random(10);
             })->toArray();
 

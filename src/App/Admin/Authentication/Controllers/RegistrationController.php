@@ -15,9 +15,9 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\SessionKeyTypes;
     use function redirect;
     use function route;
+    use Support\Enums\SessionKeyTypes;
     use Support\Exceptions\InvalidTokenException;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;

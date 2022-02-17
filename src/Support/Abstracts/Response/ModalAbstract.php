@@ -2,7 +2,6 @@
 
     namespace Support\Abstracts\Response;
 
-    use Support\Abstracts\Response\AbstractPopup;
     use Support\Enums\PopupTypes;
 
     abstract class ModalAbstract extends AbstractPopup

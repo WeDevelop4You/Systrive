@@ -15,8 +15,8 @@
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\SessionKeyTypes;
     use function route;
+    use Support\Enums\SessionKeyTypes;
     use Support\Exceptions\InvalidTokenException;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Response;

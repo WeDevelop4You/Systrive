@@ -7,7 +7,6 @@
     use Domain\Invite\Models\Invite;
     use Domain\User\Models\User;
     use Illuminate\Http\RedirectResponse;
-    use Support\Enums\RequestMethodTypes;
     use Support\Enums\SessionKeyTypes;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
@@ -15,7 +14,6 @@
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
-    use Support\Helpers\VuetifyHelper;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class InviteTokenAction

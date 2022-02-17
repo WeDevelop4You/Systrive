@@ -10,10 +10,8 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\RequestMethodTypes;
     use Support\Enums\SessionKeyTypes;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
-    use Support\Enums\Vuetify\VuetifyColors;
     use Support\Exceptions\InvalidTokenException;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Action\Methods\VuexMethods;
@@ -21,7 +19,6 @@
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
-    use Support\Helpers\VuetifyHelper;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class CompanyUserInviteAcceptedController

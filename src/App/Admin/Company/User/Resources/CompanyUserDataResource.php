@@ -6,7 +6,6 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Support\Enums\Vuetify\VuetifyColors;
-    use Support\Helpers\VuetifyHelper;
 
     class CompanyUserDataResource extends JsonResource
     {

@@ -12,8 +12,8 @@
     class CompanyUserRevokeController
     {
         /**
-         * @param Company     $company
-         * @param User $user
+         * @param Company $company
+         * @param User    $user
          *
          * @return JsonResponse
          */

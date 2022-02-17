@@ -6,14 +6,15 @@ use Domain\User\Mappings\UserSecurityTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\User\Models\UserSecurity
+ * Domain\User\Models\UserSecurity.
  *
- * @property int $user_id
- * @property string $secret_key
- * @property string|null $recovery_keys
- * @property int $enabled
+ * @property int                             $user_id
+ * @property string                          $secret_key
+ * @property string|null                     $recovery_keys
+ * @property int                             $enabled
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity query()
@@ -33,6 +34,6 @@ class UserSecurity extends Model
 
     protected $fillable = [
         UserSecurityTableMap::SECRET_KEY,
-        UserSecurityTableMap::ENABLED
+        UserSecurityTableMap::ENABLED,
     ];
 }

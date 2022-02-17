@@ -9,17 +9,16 @@
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Validation\ValidationException;
+    use function route;
     use Support\Enums\FormTypes;
-    use Support\Enums\RequestMethodTypes;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Exceptions\RequiredOneTimePasswordException;
     use Support\Helpers\Response\Action\Methods\VuexMethods;
     use Support\Helpers\Response\Popups\Components\Button;
     use Support\Helpers\Response\Popups\Modals\FormModal;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-    use function route;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
+    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
     use function trans;
     use function view;
 

@@ -20,7 +20,8 @@
             <v-card
                 :elevation="$config.elevation"
                 outlined
-                rounded="lg">
+                rounded="lg"
+            >
                 <v-card-title class="gap-3 flex-nowrap justify-space-between">
                     <slot name="title">
                         <span class="headline">{{ formTitle }}</span>
@@ -68,6 +69,10 @@
     export default {
         name: "CreateOrEditDialog",
 
+        components: {
+            FButtons,
+        },
+
         props: {
             buttonTitle: {
                 type: String,
@@ -103,10 +108,6 @@
                 type: Boolean,
                 default: false
             }
-        },
-
-        components: {
-            FButtons,
         },
 
         data() {

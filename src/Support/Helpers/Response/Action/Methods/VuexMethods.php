@@ -14,7 +14,7 @@
          */
         public function commit(string $type, mixed $params = null): VuexMethods
         {
-            return $this->setData( [
+            return $this->setData([
                 'type' => $type,
                 'params' => $params,
             ])->setMethod('actionVuexCommitMethod');
@@ -28,7 +28,7 @@
          */
         public function dispatch(string $type, mixed $params = null): VuexMethods
         {
-            return $this->setData( [
+            return $this->setData([
                 'type' => $type,
                 'params' => $params,
             ])->setMethod('actionVuexDispatchMethod');

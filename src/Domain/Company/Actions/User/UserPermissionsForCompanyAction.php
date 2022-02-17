@@ -12,8 +12,8 @@
         /**
          * UserPermissionsForCompanyAction constructor.
          *
-         * @param Company     $company
-         * @param User $user
+         * @param Company $company
+         * @param User    $user
          */
         public function __construct(
             public Company     $company,

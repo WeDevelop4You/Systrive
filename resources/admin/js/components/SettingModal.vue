@@ -23,7 +23,10 @@
             rounded="lg"
         >
             <v-card-title class="gap-3 flex-nowrap justify-space-between">
-                <span class="headline" style="width: max-content">{{ formTitle }}</span>
+                <span
+                    class="headline"
+                    style="width: max-content"
+                >{{ formTitle }}</span>
                 <v-btn
                     icon
                     @click="close"

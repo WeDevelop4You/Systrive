@@ -7,8 +7,8 @@
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
     use Illuminate\Support\Facades\Session;
-    use Support\Abstracts\Response\AbstractPopup;
     use Support\Abstracts\Response\AbstractAction;
+    use Support\Abstracts\Response\AbstractPopup;
     use Support\Abstracts\Response\NotificationAbstract;
     use Support\Enums\SessionKeyTypes;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -16,7 +16,7 @@
     class Response
     {
         /**
-         * @var array|string|JsonResource|ResourceCollection
+         * @var array|JsonResource|ResourceCollection|string
          */
         private JsonResource|array|string|ResourceCollection $data;
 
@@ -90,7 +90,7 @@
         }
 
         /**
-         * @param AnonymousResourceCollection|array|string|JsonResource $data
+         * @param AnonymousResourceCollection|array|JsonResource|string $data
          *
          * @return Response
          */

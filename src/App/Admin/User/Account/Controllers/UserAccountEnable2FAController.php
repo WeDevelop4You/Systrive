@@ -15,7 +15,6 @@
 
     class UserAccountEnable2FAController
     {
-
         /**
          * @throws IncompatibleWithGoogleAuthenticatorException
          * @throws InvalidAlgorithmException

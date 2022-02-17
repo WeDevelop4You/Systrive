@@ -2,7 +2,6 @@
 
     namespace Support\Abstracts\Response;
 
-    use Support\Abstracts\Response\AbstractPopup;
     use Support\Enums\PopupTypes;
     use Support\Enums\Vuetify\VuetifyAlertTypes;
     use Symfony\Component\HttpFoundation\Response;

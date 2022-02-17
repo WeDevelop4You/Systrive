@@ -12,7 +12,6 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Session;
     use Support\Enums\FormTypes;
-    use Support\Enums\RequestMethodTypes;
     use Support\Enums\SessionKeyTypes;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Exceptions\InvalidTokenException;
@@ -21,7 +20,6 @@
     use Support\Helpers\Response\Popups\Modals\FormModal;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
-    use Support\Helpers\VuetifyHelper;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class CompanyCreateController

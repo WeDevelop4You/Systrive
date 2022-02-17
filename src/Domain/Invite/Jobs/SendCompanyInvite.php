@@ -51,7 +51,7 @@ class SendCompanyInvite
             $this->company->save();
         }
 
-        $url = route('admin.company.user.invite.link', [
+        $url = route('admin.company.invite.link', [
             $this->company->id,
             $token,
             Crypt::encryptString($this->email),

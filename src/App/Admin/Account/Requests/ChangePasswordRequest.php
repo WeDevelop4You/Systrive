@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Admin\User\Account\Requests;
+namespace App\Admin\Account\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use function trans;
 
 class ChangePasswordRequest extends FormRequest
 {

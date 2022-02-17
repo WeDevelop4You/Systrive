@@ -29,15 +29,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $applications = new Collection(config('applications'));
-
-        $applications->each(function (array $config, string $application) {
-            $config = new Collection($config);
+        Collection::make(config('applications'))->each(function (array $config, string $application) {
+            $config = Collection::make($config);
             $application = strtolower($application);
 
             ViewConstructor::create($this->app, $application);
             ComponentConstructor::create($this->app, $application);
-            RouterConstructor::create(new Collection($config->get('routes')), $application);
+            RouterConstructor::create(Collection::make($config->get('routes')), $application);
         });
     }
 }

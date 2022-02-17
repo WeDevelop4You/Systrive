@@ -12,7 +12,10 @@
     use function route;
     use Support\Enums\FormTypes;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
+    use Support\Enums\Vuetify\VuetifyColors;
+    use Support\Enums\Vuetify\VuetifySizeTypes;
     use Support\Exceptions\RequiredOneTimePasswordException;
+    use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Action\Methods\VuexMethods;
     use Support\Helpers\Response\Popups\Components\Button;
     use Support\Helpers\Response\Popups\Modals\FormModal;
@@ -56,24 +59,30 @@
             } catch (RequiredOneTimePasswordException) {
                 $response->addPopup(
                     FormModal::create()
-                        ->setTitle(trans('modal.2fa.title'))
+                        ->setDismissible()
+                        ->setTitle(trans('modal.verify.title'))
                         ->setFormComponent(FormTypes::ONE_TIME_PASSWORD)
+                        ->setCloseAction(
+                            VuexMethods::create()->commit('guest/setOneTimePassword', '')
+                        )
                         ->addButton(
                             Button::create()
-                                ->setTitle(trans('modal.cancel.cancel'))
-                                ->setType(VuetifyButtonTypes::TEXT)
+                                ->setColor()
+                                ->setTitle(trans('modal.verify.verify'))
+                                ->setType(VuetifyButtonTypes::BLOCK)
                                 ->setAction(
-                                    VuexMethods::create()
-                                        ->commit('guest/setOneTimePassword', '')
-                                )
+                                    VuexMethods::create()->dispatch('guest/login', 'OTP')
+                                )->setListener()
                         )->addButton(
                             Button::create()
-                                ->setTitle(trans('modal.verify.verify'))
-                                ->setColor()
+                                ->setType()
+                                ->setTitle(trans('modal.use.recovery.code'))
+                                ->setType(VuetifyButtonTypes::BLOCK)
+                                ->setSize(VuetifySizeTypes::X_SMALL)
+                                ->setColor(VuetifyColors::TRANSPARENT)
                                 ->setAction(
-                                    VuexMethods::create()
-                                        ->dispatch('guest/login', true)
-                                )->setListener()
+                                    RequestMethods::create()->get(route('admin.recovery.code'))
+                                )
                         )->setMaxWidth(323)
                 )->setStatusCode(ResponseCodes::HTTP_UNPROCESSABLE_ENTITY);
             }

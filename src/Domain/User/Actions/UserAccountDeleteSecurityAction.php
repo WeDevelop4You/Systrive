@@ -4,7 +4,7 @@
 
     use Domain\User\Models\User;
 
-    class UserAccountDisable2FAAction
+    class UserAccountDeleteSecurityAction
     {
         public function __invoke(User $user)
         {

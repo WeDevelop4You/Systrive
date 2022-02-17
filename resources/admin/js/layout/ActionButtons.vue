@@ -5,7 +5,11 @@
             :key="index"
             :color="button.color"
             :text="button.type === 'text'"
-            small
+            :block="button.type === 'block'"
+            :outlined="button.type === 'outlined'"
+            :small="button.size === 's'"
+            :x-small="button.size === 'xs'"
+            :elevation="button.color === 'transparent' ? 0 : 1"
             @click="runAction(button.action || null)"
             v-text="button.title"
         />
@@ -14,6 +18,7 @@
 
 <script>
     import LButtons from "./Buttons";
+    import PromiseChecker from "../mixins/PromiseChecker";
 
     export default {
         name: "ActionButtons",
@@ -21,6 +26,10 @@
         components: {
             LButtons,
         },
+
+        mixins: [
+            PromiseChecker
+        ],
 
         props: {
             data: {
@@ -66,14 +75,6 @@
                 if (this.action) {
                     this.runAction(this.action)
                 }
-            },
-
-            returnIsPromise(func = null) {
-                return !(!func || func.constructor.name === 'AsyncFunction' || (typeof func === 'function' && this.isPromise(func())));
-            },
-
-            isPromise(promise) {
-                return typeof promise === 'object' && typeof promise.then === 'function';
             },
 
             close() {

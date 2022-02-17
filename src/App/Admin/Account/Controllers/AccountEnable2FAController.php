@@ -1,10 +1,10 @@
 <?php
 
-    namespace App\Admin\User\Account\Controllers;
+    namespace App\Admin\Account\Controllers;
 
-    use App\Admin\Authentication\Requests\OneTimePasswordRequest;
-    use Domain\User\Actions\Generate2FAKeyAction;
-    use Domain\User\Actions\UserAccountEnable2FAAction;
+    use App\Admin\Account\Requests\ValidateOneTimePasswordRequest;
+    use Domain\User\Actions\GenerateSecurityKeyAction;
+    use Domain\User\Actions\UserAccountEnableSecurityAction;
     use Illuminate\Http\JsonResponse;
     use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
     use PragmaRX\Google2FA\Exceptions\InvalidAlgorithmException;
@@ -12,8 +12,9 @@
     use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
+    use function trans;
 
-    class UserAccountEnable2FAController
+    class AccountEnable2FAController
     {
         /**
          * @throws IncompatibleWithGoogleAuthenticatorException
@@ -25,7 +26,7 @@
          */
         public function index(): JsonResponse
         {
-            $data = (new Generate2FAKeyAction())();
+            $data = (new GenerateSecurityKeyAction())();
 
             return Response::create()
                 ->addData($data)
@@ -33,15 +34,15 @@
         }
 
         /**
-         * @param OneTimePasswordRequest $request
+         * @param ValidateOneTimePasswordRequest $request
          *
          * @return JsonResponse
          */
-        public function action(OneTimePasswordRequest $request): JsonResponse
+        public function action(ValidateOneTimePasswordRequest $request): JsonResponse
         {
             $oneTimePassword = $request->get('one_time_password');
 
-            (new UserAccountEnable2FAAction())($oneTimePassword);
+            (new UserAccountEnableSecurityAction())($oneTimePassword);
 
             return Response::create()
                 ->addPopup(new SimpleNotification(trans('response.success.2fa.enabled')))

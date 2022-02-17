@@ -11,11 +11,16 @@ export default {
             data: {},
             show: false
         },
+        lastModalId: null,
         notifications: []
     }),
 
     mutations: {
         setModal(state, data) {
+            state.lastModalId = state.lastModalId
+                ? state.modal.id
+                : data.id
+
             state.modal = data
         },
 
@@ -32,6 +37,12 @@ export default {
         },
 
         closeModal(state) {
+            if (state.modal.id !== state.lastModalId) {
+                setTimeout(function () {
+                    state.modal.show = true
+                }, 300)
+            }
+
             state.modal.show = false
         }
     },

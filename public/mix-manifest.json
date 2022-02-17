@@ -23,6 +23,7 @@
     "/js/admin/layout/popups/modals/confirm.js": "/js/admin/layout/popups/modals/confirm.js",
     "/js/admin/layout/popups/notifications/simple.js": "/js/admin/layout/popups/notifications/simple.js",
     "/js/admin/layout/forms/popup/complete.js": "/js/admin/layout/forms/popup/complete.js",
+    "/js/admin/layout/forms/popup/recovery_code.js": "/js/admin/layout/forms/popup/recovery_code.js",
     "/js/admin/layout/forms/popup/one_time_password.js": "/js/admin/layout/forms/popup/one_time_password.js",
     "/css/admin/app.css": "/css/admin/app.css",
     "/css/site/app.css": "/css/site/app.css",

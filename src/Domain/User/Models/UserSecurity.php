@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $user_id
  * @property string                          $secret_key
- * @property string|null                     $recovery_keys
+ * @property string|null                     $recovery_codes
  * @property int                             $enabled
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity query()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereEnabled($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereRecoveryKeys($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereRecoveryCodes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereSecretKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereUserId($value)

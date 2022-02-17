@@ -9,6 +9,8 @@
     use App\Admin\Company\Controllers\CompanyShowController;
     use App\Admin\Company\Controllers\CompanyTableController;
 
+    Route::get('invite/{company}/{token}/{encryptEmail}', [CompanyInviteController::class, 'index'])->name('company.invite.link');
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('search/{company:name}', [CompanyShowController::class, 'index'])->name('company.search');
 

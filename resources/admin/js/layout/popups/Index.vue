@@ -3,7 +3,7 @@
         <v-dialog
             v-model="show"
             :max-width="modal.data.max_width || 500"
-            persistent
+            @input="dialogChangeAction($event)"
         >
             <component
                 :is="modal.component"
@@ -42,7 +42,8 @@
 
 <script>
     import {mapGetters} from "vuex";
-
+    import PromiseChecker from "../../mixins/PromiseChecker";
+    
     export default {
         name: "Index",
 
@@ -52,15 +53,41 @@
             SimpleNotification: () => import(/* webpackChunkName: "layout/popups/notifications/simple" */ './notifications/Simple'),
         },
 
+        mixins: [
+            PromiseChecker
+        ],
+
         computed: {
-            show() {
-                return this.modal.show || false
+            show: {
+                get () {
+                    return this.modal.show || false
+                },
+
+                set (value) {
+                    this.modal.show = value
+                }
             },
 
             ...mapGetters({
                 modal: 'popups/modal',
                 notifications: 'popups/notifications'
             })
+        },
+
+        methods: {
+            dialogChangeAction(value) {
+                const action = value
+                    ? this.model.data.openAction
+                    : this.modal.data.closeAction
+
+                if (action) {
+                    const promise = this.callAction(action)
+
+                    if (this.returnIsPromise(promise)) {
+                        promise.catch(() => {})
+                    }
+                }
+            }
         }
     }
 </script>

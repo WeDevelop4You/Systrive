@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Support\Exceptions\RequiredOneTimePasswordException;
-use Support\Rules\OneTimePasswordRule;
+use Support\Rules\SecurityRule;
 
 class LoginRequest extends FormRequest
 {
@@ -25,7 +25,8 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'one_time_password' => ['bail', 'sometimes', 'digits:6', new OneTimePasswordRule()],
+            'one_time_password' => ['bail', 'sometimes', 'digits:6', new SecurityRule()],
+            'recovery_code' => ['bail', 'nullable', 'string', 'regex:/^([\d\w]{10})-([\d\w]{10})/', new SecurityRule()],
         ];
     }
 
@@ -83,7 +84,7 @@ class LoginRequest extends FormRequest
      */
     public function requiresOneTimePassword(): void
     {
-        if (config('app.security') && !$this->has('one_time_password')) {
+        if (config('app.security') && !$this->hasAny(['one_time_password', 'recovery_code'])) {
             $user = User::whereEmail($this->get('email'))->first();
 
             if ($user instanceof User && $user->security instanceof UserSecurity && $user->security->enabled) {

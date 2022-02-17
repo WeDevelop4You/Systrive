@@ -50,14 +50,28 @@
                             v-text="$vuetify.lang.t('$vuetify.text.disable.2fa')"
                         />
                         <v-spacer />
-                        <v-btn
-                            small
-                            outlined
-                            color="error"
-                            @click="$store.dispatch('user/security/disable2FA')"
+                        <l-buttons
+                            no-padding
+                            no-margin
                         >
-                            {{ $vuetify.lang.t('$vuetify.word.disable.disable') }}
-                        </v-btn>
+                            <v-btn
+                                small
+                                outlined
+                                color="primary"
+                                href="/download/recovery/codes"
+                                target="_blank"
+                            >
+                                {{ $vuetify.lang.t('$vuetify.word.downloaded.recovery.codes') }}
+                            </v-btn>
+                            <v-btn
+                                small
+                                outlined
+                                color="error"
+                                @click="$store.dispatch('user/security/disable2FA')"
+                            >
+                                {{ $vuetify.lang.t('$vuetify.word.disable.disable') }}
+                            </v-btn>
+                        </l-buttons>
                     </template>
                     <template v-else>
                         <p

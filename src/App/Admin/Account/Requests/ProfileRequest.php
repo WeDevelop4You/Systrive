@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\User\Account\Requests;
+namespace App\Admin\Account\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

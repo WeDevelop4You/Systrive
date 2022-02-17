@@ -2,7 +2,7 @@
 
     namespace Support\Helpers;
 
-    use Illuminate\Encryption\MissingAppKeyException;
+    use Illuminate\Support\Facades\Crypt;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Support\Str;
 
@@ -36,23 +36,9 @@
         /**
          * @return string
          */
-        private function getHashKey(): string
-        {
-            $key = env('APP_KEY');
-
-            if (Str::startsWith($key, 'base64:')) {
-                return base64_decode(substr($key, 7));
-            }
-
-            throw new MissingAppKeyException();
-        }
-
-        /**
-         * @return string
-         */
         private function createNewToken(): string
         {
-            return hash_hmac('sha256', Str::random(40), $this->getHashKey());
+            return hash_hmac('sha256', Str::random(40), Crypt::getKey());
         }
 
         /**
@@ -68,6 +54,6 @@
          */
         public function getHashToken(): string
         {
-            return Hash::make($this->token);
+            return Hash::make($this->getToken());
         }
     }

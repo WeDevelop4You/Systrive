@@ -42,7 +42,7 @@
                         ->setText(trans('modal.confirm.accepted.invite.company.text'))
                         ->addButton(
                             Button::create()
-                                ->setTitle(trans('modal.confirm.cancel.cancel'))
+                                ->setTitle(trans('modal.cancel.cancel'))
                                 ->setType(VuetifyButtonTypes::TEXT)
                                 ->setAction(
                                     RequestMethods::create()
@@ -50,7 +50,7 @@
                                 )
                         )->addButton(
                             Button::create()
-                                ->setTitle(trans('modal.confirm.accept.accept'))
+                                ->setTitle(trans('modal.accept.accept'))
                                 ->setColor()
                                 ->setAction(
                                     RequestMethods::create()

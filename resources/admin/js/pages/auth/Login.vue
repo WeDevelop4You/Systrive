@@ -29,7 +29,6 @@
                         :disabled="$loading"
                         block
                         color="primary"
-                        small
                         @click="send"
                     >
                         {{ $vuetify.lang.t('$vuetify.word.login.login') }}

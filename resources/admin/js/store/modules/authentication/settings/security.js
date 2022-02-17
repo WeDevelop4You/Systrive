@@ -84,7 +84,7 @@ export default {
             commit('setError', {})
 
             app.$api.call({
-                url: app.$api.route('user.account.change.password'),
+                url: app.$api.route('account.change.password'),
                 method: "PATCH",
                 data: state.passwordValues
             }).then(() => {
@@ -97,7 +97,7 @@ export default {
 
         getQRCode({commit}) {
             app.$api.call({
-                url: app.$api.route('user.account.2fa.qrcode'),
+                url: app.$api.route('account.2fa.qrcode'),
                 method: "GET"
             }).then((response) => {
                 commit('setTwoFAQRCode', response.data.data)
@@ -108,7 +108,7 @@ export default {
             commit('setError', {})
 
             app.$api.call({
-                url: app.$api.route('user.account.2fa.validate'),
+                url: app.$api.route('account.2fa.validate'),
                 method: "POST",
                 data: {
                     one_time_password: state.twoFAValues.oneTimePassword
@@ -124,7 +124,7 @@ export default {
 
         disable2FA({commit}) {
             app.$api.call({
-                url: app.$api.route('user.account.2fa.disable'),
+                url: app.$api.route('account.2fa.disable'),
                 method: "DELETE",
             }).then(() => {
                 commit('user/isSecured', false, {root: true})

@@ -5,6 +5,7 @@
     use Support\Abstracts\Response\AbstractAction;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Enums\Vuetify\VuetifyColors;
+    use Support\Enums\Vuetify\VuetifySizeTypes;
 
     class Button
     {
@@ -22,6 +23,11 @@
          * @var VuetifyButtonTypes|null
          */
         private VuetifyButtonTypes|null $type = null;
+
+        /**
+         * @var VuetifySizeTypes|null
+         */
+        private VuetifySizeTypes|null $size = null;
 
         /**
          * @var AbstractAction|null
@@ -70,9 +76,16 @@
          *
          * @return Button
          */
-        public function setType(VuetifyButtonTypes $type): Button
+        public function setType(VuetifyButtonTypes $type = VuetifyButtonTypes::TEXT): Button
         {
             $this->type = $type;
+
+            return $this;
+        }
+
+        public function setSize(VuetifySizeTypes $size = VuetifySizeTypes::SMALL): Button
+        {
+            $this->size = $size;
 
             return $this;
         }
@@ -106,6 +119,7 @@
         {
             return [
                 'title' => $this->title,
+                'size' => $this->size?->value,
                 'type' => $this->type?->value,
                 'color' => $this->color?->value,
                 'hasListener' => $this->isListener,

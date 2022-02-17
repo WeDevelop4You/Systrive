@@ -1,15 +1,16 @@
 <?php
 
-    namespace App\Admin\User\Account\Controllers;
+    namespace App\Admin\Account\Controllers;
 
-    use App\Admin\User\Account\Requests\ChangePasswordRequest;
+    use App\Admin\Account\Requests\ChangePasswordRequest;
     use Domain\User\Actions\UpdatePasswordAction;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
+    use function trans;
 
-    class UserAccountChangePasswordController
+    class AccountChangePasswordController
     {
         /**
          * @param ChangePasswordRequest $request

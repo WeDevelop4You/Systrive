@@ -5,10 +5,11 @@
     use Domain\Invite\DataTransferObject\InviteData;
     use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
+    use Domain\User\Mappings\UserTableMap;
     use Domain\User\Models\User;
-    use Illuminate\Http\RedirectResponse;
     use Support\Enums\SessionKeyTypes;
     use Support\Enums\Vuetify\VuetifyButtonTypes;
+    use Support\Exceptions\InviteNewUserException;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Popups\Components\Button;
     use Support\Helpers\Response\Popups\Modals\ConfirmModal;
@@ -28,16 +29,16 @@
         /**
          * @param Invite $invite
          *
-         * @return RedirectResponse
+         * @throws InviteNewUserException
          */
-        public function __invoke(Invite $invite): RedirectResponse
+        public function __invoke(Invite $invite)
         {
             if ($this->isNewUser($invite->email)) {
                 $inviteData = new InviteData($invite->company_id, $this->token, $this->encryptEmail);
 
                 Response::create()->addData($inviteData->export())->toSession(SessionKeyTypes::REGISTRATION);
 
-                return redirect()->route('admin.web.registration');
+                throw new InviteNewUserException();
             }
 
             switch ($invite->type) {
@@ -55,8 +56,6 @@
                         ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
                         ->toSession();
             }
-
-            return redirect()->route('admin.dashboard');
         }
 
         /**
@@ -66,17 +65,15 @@
          */
         private function isNewUser(string $email): bool
         {
-            return User::withTrashed()->where('email', $email)->whereNull('password')->exists();
+            return User::withTrashed()->whereEmail($email)->whereNull(UserTableMap::PASSWORD)->exists();
         }
 
         private function createInviteAccepted(int $companyId)
         {
-            Response::create()
-                ->addAction(
-                    RequestMethods::create()
-                        ->get(route('admin.company.user.invite.accepted', [$companyId, $this->token]))
-                )
-                ->toSession(SessionKeyTypes::KEEP);
+            Response::create()->addAction(
+                RequestMethods::create()
+                    ->get(route('admin.company.user.invite.accepted', [$companyId, $this->token]))
+            )->toSession(SessionKeyTypes::KEEP);
         }
 
         private function createCompanyComplete(int $companyId)

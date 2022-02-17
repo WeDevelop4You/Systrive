@@ -13,7 +13,8 @@ export default {
             password: '',
             remember: false,
         },
-        oneTimePassword: ''
+        oneTimePassword: '',
+        recoveryCode: '',
     }),
 
     mutations: {
@@ -31,6 +32,10 @@ export default {
 
         setOneTimePassword(state, data) {
             state.oneTimePassword = data
+        },
+
+        setRecoveryCode(state, data) {
+            state.recoveryCode = data
         }
     },
 
@@ -49,18 +54,24 @@ export default {
 
         oneTimePassword(state) {
             return state.oneTimePassword
+        },
+
+        RecoveryCode(state) {
+            return state.recoveryCode
         }
     },
 
     actions: {
-        async login({state, commit}, needsOneTimePassword) {
+        async login({state, commit}, needsAdditionalData) {
             commit('setErrors', {})
             commit('setError', false)
 
             let data = Object.assign({}, state.credentials)
 
-            if (needsOneTimePassword) {
-                data.one_time_password = state.oneTimePassword
+            if (needsAdditionalData) {
+                needsAdditionalData === 'OTP'
+                    ? data.one_time_password = state.oneTimePassword
+                    : data.recovery_code = state.recoveryCode
             }
 
             await app.$api.getCsrfToken()
@@ -75,7 +86,7 @@ export default {
                 if (Object.prototype.hasOwnProperty.call(errors,'password')) {
                     commit('setError', true)
 
-                    if (needsOneTimePassword) {
+                    if (needsAdditionalData) {
                         commit('setOneTimePassword', '')
                         commit('popups/closeModal', null, {root: true})
                     }

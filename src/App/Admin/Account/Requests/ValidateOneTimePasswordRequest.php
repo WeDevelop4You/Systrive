@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Admin\Authentication\Requests;
+namespace App\Admin\Account\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Rules\OneTimePasswordRule;
+use Support\Rules\SecurityRule;
 
-class OneTimePasswordRequest extends FormRequest
+class ValidateOneTimePasswordRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,7 +15,7 @@ class OneTimePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'one_time_password' => ['bail', 'required', 'digits:6', new OneTimePasswordRule(true)],
+            'one_time_password' => ['bail', 'required', 'digits:6', new SecurityRule(true)],
         ];
     }
 }

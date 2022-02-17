@@ -32,6 +32,7 @@
         components: {
             ActionButtons,
             Company: () => import(/* webpackChunkName: "layout/forms/popup/complete" */ '../../forms/popup/Complete'),
+            RecoveryCode: () => import(/* webpackChunkName: "layout/forms/popup/recovery_code" */ '../../forms/popup/RecoveryCode'),
             OneTimePassword: () => import(/* webpackChunkName: "layout/forms/popup/one_time_password" */ '../../forms/popup/OneTimePassword'),
         },
 

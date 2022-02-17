@@ -148,7 +148,11 @@
             }
         },
         "check": {
-            "2fa": "Check two-factor authentication"
+            "2fa": "Check two-factor authentication",
+            "check": "Check"
+        },
+        "disable": {
+            "disable": "Disabled"
         }
     }
 }

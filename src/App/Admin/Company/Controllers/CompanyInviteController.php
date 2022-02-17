@@ -14,6 +14,7 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\RedirectResponse;
     use Support\Exceptions\InvalidTokenException;
+    use Support\Exceptions\InviteNewUserException;
     use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
     use Support\Helpers\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
@@ -32,7 +33,9 @@
             try {
                 $invite = (new ValidateInviteTokenAction())(new InviteData($company->id, $token, $encryptEmail));
 
-                return (new InviteTokenAction($token, $encryptEmail))($invite);
+                (new InviteTokenAction($token, $encryptEmail))($invite);
+            } catch (InviteNewUserException) {
+                return redirect()->route('admin.web.registration');
             } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
                 Response::create()
                     ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))

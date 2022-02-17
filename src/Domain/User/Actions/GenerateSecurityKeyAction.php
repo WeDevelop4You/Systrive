@@ -17,7 +17,7 @@
     use PragmaRX\Google2FA\Google2FA;
     use PragmaRX\Google2FA\Support\Constants;
 
-    class Generate2FAKeyAction
+    class GenerateSecurityKeyAction
     {
         /**
          * @throws IncompatibleWithGoogleAuthenticatorException

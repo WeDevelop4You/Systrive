@@ -30,6 +30,9 @@
         "complete": {
             "registration": "Complete registration"
         },
+        "change": {
+            "password": "Change password"
+        },
         "how": {
             "to": {
                 "enable": {

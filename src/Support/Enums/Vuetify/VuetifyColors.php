@@ -11,4 +11,5 @@
         case INFO = 'info';
         case SUCCESS = 'success';
         case WARNING = 'warning';
+        case TRANSPARENT = 'transparent';
     }

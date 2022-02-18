@@ -22,7 +22,7 @@
                 return response()->streamDownload(function () use ($security) {
                     echo implode("\n", Crypt::decrypt($security->recovery_codes));
                 }, "{$appName} Recovery Code.txt", [
-                    'Content-Type' => 'text/plain'
+                    'Content-Type' => 'text/plain',
                 ]);
             }
         }

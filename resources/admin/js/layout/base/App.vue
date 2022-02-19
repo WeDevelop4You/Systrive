@@ -178,7 +178,7 @@
     import DarkModeSwitchList from "../../components/DarkModeSwitchList";
     import SvgLogoLine from '../../components/svg/LogoLine'
     import Breadcrumb from '../../components/Breadcrumb'
-    import Popup from "../popups";
+    import Popup from "../popups/Index";
     import {mapGetters} from "vuex";
     import NavigationItem from "../NavigationItem";
 

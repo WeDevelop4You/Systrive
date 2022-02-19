@@ -2,6 +2,7 @@
 
     namespace App\Admin\Company\User\DataTable;
 
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Relations\Relation;
@@ -26,7 +27,7 @@
                     });
                 }),
                 Column::create('email')->sortable()->searchable(),
-                Column::create('status')->sortable()->searchable(),
+                Column::create('status')->sortable()->searchable(CompanyUserStatusTypes::class),
             ];
         }
     }

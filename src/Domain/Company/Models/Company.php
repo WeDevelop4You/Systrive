@@ -3,6 +3,7 @@
     namespace Domain\Company\Models;
 
     use Domain\Company\Collections\CompanyCollections;
+    use Domain\Company\Enums\CompanyStatusTypes;
     use Domain\Company\Mappings\CompanyTableMap;
     use Domain\Company\ModelQueries\Company as CompanyModelQueries;
     use Domain\Invite\Models\Invite;
@@ -17,14 +18,14 @@
     /**
      * Domain\Company\Models\Company.
      *
-     * @property int         $id
-     * @property string      $name
-     * @property string|null $email
-     * @property string|null $domain
-     * @property string|null $information
-     * @property string      $status
-     * @property Carbon|null $created_at
-     * @property Carbon|null $updated_at
+     * @property int                $id
+     * @property string             $name
+     * @property string|null        $email
+     * @property string|null        $domain
+     * @property string|null        $information
+     * @property CompanyStatusTypes $status
+     * @property Carbon|null        $created_at
+     * @property Carbon|null        $updated_at
      * @property-read Collection|Invite[] $invites
      * @property-read Collection|Role[] $roles
      * @property-read System|null $system
@@ -56,6 +57,10 @@
             CompanyTableMap::DOMAIN,
             CompanyTableMap::INFORMATION,
             CompanyTableMap::STATUS,
+        ];
+
+        protected $casts = [
+            CompanyTableMap::STATUS => CompanyStatusTypes::class,
         ];
 
         /**

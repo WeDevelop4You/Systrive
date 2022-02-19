@@ -3,7 +3,7 @@
     namespace App\Admin\User\Controllers;
 
     use App\Admin\User\Resources\UserNavigationResource;
-    use Domain\Company\Mappings\CompanyUserTableMap;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Response\Response;
@@ -16,7 +16,7 @@
         public function index(): JsonResponse
         {
             $companies = Auth::user()
-                ->whereCompanyStatus(CompanyUserTableMap::ACCEPTED_STATUS)
+                ->whereCompanyStatus(CompanyUserStatusTypes::ACCEPTED)
                 ->get();
 
             return Response::create()

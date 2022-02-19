@@ -2,8 +2,8 @@
 
     namespace Domain\Invite\Observers;
 
-    use Domain\Company\Mappings\CompanyTableMap;
-    use Domain\Company\Mappings\CompanyUserTableMap;
+    use Domain\Company\Enums\CompanyStatusTypes;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Invite\Actions\ChangeInviteStatusAction;
     use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
@@ -19,13 +19,13 @@
         {
             switch ($invite->type) {
                 case InviteTableMap::USER_TYPE:
-                    $oldStatus = CompanyUserTableMap::EXPIRED_STATUS;
-                    $newStatus = CompanyUserTableMap::REQUESTED_STATUS;
+                    $oldStatus = CompanyUserStatusTypes::EXPIRED;
+                    $newStatus = CompanyUserStatusTypes::REQUESTED;
 
                     break;
                 case InviteTableMap::COMPANY_TYPE:
-                    $oldStatus = CompanyTableMap::EXPIRED_STATUS;
-                    $newStatus = CompanyTableMap::INVITED_STATUS;
+                    $oldStatus = CompanyStatusTypes::EXPIRED;
+                    $newStatus = CompanyStatusTypes::INVITED;
 
                     break;
                 default:

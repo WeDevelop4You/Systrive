@@ -65,7 +65,13 @@
                         $selectedColumn = ColumnHelper::mapToSelected($column->columnName, $this->query);
 
                         if ($column->hasSearchCallback()) {
-                            ($column->searchCallback)($subQuery, $this->search);
+                            $searchCallback = $column->searchCallback;
+
+                            if ($column->isEnumSearch) {
+                                $subQuery->orWhereIn($column->columnName, $searchCallback::search($this->search));
+                            } else {
+                                ($searchCallback)($subQuery, $this->search);
+                            }
                         } elseif (!$hasRelation || $selectedColumn) {
                             $whereColumn = $selectedColumn ?? $column->columnName;
 

@@ -3,6 +3,7 @@
     namespace Domain\User\Queries;
 
     use Domain\Company\Collections\CompanyCollections;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyUserTableMap;
     use Domain\Company\Models\Company;
     use Domain\Company\Models\CompanyUser;
@@ -65,10 +66,10 @@ class UserQueries extends Authenticatable
                 ->withPivot(CompanyUserTableMap::STATUS);
     }
 
-    public function whereCompanyStatus(string $status): BelongsToMany
+    public function whereCompanyStatus(CompanyUserStatusTypes $status): BelongsToMany
     {
         return $this->companies()
-                ->wherePivot(CompanyUserTableMap::STATUS, $status);
+                ->wherePivot(CompanyUserTableMap::STATUS, $status->value);
     }
 
     /**

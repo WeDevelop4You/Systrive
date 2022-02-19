@@ -8,7 +8,6 @@
     use Domain\User\Mappings\UserTableMap;
     use Domain\User\Models\User;
     use Support\Enums\SessionKeyTypes;
-    use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Exceptions\InviteNewUserException;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Popups\Components\Button;
@@ -84,16 +83,16 @@
                     ->setText(trans('modal.confirm.company.complete.text'))
                     ->addButton(
                         Button::create()
+                            ->setType()
                             ->setTitle(trans('modal.cancel.cancel'))
-                            ->setType(VuetifyButtonTypes::TEXT)
                             ->setAction(
                                 RequestMethods::create()
                                     ->delete(route('admin.session.delete', ['key' => SessionKeyTypes::KEEP->value]))
                             )
                     )->addButton(
                         Button::create()
-                            ->setTitle(trans('modal.complete.complete'))
                             ->setColor()
+                            ->setTitle(trans('modal.complete.complete'))
                             ->setAction(
                                 RequestMethods::create()
                                     ->get(route('admin.company.complete', [$companyId, $this->token]))

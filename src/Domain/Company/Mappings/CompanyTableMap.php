@@ -12,8 +12,4 @@
         public const STATUS = 'status';
         public const CREATED_AT = 'created_at';
         public const UPDATED_AT = 'updated_at';
-
-        public const INVITED_STATUS = 'invited';
-        public const EXPIRED_STATUS = 'expired';
-        public const COMPLETED_STATUS = 'completed';
     }

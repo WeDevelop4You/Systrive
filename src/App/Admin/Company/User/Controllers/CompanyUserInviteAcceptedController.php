@@ -11,7 +11,6 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
     use Support\Enums\SessionKeyTypes;
-    use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Exceptions\InvalidTokenException;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Action\Methods\VuexMethods;
@@ -42,16 +41,16 @@
                         ->setText(trans('modal.confirm.accepted.invite.company.text'))
                         ->addButton(
                             Button::create()
+                                ->setType()
                                 ->setTitle(trans('modal.cancel.cancel'))
-                                ->setType(VuetifyButtonTypes::TEXT)
                                 ->setAction(
                                     RequestMethods::create()
                                         ->delete(route('admin.session.delete', ['key' => SessionKeyTypes::KEEP->value]))
                                 )
                         )->addButton(
                             Button::create()
-                                ->setTitle(trans('modal.accept.accept'))
                                 ->setColor()
+                                ->setTitle(trans('modal.accept.accept'))
                                 ->setAction(
                                     RequestMethods::create()
                                         ->post(route('admin.company.user.invite.accepted', [$company->id, $token]))

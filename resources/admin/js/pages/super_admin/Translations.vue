@@ -152,7 +152,7 @@
     import Translated from "../../components/table/column/translations/Translated";
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
     import {mapGetters} from "vuex";
-    import Index from "../../components/table/column";
+    import Index from "../../components/table/column/Index";
 
     export default {
         name: "Translations",

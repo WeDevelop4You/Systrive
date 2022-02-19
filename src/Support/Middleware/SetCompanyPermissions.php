@@ -3,6 +3,7 @@
 namespace Support\Middleware;
 
 use Closure;
+use Domain\Company\Enums\CompanyUserStatusTypes;
 use Domain\Company\Mappings\CompanyUserTableMap;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -34,12 +35,12 @@ class SetCompanyPermissions
             if (!$user->hasRole('super_admin') && $request->route()->hasParameter('company')) {
                 try {
                     $company = $request->route('company');
-                    $query = $user->companies()->wherePivot('company_id', $company->id);
+                    $query = $user->companies()->wherePivot(CompanyUserTableMap::COMPANY_ID, $company->id);
 
                     if (!$request->routeIs(self::IGNORE_USER_ACCEPTED_ROUTES)) {
                         $query->wherePivot(
                             CompanyUserTableMap::STATUS,
-                            CompanyUserTableMap::ACCEPTED_STATUS
+                            CompanyUserStatusTypes::ACCEPTED->value
                         );
                     }
 

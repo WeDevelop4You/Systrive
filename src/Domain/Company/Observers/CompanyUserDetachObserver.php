@@ -13,6 +13,8 @@
          */
         public function deleted(CompanyUser $companyUser): void
         {
+            setCompanyId($companyUser->company_id);
+
             $user = $companyUser->user;
 
             $user->syncRoles([]);

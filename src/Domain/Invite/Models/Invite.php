@@ -5,6 +5,8 @@ namespace Domain\Invite\Models;
 use Domain\Company\Models\Company;
 use Domain\Invite\Mappings\InviteTableMap;
 use Domain\Invite\QueryBuilders\InviteQueryBuilders;
+use Domain\User\Mappings\UserTableMap;
+use Domain\User\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +21,7 @@ use Illuminate\Database\Query\Builder;
  * @property string   $type
  * @property string   $created_at
  * @property-read Company|null $company
+ * @property-read User|null $user
  *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
@@ -67,6 +70,11 @@ class Invite extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, UserTableMap::EMAIL, InviteTableMap::EMAIL);
     }
 
     /**

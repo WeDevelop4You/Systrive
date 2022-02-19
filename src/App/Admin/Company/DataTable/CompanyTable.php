@@ -2,6 +2,7 @@
 
     namespace App\Admin\Company\DataTable;
 
+    use Domain\Company\Enums\CompanyStatusTypes;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@
                             })->withTrashed();
                     });
                 }),
-                Column::create('status')->sortable()->searchable(),
+                Column::create('status')->sortable()->searchable(CompanyStatusTypes::class),
                 Column::create('created_at')->sortable()->searchable(),
             ];
         }

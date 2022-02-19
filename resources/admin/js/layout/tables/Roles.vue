@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import Index from "../../components/table/column";
+    import Index from "../../components/table/column/Index";
     import DeleteDialog from "../../components/table/DeleteDialog"
     import CompanyRole from "../../layout/forms/company/CompanyRole"
     import ServerDataTable from "../../components/table/ServerDataTable"

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import Index from "../../components/table/column";
+    import Index from "../../components/table/column/Index";
     import Chip from "../../components/table/column/Chip";
     import CompanyUser from "../forms/company/CompanyUser";
     import DeleteDialog from "../../components/table/DeleteDialog";

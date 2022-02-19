@@ -3,7 +3,7 @@
 namespace Domain\Invite\Jobs;
 
 use function config;
-use Domain\Company\Mappings\CompanyTableMap;
+use Domain\Company\Enums\CompanyStatusTypes;
 use Domain\Company\Models\Company;
 use Domain\Invite\Actions\CreateInviteAction;
 use Domain\Invite\Mappings\InviteTableMap;
@@ -46,12 +46,12 @@ class SendCompanyInvite
     {
         $token = (new CreateInviteAction($this->email, InviteTableMap::COMPANY_TYPE, $this->company))();
 
-        if ($this->company->status === CompanyTableMap::EXPIRED_STATUS) {
-            $this->company->status = CompanyTableMap::INVITED_STATUS;
+        if ($this->company->status == CompanyStatusTypes::EXPIRED) {
+            $this->company->status = CompanyStatusTypes::INVITED;
             $this->company->save();
         }
 
-        $url = route('admin.company.invite.link', [
+        $url = route('admin.invite.link', [
             $this->company->id,
             $token,
             Crypt::encryptString($this->email),

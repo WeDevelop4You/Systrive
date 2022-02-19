@@ -4,6 +4,7 @@
 
     use Carbon\Carbon;
     use Domain\Company\DataTransferObjects\CompanyUserData;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyUserTableMap;
     use Domain\Company\Models\Company;
     use Domain\Invite\Jobs\SendInviteToUser;
@@ -39,7 +40,9 @@
 
             (new UserPermissionsForCompanyAction($this->company, $user))($companyUserData);
 
-            $this->company->users()->attach($user->id, ['status' => CompanyUserTableMap::REQUESTED_STATUS]);
+            $this->company->users()->attach($user->id, [
+                CompanyUserTableMap::STATUS => CompanyUserStatusTypes::REQUESTED,
+            ]);
 
             SendInviteToUser::dispatch($user, $this->company);
 

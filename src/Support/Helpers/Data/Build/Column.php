@@ -2,6 +2,8 @@
 
     namespace Support\Helpers\Data\Build;
 
+    use Support\Traits\DatabaseEnumSearch;
+
     /**
      * Class TableColumn.
      *
@@ -9,6 +11,7 @@
      * @property-read $isSortable
      * @property-read $sortCallback
      * @property-read $isSearchable
+     * @property-read $isEnumSearch
      * @property-read $searchCallback
      */
     class Column
@@ -20,6 +23,7 @@
         {
             $this->isSortable = false;
             $this->isSearchable = false;
+            $this->isEnumSearch = false;
             $this->columnName = $columnName;
         }
 
@@ -63,6 +67,13 @@
         {
             $this->isSearchable = true;
             $this->searchCallback = $searchCallback;
+
+            if (!is_null($searchCallback) && !is_callable($searchCallback) && is_string($searchCallback)) {
+                $this->isEnumSearch = (
+                    enum_exists($searchCallback) &&
+                   in_array(DatabaseEnumSearch::class, class_uses_recursive($searchCallback))
+                );
+            }
 
             return $this;
         }

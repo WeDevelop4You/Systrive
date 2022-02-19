@@ -2,6 +2,7 @@
 
     namespace Domain\Company\Models;
 
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyUserTableMap;
     use Domain\User\Models\User;
     use Eloquent;
@@ -11,11 +12,11 @@
     /**
      * Domain\Company\Models\CompanyUser.
      *
-     * @property int         $id
-     * @property int         $user_id
-     * @property int         $company_id
-     * @property int         $is_owner
-     * @property string|null $status
+     * @property int                         $id
+     * @property int                         $user_id
+     * @property int                         $company_id
+     * @property int                         $is_owner
+     * @property CompanyUserStatusTypes|null $status
      * @property-read User $user
      *
      * @method static \Illuminate\Database\Eloquent\Builder|CompanyUser newModelQuery()
@@ -37,6 +38,10 @@
             CompanyUserTableMap::COMPANY_ID,
             CompanyUserTableMap::IS_OWNER,
             CompanyUserTableMap::STATUS,
+        ];
+
+        protected $casts = [
+            CompanyUserTableMap::STATUS => CompanyUserStatusTypes::class,
         ];
 
         /**

@@ -51,7 +51,7 @@ class SendInviteToUser
     {
         $token = (new CreateInviteAction($this->user->email, InviteTableMap::USER_TYPE, $this->company))();
 
-        $url = route('admin.company.invite.link', [
+        $url = route('admin.invite.link', [
             $this->company->id,
             $token,
             Crypt::encryptString($this->user->email),

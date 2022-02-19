@@ -2,8 +2,8 @@
 
     namespace Domain\Invite\Actions;
 
-    use Domain\Company\Mappings\CompanyTableMap;
-    use Domain\Company\Mappings\CompanyUserTableMap;
+    use Domain\Company\Enums\CompanyStatusTypes;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Invite\DataTransferObject\InviteData;
     use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
@@ -22,8 +22,8 @@
          */
         public function __invoke(InviteData $inviteData): Invite
         {
-            $invite = Invite::where('company_id', $inviteData->companyId)
-                ->where('email', $inviteData->decryptEmail())
+            $invite = Invite::whereCompanyId($inviteData->companyId)
+                ->where(InviteTableMap::EMAIL, $inviteData->decryptEmail())
                 ->firstOrFail();
 
             if ($this->validateToken($invite->created_at, $inviteData->token, $invite->token)) {
@@ -32,13 +32,13 @@
 
             switch ($invite->type) {
                 case InviteTableMap::USER_TYPE:
-                    $oldStatus = CompanyUserTableMap::REQUESTED_STATUS;
-                    $newStatus = CompanyUserTableMap::EXPIRED_STATUS;
+                    $oldStatus = CompanyUserStatusTypes::REQUESTED;
+                    $newStatus = CompanyUserStatusTypes::EXPIRED;
 
                     break;
                 case InviteTableMap::COMPANY_TYPE:
-                    $oldStatus = CompanyTableMap::INVITED_STATUS;
-                    $newStatus = CompanyTableMap::EXPIRED_STATUS;
+                    $oldStatus = CompanyStatusTypes::INVITED;
+                    $newStatus = CompanyStatusTypes::EXPIRED;
 
                     break;
                 default:

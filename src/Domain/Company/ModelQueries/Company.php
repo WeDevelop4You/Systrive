@@ -85,7 +85,9 @@
          */
         public function updateOwnership(User $user, bool $value = false): int
         {
-            return $this->users()->updateExistingPivot($user->id, [CompanyUserTableMap::IS_OWNER => $value]);
+            return $this->users()->updateExistingPivot($user->id, [
+                CompanyUserTableMap::IS_OWNER => $value,
+            ]);
         }
 
         /**
@@ -102,6 +104,14 @@
         public function invites(): HasMany
         {
             return $this->hasMany(Invite::class);
+        }
+
+        /**
+         * @return HasMany
+         */
+        public function companyUser(): HasMany
+        {
+            return $this->hasMany(CompanyUser::class);
         }
 
         /**

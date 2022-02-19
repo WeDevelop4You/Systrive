@@ -3,7 +3,8 @@
     namespace Domain\Company\Actions;
 
     use Domain\Company\DataTransferObjects\CompleteCompanyData;
-    use Domain\Company\Mappings\CompanyTableMap;
+    use Domain\Company\Enums\CompanyStatusTypes;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyUserTableMap;
     use Domain\Company\Models\Company;
     use Domain\Invite\Models\Invite;
@@ -33,11 +34,11 @@
             $company->email = $completeCompanyData->email;
             $company->domain = $completeCompanyData->domain;
             $company->information = $completeCompanyData->information;
-            $company->status = CompanyTableMap::COMPLETED_STATUS;
+            $company->status = CompanyStatusTypes::COMPLETED;
             $company->save();
 
             $company->users()->attach($user, [
-                CompanyUserTableMap::STATUS => CompanyUserTableMap::ACCEPTED_STATUS,
+                CompanyUserTableMap::STATUS => CompanyUserStatusTypes::ACCEPTED,
                 CompanyUserTableMap::IS_OWNER => true,
             ]);
 

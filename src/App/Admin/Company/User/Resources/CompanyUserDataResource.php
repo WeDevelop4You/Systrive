@@ -2,7 +2,7 @@
 
     namespace App\Admin\Company\User\Resources;
 
-    use Domain\Company\Mappings\CompanyUserTableMap;
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Support\Enums\Vuetify\VuetifyColors;
@@ -20,7 +20,7 @@
                 'id' => $this->id,
                 'email' => $this->email,
                 'status' => $this->getStatus(),
-                'resend' => $this->pivot->status === CompanyUserTableMap::EXPIRED_STATUS,
+                'resend' => $this->pivot->status == CompanyUserStatusTypes::EXPIRED,
                 'profile' => [
                     'full_name' => $this->full_name,
                 ],
@@ -35,12 +35,12 @@
         {
             $status = $this->pivot->status;
 
-            $data['text'] = translateToVuetify("word.{$status}.{$status}");
+            $data['text'] = $status->getTranslation();
 
             $data['color'] = match ($status) {
-                CompanyUserTableMap::REQUESTED_STATUS => VuetifyColors::INFO,
-                CompanyUserTableMap::EXPIRED_STATUS => VuetifyColors::WARNING,
-                CompanyUserTableMap::ACCEPTED_STATUS => VuetifyColors::SUCCESS,
+                CompanyUserStatusTypes::REQUESTED => VuetifyColors::INFO,
+                CompanyUserStatusTypes::EXPIRED => VuetifyColors::WARNING,
+                CompanyUserStatusTypes::ACCEPTED => VuetifyColors::SUCCESS,
             };
 
             return $data;

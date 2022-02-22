@@ -165,7 +165,6 @@
             <v-container fluid>
                 <breadcrumb />
                 <div class="px-6">
-                    <!--                    <router-view v-if="$store.state.user.hasPermission" />-->
                     <router-view />
                 </div>
             </v-container>
@@ -177,7 +176,7 @@
 <script>
     import DarkModeSwitchList from "../../components/DarkModeSwitchList";
     import SvgLogoLine from '../../components/svg/LogoLine'
-    import Breadcrumb from '../../components/Breadcrumb'
+    import Breadcrumb from '../Breadcrumb'
     import Popup from "../popups/Index";
     import {mapGetters} from "vuex";
     import NavigationItem from "../NavigationItem";

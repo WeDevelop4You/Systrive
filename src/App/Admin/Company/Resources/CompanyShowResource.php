@@ -16,11 +16,8 @@
         {
             return [
                 'id' => $this->id,
-                'name' => $this->name,
-                'email' => $this->email,
-                'domain' => $this->domain,
-                'information' => $this->information,
                 'system_id' => $this->system?->id,
+                'list_details' => $this->mergeWhen(!is_null($this?->listDetails), $this->listDetails),
             ];
         }
     }

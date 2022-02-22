@@ -12,7 +12,7 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import ErrorMessage from "../../../components/ErrorMessage";
+    import ErrorMessage from "../../../components/items/ErrorMessage";
 
     export default {
         name: "OneTimePassword",

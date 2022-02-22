@@ -70,7 +70,7 @@
 
             $data = json_decode($this->execute(), true);
 
-            return new Collection($data);
+            return Collection::make($data);
         }
 
         /**

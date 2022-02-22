@@ -1,6 +1,5 @@
 {
     "/js/admin/app.js": "/js/admin/app.js",
-    "/js/site/app.js": "/js/site/app.js",
     "/js/admin/layout/app.js": "/js/admin/layout/app.js",
     "/js/admin/pages/auth/login.js": "/js/admin/pages/auth/login.js",
     "/js/admin/pages/auth/registration.js": "/js/admin/pages/auth/registration.js",
@@ -22,10 +21,11 @@
     "/js/admin/layout/popups/modals/form.js": "/js/admin/layout/popups/modals/form.js",
     "/js/admin/layout/popups/modals/confirm.js": "/js/admin/layout/popups/modals/confirm.js",
     "/js/admin/layout/popups/notifications/simple.js": "/js/admin/layout/popups/notifications/simple.js",
+    "/js/admin/component/items/url.js": "/js/admin/component/items/url.js",
+    "/js/admin/component/items/group_badges.js": "/js/admin/component/items/group_badges.js",
     "/js/admin/layout/forms/popup/complete.js": "/js/admin/layout/forms/popup/complete.js",
     "/js/admin/layout/forms/popup/recovery_code.js": "/js/admin/layout/forms/popup/recovery_code.js",
     "/js/admin/layout/forms/popup/one_time_password.js": "/js/admin/layout/forms/popup/one_time_password.js",
     "/css/admin/app.css": "/css/admin/app.css",
-    "/css/site/app.css": "/css/site/app.css",
     "/css/admin/custom.css": "/css/admin/custom.css"
 }

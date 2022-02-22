@@ -33,15 +33,7 @@
                 <v-form v-model="valid">
                     <v-row no-gutters>
                         <v-col cols="12">
-                            <v-chip-group column>
-                                <v-chip
-                                    v-for="(tag, index) in data.tags"
-                                    :key="index"
-                                    small
-                                >
-                                    {{ tag }}
-                                </v-chip>
-                            </v-chip-group>
+                            <group-badges v-model="data.tags" />
                         </v-col>
                         <v-col cols="6">
                             <v-list-item
@@ -149,10 +141,11 @@
     import DeleteDialog from "../../components/table/DeleteDialog";
     import ServerDataTable from "../../components/table/ServerDataTable";
     import Actions from "../../components/table/column/translations/Actions";
-    import Translated from "../../components/table/column/translations/Translated";
+    import Locales from "../../components/table/column/translations/Locales";
     import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
     import {mapGetters} from "vuex";
     import Index from "../../components/table/column/Index";
+    import GroupBadges from "../../components/items/GroupBadges";
 
     export default {
         name: "Translations",
@@ -160,7 +153,8 @@
         components: {
             CreateOrEditDialog,
             DeleteDialog,
-            ServerDataTable
+            ServerDataTable,
+            GroupBadges
         },
 
         data() {
@@ -170,7 +164,7 @@
                 customItems: [
                     {name: 'index', component: Index},
                     {name: 'tags', component: Tags},
-                    {name: 'translated', component: Translated},
+                    {name: 'translated', component: Locales},
                     {name: 'actions', component: Actions},
                 ],
 

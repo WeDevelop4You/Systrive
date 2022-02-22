@@ -1,45 +1,10 @@
 <template>
     <v-row>
         <v-col cols="3">
-            <v-card
-                :elevation="$config.elevation"
-                outlined
-                rounded="lg"
-            >
-                <v-list
-                    dense
-                    class="dialog-divide-color"
-                >
-                    <template v-for="(item, index) in details">
-                        <template v-if="item.divider">
-                            <v-divider :key="index" />
-                        </template>
-                        <template v-else-if="item.subheader">
-                            <v-subheader
-                                :key="index"
-                                class="title"
-                                v-text="item.subheader"
-                            />
-                        </template>
-                        <template v-else>
-                            <v-list-item
-                                :key="index"
-                                dense
-                            >
-                                <v-list-item-content>
-                                    <v-list-item-title v-text="item.title" />
-                                    <template v-if="item.type === 'link'">
-                                        <Url :href="item.value" />
-                                    </template>
-                                    <template v-else>
-                                        <v-list-item-subtitle v-text="item.value || $vuetify.lang.t('$vuetify.word.no_content')" />
-                                    </template>
-                                </v-list-item-content>
-                            </v-list-item>
-                        </template>
-                    </template>
-                </v-list>
-            </v-card>
+            <DetailsCard
+                v-model="data.list_details"
+                :title="$vuetify.lang.t('$vuetify.word.details')"
+            />
         </v-col>
         <v-col cols="9">
             <v-row>
@@ -56,17 +21,17 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Url from "../../../components/Url";
     import Roles from "../../../layout/tables/Roles";
     import UserAccess from "../../../layout/tables/UserAccess";
+    import DetailsCard from "../../../components/cards/DetailsCard";
 
     export default {
         name: "Show",
 
         components: {
-            Url,
             Roles,
-            UserAccess
+            UserAccess,
+            DetailsCard
         },
 
         computed: {

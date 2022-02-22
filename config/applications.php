@@ -23,21 +23,4 @@
                 'store_path' => resource_path('admin/js/config'),
             ],
         ],
-
-        'site' => [
-            'routes' => [
-                'path' => base_path(app_path('Site')),
-                'files' => [
-                    [
-                        'prefix' => 'api',
-                        'filename' => 'api.php',
-                        'middleware' => 'api',
-                    ],
-                    [
-                        'filename' => 'web.php',
-                        'middleware' => 'web',
-                    ],
-                ],
-            ],
-        ],
     ];

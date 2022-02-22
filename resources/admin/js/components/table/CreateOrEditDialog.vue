@@ -99,11 +99,6 @@
                 default: undefined
             },
 
-            fullscreen: {
-                type: Boolean,
-                default: false
-            },
-
             rerender: {
                 type: Boolean,
                 default: false

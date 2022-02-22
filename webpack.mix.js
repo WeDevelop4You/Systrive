@@ -20,5 +20,5 @@ mix.js('resources/admin/js/app.js', 'public/js/admin')
     })
     .vue({ version: 2 })
 
-mix.js('resources/site/js/app.js', 'public/js/site')
-    .sass('resources/site/sass/app.scss', 'public/css/site')
+// mix.js('resources/site/js/app.js', 'public/js/site')
+//     .sass('resources/site/sass/app.scss', 'public/css/site')

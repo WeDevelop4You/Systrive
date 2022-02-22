@@ -17,6 +17,7 @@
             return [
                 'id' => $this->id,
                 'name' => $this->name,
+                'list_details' => $this->listDetails,
             ];
         }
     }

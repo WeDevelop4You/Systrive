@@ -6,7 +6,9 @@ export default {
     namespaced: true,
 
     state: () => ({
-        data: {},
+        data: {
+            list_details: [],
+        },
         chartData: {
             data: {},
             labels: [],

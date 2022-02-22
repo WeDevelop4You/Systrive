@@ -40,7 +40,7 @@
 
 <script>
     import Show from "./Show";
-    import Chip from "../../../components/table/column/Chip";
+    import Status from "../../../components/table/column/Status";
     import FCompany from "../../../layout/forms/company/Company";
     import ShowDialog from "../../../components/table/ShowDialog";
     import Actions from "../../../components/table/column/company/Actions";
@@ -63,7 +63,7 @@
         data() {
             return {
                 customItems: [
-                    {name: 'status', component: Chip},
+                    {name: 'status', component: Status},
                     {name: 'actions', component: Actions}
                 ],
 

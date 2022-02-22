@@ -26,6 +26,7 @@
      * @property CompanyStatusTypes $status
      * @property Carbon|null        $created_at
      * @property Carbon|null        $updated_at
+     * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
      * @property-read Collection|Invite[] $invites
      * @property-read Collection|Role[] $roles
      * @property-read System|null $system

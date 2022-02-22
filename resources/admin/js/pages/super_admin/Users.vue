@@ -13,7 +13,6 @@
                 :form-title="$vuetify.lang.t('$vuetify.word.edit.user')"
                 vuex-namespace="users"
                 disable-create
-                fullscreen
                 @save="save"
             />
         </template>

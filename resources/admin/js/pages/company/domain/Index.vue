@@ -1,61 +1,71 @@
 <template>
     <v-row>
-        <v-col
-            cols="12"
-            md="6"
-        >
-            <v-card
-                :elevation="$config.elevation"
-                outlined
-                rounded="lg"
+        <v-col cols="8">
+            <details-card
+                v-model="domain.list_details"
+                :title="$vuetify.lang.t('vuetify.details')"
             >
-                <v-card-title>
-                    <span v-text="$vuetify.lang.t('$vuetify.word.usage.disk')" />
-                </v-card-title>
-                <v-card-text>
-                    <line-chart
-                        :custom-options="options"
-                        :labels="chartData.labels"
-                        :datasets="diskData"
-                        style="height: 200px"
-                    />
-                </v-card-text>
-            </v-card>
+                <template #edit>
+                    <create-or-edit-modal
+                        v-model="dialog"
+                        title="test"
+                        button-type="icon"
+                    >
+                        abdawbd
+                    </create-or-edit-modal>
+                </template>
+            </details-card>
         </v-col>
         <v-col
             cols="12"
             md="6"
         >
-            <v-card
-                :elevation="$config.elevation"
-                outlined
-                rounded="lg"
+            <card-base
+                :title="$vuetify.lang.t('$vuetify.word.usage.disk')"
+                no-action
             >
-                <v-card-title>
-                    <span v-text="$vuetify.lang.t('$vuetify.word.usage.bandwidth')" />
-                </v-card-title>
-                <v-card-text>
-                    <line-chart
-                        :custom-options="options"
-                        :labels="chartData.labels"
-                        :datasets="bandwidthData"
-                        style="height: 200px"
-                    />
-                </v-card-text>
-            </v-card>
+                <line-chart
+                    :custom-options="options"
+                    :labels="chartData.labels"
+                    :datasets="diskData"
+                    style="height: 200px"
+                />
+            </card-base>
+        </v-col>
+        <v-col
+            cols="12"
+            md="6"
+        >
+            <card-base
+                :title="$vuetify.lang.t('$vuetify.word.usage.bandwidth')"
+                no-action
+            >
+                <line-chart
+                    :custom-options="options"
+                    :labels="chartData.labels"
+                    :datasets="bandwidthData"
+                    style="height: 200px"
+                />
+            </card-base>
         </v-col>
     </v-row>
 </template>
 
 <script>
-    import LineChart from "../../../components/charts/LineChart";
     import {mapGetters} from "vuex";
+    import CardBase from "../../../components/cards/CardBase";
+    import LineChart from "../../../components/charts/LineChart";
+    import DetailsCard from "../../../components/cards/DetailsCard";
+    import CreateOrEditModal from "../../../components/modals/CreateOrEditModal";
 
     export default {
         name: "Index",
 
         components: {
-            LineChart
+            CardBase,
+            LineChart,
+            DetailsCard,
+            CreateOrEditModal
         },
 
         beforeRouteUpdate(to, from, next) {
@@ -73,6 +83,8 @@
                         displayColors: false
                     }
                 },
+
+                dialog: false
             }
         },
 
@@ -106,6 +118,7 @@
             },
 
             ...mapGetters({
+                domain: 'company/domain/data',
                 chartData: 'company/domain/chartData'
             })
         },

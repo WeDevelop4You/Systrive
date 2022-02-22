@@ -15,16 +15,14 @@
                     <v-spacer />
                     <setting-modal
                         v-model="passwordValues.dialog"
-                        :form-title="$vuetify.lang.t('$vuetify.word.change.password')"
-                        :button-title="$vuetify.lang.t('$vuetify.word.change.password')"
+                        :title="$vuetify.lang.t('$vuetify.word.change.password')"
+                        :button="$vuetify.lang.t('$vuetify.word.change.password')"
                         width="400px"
                         @save="password"
-                        @close="$store.commit('user/security/clearPasswordValues')"
+                        @closed="$store.commit('user/security/clearPasswordValues')"
                     >
                         <template #subtitle>
-                            <v-card-subtitle class="pt-3">
-                                <password-requirements :errors="errors" />
-                            </v-card-subtitle>
+                            <password-requirements :errors="errors" />
                         </template>
                         <f-password
                             v-model="passwordValues"
@@ -81,12 +79,13 @@
                         <v-spacer />
                         <setting-modal
                             v-model="twoFAValues.dialog"
-                            :form-title="$vuetify.lang.t('$vuetify.word.setup.2fa')"
-                            :button-title="$vuetify.lang.t('$vuetify.word.enable.enable')"
+                            :title="$vuetify.lang.t('$vuetify.word.setup.2fa')"
+                            :button="$vuetify.lang.t('$vuetify.word.enable.enable')"
                             no-padding
                             no-action
-                            @open="$store.dispatch('user/security/getQRCode')"
-                            @close="$store.commit('user/security/cleaTwoFAValues')"
+                            width="min-content"
+                            @opened="$store.dispatch('user/security/getQRCode')"
+                            @closed="$store.commit('user/security/cleaTwoFAValues')"
                         >
                             <v-stepper
                                 v-model="twoFAValues.step"
@@ -179,11 +178,11 @@
 <script>
     import Password from "../../../mixins/Password";
     import FPassword from "../../../layout/forms/Password";
-    import SettingModal from "../../../components/SettingModal";
-    import LoadingImage from "../../../components/LoadingImage";
-    import ErrorMessage from "../../../components/ErrorMessage";
+    import LoadingImage from "../../../components/items/LoadingImage";
+    import ErrorMessage from "../../../components/items/ErrorMessage";
     import PasswordRequirements from "../../../components/PasswordRequirements";
     import LButtons from "../../../layout/Buttons";
+    import SettingModal from "../../../components/modals/SettingModal";
 
     export default {
         name: "Security",

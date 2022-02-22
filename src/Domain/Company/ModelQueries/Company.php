@@ -25,6 +25,7 @@
      * @property string                          $status
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property-read CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
      * @property-read \Illuminate\Database\Eloquent\Collection|Invite[] $invites
      * @property-read \Illuminate\Database\Eloquent\Collection|Role[] $roles
      * @property-read System|null $system

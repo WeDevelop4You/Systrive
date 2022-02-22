@@ -35,7 +35,7 @@
 
 <script>
     import Index from "../../components/table/column/Index";
-    import Chip from "../../components/table/column/Chip";
+    import Status from "../../components/table/column/Status";
     import CompanyUser from "../forms/company/CompanyUser";
     import DeleteDialog from "../../components/table/DeleteDialog";
     import ServerDataTable from "../../components/table/ServerDataTable";
@@ -61,7 +61,7 @@
             return {
                 customItems: [
                     {name: 'index', component: Index},
-                    {name: 'status', component: Chip},
+                    {name: 'status', component: Status},
                     {name: 'actions', component: Actions},
                 ],
 

@@ -1,20 +1,17 @@
 <template>
-    <v-chip-group column>
-        <v-chip
-            v-for="(tag, i) in item.tags"
-            :key="i"
-            small
-        >
-            {{ tag }}
-        </v-chip>
-    </v-chip-group>
+    <group-badges v-model="item.tags" />
 </template>
 
 <script>
     import ActionProps from "../../../../mixins/ActionProps";
+    import GroupBadges from "../../../items/GroupBadges";
 
     export default {
         name: "Tags",
+
+        components: {
+            GroupBadges
+        },
 
         mixins: [
             ActionProps

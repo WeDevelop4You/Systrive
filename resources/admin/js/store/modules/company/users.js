@@ -20,7 +20,7 @@ export default {
     },
 
     actions: {
-        invite({commit, rootGetters}, data) {
+        create({commit, rootGetters}, data) {
             app.$api.call({
                 url: app.$api.route('company.user.invite', rootGetters["company/id"]),
                 method: "POST",
@@ -63,7 +63,7 @@ export default {
             })
         },
 
-        revoke({state, commit, rootGetters}) {
+        destroy({state, commit, rootGetters}) {
             app.$api.call({
                 url: app.$api.route('company.user.revoke', rootGetters["company/id"], state.dataTable.delete.id),
                 method: 'DELETE'

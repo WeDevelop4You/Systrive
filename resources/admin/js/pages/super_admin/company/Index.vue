@@ -1,40 +1,46 @@
 <template>
     <server-data-table
         ref="server"
-        :custom-items="customItems"
-        :title="$vuetify.lang.t('$vuetify.word.companies')"
+        :route="route"
         :headers="headers"
-        :route="$api.route('admin.companies')"
-        vuex-namespace="companies"
+        :custom-items="customItems"
+        :vuex-namespace="vuexNamespace"
+        :title="$vuetify.lang.t('$vuetify.word.companies')"
         searchable
     >
         <template #toolbar.prepend>
-            <create-or-edit-dialog
-                :form-title="formTitle"
-                :button-title="$vuetify.lang.t('$vuetify.word.create.company')"
+            <create-or-edit-modal
+                ref="createOrEdit"
+                v-model="showCreateOrEdit"
+                :title="createOrEditTitle"
                 rerender
-                vuex-namespace="companies"
-                @save="save"
             >
+                <template #button>
+                    <default-button
+                        :content="$vuetify.lang.t('$vuetify.word.create.create')"
+                        @click="openCreate"
+                    />
+                </template>
                 <f-company
                     v-model="data"
-                    :is-editing="isEditing"
                     :errors="errors"
+                    :is-editing="isEditing"
                 />
-            </create-or-edit-dialog>
+            </create-or-edit-modal>
         </template>
-        <delete-dialog
-            :title="$vuetify.lang.t('$vuetify.word.delete.company')"
-            vuex-namespace="companies"
-            @delete="destroy"
+        <delete-modal
+            ref="delete"
+            v-model="showDelete"
+            :content="deleteContent"
+            :title="deleteTitle"
         />
-        <show-dialog
+        <overview-modal
+            v-model="showOverview"
             :title="$vuetify.lang.t('$vuetify.word.show.company')"
-            vuex-namespace="companies"
             rerender
         >
             <show />
-        </show-dialog>
+        </overview-modal>
     </server-data-table>
 </template>
 
@@ -42,22 +48,33 @@
     import Show from "./Show";
     import Status from "../../../components/table/column/Status";
     import FCompany from "../../../layout/forms/company/Company";
-    import ShowDialog from "../../../components/table/ShowDialog";
+    import DefaultButton from "../../../components/DefaultButton";
+    import DeleteModal from "../../../components/modals/DeleteModal";
+    import OverviewModal from "../../../components/modals/OverviewModal";
     import Actions from "../../../components/table/column/company/Actions";
-    import DeleteDialog from "../../../components/table/DeleteDialog";
     import ServerDataTable from "../../../components/table/ServerDataTable";
-    import CreateOrEditDialog from "../../../components/table/CreateOrEditDialog";
+    import DeleteProperties from "../../../mixins/DataTable/DeleteProperties";
+    import CreateOrEditModal from "../../../components/modals/CreateOrEditModal";
+    import OverviewProperties from "../../../mixins/DataTable/OverviewProperties";
+    import CreateOrEditProperties from "../../../mixins/DataTable/CreateOrEditProperties";
 
     export default {
         name: "Index",
 
+        mixins: [
+            DeleteProperties,
+            OverviewProperties,
+            CreateOrEditProperties
+        ],
+
         components: {
-            ShowDialog,
             Show,
             FCompany,
-            DeleteDialog,
+            DeleteModal,
+            OverviewModal,
+            DefaultButton,
             ServerDataTable,
-            CreateOrEditDialog,
+            CreateOrEditModal,
         },
 
         data() {
@@ -67,19 +84,12 @@
                     {name: 'actions', component: Actions}
                 ],
 
-                vuexNamespace: "companies"
+                vuexNamespace: "companies",
+                route: this.$api.route('admin.companies')
             }
         },
 
         computed: {
-            data() {
-                return this.$store.getters[`${this.vuexNamespace}/data`]
-            },
-
-            formTitle() {
-                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.create.create');
-            },
-
             headers() {
                 return [
                     {text: this.$vuetify.lang.t('$vuetify.word.id'), value: 'id', sortable: true, align: 'start'},
@@ -91,14 +101,6 @@
                     {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
             },
-
-            errors() {
-                return this.$store.getters[`${this.vuexNamespace}/errors`]
-            },
-
-            isEditing() {
-                return this.$store.getters[`${this.vuexNamespace}/isEditing`]
-            },
         },
 
         created() {
@@ -107,7 +109,7 @@
                 action: async ({commit, dispatch}, params) => {
                     await dispatch('company/getOne', params.id, {root: true})
 
-                    commit('setShow', params.id)
+                    commit('setOverview', params.id)
                 }
             })
 
@@ -120,24 +122,6 @@
             })
 
             this.$store.dispatch('permissions/getList')
-        },
-
-        methods: {
-            async save() {
-                if (this.isEditing) {
-                    await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)
-                } else {
-                    await this.$store.dispatch(`${this.vuexNamespace}/create`, this.data)
-                }
-
-                this.$refs.server.getData();
-            },
-
-            async destroy() {
-                await this.$store.dispatch(`${this.vuexNamespace}/destroy`)
-
-                this.$refs.server.getData();
-            },
         }
     }
 </script>

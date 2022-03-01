@@ -10,6 +10,7 @@
 
         \Domain\Role\Models\Role::class => [
             'role' => [
+                'super_admin' => 'super_admin',
                 'main' => 'admin',
             ],
         ],

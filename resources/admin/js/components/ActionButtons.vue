@@ -1,7 +1,7 @@
 <template>
     <l-buttons>
         <v-btn
-            v-for="(button, index) in data"
+            v-for="(button, index) in value"
             :key="index"
             :color="button.color"
             :text="button.type === 'text'"
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import LButtons from "./Buttons";
+    import LButtons from "../layout/Buttons";
     import PromiseChecker from "../mixins/PromiseChecker";
 
     export default {
@@ -32,7 +32,7 @@
         ],
 
         props: {
-            data: {
+            value: {
                 required: true,
                 type: Array
             }

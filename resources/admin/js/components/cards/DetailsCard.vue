@@ -2,7 +2,6 @@
     <card-base
         :title="title"
         no-padding
-        no-action
     >
         <template #button>
             <slot name="edit" />

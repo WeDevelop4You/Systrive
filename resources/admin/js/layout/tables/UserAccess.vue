@@ -1,60 +1,69 @@
 <template>
     <server-data-table
         ref="server"
-        :custom-items="customItems"
-        :title="$vuetify.lang.t('$vuetify.word.user.access')"
-        :headers="headers"
         :route="route"
+        :headers="headers"
+        :custom-items="customItems"
         :do-load-action="allowAction"
         :vuex-namespace="vuexNamespace"
+        :title="$vuetify.lang.t('$vuetify.word.user.access')"
         searchable
     >
         <template #toolbar.prepend>
-            <create-or-edit-dialog
-                :form-title="formTitle"
-                :vuex-namespace="vuexNamespace"
-                :create-permission="$config.permissions.user.invite"
-                :button-title="$vuetify.lang.t('$vuetify.word.invite.user')"
+            <create-or-edit-modal
+                ref="createOrEdit"
+                v-model="showCreateOrEdit"
+                :title="title"
                 rerender
-                @save="save"
             >
+                <template #button v-if="$auth.can($config.permissions.user.invite)">
+                    <default-button
+                        :content="$vuetify.lang.t('$vuetify.word.invite.invite')"
+                        @click="openCreate"
+                    />
+                </template>
                 <company-user
                     v-model="data"
-                    :is-editing="isEditing"
                     :errors="errors"
+                    :is-editing="isEditing"
                 />
-            </create-or-edit-dialog>
+            </create-or-edit-modal>
         </template>
-        <delete-dialog
+        <delete-modal
+            ref="delete"
+            v-model="showDelete"
+            :content="deleteContent"
             :title="$vuetify.lang.t('$vuetify.word.revoke.user')"
-            :vuex-namespace="vuexNamespace"
-            @delete="destroy"
         />
     </server-data-table>
 </template>
 
 <script>
+    import CompanyUser from "../forms/company/CompanyUser";
     import Index from "../../components/table/column/Index";
     import Status from "../../components/table/column/Status";
-    import CompanyUser from "../forms/company/CompanyUser";
-    import DeleteDialog from "../../components/table/DeleteDialog";
+    import DefaultButton from "../../components/DefaultButton";
+    import DeleteModal from "../../components/modals/DeleteModal";
     import ServerDataTable from "../../components/table/ServerDataTable";
+    import DeleteProperties from "../../mixins/DataTable/DeleteProperties";
+    import CreateOrEditModal from "../../components/modals/CreateOrEditModal";
     import Actions from "../../components/table/column/company/access/Actions";
-    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
-    import FormProperties from "../../mixins/FormTableProperties";
+    import CreateOrEditProperties from "../../mixins/DataTable/CreateOrEditProperties";
 
     export default {
         name: "UserAccess",
 
         components: {
             CompanyUser,
-            CreateOrEditDialog,
-            DeleteDialog,
-            ServerDataTable
+            DeleteModal,
+            DefaultButton,
+            ServerDataTable,
+            CreateOrEditModal
         },
 
         mixins: [
-            FormProperties
+            DeleteProperties,
+            CreateOrEditProperties
         ],
 
         data() {
@@ -88,8 +97,10 @@
                 return this.$store.getters['user/permissions/getType'] === this.$config.permissions.types.company
             },
 
-            formTitle() {
-                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.invite.invite');
+            title() {
+                return this.isEditing
+                    ? this.$vuetify.lang.t('$vuetify.word.edit.edit')
+                    : this.$vuetify.lang.t('$vuetify.word.invite.invite');
             },
         },
 
@@ -102,21 +113,6 @@
         },
 
         methods: {
-            async save() {
-                if (this.isEditing) {
-                    await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)
-                } else {
-                    await this.$store.dispatch(`${this.vuexNamespace}/invite`, this.data)
-                }
-
-                this.$refs.server.getData();
-            },
-
-            async destroy() {
-                await this.$store.dispatch(`${this.vuexNamespace}/revoke`)
-                this.$refs.server.getData();
-            },
-
             showActions() {
                 const permissions = this.$config.permissions
 

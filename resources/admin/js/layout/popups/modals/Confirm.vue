@@ -1,26 +1,21 @@
 <template>
-    <v-card>
-        <v-card-title
-            class="text-h5"
-            v-text="data.title"
-        />
-        <v-card-text v-text="data.text" />
-        <v-card-actions>
-            <ActionButtons
-                ref="buttons"
-                :data="data.buttons"
-            />
-        </v-card-actions>
-    </v-card>
+    <card-base :title="data.title">
+        <p v-text="data.text"/>
+        <template #actions>
+            <ActionButtons v-model="data.buttons"/>
+        </template>
+    </card-base>
 </template>
 
 <script>
-    import ActionButtons from "../../ActionButtons";
+    import ActionButtons from "../../../components/ActionButtons";
+    import CardBase from "../../../components/cards/CardBase";
 
     export default {
         name: "Confirm",
 
         components: {
+            CardBase,
             ActionButtons
         },
 

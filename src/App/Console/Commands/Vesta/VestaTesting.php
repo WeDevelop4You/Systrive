@@ -28,7 +28,7 @@
          */
         public function handle(): int
         {
-            $data = VestaAPIHelper::create()->getCommand('v-list-web-domains', 'WeDevelop4You');
+            $data = VestaAPIHelper::create()->getCommand('v-list-dns-domain', 'WeDevelop4You', 'wedevelop4you.nl');
 
             dd($data);
 

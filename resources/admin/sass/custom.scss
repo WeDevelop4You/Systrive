@@ -58,3 +58,7 @@ html {
 .theme--light.dialog-divide-color {
     background: $light-gray;
 }
+
+.v-toolbar__content {
+    gap: 0.375rem;
+}

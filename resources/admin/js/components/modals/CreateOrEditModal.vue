@@ -2,10 +2,9 @@
     <modal-base
         ref="modal"
         v-model="show"
-        :icon="icon"
-        :button-type="buttonType"
+        :rerender="rerender"
         persistent
-        width="700px"
+        width="700"
     >
         <template #button>
             <slot name="button" />
@@ -16,24 +15,14 @@
             <template #button>
                 <close-button @close="close" />
             </template>
-            <slot />
-            <template #action>
-                <v-btn
-                    small
-                    text
-                    :disabled="$loading"
-                    @click="close"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
-                </v-btn>
-                <v-btn
-                    small
-                    color="primary"
-                    :disabled="$loading"
-                    @click="$emit('save')"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.save') }}
-                </v-btn>
+            <div class="pt-1">
+                <slot />
+            </div>
+            <template #actions>
+                <save-and-close-buttons
+                    @close="close"
+                    @save="$emit('save')"
+                />
             </template>
         </card-base>
     </modal-base>
@@ -41,19 +30,19 @@
 
 <script>
     import ModalBaseProperties from "../../mixins/ModalBaseProperties";
-    import ModalButtonProperties from "../../mixins/ModalButtonProperties";
     import CloseButton from "../CloseButton";
+    import SaveAndCloseButtons from "../SaveAndCloseButtons";
 
     export default {
         name: "CreateOrEditModal",
 
-        components: {
-            CloseButton
-        },
-
         mixins: [
             ModalBaseProperties,
-            ModalButtonProperties
-        ]
+        ],
+
+        components: {
+            CloseButton,
+            SaveAndCloseButtons,
+        },
     }
 </script>

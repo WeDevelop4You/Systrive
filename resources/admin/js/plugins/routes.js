@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import $store from '../store'
 import Vuetify from './vuetify'
 import VueRouter from 'vue-router';
 
@@ -85,6 +86,7 @@ const routes = [
     {
         path: '/admin',
         component: parent,
+        redirect: {name: 'dashboard'},
         children: [
             {
                 path: 'users/:type?/:id?',
@@ -138,13 +140,14 @@ const routes = [
     },
     {
         path: '/c/:companyName',
-        component: () => import(/* webpackChunkName: "pages/company" */ '../layout/base/Company'),
+        component: parent,
         children: [
             {
                 path: 'dashboard',
                 name: 'company.dashboard',
                 component: () => import(/* webpackChunkName: "pages/company/dashboard" */ '../pages/company/Dashboard'),
                 meta: {
+                    page: 'company',
                     breadCrumb(route) {
                         const companyName = route.params.companyName;
                         return [
@@ -164,6 +167,7 @@ const routes = [
                 name: 'company.domain',
                 component: () => import(/* webpackChunkName: "pages/company/domain/index" */ '../pages/company/domain/Index'),
                 meta: {
+                    page: 'company',
                     breadCrumb(route) {
                         const companyName = route.params.companyName;
                         const domainName = route.params.domainName;
@@ -188,6 +192,7 @@ const routes = [
                 name: 'company.dns',
                 component: () => import(/* webpackChunkName: "pages/company/dashboard" */ '../pages/company/Dashboard'),
                 meta: {
+                    page: 'company',
                     breadCrumb(route) {
                         const companyName = route.params.companyName;
                         const domainNameServer = route.params.domainNameServer;
@@ -212,6 +217,7 @@ const routes = [
                 name: 'company.database',
                 component: () => import(/* webpackChunkName: "pages/company/dashboard" */ '../pages/company/Dashboard'),
                 meta: {
+                    page: 'company',
                     breadCrumb(route) {
                         const companyName = route.params.companyName;
                         const databaseName = route.params.databaseName;
@@ -236,6 +242,7 @@ const routes = [
                 name: 'company.mail',
                 component: () => import(/* webpackChunkName: "pages/company/dashboard" */ '../pages/company/Dashboard'),
                 meta: {
+                    page: 'company',
                     breadCrumb(route) {
                         const companyName = route.params.companyName;
                         const mailDomainName = route.params.mailDomainName;
@@ -264,6 +271,7 @@ const routes = [
                         name: 'company.users',
                         component: () => import(/* webpackChunkName: "pages/company/admin/users" */ '../pages/company/admin/Users'),
                         meta: {
+                            page: 'company',
                             breadCrumb(route) {
                                 const companyName = route.params.companyName;
                                 return [
@@ -287,6 +295,7 @@ const routes = [
                         name: 'company.roles',
                         component: () => import(/* webpackChunkName: "pages/company/admin/roles" */ '../pages/company/admin/Roles'),
                         meta: {
+                            page: 'company',
                             breadCrumb(route) {
                                 const companyName = route.params.companyName;
                                 return [
@@ -315,7 +324,28 @@ const routes = [
     }
 ]
 
-export default new VueRouter({
+const router = new VueRouter({
     mode: 'history',
     routes: routes
 })
+
+router.beforeEach(async (to, from, next) => {
+    const page = to.meta.page
+
+    if (!page || page !== from.meta.page) {
+        switch (page) {
+            case 'company':
+                await $store.dispatch('company/search', to.params.companyName)
+                await $store.dispatch('user/permissions/getCompany')
+                break
+            default:
+                await $store.dispatch('navigation/getCompanies')
+                await $store.dispatch('user/permissions/getDefault')
+                break
+        }
+    }
+
+    next()
+})
+
+export default router

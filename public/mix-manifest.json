@@ -13,7 +13,6 @@
     "/js/admin/pages/super_admin/users.js": "/js/admin/pages/super_admin/users.js",
     "/js/admin/pages/super_admin/companies.js": "/js/admin/pages/super_admin/companies.js",
     "/js/admin/pages/super_admin/translations.js": "/js/admin/pages/super_admin/translations.js",
-    "/js/admin/pages/company.js": "/js/admin/pages/company.js",
     "/js/admin/pages/company/dashboard.js": "/js/admin/pages/company/dashboard.js",
     "/js/admin/pages/company/domain/index.js": "/js/admin/pages/company/domain/index.js",
     "/js/admin/pages/company/admin/users.js": "/js/admin/pages/company/admin/users.js",

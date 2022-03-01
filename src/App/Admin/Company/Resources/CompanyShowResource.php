@@ -17,7 +17,7 @@
             return [
                 'id' => $this->id,
                 'system_id' => $this->system?->id,
-                'list_details' => $this->mergeWhen(!is_null($this?->listDetails), $this->listDetails),
+                'list_details' => $this->when(!is_null($this?->listDetails), $this->listDetails),
             ];
         }
     }

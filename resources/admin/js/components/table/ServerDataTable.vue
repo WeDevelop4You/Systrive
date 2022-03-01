@@ -62,7 +62,7 @@
                 />
             </template>
             <template
-                v-if="addRefreshButton"
+                v-if="refreshButton"
                 #footer.prepend
             >
                 <v-btn icon>
@@ -124,7 +124,7 @@
                 ]
             },
 
-            addRefreshButton: {
+            refreshButton: {
                 type: Boolean,
                 default: false
             },

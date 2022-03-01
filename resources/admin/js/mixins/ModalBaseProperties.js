@@ -17,6 +17,11 @@ export default {
             required: true,
             type: String,
         },
+
+        rerender: {
+            type: Boolean,
+            default: false
+        }
     },
 
     computed: {

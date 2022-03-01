@@ -3,7 +3,7 @@
         <v-col cols="8">
             <details-card
                 v-model="domain.list_details"
-                :title="$vuetify.lang.t('vuetify.details')"
+                :title="$vuetify.lang.t('$vuetify.details')"
             >
                 <template #edit>
                     <create-or-edit-modal
@@ -11,6 +11,15 @@
                         title="test"
                         button-type="icon"
                     >
+                        <template #button>
+                            <v-btn
+                                icon
+                                :disabled="$loading"
+                                @click="dialog = true"
+                            >
+                                <v-icon>fas fa-pen</v-icon>
+                            </v-btn>
+                        </template>
                         abdawbd
                     </create-or-edit-modal>
                 </template>
@@ -22,7 +31,6 @@
         >
             <card-base
                 :title="$vuetify.lang.t('$vuetify.word.usage.disk')"
-                no-action
             >
                 <line-chart
                     :custom-options="options"
@@ -38,7 +46,6 @@
         >
             <card-base
                 :title="$vuetify.lang.t('$vuetify.word.usage.bandwidth')"
-                no-action
             >
                 <line-chart
                     :custom-options="options"

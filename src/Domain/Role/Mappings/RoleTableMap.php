@@ -11,5 +11,6 @@
         public const CREATED_AT = 'created_at';
         public const UPDATED_AT = 'updated_at';
 
+        public const SUPER_ADMIN_ROLE = 'super_admin';
         public const MAIN_ROLE = 'admin';
     }

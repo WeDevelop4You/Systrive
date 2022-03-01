@@ -4,6 +4,7 @@
             :class="[hover ? 'primary--text' : color]"
             :href="value"
             target="_blank"
+            style="max-width: max-content"
         >
             {{ anchor || value.replace(/(^\w+:|^)\/\//, '') }}
             <v-icon

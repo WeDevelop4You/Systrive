@@ -1,35 +1,29 @@
 <template>
-    <v-card
-        :elevation="$config.elevation"
-        rounded="lg"
-        outlined
+    <card-base
+        :title="data.title"
     >
-        <v-card-title
-            class="text-h5"
-            v-text="data.title"
+        <component
+            :is="data.form_component"
+            @action="$refs.actions.runEventAction()"
         />
-        <v-card-text class="pb-0">
-            <component
-                :is="data.form_component"
-                @action="$refs.buttons.runEventAction()"
-            />
-        </v-card-text>
-        <v-card-actions>
+        <template #actions>
             <ActionButtons
-                ref="buttons"
-                :data="data.buttons"
+                ref="actions"
+                v-model="data.buttons"
             />
-        </v-card-actions>
-    </v-card>
+        </template>
+    </card-base>
 </template>
 
 <script>
-    import ActionButtons from "../../ActionButtons";
+    import ActionButtons from "../../../components/ActionButtons";
+    import CardBase from "../../../components/cards/CardBase";
 
     export default {
         name: "Form",
 
         components: {
+            CardBase,
             ActionButtons,
             Company: () => import(/* webpackChunkName: "layout/forms/popup/complete" */ '../../forms/popup/Complete'),
             RecoveryCode: () => import(/* webpackChunkName: "layout/forms/popup/recovery_code" */ '../../forms/popup/RecoveryCode'),

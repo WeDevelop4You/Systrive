@@ -10,50 +10,59 @@
         searchable
     >
         <template #toolbar.prepend>
-            <create-or-edit-dialog
-                :form-title="formTitle"
-                :vuex-namespace="vuexNamespace"
-                :create-permission="$config.permissions.role.create"
-                :button-title="$vuetify.lang.t('$vuetify.word.create.role')"
+            <create-or-edit-modal
+                ref="createOrEdit"
+                v-model="showCreateOrEdit"
+                :title="createOrEditTitle"
                 rerender
-                @save="save"
             >
+                <template #button v-if="$auth.can($config.permissions.role.create)">
+                    <default-button
+                        :content="$vuetify.lang.t('$vuetify.word.create.create')"
+                        @click="openCreate"
+                    />
+                </template>
                 <company-role
                     v-model="data"
                     :errors="errors"
                 />
-            </create-or-edit-dialog>
+            </create-or-edit-modal>
         </template>
-        <delete-dialog
-            :title="$vuetify.lang.t('$vuetify.word.delete.role')"
-            :vuex-namespace="vuexNamespace"
-            @delete="destroy"
+        <delete-modal
+            ref="delete"
+            v-model="showDelete"
+            :content="deleteContent"
+            :title="deleteTitle"
         />
     </server-data-table>
 </template>
 
 <script>
-    import Index from "../../components/table/column/Index";
-    import DeleteDialog from "../../components/table/DeleteDialog"
+    import Index from "../../components/table/column/Index"
+    import DefaultButton from "../../components/DefaultButton"
+    import DeleteModal from "../../components/modals/DeleteModal"
     import CompanyRole from "../../layout/forms/company/CompanyRole"
     import ServerDataTable from "../../components/table/ServerDataTable"
+    import DeleteProperties from "../../mixins/DataTable/DeleteProperties"
     import Actions from "../../components/table/column/company/role/Actions"
-    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog"
-    import FormProperties from "../../mixins/FormTableProperties"
+    import CreateOrEditModal from "../../components/modals/CreateOrEditModal"
+    import CreateOrEditProperties from "../../mixins/DataTable/CreateOrEditProperties"
 
     export default {
         name: "Roles",
 
-        components: {
-            CompanyRole,
-            DeleteDialog,
-            ServerDataTable,
-            CreateOrEditDialog
-        },
-
         mixins: [
-            FormProperties
+            DeleteProperties,
+            CreateOrEditProperties
         ],
+
+        components: {
+            DeleteModal,
+            CompanyRole,
+            DefaultButton,
+            ServerDataTable,
+            CreateOrEditModal
+        },
 
         data() {
             return {
@@ -84,10 +93,6 @@
             allowAction() {
                 return this.$store.getters['user/permissions/getType'] === this.$config.permissions.types.company
             },
-
-            formTitle() {
-                return this.isEditing ? this.$vuetify.lang.t('$vuetify.word.edit.edit') : this.$vuetify.lang.t('$vuetify.word.create.create');
-            },
         },
 
         created() {
@@ -98,21 +103,6 @@
         },
 
         methods: {
-            async save() {
-                if (this.isEditing) {
-                    await this.$store.dispatch(`${this.vuexNamespace}/update`, this.data)
-                } else {
-                    await this.$store.dispatch(`${this.vuexNamespace}/create`, this.data)
-                }
-
-                this.$refs.server.getData();
-            },
-
-            async destroy() {
-                await this.$store.dispatch(`${this.vuexNamespace}/destroy`)
-                this.$refs.server.getData();
-            },
-
             showActions() {
                 const permissions = this.$config.permissions
 

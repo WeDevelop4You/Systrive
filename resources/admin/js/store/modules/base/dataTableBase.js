@@ -8,14 +8,14 @@ export default {
         structure: {},
 
         isEditing: false,
-        isShowDialogOpen: false,
-        isDeleteDialogOpen: false,
-        isCreateOrEditDialogOpen: false,
+        isDeleteModalOpen: false,
+        isOverviewModalOpen: false,
+        isCreateOrEditModalOpen: false,
 
         delete: {
             id: null,
             message: '',
-            hideButton: false,
+            deleted: false,
         },
 
         isActionsAllowed: true,
@@ -32,6 +32,10 @@ export default {
     mutations: {
         setItems(state, items) {
             state.items = items
+        },
+
+        setDate(state, data) {
+            state.date = data
         },
 
         setErrors(state, error) {
@@ -53,18 +57,7 @@ export default {
                 }).catch(() => {})
             }
 
-            state.isCreateOrEditDialogOpen = true
-        },
-
-        async setShow(state, id) {
-            if (state.isActionsAllowed) {
-                await Router.replace({
-                    name: Router.currentRoute.name,
-                    params: {type: 'show', id: id}
-                }).catch(() => {})
-            }
-
-            state.isShowDialogOpen = true
+            state.isCreateOrEditModalOpen = true
         },
 
         async setEdit(state, data) {
@@ -77,31 +70,32 @@ export default {
 
             state.data = data
             state.isEditing = true
-            state.isCreateOrEditDialogOpen = true
+            state.isCreateOrEditModalOpen = true
         },
 
-        setDelete(state, {id, message, hideButton = false}) {
+        async setOverview(state, id) {
+            if (state.isActionsAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name,
+                    params: {type: 'show', id: id}
+                }).catch(() => {})
+            }
+
+            state.isOverviewModalOpen = true
+        },
+
+        setDelete(state, {id, message = undefined, deleted = false}) {
             state.delete = {
                 id: id,
                 message: message,
-                hideButton: hideButton
+                deleted: deleted
             }
 
-            state.isDeleteDialogOpen = true
+            state.isDeleteModalOpen = true
         },
 
         resetErrors(state) {
             state.errors = {}
-        },
-
-        async resetShow(state) {
-            if (state.isActionsAllowed) {
-                await Router.replace({
-                    name: Router.currentRoute.name
-                }).catch(() => {})
-            }
-
-            state.isShowDialogOpen = false
         },
 
         async resetCreateOrEdit(state) {
@@ -112,7 +106,7 @@ export default {
             }
 
             state.errors = {}
-            state.isCreateOrEditDialogOpen = false
+            state.isCreateOrEditModalOpen = false
 
             setTimeout(() => {
                 state.isEditing = false
@@ -120,7 +114,7 @@ export default {
         },
 
         resetDelete(state) {
-            state.isDeleteDialogOpen = false
+            state.isDeleteModalOpen = false
 
             setTimeout(() => {
                 state.delete = {
@@ -129,6 +123,16 @@ export default {
                     hideButton: false
                 }
             }, 300)
+        },
+
+        async resetOverview(state) {
+            if (state.isActionsAllowed) {
+                await Router.replace({
+                    name: Router.currentRoute.name
+                }).catch(() => {})
+            }
+
+            state.isOverviewModalOpen = false
         },
 
         useActions(state, allowed) {
@@ -157,28 +161,28 @@ export default {
             return state.errors || {}
         },
 
-        isShowDialogOpen(state) {
-            return state.isShowDialogOpen
-        },
-
         isEditing(state) {
             return state.isEditing
         },
 
-        isCreateOrEditDialogOpen(state) {
-            return state.isCreateOrEditDialogOpen
+        isCreateOrEditModalOpen(state) {
+            return state.isCreateOrEditModalOpen
         },
 
-        isDeleteDialogOpen(state) {
-            return state.isDeleteDialogOpen
+        isOverviewModalOpen(state) {
+            return state.isOverviewModalOpen
+        },
+
+        isDeleteModalOpen(state) {
+            return state.isDeleteModalOpen
         },
 
         deleteMessage(state) {
             return state.delete.message
         },
 
-        hideDeleteButton(state) {
-            return state.delete.hideButton
+        isDeleted(state) {
+            return state.delete.deleted
         }
     },
 

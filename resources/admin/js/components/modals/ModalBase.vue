@@ -1,30 +1,18 @@
 <template>
     <v-dialog
+        v-if="render"
         v-model="value"
         :width="width"
         :elevation="$config.elevation"
         :persistent="persistent"
         :fullscreen="fullscreen"
-        rounded="lg"
+        :hide-overlay="hideOverlay"
+        :no-click-animation="noClickAnimation"
+        :transition="transition"
         @input="change($event)"
     >
-        <template
-            v-if="buttonType !== 'none'"
-            #activator="{ on }"
-        >
-            <template v-if="buttonType === 'button'">
-                <slot name="button" />
-            </template>
-            <template v-if="buttonType === 'icon'">
-                <v-btn
-                    :disabled="$loading"
-                    icon
-                    @click="open"
-                    v-on="on"
-                >
-                    <v-icon>{{ icon }}</v-icon>
-                </v-btn>
-            </template>
+        <template #activator="{ on }" v-if="$slots.button">
+            <slot name="button" v-on="on" />
         </template>
         <slot />
     </v-dialog>
@@ -41,7 +29,7 @@
             },
 
             width: {
-                type: String,
+                type: [String, Number],
                 default: ''
             },
 
@@ -55,14 +43,42 @@
                 default: false
             },
 
-            icon: {
-                type: String,
-                default: ''
+            hideOverlay: {
+                type: Boolean,
+                default: false,
             },
 
-            buttonType: {
+            noClickAnimation: {
+                type: Boolean,
+                default: false
+            },
+
+            transition: {
                 type: String,
-                default: 'none'
+                default: undefined
+            },
+
+            rerender: {
+                type: Boolean,
+                default: false
+            }
+        },
+
+        data() {
+            return {
+                render: true,
+            }
+        },
+
+        watch: {
+            value: function (value) {
+                if (value) {
+                    this.render = true
+                } else if (this.rerender) {
+                    setTimeout(() => {
+                        this.render = false
+                    }, 300)
+                }
             }
         },
 
@@ -76,8 +92,6 @@
             },
 
             change(value) {
-                console.log(value)
-
                 value ? this.$emit('opened') : this.$emit('closed')
             }
         }

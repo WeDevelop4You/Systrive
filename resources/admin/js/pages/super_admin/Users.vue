@@ -1,51 +1,61 @@
 <template>
     <server-data-table
         ref="server"
-        :custom-items="customItems"
-        :title="$vuetify.lang.t('$vuetify.word.users')"
+        :route="route"
         :headers="headers"
-        :route="$api.route('admin.users')"
-        vuex-namespace="users"
+        :custom-items="customItems"
+        :vuex-namespace="vuexNamespace"
+        :title="$vuetify.lang.t('$vuetify.word.users')"
         searchable
     >
         <template #toolbar.prepend>
-            <create-or-edit-dialog
-                :form-title="$vuetify.lang.t('$vuetify.word.edit.user')"
-                vuex-namespace="users"
-                disable-create
-                @save="save"
+            <create-or-edit-modal
+                ref="createOrEdit"
+                v-model="showCreateOrEdit"
+                :title="$vuetify.lang.t('$vuetify.word.edit.user')"
             />
         </template>
-        <delete-dialog
-            :title="$vuetify.lang.t('$vuetify.word.delete.user')"
-            vuex-namespace="users"
+        <delete-modal
+            ref="delete"
+            v-model="showDelete"
+            :title="deleteTitle"
+            :is-deleted="isDeleted"
+            :content="deleteContent"
             force-deletable
-            @delete="destroy"
-            @force-delete="forceDestroy"
         />
     </server-data-table>
 </template>
 
 <script>
+    import DeleteModal from "../../components/modals/DeleteModal";
     import ServerDataTable from "../../components/table/ServerDataTable";
+    import DeleteProperties from "../../mixins/DataTable/DeleteProperties";
     import Actions from "../../components/table/column/users/admin/Actions";
-    import CreateOrEditDialog from "../../components/table/CreateOrEditDialog";
-    import DeleteDialog from "../../components/table/DeleteDialog";
+    import CreateOrEditModal from "../../components/modals/CreateOrEditModal";
+    import CreateOrEditProperties from "../../mixins/DataTable/CreateOrEditProperties";
 
     export default {
         name: "Users",
 
+        mixins: [
+            DeleteProperties,
+            CreateOrEditProperties
+        ],
+
         components: {
-            DeleteDialog,
-            CreateOrEditDialog,
-            ServerDataTable
+            DeleteModal,
+            ServerDataTable,
+            CreateOrEditModal
         },
 
         data() {
             return {
                 customItems: [
                     {name: 'actions', component: Actions}
-                ]
+                ],
+
+                vuexNamespace: 'users',
+                route: this.$api.route('admin.users')
             }
         },
 
@@ -60,22 +70,6 @@
                     {text: this.$vuetify.lang.t('$vuetify.word.deleted_at'), value: 'deleted_at', sortable: true, divider: true},
                     {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
                 ]
-            }
-        },
-
-        methods: {
-            save() {
-                console.log('test')
-            },
-
-            async destroy() {
-                await this.$store.dispatch('users/destroy')
-                this.$refs.server.getData()
-            },
-
-            async forceDestroy() {
-                await this.$store.dispatch('users/forceDestroy')
-                this.$refs.server.getData()
             }
         }
     }

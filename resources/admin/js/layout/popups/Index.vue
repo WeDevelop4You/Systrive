@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-dialog
+        <modal-base
             v-model="show"
-            :max-width="modal.data.max_width || 500"
+            :width="modal.data.max_width || 500"
             @input="dialogChangeAction($event)"
         >
             <component
@@ -10,7 +10,7 @@
                 ref="modal"
                 :data="modal.data"
             />
-        </v-dialog>
+        </modal-base>
         <div
             class="notification-position"
             :style="{paddingLeft: $vuetify.application.left + 'px'} "
@@ -43,11 +43,13 @@
 <script>
     import {mapGetters} from "vuex";
     import PromiseChecker from "../../mixins/PromiseChecker";
-    
+    import ModalBase from "../../components/modals/ModalBase";
+
     export default {
         name: "Index",
 
         components: {
+            ModalBase,
             FormModal: () => import(/* webpackChunkName: "layout/popups/modals/form" */ './modals/Form'),
             ConfirmModal: () => import(/* webpackChunkName: "layout/popups/modals/confirm" */ './modals/Confirm'),
             SimpleNotification: () => import(/* webpackChunkName: "layout/popups/notifications/simple" */ './notifications/Simple'),

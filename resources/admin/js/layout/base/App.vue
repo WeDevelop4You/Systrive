@@ -185,10 +185,10 @@
         name: "App",
 
         components: {
-            NavigationItem,
             Popup,
             Breadcrumb,
             SvgLogoLine,
+            NavigationItem,
             DarkModeSwitchList
         },
 
@@ -235,8 +235,6 @@
 
         async beforeCreate() {
             await this.$store.dispatch('user/getOne')
-            await this.$store.dispatch('navigation/getCompanies')
-            await this.$store.dispatch('user/permissions/getDefault')
         },
 
         created() {

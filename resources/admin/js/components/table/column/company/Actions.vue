@@ -80,7 +80,7 @@
 
                 await this.$store.dispatch('company/getOne', id)
 
-                this.$store.commit('companies/setShow', id)
+                this.$store.commit('companies/setOverview', id)
             },
 
             async editItem() {

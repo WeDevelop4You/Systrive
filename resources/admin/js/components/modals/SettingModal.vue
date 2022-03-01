@@ -18,7 +18,6 @@
         </template>
         <card-base
             :title="title"
-            :no-action="noAction"
             :no-padding="noPadding"
         >
             <template #button>
@@ -28,23 +27,11 @@
                 <slot name="subtitle" />
             </template>
             <slot />
-            <template #action>
-                <v-btn
-                    small
-                    text
-                    :disabled="$loading"
-                    @click="close"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.cancel.cancel') }}
-                </v-btn>
-                <v-btn
-                    small
-                    color="primary"
-                    :disabled="$loading"
-                    @click="$emit('save')"
-                >
-                    {{ $vuetify.lang.t('$vuetify.word.save') }}
-                </v-btn>
+            <template #actions v-if="!noAction">
+                <save-and-close-buttons
+                    @close="close"
+                    @save="$emit('save')"
+                />
             </template>
         </card-base>
     </modal-base>
@@ -53,17 +40,19 @@
 <script>
     import ModalBaseProperties from "../../mixins/ModalBaseProperties";
     import CloseButton from "../CloseButton";
+    import SaveAndCloseButtons from "../SaveAndCloseButtons";
 
     export default {
         name: "SettingModal",
 
-        components: {
-            CloseButton
-        },
-
         mixins: [
             ModalBaseProperties,
         ],
+
+        components: {
+            CloseButton,
+            SaveAndCloseButtons,
+        },
 
         props: {
             width: {

@@ -27,7 +27,10 @@
                 <slot name="subtitle" />
             </template>
             <slot />
-            <template #actions v-if="!noAction">
+            <template
+                v-if="!noAction"
+                #actions
+            >
                 <save-and-close-buttons
                     @close="close"
                     @save="$emit('save')"
@@ -45,14 +48,14 @@
     export default {
         name: "SettingModal",
 
-        mixins: [
-            ModalBaseProperties,
-        ],
-
         components: {
             CloseButton,
             SaveAndCloseButtons,
         },
+
+        mixins: [
+            ModalBaseProperties,
+        ],
 
         props: {
             width: {

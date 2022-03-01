@@ -11,8 +11,14 @@
         :transition="transition"
         @input="change($event)"
     >
-        <template #activator="{ on }" v-if="$slots.button">
-            <slot name="button" v-on="on" />
+        <template
+            v-if="$slots.button"
+            #activator="{ on }"
+        >
+            <slot
+                name="button"
+                v-on="on"
+            />
         </template>
         <slot />
     </v-dialog>

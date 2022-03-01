@@ -18,10 +18,10 @@
             no-outlined
         >
             <template #button>
-                <close-button @close="close"/>
+                <close-button @close="close" />
             </template>
             <div class="my-5">
-                <slot/>
+                <slot />
             </div>
         </card-base>
     </ModalBase>
@@ -35,13 +35,13 @@
     export default {
         name: "ShowModal",
 
-        mixins: [
-            ModalBaseProperties
-        ],
-
         components: {
             ModalBase,
             CloseButton
         },
+
+        mixins: [
+            ModalBaseProperties
+        ],
     }
 </script>

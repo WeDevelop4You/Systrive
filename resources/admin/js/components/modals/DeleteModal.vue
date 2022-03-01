@@ -51,15 +51,15 @@
     export default {
         name: "DeleteModal",
 
-        mixins: [
-            ModalBaseProperties
-        ],
-
         components: {
             CardBase,
             ModalBase,
             CloseButton,
         },
+
+        mixins: [
+            ModalBaseProperties
+        ],
 
         props: {
             content: {

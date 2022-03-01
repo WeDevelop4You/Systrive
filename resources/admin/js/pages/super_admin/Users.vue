@@ -37,16 +37,16 @@
     export default {
         name: "Users",
 
-        mixins: [
-            DeleteProperties,
-            CreateOrEditProperties
-        ],
-
         components: {
             DeleteModal,
             ServerDataTable,
             CreateOrEditModal
         },
+
+        mixins: [
+            DeleteProperties,
+            CreateOrEditProperties
+        ],
 
         data() {
             return {

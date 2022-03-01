@@ -1,8 +1,8 @@
 <template>
     <card-base :title="data.title">
-        <p v-text="data.text"/>
+        <p v-text="data.text" />
         <template #actions>
-            <ActionButtons v-model="data.buttons"/>
+            <ActionButtons v-model="data.buttons" />
         </template>
     </card-base>
 </template>

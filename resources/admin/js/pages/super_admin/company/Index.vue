@@ -61,12 +61,6 @@
     export default {
         name: "Index",
 
-        mixins: [
-            DeleteProperties,
-            OverviewProperties,
-            CreateOrEditProperties
-        ],
-
         components: {
             Show,
             FCompany,
@@ -76,6 +70,12 @@
             ServerDataTable,
             CreateOrEditModal,
         },
+
+        mixins: [
+            DeleteProperties,
+            OverviewProperties,
+            CreateOrEditProperties
+        ],
 
         data() {
             return {

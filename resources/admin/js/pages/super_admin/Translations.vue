@@ -149,17 +149,17 @@
     export default {
         name: "Translations",
 
-        mixins: [
-            DeleteProperties,
-            CreateOrEditProperties
-        ],
-
         components: {
             GroupBadges,
             DeleteModal,
             ServerDataTable,
             CreateOrEditModal,
         },
+
+        mixins: [
+            DeleteProperties,
+            CreateOrEditProperties
+        ],
 
         data() {
             return {

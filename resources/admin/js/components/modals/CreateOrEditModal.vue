@@ -36,13 +36,13 @@
     export default {
         name: "CreateOrEditModal",
 
-        mixins: [
-            ModalBaseProperties,
-        ],
-
         components: {
             CloseButton,
             SaveAndCloseButtons,
         },
+
+        mixins: [
+            ModalBaseProperties,
+        ],
     }
 </script>

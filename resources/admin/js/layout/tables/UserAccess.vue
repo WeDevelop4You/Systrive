@@ -16,7 +16,10 @@
                 :title="title"
                 rerender
             >
-                <template #button v-if="$auth.can($config.permissions.user.invite)">
+                <template
+                    v-if="$auth.can($config.permissions.user.invite)"
+                    #button
+                >
                     <default-button
                         :content="$vuetify.lang.t('$vuetify.word.invite.invite')"
                         @click="openCreate"

@@ -16,7 +16,10 @@
                 :title="createOrEditTitle"
                 rerender
             >
-                <template #button v-if="$auth.can($config.permissions.role.create)">
+                <template
+                    v-if="$auth.can($config.permissions.role.create)"
+                    #button
+                >
                     <default-button
                         :content="$vuetify.lang.t('$vuetify.word.create.create')"
                         @click="openCreate"
@@ -51,11 +54,6 @@
     export default {
         name: "Roles",
 
-        mixins: [
-            DeleteProperties,
-            CreateOrEditProperties
-        ],
-
         components: {
             DeleteModal,
             CompanyRole,
@@ -63,6 +61,11 @@
             ServerDataTable,
             CreateOrEditModal
         },
+
+        mixins: [
+            DeleteProperties,
+            CreateOrEditProperties
+        ],
 
         data() {
             return {

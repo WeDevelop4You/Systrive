@@ -15,7 +15,7 @@
             <v-toolbar-title>
                 {{ title }}
             </v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
             <div>
                 <slot name="button" />
             </div>

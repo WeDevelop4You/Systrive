@@ -4,6 +4,7 @@
 
     use CurlHandle;
     use Illuminate\Support\Collection;
+    use Support\Enums\VestaCommands;
     use Support\Exceptions\UnknownResponseCodeException;
     use Support\Exceptions\VestaCommandException;
     use Support\Exceptions\VestaCredentialsNotSetException;
@@ -57,16 +58,16 @@
         }
 
         /**
-         * @param string $command
-         * @param array  $parameters
+         * @param VestaCommands $command
+         * @param array         $parameters
          *
          * @return Collection
          */
-        public function getCommand(string $command, ...$parameters): Collection
+        public function getCommand(VestaCommands $command, ...$parameters): Collection
         {
             $parameters = [...$parameters, 'json'];
 
-            $this->createRequestData($command, $parameters);
+            $this->createRequestData($command->value, $parameters);
 
             $data = json_decode($this->execute(), true);
 

@@ -8,11 +8,13 @@
     use Domain\System\Models\System;
     use Domain\System\Models\SystemDomain;
     use Illuminate\Http\JsonResponse;
+    use Support\Enums\VestaCommands;
     use Support\Helpers\Response\Response;
     use Support\Helpers\Vesta\VestaAPIHelper;
-    use Support\Helpers\Vesta\VestaCommandsHelper;
 
-    class CompanyDomainShowController
+    ;
+
+    class CompanyDomainController
     {
         /**
          * @param Company      $company
@@ -24,7 +26,7 @@
         public function index(Company $company, System $system, SystemDomain $domain): JsonResponse
         {
             $configData = VestaAPIHelper::create()
-                ->getCommand(VestaCommandsHelper::GET_USER_DOMAIN, $system->username, $domain->name)
+                ->getCommand(VestaCommands::GET_USER_DOMAIN, $system->username, $domain->name)
                 ->first();
 
             $domain->listDetails = DomainListDetail::create($configData, $domain);

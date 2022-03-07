@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int                             $system_id
- * @property string                          $domain
+ * @property string                          $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *
@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS query()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereDomain($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -29,7 +29,7 @@ class SystemDNS extends Model
     protected $table = 'system_dns';
 
     protected $fillable = [
-        SystemDNSTableMap::DOMAIN,
+        SystemDNSTableMap::NAME,
         SystemDNSTableMap::SYSTEM_ID,
     ];
 }

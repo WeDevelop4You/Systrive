@@ -1,8 +1,12 @@
 <template>
     <v-chip
         :color="color"
+        :outlined="outlined"
+        label
         small
+        link
     >
+        <slot name="prepend"/>
         {{ value }}
     </v-chip>
 </template>
@@ -20,6 +24,11 @@
             color: {
                 type: String,
                 default: ''
+            },
+
+            outlined: {
+                type: Boolean,
+                default: false,
             }
         }
     }

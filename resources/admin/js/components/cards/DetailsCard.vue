@@ -66,6 +66,7 @@
         components: {
             CardBase,
             URL: () => import(/* webpackChunkName: "component/items/url" */ '../items/URL'),
+            Active: () => import(/* webpackChunkName: "component/items/active" */ '../items/Active'),
             Badges: () => import(/* webpackChunkName: "component/items/group_badges" */ '../items/GroupBadges'),
         },
 

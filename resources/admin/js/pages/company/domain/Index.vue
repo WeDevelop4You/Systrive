@@ -7,7 +7,7 @@
             >
                 <template #edit>
                     <create-or-edit-modal
-                        v-model="dialog"
+                        v-model="modal"
                         title="test"
                         button-type="icon"
                     >
@@ -15,7 +15,7 @@
                             <v-btn
                                 icon
                                 :disabled="$loading"
-                                @click="dialog = true"
+                                @click="modal = true"
                             >
                                 <v-icon>fas fa-pen</v-icon>
                             </v-btn>
@@ -76,7 +76,7 @@
         },
 
         beforeRouteUpdate(to, from, next) {
-            this.$store.commit('company/domain/reset')
+            this.$store.commit('company/system/domain/reset')
 
             this.setup(to.params.domainName)
 
@@ -91,7 +91,7 @@
                     }
                 },
 
-                dialog: false
+                modal: false
             }
         },
 
@@ -125,8 +125,8 @@
             },
 
             ...mapGetters({
-                domain: 'company/domain/data',
-                chartData: 'company/domain/chartData'
+                domain: 'company/system/domain/data',
+                chartData: 'company/system/domain/chartData'
             })
         },
 
@@ -136,7 +136,7 @@
 
         methods: {
             setup(domain) {
-                this.$store.dispatch('company/domain/search', domain)
+                this.$store.dispatch('company/system/domain/search', domain)
             }
         }
     }

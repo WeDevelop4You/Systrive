@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import Users from "./users";
 import Roles from "./roles";
-import domain from "./system/domain";
+import system from "./system";
 
 const app = Vue.prototype
 
@@ -71,6 +71,6 @@ export default {
     modules: {
         users: Users,
         roles: Roles,
-        domain: domain,
+        system: system
     }
 }

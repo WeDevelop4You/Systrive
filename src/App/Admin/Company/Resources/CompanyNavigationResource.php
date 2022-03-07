@@ -49,13 +49,15 @@
 
         private function dns(): array
         {
+            dd($this->dns);
+
             return $this->dns->map(function (SystemDNS $dns) {
                 return [
                     'id' => $dns->id,
-                    'name' => $dns->domain,
+                    'name' => $dns->name,
                     'route' => [
                         'name' => 'company.dns',
-                        'params' => ['domainNameServer' => $dns->domain],
+                        'params' => ['domainNameServer' => $dns->name],
                     ],
                 ];
             })->toArray();

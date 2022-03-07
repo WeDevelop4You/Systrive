@@ -3,7 +3,7 @@
     namespace Domain\System\Models;
 
     use Domain\System\Mappings\SystemDomainTableMap;
-    use Domain\System\Mappings\SystemStatisticTableMap;
+    use Domain\System\Mappings\SystemUsageStatisticTableMap;
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Model;
@@ -44,6 +44,6 @@
          */
         public function usageStatistics(): MorphMany
         {
-            return $this->morphMany(SystemUsageStatistic::class, SystemStatisticTableMap::MODEL_MORPH);
+            return $this->morphMany(SystemUsageStatistic::class, SystemUsageStatisticTableMap::MODEL_MORPH);
         }
     }

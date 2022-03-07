@@ -17,3 +17,5 @@ $material-light: map-deep-merge(
 );
 
 $stepper-step-step-icon-font-size: map-deep-get($headings, 'subtitle-1', 'size');
+
+$chip-group-content-padding: 0;

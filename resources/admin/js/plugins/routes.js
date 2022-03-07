@@ -190,7 +190,7 @@ const routes = [
             {
                 path: 'dns/:domainNameServer',
                 name: 'company.dns',
-                component: () => import(/* webpackChunkName: "pages/company/dashboard" */ '../pages/company/Dashboard'),
+                component: () => import(/* webpackChunkName: "pages/company/dns/index" */ '../pages/company/dns/Index'),
                 meta: {
                     page: 'company',
                     breadCrumb(route) {

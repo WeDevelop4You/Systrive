@@ -3,7 +3,7 @@
     namespace App\Admin\Company\System\Domain\ChartData;
 
     use Carbon\CarbonPeriod;
-    use Domain\System\Mappings\SystemStatisticTableMap;
+    use Domain\System\Mappings\SystemUsageStatisticTableMap;
     use Domain\System\Models\SystemDomain;
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Collection;
@@ -40,23 +40,23 @@
             $this->setData(
                 $this->domain->usageStatistics()
                     ->whereDate(
-                        SystemStatisticTableMap::DATE,
+                        SystemUsageStatisticTableMap::DATE,
                         '>=',
                         $startDate->toDateString(),
                     )->whereIn(
-                        SystemStatisticTableMap::TYPE,
+                        SystemUsageStatisticTableMap::TYPE,
                         [
-                            SystemStatisticTableMap::DISK_TYPE,
-                            SystemStatisticTableMap::BANDWIDTH_TYPE,
+                            SystemUsageStatisticTableMap::DISK_TYPE,
+                            SystemUsageStatisticTableMap::BANDWIDTH_TYPE,
                         ]
                     )
                     ->get()
                     ->groupBy([
-                        SystemStatisticTableMap::TYPE,
+                        SystemUsageStatisticTableMap::TYPE,
                     ])->map(function (Collection $dates) use ($periodDates) {
                         return $periodDates->map(function (string $date) use ($dates) {
                             $usage = $dates->firstWhere(
-                                SystemStatisticTableMap::DATE,
+                                SystemUsageStatisticTableMap::DATE,
                                 $date
                             );
 

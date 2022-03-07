@@ -8,8 +8,10 @@ use Domain\System\Models\SystemDNS;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
+use Support\Enums\VestaCommands;
 use Support\Helpers\Vesta\VestaAPIHelper;
-use Support\Helpers\Vesta\VestaCommandsHelper;
+
+;
 
 class SyncSystemDNS extends AbstractVestaSync
 {
@@ -28,7 +30,7 @@ class SyncSystemDNS extends AbstractVestaSync
         $this->system = $system;
         $this->database = $system->dns;
         $this->vesta = VestaAPIHelper::create()->getCommand(
-            VestaCommandsHelper::GET_USER_DNS,
+            VestaCommands::GET_USER_DNS_DOMAINS,
             $system->username
         )->keys();
     }
@@ -72,7 +74,7 @@ class SyncSystemDNS extends AbstractVestaSync
         })->toArray();
 
         SystemDNS::upsert($nameservers, [
-            SystemDNSTableMap::DOMAIN,
+            SystemDNSTableMap::NAME,
         ]);
     }
 }

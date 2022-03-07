@@ -7,8 +7,10 @@ use Domain\System\Models\System;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
+use Support\Enums\VestaCommands;
 use Support\Helpers\Vesta\VestaAPIHelper;
-use Support\Helpers\Vesta\VestaCommandsHelper;
+
+;
 
 class SyncSystem extends AbstractVestaSync
 {
@@ -24,7 +26,7 @@ class SyncSystem extends AbstractVestaSync
     {
         $this->database = System::all();
         $this->vesta = VestaAPIHelper::create()->getCommand(
-            VestaCommandsHelper::GET_SYSTEM_USERS
+            VestaCommands::GET_SYSTEM_USERS
         );
     }
 

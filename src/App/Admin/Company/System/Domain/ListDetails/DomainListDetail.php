@@ -4,6 +4,7 @@ namespace App\Admin\Company\System\Domain\ListDetails;
 
 use Domain\System\Models\SystemDomain;
 use Support\Abstracts\AbstractListDetails;
+use Support\Helpers\Details\Items\ListItemActive;
 use Support\Helpers\Details\Items\ListItemBadges;
 use Support\Helpers\Details\Items\ListItemText;
 use Support\Helpers\Details\Items\ListItemURL;
@@ -26,7 +27,8 @@ class DomainListDetail extends AbstractListDetails
                     ->setValue($this->domain->name),
                 ListItemBadges::create('aliases', trans('word.aliases.aliases'))
                     ->setValue($this->getArray('ALIAS')),
-                ListItemText::create('ssl', trans('word.ssl.ssl'), $this->data->get('SSL')),
+                ListItemActive::create('ssl', trans('word.ssl.ssl'))
+                    ->setValue($this->data->get('SSL')),
                 ListItemText::create('domain_template', trans('word.template.template'), $this->data->get('TPL')),
             ])
             ->addDivider()
@@ -39,7 +41,8 @@ class DomainListDetail extends AbstractListDetails
             ->addDivider()
             ->addSubheader(trans('word.general.general'))
             ->addDetails([
-                ListItemText::create('suspended', trans('word.suspended.suspended'), $this->data->get('SUSPENDED')),
+                ListItemActive::create('suspended', trans('word.suspended.suspended'))
+                    ->setValue($this->data->get('SUSPENDED')),
                 ListItemText::create('created_at', trans('word.create_at'))
                     ->setValue("{$this->data->get('DATE')} {$this->data->get('TIME')}"),
             ]);

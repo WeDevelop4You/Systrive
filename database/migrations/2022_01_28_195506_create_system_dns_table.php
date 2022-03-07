@@ -16,7 +16,7 @@ class CreateSystemDnsTable extends Migration
         Schema::create('system_dns', function (Blueprint $table) {
             $table->id();
             $table->foreignId('system_id')->constrained('system')->cascadeOnDelete();
-            $table->string('domain');
+            $table->string('name');
             $table->timestamps();
         });
     }

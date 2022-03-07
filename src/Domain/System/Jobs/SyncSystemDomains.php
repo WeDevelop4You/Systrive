@@ -3,7 +3,6 @@
 namespace Domain\System\Jobs;
 
 use Domain\System\Mappings\SystemDomainTableMap;
-use Domain\System\Mappings\SystemStatisticTableMap;
 use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemDomain;
@@ -12,9 +11,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
+use Support\Enums\VestaCommands;
 use Support\Helpers\SystemStatisticHelper;
 use Support\Helpers\Vesta\VestaAPIHelper;
-use Support\Helpers\Vesta\VestaCommandsHelper;
 
 class SyncSystemDomains extends AbstractVestaSync
 {
@@ -33,7 +32,7 @@ class SyncSystemDomains extends AbstractVestaSync
         $this->system = $system;
         $this->database = $system->domains;
         $this->vesta = VestaAPIHelper::create()->getCommand(
-            VestaCommandsHelper::GET_USER_DOMAINS,
+            VestaCommands::GET_USER_DOMAINS,
             $system->username
         );
     }
@@ -86,23 +85,23 @@ class SyncSystemDomains extends AbstractVestaSync
         $usage = $this->system->domains->map(function (SystemDomain $systemDomain) use ($vesta) {
             $domain = $vesta->get($systemDomain->name);
 
-            $lastBandwidthUsage = $systemDomain->usageStatistics()
+            $totalMonthUsages = $systemDomain->usageStatistics()
                 ->where(
-                    SystemStatisticTableMap::TYPE,
+                    SystemUsageStatisticTableMap::TYPE,
                     SystemUsageStatisticTableMap::BANDWIDTH_TYPE
                 )->whereMonth(
                     SystemUsageStatisticTableMap::CREATED_AT,
                     Carbon::now()
-                )->latest()->first();
+                )->sum(SystemUsageStatisticTableMap::TOTAL);
 
             return [
                 SystemStatisticHelper::create($systemDomain)
-                    ->setType(SystemStatisticTableMap::DISK_TYPE)
+                    ->setType(SystemUsageStatisticTableMap::DISK_TYPE)
                     ->setTotal($domain['U_DISK'])
                     ->toArray(),
                 SystemStatisticHelper::create($systemDomain)
-                    ->setType(SystemStatisticTableMap::BANDWIDTH_TYPE)
-                    ->setTotal($domain['U_BANDWIDTH'] - $lastBandwidthUsage->total ?: 0)
+                    ->setType(SystemUsageStatisticTableMap::BANDWIDTH_TYPE)
+                    ->setTotal($domain['U_BANDWIDTH'] - $totalMonthUsages)
                     ->toArray(),
             ];
         })->flatten(1)->toArray();
@@ -110,13 +109,13 @@ class SyncSystemDomains extends AbstractVestaSync
         SystemUsageStatistic::upsert(
             $usage,
             [
-                SystemStatisticTableMap::MODEL_ID,
-                SystemStatisticTableMap::MODEL_TYPE,
-                SystemStatisticTableMap::TYPE,
-                SystemStatisticTableMap::DATE,
+                SystemUsageStatisticTableMap::MODEL_ID,
+                SystemUsageStatisticTableMap::MODEL_TYPE,
+                SystemUsageStatisticTableMap::TYPE,
+                SystemUsageStatisticTableMap::DATE,
             ],
             [
-                SystemStatisticTableMap::TOTAL,
+                SystemUsageStatisticTableMap::TOTAL,
             ]
         );
     }

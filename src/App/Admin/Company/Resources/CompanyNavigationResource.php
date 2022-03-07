@@ -49,8 +49,6 @@
 
         private function dns(): array
         {
-            dd($this->dns);
-
             return $this->dns->map(function (SystemDNS $dns) {
                 return [
                     'id' => $dns->id,

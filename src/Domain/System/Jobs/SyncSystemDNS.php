@@ -67,7 +67,7 @@ class SyncSystemDNS extends AbstractVestaSync
         $dns = new SystemDNS();
 
         $nameservers = $vesta->map(function (string $domainName) use ($dns) {
-            $dns->domain = $domainName;
+            $dns->name = $domainName;
             $dns->system_id = $this->system->id;
 
             return $dns->attributesToArray();

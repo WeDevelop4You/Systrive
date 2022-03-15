@@ -121,9 +121,9 @@
             if (!is_null($callback) && !is_callable($callback) && is_string($callback)) {
                 $this->isEnumSearch = (
                     enum_exists($callback) && in_array(
-                    DatabaseEnumSearch::class,
-                    class_uses_recursive($callback)
-                )
+                        DatabaseEnumSearch::class,
+                        class_uses_recursive($callback)
+                    )
                 );
             }
 

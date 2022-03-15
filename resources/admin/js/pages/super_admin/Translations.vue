@@ -1,9 +1,8 @@
 <template>
     <server-data-table
-        ref="server"
-        :route="route"
-        :headers="headers"
+        :item-route="routes.items"
         :custom-items="customItems"
+        :header-route="routes.headers"
         :vuex-namespace="vuexNamespace"
         :title="$vuetify.lang.t('$vuetify.word.translations')"
         refresh-button
@@ -176,19 +175,11 @@
         },
 
         computed: {
-            route() {
-                return this.$api.route('admin.translations.environment', this.environment)
-            },
-
-            headers() {
-                return [
-                    {text: '#', value: 'index', align: 'start'},
-                    {text: this.$vuetify.lang.t('$vuetify.word.key'), value: 'key', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.group'), value: 'group', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.tags'), value: 'tags', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.translated'), value: 'translated', sortable: true, divider: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
-                ]
+            routes() {
+                return {
+                    headers: this.$api.route('admin.translation.table.headers'),
+                    items: this.$api.route('admin.translation.table.items', this.environment),
+                }
             },
 
             environments() {
@@ -196,7 +187,8 @@
             },
         },
 
-        beforeCreate() {
+        created() {
+            this.$store.dispatch(`${this.vuexNamespace}/getEnvironments`)
             this.$store.commit(`${this.vuexNamespace}/removeLoadAction`, 'new')
 
             this.$store.commit(`${this.vuexNamespace}/setStructure`, {
@@ -210,15 +202,11 @@
             })
         },
 
-        created() {
-            this.$store.dispatch(`${this.vuexNamespace}/getEnvironments`)
-        },
-
         methods: {
             changeEnvironment() {
                 this.$nextTick(function () {
                     this.$refs.server.page = 1
-                    this.$refs.server.getData()
+                    this.$refs.server.generateParams()
                 })
             },
 

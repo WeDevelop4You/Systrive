@@ -31,37 +31,33 @@ class SyncSystem extends AbstractVestaSync
     }
 
     /**
-     * @param Collection   $vesta
      * @param Model|System $model
      *
      * @return bool
      */
-    protected function contains(Collection $vesta, System|Model $model): bool
+    protected function contains(System|Model $model): bool
     {
-        return $vesta->contains($model->username);
+        return $this->vesta->contains($model->username);
     }
 
     /**
-     * @param Collection   $vesta
      * @param Model|System $model
      *
      * @return Collection
      */
-    protected function reject(Collection $vesta, System|Model $model): Collection
+    protected function reject(System|Model $model): Collection
     {
-        return $vesta->reject($model->username);
+        return $this->vesta->reject($model->username);
     }
 
     /**
-     * @param Collection $vesta
-     *
      * @return void
      */
-    protected function save(Collection $vesta): void
+    protected function save(): void
     {
         $system = new System();
 
-        $systems = $vesta->map(function (string $username) use ($system) {
+        $systems = $this->vesta->map(function (string $username) use ($system) {
             $system->username = $username;
 
             return $system->attributesToArray();

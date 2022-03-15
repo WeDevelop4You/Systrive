@@ -1,9 +1,8 @@
 <template>
     <server-data-table
-        ref="server"
-        :route="route"
-        :headers="headers"
+        :item-route="routes.items"
         :custom-items="customItems"
+        :header-route="routes.headers"
         :vuex-namespace="vuexNamespace"
         :title="$vuetify.lang.t('$vuetify.word.users')"
         searchable
@@ -55,22 +54,11 @@
                 ],
 
                 vuexNamespace: 'users',
-                route: this.$api.route('admin.users')
+                routes: {
+                    items: this.$api.route('admin.user.table.items'),
+                    headers: this.$api.route('admin.user.table.headers')
+                }
             }
         },
-
-        computed: {
-            headers() {
-                return [
-                    {text: this.$vuetify.lang.t('$vuetify.word.id'), value: 'id', sortable: true, align: 'start'},
-                    {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'profile.full_name', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.email_verified_at'), value: 'email_verified_at', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.deleted_at'), value: 'deleted_at', sortable: true, divider: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
-                ]
-            }
-        }
     }
 </script>

@@ -45,7 +45,7 @@
         },
 
         created() {
-            for (const button of this.data) {
+            for (const button of this.value) {
                 if (button.hasListener && button.action) {
                     this.action = button.action
 

@@ -21,10 +21,11 @@
     Route::middleware('auth:sanctum')->group(function () {
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {
             Route::post('publish', [TranslationPublishController::class, 'action'])->name('admin.translation.publish');
+            Route::get('environments', [TranslationTableController::class, 'environments'])->name('admin.translations.environments');
 
-            Route::prefix('environments')->group(function () {
-                Route::get('/', [TranslationTableController::class, 'environments'])->name('admin.translations.environments');
-                Route::get('{environment}/table', [TranslationTableController::class, 'index'])->name('admin.translations.environment');
+            Route::prefix('table')->group(function () {
+                Route::get('headers', [TranslationTableController::class, 'headers'])->name('admin.translation.table.headers');
+                Route::get('items/{environment}', [TranslationTableController::class, 'items'])->name('admin.translation.table.items');
             });
 
             Route::prefix('{translationKey}')->group(function () {

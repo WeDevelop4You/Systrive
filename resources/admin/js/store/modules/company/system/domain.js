@@ -41,8 +41,8 @@ export default {
     },
 
     actions: {
-        async search({commit, dispatch, rootGetters}, domain) {
-            const system = rootGetters["company/system"]
+        async search({commit, dispatch}, domain) {
+            const system = app.$api.getCompanySystemIds()
 
             await app.$api.call({
                 url: app.$api.route('company.domain.search', system.companyId, system.systemId, domain)
@@ -52,8 +52,8 @@ export default {
             })
         },
 
-        getChartData({state, commit, rootGetters}) {
-            const system = rootGetters["company/system"]
+        getChartData({state, commit}) {
+            const system = app.$api.getCompanySystemIds()
 
             app.$api.call({
                 url: app.$api.route('company.domain.usage', system.companyId, system.systemId, state.data.id)

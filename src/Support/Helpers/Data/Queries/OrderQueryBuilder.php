@@ -56,15 +56,15 @@
         public function build(): Relation|Builder
         {
             foreach ($this->sorting as $sorter) {
-                [$columnName, $direction] = $this->splitSorter($sorter);
+                [$identifier, $direction] = $this->splitSorter($sorter);
 
-                $column = $this->columns->firstwhere('columnName', $columnName);
+                $column = $this->columns->firstwhere('identifier', $identifier);
 
-                if (!is_null($column) && $column->isSortable) {
+                if ($column instanceof Column && $column->isSortable) {
                     if ($column->hasSortCallback()) {
-                        $this->query = App::call($column->sortCallback, ['query' => $this->query, 'direction' => $direction]);
+                        App::call($column->getSortCallback(), ['query' => &$this->query, 'direction' => $direction]);
                     } else {
-                        $this->query->orderBy($columnName, $direction);
+                        $this->query->orderBy($identifier, $direction);
                     }
                 }
             }
@@ -82,7 +82,7 @@
             $direction = Str::afterLast($sorter, '_');
 
             if (in_array($direction, ['asc', 'desc'])) {
-                $column = Str::BeforeLast($sorter, '_');
+                $column = Str::beforeLast($sorter, '_');
             } else {
                 $column = $sorter;
                 $direction = 'asc';

@@ -10,6 +10,10 @@ export default {
                 return $store.getters['user/data']
             },
 
+            check() {
+                return $store.getters['user/isAuthenticated']
+            },
+
             can(permissions, requiresAll = false) {
                 const userPermissions = $store.getters['user/permissions/getItems']
 

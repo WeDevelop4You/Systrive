@@ -10,12 +10,28 @@
         /**
          * @inheritDoc
          */
-        protected function columns(): array
+        protected function structure(): void
         {
-            return [
-                Column::create('name')->sortable()->searchable(),
-                Column::create('permissions_count')->sortable(),
-                Column::create('created_at')->sortable()->searchable(),
+            $showActions = $this->can(
+                'role.edit',
+                'role.delete',
+            );
+
+            $this->structure = [
+                Column::index(),
+                Column::create('name', trans('word.name.name'))
+                    ->sortable()
+                    ->searchable(),
+                Column::create('permissions_count', trans('word.permission.total'))
+                    ->sortable(),
+                Column::create('created_at', trans('word.created_at'))
+                    ->sortable()
+                    ->searchable()
+                    ->setDivider($showActions),
             ];
+
+            if ($showActions) {
+                $this->structure[] = Column::actions();
+            }
         }
     }

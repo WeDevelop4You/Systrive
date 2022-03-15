@@ -51,7 +51,7 @@ export default {
                 await this.$store.dispatch(`${this.vuexNamespace}/create`, this.data)
             }
 
-            this.$refs.server.getData();
+            await this.$store.dispatch(`${this.vuexNamespace}/getMany`)
         },
 
 

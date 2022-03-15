@@ -5,9 +5,11 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Database\Eloquent\Relations\Relation;
     use Illuminate\Support\Collection;
+    use Illuminate\Support\Facades\App;
     use Illuminate\Support\Facades\Schema;
     use Support\Helpers\Data\Build\Column;
     use Support\Helpers\Data\ColumnHelper;
+    use Support\Traits\DatabaseEnumSearch;
 
     class WhereQueryBuilder
     {
@@ -60,20 +62,21 @@
             if ($searchableColumns->isNotEmpty()) {
                 $this->query->where(function (Relation|Builder $subQuery) use ($searchableColumns) {
                     $searchableColumns->each(function (Column $column) use ($subQuery) {
-                        $hasRelation = ColumnHelper::hasRelation($column->columnName);
-
-                        $selectedColumn = ColumnHelper::mapToSelected($column->columnName, $this->query);
+                        $identifier = $column->identifier;
+                        $hasRelation = ColumnHelper::hasRelation($identifier);
+                        $selectedColumn = ColumnHelper::mapToSelected($identifier, $this->query);
 
                         if ($column->hasSearchCallback()) {
-                            $searchCallback = $column->searchCallback;
+                            $searchCallback = $column->getSearchCallback();
 
                             if ($column->isEnumSearch) {
-                                $subQuery->orWhereIn($column->columnName, $searchCallback::search($this->search));
+                                /** @var DatabaseEnumSearch $searchCallback */
+                                $subQuery->orWhereIn($identifier, $searchCallback::search($this->search));
                             } else {
-                                ($searchCallback)($subQuery, $this->search);
+                                App::call($searchCallback, ['query' => &$subQuery, 'search' => $this->search]);
                             }
                         } elseif (!$hasRelation || $selectedColumn) {
-                            $whereColumn = $selectedColumn ?? $column->columnName;
+                            $whereColumn = $selectedColumn ?? $identifier;
 
                             if (!$hasRelation) {
                                 $whereColumn = Schema::hasColumn($this->query->getModel()->getTable(), $whereColumn) ? $this->query->getModel()->getTable() . '.' . $whereColumn : $whereColumn;
@@ -81,8 +84,8 @@
 
                             $subQuery->orWhere($whereColumn, 'like', "%{$this->search}%");
                         } else {
-                            $relationName = ColumnHelper::parseRelation($column->columnName);
-                            $fieldName = ColumnHelper::parseField($column->columnName);
+                            $relationName = ColumnHelper::parseRelation($identifier);
+                            $fieldName = ColumnHelper::parseField($identifier);
 
                             $subQuery->orWhereHas($relationName, function (Builder $hasQuery) use ($fieldName) {
                                 $hasQuery->where($fieldName, 'like', "%{$this->search}%");

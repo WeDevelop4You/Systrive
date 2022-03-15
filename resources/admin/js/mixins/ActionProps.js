@@ -24,6 +24,11 @@ export default {
             required: true,
             type: Number,
             default: 0,
+        },
+
+        vuexNamespace: {
+            required: true,
+            type: String
         }
     },
 };

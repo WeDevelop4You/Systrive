@@ -14,8 +14,12 @@
         Route::get('auth/permissions', [UserPermissionsController::class, 'index'])->name('auth.user.permissions');
 
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {
-            Route::get('table', [UserTableController::class, 'index'])->name('admin.users');
             Route::get('list', [UserListController::class, 'index'])->name('admin.user.list');
+
+            Route::prefix('table')->group(function () {
+                Route::get('items', [UserTableController::class, 'items'])->name('admin.user.table.items');
+                Route::get('headers', [UserTableController::class, 'headers'])->name('admin.user.table.headers');
+            });
 
             Route::prefix('{user}')->group(function () {
                 Route::delete('/', [UserDestroyController::class, 'action'])->name('admin.user');

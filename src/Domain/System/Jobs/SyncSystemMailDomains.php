@@ -36,37 +36,33 @@ class SyncSystemMailDomains extends AbstractVestaSync
     }
 
     /**
-     * @param Collection             $vesta
      * @param Model|SystemMailDomain $model
      *
      * @return bool
      */
-    protected function contains(Collection $vesta, SystemMailDomain|Model $model): bool
+    protected function contains(SystemMailDomain|Model $model): bool
     {
-        return $vesta->contains($model->name);
+        return $this->vesta->contains($model->name);
     }
 
     /**
-     * @param Collection             $vesta
      * @param Model|SystemMailDomain $model
      *
      * @return Collection
      */
-    protected function reject(Collection $vesta, SystemMailDomain|Model $model): Collection
+    protected function reject(SystemMailDomain|Model $model): Collection
     {
-        return $vesta->reject($model->name);
+        return $this->vesta->reject($model->name);
     }
 
     /**
-     * @param Collection $vesta
-     *
      * @return void
      */
-    protected function save(Collection $vesta): void
+    protected function save(): void
     {
         $mailDomain = new SystemMailDomain();
 
-        $mailDomains = $vesta->map(function (string $domainName) use ($mailDomain) {
+        $mailDomains = $this->vesta->map(function (string $domainName) use ($mailDomain) {
             $mailDomain->name = $domainName;
             $mailDomain->system_id = $this->system->id;
 

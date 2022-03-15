@@ -9,11 +9,22 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Support\Collection;
+    use Support\Abstracts\AbstractTable;
     use Support\Helpers\Data\Queries\OrderQueryBuilder;
     use Support\Helpers\Data\Queries\WhereQueryBuilder;
 
     class DataTable
     {
+        /**
+         * @var int
+         */
+        private int $total = -1;
+
+        /**
+         * @var array|Collection
+         */
+        private Collection|array $items;
+
         /**
          * @var Builder|Relation
          */
@@ -30,50 +41,54 @@
         private Collection|array $columns;
 
         /**
-         * @param Builder|Relation $query
+         * @var bool
          */
-        public function __construct(Relation|Builder $query)
+        private bool $withoutQuery = false;
+
+        /**
+         * DataTable constructor.
+         */
+        private function __construct()
         {
-            $this->query = $query;
             $this->columns = new Collection();
+        }
+
+        /**
+         * @param Builder|Relation $query
+         *
+         * @return DataTable
+         */
+        public static function query(Relation|Builder $query): DataTable
+        {
+            $instance = new static();
+            $instance->query = $query;
 
             try {
-                $this->request = Container::getInstance()->make('request');
+                $instance->request = Container::getInstance()->make('request');
             } catch (BindingResolutionException) {
-                // TODO Do something here
+                //Do nothing
             }
+
+            return $instance;
+        }
+
+        public static function withoutQuery(Collection|array $items): DataTable
+        {
+            $instance = new static();
+            $instance->items = $items;
+            $instance->withoutQuery = true;
+
+            return $instance;
         }
 
         /**
-         * @param Builder|Relation $query
+         * @param AbstractTable $table
          *
          * @return DataTable
          */
-        public static function create(Relation|Builder $query): DataTable
+        public function setColumns(AbstractTable $table): DataTable
         {
-            return new static($query);
-        }
-
-        /**
-         * @param Column $column
-         *
-         * @return DataTable
-         */
-        public function addColumn(Column $column): DataTable
-        {
-            $this->columns->push($column);
-
-            return $this;
-        }
-
-        /**
-         * @param array $columns
-         *
-         * @return DataTable
-         */
-        public function setColumns(array $columns): DataTable
-        {
-            $this->columns = new Collection($columns);
+            $this->columns = $table->getColumns();
 
             return $this;
         }
@@ -96,12 +111,7 @@
             )->build();
         }
 
-        /**
-         * @param string $resourceClass
-         *
-         * @return AnonymousResourceCollection
-         */
-        public function getData(string $resourceClass): AnonymousResourceCollection
+        private function runQuery()
         {
             $page = $this->request->query('page', 1);
             $perPage = $this->request->query('itemPerPage', 10);
@@ -114,12 +124,24 @@
                 $this->addSortingToQuery();
             }
 
-            $total = $this->query->count();
-            $data = $this->query->skip(($page - 1) * $perPage)->take($perPage)->get();
+            $this->total = $this->query->count();
+            $this->items = $this->query->skip(($page - 1) * $perPage)->take($perPage)->get();
+        }
 
-            return call_user_func([$resourceClass, "collection"], $data)->additional([
+        /**
+         * @param string $resourceClass
+         *
+         * @return AnonymousResourceCollection
+         */
+        public function export(string $resourceClass): AnonymousResourceCollection
+        {
+            if (!$this->withoutQuery) {
+                $this->runQuery();
+            }
+
+            return call_user_func([$resourceClass, "collection"], $this->items)->additional([
                 'meta' => [
-                    'total' => $total,
+                    'total' => $this->total,
                 ],
             ]);
         }

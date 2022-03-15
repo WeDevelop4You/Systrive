@@ -2,7 +2,7 @@
     <v-row>
         <v-col cols="12">
             <details-card
-                v-model="test"
+                v-model="listDetails"
                 :title="$vuetify.lang.t('$vuetify.details')"
             >
                 <template #edit>
@@ -25,24 +25,36 @@
                 </template>
             </details-card>
         </v-col>
+        <v-col cols="12">
+            <locale-data-table
+                :custom-items="customItems"
+                :vuex-namespace="vuexNamespace"
+                :title="$vuetify.lang.t('$vuetify.word.records')"
+                searchable
+            />
+        </v-col>
     </v-row>
 </template>
 
 <script>
     import DetailsCard from "../../../components/cards/DetailsCard";
     import CreateOrEditModal from "../../../components/modals/CreateOrEditModal";
-    import {mapGetters} from "vuex";
+    import LocaleDataTable from "../../../components/table/LocaleDataTable";
+    import Index from "../../../components/table/column/Index";
+    import Active from "../../../components/table/column/company/system/dns/Active";
+    import Actions from "../../../components/table/column/company/system/dns/Actions";
 
     export default {
         name: "Index",
 
         components: {
             DetailsCard,
+            LocaleDataTable,
             CreateOrEditModal
         },
 
         beforeRouteUpdate(to, from, next) {
-            this.$store.commit('company/system/dns/reset')
+            this.$store.commit(`${this.vuexNamespace}/reset`)
 
             this.setup(to.params.domainNameServer)
 
@@ -51,15 +63,21 @@
 
         data() {
             return {
+                customItems: [
+                    {name: 'index', component: Index},
+                    {name: 'suspended', component: Active},
+                    {name: 'actions', component: Actions},
+                ],
+
                 modal: false,
-                test: []
+                vuexNamespace: 'company/system/dns'
             }
         },
 
         computed: {
-            ...mapGetters({
-
-            })
+            listDetails() {
+                return this.$store.getters[`${this.vuexNamespace}/listDetails`]
+            },
         },
 
         created() {
@@ -67,8 +85,8 @@
         },
 
         methods: {
-            setup(dns) {
-                this.$store.dispatch('company/system/dns/search', dns)
+            async setup(dns) {
+                await this.$store.dispatch(`${this.vuexNamespace}/search`, dns)
             }
         }
     }

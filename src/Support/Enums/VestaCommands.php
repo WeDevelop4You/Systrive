@@ -15,5 +15,5 @@
         case GET_USER_MAIL_DOMAINS = 'v-list-mail-domains';
         case GET_USER_MAIL_ADDRESSES = 'v-list-mail-accounts';
 
-        case TEST = '';
+        case TEST = 'v-list-database';
     }

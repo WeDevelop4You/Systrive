@@ -6,19 +6,26 @@
     use App\Admin\Company\User\Resources\CompanyUserDataResource;
     use Domain\Company\Models\Company;
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+    use Support\Abstracts\AbstractTable;
+    use Support\Abstracts\AbstractTableController;
     use Support\Helpers\Data\Build\DataTable;
 
-    class CompanyUserTableController
+    class CompanyUserTableController extends AbstractTableController
     {
+        protected function getTableStructure(): AbstractTable
+        {
+            return CompanyUserTable::create();
+        }
+
         /**
          * @param Company $company
          *
          * @return AnonymousResourceCollection
          */
-        public function index(Company $company): AnonymousResourceCollection
+        public function items(Company $company): AnonymousResourceCollection
         {
-            return DataTable::create($company->users()->withTrashed())
-                ->setColumns(CompanyUserTable::create())
-                ->getData(CompanyUserDataResource::class);
+            return DataTable::query($company->users()->withTrashed())
+                ->setColumns($this->getTableStructure())
+                ->export(CompanyUserDataResource::class);
         }
     }

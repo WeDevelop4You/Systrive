@@ -41,14 +41,13 @@
 
         methods: {
             async editItem() {
-                await this.$store.dispatch('translations/getOne', this.item.id)
+                await this.$store.dispatch(`${this.vuexNamespace}/getOne`, this.item.id)
             },
 
             deleteItem() {
                 const item = this.item
-                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.translation', item.key)
 
-                this.$store.commit('translations/setDelete', {id: item.id, message: message})
+                this.$store.commit(`${this.vuexNamespace}/setDelete`, {id: item.id, item: item.key})
             }
         }
     }

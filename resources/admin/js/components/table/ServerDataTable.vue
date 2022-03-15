@@ -4,7 +4,6 @@
             :page="page"
             :items="items"
             :headers="headers"
-            :loading="isLoading"
             :footer-props="{
                 itemsPerPageOptions: itemsPerPageOptions
             }"
@@ -58,7 +57,8 @@
                     :header="header"
                     :index="index"
                     :item-index="index + 1 + ((page - 1) * itemsPerPage)"
-                    @refresh="getData"
+                    :vuex-namespace="vuexNamespace"
+                    @refresh="load"
                 />
             </template>
             <template
@@ -67,7 +67,7 @@
             >
                 <v-btn icon>
                     <v-icon
-                        @click="getData"
+                        @click="load"
                     >
                         fas fa-sync-alt
                     </v-icon>
@@ -80,90 +80,52 @@
 
 <script>
     import _ from "lodash";
+    import TableProperties from "../../mixins/DataTable/TableProperties";
 
     export default {
         name: "ServerDataTable",
 
+        mixins: [
+            TableProperties
+        ],
+
         props: {
-            title: {
+            headerRoute: {
                 required: true,
                 type: String
             },
 
-            route: {
+            itemRoute: {
                 required: true,
                 type: String
             },
-
-            headers: {
-                required: true,
-                type: Array
-            },
-
-            vuexNamespace: {
-                required: true,
-                type: String
-            },
-
-            searchable: {
-                type: Boolean,
-                default: false
-            },
-
-            customItems: {
-                type: Array,
-                default: () => [],
-            },
-
-            itemsPerPageOptions: {
-                type: Array,
-                default: () => [
-                    10,
-                    25,
-                    50
-                ]
-            },
-
-            refreshButton: {
-                type: Boolean,
-                default: false
-            },
-
-            doLoadAction: {
-                type: Boolean,
-                default: true,
-            }
         },
 
         data() {
             return {
                 page: 1,
-                total: 0,
-                search: '',
                 sorting: [],
-                isLoading: true,
                 itemsPerPage: 10
             }
         },
 
-        computed: {
-            items() {
-                return this.$store.getters[`${this.vuexNamespace}/items`]
+        watch: {
+            itemRoute: function(value) {
+                this.$store.dispatch(`${this.vuexNamespace}/getItems`, value)
             }
         },
 
         created() {
-            if (this.doLoadAction) {
-                this.$store.dispatch(`${this.vuexNamespace}/load`)
-            }
+            this.$store.commit(`${this.vuexNamespace}/setRoutes`, {
+                items: this.itemRoute,
+                headers: this.headerRoute,
+            })
 
-            this.$store.commit(`${this.vuexNamespace}/useActions`, this.doLoadAction)
+            this.$store.dispatch(`${this.vuexNamespace}/getHeaders`)
         },
 
         methods: {
-            getData() {
-                let app = this
-
+            generateParams() {
                 const params = {
                     page: this.page,
                     itemPerPage: this.itemsPerPage
@@ -177,18 +139,9 @@
                     params.sorting = this.sorting
                 }
 
-                this.$api.call({
-                    url: app.route,
-                    method: 'GET',
-                    params: params
-                }).then((response) => {
-                    const data = response.data
+                this.$store.commit(`${this.vuexNamespace}/setParams`, params)
 
-                    app.isLoading = false
-                    app.total = data.meta.total
-
-                    app.$store.commit(`${this.vuexNamespace}/setItems`, data.data)
-                })
+                this.load()
             },
 
             updateTable({page, itemsPerPage, sortBy, sortDesc}) {
@@ -205,24 +158,13 @@
                     this.sorting[i] = `${value}_${direction}`
                 }
 
-                this.getData()
+                this.generateParams()
             },
 
             updateSearch: _.debounce(function () {
                 this.page = 1
-                this.getData()
+                this.generateParams()
             }, 500),
-
-            reset() {
-                this.page = 1
-                this.total = 0
-                this.search = ''
-                this.sorting = []
-                this.isLoading = true
-                this.itemsPerPage = 10
-
-                this.getData()
-            }
         }
     }
 </script>

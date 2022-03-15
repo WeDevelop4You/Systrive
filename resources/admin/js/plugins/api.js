@@ -1,4 +1,5 @@
 import axios from 'axios'
+import $store from '../store'
 import ApiRoutes from "../config/api.json";
 
 const api = axios.create()
@@ -51,6 +52,10 @@ export default {
             getCsrfToken() {
                 return this.call.get('/sanctum/csrf-cookie')
             },
+
+            getCompanySystemIds() {
+                return $store.getters['company/system']
+            }
         }
 
         Vue.mixin({

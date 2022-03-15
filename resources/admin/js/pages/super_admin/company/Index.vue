@@ -1,9 +1,8 @@
 <template>
     <server-data-table
-        ref="server"
-        :route="route"
-        :headers="headers"
+        :item-route="routes.items"
         :custom-items="customItems"
+        :header-route="routes.headers"
         :vuex-namespace="vuexNamespace"
         :title="$vuetify.lang.t('$vuetify.word.companies')"
         searchable
@@ -85,22 +84,11 @@
                 ],
 
                 vuexNamespace: "companies",
-                route: this.$api.route('admin.companies')
+                routes: {
+                    items: this.$api.route('admin.company.table.items'),
+                    headers: this.$api.route('admin.company.table.headers')
+                }
             }
-        },
-
-        computed: {
-            headers() {
-                return [
-                    {text: this.$vuetify.lang.t('$vuetify.word.id'), value: 'id', sortable: true, align: 'start'},
-                    {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'name', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.owner'), value: 'owner.full_name', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.status'), value: 'status', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true, divider: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: 'end'},
-                ]
-            },
         },
 
         created() {

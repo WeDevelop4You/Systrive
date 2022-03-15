@@ -22,8 +22,8 @@
                 if (typeof this.$route.meta.breadCrumb === "function") {
                     return this.$route.meta.breadCrumb.call(this, this.$route);
                 }
-                return this.$route.meta.breadCrumb;
 
+                return this.$route.meta.breadCrumb;
             }
         }
     }

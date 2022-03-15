@@ -6,7 +6,7 @@
         small
         link
     >
-        <slot name="prepend"/>
+        <slot name="prepend" />
         {{ value }}
     </v-chip>
 </template>

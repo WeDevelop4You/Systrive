@@ -49,14 +49,13 @@
             async editItem() {
                 const id = this.item.id
 
-                await this.$store.dispatch('company/roles/getOne', id)
+                await this.$store.dispatch(`${this.vuexNamespace}/getOne`, id)
             },
 
             deleteItem() {
                 const item = this.item
-                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.role', item.name)
 
-                this.$store.commit('company/roles/setDelete', {id: item.id, message: message})
+                this.$store.commit(`${this.vuexNamespace}/setDelete`, {id: item.id, item: item.name})
             }
         }
     }

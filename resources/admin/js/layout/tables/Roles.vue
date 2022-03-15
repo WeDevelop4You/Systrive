@@ -1,12 +1,11 @@
 <template>
     <server-data-table
-        ref="server"
+        :item-route="routes.items"
         :custom-items="customItems"
-        :title="$vuetify.lang.t('$vuetify.word.roles')"
-        :headers="headers"
-        :route="route"
         :do-load-action="allowAction"
+        :header-route="routes.headers"
         :vuex-namespace="vuexNamespace"
+        :title="$vuetify.lang.t('$vuetify.word.roles')"
         searchable
     >
         <template #toolbar.prepend>
@@ -79,18 +78,11 @@
         },
 
         computed: {
-            route() {
-                return this.$api.route('company.roles', this.$store.getters['company/id']);
-            },
-
-            headers() {
-                return [
-                    {text: '#', value: 'index', align: 'start'},
-                    {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'name', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.total.permissions'), value: 'permissions_count', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.created_at'), value: 'created_at', sortable: true, divider: this.showActions()},
-                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: this.showActions() ? 'end' : ' d-none'},
-                ]
+            routes() {
+                return {
+                    items: this.$api.route('company.role.table.items', this.$store.getters['company/id']),
+                    headers: this.$api.route('company.role.table.headers', this.$store.getters['company/id']),
+                }
             },
 
             allowAction() {
@@ -104,16 +96,5 @@
                 permissions: [],
             });
         },
-
-        methods: {
-            showActions() {
-                const permissions = this.$config.permissions
-
-                return this.$auth.can([
-                    permissions.role.edit,
-                    permissions.role.delete,
-                ])
-            }
-        }
     }
 </script>

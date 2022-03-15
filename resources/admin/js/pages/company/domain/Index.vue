@@ -2,7 +2,7 @@
     <v-row>
         <v-col cols="8">
             <details-card
-                v-model="domain.list_details"
+                v-model="data.list_details"
                 :title="$vuetify.lang.t('$vuetify.details')"
             >
                 <template #edit>
@@ -125,7 +125,7 @@
             },
 
             ...mapGetters({
-                domain: 'company/system/domain/data',
+                data: 'company/system/domain/data',
                 chartData: 'company/system/domain/chartData'
             })
         },

@@ -17,7 +17,9 @@ export default {
         },
 
         deleteContent() {
-            return this.$store.getters[`${this.vuexNamespace}/deleteMessage`]
+            const item = this.$store.getters[`${this.vuexNamespace}/deleteItem`]
+
+            return this.$vuetify.lang.t('$vuetify.text.delete.delete', item)
         },
 
         isDeleted() {
@@ -33,14 +35,12 @@ export default {
     methods: {
         async destroy() {
             await this.$store.dispatch(`${this.vuexNamespace}/destroy`)
-
-            this.$refs.server.getData()
+            await this.$store.dispatch(`${this.vuexNamespace}/getMany`)
         },
 
         async forceDestroy() {
             await this.$store.dispatch(`${this.vuexNamespace}/forceDestroy`)
-
-            this.$refs.server.getData()
+            await this.$store.dispatch(`${this.vuexNamespace}/getMany`)
         }
     }
 }

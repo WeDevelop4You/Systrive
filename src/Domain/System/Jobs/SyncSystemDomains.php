@@ -6,7 +6,6 @@ use Domain\System\Mappings\SystemDomainTableMap;
 use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemDomain;
-use Domain\System\Models\SystemUsageStatistic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -38,52 +37,45 @@ class SyncSystemDomains extends AbstractVestaSync
     }
 
     /**
-     * @param Collection         $vesta
      * @param Model|SystemDomain $model
      *
      * @return bool
      */
-    protected function contains(Collection $vesta, SystemDomain|Model $model): bool
+    protected function contains(SystemDomain|Model $model): bool
     {
-        return $vesta->keys()->contains($model->name);
+        return $this->vesta->keys()->contains($model->name);
     }
 
     /**
-     * @param Collection         $vesta
      * @param Model|SystemDomain $model
      *
      * @return Collection
      */
-    protected function reject(Collection $vesta, SystemDomain|Model $model): Collection
+    protected function reject(SystemDomain|Model $model): Collection
     {
-        return $vesta;
+        return $this->vesta;
     }
 
     /**
-     * @param Collection $vesta
-     *
      * @return void
      */
-    protected function save(Collection $vesta): void
+    protected function save(): void
     {
         $domain = new SystemDomain();
 
-        $domains = $vesta->map(function (array $data, string $name) use ($domain) {
+        $domains = $this->vesta->map(function (array $data, string $name) use ($domain) {
             $domain->name = $name;
             $domain->system_id = $this->system->id;
 
             return $domain->attributesToArray();
         })->toArray();
 
-        SystemDomain::upsert(
-            $domains,
-            SystemDomainTableMap::NAME
-        );
+        SystemDomain::upsert($domains, SystemDomainTableMap::NAME);
 
         $this->system->load('domains');
 
-        $usage = $this->system->domains->map(function (SystemDomain $systemDomain) use ($vesta) {
-            $domain = $vesta->get($systemDomain->name);
+        $usage = $this->system->domains->map(function (SystemDomain $systemDomain) {
+            $domain = $this->vesta->get($systemDomain->name);
 
             $totalMonthUsages = $systemDomain->usageStatistics()
                 ->where(
@@ -106,17 +98,6 @@ class SyncSystemDomains extends AbstractVestaSync
             ];
         })->flatten(1)->toArray();
 
-        SystemUsageStatistic::upsert(
-            $usage,
-            [
-                SystemUsageStatisticTableMap::MODEL_ID,
-                SystemUsageStatisticTableMap::MODEL_TYPE,
-                SystemUsageStatisticTableMap::TYPE,
-                SystemUsageStatisticTableMap::DATE,
-            ],
-            [
-                SystemUsageStatisticTableMap::TOTAL,
-            ]
-        );
+        $this->upsertStatistics($usage);
     }
 }

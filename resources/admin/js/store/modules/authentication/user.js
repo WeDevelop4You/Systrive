@@ -13,7 +13,8 @@ export default {
             verified: false,
             emailVerifiedAt: '',
             isSecured: false,
-        }
+        },
+        isAuthenticated: false
     }),
 
     mutations: {
@@ -24,6 +25,7 @@ export default {
                 verified: user.email_verified_at !== null,
                 isSecured: user.is_secured
             }
+            state.isAuthenticated = true
         },
 
         isSecured(state, value = true) {
@@ -35,6 +37,10 @@ export default {
         data(state) {
             return state.data
         },
+
+        isAuthenticated(state) {
+            return state.isAuthenticated
+        }
     },
 
     actions: {

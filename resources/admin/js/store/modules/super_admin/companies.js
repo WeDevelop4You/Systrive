@@ -19,7 +19,7 @@ export default {
     getters: {
         owners(state) {
             return state.owners
-        }
+        },
     },
 
     actions: {

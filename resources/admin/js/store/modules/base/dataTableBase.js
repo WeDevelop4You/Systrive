@@ -1,11 +1,24 @@
+import Vue from "vue";
 import Router from '../../../plugins/routes'
+
+const app = Vue.prototype
 
 export default {
     state: () => ({
         data: {},
-        items: [],
         errors: {},
         structure: {},
+
+        items: [],
+        headers: [],
+        meta: {
+            total: -1,
+            params: {},
+            routes: {
+                items: '',
+                headers: '',
+            },
+        },
 
         isEditing: false,
         isDeleteModalOpen: false,
@@ -14,7 +27,7 @@ export default {
 
         delete: {
             id: null,
-            message: '',
+            item: '',
             deleted: false,
         },
 
@@ -30,11 +43,31 @@ export default {
     }),
 
     mutations: {
+        setRoutes(state, routes) {
+            state.meta.routes = routes
+        },
+
+        setItemRoute(state, route) {
+            state.meta.routes.items = route
+        },
+
+        setParams(state, params) {
+            state.meta.params = params
+        },
+
+        setHeaders(state, headers) {
+            state.headers = headers
+        },
+
         setItems(state, items) {
             state.items = items
         },
 
-        setDate(state, data) {
+        setTotal(state, total) {
+            state.meta.total = total
+        },
+
+        setData(state, data) {
             state.date = data
         },
 
@@ -84,18 +117,14 @@ export default {
             state.isOverviewModalOpen = true
         },
 
-        setDelete(state, {id, message = undefined, deleted = false}) {
+        setDelete(state, {id, itemName, deleted = false}) {
             state.delete = {
                 id: id,
-                message: message,
-                deleted: deleted
+                item: itemName,
+                deleted: deleted,
             }
 
             state.isDeleteModalOpen = true
-        },
-
-        resetErrors(state) {
-            state.errors = {}
         },
 
         async resetCreateOrEdit(state) {
@@ -113,18 +142,6 @@ export default {
             }, 300)
         },
 
-        resetDelete(state) {
-            state.isDeleteModalOpen = false
-
-            setTimeout(() => {
-                state.delete = {
-                    id: null,
-                    message: '',
-                    hideButton: false
-                }
-            }, 300)
-        },
-
         async resetOverview(state) {
             if (state.isActionsAllowed) {
                 await Router.replace({
@@ -133,6 +150,22 @@ export default {
             }
 
             state.isOverviewModalOpen = false
+        },
+
+        resetDelete(state) {
+            state.isDeleteModalOpen = false
+
+            setTimeout(() => {
+                state.delete = {
+                    id: null,
+                    item: '',
+                    deleted: false
+                }
+            }, 300)
+        },
+
+        resetErrors(state) {
+            state.errors = {}
         },
 
         useActions(state, allowed) {
@@ -153,8 +186,16 @@ export default {
             return state.data
         },
 
+        headers(state) {
+            return state.headers
+        },
+
         items(state) {
             return state.items
+        },
+
+        total(state) {
+            return state.meta.total
         },
 
         errors(state) {
@@ -177,8 +218,8 @@ export default {
             return state.isDeleteModalOpen
         },
 
-        deleteMessage(state) {
-            return state.delete.message
+        deleteItem(state) {
+            return state.delete.item
         },
 
         isDeleted(state) {
@@ -202,6 +243,32 @@ export default {
 
                 await Router.replace({name: route.name})
             }
+        },
+
+        getHeaders({state, commit}) {
+            app.$api.call({
+                url: state.meta.routes.headers,
+                method: "GET"
+            }).then((response) => {
+                commit('setHeaders', response.data)
+            })
+        },
+
+        getItems({state, commit}, route = undefined) {
+            if (route) {
+                commit('setItemRoute', route)
+            }
+
+            app.$api.call({
+                url: state.meta.routes.items,
+                method: "GET",
+                params: state.meta.params
+            }).then((response) => {
+                const data = response.data
+
+                commit('setItems', data.data)
+                commit('setTotal', data.meta.total)
+            })
         }
     }
 }

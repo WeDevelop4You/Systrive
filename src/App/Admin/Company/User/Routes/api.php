@@ -9,8 +9,12 @@
     use App\Admin\Company\User\Controllers\CompanyUserTableController;
 
     Route::prefix('{company}/users')->middleware('auth:sanctum')->group(function () {
-        Route::get('/', [CompanyUserTableController::class, 'index'])->name('company.users');
         Route::get('permissions', [CompanyUserPermissionController::class, 'index'])->name('company.user.permissions');
+
+        Route::prefix('table')->group(function () {
+            Route::get('items', [CompanyUserTableController::class, 'items'])->name('company.user.table.items');
+            Route::get('headers', [CompanyUserTableController::class, 'headers'])->name('company.user.table.headers');
+        });
 
         Route::prefix('invite')->group(function () {
             Route::post('/', [CompanyUserInviteController::class, 'action'])->name('company.user.invite');

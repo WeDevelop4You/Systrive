@@ -29,7 +29,7 @@
          */
         public function handle(): int
         {
-            $data = VestaAPIHelper::create()->getCommand(VestaCommands::TEST, 'WeDevelop4You', 'wedevelop4you.nl');
+            $data = VestaAPIHelper::create()->getCommand(VestaCommands::GET_USER_DATABASES, 'admin');
 
             dd($data);
 

@@ -23,8 +23,12 @@
         });
 
         Route::prefix('admin')->middleware('role:super_admin')->group(function () {
-            Route::get('table', [CompanyTableController::class, 'index'])->name('admin.companies');
             Route::post('/', [CompanyInviteController::class, 'action'])->name('admin.company.create');
+
+            Route::prefix('table')->group(function () {
+                Route::get('items', [CompanyTableController::class, 'items'])->name('admin.company.table.items');
+                Route::get('headers', [CompanyTableController::class, 'headers'])->name('admin.company.table.headers');
+            });
 
             Route::prefix('{company}')->group(function () {
                 Route::get('/', [CompanyEditController::class, 'index'])->name('admin.company.edit');

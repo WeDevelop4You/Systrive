@@ -1,10 +1,9 @@
 <template>
     <server-data-table
-        ref="server"
-        :route="route"
-        :headers="headers"
+        :item-route="routes.items"
         :custom-items="customItems"
         :do-load-action="allowAction"
+        :header-route="routes.headers"
         :vuex-namespace="vuexNamespace"
         :title="$vuetify.lang.t('$vuetify.word.user.access')"
         searchable
@@ -82,18 +81,11 @@
         },
 
         computed: {
-            route() {
-                return this.$api.route('company.users', this.$store.getters['company/id']);
-            },
-
-            headers() {
-                return [
-                    {text: '#', value: 'index', align: 'start'},
-                    {text: this.$vuetify.lang.t('$vuetify.word.name'), value: 'profile.full_name', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.email'), value: 'email', sortable: true},
-                    {text: this.$vuetify.lang.t('$vuetify.word.status'), value: 'status', sortable: true, divider: this.showActions()},
-                    {text: this.$vuetify.lang.t('$vuetify.word.actions'), value: 'actions', sortable: false, align: this.showActions() ? 'end' : ' d-none'},
-                ]
+            routes() {
+                return {
+                    items: this.$api.route('company.user.table.items', this.$store.getters['company/id']),
+                    headers: this.$api.route('company.user.table.headers', this.$store.getters['company/id']),
+                }
             },
 
             allowAction() {
@@ -114,17 +106,5 @@
                 permissions: [],
             });
         },
-
-        methods: {
-            showActions() {
-                const permissions = this.$config.permissions
-
-                return this.$auth.can([
-                    permissions.user.invite,
-                    permissions.user.revoke,
-                    permissions.user.editRoles,
-                ])
-            }
-        }
     }
 </script>

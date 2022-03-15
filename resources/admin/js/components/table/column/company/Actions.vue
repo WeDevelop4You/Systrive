@@ -70,7 +70,7 @@
 
         methods: {
             async resendInvite() {
-                await this.$store.dispatch('companies/resendInvite', this.item.id)
+                await this.$store.dispatch(`${this.vuexNamespace}/resendInvite`, this.item.id)
 
                 this.$emit('refresh')
             },
@@ -80,20 +80,19 @@
 
                 await this.$store.dispatch('company/getOne', id)
 
-                this.$store.commit('companies/setOverview', id)
+                this.$store.commit(`${this.vuexNamespace}/setOverview`, id)
             },
 
             async editItem() {
                 const id = this.item.id
 
-                await this.$store.dispatch('companies/getOne', id)
+                await this.$store.dispatch(`${this.vuexNamespace}/getOne`, id)
             },
 
             deleteItem() {
                 const item = this.item
-                const message = this.$vuetify.lang.t('$vuetify.text.delete.message.company', item.key)
 
-                this.$store.commit('companies/setDelete', {id: item.id, message: message})
+                this.$store.commit(`${this.vuexNamespace}/setDelete`, {id: item.id, item: item.name})
             }
         }
     }

@@ -2,50 +2,95 @@
 
     namespace Support\Helpers\Data\Build;
 
+    use Support\Enums\Vuetify\VuetifyTableAlignmentTypes;
     use Support\Traits\DatabaseEnumSearch;
 
     /**
-     * Class TableColumn.
-     *
-     * @property-read string $columnName
-     * @property-read $isSortable
-     * @property-read $sortCallback
-     * @property-read $isSearchable
-     * @property-read $isEnumSearch
-     * @property-read $searchCallback
+     * @property-read bool                       $hasDivider
+     * @property-read bool                       $isSortable
+     * @property-read bool                       $isSearchable
+     * @property-read bool                       $isEnumSearch
+     * @property-read VuetifyTableAlignmentTypes $alignment
      */
     class Column
     {
+        private $sortCallback = null;
+        private $searchCallback = null;
+
         /**
-         * @param string $columnName
+         * @param string $identifier
+         * @param string $text
          */
-        public function __construct(string $columnName)
-        {
+        private function __construct(
+            public readonly string $identifier,
+            public readonly string $text
+        ) {
+            $this->hasDivider = false;
             $this->isSortable = false;
             $this->isSearchable = false;
             $this->isEnumSearch = false;
-            $this->columnName = $columnName;
+
+            $this->alignment = VuetifyTableAlignmentTypes::START;
         }
 
         /**
-         * @param string $columnName
+         * @param string $identifier
+         * @param string $text
          *
          * @return Column
          */
-        public static function create(string $columnName): Column
+        public static function create(string $identifier, string $text): Column
         {
-            return new static($columnName);
+            return new static($identifier, $text);
         }
 
         /**
-         * @param $sortCallback
+         * @return Column
+         */
+        public static function index(): Column
+        {
+            return new static('index', '#');
+        }
+
+        /**
          *
          * @return Column
          */
-        public function sortable($sortCallback = null): Column
+        public static function id(): Column
+        {
+            $instance = new static('id', 'ID');
+            $instance->sortable()->sortable();
+
+            return $instance;
+        }
+
+        /**
+         * @return Column
+         */
+        public static function actions(): Column
+        {
+            $instance = new static('actions', trans('word.actions.actions'));
+            $instance->setAlignment(VuetifyTableAlignmentTypes::END);
+
+            return $instance;
+        }
+
+        public function setDivider(bool $value = true): Column
+        {
+            $this->hasDivider = $value;
+
+            return $this;
+        }
+
+        /**
+         * @param null $callback
+         *
+         * @return Column
+         */
+        public function sortable($callback = null): Column
         {
             $this->isSortable = true;
-            $this->sortCallback = $sortCallback;
+            $this->sortCallback = $callback;
 
             return $this;
         }
@@ -58,20 +103,27 @@
             return !is_null($this->sortCallback);
         }
 
+        public function getSortCallback()
+        {
+            return $this->sortCallback;
+        }
+
         /**
-         * @param $searchCallback
+         * @param $callback
          *
          * @return Column
          */
-        public function searchable($searchCallback = null): Column
+        public function searchable($callback = null): Column
         {
             $this->isSearchable = true;
-            $this->searchCallback = $searchCallback;
+            $this->searchCallback = $callback;
 
-            if (!is_null($searchCallback) && !is_callable($searchCallback) && is_string($searchCallback)) {
+            if (!is_null($callback) && !is_callable($callback) && is_string($callback)) {
                 $this->isEnumSearch = (
-                    enum_exists($searchCallback) &&
-                   in_array(DatabaseEnumSearch::class, class_uses_recursive($searchCallback))
+                    enum_exists($callback) && in_array(
+                    DatabaseEnumSearch::class,
+                    class_uses_recursive($callback)
+                )
                 );
             }
 
@@ -86,12 +138,19 @@
             return !is_null($this->searchCallback);
         }
 
-        /**
-         * @param $name
-         *
-         * @return mixed
-         */
-        public function __get($name): mixed
+        public function getSearchCallback()
+        {
+            return $this->searchCallback;
+        }
+
+        public function setAlignment(VuetifyTableAlignmentTypes $value): Column
+        {
+            $this->alignment = $value;
+
+            return $this;
+        }
+
+        public function __get(string $name)
         {
             return $this->$name;
         }

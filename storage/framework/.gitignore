@@ -3,7 +3,7 @@ config.php
 down
 events.scanned.php
 maintenance.php
-routes.php
-routes.scanned.php
+index.php
+index.scanned.php
 schedule-*
 services.json

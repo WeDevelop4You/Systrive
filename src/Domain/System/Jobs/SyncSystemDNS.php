@@ -36,37 +36,33 @@ class SyncSystemDNS extends AbstractVestaSync
     }
 
     /**
-     * @param Collection      $vesta
      * @param Model|SystemDNS $model
      *
      * @return bool
      */
-    protected function contains(Collection $vesta, SystemDNS|Model $model): bool
+    protected function contains(SystemDNS|Model $model): bool
     {
-        return $vesta->contains($model->domain);
+        return $this->vesta->contains($model->domain);
     }
 
     /**
-     * @param Collection      $vesta
      * @param Model|SystemDNS $model
      *
      * @return Collection
      */
-    protected function reject(Collection $vesta, SystemDNS|Model $model): Collection
+    protected function reject(SystemDNS|Model $model): Collection
     {
-        return $vesta->reject($model->domain);
+        return $this->vesta->reject($model->domain);
     }
 
     /**
-     * @param Collection $vesta
-     *
      * @return void
      */
-    protected function save(Collection $vesta): void
+    protected function save(): void
     {
         $dns = new SystemDNS();
 
-        $nameservers = $vesta->map(function (string $domainName) use ($dns) {
+        $nameservers = $this->vesta->map(function (string $domainName) use ($dns) {
             $dns->name = $domainName;
             $dns->system_id = $this->system->id;
 

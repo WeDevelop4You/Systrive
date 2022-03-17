@@ -27,30 +27,40 @@
                     />
                 </template>
                 <template v-else>
-                    <v-list-item
-                        v-for="(detail, index) in item.details"
-                        :key="detail.identifier"
-                        dense
+                    <v-row
+                        :key="key"
+                        no-gutters
                     >
-                        <v-list-item-content>
-                            <v-list-item-title v-text="detail.label" />
-                            <template v-if="detail.type !== 'Text'">
-                                <component
-                                    :is="detail.type"
-                                    v-model="detail.value"
-                                />
-                            </template>
-                            <template v-else>
-                                <slot
-                                    :name="`detail.${detail.identifier}`"
-                                    :index="index"
-                                    :value="detail.value"
-                                >
-                                    <v-list-item-subtitle v-text="detail.value || $vuetify.lang.t('$vuetify.word.no_content')" />
-                                </slot>
-                            </template>
-                        </v-list-item-content>
-                    </v-list-item>
+                        <v-col
+                            v-for="(detail, index) in item.details"
+                            :key="detail.identifier"
+                            :md="item.columns"
+                            cols="12"
+                        >
+                            <v-list-item
+                                dense
+                            >
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="detail.label" />
+                                    <template v-if="detail.type !== 'Text'">
+                                        <component
+                                            :is="detail.type"
+                                            v-model="detail.value"
+                                        />
+                                    </template>
+                                    <template v-else>
+                                        <slot
+                                            :name="`detail.${detail.identifier}`"
+                                            :index="index"
+                                            :value="detail.value"
+                                        >
+                                            <v-list-item-subtitle v-text="detail.value || $vuetify.lang.t('$vuetify.word.no_content')" />
+                                        </slot>
+                                    </template>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-col>
+                    </v-row>
                 </template>
             </template>
         </v-list>

@@ -26,10 +26,6 @@ export default {
     },
 
     getters: {
-        id(state) {
-            return state.id
-        },
-
         listDetails(state) {
             return state.listDetails
         },
@@ -49,8 +45,6 @@ export default {
                     items: app.$api.route('company.dns.record.table.items', system.companyId, system.systemId, data.id),
                     headers: app.$api.route('company.dns.record.table.headers', system.companyId, system.systemId, data.id)
                 })
-
-                console.log(state.dataTable.headers)
 
                 if (!state.dataTable.headers.length) {
                     dispatch('getHeaders')

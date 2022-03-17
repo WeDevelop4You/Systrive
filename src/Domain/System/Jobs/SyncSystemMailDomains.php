@@ -3,12 +3,14 @@
 namespace Domain\System\Jobs;
 
 use Domain\System\Mappings\SystemMailDomainTableMap;
+use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemMailDomain;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
+use Support\Helpers\SystemStatisticHelper;
 use Support\Helpers\Vesta\VestaAPIHelper;
 
 ;
@@ -32,7 +34,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
         $this->vesta = VestaAPIHelper::create()->getCommand(
             VestaCommands::GET_USER_MAIL_DOMAINS,
             $system->username
-        )->keys();
+        );
     }
 
     /**
@@ -42,7 +44,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
      */
     protected function contains(SystemMailDomain|Model $model): bool
     {
-        return $this->vesta->contains($model->name);
+        return $this->vesta->keys()->contains($model->name);
     }
 
     /**
@@ -52,7 +54,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
      */
     protected function reject(SystemMailDomain|Model $model): Collection
     {
-        return $this->vesta->reject($model->name);
+        return $this->vesta;
     }
 
     /**
@@ -62,15 +64,26 @@ class SyncSystemMailDomains extends AbstractVestaSync
     {
         $mailDomain = new SystemMailDomain();
 
-        $mailDomains = $this->vesta->map(function (string $domainName) use ($mailDomain) {
-            $mailDomain->name = $domainName;
+        $mailDomains = $this->vesta->map(function (array $data, string $name) use ($mailDomain) {
+            $mailDomain->name = $name;
             $mailDomain->system_id = $this->system->id;
 
             return $mailDomain->attributesToArray();
         })->toArray();
 
-        SystemMailDomain::upsert($mailDomains, [
-            SystemMailDomainTableMap::NAME,
-        ]);
+        SystemMailDomain::upsert($mailDomains, SystemMailDomainTableMap::NAME);
+
+        $this->system->load('mailDomains');
+
+        $usage = $this->system->mailDomains->map(function (SystemMailDomain $systemMailDomain) {
+            $mailDomain = $this->vesta->get($systemMailDomain->name);
+
+            return SystemStatisticHelper::create($systemMailDomain)
+                ->setType(SystemUsageStatisticTableMap::DISK_TYPE)
+                ->setTotal($mailDomain['U_DISK'])
+                ->toArray();
+        })->toArray();
+
+        $this->upsertStatistics($usage);
     }
 }

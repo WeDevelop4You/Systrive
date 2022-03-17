@@ -3,7 +3,9 @@
 namespace Domain\System\Models;
 
 use Domain\System\Mappings\SystemMailDomainTableMap;
+use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Domain\System\Models\SystemMailDomain.
@@ -32,4 +34,12 @@ class SystemMailDomain extends Model
         SystemMailDomainTableMap::NAME,
         SystemMailDomainTableMap::SYSTEM_ID,
     ];
+
+    /**
+     * @return MorphMany
+     */
+    public function usageStatistics(): MorphMany
+    {
+        return $this->morphMany(SystemUsageStatistic::class, SystemUsageStatisticTableMap::MODEL_MORPH);
+    }
 }

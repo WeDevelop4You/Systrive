@@ -24,7 +24,7 @@
          *
          * @return AnonymousResourceCollection
          */
-        public function items(string $environment): AnonymousResourceCollection
+        public function index(string $environment): AnonymousResourceCollection
         {
             return DataTable::query(TranslationKey::whereEnvironment($environment))
                 ->setColumns($this->getTableStructure())

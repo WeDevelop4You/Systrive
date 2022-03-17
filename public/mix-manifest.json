@@ -11,6 +11,8 @@
     "/js/admin/pages/company/dashboard.js": "/js/admin/pages/company/dashboard.js",
     "/js/admin/pages/company/domain/index.js": "/js/admin/pages/company/domain/index.js",
     "/js/admin/pages/company/dns/index.js": "/js/admin/pages/company/dns/index.js",
+    "/js/admin/pages/company/database/index.js": "/js/admin/pages/company/database/index.js",
+    "/js/admin/pages/company/mail_domain.js": "/js/admin/pages/company/mail_domain.js",
     "/js/admin/pages/company/admin/users.js": "/js/admin/pages/company/admin/users.js",
     "/js/admin/pages/company/admin/roles.js": "/js/admin/pages/company/admin/roles.js",
     "/js/admin/pages/account/settings/personal.js": "/js/admin/pages/account/settings/personal.js",

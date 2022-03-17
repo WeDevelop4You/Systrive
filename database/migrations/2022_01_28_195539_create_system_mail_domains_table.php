@@ -16,7 +16,7 @@ class CreateSystemMailDomainsTable extends Migration
         Schema::create('system_mail_domains', function (Blueprint $table) {
             $table->id();
             $table->foreignId('system_id')->constrained('system')->cascadeOnDelete();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

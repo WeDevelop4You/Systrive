@@ -2,8 +2,32 @@
 
     namespace Support\Abstracts;
 
+    use Carbon\CarbonPeriod;
+    use Illuminate\Support\Carbon;
+    use Illuminate\Support\Collection;
+
     abstract class AbstractChart
     {
+        /**
+         * @var int
+         */
+        protected int $period = 2;
+
+        /**
+         * @var Carbon
+         */
+        protected readonly Carbon $startDate;
+
+        /**
+         * @var Carbon
+         */
+        protected readonly Carbon $endDate;
+
+        /**
+         * @var Collection
+         */
+        protected readonly Collection $periodRange;
+
         /**
          * @var array
          */
@@ -22,9 +46,22 @@
         public static function create(...$attribute): array
         {
             $instance = new static(...$attribute);
+
+            $addDay = (int) Carbon::now()->lt(Carbon::today()->addHours(4));
+
+            $instance->endDate = Carbon::now()->subDays($addDay);
+            $instance->startDate = Carbon::now()->subWeeks(2)->subDays($addDay);
+            $instance->periodRange = Collection::make(
+                CarbonPeriod::create($instance->startDate, $instance->endDate)
+            )->map(function (Carbon $date) {
+                return $date->toDateString();
+            });
+
+            $instance->setLabels($instance->periodRange->toArray());
+
             $instance->handle();
 
-            return $instance->toArray();
+            return $instance->export();
         }
 
         /**
@@ -57,7 +94,7 @@
         /**
          * @return array
          */
-        private function toArray(): array
+        private function export(): array
         {
             return [
                 'labels' => $this->labels,

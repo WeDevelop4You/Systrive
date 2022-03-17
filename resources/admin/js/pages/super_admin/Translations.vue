@@ -177,7 +177,7 @@
         computed: {
             routes() {
                 return {
-                    headers: this.$api.route('admin.translation.table.headers'),
+                    headers: this.$api.route('admin.translation.table.headers', this.environment),
                     items: this.$api.route('admin.translation.table.items', this.environment),
                 }
             },

@@ -37,10 +37,11 @@ class ListDetailsHelper
 
     /**
      * @param array $items
+     * @param int   $columns
      *
      * @return $this
      */
-    public function addDetails(array $items): ListDetailsHelper
+    public function addDetails(array $items, int $columns = 1): ListDetailsHelper
     {
         $details = [];
 
@@ -52,7 +53,10 @@ class ListDetailsHelper
             }
         }
 
-        $this->items[] = ['details' => $details];
+        $this->items[] = [
+            'columns' => round(12 / $columns),
+            'details' => $details,
+        ];
 
         return $this;
     }

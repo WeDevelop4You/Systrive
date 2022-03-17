@@ -1,5 +1,7 @@
-import domain from "./domain";
 import dns from "./dns";
+import domain from "./domain";
+import database from "./database";
+import mailDomain from "./mail_domain";
 
 export default {
     namespaced: true,
@@ -7,5 +9,7 @@ export default {
     modules: {
         dns: dns,
         domain: domain,
+        database: database,
+        mailDomain: mailDomain,
     }
 }

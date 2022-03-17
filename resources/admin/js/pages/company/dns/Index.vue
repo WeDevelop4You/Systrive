@@ -40,8 +40,7 @@
     import DetailsCard from "../../../components/cards/DetailsCard";
     import CreateOrEditModal from "../../../components/modals/CreateOrEditModal";
     import LocaleDataTable from "../../../components/table/LocaleDataTable";
-    import Index from "../../../components/table/column/Index";
-    import Active from "../../../components/table/column/company/system/dns/Active";
+    import Active from "../../../components/table/column/company/system/Active";
     import Actions from "../../../components/table/column/company/system/dns/Actions";
 
     export default {
@@ -64,7 +63,6 @@
         data() {
             return {
                 customItems: [
-                    {name: 'index', component: Index},
                     {name: 'suspended', component: Active},
                     {name: 'actions', component: Actions},
                 ],

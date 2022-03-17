@@ -21,7 +21,7 @@
         /**
          * @return AnonymousResourceCollection
          */
-        public function items(): AnonymousResourceCollection
+        public function index(): AnonymousResourceCollection
         {
             return DataTable::query(User::withTrashed())
                 ->setColumns($this->getTableStructure())

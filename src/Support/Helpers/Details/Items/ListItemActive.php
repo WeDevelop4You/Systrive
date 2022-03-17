@@ -3,6 +3,7 @@
 namespace Support\Helpers\Details\Items;
 
 use Support\Abstracts\AbstractListItem;
+use Support\Helpers\Vesta\VestaHelper;
 
 class ListItemActive extends AbstractListItem
 {
@@ -11,19 +12,9 @@ class ListItemActive extends AbstractListItem
         return 'Active';
     }
 
-    public function setValue(mixed $value): static
+    public function setValue(mixed $value, bool $reversed = false): static
     {
-        if (in_array($value, ['yes', 'enabled'])) {
-            $value = [
-                'is_active' => true,
-                'content' => trans('word.active.active'),
-            ];
-        } else {
-            $value = [
-                'is_active' => false,
-                'content' => trans('word.inactive.inactive'),
-            ];
-        }
+        $value = VestaHelper::isActive($value, $reversed);
 
         return parent::setValue($value);
     }

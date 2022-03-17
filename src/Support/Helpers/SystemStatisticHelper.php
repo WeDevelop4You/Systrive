@@ -15,7 +15,7 @@
          *
          * @param Model $model
          */
-        public function __construct(Model $model)
+        private function __construct(Model $model)
         {
             $this->systemUsageStatistic = new SystemUsageStatistic();
             $this->systemUsageStatistic->date = Carbon::yesterday();

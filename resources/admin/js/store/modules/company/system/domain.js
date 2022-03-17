@@ -6,9 +6,9 @@ export default {
     namespaced: true,
 
     state: () => ({
-        data: {
-            list_details: [],
-        },
+        id: 0,
+        name: '',
+        listDetails: [],
         chartData: {
             data: {},
             labels: [],
@@ -17,7 +17,9 @@ export default {
 
     mutations: {
         setData(state, data) {
-            state.data = data
+            state.id = data.id
+            state.name = data.name
+            state.listDetails = data.list_details
         },
 
         setChartData(state, data) {
@@ -25,14 +27,14 @@ export default {
         },
 
         reset(state) {
-            state.data = {}
+            state.listDetails = []
             state.chartData.data = {}
         }
     },
 
     getters: {
-        data(state) {
-            return state.data
+        listDetails(state) {
+            return state.listDetails
         },
 
         chartData(state) {
@@ -56,7 +58,7 @@ export default {
             const system = app.$api.getCompanySystemIds()
 
             app.$api.call({
-                url: app.$api.route('company.domain.usage', system.companyId, system.systemId, state.data.id)
+                url: app.$api.route('company.domain.usage', system.companyId, system.systemId, state.id)
             }).then((response) => {
                 commit('setChartData', response.data.data)
             })

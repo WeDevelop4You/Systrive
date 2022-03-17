@@ -13,7 +13,6 @@
     use Illuminate\Support\Facades\Session;
     use Support\Enums\FormTypes;
     use Support\Enums\SessionKeyTypes;
-    use Support\Enums\Vuetify\VuetifyButtonTypes;
     use Support\Exceptions\InvalidTokenException;
     use Support\Helpers\Response\Action\Methods\RequestMethods;
     use Support\Helpers\Response\Popups\Components\Button;
@@ -40,11 +39,11 @@
                 $response->addPopup(
                     FormModal::create()
                         ->setFormComponent(FormTypes::COMPANY)
-                        ->setTitle(translateToVuetify('word.company.complete'))
+                        ->setTitle(trans('modal.company.complete'))
                         ->addButton(
                             Button::create()
                                 ->setTitle(trans('modal.cancel.cancel'))
-                                ->setType(VuetifyButtonTypes::TEXT)
+                                ->setType()
                                 ->setAction(
                                     RequestMethods::create()
                                         ->patch(route('admin.company.complete', [$company->id, $token]))

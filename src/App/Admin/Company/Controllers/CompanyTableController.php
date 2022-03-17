@@ -20,7 +20,7 @@
         /**
          * @return AnonymousResourceCollection
          */
-        public function items(): AnonymousResourceCollection
+        public function index(): AnonymousResourceCollection
         {
             return DataTable::query(Company::query())
                 ->setColumns($this->getTableStructure())

@@ -7,7 +7,7 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
     use Spatie\Permission\Models\Permission;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Response;
 
     class PermissionController
     {

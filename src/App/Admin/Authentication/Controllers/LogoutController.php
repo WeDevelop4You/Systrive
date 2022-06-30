@@ -8,7 +8,7 @@
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Response;
 
     class LogoutController
     {

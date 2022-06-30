@@ -16,6 +16,7 @@
             Schema::create('companies', function (Blueprint $table) {
                 $table->id();
                 $table->string('name');
+                $table->string('slug');
                 $table->string('email')->nullable();
                 $table->string('domain')->nullable();
                 $table->text('information')->nullable();

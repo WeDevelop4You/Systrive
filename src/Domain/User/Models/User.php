@@ -3,21 +3,31 @@
 namespace Domain\User\Models;
 
 use Database\Factories\UserFactory;
+use Domain\Company\Enums\CompanyUserStatusTypes;
+use Domain\Company\Mappings\CompanyUserTableMap;
 use Domain\Company\Models\Company;
+use Domain\Company\Models\CompanyUser;
+use Domain\Git\Models\GitAccount;
+use Domain\Role\Mappings\RoleTableMap;
 use Domain\User\Collections\UserCollections;
 use Domain\User\Mappings\UserTableMap;
-use Domain\User\Queries\UserQueries;
-use Domain\User\Queries\UserQueryBuilders;
+use Domain\User\Observers\UserUpdatingObserver;
+use Domain\User\QueryBuilders\UserQueryBuilders;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
+use Support\Traits\Observers;
 
 /**
  * Domain\User\Models\User.
@@ -32,8 +42,9 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
- * @property-read \Domain\Company\Models\CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
+ * @property-read CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
  * @property-read string|null $full_name
+ * @property-read GitAccount[]|\Illuminate\Database\Eloquent\Collection $gitAccounts
  * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Domain\User\Models\UserProfile|null $profile
@@ -62,9 +73,10 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User withoutTrashed()
  * @mixin Eloquent
  */
-class User extends UserQueries implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasRoles;
+    use Observers;
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
@@ -105,6 +117,107 @@ class User extends UserQueries implements MustVerifyEmail
     ];
 
     /**
+     * @var array|string[]
+     */
+    protected array $observers = [
+        UserUpdatingObserver::class,
+    ];
+
+    /**
+     * Get the user's preferred locale.
+     *
+     * @return string
+     */
+    public function preferredLocale(): string
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFullNameAttribute(): ?string
+    {
+        return $this->profile->full_name ?? null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole(RoleTableMap::ROLE_SUPER_ADMIN);
+    }
+
+    /**
+     * @param string ...$permissions
+     *
+     * @return bool
+     */
+    public function hasPermission(string ...$permissions): bool
+    {
+        return $this->isSuperAdmin() || $this->hasAnyPermission(...$permissions);
+    }
+
+    public function isNewUser(): bool
+    {
+        return is_null($this->password);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function profile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function security(): HasOne
+    {
+        return $this->hasOne(UserSecurity::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function gitAccounts(): HasMany
+    {
+        return $this->hasMany(GitAccount::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function companies(): BelongsToMany
+    {
+        return $this->belongsToMany(Company::class)
+            ->using(CompanyUser::class)
+            ->withPivot(CompanyUserTableMap::STATUS);
+    }
+
+    /**
+     * @param CompanyUserStatusTypes $status
+     *
+     * @return BelongsToMany
+     */
+    public function whereCompanyStatus(CompanyUserStatusTypes $status): BelongsToMany
+    {
+        return $this->companies()
+            ->wherePivot(CompanyUserTableMap::STATUS, $status->value);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function companyUser(): HasMany
+    {
+        return $this->hasMany(CompanyUser::class);
+    }
+
+    /**
      * @return UserFactory
      */
     protected static function newFactory(): UserFactory
@@ -130,15 +243,5 @@ class User extends UserQueries implements MustVerifyEmail
     public function newEloquentBuilder($query): UserQueryBuilders
     {
         return new UserQueryBuilders($query);
-    }
-
-    /**
-     * Get the user's preferred locale.
-     *
-     * @return string
-     */
-    public function preferredLocale(): string
-    {
-        return $this->locale;
     }
 }

@@ -15,6 +15,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Models filename
+    |--------------------------------------------------------------------------
+    |
+    | The default filename for the models helper file
+    |
+    */
+
+    'models_filename' => '_ide_helper_models.php',
+
+    /*
+    |--------------------------------------------------------------------------
     | Where to write the PhpStorm specific meta file
     |--------------------------------------------------------------------------
     |
@@ -267,7 +278,7 @@ return [
     | magic methods and properties.
     |
     */
-    'include_class_docblocks' => false,
+    'include_class_docblocks' => true,
 
     /*
     |--------------------------------------------------------------------------

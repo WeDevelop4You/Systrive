@@ -43,6 +43,10 @@ html {
     cursor: pointer;
 }
 
+.cursor-default {
+    cursor: default;
+}
+
 .translation .v-expansion-panel-content__wrap {
     padding: 0 8px 12px;
 }
@@ -61,4 +65,16 @@ html {
 
 .v-toolbar__content {
     gap: 0.375rem;
+}
+
+.v-skeleton-loader:not(.skeleton-round) > .v-skeleton-loader__bone {
+    border-radius: 0 !important;
+}
+
+.max-w-min-content {
+    max-width: min-content;
+}
+
+.no-active::before {
+    opacity: 0 !important;
 }

@@ -4,7 +4,15 @@
 
     enum FormTypes: string
     {
-        case COMPANY = 'Company';
-        case RECOVERY_CODE = 'RecoveryCode';
-        case ONE_TIME_PASSWORD = 'OneTimePassword';
+        case TESTING = '';
+        case COMPANY = 'CompanyForm';
+        case PASSWORD = 'PasswordForm';
+        case TRANSLATION = 'TranslationForm';
+        case COMPANY_USER = 'CompanyUserForm';
+        case COMPANY_ROLE = 'CompanyRoleForm';
+        case USER_PROFILE = 'UserProfileForm';
+        case RECOVERY_CODE = 'RecoveryCodeForm';
+        case COMPANY_COMPLETE = 'CompanyCompleteForm';
+        case ONE_TIME_PASSWORD = 'OneTimePasswordValidateForm';
+        case ONE_TIME_PASSWORD_ENABLE = 'OneTimePasswordEnableForm';
     }

@@ -64,7 +64,7 @@
                     if ($column->hasSortCallback()) {
                         App::call($column->getSortCallback(), ['query' => &$this->query, 'direction' => $direction]);
                     } else {
-                        $this->query->orderBy($identifier, $direction);
+                        $this->query->orderBy($column->getKey(), $direction);
                     }
                 }
             }

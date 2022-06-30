@@ -2,13 +2,24 @@
 
     namespace App\Admin\Translation\Controllers;
 
+    use App\Admin\Translation\Responses\TranslationDestroyResponse;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationDestroyController
     {
+        /**
+         * @param TranslationKey $translationKey
+         *
+         * @return JsonResponse
+         */
+        public function index(TranslationKey $translationKey): JsonResponse
+        {
+            return TranslationDestroyResponse::create($translationKey)->toJson();
+        }
+
         /**
          * @param TranslationKey $translationKey
          *
@@ -19,7 +30,7 @@
             $translationKey->delete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.deleted')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.deleted')))
                 ->toJson();
         }
     }

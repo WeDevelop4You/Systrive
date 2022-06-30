@@ -15,7 +15,7 @@
          */
         public function created(Permission $permission): void
         {
-            Role::where('name', RoleTableMap::MAIN_ROLE)->get()->each(function (Role $role) use ($permission) {
+            Role::where('name', RoleTableMap::ROLE_MAIN)->get()->each(function (Role $role) use ($permission) {
                 $role->givePermissionTo($permission);
             });
         }

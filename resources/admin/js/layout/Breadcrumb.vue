@@ -1,5 +1,5 @@
 <template>
-    <v-breadcrumbs :items="breadCrumbs">
+    <v-breadcrumbs :items="breadcrumbs">
         <template #item="{ item }">
             <v-breadcrumbs-item
                 :to="item.to"
@@ -17,14 +17,24 @@
     export default {
         name: "Breadcrumb",
 
-        computed: {
-            breadCrumbs() {
-                if (typeof this.$route.meta.breadCrumb === "function") {
-                    return this.$route.meta.breadCrumb.call(this, this.$route);
-                }
-
-                return this.$route.meta.breadCrumb;
+        data() {
+            return {
+                breadcrumbs: []
             }
-        }
+        },
+
+        watch: {
+            '$route.meta.breadcrumbs': {
+                handler(value) {
+                    if (typeof value === "function") {
+                        this.breadcrumbs = value.call(this, this.$route);
+                    } else {
+                        this.breadcrumbs = value
+                    }
+                },
+                deep: true,
+                immediate: true
+            }
+        },
     }
 </script>

@@ -3,7 +3,7 @@
 namespace App\Admin\Authentication\Controllers;
 
 use App\Admin\Authentication\Requests\ResetPasswordRequest;
-use Domain\User\Actions\UpdatePasswordAction;
+use Domain\User\Actions\UpdateUserPasswordAction;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,8 +11,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
 use function route;
-use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-use Support\Helpers\Response\Response;
+use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+use Support\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 use function trans;
 use function view;
@@ -45,7 +45,7 @@ class ResetPasswordController
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmed', 'token'),
             function ($user, $password) {
-                (new UpdatePasswordAction($user))($password);
+                (new UpdateUserPasswordAction($user))($password);
             }
         );
 
@@ -53,12 +53,12 @@ class ResetPasswordController
 
         if ($status === Password::PASSWORD_RESET) {
             Response::create()
-                ->addPopup(new SimpleNotification(trans($status)))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans($status)))
                 ->toSession();
 
             $response->addRedirect(route('admin.login'));
         } else {
-            $response->addPopup(new SimpleNotification(trans($status)))
+            $response->addPopup(SimpleNotificationComponent::create()->setText(trans($status)))
                 ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
         }
 

@@ -1,12 +1,12 @@
 <?php
 
-use App\Admin\System\Database\Controllers\CompanyDatabaseController;
-use App\Admin\System\Database\Controllers\CompanyDatabaseUsageController;
+use App\Admin\System\Database\Controllers\SystemDatabaseOverviewController;
+use App\Admin\System\Database\Controllers\SystemDatabaseUsageController;
 
-Route::middleware('auth:sanctum')->prefix('{company}/system/{system}/databases')->group(function () {
-    Route::get('{database:name}', [CompanyDatabaseController::class, 'index'])->name('company.database.search');
+Route::middleware('auth:sanctum')->prefix('{company}/{system}/databases')->scopeBindings()->group(function () {
+    Route::get('{database:name}/search', [SystemDatabaseOverviewController::class, 'index'])->name('system.database.search');
 
     Route::prefix('{database}')->group(function () {
-        Route::get('usage', [CompanyDatabaseUsageController::class, 'index'])->name('company.database.usage');
+        Route::get('usage', [SystemDatabaseUsageController::class, 'index'])->name('system.database.usage');
     });
 });

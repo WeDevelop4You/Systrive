@@ -2,7 +2,6 @@
 
     namespace Support\Abstracts;
 
-    use Domain\Role\Mappings\RoleTableMap;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Auth;
     use Support\Helpers\Data\Build\Column;
@@ -10,33 +9,29 @@
     abstract class AbstractTable
     {
         /**
-         * @var array|Column[]
-         */
-        protected array $structure = [];
-
-        /**
+         * @param mixed ...$arguments
+         *
          * @return static
          */
-        final public static function create(): static
+        final public static function create(...$arguments): static
         {
-            $instance = new static();
-            $instance->structure();
-
-            return $instance;
+            return new static(...$arguments);
         }
 
         final public function getHeaders(): array
         {
-            return $this->getColumns()->map(function (Column $column) {
-                return [
-                    'text' => $column->text,
-                    'value' => $column->identifier,
-                    'divider' => $column->hasDivider,
-                    'sortable' => $column->isSortable,
-                    'align' => $column->alignment->value,
-                    'filterable' => $column->isSearchable,
-                ];
-            })->toArray();
+            return $this->getColumns()
+                ->map(fn (Column $column) => $column->export())
+                ->toArray();
+        }
+
+        final public function getFormattedColumnNames(): array
+        {
+            return $this->getColumns()
+                ->filter(fn (Column $column) => $column->hasFormat)
+                ->map(fn (Column $column) => $column->identifier)
+                ->values()
+                ->toArray();
         }
 
         /**
@@ -44,7 +39,7 @@
          */
         final public function getColumns(): Collection
         {
-            return Collection::make($this->structure);
+            return Collection::make($this->handle());
         }
 
         /**
@@ -54,17 +49,11 @@
          */
         final protected function can(...$permissions): bool
         {
-            $user = Auth::user();
-
-            if ($user->hasRole(RoleTableMap::SUPER_ADMIN_ROLE)) {
-                return true;
-            }
-
-            return $user->hasAnyPermission($permissions);
+            return Auth::user()->hasPermission(...$permissions);
         }
 
         /**
-         * @return void
+         * @return array|Column[]
          */
-        abstract protected function structure(): void;
+        abstract protected function handle(): array;
     }

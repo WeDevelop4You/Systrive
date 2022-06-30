@@ -26,7 +26,7 @@ class LoginRequest extends FormRequest
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
             'one_time_password' => ['bail', 'sometimes', 'digits:6', new SecurityRule()],
-            'recovery_code' => ['bail', 'nullable', 'string', 'regex:/^([\d\w]{10})-([\d\w]{10})/', new SecurityRule()],
+            'recovery_code' => ['bail', 'sometimes', 'string', 'regex:/^([\d\w]{10})-([\d\w]{10})/', new SecurityRule()],
         ];
     }
 

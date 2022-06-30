@@ -62,21 +62,21 @@
             if ($searchableColumns->isNotEmpty()) {
                 $this->query->where(function (Relation|Builder $subQuery) use ($searchableColumns) {
                     $searchableColumns->each(function (Column $column) use ($subQuery) {
-                        $identifier = $column->identifier;
-                        $hasRelation = ColumnHelper::hasRelation($identifier);
-                        $selectedColumn = ColumnHelper::mapToSelected($identifier, $this->query);
+                        $key = $column->getKey();
+                        $hasRelation = ColumnHelper::hasRelation($key);
+                        $selectedColumn = ColumnHelper::mapToSelected($key, $this->query);
 
                         if ($column->hasSearchCallback()) {
                             $searchCallback = $column->getSearchCallback();
 
                             if ($column->isEnumSearch) {
                                 /** @var DatabaseEnumSearch $searchCallback */
-                                $subQuery->orWhereIn($identifier, $searchCallback::search($this->search));
+                                $subQuery->orWhereIn($key, $searchCallback::search($this->search));
                             } else {
                                 App::call($searchCallback, ['query' => &$subQuery, 'search' => $this->search]);
                             }
                         } elseif (!$hasRelation || $selectedColumn) {
-                            $whereColumn = $selectedColumn ?? $identifier;
+                            $whereColumn = $selectedColumn ?? $key;
 
                             if (!$hasRelation) {
                                 $whereColumn = Schema::hasColumn($this->query->getModel()->getTable(), $whereColumn) ? $this->query->getModel()->getTable() . '.' . $whereColumn : $whereColumn;
@@ -84,8 +84,8 @@
 
                             $subQuery->orWhere($whereColumn, 'like', "%{$this->search}%");
                         } else {
-                            $relationName = ColumnHelper::parseRelation($identifier);
-                            $fieldName = ColumnHelper::parseField($identifier);
+                            $relationName = ColumnHelper::parseRelation($key);
+                            $fieldName = ColumnHelper::parseField($key);
 
                             $subQuery->orWhereHas($relationName, function (Builder $hasQuery) use ($fieldName) {
                                 $hasQuery->where($fieldName, 'like', "%{$this->search}%");

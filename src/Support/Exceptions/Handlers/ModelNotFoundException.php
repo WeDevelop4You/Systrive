@@ -4,31 +4,39 @@
 
     use Exception;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Action\Methods\RouteMethods;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Illuminate\Http\Request;
+    use Illuminate\Support\Str;
+    use Support\Response\Actions\RouteAction;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class ModelNotFoundException extends Exception
     {
         /**
-         * @param $request
+         * @param Request $request
          *
          * @return false|JsonResponse
          */
-        public function render($request): bool|JsonResponse
+        public function render(Request $request): bool|JsonResponse
         {
             if ($request->is('api/*') && $request->routeIs('admin.*')) {
                 $response = new Response();
 
                 switch ($request->getMethod()) {
                     case 'DELETE':
-                        $response->addPopup(new SimpleNotification(trans('response.error.model.delete')));
+                        $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.delete')));
 
                         break;
+                    case 'GET':
+                        $lastRouteName = $request->header('X-Last-Route-Name', '');
+
+                        if (Str::startsWith($lastRouteName, ['company.'])) {
+                            $response->addAction(RouteAction::create()->goToDashboard());
+                        }
+                        // no break
                     default:
-                        $response->addPopup(new SimpleNotification(trans('response.error.model.not.found')))
-                            ->addAction(RouteMethods::create()->goToMainRoute());
+                        $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.not.found')));
                 }
 
                 return $response->setStatusCode(ResponseCodes::HTTP_NOT_FOUND)->toJson();

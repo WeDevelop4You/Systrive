@@ -5,6 +5,7 @@ namespace Support\Providers;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Support\Helpers\Application\ComponentConstructor;
 use Support\Helpers\Application\RouteConstructor;
@@ -21,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
+        }
+
+        if ($this->app->isProduction()) {
+            URL::forceScheme('https');
         }
 
         if (!Route::hasMacro('dataTable')) {

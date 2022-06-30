@@ -2,10 +2,8 @@
 
     namespace Domain\Invite\Observers;
 
-    use Domain\Company\Enums\CompanyStatusTypes;
-    use Domain\Company\Enums\CompanyUserStatusTypes;
-    use Domain\Invite\Actions\ChangeInviteStatusAction;
-    use Domain\Invite\Mappings\InviteTableMap;
+    use Domain\Company\states\CompanyExpiredState;
+    use Domain\Company\states\CompanyUserExpiredState;
     use Domain\Invite\Models\Invite;
 
     class InviteCreatedObserver
@@ -17,21 +15,7 @@
          */
         public function created(Invite $invite): void
         {
-            switch ($invite->type) {
-                case InviteTableMap::USER_TYPE:
-                    $oldStatus = CompanyUserStatusTypes::EXPIRED;
-                    $newStatus = CompanyUserStatusTypes::REQUESTED;
-
-                    break;
-                case InviteTableMap::COMPANY_TYPE:
-                    $oldStatus = CompanyStatusTypes::EXPIRED;
-                    $newStatus = CompanyStatusTypes::INVITED;
-
-                    break;
-                default:
-                    return;
-            }
-
-            (new ChangeInviteStatusAction($oldStatus, $newStatus))($invite);
+            $invite->type->getStatus($invite)
+                ->changeStateWhen(CompanyExpiredState::class, CompanyUserExpiredState::class);
         }
     }

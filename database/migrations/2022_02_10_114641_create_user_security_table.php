@@ -15,7 +15,7 @@ return new class () extends Migration {
         Schema::create('user_security', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('secret_key');
-            $table->text('recovery_keys');
+            $table->text('recovery_codes');
             $table->boolean('enabled')->default(0);
             $table->timestamps();
         });

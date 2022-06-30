@@ -32,7 +32,7 @@
                 CompanyUserTableMap::STATUS => CompanyUserStatusTypes::ACCEPTED->value,
             ]);
 
-            Invite::whereInviteByEmailAndCompany($this->user->email, $company->id)
+            Invite::whereInviteByUserAndCompany($this->user, $company)
                 ->whereUserType()
                 ->delete();
         }

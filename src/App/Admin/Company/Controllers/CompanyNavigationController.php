@@ -2,11 +2,9 @@
 
     namespace App\Admin\Company\Controllers;
 
-    use App\Admin\Company\Resources\CompanyNavigationResource;
-
+    use App\Admin\Company\Responses\CompanyNavigationResponse;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Response;
 
     class CompanyNavigationController
     {
@@ -17,12 +15,6 @@
          */
         public function index(Company $company): JsonResponse
         {
-            return Response::create()
-                ->addData(new CompanyNavigationResource(
-                    $company->system()
-                        ->with(['domains', 'dns', 'databases', 'mailDomains'])
-                        ->first()
-                ))
-                ->toJson();
+            return CompanyNavigationResponse::create($company)->toJson();
         }
     }

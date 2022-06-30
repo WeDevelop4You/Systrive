@@ -10,71 +10,87 @@
      * @property-read bool                       $isSortable
      * @property-read bool                       $isSearchable
      * @property-read bool                       $isEnumSearch
+     * @property-read bool                       $hasFormat
      * @property-read VuetifyTableAlignmentTypes $alignment
      */
     class Column
     {
         private $sortCallback = null;
         private $searchCallback = null;
+        private $formatCallback = null;
 
         /**
-         * @param string $identifier
-         * @param string $text
+         * Column constructor.
+         *
+         * @param string      $label
+         * @param string      $identifier
+         * @param string|null $key
          */
         private function __construct(
+            public readonly string $label,
             public readonly string $identifier,
-            public readonly string $text
+            public readonly ?string $key = null
         ) {
             $this->hasDivider = false;
             $this->isSortable = false;
             $this->isSearchable = false;
             $this->isEnumSearch = false;
+            $this->hasFormat = false;
 
             $this->alignment = VuetifyTableAlignmentTypes::START;
         }
 
         /**
-         * @param string $identifier
-         * @param string $text
+         * @param string      $label
+         * @param string      $identifier
+         * @param string|null $key
          *
          * @return Column
          */
-        public static function create(string $identifier, string $text): Column
+        public static function create(string $label, string $identifier, ?string $key = null): Column
         {
-            return new static($identifier, $text);
+            return new static($label, $identifier, $key);
         }
 
         /**
-         * @return Column
-         */
-        public static function index(): Column
-        {
-            return new static('index', '#');
-        }
-
-        /**
+         * @param string|null $key
          *
          * @return Column
          */
-        public static function id(): Column
+        public static function index(?string $key = null): Column
         {
-            $instance = new static('id', 'ID');
-            $instance->sortable()->sortable();
-
-            return $instance;
+            return static::create('#', 'index', $key)
+                ->setFormat(fn ($index) => $index);
         }
 
         /**
+         * @param string|null $key
+         *
          * @return Column
          */
-        public static function actions(): Column
+        public static function id(?string $key = null): Column
         {
-            $instance = new static('actions', trans('word.actions.actions'));
-            $instance->setAlignment(VuetifyTableAlignmentTypes::END);
-
-            return $instance;
+            return static::create('ID', 'id', $key)
+                ->setSortable()
+                ->setSearchable();
         }
 
+        /**
+         * @param string|null $key
+         *
+         * @return Column
+         */
+        public static function actions(?string $key = null): Column
+        {
+            return static::create(trans('word.actions.actions'), 'actions', $key)
+                ->setAlignment(VuetifyTableAlignmentTypes::END);
+        }
+
+        /**
+         * @param bool $value
+         *
+         * @return $this
+         */
         public function setDivider(bool $value = true): Column
         {
             $this->hasDivider = $value;
@@ -83,11 +99,11 @@
         }
 
         /**
-         * @param null $callback
+         * @param callable|null $callback
          *
          * @return Column
          */
-        public function sortable($callback = null): Column
+        public function setSortable(?callable $callback = null): Column
         {
             $this->isSortable = true;
             $this->sortCallback = $callback;
@@ -103,7 +119,10 @@
             return !is_null($this->sortCallback);
         }
 
-        public function getSortCallback()
+        /**
+         * @return callable|null
+         */
+        public function getSortCallback(): ?callable
         {
             return $this->sortCallback;
         }
@@ -113,7 +132,7 @@
          *
          * @return Column
          */
-        public function searchable($callback = null): Column
+        public function setSearchable($callback = null): Column
         {
             $this->isSearchable = true;
             $this->searchCallback = $callback;
@@ -138,11 +157,19 @@
             return !is_null($this->searchCallback);
         }
 
-        public function getSearchCallback()
+        /**
+         * @return callable|string|null
+         */
+        public function getSearchCallback(): callable|string|null
         {
             return $this->searchCallback;
         }
 
+        /**
+         * @param VuetifyTableAlignmentTypes $value
+         *
+         * @return $this
+         */
         public function setAlignment(VuetifyTableAlignmentTypes $value): Column
         {
             $this->alignment = $value;
@@ -150,8 +177,54 @@
             return $this;
         }
 
+        /**
+         * @param callable $callback
+         *
+         * @return $this
+         */
+        public function setFormat(callable $callback): Column
+        {
+            $this->hasFormat = true;
+            $this->formatCallback = $callback;
+
+            return $this;
+        }
+
+        public function getFormatCallback(): callable
+        {
+            return $this->formatCallback;
+        }
+
+        /**
+         * @return string
+         */
+        public function getKey(): string
+        {
+            return $this->key ?: $this->identifier;
+        }
+
+        /**
+         * @param string $name
+         *
+         * @return mixed
+         */
         public function __get(string $name)
         {
             return $this->$name;
+        }
+
+        /**
+         * @return array
+         */
+        public function export(): array
+        {
+            return [
+                'text' => $this->label,
+                'value' => $this->identifier,
+                'divider' => $this->hasDivider,
+                'sortable' => $this->isSortable,
+                'align' => $this->alignment->value,
+                'filterable' => $this->isSearchable,
+            ];
         }
     }

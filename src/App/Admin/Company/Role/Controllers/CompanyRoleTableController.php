@@ -3,16 +3,15 @@
     namespace App\Admin\Company\Role\Controllers;
 
     use App\Admin\Company\Role\DataTable\CompanyRoleTable;
-    use App\Admin\Company\Role\Resources\CompanyRoleDataResource;
     use Domain\Company\Models\Company;
-    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+    use Illuminate\Http\JsonResponse;
     use Support\Abstracts\AbstractTable;
-    use Support\Abstracts\AbstractTableController;
+    use Support\Abstracts\Controllers\AbstractTableController;
     use Support\Helpers\Data\Build\DataTable;
 
     class CompanyRoleTableController extends AbstractTableController
     {
-        protected function getTableStructure(): AbstractTable
+        protected function getDataTable(): AbstractTable
         {
             return CompanyRoleTable::create();
         }
@@ -20,12 +19,12 @@
         /**
          * @param Company $company
          *
-         * @return AnonymousResourceCollection
+         * @return JsonResponse
          */
-        public function items(Company $company): AnonymousResourceCollection
+        public function index(Company $company): JsonResponse
         {
-            return DataTable::query($company->roles()->withCount('permissions'))
-                ->setColumns($this->getTableStructure())
-                ->export(CompanyRoleDataResource::class);
+            return DataTable::create($this->getDataTable())
+                ->query($company->roles()->withCount('permissions'))
+                ->export();
         }
     }

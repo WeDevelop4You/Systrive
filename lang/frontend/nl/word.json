@@ -122,9 +122,9 @@
         },
         "usage": {
             "disk": "Schijfgebruik",
-            "bandwidth": "Bandbreedtegebruik"
+            "bandwidth": "Bandbreedtegebruik",
+            "usage": "Gebruikt"
         },
-        "usages": "Gebruik",
         "personal": {
             "data": "Persoonlijke gegevens"
         },

@@ -8,8 +8,8 @@
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Password;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use function trans;
     use function view;
 
@@ -35,7 +35,7 @@
             $response = new Response();
 
             if ($status === Password::RESET_LINK_SENT) {
-                $response->addPopup(new SimpleNotification(trans($status)));
+                $response->addPopup(SimpleNotificationComponent::create()->setText(trans($status)));
             } else {
                 $response->addErrors('email', [trans($status)]);
             }

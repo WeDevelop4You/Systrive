@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
 use Support\Helpers\SystemStatisticHelper;
-use Support\Helpers\Vesta\VestaAPIHelper;
+use Support\Services\Vesta;
 
 ;
 
@@ -31,7 +31,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
     {
         $this->system = $system;
         $this->database = $system->mailDomains;
-        $this->vesta = VestaAPIHelper::create()->getCommand(
+        $this->vesta = Vesta::api()->get(
             VestaCommands::GET_USER_MAIL_DOMAINS,
             $system->username
         );
@@ -79,7 +79,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
             $mailDomain = $this->vesta->get($systemMailDomain->name);
 
             return SystemStatisticHelper::create($systemMailDomain)
-                ->setType(SystemUsageStatisticTableMap::DISK_TYPE)
+                ->setType(SystemUsageStatisticTableMap::TYPE_DISK)
                 ->setTotal($mailDomain['U_DISK'])
                 ->toArray();
         })->toArray();

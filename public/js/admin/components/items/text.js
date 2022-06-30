@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk=self.webpackChunk||[]).push([[5680],{501:(e,n,s)=>{s.r(n),s.d(n,{default:()=>a});const l={name:"Badge",mixins:[s(5535).Z]};const a=(0,s(1900).Z)(l,(function(){var e=this,n=e.$createElement;return(e._self._c||n)("p",{class:e.value.data.classes},[e._v("\n    "+e._s(e.value.content.value)+"\n")])}),[],!1,null,null,null).exports}}]);

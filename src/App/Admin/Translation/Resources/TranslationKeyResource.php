@@ -5,6 +5,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Support\Collection;
+    use Support\Response\Components\Items\ItemGroupBadgesComponent;
     use WeDevelop4You\TranslationFinder\Models\Translation;
 
     class TranslationKeyResource extends JsonResource
@@ -16,12 +17,20 @@
          */
         public function toArray($request): array
         {
+            $tags = ItemGroupBadgesComponent::create()
+                ->convertArray(
+                    $this->tags
+                    ->map(fn (string $value) => ucfirst($value))
+                    ->toArray()
+                )
+                ->export();
+
             return [
                 'id' => $this->id,
                 'key' => $this->key,
                 'group' => $this->group,
                 'environment' => $this->environment,
-                'tags' => array_map('ucfirst', $this->tags->toArray()),
+                'tags' => $tags,
                 'sources' => $this->sources->pluck('source')->toArray(),
                 'translations' => $this->createLocalesList(),
             ];

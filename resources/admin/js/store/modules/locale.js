@@ -54,12 +54,13 @@ export default {
         },
 
         setLocale({commit}, locale) {
-            app.$api.getCsrfToken().then(() => {
-                app.$api.call({
+            commit('setLocale', locale)
+
+            return app.$api.getCsrfToken().then(() => {
+                return app.$api.call({
                     url: app.$api.route('locale.change', locale),
-                    method: "PUT"
-                }).then((response) => {
-                    commit('setLocale', response.data.data.locale)
+                    method: "PUT",
+                    disabled: true
                 })
             })
         }

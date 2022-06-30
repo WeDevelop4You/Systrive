@@ -7,49 +7,69 @@ export default {
     namespaced: true,
 
     state: () => ({
-        modal: {
-            data: {},
-            show: false
-        },
-        lastModalId: null,
+        modals: [],
         notifications: []
     }),
 
     mutations: {
-        setModal(state, data) {
-            state.lastModalId = state.lastModalId
-                ? state.modal.id
-                : data.id
-
-            state.modal = data
+        addModal(state, data) {
+            state.modals.push(data)
         },
 
-        addNotifications(state, data) {
+        addNotification(state, data) {
             state.notifications.push(data)
         },
 
-        removeNotifications(state, id) {
-            const index = state.notifications.findIndex(notification => notification.id === id)
+        removeAllModals(state) {
+            for (const [index] of state.modals) {
+                state.modals[index].show = false
 
-            if (index !== -1) {
-                state.notifications.splice(index, 1)
+                setTimeout(() => {
+                    state.modals.splice(0, 1)
+                }, 300)
             }
         },
 
-        closeModal(state) {
-            if (state.modal.id !== state.lastModalId) {
-                setTimeout(function () {
-                    state.modal.show = true
+        removeAllNotifications(state) {
+            for (const [index] of state.notifications) {
+                state.notifications[index].show = false
+
+                setTimeout(() => {
+                    state.modals.splice(0, 1)
                 }, 300)
             }
+        },
 
-            state.modal.show = false
-        }
+        removeModal(state, identifier) {
+            const index = identifier
+                ? state.modals.findIndex(modal => modal.identifier === identifier)
+                : 0
+
+            if (index !== -1) {
+                state.modals[index].show = false
+
+                setTimeout(() => {
+                    state.modals.splice(index, 1)
+                }, 300)
+            }
+        },
+
+        removeNotification(state, identifier) {
+            const index = state.notifications.findIndex(notification => notification.identifier === identifier)
+
+            if (index !== -1) {
+                state.notifications[index].show = false
+
+                setTimeout(() => {
+                    state.notifications.splice(index, 1)
+                }, 300)
+            }
+        },
     },
 
     getters: {
-        modal(state) {
-            return state.modal
+        modals(state) {
+            return state.modals
         },
 
         notifications(state) {
@@ -60,36 +80,41 @@ export default {
     actions: {
         addPopup({commit}, content) {
             const data = content.data
-            const type = content.type
 
-            if (type === 'notification') {
-                commit('addNotifications', content)
+            switch (data.type) {
+                case 'notification':
+                    commit('addNotification', content)
 
-                if (!data.stayable) {
-                    const displayTime = data.time || app.$config.notification.displayTime
+                    if (!data.stayable) {
+                        const displayTime = data.time || app.$config.notification.displayTime
 
-                    setTimeout(() => {
-                        commit('removeNotifications', content.id)
-                    }, displayTime);
-                }
-            } else if (type === 'modal') {
-                commit('setModal', content)
+                        setTimeout(() => {
+                            commit('removeNotification', content.identifier)
+                        }, displayTime);
+                    }
+
+                    break
+                case 'modal':
+                    commit('addModal', content)
+
+                    break
             }
         },
 
         addNotification({dispatch}, {message, type = 'error'}) {
-            dispatch(
-                'addPopup',
+            dispatch('addPopup',
                 {
-                    id: uuidGenerator(),
                     type: "notification",
+                    identifier: uuidGenerator(),
                     component: "SimpleNotification",
+                    attributes: {
+                        type: type,
+                    },
+                    content: {
+                        text: message
+                    },
                     data: {
                         stayable: false,
-                        message: {
-                            type: type,
-                            text: message
-                        }
                     }
                 },
             )

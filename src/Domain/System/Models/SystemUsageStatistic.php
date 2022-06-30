@@ -2,6 +2,7 @@
 
 namespace Domain\System\Models;
 
+use Domain\System\Enums\SystemUsageStatisticTypes;
 use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,13 +14,13 @@ use Illuminate\Support\Carbon;
 /**
  * Domain\System\Models\SystemUsageStatistic.
  *
- * @property string      $model_type
- * @property int         $model_id
- * @property string      $type
- * @property int         $total
- * @property string      $date
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property string                    $model_type
+ * @property int                       $model_id
+ * @property SystemUsageStatisticTypes $type
+ * @property int                       $total
+ * @property string                    $date
+ * @property Carbon|null               $created_at
+ * @property Carbon|null               $updated_at
  * @property-read \Eloquent|Model $statisticFrom
  *
  * @method static Builder|SystemUsageStatistic newModelQuery()
@@ -46,11 +47,15 @@ class SystemUsageStatistic extends Model
         SystemUsageStatisticTableMap::DATE,
     ];
 
+    protected $casts = [
+        SystemUsageStatisticTableMap::TYPE => SystemUsageStatisticTypes::class,
+    ];
+
     /**
      * @return MorphTo
      */
     public function statisticFrom(): MorphTo
     {
-        return $this->morphTo(SystemUsageStatisticTableMap::MODEL_MORPH);
+        return $this->morphTo(SystemUsageStatisticTableMap::MORPH_MODEL);
     }
 }

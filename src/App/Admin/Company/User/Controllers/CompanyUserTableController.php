@@ -3,16 +3,15 @@
     namespace App\Admin\Company\User\Controllers;
 
     use App\Admin\Company\User\DataTable\CompanyUserTable;
-    use App\Admin\Company\User\Resources\CompanyUserDataResource;
     use Domain\Company\Models\Company;
-    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+    use Illuminate\Http\JsonResponse;
     use Support\Abstracts\AbstractTable;
-    use Support\Abstracts\AbstractTableController;
+    use Support\Abstracts\Controllers\AbstractTableController;
     use Support\Helpers\Data\Build\DataTable;
 
     class CompanyUserTableController extends AbstractTableController
     {
-        protected function getTableStructure(): AbstractTable
+        protected function getDataTable(): AbstractTable
         {
             return CompanyUserTable::create();
         }
@@ -20,12 +19,12 @@
         /**
          * @param Company $company
          *
-         * @return AnonymousResourceCollection
+         * @return JsonResponse
          */
-        public function items(Company $company): AnonymousResourceCollection
+        public function index(Company $company): JsonResponse
         {
-            return DataTable::query($company->users()->withTrashed())
-                ->setColumns($this->getTableStructure())
-                ->export(CompanyUserDataResource::class);
+            return DataTable::create($this->getDataTable())
+                ->query($company->users()->withTrashed())
+                ->export();
         }
     }

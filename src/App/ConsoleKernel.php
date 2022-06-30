@@ -8,11 +8,10 @@
     use Domain\System\Jobs\SyncSystemDNS;
     use Domain\System\Jobs\SyncSystemDomains;
     use Domain\System\Jobs\SyncSystemMailDomains;
+    use Domain\System\Jobs\SyncSystemTemplates;
     use Domain\System\Models\System;
     use Illuminate\Console\Scheduling\Schedule;
     use Illuminate\Foundation\Console\Kernel;
-    use Illuminate\Support\Facades\Bus;
-    use Illuminate\Support\Facades\Log;
 
     class ConsoleKernel extends Kernel
     {
@@ -32,25 +31,19 @@
 
             $schedule->job(new SyncSystem())
                 ->then(function (Schedule $schedule) {
-                    System::all()->each(function (System $system) {
-                        Bus::chain([
-                            new SyncSystemDomains($system),
-                            new SyncSystemDNS($system),
-                            new SyncSystemDatabases($system),
-                            new SyncSystemMailDomains($system),
-                        ])->dispatch();
+                    $schedule->Job(new SyncSystemTemplates());
+
+                    System::all()->each(function (System $system) use ($schedule) {
+                        $schedule->job(new SyncSystemDomains($system));
+                        $schedule->job(new SyncSystemDNS($system));
+                        $schedule->job(new SyncSystemDatabases($system));
+                        $schedule->job(new SyncSystemMailDomains($system));
                     });
                 })
-                ->name('System user data')
+                ->name('System data')
                 ->dailyAt('3:00')
                 ->withoutOverlapping()
                 ->emailOutputOnFailure('pmhuberts@gmail.com');
-
-            if (env('TESTING', false)) {
-                $schedule->call(function () {
-                    Log::notice('Schedule is working');
-                })->everyMinute();
-            }
         }
 
         /**

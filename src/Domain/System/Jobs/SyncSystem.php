@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
-use Support\Helpers\Vesta\VestaAPIHelper;
+use Support\Services\Vesta;
 
 ;
 
@@ -25,7 +25,7 @@ class SyncSystem extends AbstractVestaSync
     protected function setup(): void
     {
         $this->database = System::all();
-        $this->vesta = VestaAPIHelper::create()->getCommand(
+        $this->vesta = Vesta::api()->get(
             VestaCommands::GET_SYSTEM_USERS
         );
     }

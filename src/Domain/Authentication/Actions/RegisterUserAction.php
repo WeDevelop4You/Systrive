@@ -6,9 +6,10 @@
     use Domain\Company\Models\Company;
     use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\Invite\DataTransferObject\InviteData;
-    use Domain\Invite\Mappings\InviteTableMap;
+    use Domain\Invite\Enums\InviteTypes;
     use Domain\Invite\Models\Invite;
-    use Domain\User\Actions\UpdatePasswordAction;
+    use Domain\User\Actions\UpdateUserPasswordAction;
+    use Domain\User\Actions\UpdateUserProfileAction;
     use Domain\User\DataTransferObjects\UserProfileData;
     use Domain\User\Models\User;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -18,8 +19,8 @@
     use function route;
     use Support\Enums\SessionKeyTypes;
     use Support\Exceptions\InvalidTokenException;
-    use Support\Helpers\Response\Action\Methods\RequestMethods;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Actions\RequestAction;
+    use Support\Response\Response;
 
     class RegisterUserAction
     {
@@ -52,14 +53,14 @@
          * @throws ModelNotFoundException
          */
         public function __construct(
-            private string $password,
+            private readonly string $password,
         ) {
-            $this->inviteData = new InviteData(...Response::getSessionData());
+            $this->inviteData = new InviteData(...Response::getSessionData(SessionKeyTypes::REGISTRATION));
 
             $this->invite = (new ValidateInviteTokenAction())($this->inviteData);
 
-            $this->company = Company::findOrFail($this->invite->company_id);
-            $this->user = User::withTrashed()->whereEmail($this->invite->email)->firstOrFail();
+            $this->user = $this->invite->user;
+            $this->company = $this->invite->company;
         }
 
         /**
@@ -71,15 +72,8 @@
          */
         public function __invoke(UserProfileData $userProfileData): void
         {
-            (new UpdatePasswordAction($this->user))($this->password);
-
-            $userProfile = $this->user->profile()->firstOrNew();
-            $userProfile->first_name = $userProfileData->first_name;
-            $userProfile->middle_name = $userProfileData->middle_name;
-            $userProfile->last_name = $userProfileData->last_name;
-            $userProfile->gender = $userProfileData->gender;
-            $userProfile->birth_date = $userProfileData->birth_date;
-            $userProfile->save();
+            (new UpdateUserProfileAction($this->user))($userProfileData);
+            (new UpdateUserPasswordAction($this->user))($this->password);
 
             $this->user->email_verified_at = Carbon::now();
             $this->user->restore();
@@ -99,15 +93,15 @@
         private function InviteTypeAction(): void
         {
             switch ($this->invite->type) {
-                case InviteTableMap::USER_TYPE:
+                case InviteTypes::USER:
                     (new UserInviteToCompanyAcceptedAction($this->user))($this->company);
 
                     break;
-                case InviteTableMap::COMPANY_TYPE:
+                case InviteTypes::COMPANY:
                     Response::create()
                         ->addAction(
-                            RequestMethods::create()
-                            ->get(route('admin.company.complete', [$this->invite->company_id, $this->inviteData->token]))
+                            RequestAction::create()
+                            ->get(route('admin.company.create', [$this->company->id, $this->inviteData->token]))
                         )
                         ->toSession(SessionKeyTypes::KEEP);
 

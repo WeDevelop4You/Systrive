@@ -8,6 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use ReflectionClass;
+use ReflectionException;
 use stdClass;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -31,6 +33,8 @@ class GenerateMapping extends Command
     /**
      * Execute the console command.
      *
+     * @throws ReflectionException
+     *
      * @return int
      */
     public function handle(): int
@@ -40,6 +44,9 @@ class GenerateMapping extends Command
         return 1;
     }
 
+    /**
+     * @throws ReflectionException
+     */
     private function getModelClasses(): void
     {
         $finder = new Finder();
@@ -68,49 +75,100 @@ class GenerateMapping extends Command
         });
     }
 
+    /**
+     * @throws ReflectionException
+     */
     private function createMappingData(string $class): void
     {
+        $namespace = Str::of($class)
+            ->before('\\Models')
+            ->append('\\Mappings');
+
+        $filename = Str::of($class)
+            ->afterLast('\\')
+            ->append('TableMap');
+
+        $path = Str::of($class)
+            ->replace('\\', '/')
+            ->before('/Models')
+            ->prepend(base_path() . '/src/')
+            ->append("/Mappings/{$filename}.php");
+
+        $mapping = new stdClass();
+        $mapping->path = $path;
+        $mapping->namespace = $namespace;
+        $mapping->fileName = $filename;
+        $mapping->constants = $this->getConstants($class);
+
+        $this->generateMapping($mapping);
+
+        $this->info("Generated model {$class} to {$namespace}/{$filename}");
+    }
+
+    /**
+     * @param string $class
+     *
+     * @throws ReflectionException
+     *
+     * @return array
+     */
+    private function getConstants(string $class): array
+    {
+        /** @var Model $model */
         $model = new $class();
+        $table = $model->getTable();
+        $columns = Schema::getColumnListing($table);
+        $extraConstants = config("mapping.{$class}", []);
 
-        $columns = Schema::getColumnListing($model->getTable());
+        $constants[0] = [
+            'table' => $table,
+        ];
 
-        if (!is_null($columns)) {
-            $constants = [];
-
-            foreach ($columns as $column) {
-                $constants[$column] = $column;
-            }
-
-            $namespace = Str::of($class)
-                ->before('\\Models')
-                ->append('\\Mappings');
-
-            $filename = Str::of($class)
-                ->afterLast('\\')
-                ->append('TableMap');
-
-            $path = Str::of($class)
-                ->replace('\\', '/')
-                ->before('/Models')
-                ->prepend(base_path() . '/src/')
-                ->append("/Mappings/{$filename}.php");
-
-            $mapping = new stdClass();
-            $mapping->path = $path;
-            $mapping->namespace = $namespace;
-            $mapping->fileName = $filename;
-            $mapping->constants[] = $constants;
-
-            $extraConstants = config("mapping.{$class}", []);
-
-            if (!is_null($extraConstants)) {
-                $mapping->constants = array_merge($mapping->constants, $extraConstants);
-            }
-
-            $this->generateMapping($mapping);
-
-            $this->info("Generated {$mapping->fileName} ({$mapping->namespace})");
+        foreach ($columns as $column) {
+            $constants[2][$column] = $column;
         }
+
+        foreach ($columns as $column) {
+            $constants['table'][$column] = "{$table}.{$column}";
+        }
+
+        $relationships = $this->getRelationshipFromModel($class);
+        foreach ($relationships as $relationship) {
+            $name = Str::snake($relationship);
+
+            $constants['relationship'][$name] = $relationship;
+        }
+
+        if (!is_null($extraConstants)) {
+            $constants = array_merge($constants, $extraConstants);
+        }
+
+        return $constants;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    private function getRelationshipFromModel(string $class): array
+    {
+        $reflector = new ReflectionClass($class);
+
+        return collect($reflector->getMethods())
+            ->filter(
+                fn ($method) =>
+                !empty($method->getReturnType()) &&
+                Str::contains(
+                    $method->getReturnType(),
+                    'Illuminate\Database\Eloquent\Relations'
+                ) &&
+                !Str::contains(
+                    $method->getName(),
+                    ['where'],
+                    true
+                )
+            )
+            ->pluck('name')
+            ->all();
     }
 
     private function generateMapping(object $mapping)
@@ -127,13 +185,13 @@ class GenerateMapping extends Command
         $data .= "\tclass {$mapping->fileName}\n";
         $data .= "\t{";
 
-        foreach ($mapping->constants as $suffix => $constants) {
+        foreach ($mapping->constants as $prefix => $constants) {
             $data .= "\n";
             foreach ($constants as $key => $value) {
                 $key = strtoupper($key);
 
-                if (is_string($suffix)) {
-                    $key = "{$key}_" . strtoupper($suffix);
+                if (is_string($prefix)) {
+                    $key = strtoupper($prefix) . "_{$key}";
                 }
 
                 $data .= "\t\tpublic const {$key} = '{$value}';\n";

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string                          $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Domain\System\Models\SystemUsageStatistic[]|\Illuminate\Database\Eloquent\Collection $usageStatistics
  *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain newQuery()
@@ -40,6 +41,6 @@ class SystemMailDomain extends Model
      */
     public function usageStatistics(): MorphMany
     {
-        return $this->morphMany(SystemUsageStatistic::class, SystemUsageStatisticTableMap::MODEL_MORPH);
+        return $this->morphMany(SystemUsageStatistic::class, SystemUsageStatisticTableMap::MORPH_MODEL);
     }
 }

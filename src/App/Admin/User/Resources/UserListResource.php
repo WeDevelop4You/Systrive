@@ -14,10 +14,15 @@
          */
         public function toArray($request): array
         {
+            $text = $this->email;
+
+            if (!is_null($this->full_name)) {
+                $text .= ", ({$this->full_name})";
+            }
+
             return [
-                'id' => $this->id,
-                'email' => $this->email,
-                'full_name' => $this->full_name,
+                'value' => $this->email,
+                'text' => $text,
             ];
         }
     }

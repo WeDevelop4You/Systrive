@@ -44,6 +44,6 @@
          */
         public function usageStatistics(): MorphMany
         {
-            return $this->morphMany(SystemUsageStatistic::class, SystemUsageStatisticTableMap::MODEL_MORPH);
+            return $this->morphMany(SystemUsageStatistic::class, SystemUsageStatisticTableMap::MORPH_MODEL);
         }
     }

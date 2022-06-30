@@ -3,15 +3,14 @@ import $store from '../../store'
 import Vuetify from '../vuetify'
 import VueRouter from 'vue-router';
 
-// routes
-import Company from "./company";
-import Settings from "./settings";
-import SuperAdmin from "./super_admin";
-
 Vue.use(VueRouter)
 
+// routes
+import Company from "./company";
+import SuperAdmin from "./super_admin";
+
 const $vuetify = Vuetify.framework
-const parent = {template: `<router-view></router-view>`}
+const $parent = {template: `<router-view></router-view>`}
 
 const routes = [
     {
@@ -21,7 +20,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "pages/dashboard" */ '../../pages/Dashboard'),
         meta: {
             isAuthenticatedPage: true,
-            breadCrumb: [
+            breadcrumbs: [
                 {
                     text: $vuetify.lang.t('$vuetify.word.dashboard'),
                 }
@@ -31,10 +30,10 @@ const routes = [
     {
         path: '/account',
         name: 'account',
-        component: () => import(/* webpackChunkName: "pages/account" */ '../../pages/account/Profile'),
+        component: () => import(/* webpackChunkName: "pages/account" */ '../../pages/Account/Profile'),
         meta: {
             isAuthenticatedPage: true,
-            breadCrumb: [
+            breadcrumbs: [
                 {
                     text: $vuetify.lang.t('$vuetify.word.dashboard'),
                     to: { name: 'dashboard' }
@@ -47,25 +46,46 @@ const routes = [
     },
     {
         path: '/s',
-        component: () => import(/* webpackChunkName: "pages/account/settings" */ '../../layout/base/settings/Account'),
-        redirect: {name: 'user.setting.personal'},
-        children: Settings,
+        component: $parent,
+        children: [
+            {
+                path: ':page(personal|security|git)',
+                name: 'account.settings',
+                component: () => import(/* webpackChunkName: "pages/account/settings" */ '../../pages/Account/Settings'),
+                meta: {
+                    isAuthenticatedPage: true,
+                    breadcrumbs: [
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.dashboard'),
+                            to: { name: 'dashboard' }
+                        },
+                        {
+                            text: $vuetify.lang.t('$vuetify.word.settings'),
+                        }
+                    ]
+                }
+            },
+            {
+                path: '*',
+                redirect: {name: 'account.settings', params: {page: 'personal'}},
+            }
+        ]
     },
     {
         path: '/sa',
-        component: parent,
+        component: $parent,
         redirect: {name: 'dashboard'},
         children: SuperAdmin
     },
     {
         path: '/c/:companyName',
-        component: parent,
+        component: $parent,
         redirect: {name: 'dashboard'},
         children: Company
     },
     {
         path: '*',
-        component: () => import(/* webpackChunkName: "pages/dashboard" */ '../../pages/Dashboard'),
+        redirect: {name: 'dashboard'},
     }
 ]
 
@@ -74,19 +94,37 @@ const router = new VueRouter({
     routes: routes
 })
 
-router.beforeEach(async (to, from, next) => {
-    if (to.meta.isAuthenticatedPage) {
-        const page = to.meta.page
+const startLocation = VueRouter.START_LOCATION
 
-        if (!page || page !== from.meta.page) {
+router.beforeEach(async (to, from, next) => {
+    const meta = to.meta
+    const isNotLoaded = (from === startLocation)
+
+    if (isNotLoaded) {
+        Vue.prototype.$lastRoute = startLocation
+
+        await $store.dispatch('locale/getOne')
+        await $store.dispatch('locale/getMany')
+    } else {
+        Vue.prototype.$lastRoute = from
+    }
+
+    if (meta.isAuthenticatedPage) {
+        const page = meta.page
+
+        if (isNotLoaded) {
+            await $store.dispatch('initialize')
+        }
+
+        if ((!page && isNotLoaded) || page !== from.meta.page) {
             switch (page) {
                 case 'company':
                     await $store.dispatch('company/search', to.params.companyName)
-                    await $store.dispatch('user/permissions/getCompany')
+                    await $store.dispatch('user/auth/permissions/getCompany')
                     break
                 default:
-                    await $store.dispatch('navigation/getCompanies')
-                    await $store.dispatch('user/permissions/getDefault')
+                    await $store.dispatch('navigation/main')
+                    await $store.dispatch('user/auth/permissions/getDefault')
                     break
             }
         }

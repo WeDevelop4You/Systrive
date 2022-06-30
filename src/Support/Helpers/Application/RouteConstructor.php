@@ -16,6 +16,11 @@
         private string $name;
 
         /**
+         * @var array
+         */
+        private array $ignorePlurals;
+
+        /**
          * @var Collection
          */
         private Collection $routeFiles;
@@ -25,6 +30,7 @@
             string $application
         ) {
             $this->name = "{$application}.";
+            $this->ignorePlurals = $routeConfig->get('ignore_plurals', []);
             $this->routeFiles = Collection::make($routeConfig->get('files'));
 
             $this->initialize();
@@ -84,16 +90,18 @@
             $prefixes = Arr::wrap($prefix);
             $maps = explode('/', $path);
 
-            $map = Arr::first($maps);
+            $map = strtolower(Arr::first($maps, null, ''));
 
-            if (!is_null($map) && !in_array($map, ['Routes', 'Authentication'])) {
-                $prefixes[] = Str::pluralStudly(strtolower($map));
+            if (!empty($map) && !in_array($map, ['routes', 'authentication'])) {
+                $count = in_array($map, $this->ignorePlurals) ? 1 : 2;
+
+                $prefixes[] = Str::plural($map, $count);
             }
 
             return implode('/', $prefixes);
         }
 
-        public static function createDataTableMacro()
+        public static function createDataTableMacro(): void
         {
             Route::macro('dataTable', function (string $controller, string $name, string $prefix = '') {
                 Route::prefix("{$prefix}/table")->group(function () use ($controller, $name) {

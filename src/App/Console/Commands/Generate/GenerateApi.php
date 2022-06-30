@@ -59,7 +59,7 @@ class GenerateApi extends Command
 
     private function findRoutes(): void
     {
-        $routeList = new Collection(RouteList::getRoutes());
+        $routeList = Collection::make(RouteList::getRoutes());
 
         $this->apiRoutes = $routeList->mapWithKeys(function (Route $route, int $index) {
             if (in_array('api', $route->getAction('middleware')) &&

@@ -6,7 +6,7 @@
     {
         public function __construct(
             public string $name,
-            public string $owner_email
+            public string $email
         ) {
             //
         }

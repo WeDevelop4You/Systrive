@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
 use Support\Helpers\SystemStatisticHelper;
-use Support\Helpers\Vesta\VestaAPIHelper;
+use Support\Services\Vesta;
 
 ;
 
@@ -31,7 +31,7 @@ class SyncSystemDatabases extends AbstractVestaSync
     {
         $this->system = $system;
         $this->database = $system->databases;
-        $this->vesta = VestaAPIHelper::create()->getCommand(
+        $this->vesta = Vesta::api()->get(
             VestaCommands::GET_USER_DATABASES,
             $system->username
         );
@@ -79,7 +79,7 @@ class SyncSystemDatabases extends AbstractVestaSync
             $database = $this->vesta->get($systemDatabase->name);
 
             return SystemStatisticHelper::create($systemDatabase)
-                ->setType(SystemUsageStatisticTableMap::DISK_TYPE)
+                ->setType(SystemUsageStatisticTableMap::TYPE_DISK)
                 ->setTotal($database['U_DISK'])
                 ->toArray();
         })->toArray();

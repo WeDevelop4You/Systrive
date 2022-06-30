@@ -13,12 +13,6 @@ export default {
                 displayTime: 1000 * 10,
             },
 
-            genders: [
-                {value: 'male', text: $vuetify.lang.t('$vuetify.word.male')},
-                {value: 'female', text: $vuetify.lang.t('$vuetify.word.female')},
-                {value: 'other', text: $vuetify.lang.t('$vuetify.word.other')},
-            ],
-
             permissions: {
                 ...$permissions,
 
@@ -28,5 +22,23 @@ export default {
                 ]
             }
         }
+
+        Vue.mixin({
+            computed: {
+                genders() {
+                    return [
+                        {value: 'male', text: $vuetify.lang.t('$vuetify.word.male')},
+                        {value: 'female', text: $vuetify.lang.t('$vuetify.word.female')},
+                        {value: 'other', text: $vuetify.lang.t('$vuetify.word.other')},
+                    ]
+                }
+            }
+        })
     }
 }
+
+export const STATE_NEW = 'new'
+export const STATE_EDIT = 'edit'
+export const STATE_SHOW = 'show'
+
+export const STATE_ALL = [STATE_NEW, STATE_EDIT, STATE_SHOW]

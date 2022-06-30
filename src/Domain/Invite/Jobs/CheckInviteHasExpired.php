@@ -2,12 +2,17 @@
 
     namespace Domain\Invite\Jobs;
 
+    use Domain\Company\Enums\CompanyStatusTypes;
     use Domain\Company\Enums\CompanyUserStatusTypes;
-    use Domain\Invite\Actions\ChangeInviteStatusAction;
+    use Domain\Company\Mappings\CompanyTableMap;
+    use Domain\Company\Mappings\CompanyUserTableMap;
+    use Domain\Company\states\CompanyInvitedState;
+    use Domain\Company\states\CompanyUserRequestedState;
+    use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
+    use Domain\User\Mappings\UserTableMap;
     use Illuminate\Bus\Queueable;
     use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Illuminate\Foundation\Bus\Dispatchable;
     use Illuminate\Queue\InteractsWithQueue;
     use Illuminate\Queue\SerializesModels;
@@ -26,18 +31,22 @@
          */
         public function handle(): void
         {
-            Invite::whereExpired()->whereUserType()
-                ->whereHas('company.users', function (Builder $query) {
-                    $query->whereColumn('users.email', 'invites.email')
-                        ->where('company_user.status', CompanyUserStatusTypes::REQUESTED)
+            $relationshipCompanyUsers = createRelationshipString(
+                InviteTableMap::RELATIONSHIP_COMPANY,
+                CompanyTableMap::RELATIONSHIP_USERS
+            );
+
+            Invite::whereExpired()
+                ->whereHas($relationshipCompanyUsers, function (Builder $query) {
+                    $query->whereColumn(UserTableMap::TABLE_ID, InviteTableMap::TABLE_USER_ID)
+                        ->where(CompanyUserTableMap::TABLE_STATUS, CompanyUserStatusTypes::REQUESTED)
                         ->withTrashed();
-                })->with([
-                    'company',
-                    'user' => function (BelongsTo $query) {
-                        $query->withTrashed();
-                    },
-                ])->get()->each(function (Invite $invite) {
-                    (new ChangeInviteStatusAction(CompanyUserStatusTypes::REQUESTED, CompanyUserStatusTypes::EXPIRED))($invite);
+                })->orWhereHas(InviteTableMap::RELATIONSHIP_COMPANY, function (Builder $query) {
+                    $query->whereColumn(CompanyTableMap::TABLE_ID, InviteTableMap::TABLE_COMPANY_ID)
+                        ->where(CompanyTableMap::TABLE_STATUS, CompanyStatusTypes::INVITED);
+                })->get()->each(function (Invite $invite) {
+                    $invite->type->getStatus($invite)
+                        ->changeStateWhen(CompanyInvitedState::class, CompanyUserRequestedState::class);
                 });
         }
     }

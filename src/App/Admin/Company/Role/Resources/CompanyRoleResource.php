@@ -17,7 +17,7 @@
             return [
                 'id' => $this->id,
                 'name' => $this->name,
-                'permissions' => $this->permissions()->pluck('id')->toArray(),
+                'permissions' => $this->permissions()?->pluck('id')->toArray() ?: [],
             ];
         }
     }

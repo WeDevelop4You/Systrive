@@ -4,6 +4,6 @@
 
     enum VuetifySizeTypes: string
     {
-        case SMALL = 's';
-        case X_SMALL = 'xs';
+        case SMALL = 'small';
+        case X_SMALL = 'x-small';
     }

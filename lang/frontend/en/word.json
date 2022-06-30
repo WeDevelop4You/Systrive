@@ -121,10 +121,10 @@
             "domains": "Mail domains"
         },
         "usage": {
-            "disk": "Disk usage",
-            "bandwidth": "Bandwidth usages"
+            "disk": "Disk usages",
+            "bandwidth": "Bandwidth usages",
+            "usage": "Usage"
         },
-        "usages": "Usages",
         "personal": {
             "data": "Personal data"
         },

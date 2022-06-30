@@ -4,7 +4,7 @@
 
     use Illuminate\Console\Command;
     use Support\Enums\VestaCommands;
-    use Support\Helpers\Vesta\VestaAPIHelper;
+    use Support\Services\Vesta;
 
     class VestaTesting extends Command
     {
@@ -29,7 +29,7 @@
          */
         public function handle(): int
         {
-            $data = VestaAPIHelper::create()->getCommand(VestaCommands::GET_USER_MAIL_DOMAIN, 'WeDevelop4You', 'wedevelop4you.nl');
+            $data = Vesta::api()->get(VestaCommands::GET_DNS_TEMPLATES);
 
             dd($data);
 

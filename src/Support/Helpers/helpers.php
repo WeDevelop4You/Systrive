@@ -1,17 +1,35 @@
 <?php
 
     use Spatie\Permission\PermissionRegistrar;
-    use Support\Helpers\VuetifyHelper;
 
-    if (!function_exists('translateToVuetify')) {
+    if (!function_exists('instanceofArray')) {
         /**
-         * @param string $translation
+         * @param       $needed
+         * @param array $classes
+         *
+         * @return bool
+         */
+        function instanceofArray($needed, array $classes): bool
+        {
+            foreach ($classes as $class) {
+                if ($needed instanceof $class) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    if (!function_exists('createRelationshipString')) {
+        /**
+         * @param mixed ...$relationships
          *
          * @return string
          */
-        function translateToVuetify(string $translation): string
+        function createRelationshipString(...$relationships): string
         {
-            return VuetifyHelper::translateToVuetify($translation);
+            return implode('.', $relationships);
         }
     }
 
@@ -21,7 +39,7 @@
          *
          * @return void
          */
-        function setCompanyId(int $id = 0)
+        function setCompanyId(int $id = 0): void
         {
             app(PermissionRegistrar::class)->setPermissionsTeamId($id);
         }
@@ -45,7 +63,7 @@
          *
          * @return string
          */
-        function prep_url($str = '')
+        function prep_url($str = ''): string
         {
             if ($str === 'http://' || $str === '') {
                 return '';

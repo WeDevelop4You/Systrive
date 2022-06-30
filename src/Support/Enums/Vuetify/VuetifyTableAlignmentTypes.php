@@ -4,7 +4,7 @@
 
     enum VuetifyTableAlignmentTypes: string
     {
+        case END = 'end';
         case START = 'start';
         case CENTER = 'center';
-        case END = 'end';
     }

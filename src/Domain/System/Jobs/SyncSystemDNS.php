@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
-use Support\Helpers\Vesta\VestaAPIHelper;
+use Support\Services\Vesta;
 
 ;
 
@@ -29,7 +29,7 @@ class SyncSystemDNS extends AbstractVestaSync
     {
         $this->system = $system;
         $this->database = $system->dns;
-        $this->vesta = VestaAPIHelper::create()->getCommand(
+        $this->vesta = Vesta::api()->get(
             VestaCommands::GET_USER_DNS_DOMAINS,
             $system->username
         )->keys();

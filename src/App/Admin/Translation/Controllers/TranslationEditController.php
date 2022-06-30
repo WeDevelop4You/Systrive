@@ -3,12 +3,11 @@
     namespace App\Admin\Translation\Controllers;
 
     use App\Admin\Translation\Requests\TranslationUpdateRequests;
-    use App\Admin\Translation\Resources\TranslationKeyResource;
-
+    use App\Admin\Translation\Responses\TranslationEditResponse;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationEditController
@@ -20,10 +19,7 @@
          */
         public function index(TranslationKey $translationKey): JsonResponse
         {
-            $response = Response::create();
-            $response->addData(TranslationKeyResource::make($translationKey));
-
-            return $response->toJson();
+            return TranslationEditResponse::create($translationKey)->toJson();
         }
 
         /**
@@ -53,7 +49,7 @@
                 });
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.saved')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))
                 ->toJson();
         }
     }

@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
 use Support\Helpers\SystemStatisticHelper;
-use Support\Helpers\Vesta\VestaAPIHelper;
+use Support\Services\Vesta;
 
 class SyncSystemDomains extends AbstractVestaSync
 {
@@ -30,7 +30,7 @@ class SyncSystemDomains extends AbstractVestaSync
     {
         $this->system = $system;
         $this->database = $system->domains;
-        $this->vesta = VestaAPIHelper::create()->getCommand(
+        $this->vesta = Vesta::api()->get(
             VestaCommands::GET_USER_DOMAINS,
             $system->username
         );
@@ -80,7 +80,7 @@ class SyncSystemDomains extends AbstractVestaSync
             $totalMonthUsages = $systemDomain->usageStatistics()
                 ->where(
                     SystemUsageStatisticTableMap::TYPE,
-                    SystemUsageStatisticTableMap::BANDWIDTH_TYPE
+                    SystemUsageStatisticTableMap::TYPE_BANDWIDTH
                 )->whereMonth(
                     SystemUsageStatisticTableMap::CREATED_AT,
                     Carbon::now()
@@ -88,11 +88,11 @@ class SyncSystemDomains extends AbstractVestaSync
 
             return [
                 SystemStatisticHelper::create($systemDomain)
-                    ->setType(SystemUsageStatisticTableMap::DISK_TYPE)
+                    ->setType(SystemUsageStatisticTableMap::TYPE_DISK)
                     ->setTotal($domain['U_DISK'])
                     ->toArray(),
                 SystemStatisticHelper::create($systemDomain)
-                    ->setType(SystemUsageStatisticTableMap::BANDWIDTH_TYPE)
+                    ->setType(SystemUsageStatisticTableMap::TYPE_BANDWIDTH)
                     ->setTotal($domain['U_BANDWIDTH'] - $totalMonthUsages)
                     ->toArray(),
             ];

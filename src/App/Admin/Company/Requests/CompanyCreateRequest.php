@@ -13,7 +13,14 @@
         {
             return [
                 'name' => ['required', 'unique:companies,name'],
-                'owner_email' => ['required', 'email'],
+                'email' => ['required', 'email'],
             ];
+        }
+
+        protected function prepareForValidation()
+        {
+            $this->merge([
+                'email' => $this?->owner,
+            ]);
         }
     }

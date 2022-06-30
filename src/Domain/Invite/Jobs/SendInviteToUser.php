@@ -4,7 +4,7 @@ namespace Domain\Invite\Jobs;
 
 use Domain\Company\Models\Company;
 use Domain\Invite\Actions\CreateInviteAction;
-use Domain\Invite\Mappings\InviteTableMap;
+use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Notifications\InviteNotification;
 use Domain\User\Models\User;
 use Illuminate\Bus\Queueable;
@@ -23,23 +23,16 @@ class SendInviteToUser
     use SerializesModels;
 
     /**
-     * @var User
-     */
-    private User $user;
-
-    /**
      * SendInviteEmailToUser constructor.
      *
-     * @param string|User $notifiable
-     * @param Company     $company
+     * @param User    $user
+     * @param Company $company
      */
     public function __construct(
-        User|string $notifiable,
-        private Company    $company,
+        private readonly User $user,
+        private readonly Company $company,
     ) {
-        $this->user = $notifiable instanceof User
-            ? $notifiable
-            : User::where('email', $notifiable)->firstOrFail();
+        //
     }
 
     /**
@@ -49,7 +42,7 @@ class SendInviteToUser
      */
     public function handle(): void
     {
-        $token = (new CreateInviteAction($this->user->email, InviteTableMap::USER_TYPE, $this->company))();
+        $token = (new CreateInviteAction($this->user, $this->company, InviteTypes::USER))();
 
         $url = route('admin.invite.link', [
             $this->company->id,

@@ -19,8 +19,8 @@
     use function route;
     use Support\Enums\SessionKeyTypes;
     use Support\Exceptions\InvalidTokenException;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
     use function trans;
     use function view;
@@ -34,14 +34,14 @@
         {
             if (Session::has(SessionKeyTypes::REGISTRATION->value)) {
                 try {
-                    $inviteData = new InviteData(...Response::getSessionData());
+                    $inviteData = new InviteData(...Response::getSessionData(SessionKeyTypes::REGISTRATION));
 
                     $invite = (new ValidateInviteTokenAction())($inviteData);
 
-                    return view('admin::pages.registration')->with('email', $invite->email);
+                    return view('admin::pages.registration')->with('email', $invite->user->email);
                 } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
                     Response::create()
-                        ->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+                        ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
                         ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
                         ->toSession();
                 }
@@ -72,7 +72,7 @@
                     (new RegisterUserAction($request->get('password')))($data);
 
                     Response::create()
-                        ->addPopup(new SimpleNotification(trans('response.success.registered.and.accepted')))
+                        ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.registered.and.accepted')))
                         ->toSession();
 
                     return $response->addRedirect(route('admin.dashboard'))->toJson();
@@ -81,7 +81,7 @@
                 }
             }
 
-            return $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+            return $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
                 ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
                 ->toJson();
         }

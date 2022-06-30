@@ -10,10 +10,14 @@
         "ext-json": "*",
         "bacon/bacon-qr-code": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
+        "graham-campbell/github": "^10.5",
+        "graham-campbell/gitlab": "^5.6",
         "guzzlehttp/guzzle": "^7.0.1",
         "hisorange/browser-detect": "^4.4.1",
+        "ihor/supervisor-xml-rpc": "^0.2.1",
         "laravel/framework": "^9.00",
         "laravel/sanctum": "^2.11",
+        "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "pragmarx/google2fa": "^8.0",
@@ -22,7 +26,6 @@
         "wedevelop4you/laravel-translation-finder": "dev-master"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.6",
         "barryvdh/laravel-ide-helper": "^2.10",
         "domain-driven-laravel/commands": "^0.3.2",
         "spatie/laravel-ignition": "^1.0",

@@ -6,5 +6,6 @@
     {
         case TEXT = 'text';
         case BLOCK = 'block';
-        case Outlined = 'outlined';
+        case DEFAULT = 'default';
+        case OUTLINED = 'outlined';
     }

@@ -25,9 +25,9 @@
                 try {
                     if ($companyUser->is_owner) {
                         $user->syncPermissions([]);
-                        $user->syncRoles(RoleTableMap::MAIN_ROLE);
+                        $user->syncRoles(RoleTableMap::ROLE_MAIN);
                     } else {
-                        $user->removeRole(RoleTableMap::MAIN_ROLE);
+                        $user->removeRole(RoleTableMap::ROLE_MAIN);
                     }
                 } catch (RoleDoesNotExist) {
                     return false;

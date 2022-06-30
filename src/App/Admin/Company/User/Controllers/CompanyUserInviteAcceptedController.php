@@ -12,12 +12,11 @@
     use Illuminate\Support\Facades\Session;
     use Support\Enums\SessionKeyTypes;
     use Support\Exceptions\InvalidTokenException;
-    use Support\Helpers\Response\Action\Methods\RequestMethods;
-    use Support\Helpers\Response\Action\Methods\VuexMethods;
-    use Support\Helpers\Response\Popups\Components\Button;
-    use Support\Helpers\Response\Popups\Modals\ConfirmModal;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Actions\RequestAction;
+    use Support\Response\Actions\VuexAction;
+    use Support\Response\Components\Popups\Modals\ConfirmModal;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
     class CompanyUserInviteAcceptedController
@@ -39,28 +38,21 @@
                     ConfirmModal::create()
                         ->setTitle(trans('modal.confirm.accepted.invite.company.title'))
                         ->setText(trans('modal.confirm.accepted.invite.company.text'))
-                        ->addButton(
-                            Button::create()
-                                ->setType()
-                                ->setTitle(trans('modal.cancel.cancel'))
-                                ->setAction(
-                                    RequestMethods::create()
-                                        ->delete(route('admin.session.delete', ['key' => SessionKeyTypes::KEEP->value]))
-                                )
-                        )->addButton(
-                            Button::create()
-                                ->setColor()
-                                ->setTitle(trans('modal.accept.accept'))
-                                ->setAction(
-                                    RequestMethods::create()
-                                        ->post(route('admin.company.user.invite.accepted', [$company->id, $token]))
-                                )
+                        ->addFooterCancelButton(
+                            action: RequestAction::create()
+                                ->forgetSessionKey(),
+                            closeModal: true
+                        )
+                        ->addFooterSubmitButton(
+                            action: RequestAction::create()
+                                ->post(route('admin.company.user.invite.accepted', [$company->id, $token])),
+                            closeModal: true
                         )
                 );
             } catch (ModelNotFoundException | InvalidTokenException) {
                 Session::forget(SessionKeyTypes::KEEP->value);
 
-                $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+                $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
             }
 
@@ -82,10 +74,10 @@
 
                 (new UserInviteToCompanyAcceptedAction(Auth::user()))($company);
 
-                $response->addPopup(new SimpleNotification(trans('response.success.company.invite.accepted')))
-                    ->addAction(VuexMethods::create()->dispatch('navigation/getCompanies'));
+                $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.company.invite.accepted')))
+                    ->addAction(VuexAction::create()->dispatch('navigation/getCompanies'));
             } catch (ModelNotFoundException | InvalidTokenException) {
-                $response->addPopup(new SimpleNotification(trans('response.error.invalid.token')))
+                $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
                     ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
             }
 

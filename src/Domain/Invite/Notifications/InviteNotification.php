@@ -18,9 +18,9 @@ class InviteNotification extends Notification implements ShouldQueue
      * @return void
      */
     public function __construct(
-        private string $url,
-        private string $name,
-        private string $subject
+        private readonly string $url,
+        private readonly string $name,
+        private readonly string $subject
     ) {
         //
     }
@@ -58,7 +58,6 @@ class InviteNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage())
             ->subject($this->subject)
-//            ->greeting(trans(''))
             ->line(trans('You are receiving this email because you are invited for :name.', ['name' => $this->name]))
             ->action(trans('Accept Request'), $this->url)
             ->line(trans('This link will expire in :count days.', ['count' => 7]))

@@ -3,12 +3,11 @@
     namespace App\Admin\Company\User\Controllers;
 
     use App\Admin\Company\User\Resources\CompanyUserPermissionsResource;
-    use App\Admin\User\Resources\UserRolesResource;
+    use App\Admin\User\Resources\UserRoleResource;
     use Domain\Company\Models\Company;
-    use Domain\Role\Mappings\RoleTableMap;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Response;
 
     class CompanyUserPermissionController
     {
@@ -22,8 +21,8 @@
             setCompanyId();
             $user = Auth::user();
 
-            if ($user->hasRole(RoleTableMap::SUPER_ADMIN_ROLE)) {
-                $data = UserRolesResource::make($user);
+            if ($user->isSuperAdmin()) {
+                $data = UserRoleResource::make($user);
             } else {
                 setCompanyId($company->id);
                 $data = CompanyUserPermissionsResource::make($user);

@@ -3,8 +3,6 @@
     namespace App\Admin\Company\Resources;
 
     use Domain\System\Models\SystemDatabase;
-    use Domain\System\Models\SystemDNS;
-    use Domain\System\Models\SystemDomain;
     use Domain\System\Models\SystemMailDomain;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,42 +21,10 @@
 
             return [
                 'name' => $request->company->name,
-                'domains' => $hasData ? $this->domains() : [],
                 'dns' => $hasData ? $this->dns() : [],
                 'databases' => $hasData ? $this->databases() : [],
                 'mail_domains' => $hasData ? $this->mailDomains() : [],
             ];
-        }
-
-        /**
-         * @return array
-         */
-        private function domains(): array
-        {
-            return $this->domains->map(function (SystemDomain $domain) {
-                return [
-                     'id' => $domain->id,
-                     'name' => $domain->name,
-                     'route' => [
-                         'name' => 'company.domain',
-                         'params' => ['domainName' => $domain->name],
-                     ],
-                 ];
-            })->toArray();
-        }
-
-        private function dns(): array
-        {
-            return $this->dns->map(function (SystemDNS $dns) {
-                return [
-                    'id' => $dns->id,
-                    'name' => $dns->name,
-                    'route' => [
-                        'name' => 'company.dns',
-                        'params' => ['domainNameServer' => $dns->name],
-                    ],
-                ];
-            })->toArray();
         }
 
         private function databases(): array

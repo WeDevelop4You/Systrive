@@ -4,8 +4,8 @@
 
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class UserDestroyForceController
     {
@@ -19,7 +19,7 @@
             $user->forceDelete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.deleted')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.deleted')))
                 ->toJson();
         }
     }

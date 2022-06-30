@@ -1,7 +1,7 @@
 {
-    "": "",
     "You are receiving this email because you are invited for :name.": "You are receiving this email because you are invited for :name.",
     "Accept Request": "Accept Request",
     "This link will expire in :count days.": "This link will expire in :count days.",
-    "If you don't want to join, no further action is required.": "If you don't want to join, no further action is required."
+    "If you don't want to join, no further action is required.": "If you don't want to join, no further action is required.",
+    "": ""
 }

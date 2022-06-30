@@ -50,7 +50,7 @@
             $addDay = (int) Carbon::now()->lt(Carbon::today()->addHours(4));
 
             $instance->endDate = Carbon::now()->subDays($addDay);
-            $instance->startDate = Carbon::now()->subWeeks(2)->subDays($addDay);
+            $instance->startDate = Carbon::now()->subWeeks($instance->period)->subDays($addDay);
             $instance->periodRange = Collection::make(
                 CarbonPeriod::create($instance->startDate, $instance->endDate)
             )->map(function (Carbon $date) {

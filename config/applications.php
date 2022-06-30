@@ -16,6 +16,9 @@
                         'middleware' => 'web',
                     ],
                 ],
+                'ignore_plurals' => [
+                    'git',
+                ],
             ],
 
             'api' => [

@@ -5,7 +5,7 @@
     use Illuminate\Foundation\Http\FormRequest;
     use Illuminate\Validation\Rule;
 
-    class TranslationUpdateRequests extends FormRequest
+    class TranslationUpdateRequest extends FormRequest
     {
         /**
          * @return array

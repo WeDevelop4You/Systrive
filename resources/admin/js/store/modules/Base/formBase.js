@@ -56,6 +56,10 @@ export default function (options = defaultOptions) {
                 state.status = 'ready'
             },
 
+            setEditing(state) {
+                state.isEditing = true
+            },
+
             resetForm(state) {
                 if (!options.disableLoader) {
                     app.$routeLoader.resetForm()

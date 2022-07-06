@@ -12,17 +12,17 @@
             :sort-desc.sync="sortDesc"
             :items-per-page.sync="itemsPerPage"
             :server-items-length="total"
-            :class="'elevation-' + $config.elevation"
+            :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !value.data.isFlat}"
             :footer-props="{
                 itemsPerPageOptions: itemsPerPageOptions
             }"
             multi-sort
             calculate-widths
-            class="rounded-lg v-sheet--outlined"
             @update:options="updateOptions"
         >
             <template #top>
                 <v-row
+                    v-if="value.content.title"
                     no-gutters
                     class="px-4 pt-3"
                 >

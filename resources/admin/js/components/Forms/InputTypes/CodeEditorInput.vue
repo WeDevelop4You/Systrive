@@ -1,7 +1,8 @@
 <template>
     <div
-        :class="{'v-input--is-focused primary--text': focused}"
-        class="v-text-field--outlined v-text-field theme--dark"
+        id="code_editor"
+        :class="[{'v-input--is-focused primary--text': focused}, $vuetify.theme.dark ? 'theme--dark' : 'theme--light']"
+        class="v-text-field--outlined v-text-field"
     >
         <div class="v-input__control">
             <div class="v-input__slot">
@@ -111,20 +112,20 @@
         left: -30px !important;
     }
 
-    .v-text-field {
+    #code_editor.v-text-field {
         margin-top: 0;
         padding-top: 0;
     }
 
-    .v-input__slot {
+    #code_editor .v-input__slot {
         margin-bottom: 0;
     }
 
-    .v-text-field--outlined {
+    #code_editor.v-text-field--outlined {
         margin-bottom: 0;
     }
 
-    .v-text-field--outlined fieldset {
+    #code_editor.v-text-field--outlined fieldset {
         top: -2px;
         padding-left: 0;
     }

@@ -27,8 +27,10 @@
         public const TABLE_UPDATED_AT = 'companies.updated_at';
 
         public const RELATIONSHIP_USERS = 'users';
+        public const RELATIONSHIP_OWNER = 'owner';
         public const RELATIONSHIP_ROLES = 'roles';
         public const RELATIONSHIP_INVITES = 'invites';
         public const RELATIONSHIP_COMPANY_USER = 'companyUser';
         public const RELATIONSHIP_SYSTEM = 'system';
+        public const RELATIONSHIP_SYSTEMS = 'systems';
     }

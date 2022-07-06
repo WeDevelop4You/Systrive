@@ -53,8 +53,11 @@
             return {
                 component: {},
                 route: this.value.data.route,
+                runLoader: this.value.data.runLoader,
                 vuexNamespace: this.value.data.vuexNamespace,
-                reload: this.value.data.reload,
+                callbackDelay: this.value.data.callbackDelay,
+                hasVuexNamespace: this.value.data.vuexNamespace !== undefined,
+                hasCallbackDelay: this.value.data.callbackDelay !== undefined,
             }
         },
 
@@ -73,19 +76,31 @@
         },
 
         created() {
+            this.$routeLoader.convertStringToRouteParams()
+
             if (this.route !== undefined) {
                 this.load()
             }
 
-            if (this.reload) {
+            if (this.hasCallbackDelay) {
                 this.interval = setInterval(() => {
                     this.load()
-                }, this.reload)
+                }, this.callbackDelay)
+            }
+
+            if (this.runLoader !== undefined) {
+                const vuexNamespace = typeof this.runLoader === 'string'
+                    ? this.runLoader
+                    : this.vuexNamespace
+
+                if (vuexNamespace !== undefined) {
+                    this.$routeLoader.runStateAction(vuexNamespace)
+                }
             }
         },
 
         beforeDestroy() {
-            if (this.reload) {
+            if (this.hasCallbackDelay) {
                 clearInterval(this.interval)
             }
         },

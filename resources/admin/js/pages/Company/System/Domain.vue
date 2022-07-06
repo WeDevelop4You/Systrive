@@ -36,6 +36,6 @@
             setup(domain) {
                 this.$store.dispatch('company/system/domain/search', domain)
             },
-        }
+        },
     }
 </script>

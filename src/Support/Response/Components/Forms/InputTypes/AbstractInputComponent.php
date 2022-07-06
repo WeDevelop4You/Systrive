@@ -13,6 +13,7 @@ abstract class AbstractInputComponent extends AbstractComponent
     {
         parent::__construct();
 
+        $this->setHideDetails('auto');
         $this->setAttribute('dense', true);
         $this->setAttribute('outlined', true);
     }

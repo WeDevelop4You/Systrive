@@ -6,6 +6,7 @@
         <v-hover v-slot="{hover}">
             <v-btn
                 v-bind="value.attributes"
+                :class="value.data.classes"
                 depressed
                 @click="callAction(value.data.action)"
                 v-on="tooltip"

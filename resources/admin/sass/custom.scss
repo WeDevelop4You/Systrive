@@ -23,6 +23,11 @@ html {
     gap: 0.75rem;
 }
 
+.flex-center-self {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .line-height-0 {
     line-height: 0 !important;
 }

@@ -44,6 +44,7 @@
                 ...LazyImportProperties
             }),
 
+            TextInput: () => import(/* webpackChunkName: "components/forms/inputs/text_input" */ '../Forms/InputTypes/TextInput'),
             SelectInput: () => import(/* webpackChunkName: "components/forms/inputs/select_input" */ '../Forms/InputTypes/SelectInput'),
             CodeEditorInput: () => import(/* webpackChunkName: "components/forms/inputs/code_editor_input" */ '../Forms/InputTypes/CodeEditorInput'),
         },

@@ -42,6 +42,7 @@ class CompanyShowResponse extends AbstractResponse
         if ($this->showPopup) {
             $response->addPopup(
                 ShowModal::create('companies')
+                    ->setFullscreen()
                     ->setTitle($this->company->name)
                     ->addComponent(
                         RowComponent::create()

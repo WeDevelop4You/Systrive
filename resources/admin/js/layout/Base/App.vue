@@ -77,7 +77,7 @@
             <v-container fluid>
                 <breadcrumb />
                 <div class="px-6">
-                    <router-view :key="$route.fullPath" />
+                    <router-view :key="$route.name" />
                 </div>
             </v-container>
             <popup />

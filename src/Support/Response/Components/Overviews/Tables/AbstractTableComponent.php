@@ -111,4 +111,12 @@ abstract class AbstractTableComponent extends AbstractComponent
     {
         return $this->setData('append', $component->export());
     }
+
+    /**
+     * @return AbstractTableComponent
+     */
+    public function setFlat(): AbstractTableComponent
+    {
+        return $this->setData('isFlat', true);
+    }
 }

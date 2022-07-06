@@ -6,6 +6,7 @@
         <v-btn
             v-bind="value.attributes"
             :disabled="$loading"
+            :class="value.data.classes"
             depressed
             @click="callAction(value.data.action)"
             v-on="tooltip"

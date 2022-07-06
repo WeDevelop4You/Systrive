@@ -2,6 +2,7 @@
 
 namespace Support\Response\Components\Layouts;
 
+use Support\Enums\Vuetify\VuetifyAlignSelfTypes;
 use Support\Response\Components\AbstractComponent;
 
 class ColComponent extends AbstractComponent
@@ -29,6 +30,16 @@ class ColComponent extends AbstractComponent
     public function setComponent(AbstractComponent $component): ColComponent
     {
         return $this->setData('component', $component->export());
+    }
+
+    /**
+     * @param VuetifyAlignSelfTypes $alignSelf
+     *
+     * @return ColComponent
+     */
+    public function setAlignSelf(VuetifyAlignSelfTypes $alignSelf): ColComponent
+    {
+        return $this->setAttribute('align-self', $alignSelf->value);
     }
 
     /**

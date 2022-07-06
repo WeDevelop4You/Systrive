@@ -86,20 +86,22 @@ export default [
         }
     },
     {
-        path: 'supervisor',
+        path: 'supervisor/:chapters*',
         name: 'admin.supervisor',
         component: () => import(/* webpackChunkName: "components/overviews/page" */ '../../components/Overviews/Page'),
         props: {
             value: {
                 data: {
-                    reload: 1000 * 60 * 10, // 10 minutes
+                    runLoader: 'supervisor',
                     vuexNamespace: 'supervisor/overview',
+                    callbackDelay: 1000 * 60 * 10, // 10 minutes
                     route: app.$api.route('admin.supervisor.overview'),
                 }
             }
         },
         meta: {
             isAuthenticatedPage: true,
+            allowedStates: STATE_ALL,
             breadcrumbs: [
                 {
                     text: $vuetify.lang.t('$vuetify.word.dashboard'),

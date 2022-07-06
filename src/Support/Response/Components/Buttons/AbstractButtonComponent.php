@@ -6,9 +6,12 @@ use Support\Enums\Vuetify\VuetifySizeTypes;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Components\AbstractComponent;
 use Support\Response\Components\Utils\TooltipComponent;
+use Support\Traits\ComponentWithClasses;
 
 abstract class AbstractButtonComponent extends AbstractComponent
 {
+    use ComponentWithClasses;
+
     protected function __construct()
     {
         parent::__construct();

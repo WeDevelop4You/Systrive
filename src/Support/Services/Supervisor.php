@@ -2,6 +2,9 @@
 
 namespace Support\Services;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Support\Facades\Storage;
 use Supervisor\Api;
 
 class Supervisor
@@ -32,6 +35,14 @@ class Supervisor
         $instance = new static();
 
         return $instance->api;
+    }
+
+    /**
+     * @return Filesystem|FilesystemAdapter
+     */
+    public static function file(): Filesystem|FilesystemAdapter
+    {
+        return Storage::disk('supervisor');
     }
 
     /**

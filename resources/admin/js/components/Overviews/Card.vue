@@ -60,6 +60,7 @@
     import ComponentProperties from "../../mixins/ComponentProperties";
     import ComponentError from "../ComponentError";
     import SkeletonList from "../../layout/Skeletons/SkeletonList";
+    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable";
 
     export default {
         name: "Card",
@@ -73,6 +74,13 @@
             List: () => ({
                 component: import(/* webpackChunkName: "components/overviews/list" */ './List'),
                 loading: SkeletonList,
+                delay: 0,
+                error: ComponentError,
+                timeout: 5000
+            }),
+            Table: () => ({
+                component: import(/* webpackChunkName: "components/overviews/table" */ '../Overviews/Table'),
+                loading: SkeletonDataTable,
                 delay: 0,
                 error: ComponentError,
                 timeout: 5000

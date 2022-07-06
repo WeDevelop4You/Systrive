@@ -26,27 +26,12 @@ class ShowModal extends AbstractModal
 
     protected function initializeModal(): void
     {
-        $this->modal
-            ->setPersistent()
-            ->setFullscreen()
-            ->setHideOverlay()
-            ->setNoClickAnimation()
-            ->setTransition(VuetifyTransitionTypes::MODAL_BOTTOM);
+        $this->modal->setPersistent();
     }
 
     protected function initializeCard(): void
     {
         $this->card
-            ->setLoadingBar()
-            ->setRounded(false)
-            ->setOutlined(false)
-            ->addAdditionalBodyClass('my-5')
-            ->setColor(
-                VuetifyColors::theme(VuetifyColors::DARK_BACKGROUND, VuetifyColors::NONE)
-            )
-            ->setHeaderColor(
-                VuetifyColors::theme(VuetifyColors::DARK_HEADER, VuetifyColors::LIGHT_HEADER)
-            )
             ->setHeaderButton(
                 MultipleButtonComponent::create()
                     ->addButton(
@@ -71,6 +56,44 @@ class ShowModal extends AbstractModal
     public function setTitle(string $title): ShowModal
     {
         $this->card->setTitle($title);
+
+        return $this;
+    }
+
+    /**
+     * @return ShowModal
+     */
+    public function setFullscreen(): ShowModal
+    {
+        $this->modal
+            ->setFullscreen()
+            ->setHideOverlay()
+            ->setNoClickAnimation()
+            ->setTransition(VuetifyTransitionTypes::MODAL_BOTTOM);
+
+        $this->card
+            ->setLoadingBar()
+            ->setRounded(false)
+            ->setOutlined(false)
+            ->addAdditionalBodyClass('my-5')
+            ->setColor(
+                VuetifyColors::theme(VuetifyColors::DARK_BACKGROUND, VuetifyColors::NONE)
+            )
+            ->setHeaderColor(
+                VuetifyColors::theme(VuetifyColors::DARK_HEADER, VuetifyColors::LIGHT_HEADER)
+            );
+
+        return $this;
+    }
+
+    /**
+     * @param int $width
+     *
+     * @return ShowModal
+     */
+    public function setWidth(int $width): ShowModal
+    {
+        $this->modal->setWidth($width);
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
     namespace App\Admin\Translation\Controllers;
 
-    use App\Admin\Translation\Requests\TranslationUpdateRequests;
+    use App\Admin\Translation\Requests\TranslationUpdateRequest;
     use App\Admin\Translation\Responses\TranslationEditResponse;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
@@ -23,12 +23,12 @@
         }
 
         /**
-         * @param TranslationUpdateRequests $request
-         * @param TranslationKey            $translationKey
+         * @param TranslationUpdateRequest $request
+         * @param TranslationKey           $translationKey
          *
          * @return JsonResponse
          */
-        public function action(TranslationUpdateRequests $request, TranslationKey $translationKey): JsonResponse
+        public function action(TranslationUpdateRequest $request, TranslationKey $translationKey): JsonResponse
         {
             $validated = (object) $request->validated();
 

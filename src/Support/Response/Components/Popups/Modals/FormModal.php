@@ -163,7 +163,9 @@ class FormModal extends AbstractModal
         if ($this->hasVuexNamespace()) {
             $chainActions->setActions([
                 VuexAction::create()->commit("{$this->vuexNamespace}/resetForm"),
-                VuexAction::create()->refreshTable($this->vuexNamespace),
+
+// TODO Fix this
+//                VuexAction::create()->refreshTable($this->vuexNamespace),
             ]);
         }
 

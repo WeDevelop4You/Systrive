@@ -62,7 +62,7 @@ export default {
                 const chaptersString = currentRoute.params.chapters
                 const allowedStates = currentRoute.meta.allowedStates || []
 
-                if (chaptersString !== undefined) {
+                if (chaptersString !== undefined && !Array.isArray(chaptersString)) {
                     const parameters = chaptersString.split('/')
                     const length = parameters.length
 

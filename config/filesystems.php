@@ -53,6 +53,10 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'supervisor' => [
+            'driver' => 'local',
+            'root' => env('SUPERVISOR_PATH', storage_path('app/supervisor')),
+        ],
     ],
 
     /*

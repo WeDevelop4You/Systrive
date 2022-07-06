@@ -30,7 +30,7 @@ export default {
                 url: app.$api.route('system.domain.search', identifiers.company, identifiers.system, domain),
                 method: "GET"
             }).then((response) => {
-                commit('data', response.data.data)
+                commit('setData', response.data.data)
                 commit('overview/setComponent', response.data.component)
             })
         },

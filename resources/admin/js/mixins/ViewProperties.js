@@ -24,8 +24,6 @@ export default {
     methods: {
         load() {
             this.overview.data.route = this.getRoute()
-
-            this.$routeLoader.convertStringToRouteParams()
         }
     }
 }

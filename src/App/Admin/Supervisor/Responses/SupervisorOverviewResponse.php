@@ -50,7 +50,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                                     ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PLAY))
                                     ->setAction(
                                         RequestAction::create()
-                                            ->post(route('admin.admin.supervisor.start'))
+                                            ->post(route('admin.admin.supervisor.process.start'))
                                             ->setOnSuccess($this->getOverviewAction())
                                     )
                                     ->setTooltip(
@@ -62,7 +62,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                                     ->setIcon(IconComponent::create()->setType(IconTypes::FAS_STOP))
                                     ->setAction(
                                         RequestAction::create()
-                                            ->post(route('admin.admin.supervisor.stop'))
+                                            ->post(route('admin.admin.supervisor.process.stop'))
                                             ->setOnSuccess($this->getOverviewAction())
                                     )
                                     ->setTooltip(
@@ -71,7 +71,18 @@ class SupervisorOverviewResponse extends AbstractResponse
                                             ->setText(trans('word.supervisor.stop.all'))
                                     ),
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_COG)),
+                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_COG))
+                                    ->setAction(
+                                        VuexAction::create()->dispatch(
+                                            'supervisor/show',
+                                            route('admin.admin.supervisor.show')
+                                        )
+                                    )
+                                    ->setTooltip(
+                                        TooltipComponent::create()
+                                            ->setTop()
+                                            ->setText(trans('word.settings'))
+                                    ),
                             ])
                     )
             );
@@ -100,19 +111,6 @@ class SupervisorOverviewResponse extends AbstractResponse
             ->setHeaderButton(
                 MultipleButtonComponent::create()
                     ->setButtons($this->createActions($process))
-                    ->addButton(
-                        IconButtonComponent::create()
-                            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
-                            ->setAction(
-                                RequestAction::create()
-                                    ->get(route('admin.admin.supervisor.process.edit'))
-                            )
-                            ->setTooltip(
-                                TooltipComponent::create()
-                                    ->setTop()
-                                    ->setText(trans('word.edit.edit'))
-                            )
-                    )
             )
             ->addBody(
                 ListComponent::create()->addItems($this->createList($process))
@@ -178,7 +176,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                     ->setIcon(IconComponent::create()->setType(IconTypes::FAS_SYNC))
                     ->setAction(
                         RequestAction::create()
-                            ->post(route('admin.admin.supervisor.restart', [
+                            ->post(route('admin.admin.supervisor.process.restart', [
                                 $process->name,
                             ]))
                             ->setOnSuccess($this->getOverviewAction())
@@ -192,7 +190,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                     ->setIcon(IconComponent::create()->setType(IconTypes::FAS_STOP))
                     ->setAction(
                         RequestAction::create()
-                            ->post(route('admin.admin.supervisor.stop', [
+                            ->post(route('admin.admin.supervisor.process.stop', [
                                 $process->name,
                             ]))
                             ->setOnSuccess($this->getOverviewAction())
@@ -210,7 +208,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                 ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PLAY))
                 ->setAction(
                     RequestAction::create()
-                        ->post(route('admin.admin.supervisor.start', [
+                        ->post(route('admin.admin.supervisor.process.start', [
                             $process->name,
                         ]))
                         ->setOnSuccess($this->getOverviewAction())

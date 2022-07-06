@@ -49,6 +49,7 @@ export default {
         return {
             search: '',
             sortBy: [],
+            elevation: `elevation-${this.$config.elevation}`,
         }
     },
 

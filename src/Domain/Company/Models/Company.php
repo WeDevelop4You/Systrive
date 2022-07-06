@@ -37,12 +37,14 @@
      * @property CompanyStatusTypes $status
      * @property Carbon|null        $created_at
      * @property Carbon|null        $updated_at
-     * @property-read Collection|CompanyUser[] $companyUser
-     * @property-read Collection|Invite[]      $invites
-     * @property-read Collection|Role[]        $roles
-     * @property-read System|null              $system
-     * @property-read User[]|UserCollections   $users
-     * @property-read User[]|UserCollections   $whereOwner
+     * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
+     * @property-read Collection|Invite[] $invites
+     * @property-read User|null $owner
+     * @property-read Collection|Role[] $roles
+     * @property-read System|null $system
+     * @property-read System|null $systems
+     * @property-read User[]|UserCollections $users
+     * @property-read User[]|UserCollections $whereOwner
      *
      * @method static CompanyCollections|static[] all($columns = ['*'])
      * @method static CompanyCollections|static[] get($columns = ['*'])
@@ -58,7 +60,7 @@
      * @method static CompanyQueryBuilders|Company whereSlug($value)
      * @method static CompanyQueryBuilders|Company whereStatus($value)
      * @method static CompanyQueryBuilders|Company whereUpdatedAt($value)
-     * @method static CompanyQueryBuilders|Company whereUser(User $user)
+     * @method static CompanyQueryBuilders|Company whereUser(\Domain\User\Models\User $user)
      * @mixin Eloquent
      */
     class Company extends Model

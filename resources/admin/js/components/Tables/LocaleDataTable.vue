@@ -14,11 +14,11 @@
             }"
             multi-sort
             calculate-widths
-            :class="'elevation-' + $config.elevation"
-            class="rounded-lg v-sheet--outlined"
+            :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !value.data.isFlat}"
         >
             <template #top>
                 <v-row
+                    v-if="value.content.title"
                     no-gutters
                     class="px-4 pt-3"
                 >
@@ -29,9 +29,17 @@
                     color="transparent"
                     class="px-4"
                 >
-                    <slot name="toolbar.prepend" />
+                    <component
+                        :is="value.data.prepend.componentName"
+                        v-if="value.data.prepend"
+                        :value="value.data.prepend"
+                    />
                     <v-spacer />
-                    <slot name="toolbar.append" />
+                    <component
+                        :is="value.data.append.componentName"
+                        v-if="value.data.append"
+                        :value="value.data.append"
+                    />
                     <v-text-field
                         v-if="searchable"
                         v-model="search"

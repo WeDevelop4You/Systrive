@@ -5,7 +5,9 @@ const app = Vue.prototype
 export default {
     mutations: {
         setShow(_, id) {
-            app.$routeLoader.setShow({id})
+            const parameters = id ? {id} : {}
+
+            app.$routeLoader.setShow(parameters)
         },
 
         resetShow() {

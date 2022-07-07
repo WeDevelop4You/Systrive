@@ -52,8 +52,6 @@ export default {
                 method: "GET"
             }).then((response) => {
                 commit('form/setEdit', response.data.data)
-
-                return Promise.reject()
             })
         },
 
@@ -64,6 +62,8 @@ export default {
                 data: getters['form/data']
             }).catch((errors) => {
                 commit('form/setErrors', errors.response.data.errors || {})
+
+                return Promise.reject()
             })
         },
 

@@ -49,7 +49,9 @@ class SaveSupervisorProcessAction
                 $output = ShellCommand::execute('supervisorctl reread');
 
                 if ($output->startsWith('ERROR: ')) {
-                    throw new ShellCommandFailedException($output);
+                    throw new ShellCommandFailedException(
+                        $output->before(' (file:')->afterLast(': ')
+                    );
                 }
             } catch (ShellCommandFailedException $e) {
                 SupervisorService::file()->put($this->supervisor->filename, $rollback);

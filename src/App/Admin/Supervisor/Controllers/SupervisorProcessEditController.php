@@ -27,9 +27,10 @@ class SupervisorProcessEditController
 
     /**
      * @param SupervisorProcessRequest $request
-     * @param Supervisor $supervisor
+     * @param Supervisor               $supervisor
      *
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function action(SupervisorProcessRequest $request, Supervisor $supervisor): JsonResponse

@@ -2,6 +2,7 @@
 
 use App\Admin\Supervisor\Controllers\SupervisorOverviewController;
 use App\Admin\Supervisor\Controllers\SupervisorProcessCreateController;
+use App\Admin\Supervisor\Controllers\SupervisorProcessDestroyController;
 use App\Admin\Supervisor\Controllers\SupervisorProcessEditController;
 use App\Admin\Supervisor\Controllers\SupervisorRestartController;
 use App\Admin\Supervisor\Controllers\SupervisorShowController;
@@ -28,6 +29,11 @@ Route::middleware('auth:sanctum')->middleware('role:super_admin')->group(functio
             Route::prefix('edit')->controller(SupervisorProcessEditController::class)->group(function () {
                 Route::get('/', 'index')->name('admin.supervisor.process.edit');
                 Route::patch('/', 'action')->name('admin.supervisor.process.edit');
+            });
+
+            Route::prefix('delete')->controller(SupervisorProcessDestroyController::class)->group(function () {
+                Route::get('/', 'index')->name('admin.supervisor.process.destroy');
+                Route::delete('/', 'action')->name('admin.supervisor.process.destroy');
             });
         });
     });

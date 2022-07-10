@@ -51,6 +51,7 @@
     "/js/admin/layout/forms/popup/recovery_code_form.js": "/js/admin/layout/forms/popup/recovery_code_form.js",
     "/js/admin/layout/forms/company/company_user_form.js": "/js/admin/layout/forms/company/company_user_form.js",
     "/js/admin/layout/forms/company/company_role_form.js": "/js/admin/layout/forms/company/company_role_form.js",
+    "/js/admin/layout/forms/company/system/domain_form.js": "/js/admin/layout/forms/company/system/domain_form.js",
     "/js/admin/layout/forms/popup/company_complete_form.js": "/js/admin/layout/forms/popup/company_complete_form.js",
     "/js/admin/layout/forms/popup/one_time_password_form.js": "/js/admin/layout/forms/popup/one_time_password_form.js",
     "/js/admin/layout/forms/one_time_password_form.js": "/js/admin/layout/forms/one_time_password_form.js",

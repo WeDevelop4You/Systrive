@@ -42,7 +42,7 @@ class SyncSystemDNS extends AbstractVestaSync
      */
     protected function contains(SystemDNS|Model $model): bool
     {
-        return $this->vesta->contains($model->domain);
+        return $this->vesta->contains($model->name);
     }
 
     /**
@@ -52,7 +52,7 @@ class SyncSystemDNS extends AbstractVestaSync
      */
     protected function reject(SystemDNS|Model $model): Collection
     {
-        return $this->vesta->reject($model->domain);
+        return $this->vesta->reject($model->name);
     }
 
     /**

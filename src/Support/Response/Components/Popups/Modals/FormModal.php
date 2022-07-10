@@ -18,11 +18,6 @@ use Support\Response\Components\Icons\IconComponent;
 class FormModal extends AbstractModal
 {
     /**
-     * @var string|null
-     */
-    private ?string $vuexNamespace;
-
-    /**
      * @var MultipleButtonComponent|null
      */
     private ?MultipleButtonComponent $footerButtons = null;
@@ -30,10 +25,11 @@ class FormModal extends AbstractModal
     /**
      * FormModal constructor.
      */
-    protected function __construct(string $vuexNamespace)
-    {
-        $this->vuexNamespace = $vuexNamespace;
-
+    protected function __construct(
+        private readonly ?string $vuexNamespace = null,
+        private readonly ?string $dataTableVuexNamespace = null,
+        private readonly bool $withoutDataTableRefresh = false
+    ) {
         parent::__construct();
     }
 
@@ -161,12 +157,13 @@ class FormModal extends AbstractModal
             ->addAction(PopupModalAction::create()->close($this->modal->getIdentifier()));
 
         if ($this->hasVuexNamespace()) {
-            $chainActions->setActions([
-                VuexAction::create()->commit("{$this->vuexNamespace}/resetForm"),
-
-// TODO Fix this
-//                VuexAction::create()->refreshTable($this->vuexNamespace),
-            ]);
+            $chainActions->addAction(
+                VuexAction::create()->commit("{$this->vuexNamespace}/resetForm")
+            )
+            ->addActionIf(
+                !$this->withoutDataTableRefresh,
+                VuexAction::create()->refreshTable($this->getDataTableVuexNamespace())
+            );
         }
 
         $action->setOnSuccess($chainActions);
@@ -193,6 +190,14 @@ class FormModal extends AbstractModal
     private function hasVuexNamespace(): bool
     {
         return !is_null($this->vuexNamespace);
+    }
+
+    /**
+     * @return string
+     */
+    private function getDataTableVuexNamespace(): string
+    {
+        return $this->dataTableVuexNamespace ?: dirname($this->vuexNamespace);
     }
 
     /**

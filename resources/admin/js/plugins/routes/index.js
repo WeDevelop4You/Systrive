@@ -14,6 +14,18 @@ const $parent = {template: `<router-view></router-view>`}
 
 const routes = [
     {
+        path: '/login'
+    },
+    {
+        path: '/password/recovery'
+    },
+    {
+        path: '/reset/password/:token/:encryptEmail'
+    },
+    {
+        path: '/registration'
+    },
+    {
         path: '/dashboard',
         alias: '/',
         name: 'dashboard',

@@ -19,5 +19,9 @@
         mixins: [
             CustomFormProperties
         ],
+
+        created() {
+            this.data.recovery_code = ''
+        }
     }
 </script>

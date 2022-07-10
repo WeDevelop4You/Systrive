@@ -76,14 +76,14 @@
                 loading: SkeletonList,
                 delay: 0,
                 error: ComponentError,
-                timeout: 5000
+                timeout: 10000
             }),
             Table: () => ({
                 component: import(/* webpackChunkName: "components/overviews/table" */ '../Overviews/Table'),
                 loading: SkeletonDataTable,
                 delay: 0,
                 error: ComponentError,
-                timeout: 5000
+                timeout: 10000
             }),
             Chart: () => import(/* webpackChunkName: "components/overviews/chart" */ './Chart'),
             FormLayout: () => import(/* webpackChunkName: "components/forms/form" */ '../Forms/Form'),

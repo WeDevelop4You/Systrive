@@ -6,6 +6,7 @@ use Domain\Supervisor\Models\Supervisor;
 use Support\Abstracts\AbstractTable;
 use Support\Enums\IconTypes;
 use Support\Helpers\Data\Build\Column;
+use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\IconButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
@@ -37,7 +38,14 @@ class SupervisorTable extends AbstractTable
                                     )
                                 ),
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TRASH)),
+                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TRASH))
+                                ->setAction(
+                                    RequestAction::create()->get(
+                                        route('admin.admin.supervisor.process.destroy', [
+                                            $data->id,
+                                        ])
+                                    )
+                                ),
                         ]);
                 }),
         ];

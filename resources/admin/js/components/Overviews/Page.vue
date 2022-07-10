@@ -34,14 +34,14 @@
                 loading: SkeletonDataTable,
                 delay: 0,
                 error: ComponentError,
-                timeout: 5000
+                timeout: 10000
             }),
             Card: () => ({
                 component: import(/* webpackChunkName: "components/overviews/card" */ '../Overviews/Card'),
                 loading: SkeletonCard,
                 delay: 0,
                 error: ComponentError,
-                timeout: 5000
+                timeout: 10000
             }),
         },
 

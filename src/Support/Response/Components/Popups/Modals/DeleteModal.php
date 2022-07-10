@@ -56,7 +56,7 @@ class DeleteModal extends AbstractModal
                     )
             );
 
-        $this->setText(trans('model.delete.text'));
+        $this->setText(trans('text.delete'));
         $this->setTitle(trans('word.delete.delete'));
 
         $this->footerButtons = MultipleButtonComponent::create()

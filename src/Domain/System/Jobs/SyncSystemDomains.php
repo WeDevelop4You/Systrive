@@ -2,6 +2,7 @@
 
 namespace Domain\System\Jobs;
 
+use Domain\System\Enums\SystemUsageStatisticTypes;
 use Domain\System\Mappings\SystemDomainTableMap;
 use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Domain\System\Models\System;
@@ -80,7 +81,7 @@ class SyncSystemDomains extends AbstractVestaSync
             $totalMonthUsages = $systemDomain->usageStatistics()
                 ->where(
                     SystemUsageStatisticTableMap::TYPE,
-                    SystemUsageStatisticTableMap::TYPE_BANDWIDTH
+                    SystemUsageStatisticTypes::BANDWIDTH
                 )->whereMonth(
                     SystemUsageStatisticTableMap::CREATED_AT,
                     Carbon::now()
@@ -88,11 +89,11 @@ class SyncSystemDomains extends AbstractVestaSync
 
             return [
                 SystemStatisticHelper::create($systemDomain)
-                    ->setType(SystemUsageStatisticTableMap::TYPE_DISK)
+                    ->setType(SystemUsageStatisticTypes::DISK)
                     ->setTotal($domain['U_DISK'])
                     ->toArray(),
                 SystemStatisticHelper::create($systemDomain)
-                    ->setType(SystemUsageStatisticTableMap::TYPE_BANDWIDTH)
+                    ->setType(SystemUsageStatisticTypes::BANDWIDTH)
                     ->setTotal($domain['U_BANDWIDTH'] - $totalMonthUsages)
                     ->toArray(),
             ];

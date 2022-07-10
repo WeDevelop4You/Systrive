@@ -2,14 +2,11 @@
 
     namespace App\Admin\System\Domain\Controllers;
 
-    use App\Admin\System\Domain\Resources\SystemDomainResource;
+    use App\Admin\System\Domain\Responses\SystemDomainEditResponse;
     use Domain\Company\Models\Company;
     use Domain\System\Models\System;
     use Domain\System\Models\SystemDomain;
     use Illuminate\Http\JsonResponse;
-    use Support\Enums\VestaCommands;
-    use Support\Response\Response;
-    use Support\Services\Vesta;
 
     ;
 
@@ -24,14 +21,6 @@
          */
         public function index(Company $company, System $system, SystemDomain $domain): JsonResponse
         {
-            $configData = Vesta::api()
-                ->get(VestaCommands::GET_USER_DOMAIN, $system->username, $domain->name)
-                ->first();
-
-            $configData['NAME'] = $domain->name;
-
-            return Response::create()
-                ->addData(new SystemDomainResource((object) $configData))
-                ->toJson();
+            return SystemDomainEditResponse::create($company, $system, $domain)->toJson();
         }
     }

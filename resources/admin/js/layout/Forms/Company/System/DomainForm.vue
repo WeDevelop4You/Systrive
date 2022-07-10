@@ -1,43 +1,19 @@
 <template>
-    <fragment>
+    <v-row dense>
         <v-col cols="12">
             <v-text-field
-                v-model="value.name"
+                v-model="data.name"
                 :disabled="isEditing"
                 :error-messages="errors.name"
                 :label="$vuetify.lang.t('$vuetify.word.domain')"
                 dense
                 outlined
                 hide-details="auto"
-            />
-        </v-col>
-        <v-col cols="12">
-            <v-combobox
-                v-model="value.template"
-                :items="templates"
-                :error-messages="errors.template"
-                :label="$vuetify.lang.t('$vuetify.word.template.web')"
-                :hide-details="isEditing ? true : 'auto'"
-                clearable
-                dense
-                outlined
-            />
-        </v-col>
-        <v-col cols="12">
-            <v-text-field
-                v-model="aliasValue"
-                :error-messages="inValidAlies"
-                :label="$vuetify.lang.t('$vuetify.word.aliases')"
-                dense
-                outlined
-                hide-details="auto"
-                append-outer-icon="fas fa-plus"
-                @keydown.enter="addAlias"
-                @click:append-outer="addAlias"
+                @input="clearError('name')"
             />
         </v-col>
         <v-col
-            v-for="(alias, index) in value.aliases"
+            v-for="(alias, index) in data.aliases"
             :key="index"
             cols="12"
         >
@@ -52,25 +28,52 @@
                 @click:append-outer="removeAlias(index)"
             />
         </v-col>
-    </fragment>
+        <v-col cols="12">
+            <v-text-field
+                v-model="aliasValue"
+                :error-messages="invalidAlies"
+                :label="$vuetify.lang.t('$vuetify.word.aliases')"
+                dense
+                outlined
+                hide-details="auto"
+                append-outer-icon="fas fa-plus"
+                @keydown.enter="addAlias"
+                @click:append-outer="addAlias"
+                @input="invalidAlies = ''"
+            />
+        </v-col>
+        <v-col cols="12">
+            <v-combobox
+                v-model="data.template"
+                :items="templates"
+                :error-messages="errors.template"
+                :label="$vuetify.lang.t('$vuetify.word.template.web')"
+                hide-details="auto"
+                clearable
+                dense
+                outlined
+                @input="clearError('template')"
+            />
+        </v-col>
+    </v-row>
 </template>
 
 <script>
     import psl from "psl";
     import {mapGetters} from "vuex";
-    import FromProps from "../../../../mixins/Form/FormProperties";
+    import CustomFormProperties from "../../../../mixins/Form/CustomFormProperties";
 
     export default {
         name: "DomainForm",
 
         mixins: [
-            FromProps
+            CustomFormProperties
         ],
 
         data() {
             return {
                 aliasValue: '',
-                inValidAlies: ''
+                invalidAlies: ''
             }
         },
 
@@ -87,34 +90,34 @@
         methods: {
             addAlias() {
                 let alias = this.aliasValue
-                this.inValidAlies = ''
+                this.invalidAlies = ''
 
                 if (alias) {
                     if (psl.get(alias) === null) {
-                        alias += `.${this.value.name}`
+                        alias += `.${this.data.name}`
                     }
 
                     if (psl.isValid(alias) || alias.startsWith('*')) {
-                        const exist = this.value.aliases.some(element => {
+                        const exist = this.data.aliases.some(element => {
                             if (element.value === alias) {
                                 return true;
                             }
                         });
 
                         if (!exist) {
-                            this.value.aliases.push({value: alias});
-                            this.alias = '';
+                            this.data.aliases.push({value: alias});
+                            this.aliasValue = '';
                         } else {
-                            this.inValidAlies = this.$vuetify.lang.t('$vuetify.text.exist.alias')
+                            this.invalidAlies = this.$vuetify.lang.t('$vuetify.text.exist.alias')
                         }
                     } else {
-                        this.inValidAlies = this.$vuetify.lang.t('$vuetify.text.in_valid_alies')
+                        this.invalidAlies = this.$vuetify.lang.t('$vuetify.text.in_valid_alies')
                     }
                 }
             },
 
             removeAlias(index) {
-                this.value.aliases.splice(index, 1)
+                this.data.aliases.splice(index, 1)
             }
         }
     }

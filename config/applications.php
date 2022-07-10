@@ -18,6 +18,7 @@
                 ],
                 'ignore_plurals' => [
                     'git',
+                    'supervisor',
                 ],
             ],
 

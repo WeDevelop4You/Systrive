@@ -2,8 +2,8 @@
 
 namespace Domain\System\Jobs;
 
+use Domain\System\Enums\SystemUsageStatisticTypes;
 use Domain\System\Mappings\SystemMailDomainTableMap;
-use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemMailDomain;
 use Illuminate\Database\Eloquent\Model;
@@ -79,7 +79,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
             $mailDomain = $this->vesta->get($systemMailDomain->name);
 
             return SystemStatisticHelper::create($systemMailDomain)
-                ->setType(SystemUsageStatisticTableMap::TYPE_DISK)
+                ->setType(SystemUsageStatisticTypes::DISK)
                 ->setTotal($mailDomain['U_DISK'])
                 ->toArray();
         })->toArray();

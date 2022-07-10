@@ -7,11 +7,11 @@ export default {
                         const promise = this[`_${action.method}`](action.data ?? {})
 
                         if (this._returnIsPromise(promise)) {
-                            promise.then(() => {
-                                this.callAction(action.onSuccess)
-                            }).catch(() => {})
-
-                            return promise
+                            return promise.then(() => {
+                                return this.callAction(action.onSuccess)
+                            }).catch(() => {
+                                return Promise.resolve()
+                            })
                         }
 
                         return this.callAction(action.onSuccess)

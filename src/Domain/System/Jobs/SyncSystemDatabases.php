@@ -2,8 +2,8 @@
 
 namespace Domain\System\Jobs;
 
+use Domain\System\Enums\SystemUsageStatisticTypes;
 use Domain\System\Mappings\SystemDatabaseTableMap;
-use Domain\System\Mappings\SystemUsageStatisticTableMap;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemDatabase;
 use Illuminate\Database\Eloquent\Model;
@@ -79,7 +79,7 @@ class SyncSystemDatabases extends AbstractVestaSync
             $database = $this->vesta->get($systemDatabase->name);
 
             return SystemStatisticHelper::create($systemDatabase)
-                ->setType(SystemUsageStatisticTableMap::TYPE_DISK)
+                ->setType(SystemUsageStatisticTypes::DISK)
                 ->setTotal($database['U_DISK'])
                 ->toArray();
         })->toArray();

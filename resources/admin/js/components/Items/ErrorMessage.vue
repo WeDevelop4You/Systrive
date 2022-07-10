@@ -1,9 +1,10 @@
 <template>
     <div
         v-if="message.length"
-        class="v-text-field__details px-1 mt-n2 pb-2"
+        class="v-text-field__details"
     >
         <div
+            :class="[$vuetify.theme.dark ? 'theme--dark' : 'theme--light']"
             class="v-messages error--text"
             role="alert"
         >

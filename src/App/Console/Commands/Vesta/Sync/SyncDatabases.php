@@ -29,7 +29,7 @@
          */
         public function handle(): int
         {
-            System::with('domains')->get()
+            System::with('databases')->get()
                 ->each(function (System $system) {
                     SyncSystemDatabases::dispatch($system);
                 });

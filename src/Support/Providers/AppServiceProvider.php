@@ -3,6 +3,7 @@
 namespace Support\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -41,12 +42,14 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Collection::make(config('applications'))->each(function (array $config, string $application) {
-            $config = Collection::make($config);
             $application = strtolower($application);
 
             ViewConstructor::create($this->app, $application);
             ComponentConstructor::create($this->app, $application);
-            RouteConstructor::create(Collection::make($config->get('routes')), $application);
+            RouteConstructor::create(
+                Collection::make(Arr::get($config, 'routes')),
+                $application
+            );
         });
     }
 }

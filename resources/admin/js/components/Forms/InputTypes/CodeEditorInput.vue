@@ -1,8 +1,8 @@
 <template>
     <div
         id="code_editor"
-        :class="[{'v-input--is-focused primary--text': focused}, $vuetify.theme.dark ? 'theme--dark' : 'theme--light']"
-        class="v-text-field--outlined v-text-field"
+        :class="mainClasses"
+        class="v-input v-input--dense v-text-field--outlined v-text-field v-text-field--enclosed"
     >
         <div class="v-input__control">
             <div class="v-input__slot">
@@ -12,8 +12,10 @@
                     :options="options"
                     @focus="focused = true"
                     @blur="focused = false"
+                    @input="clearError(key)"
                 />
             </div>
+            <error-message :message="errors[key]" />
         </div>
     </div>
 </template>
@@ -53,11 +55,13 @@
     import 'codemirror/addon/search/searchcursor.js'
     import 'codemirror/addon/search/search.js'
     import 'codemirror/keymap/sublime.js'
+    import ErrorMessage from "../../Items/ErrorMessage";
 
     export default {
         name: "CodeEditorInput",
 
         components: {
+            ErrorMessage,
             codemirror
         },
 
@@ -83,6 +87,12 @@
                     mode: 'text/x-toml',
                     theme: this.$vuetify.theme.dark ? 'base16-dark' : 'default',
                 }
+            },
+
+            mainClasses() {
+                return [
+                    this.$vuetify.theme.dark ? 'theme--dark' : 'theme--light',
+                    this.errors[this.key] ? 'v-input--has-state error--text' : {'v-input--is-focused primary--text': this.focused}]
             }
         },
     }
@@ -112,13 +122,8 @@
         left: -30px !important;
     }
 
-    #code_editor.v-text-field {
-        margin-top: 0;
-        padding-top: 0;
-    }
-
-    #code_editor .v-input__slot {
-        margin-bottom: 0;
+    #code_editor.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded) > .v-input__control > .v-input__slot {
+        padding: 0;
     }
 
     #code_editor.v-text-field--outlined {

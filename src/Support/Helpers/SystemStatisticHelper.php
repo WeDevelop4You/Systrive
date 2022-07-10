@@ -2,6 +2,7 @@
 
     namespace Support\Helpers;
 
+    use Domain\System\Enums\SystemUsageStatisticTypes;
     use Domain\System\Models\SystemUsageStatistic;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Support\Carbon;
@@ -33,11 +34,11 @@
         }
 
         /**
-         * @param string $type
+         * @param SystemUsageStatisticTypes $type
          *
          * @return $this
          */
-        public function setType(string $type): SystemStatisticHelper
+        public function setType(SystemUsageStatisticTypes $type): SystemStatisticHelper
         {
             $this->systemUsageStatistic->type = $type;
 

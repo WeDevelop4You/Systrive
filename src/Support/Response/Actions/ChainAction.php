@@ -23,9 +23,24 @@ class ChainAction extends AbstractAction
     }
 
     /**
+     * @param bool           $condition
+     * @param AbstractAction $action
+     *
+     * @return ChainAction
+     */
+    public function addActionIf(bool $condition, AbstractAction $action): ChainAction
+    {
+        if ($condition) {
+            return $this->addAction($action);
+        }
+
+        return $this;
+    }
+
+    /**
      * @param array $actions
      *
-     * @return $this
+     * @return ChainAction
      */
     public function setActions(array $actions): ChainAction
     {

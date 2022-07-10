@@ -3,6 +3,7 @@ import Vue from "vue";
 const app = Vue.prototype
 const defaultOptions = {
     isEditing: false,
+    withoutId: false,
     disableLoader: false,
 }
 
@@ -48,7 +49,11 @@ export default function (options = defaultOptions) {
 
             setEdit(state, data) {
                 if (!options.disableLoader) {
-                    app.$routeLoader.setForm(true, {...state.parameters, id: data.id})
+                    const parameters = options.withoutId
+                        ? {...state.parameters}
+                        : {...state.parameters, id: data.id}
+
+                    app.$routeLoader.setForm(true, parameters)
                 }
 
                 state.data = data

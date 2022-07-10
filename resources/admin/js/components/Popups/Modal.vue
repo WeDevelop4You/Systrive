@@ -39,7 +39,7 @@
                 if (action) {
                     const promise = this.callAction(action)
 
-                    if (this.returnIsPromise(promise)) {
+                    if (this._returnIsPromise(promise)) {
                         promise.catch(() => {})
                     }
                 }

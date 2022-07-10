@@ -44,6 +44,10 @@
                 component: import(/* webpackChunkName: "layout/forms/company/company_role_form" */ '../../layout/Forms/Company/CompanyRoleForm'),
                 ...LazyImportProperties
             }),
+            DomainForm: () => ({
+                component: import(/* webpackChunkName: "layout/forms/company/system/domain_form" */ '../../layout/Forms/Company/System/DomainForm'),
+                ...LazyImportProperties
+            }),
             CompanyCompleteForm: () => ({
                 component: import(/* webpackChunkName: "layout/forms/popup/company_complete_form" */ '../../layout/Forms/Popup/CompanyCompleteForm'),
                 ...LazyImportProperties

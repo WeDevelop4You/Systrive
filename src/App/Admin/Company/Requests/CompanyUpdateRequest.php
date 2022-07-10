@@ -20,7 +20,7 @@
                 'email' => ['required', 'email'],
                 'domain' => ['nullable', 'url'],
                 'information' => ['nullable', 'string'],
-                'remove_owner' => ['required', 'boolean'],
+                'remove_owner' => ['sometimes', 'boolean'],
                 'owner' => [$ifSuperAdmin, 'email'],
             ];
         }

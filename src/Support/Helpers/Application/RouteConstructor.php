@@ -25,9 +25,15 @@
          */
         private Collection $routeFiles;
 
+        /**
+         * RouteConstructor constructor.
+         *
+         * @param Collection $routeConfig
+         * @param string     $application
+         */
         private function __construct(
-            private Collection $routeConfig,
-            string $application
+            private readonly Collection $routeConfig,
+            string                      $application
         ) {
             $this->name = "{$application}.";
             $this->ignorePlurals = $routeConfig->get('ignore_plurals', []);
@@ -47,7 +53,10 @@
             return new static($routeConfig, $application);
         }
 
-        private function initialize()
+        /**
+         * @return void
+         */
+        private function initialize(): void
         {
             $this->routeFiles->each(function (array $routeFile) {
                 $routeFile = Collection::make($routeFile);
@@ -101,12 +110,15 @@
             return implode('/', $prefixes);
         }
 
+        /**
+         * @return void
+         */
         public static function createDataTableMacro(): void
         {
             Route::macro('dataTable', function (string $controller, string $name, string $prefix = '') {
-                Route::prefix("{$prefix}/table")->group(function () use ($controller, $name) {
-                    Route::get('items', [$controller, 'index'])->name("{$name}.table.items");
-                    Route::get('headers', [$controller, 'headers'])->name("{$name}.table.headers");
+                Route::prefix("{$prefix}/table")->controller($controller)->group(function () use ($name) {
+                    Route::get('items', 'index')->name("{$name}.table.items");
+                    Route::get('headers', 'headers')->name("{$name}.table.headers");
                 });
             });
         }

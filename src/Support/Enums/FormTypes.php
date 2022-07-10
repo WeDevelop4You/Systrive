@@ -7,6 +7,7 @@
         case TESTING = '';
         case COMPANY = 'CompanyForm';
         case PASSWORD = 'PasswordForm';
+        case DOMAIN_FORM = 'DomainForm';
         case TRANSLATION = 'TranslationForm';
         case COMPANY_USER = 'CompanyUserForm';
         case COMPANY_ROLE = 'CompanyRoleForm';

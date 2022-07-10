@@ -2,11 +2,14 @@
     <v-row dense>
         <v-otp-input
             v-model="data.one_time_password"
-            style="width: 275px"
             class="mx-auto"
+            style="width: 275px"
             @finish="$emit('defaultAction')"
         />
-        <error-message :message="errors.one_time_password" />
+        <error-message
+            class="mx-1"
+            :message="errors.one_time_password"
+        />
     </v-row>
 </template>
 
@@ -23,6 +26,10 @@
 
         mixins: [
             customFormProperties
-        ]
+        ],
+
+        created() {
+            this.data.one_time_password = ''
+        }
     }
 </script>

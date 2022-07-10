@@ -27,7 +27,7 @@ export default [
         },
     },
     {
-        path: 'd/:domainName',
+        path: 'd/:domainName/:chapters*',
         name: 'company.domain',
         component: () => import(/* webpackChunkName: "pages/company/system/domain" */ '../../pages/Company/System/Domain'),
         meta: {

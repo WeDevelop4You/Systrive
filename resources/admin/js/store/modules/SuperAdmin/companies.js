@@ -49,7 +49,7 @@ export default {
             }).then((response) => {
                 commit('form/setEdit', response.data.data)
             }).catch(() => {
-                commit('form/resetForm')
+                app.$routeLoader.resetForm()
             })
         },
 

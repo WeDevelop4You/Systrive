@@ -27,7 +27,7 @@
          */
         public function decryptEmail(): string
         {
-            if (is_null($this->encryptEmail)) {
+            if (\is_null($this->encryptEmail)) {
                 return Auth::user()->email;
             }
 

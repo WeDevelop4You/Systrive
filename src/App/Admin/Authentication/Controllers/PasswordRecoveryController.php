@@ -10,8 +10,8 @@
     use Illuminate\Support\Facades\Password;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use function trans;
-    use function view;
+
+use function view;
 
     class PasswordRecoveryController
     {
@@ -20,7 +20,7 @@
          */
         public function index(): Factory|View|Application
         {
-            return view('admin::pages.password-recovery');
+            return \view('admin::pages.password-recovery');
         }
 
         /**

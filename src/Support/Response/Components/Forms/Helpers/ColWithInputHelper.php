@@ -59,7 +59,7 @@ class ColWithInputHelper
 
     public function export(?string $vuexNamespace = null): ColComponent
     {
-        if (!is_null($vuexNamespace)) {
+        if (!\is_null($vuexNamespace)) {
             $this->input->setVuexNamespace($vuexNamespace);
         }
 

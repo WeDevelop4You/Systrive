@@ -30,20 +30,23 @@
                  ->withoutOverlapping();
 
             $schedule->job(new SyncSystem())
-                ->then(function (Schedule $schedule) {
-                    $schedule->Job(new SyncSystemTemplates());
-
-                    System::all()->each(function (System $system) use ($schedule) {
-                        $schedule->job(new SyncSystemDomains($system));
-                        $schedule->job(new SyncSystemDNS($system));
-                        $schedule->job(new SyncSystemDatabases($system));
-                        $schedule->job(new SyncSystemMailDomains($system));
-                    });
+                ->after(function () {
+                    System::with('domains', 'dns', 'databases', 'mailDomains')->get()
+                        ->each(function (System $system) {
+                            SyncSystemDomains::dispatch($system);
+                            SyncSystemDNS::dispatch($system);
+                            SyncSystemDatabases::dispatch($system);
+                            SyncSystemMailDomains::dispatch($system);
+                        });
                 })
                 ->name('System data')
                 ->dailyAt('3:00')
-                ->withoutOverlapping()
-                ->emailOutputOnFailure('pmhuberts@gmail.com');
+                ->withoutOverlapping();
+
+            $schedule->job(new SyncSystemTemplates())
+                ->name('System templates')
+                ->dailyAt('3:00')
+                ->withoutOverlapping();
         }
 
         /**

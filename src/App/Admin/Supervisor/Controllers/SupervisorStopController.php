@@ -16,7 +16,7 @@ class SupervisorStopController
      */
     public function action(?string $name = null): JsonResponse
     {
-        if (is_null($name)) {
+        if (\is_null($name)) {
             $successful = Supervisor::api()->stopAllProcesses();
         } else {
             $successful = Supervisor::api()->stopProcess($name);

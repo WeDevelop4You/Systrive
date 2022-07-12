@@ -129,7 +129,7 @@ class FormModal extends AbstractModal
 
     public function addFooterCancelButton(?AbstractAction $action = null): FormModal
     {
-        if (is_null($action)) {
+        if (\is_null($action)) {
             $action = ChainAction::create()
                 ->setActions([
                     VuexAction::create()->commit("{$this->vuexNamespace}/resetForm"),
@@ -178,7 +178,7 @@ class FormModal extends AbstractModal
 
     private function setFooterButton(): void
     {
-        if (is_null($this->footerButtons)) {
+        if (\is_null($this->footerButtons)) {
             $this->footerButtons = MultipleButtonComponent::create()
                 ->addClass('gap-3');
         }
@@ -189,7 +189,7 @@ class FormModal extends AbstractModal
      */
     private function hasVuexNamespace(): bool
     {
-        return !is_null($this->vuexNamespace);
+        return !\is_null($this->vuexNamespace);
     }
 
     /**
@@ -197,7 +197,7 @@ class FormModal extends AbstractModal
      */
     private function getDataTableVuexNamespace(): string
     {
-        return $this->dataTableVuexNamespace ?: dirname($this->vuexNamespace);
+        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace);
     }
 
     /**

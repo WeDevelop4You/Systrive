@@ -139,7 +139,7 @@ class GenerateMapping extends Command
             $constants['relationship'][$name] = $relationship;
         }
 
-        if (!is_null($extraConstants)) {
+        if (!\is_null($extraConstants)) {
             $constants = array_merge($constants, $extraConstants);
         }
 
@@ -190,7 +190,7 @@ class GenerateMapping extends Command
             foreach ($constants as $key => $value) {
                 $key = strtoupper($key);
 
-                if (is_string($prefix)) {
+                if (\is_string($prefix)) {
                     $key = strtoupper($prefix) . "_{$key}";
                 }
 

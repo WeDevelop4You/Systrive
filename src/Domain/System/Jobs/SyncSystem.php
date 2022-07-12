@@ -10,10 +10,11 @@ use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommands;
 use Support\Services\Vesta;
 
-;
-
 class SyncSystem extends AbstractVestaSync
 {
+    /**
+     * @return string
+     */
     public function uniqueId(): string
     {
         return "system_users";

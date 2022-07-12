@@ -11,19 +11,10 @@
     use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
     use Domain\User\Mappings\UserTableMap;
-    use Illuminate\Bus\Queueable;
     use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Foundation\Bus\Dispatchable;
-    use Illuminate\Queue\InteractsWithQueue;
-    use Illuminate\Queue\SerializesModels;
 
     class CheckInviteHasExpired
     {
-        use Dispatchable;
-        use InteractsWithQueue;
-        use Queueable;
-        use SerializesModels;
-
         /**
          * Execute the job.
          *

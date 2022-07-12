@@ -52,7 +52,7 @@ class Supervisor
      */
     public static function inProcessRunning(int $state): bool
     {
-        return in_array($state, [10, 20, 30]);
+        return \in_array($state, [10, 20, 30]);
     }
 
     /**

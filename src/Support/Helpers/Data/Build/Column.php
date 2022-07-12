@@ -116,7 +116,7 @@
          */
         public function hasSortCallback(): bool
         {
-            return !is_null($this->sortCallback);
+            return !\is_null($this->sortCallback);
         }
 
         /**
@@ -137,9 +137,9 @@
             $this->isSearchable = true;
             $this->searchCallback = $callback;
 
-            if (!is_null($callback) && !is_callable($callback) && is_string($callback)) {
+            if (!\is_null($callback) && !\is_callable($callback) && \is_string($callback)) {
                 $this->isEnumSearch = (
-                    enum_exists($callback) && in_array(
+                    enum_exists($callback) && \in_array(
                         DatabaseEnumSearch::class,
                         class_uses_recursive($callback)
                     )
@@ -154,7 +154,7 @@
          */
         public function hasSearchCallback(): bool
         {
-            return !is_null($this->searchCallback);
+            return !\is_null($this->searchCallback);
         }
 
         /**

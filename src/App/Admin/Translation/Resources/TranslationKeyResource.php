@@ -47,7 +47,7 @@
             return Collection::make($locales)->map(function (string $locale) use ($translations) {
                 $translation = $translations->firstWhere('locale', $locale);
 
-                if (is_null($translation)) {
+                if (\is_null($translation)) {
                     $translation = new Translation();
                     $translation->locale = $locale;
                 }

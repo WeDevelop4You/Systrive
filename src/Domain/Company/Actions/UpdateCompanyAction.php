@@ -36,7 +36,7 @@
 
             $owner = $company->whereOwner()->first();
 
-            if (is_null($owner) || $owner->email !== $companyData->owner) {
+            if (\is_null($owner) || $owner->email !== $companyData->owner) {
                 (new ChangeCompanyOwnershipAction(
                     $owner,
                     $companyData->owner,

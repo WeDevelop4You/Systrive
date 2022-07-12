@@ -34,7 +34,7 @@
 
             $lastRouteName = $request->header('X-Last-Route-Name');
 
-            if (is_null($lastRouteName)) {
+            if (\is_null($lastRouteName)) {
                 return $this->goToDashboard();
             }
 

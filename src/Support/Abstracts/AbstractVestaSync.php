@@ -49,7 +49,7 @@
          *
          * @return void
          */
-        final public function handle(): void
+        public function handle(): void
         {
             $this->database->each(function (Model $model) {
                 $this->contains($model)
@@ -60,7 +60,12 @@
             $this->save();
         }
 
-        protected function upsertStatistics(array $usage)
+        /**
+         * @param array $usage
+         *
+         * @return void
+         */
+        protected function upsertStatistics(array $usage): void
         {
             SystemUsageStatistic::upsert(
                 $usage,
@@ -76,6 +81,9 @@
             );
         }
 
+        /**
+         * @return string
+         */
         abstract public function uniqueId(): string;
 
         /**

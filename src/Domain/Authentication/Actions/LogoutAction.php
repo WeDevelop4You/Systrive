@@ -6,7 +6,6 @@
     use Illuminate\Support\Facades\Auth;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use function trans;
 
     class LogoutAction
     {

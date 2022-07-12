@@ -102,9 +102,9 @@
          */
         private function checkCredentials(): void
         {
-            if (is_null(config('services.vesta.hostname')) ||
-                is_null(config('services.vesta.username')) ||
-                is_null(config('services.vesta.password'))
+            if (\is_null(config('services.vesta.hostname')) ||
+                \is_null(config('services.vesta.username')) ||
+                \is_null(config('services.vesta.password'))
             ) {
                 throw new VestaCredentialsNotSetException('Not all credentials are set for vesta api');
             }
@@ -136,7 +136,7 @@
             ];
 
             foreach ($parameters as $index => $value) {
-                if (is_string($index)) {
+                if (\is_string($index)) {
                     $data[$index] = $value;
                 } else {
                     $data["arg{$number}"] = $value;

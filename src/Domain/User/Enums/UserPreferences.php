@@ -22,7 +22,7 @@ enum UserPreferences: string
     public function validate($value): bool
     {
         return match ($this) {
-            self::DARK_MODE => is_bool($value),
+            self::DARK_MODE => \is_bool($value),
         };
     }
 }

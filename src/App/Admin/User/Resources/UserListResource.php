@@ -16,7 +16,7 @@
         {
             $text = $this->email;
 
-            if (!is_null($this->full_name)) {
+            if (!\is_null($this->full_name)) {
                 $text .= ", ({$this->full_name})";
             }
 

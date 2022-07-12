@@ -108,7 +108,7 @@
             try {
                 $recoveryCodes = $this->getRecoveryCodes();
 
-                if (in_array($code, $recoveryCodes)) {
+                if (\in_array($code, $recoveryCodes)) {
                     $recoveryCodes = array_replace($recoveryCodes, array_fill_keys(
                         array_keys($recoveryCodes, $code),
                         $this->generateRecoveryCode()

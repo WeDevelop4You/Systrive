@@ -22,7 +22,7 @@ class GitRepositoryBranchController
         $response = Response::create();
         $identifier = $request->query('identifier');
 
-        if (is_null($identifier)) {
+        if (\is_null($identifier)) {
             $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.git.repository.identifier')));
         } else {
             $response->addData(Git::service($service)->repository()->getBranches($identifier));

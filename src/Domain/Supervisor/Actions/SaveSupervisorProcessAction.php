@@ -33,7 +33,7 @@ class SaveSupervisorProcessAction
      */
     public function __invoke(SupervisorProcessData $data): void
     {
-        if (is_null($this->supervisor)) {
+        if (\is_null($this->supervisor)) {
             $this->supervisor = new Supervisor();
             $this->supervisor->filename = Str::uuid();
         }

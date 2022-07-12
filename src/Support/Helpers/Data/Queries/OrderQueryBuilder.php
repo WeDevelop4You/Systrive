@@ -81,7 +81,7 @@
         {
             $direction = Str::afterLast($sorter, '_');
 
-            if (in_array($direction, ['asc', 'desc'])) {
+            if (\in_array($direction, ['asc', 'desc'])) {
                 $column = Str::beforeLast($sorter, '_');
             } else {
                 $column = $sorter;

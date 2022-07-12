@@ -2,7 +2,6 @@
 
 namespace Domain\Invite\Jobs;
 
-use function config;
 use Domain\Company\Enums\CompanyStatusTypes;
 use Domain\Company\Models\Company;
 use Domain\Invite\Actions\CreateInviteAction;

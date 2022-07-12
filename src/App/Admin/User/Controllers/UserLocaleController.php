@@ -36,7 +36,7 @@
         {
             $response = new Response();
 
-            if (in_array($locale, config('translation.locales'))) {
+            if (\in_array($locale, config('translation.locales'))) {
                 (new UpdateUserLocaleAction())($locale);
             } else {
                 $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.locale')))

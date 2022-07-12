@@ -1,7 +1,7 @@
 <?php
 
-    use App\Admin\Permission\Controllers\PermissionController;
+use App\Admin\Permission\Controllers\PermissionController;
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/', [PermissionController::class, 'index'])->name('permissions');
-    });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/', [PermissionController::class, 'index'])->name('permissions');
+});

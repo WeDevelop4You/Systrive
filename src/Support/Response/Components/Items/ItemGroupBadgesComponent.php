@@ -2,8 +2,6 @@
 
 namespace Support\Response\Components\Items;
 
-use function trans;
-
 class ItemGroupBadgesComponent extends AbstractItemComponent
 {
     /**

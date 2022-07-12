@@ -14,7 +14,7 @@ class UserUpdatingObserver
             $user->email_verified_at = null;
         }
 
-        if ($user->isDirty(UserTableMap::PASSWORD) && !is_null($user->password)) {
+        if ($user->isDirty(UserTableMap::PASSWORD) && !\is_null($user->password)) {
             $user->notify(new UserPasswordChangeNotification());
         }
     }

@@ -101,8 +101,8 @@
 
             $map = strtolower(Arr::first($maps, null, ''));
 
-            if (!empty($map) && !in_array($map, ['routes', 'authentication'])) {
-                $count = in_array($map, $this->ignorePlurals) ? 1 : 2;
+            if (!empty($map) && !\in_array($map, ['routes', 'authentication'])) {
+                $count = \in_array($map, $this->ignorePlurals) ? 1 : 2;
 
                 $prefixes[] = Str::plural($map, $count);
             }

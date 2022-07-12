@@ -3,7 +3,6 @@
     namespace Support\Abstracts\Controllers;
 
     use Illuminate\Http\JsonResponse;
-    use function response;
     use Support\Abstracts\AbstractTable;
 
     abstract class AbstractTableController

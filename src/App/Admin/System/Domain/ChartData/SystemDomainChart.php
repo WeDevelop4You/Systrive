@@ -48,7 +48,7 @@
                     $date
                 );
 
-                if (is_null($usage)) {
+                if (\is_null($usage)) {
                     return 0;
                 }
 
@@ -63,7 +63,7 @@
          */
         private function validate(): bool
         {
-            return in_array($this->type, [
+            return \in_array($this->type, [
                 SystemUsageStatisticTypes::DISK,
                 SystemUsageStatisticTypes::BANDWIDTH,
             ]);

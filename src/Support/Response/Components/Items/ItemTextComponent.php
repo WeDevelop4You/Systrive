@@ -4,7 +4,6 @@ namespace Support\Response\Components\Items;
 
 use Domain\System\Models\SystemTemplate;
 use Support\Enums\System\SystemTemplateTypes;
-use function trans;
 
 class ItemTextComponent extends AbstractItemComponent
 {

@@ -9,13 +9,12 @@
     use Illuminate\Contracts\View\View;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Validation\ValidationException;
-    use function route;
     use Support\Exceptions\RequiredOneTimePasswordException;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-    use function trans;
-    use function view;
+
+use function view;
 
     class LoginController
     {
@@ -26,7 +25,7 @@
          */
         public function index(): View|Factory|Application
         {
-            return view('admin::pages.login');
+            return \view('admin::pages.login');
         }
 
         /**

@@ -21,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property string                    $date
  * @property Carbon|null               $created_at
  * @property Carbon|null               $updated_at
- * @property-read \Eloquent|Model $statisticFrom
+ * @property-read Eloquent|Model $statisticFrom
  *
  * @method static Builder|SystemUsageStatistic newModelQuery()
  * @method static Builder|SystemUsageStatistic newQuery()

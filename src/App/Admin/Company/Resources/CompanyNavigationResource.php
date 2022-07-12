@@ -17,7 +17,7 @@
          */
         public function toArray($request): array
         {
-            $hasData = !is_null($this->resource);
+            $hasData = !\is_null($this->resource);
 
             return [
                 'name' => $request->company->name,

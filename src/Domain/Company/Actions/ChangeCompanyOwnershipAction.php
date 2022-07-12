@@ -27,7 +27,7 @@
         {
             $newOwner = $company->whereUserByEmail($this->newOwnerEmail)->first();
 
-            if (is_null($newOwner)) {
+            if (\is_null($newOwner)) {
                 $companyUserData = new CompanyUserData([], [], $this->newOwnerEmail);
 
                 $newOwner = (new CreateCompanyUserInviteAction($company))($companyUserData);

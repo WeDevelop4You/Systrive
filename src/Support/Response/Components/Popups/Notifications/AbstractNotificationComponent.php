@@ -7,7 +7,6 @@
     use Support\Enums\Vuetify\VuetifyAlertTypes;
     use Support\Response\Components\Popups\AbstractPopupComponent;
     use Symfony\Component\HttpFoundation\Response;
-    use function trans;
 
     abstract class AbstractNotificationComponent extends AbstractPopupComponent
     {

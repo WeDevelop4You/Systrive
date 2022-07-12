@@ -10,7 +10,6 @@
     use Support\Response\Components\Buttons\MultipleButtonComponent;
     use Support\Response\Components\Icons\IconComponent;
     use Support\Response\Components\Items\ItemBadgeComponent;
-    use function trans;
 
     class SystemDNSRecordTable extends AbstractTable
     {

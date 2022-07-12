@@ -5,7 +5,6 @@
     use Support\Abstracts\AbstractTable;
     use Support\Helpers\Data\Build\Column;
     use Support\Response\Components\Items\ItemBadgeComponent;
-    use function trans;
 
     class SystemMailDomainAddressTable extends AbstractTable
     {

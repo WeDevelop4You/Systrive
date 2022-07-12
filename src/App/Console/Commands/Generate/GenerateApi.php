@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Generate;
 
-use function config;
 use Illuminate\Console\Command;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
@@ -62,7 +61,7 @@ class GenerateApi extends Command
         $routeList = Collection::make(RouteList::getRoutes());
 
         $this->apiRoutes = $routeList->mapWithKeys(function (Route $route, int $index) {
-            if (in_array('api', $route->getAction('middleware')) &&
+            if (\in_array('api', $route->getAction('middleware')) &&
                 Str::startsWith($route->getName(), "{$this->application}.")
             ) {
                 $name = $route->getName() ?: "no_name_{$index}";
@@ -84,7 +83,7 @@ class GenerateApi extends Command
         $filename = config("applications.{$this->application}.api.filename");
         $output = stripslashes(json_encode($this->apiRoutes, JSON_PRETTY_PRINT));
 
-        if (is_null($path) || is_null($filename)) {
+        if (\is_null($path) || \is_null($filename)) {
             return false;
         }
 

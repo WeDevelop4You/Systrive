@@ -16,7 +16,7 @@ class VestaHelper
             ? ['no', 'disabled']
             : ['yes', 'enabled'];
 
-        if (!empty($value) && in_array($value, $activeValues)) {
+        if (!empty($value) && \in_array($value, $activeValues)) {
             return [
                 'is_active' => true,
                 'content' => trans('word.active.active'),

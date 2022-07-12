@@ -161,7 +161,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function isNewUser(): bool
     {
-        return is_null($this->password);
+        return \is_null($this->password);
     }
 
     /**

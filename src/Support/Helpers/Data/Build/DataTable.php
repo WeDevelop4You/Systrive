@@ -166,7 +166,7 @@
                         $value = Arr::get($data, $key);
                     }
 
-                    if (is_null($value)) {
+                    if (\is_null($value)) {
                         $value = '';
                     }
 

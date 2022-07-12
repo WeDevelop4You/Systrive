@@ -174,7 +174,7 @@ class DeleteModal extends AbstractModal
      */
     private function hasVuexNamespace(): bool
     {
-        return !is_null($this->vuexNamespace);
+        return !\is_null($this->vuexNamespace);
     }
 
     /**

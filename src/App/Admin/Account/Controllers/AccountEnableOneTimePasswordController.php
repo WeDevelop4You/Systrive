@@ -16,7 +16,6 @@
     use Support\Response\Components\Popups\Modals\FormModal;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use function trans;
 
     class AccountEnableOneTimePasswordController
     {

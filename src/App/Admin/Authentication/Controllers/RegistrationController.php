@@ -15,15 +15,13 @@
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\RedirectResponse;
     use Illuminate\Support\Facades\Session;
-    use function redirect;
-    use function route;
     use Support\Enums\SessionKeyTypes;
     use Support\Exceptions\InvalidTokenException;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-    use function trans;
-    use function view;
+
+use function view;
 
     class RegistrationController
     {
@@ -38,7 +36,7 @@
 
                     $invite = (new ValidateInviteTokenAction())($inviteData);
 
-                    return view('admin::pages.registration')->with('email', $invite->user->email);
+                    return \view('admin::pages.registration')->with('email', $invite->user->email);
                 } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
                     Response::create()
                         ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))

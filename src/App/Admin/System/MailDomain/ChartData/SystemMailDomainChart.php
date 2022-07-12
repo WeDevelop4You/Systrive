@@ -42,7 +42,7 @@
                     $date
                 );
 
-                if (is_null($usage)) {
+                if (\is_null($usage)) {
                     return 0;
                 }
 

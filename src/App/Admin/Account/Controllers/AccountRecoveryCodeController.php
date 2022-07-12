@@ -1,29 +1,31 @@
 <?php
 
-    namespace App\Admin\Account\Controllers;
+namespace App\Admin\Account\Controllers;
 
-    use Domain\User\Models\UserSecurity;
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\Crypt;
-    use Symfony\Component\HttpFoundation\StreamedResponse;
+use Domain\User\Models\UserSecurity;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-    class AccountRecoveryCodeController
+class AccountRecoveryCodeController
+{
+    /**
+     * @return StreamedResponse
+     */
+    public function action(): StreamedResponse
     {
-        /**
-         * @return StreamedResponse
-         */
-        public function action(): StreamedResponse
-        {
-            $security = Auth::user()->security;
+        $security = Auth::user()->security;
 
-            if ($security instanceof UserSecurity) {
-                $appName = config('app.name');
+        if ($security instanceof UserSecurity) {
+            $appName = config('app.name');
 
-                return response()->streamDownload(function () use ($security) {
+            return response()->streamDownload(
+                function () use ($security) {
                     echo implode("\n", Crypt::decrypt($security->recovery_codes));
-                }, "{$appName} Recovery Code.txt", [
-                    'Content-Type' => 'text/plain',
-                ]);
-            }
+                },
+                "{$appName} Recovery Code.txt",
+                ['Content-Type' => 'text/plain']
+            );
         }
     }
+}

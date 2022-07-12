@@ -46,7 +46,7 @@
          */
         public static function hasMatch($column, $searchColumns): bool
         {
-            return in_array($column, $searchColumns ?? [], true);
+            return \in_array($column, $searchColumns ?? [], true);
         }
 
         /**
@@ -57,7 +57,7 @@
          */
         public static function hasWildcardMatch($column, $searchColumns): bool
         {
-            return count(array_filter($searchColumns ?? [], function ($searchColumn) use ($column) {
+            return \count(array_filter($searchColumns ?? [], function ($searchColumn) use ($column) {
                 $hasWildcard = Str::endsWith($searchColumn, '*');
 
                 if (!$hasWildcard) {
@@ -103,7 +103,7 @@
         {
             $select = self::columnsFromBuilder($queryBuilder);
 
-            if (is_null($select)) {
+            if (\is_null($select)) {
                 return null;
             }
 
@@ -137,7 +137,7 @@
                 $possibleTable = null;
             }
 
-            if (!is_null($possibleTable)) {
+            if (!\is_null($possibleTable)) {
                 $possibleSelectColumn = $possibleTable . '.' . $fieldName;
 
                 $possibleMatch = self::hasMatch($possibleSelectColumn, $select);

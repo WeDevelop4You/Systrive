@@ -90,7 +90,7 @@
         {
             $this->setStatusCode($statusCode);
 
-            if (is_null($errors)) {
+            if (\is_null($errors)) {
                 $this->errors = array_merge($this->errors, $key);
             } else {
                 $this->errors[$key] = array_merge($this->errors[$key] ?? [], $errors);

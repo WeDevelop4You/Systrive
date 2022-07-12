@@ -3,7 +3,6 @@
 namespace Support\Response\Components\Items;
 
 use Support\Enums\Vuetify\VuetifyColors;
-use function trans;
 
 class ItemBadgeComponent extends AbstractItemComponent
 {
@@ -47,7 +46,7 @@ class ItemBadgeComponent extends AbstractItemComponent
             ? ['no', 'disabled']
             : ['yes', 'enabled'];
 
-        if (!empty($value) && in_array($value, $activeValues)) {
+        if (!empty($value) && \in_array($value, $activeValues)) {
             return $this->setColor(VuetifyColors::SUCCESS)
                 ->setValue(trans('word.active.active'));
         }

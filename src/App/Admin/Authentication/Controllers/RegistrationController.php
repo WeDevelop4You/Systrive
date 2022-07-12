@@ -20,7 +20,6 @@
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-
 use function view;
 
     class RegistrationController

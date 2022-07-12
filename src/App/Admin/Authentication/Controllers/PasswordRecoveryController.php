@@ -10,7 +10,6 @@
     use Illuminate\Support\Facades\Password;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-
 use function view;
 
     class PasswordRecoveryController

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Password;
 use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
-
 use function view;
 
 class ResetPasswordController

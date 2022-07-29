@@ -2,11 +2,24 @@
 
 namespace Support\Providers;
 
+use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
+use Illuminate\Console\Scheduling\CallbackEvent;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use ReflectionException;
 use Support\Helpers\Application\ComponentConstructor;
-use Support\Helpers\Application\RouterConstructor;
+use Support\Helpers\Application\RouteConstructor;
 use Support\Helpers\Application\ViewConstructor;
+use Support\Mixins\BuilderMixin;
+use Support\Mixins\CallbackEventMixin;
+use Support\Mixins\RelationMixin;
+use Support\Mixins\ScheduleMixin;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,26 +31,41 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         if ($this->app->isLocal()) {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(IdeHelperServiceProvider::class);
+        }
+
+        if ($this->app->isProduction()) {
+            URL::forceScheme('https');
+        }
+
+        if (!Route::hasMacro('dataTable')) {
+            RouteConstructor::createDataTableMacro();
         }
     }
 
     /**
      * Bootstrap any application services.
      *
+     * @throws ReflectionException
+     *
      * @return void
      */
     public function boot(): void
     {
-        $applications = new Collection(config('applications'));
+        Builder::mixin(new BuilderMixin());
+        Relation::mixin(new RelationMixin());
+        Schedule::mixin(new ScheduleMixin());
+        CallbackEvent::mixin(new CallbackEventMixin());
 
-        $applications->each(function (array $config, string $application) {
-            $config = new Collection($config);
+        Collection::make(config('applications'))->each(function (array $config, string $application) {
             $application = strtolower($application);
 
             ViewConstructor::create($this->app, $application);
             ComponentConstructor::create($this->app, $application);
-            RouterConstructor::create(new Collection($config->get('routes')), $application);
+            RouteConstructor::create(
+                Collection::make(Arr::get($config, 'routes')),
+                $application
+            );
         });
     }
 }

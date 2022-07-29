@@ -1,43 +1,23 @@
 <?php
 
-    return [
-        \Domain\Company\Models\Company::class => [
-          'status' => [
-              'invited' => 'invited',
-              'expired' => 'expired',
-              'completed' => 'completed',
-          ],
+return [
+    \Domain\Role\Models\Role::class => [
+        'role' => [
+            'super_admin' => 'super_admin',
+            'main' => 'Admin',
         ],
+    ],
 
-        \Domain\Company\Models\CompanyUser::class => [
-            'status' => [
-                'expired' => 'expired',
-                'accepted' => 'accepted',
-                'requested' => 'requested',
-            ],
+    \Domain\System\Models\SystemUsageStatistic::class => [
+        'morph' => [
+            'model' => 'model',
         ],
+    ],
 
-        \Domain\Invite\Models\Invite::class => [
-            'type' => [
-                'user' => 'company_user',
-                'company' => 'new_company',
-            ],
+    \Domain\Job\Models\JobOperation::class => [
+        'duration_time' => [
+            'good' => 800,
+            'medium' => 2000,
         ],
-
-        \Domain\Role\Models\Role::class => [
-            'role' => [
-                'main' => 'admin',
-            ],
-        ],
-
-        \Domain\System\Models\SystemUsageStatistic::class => [
-            'morph' => [
-                'model' => 'model',
-            ],
-            'type' => [
-                'disk' => 'disk',
-                'bandwidth' => 'bandwidth',
-            ],
-
-        ],
-    ];
+    ],
+];

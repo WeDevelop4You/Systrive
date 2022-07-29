@@ -1,19 +1,31 @@
 <?php
 
-    use App\Admin\Company\Role\Controllers\CompanyRoleCreateController;
-    use App\Admin\Company\Role\Controllers\CompanyRoleDestroyController;
-    use App\Admin\Company\Role\Controllers\CompanyRoleEditController;
-    use App\Admin\Company\Role\Controllers\CompanyRoleListController;
-    use App\Admin\Company\Role\Controllers\CompanyRoleTableController;
+use App\Admin\Company\Role\Controllers\CompanyRoleCreateController;
+use App\Admin\Company\Role\Controllers\CompanyRoleDestroyController;
+use App\Admin\Company\Role\Controllers\CompanyRoleEditController;
+use App\Admin\Company\Role\Controllers\CompanyRoleListController;
+use App\Admin\Company\Role\Controllers\CompanyRoleOverviewController;
+use App\Admin\Company\Role\Controllers\CompanyRoleTableController;
 
-    Route::prefix('{company}/roles')->middleware('auth:sanctum')->group(function () {
-        Route::get('/', [CompanyRoleTableController::class, 'index'])->name('company.roles');
-        Route::get('list', [CompanyRoleListController::class, 'index'])->name('company.role.list');
-        Route::post('create', [CompanyRoleCreateController::class, 'action'])->name('company.role.create');
+Route::prefix('{company}/roles')->middleware('auth:sanctum')->group(function () {
+    Route::dataTable(CompanyRoleTableController::class, 'company.role');
+    Route::get('list', [CompanyRoleListController::class, 'index'])->name('company.role.list');
+    Route::get('overview', [CompanyRoleOverviewController::class, 'index'])->name('company.role.overview');
 
-        Route::prefix('{role}')->scopeBindings()->group(function () {
-            Route::get('/', [CompanyRoleEditController::class, 'index'])->name('company.role.edit');
-            Route::patch('/', [CompanyRoleEditController::class, 'action'])->name('company.role.edit');
-            Route::delete('/', [CompanyRoleDestroyController::class, 'action'])->name('company.role.destroy');
+    Route::prefix('create')->controller(CompanyRoleCreateController::class)->group(function () {
+        Route::get('/', 'index')->name('company.role.create');
+        Route::post('/', 'action')->name('company.role.create');
+    });
+
+    Route::prefix('{role}')->scopeBindings()->group(function () {
+        Route::prefix('edit')->controller(CompanyRoleEditController::class)->group(function () {
+            Route::get('/', 'index')->name('company.role.edit');
+            Route::patch('/', 'action')->name('company.role.edit');
+        });
+
+        Route::prefix('destroy')->controller(CompanyRoleDestroyController::class)->group(function () {
+            Route::get('/', 'index')->name('company.role.destroy');
+            Route::delete('/', 'action')->name('company.role.destroy');
         });
     });
+});

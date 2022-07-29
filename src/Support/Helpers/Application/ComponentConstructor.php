@@ -12,7 +12,7 @@
 
     class ComponentConstructor extends ServiceProvider
     {
-        public function __construct(
+        private function __construct(
             Application $app,
             private string $application
         ) {

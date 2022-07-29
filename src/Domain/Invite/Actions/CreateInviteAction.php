@@ -3,7 +3,9 @@
     namespace Domain\Invite\Actions;
 
     use Domain\Company\Models\Company;
+    use Domain\Invite\Enums\InviteTypes;
     use Domain\Invite\Models\Invite;
+    use Domain\User\Models\User;
     use Support\Helpers\TokenGeneratorHelper;
 
     class CreateInviteAction
@@ -16,18 +18,20 @@
         /**
          * CreateInviteAction constructor.
          *
-         * @param string  $email
-         * @param string  $type
-         * @param Company $company
+         * @param User        $user
+         * @param Company     $company
+         * @param InviteTypes $type
          */
         public function __construct(
-            private string $email,
-            private string $type,
-            private Company $company,
+            private readonly User $user,
+            private readonly Company $company,
+            private readonly InviteTypes $type,
         ) {
             $this->token = TokenGeneratorHelper::create();
 
-            Invite::whereInviteByEmailAndCompany($email, $company->id, $this->type)->delete();
+            Invite::whereInviteByUserAndCompany($user, $company)
+                ->whereType($this->type)
+                ->delete();
         }
 
         /**
@@ -37,9 +41,9 @@
         {
             $invite = new Invite();
             $invite->type = $this->type;
-            $invite->email = $this->email;
-            $invite->token = $this->token->getHashToken();
+            $invite->user_id = $this->user->id;
             $invite->company_id = $this->company->id;
+            $invite->token = $this->token->getHashToken();
             $invite->save();
 
             return $this->token->getToken();

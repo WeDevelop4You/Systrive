@@ -1,6 +1,8 @@
 import axios from 'axios'
+import Store from '../store'
 import ApiRoutes from "../config/api.json";
 
+const $store = Store
 const api = axios.create()
 
 api.defaults.withCredentials = true
@@ -49,14 +51,22 @@ export default {
             },
 
             getCsrfToken() {
-                return this.call.get('/sanctum/csrf-cookie')
+                return this.call.get('/sanctum/csrf-cookie', {disabled: true})
             },
+
+            getIdentifiers() {
+                return $store.getters['company/identifiers']
+            }
         }
+
+        Vue.prototype.$request = Vue.observable({
+            total: 0
+        })
 
         Vue.mixin({
             computed: {
                 $loading() {
-                    return !!this.$root.requests
+                    return !!Vue.prototype.$request.total
                 },
             },
         })

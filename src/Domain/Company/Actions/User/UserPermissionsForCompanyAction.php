@@ -5,7 +5,6 @@
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
-    use function setPermissionsTeamId;
 
     class UserPermissionsForCompanyAction
     {

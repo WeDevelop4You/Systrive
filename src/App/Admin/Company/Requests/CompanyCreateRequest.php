@@ -16,4 +16,11 @@
                 'email' => ['required', 'email'],
             ];
         }
+
+        protected function prepareForValidation()
+        {
+            $this->merge([
+                'email' => $this?->owner,
+            ]);
+        }
     }

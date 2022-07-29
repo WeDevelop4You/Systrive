@@ -3,12 +3,12 @@
     namespace App\Admin\Company\User\Controllers;
 
     use Domain\Company\Models\Company;
-    use Domain\Invite\Actions\ResendInviteAction;
-    use Domain\Invite\Mappings\InviteTableMap;
+    use Domain\Invite\Jobs\SendInviteToUser;
+    use Domain\Invite\Models\Invite;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class CompanyUserResendInviteController
     {
@@ -21,13 +21,18 @@
         public function action(Company $company, User $user): JsonResponse
         {
             $invite = $company->invites()
-                ->whereInviteByEmailAndCompany($user->email, $company->id, InviteTableMap::USER_TYPE)
+                ->whereInviteByUserAndCompany($user, $company)
+                ->whereUserType()
                 ->first();
 
-            (new ResendInviteAction($company))($invite);
+            if ($invite instanceof Invite) {
+                $invite->type->sendInvite($invite);
+            } else {
+                SendInviteToUser::dispatch($user, $company);
+            }
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.invite.resend')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.invite.resend')))
                 ->toJson();
         }
     }

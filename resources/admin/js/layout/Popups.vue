@@ -1,0 +1,57 @@
+<template>
+    <div>
+        <template v-for="modal in modals">
+            <modal
+                :key="modal.identifier"
+                :value="modal"
+            />
+        </template>
+        <div
+            class="notification-position"
+            :style="{paddingLeft: $vuetify.application.left + 'px'} "
+        >
+            <v-row
+                v-for="notification in notifications"
+                :key="notification.identifier"
+                class="mx-4"
+                no-gutters
+            >
+                <v-col
+                    cols="12"
+                    sm="9"
+                    offset-sm="3"
+                    md="6"
+                    offset-md="6"
+                    lg="4"
+                    offset-lg="8"
+                >
+                    <component
+                        :is="notification.componentName"
+                        :value="notification"
+                    />
+                </v-col>
+            </v-row>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {mapGetters} from "vuex";
+    import Modal from "../components/Popups/Modal";
+
+    export default {
+        name: "Index",
+
+        components: {
+            Modal,
+            SimpleNotification: () => import(/* webpackChunkName: "components/popups/notifications/simple" */ '../components/Popups/Notifications/Simple'),
+        },
+
+        computed: {
+            ...mapGetters({
+                modals: 'popups/modals',
+                notifications: 'popups/notifications'
+            })
+        }
+    }
+</script>

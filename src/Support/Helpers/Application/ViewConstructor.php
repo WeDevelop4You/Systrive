@@ -9,7 +9,7 @@
 
     class ViewConstructor extends ServiceProvider
     {
-        public function __construct(
+        private function __construct(
             Application $app,
             private string $application
         ) {
@@ -47,7 +47,7 @@
             $path = base_path(app_path(ucfirst($this->application)));
 
             $filter = function (SplFileInfo $file) {
-                if (!in_array($file->getBasename(), ['Views', 'views'])) {
+                if (!\in_array($file->getBasename(), ['Views', 'views'])) {
                     return false;
                 }
 

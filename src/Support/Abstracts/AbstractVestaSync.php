@@ -2,6 +2,8 @@
 
     namespace Support\Abstracts;
 
+    use Domain\System\Mappings\SystemUsageStatisticTableMap;
+    use Domain\System\Models\SystemUsageStatistic;
     use Illuminate\Bus\Queueable;
     use Illuminate\Contracts\Queue\ShouldBeUnique;
     use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,17 +31,11 @@
         protected Collection $vesta;
 
         /**
-         * AbstractVestaSync constructor.
-         *
-         * @param ...$arguments
+         * @return void
          */
-        public function __construct(...$arguments)
+        protected function initialize(): void
         {
-            $this->onQueue('system');
-
-            if (method_exists(static::class, 'setup')) {
-                $this->setup(...$arguments);
-            }
+            //
         }
 
         /**
@@ -47,44 +43,58 @@
          *
          * @return void
          */
-        final public function handle(): void
+        public function handle(): void
         {
-            $this->sync();
-        }
+            $this->initialize();
 
-        private function sync()
-        {
             $this->database->each(function (Model $model) {
-                $this->contains($this->vesta, $model)
-                    ? $this->vesta = $this->reject($this->vesta, $model)
+                $this->contains($model)
+                    ? $this->vesta = $this->reject($model)
                     : $model->delete();
             });
 
-            $this->save($this->vesta);
+            $this->save();
+        }
+
+        /**
+         * @param array $usage
+         *
+         * @return void
+         */
+        protected function upsertStatistics(array $usage): void
+        {
+            SystemUsageStatistic::upsert(
+                $usage,
+                [
+                    SystemUsageStatisticTableMap::MODEL_ID,
+                    SystemUsageStatisticTableMap::MODEL_TYPE,
+                    SystemUsageStatisticTableMap::TYPE,
+                    SystemUsageStatisticTableMap::DATE,
+                ],
+                [
+                    SystemUsageStatisticTableMap::TOTAL,
+                ]
+            );
         }
 
         abstract public function uniqueId(): string;
 
         /**
-         * @param Collection $vesta
-         * @param Model      $model
+         * @param Model $model
          *
          * @return bool
          */
-        abstract protected function contains(Collection $vesta, Model $model): bool;
+        abstract protected function contains(Model $model): bool;
 
         /**
-         * @param Collection $vesta
-         * @param Model      $model
+         * @param Model $model
          *
          * @return Collection
          */
-        abstract protected function reject(Collection $vesta, Model $model): Collection;
+        abstract protected function reject(Model $model): Collection;
 
         /**
-         * @param Collection $vesta
-         *
          * @return void
          */
-        abstract protected function save(Collection $vesta): void;
+        abstract protected function save(): void;
     }

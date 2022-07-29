@@ -3,10 +3,10 @@
     namespace App\Admin\Company\Controllers;
 
     use Domain\Company\Models\Company;
-    use Domain\Invite\Actions\ResendInviteAction;
+    use Domain\Invite\Models\Invite;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class CompanyResendInviteController
     {
@@ -17,12 +17,13 @@
          */
         public function action(Company $company): JsonResponse
         {
+            /** @var invite $invite */
             $invite = $company->invites()->whereCompanyType()->first();
 
-            (new ResendInviteAction($company))($invite);
+            $invite->type->sendInvite($invite);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.invite.resend')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.invite.resend')))
                 ->toJson();
         }
     }

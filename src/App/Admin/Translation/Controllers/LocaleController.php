@@ -1,52 +1,19 @@
 <?php
 
-    namespace App\Admin\Translation\Controllers;
+namespace App\Admin\Translation\Controllers;
 
-    use Domain\User\Actions\UpdateLocaleAction;
-    use Illuminate\Http\JsonResponse;
-    use Illuminate\Support\Facades\App;
-    use Illuminate\Support\Facades\Auth;
-    use Illuminate\Support\Facades\Session;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+use Illuminate\Http\JsonResponse;
+use Support\Response\Response;
 
-    class LocaleController
+class LocaleController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
     {
-        /**
-         * @return JsonResponse
-         */
-        public function index(): JsonResponse
-        {
-            $locale = Auth::check()
-                ? Auth::user()->locale
-                : Session::get('locale', App::getFallbackLocale());
-
-            return Response::create()->addData([
-                'locale' => $locale,
-            ])->toJson();
-        }
-
-        /**
-         * @param string $locale
-         *
-         * @return JsonResponse
-         */
-        public function action(string $locale): JsonResponse
-        {
-            $response = new Response();
-
-            if (in_array($locale, config('translation.locales'))) {
-                (new UpdateLocaleAction())($locale);
-
-                $response->addData([
-                    'locale' => $locale,
-                ]);
-            } else {
-                $response->addPopup(new SimpleNotification(trans('response.error.locale')))
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
-            }
-
-            return $response->toJson();
-        }
+        return Response::create()
+            ->addData(config('translation.locales'))
+            ->toJson();
     }
+}

@@ -2,13 +2,24 @@
 
     namespace App\Admin\User\Controllers;
 
+    use App\Admin\User\Responses\UserDestroyResponse;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class UserDestroyController
     {
+        /**
+         * @param User $user
+         *
+         * @return JsonResponse
+         */
+        public function index(User $user): JsonResponse
+        {
+            return UserDestroyResponse::create($user)->toJson();
+        }
+
         /**
          * @param User $user
          *
@@ -19,7 +30,7 @@
             $user->delete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.delete.account')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.deleted')))
                 ->toJson();
         }
     }

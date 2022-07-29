@@ -2,11 +2,8 @@
 
 namespace App\Console\Commands\Generate;
 
-use function base_path;
-use function config;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use function resource_path;
 
 class GenerateTranslation extends Command
 {

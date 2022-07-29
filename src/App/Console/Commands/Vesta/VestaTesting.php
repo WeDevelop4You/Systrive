@@ -3,7 +3,8 @@
     namespace App\Console\Commands\Vesta;
 
     use Illuminate\Console\Command;
-    use Support\Helpers\Vesta\VestaAPIHelper;
+    use Support\Enums\VestaCommands;
+    use Support\Services\Vesta;
 
     class VestaTesting extends Command
     {
@@ -28,7 +29,7 @@
          */
         public function handle(): int
         {
-            $data = VestaAPIHelper::create()->getCommand('v-list-web-domains', 'WeDevelop4You');
+            $data = Vesta::api()->get(VestaCommands::GET_DNS_TEMPLATES);
 
             dd($data);
 

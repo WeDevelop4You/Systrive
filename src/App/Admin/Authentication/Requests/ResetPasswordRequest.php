@@ -6,7 +6,6 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rules\Password;
-use function trans;
 
 class ResetPasswordRequest extends FormRequest
 {

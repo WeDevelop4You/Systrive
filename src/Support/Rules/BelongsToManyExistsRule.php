@@ -41,10 +41,13 @@
         {
             try {
                 $column = $this->column ?: $attribute;
-
                 $searchValue = $this->relatedQuery->where($column, $value)->firstOrFail();
 
-                return $this->exists === $this->pivotQuery->wherePivot($this->pivotColumn, $searchValue->id)->exists();
+                return $this->exists === $this->pivotQuery
+                        ->wherePivot(
+                            $this->pivotColumn,
+                            $searchValue->getAttribute($searchValue->getKeyName())
+                        )->exists();
             } catch (ModelNotFoundException) {
                 return !$this->exists;
             }

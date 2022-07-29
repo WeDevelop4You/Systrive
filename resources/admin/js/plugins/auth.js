@@ -1,17 +1,32 @@
-import store from '../store'
+import Store from '../store'
 import Permissions from "../config/permissions";
 
+const $store = Store
 const $permissions = Permissions
 
 export default {
     install(Vue) {
         Vue.prototype.$auth = {
             user() {
-                return store.getters['user/get']
+                return $store.getters['user/auth/data']
+            },
+
+            getPreference(type) {
+                const preferences = $store.getters['user/auth/preferences']
+
+                if (Object.prototype.hasOwnProperty.call(preferences, type)) {
+                    return preferences[type]
+                }
+
+                return undefined
+            },
+
+            updatePreference(type, value) {
+                $store.commit('user/auth/setPreference', {type, value})
             },
 
             can(permissions, requiresAll = false) {
-                const userPermissions = store.getters['user/getPermissions']
+                const userPermissions = $store.getters['user/auth/permissions/getItems']
 
                 if (permissions !== undefined && !userPermissions.includes($permissions.superAdmin)) {
                     permissions = Array.isArray(permissions)

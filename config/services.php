@@ -1,5 +1,7 @@
 <?php
 
+use Domain\Git\Enums\GitServiceTypes;
+
 return [
 
     /*
@@ -30,4 +32,28 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => sprintf('/git/%s/callback', GitServiceTypes::GITHUB->value),
+    ],
+
+    'gitlab' => [
+        'client_id' => env('GITLAB_CLIENT_ID'),
+        'client_secret' => env('GITLAB_CLIENT_SECRET'),
+        'redirect' => sprintf('/git/%s/callback', GitServiceTypes::GITLAB->value),
+    ],
+
+    'vesta' => [
+        'hostname' => env('VESTA_HOSTNAME'),
+        'username' => env('VESTA_USERNAME'),
+        'password' => env('VESTA_PASSWORD'),
+    ],
+
+    'supervisor' => [
+        'url' => env('SUPERVISOR_URL', 'supervisor.siberhost.nl'),
+        'port' => env('SUPERVISOR_PORT', 80),
+        'username' => env('SUPERVISOR_USERNAME'),
+        'password' => env('SUPERVISOR_PASSWORD'),
+    ],
 ];

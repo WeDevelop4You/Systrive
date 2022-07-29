@@ -2,35 +2,29 @@
 
     namespace App\Admin\Company\Role\Controllers;
 
-    use App\Admin\Company\Role\Resources\CompanyRoleDataResource;
+    use App\Admin\Company\Role\DataTable\CompanyRoleTable;
     use Domain\Company\Models\Company;
-    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-    use Support\Helpers\Data\Build\Column;
-    use Support\Helpers\Data\Build\DataTable;
+    use Illuminate\Http\JsonResponse;
+    use Support\Abstracts\AbstractTable;
+    use Support\Abstracts\Controllers\AbstractTableController;
+    use Support\Helpers\DataTable\Build\DataTable;
 
-    class CompanyRoleTableController
+    class CompanyRoleTableController extends AbstractTableController
     {
-        /**
-         * @param Company $company
-         *
-         * @return AnonymousResourceCollection
-         */
-        public function index(Company $company): AnonymousResourceCollection
+        protected function getDataTable(): AbstractTable
         {
-            return DataTable::create($company->roles()->withCount('permissions'))
-                ->setColumns($this->createColumns())
-                ->getData(CompanyRoleDataResource::class);
+            return CompanyRoleTable::create();
         }
 
         /**
-         * @return array
+         * @param Company $company
+         *
+         * @return JsonResponse
          */
-        private function createColumns(): array
+        public function index(Company $company): JsonResponse
         {
-            return [
-                Column::create('name')->sortable()->searchable(),
-                Column::create('permissions_count')->sortable(),
-                Column::create('created_at')->sortable()->searchable(),
-            ];
+            return DataTable::create($this->getDataTable())
+                ->query($company->roles()->withCount('permissions'))
+                ->export();
         }
     }

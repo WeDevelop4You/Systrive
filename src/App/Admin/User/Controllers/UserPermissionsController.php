@@ -2,10 +2,10 @@
 
     namespace App\Admin\User\Controllers;
 
-    use App\Admin\User\Resources\UserRolesResource;
+    use App\Admin\User\Resources\UserRoleResource;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Response;
 
     class UserPermissionsController
     {
@@ -15,7 +15,7 @@
         public function index(): JsonResponse
         {
             return Response::create()
-                ->addData(UserRolesResource::make(Auth::user()))
+                ->addData(UserRoleResource::make(Auth::user()))
                 ->toJson();
         }
     }

@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->id()->unique();
             $table->string('email')->unique();
             $table->string('locale')->default(App::getFallbackLocale());
             $table->timestamp('email_verified_at')->nullable();

@@ -3,14 +3,14 @@
     namespace App\Admin\Company\User\Controllers;
 
     use App\Admin\Company\User\Requests\CompanyUserUpdateRequest;
-    use App\Admin\Company\User\Resources\CompanyUserResource;
+    use App\Admin\Company\User\Responses\CompanyUserEditResponse;
     use Domain\Company\Actions\User\UserPermissionsForCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class CompanyUserEditController
     {
@@ -24,10 +24,7 @@
         {
             setPermissionsTeamId($company->id);
 
-            $response = new Response();
-            $response->addData(CompanyUserResource::make($user));
-
-            return $response->toJson();
+            return CompanyUserEditResponse::create($company, $user)->toJson();
         }
 
         /**
@@ -44,7 +41,7 @@
             (new UserPermissionsForCompanyAction($company, $user))($data);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.user.company.access')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))
                 ->toJson();
         }
     }

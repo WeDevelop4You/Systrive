@@ -5,5 +5,12 @@
 <script>
     export default {
         name: "Dashboard",
+
+        // created() {
+        //     this.$api.call({
+        //         url: this.$api.route('git.repositories', 'gitlab'),
+        //         method: "GET",
+        //     })
+        // }
     }
 </script>

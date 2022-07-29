@@ -2,41 +2,75 @@ export default {
     install(Vue) {
         Vue.mixin({
             methods: {
-                callAction(data) {
-                    if (Object.prototype.hasOwnProperty.call(data, 'action')) {
-                        this[data.action.method](...data.action.parameters ?? [])
+                callAction(action) {
+                    if (action) {
+                        const promise = this[`_${action.method}`](action.data ?? {})
+
+                        if (this._returnIsPromise(promise)) {
+                            return promise.then(() => {
+                                return this.callAction(action.onSuccess)
+                            }).catch(() => {
+                                return Promise.resolve()
+                            })
+                        }
+
+                        return this.callAction(action.onSuccess)
                     }
                 },
 
-                async actionGoToRoute(route) {
-                    await this.$router.push(route).catch(() => {})
+                async _actionChain(actions) {
+                    for (const action of actions) {
+                        await this.callAction(action)
+                    }
                 },
 
-                async actionGoToLastRoute() {
-                    const originLastRoute = this.$root.lastRoute
-
-                    await this.actionGoToRoute(originLastRoute)
-
-                    this.$root.lastRoute = originLastRoute
+                _actionClosePopupModal({identifier}) {
+                    this.$store.commit('popups/removeModal', identifier)
                 },
 
-                async actionGoToMainRoute() {
-                    const originLastRoute = this.$root.lastRoute
-
-                    await this.actionGoToRoute({name: this.$route.name})
-
-                    this.$root.lastRoute = originLastRoute
+                _actionGoToRoute({route}) {
+                    return this.$router.push(route)
                 },
 
-                actionGetRequest(url) {
-                    this.$api.call({
+                _actionRequest({url, method, params}) {
+                    return this.$api.call({
                         url: url,
-                        method: 'GET',
+                        method: method,
+                        data: params
                     })
                 },
 
-                async actionVuexDispatchMethod(type, params) {
-                    await this.$store.dispatch(type, params)
+                _actionVuexCommitMethod({type, params}) {
+                    return this.$store.commit(type, params)
+                },
+
+                _actionVuexDispatchMethod({type, params}) {
+                    return this.$store.dispatch(type, params)
+                },
+
+                _actionBreadcrumbsAdd(breadCrumbs) {
+                    this._actionBreadcrumbsRemove()
+
+                    this.$route.meta.breadcrumbs.push(...breadCrumbs)
+                },
+
+                _actionBreadcrumbsRemove() {
+                    const breadCrumbs = this.$route.meta.breadcrumbs
+                    const index = breadCrumbs.findIndex(
+                        (x) => Object.prototype.hasOwnProperty.call(x, 'added')
+                    )
+
+                    if (index > -1) {
+                        breadCrumbs.splice(index, breadCrumbs.length - index)
+                    }
+                },
+
+                _returnIsPromise(func = null) {
+                    return !(!func || func.constructor.name === 'AsyncFunction' || (typeof func === 'function' && this._isPromise(func())));
+                },
+
+                _isPromise(promise) {
+                    return typeof promise === 'object' && typeof promise.then === 'function';
                 },
             }
         })

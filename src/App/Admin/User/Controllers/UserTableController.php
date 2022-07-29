@@ -2,47 +2,27 @@
 
     namespace App\Admin\User\Controllers;
 
-    use App\Admin\User\Resources\UserDataResource;
-
+    use App\Admin\User\DataTables\UserTable;
     use Domain\User\Models\User;
-    use Domain\User\Models\UserProfile;
-    use Illuminate\Database\Eloquent\Builder;
-    use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-    use Illuminate\Support\Facades\DB;
-    use Support\Helpers\Data\Build\Column;
-    use Support\Helpers\Data\Build\DataTable;
+    use Illuminate\Http\JsonResponse;
+    use Support\Abstracts\AbstractTable;
+    use Support\Abstracts\Controllers\AbstractTableController;
+    use Support\Helpers\DataTable\Build\DataTable;
 
-    class UserTableController
+    class UserTableController extends AbstractTableController
     {
-        /**
-         * @return AnonymousResourceCollection
-         */
-        public function index(): AnonymousResourceCollection
+        protected function getDataTable(): AbstractTable
         {
-            return DataTable::create(User::withTrashed())
-                ->setColumns($this->createColumns())
-                ->getData(UserDataResource::class);
+            return UserTable::create();
         }
 
         /**
-         * @return array
+         * @return JsonResponse
          */
-        private function createColumns(): array
+        public function index(): JsonResponse
         {
-            return [
-                Column::create('id')->sortable()->searchable(),
-                Column::create('profile.full_name')->sortable(function (Builder $query, string $direction) {
-                    return $query->orderBy(UserProfile::selectRaw("CONCAT_WS(' ', first_name, middle_name, last_name)")
-                        ->whereColumn('users.id', 'user_profiles.user_id'), $direction);
-                })->searchable(function (Builder $query, string $search) {
-                    return $query->orWhereHas('profile', function (Builder $query) use ($search) {
-                        return $query->where(DB::raw("CONCAT_WS(' ', first_name, middle_name, last_name)"), 'like', "%{$search}%");
-                    });
-                }),
-                Column::create('email')->sortable()->searchable(),
-                Column::create('email_verified_at')->sortable()->searchable(),
-                Column::create('created_at')->sortable()->searchable(),
-                Column::create('deleted_at')->sortable()->searchable(),
-            ];
+            return DataTable::create($this->getDataTable())
+                ->query(User::withTrashed())
+                ->export();
         }
     }

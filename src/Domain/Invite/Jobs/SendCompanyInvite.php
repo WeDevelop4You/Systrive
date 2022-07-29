@@ -2,20 +2,17 @@
 
 namespace Domain\Invite\Jobs;
 
-use function config;
-use Domain\Company\Mappings\CompanyTableMap;
+use Domain\Company\Enums\CompanyStatusTypes;
 use Domain\Company\Models\Company;
 use Domain\Invite\Actions\CreateInviteAction;
-use Domain\Invite\Mappings\InviteTableMap;
+use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Notifications\InviteNotification;
+use Domain\User\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Notification;
-use function route;
-use function trans;
 
 class SendCompanyInvite
 {
@@ -27,12 +24,12 @@ class SendCompanyInvite
     /**
      * SendInviteEmailToUser constructor.
      *
-     * @param string  $email
+     * @param User    $user
      * @param Company $company
      */
     public function __construct(
-        private string $email,
-        private Company $company,
+        private readonly User $user,
+        private readonly Company $company,
     ) {
         //
     }
@@ -44,17 +41,17 @@ class SendCompanyInvite
      */
     public function handle(): void
     {
-        $token = (new CreateInviteAction($this->email, InviteTableMap::COMPANY_TYPE, $this->company))();
+        $token = (new CreateInviteAction($this->user, $this->company, InviteTypes::COMPANY))();
 
-        if ($this->company->status === CompanyTableMap::EXPIRED_STATUS) {
-            $this->company->status = CompanyTableMap::INVITED_STATUS;
+        if ($this->company->status == CompanyStatusTypes::EXPIRED) {
+            $this->company->status = CompanyStatusTypes::INVITED;
             $this->company->save();
         }
 
-        $url = route('admin.company.user.invite.link', [
+        $url = route('admin.invite.link', [
             $this->company->id,
             $token,
-            Crypt::encryptString($this->email),
+            Crypt::encryptString($this->user->email),
         ]);
 
         $appName = config('app.name');
@@ -62,6 +59,6 @@ class SendCompanyInvite
         $name = $appName;
         $subject = trans('mail.subject.invited.new.company', ['name' => $appName]);
 
-        Notification::route('mail', $this->email)->notify(new InviteNotification($url, $name, $subject));
+        $this->user->notify(new InviteNotification($url, $name, $subject));
     }
 }

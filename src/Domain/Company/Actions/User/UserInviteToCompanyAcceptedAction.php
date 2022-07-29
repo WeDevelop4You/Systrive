@@ -2,6 +2,7 @@
 
     namespace Domain\Company\Actions\User;
 
+    use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyUserTableMap;
     use Domain\Company\Models\Company;
     use Domain\Invite\Models\Invite;
@@ -27,9 +28,11 @@
          */
         public function __invoke(Company $company): void
         {
-            $company->users()->updateExistingPivot($this->user->id, ['status' => CompanyUserTableMap::ACCEPTED_STATUS]);
+            $company->users()->updateExistingPivot($this->user->id, [
+                CompanyUserTableMap::STATUS => CompanyUserStatusTypes::ACCEPTED->value,
+            ]);
 
-            Invite::whereInviteByEmailAndCompany($this->user->email, $company->id)
+            Invite::whereInviteByUserAndCompany($this->user, $company)
                 ->whereUserType()
                 ->delete();
         }

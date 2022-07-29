@@ -3,13 +3,13 @@
     namespace App\Admin\Company\Controllers;
 
     use App\Admin\Company\Requests\CompanyUpdateRequest;
-    use App\Admin\Company\Resources\CompanyResource;
+    use App\Admin\Company\Responses\CompanyEditResponse;
     use Domain\Company\Actions\UpdateCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyData;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class CompanyEditController
     {
@@ -20,21 +20,18 @@
          */
         public function index(Company $company): JsonResponse
         {
-            $response = new Response();
-            $response->addData(CompanyResource::make($company));
-
-            return $response->toJson();
+            return CompanyEditResponse::create($company)->toJson();
         }
 
         public function action(CompanyUpdateRequest $request, Company $company): JsonResponse
         {
-            $data = new CompanyData(...$request->only('name', 'owner', 'email', 'domain', 'information'));
-            $removeUser = $request->get('removeUser', false);
+            $data = new CompanyData(...$request->only('name', 'email', 'domain', 'information', 'owner'));
+            $removeOwner = $request->get('remove_owner', false);
 
-            (new UpdateCompanyAction($company, $removeUser))($data);
+            (new UpdateCompanyAction($company, $removeOwner))($data);
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.company')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))
                 ->toJson();
         }
     }

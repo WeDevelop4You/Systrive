@@ -3,15 +3,16 @@
     namespace App;
 
     use Domain\Invite\Jobs\CheckInviteHasExpired;
-    use Domain\System\Jobs\SyncSystemUserDatabases;
-    use Domain\System\Jobs\SyncSystemUserDNS;
-    use Domain\System\Jobs\SyncSystemUserDomains;
-    use Domain\System\Jobs\SyncSystemUserMailDomains;
-    use Domain\System\Jobs\SyncSystemUsers;
-    use Domain\System\Models\SystemUser;
+    use Domain\System\Jobs\SyncSystem;
+    use Domain\System\Jobs\SyncSystemDatabases;
+    use Domain\System\Jobs\SyncSystemDNS;
+    use Domain\System\Jobs\SyncSystemDomains;
+    use Domain\System\Jobs\SyncSystemMailDomains;
+    use Domain\System\Jobs\SyncSystemTemplates;
+    use Domain\System\Models\System;
     use Illuminate\Console\Scheduling\Schedule;
     use Illuminate\Foundation\Console\Kernel;
-    use Illuminate\Support\Facades\Bus;
+    use Support\Enums\ScheduleTypes;
 
     class ConsoleKernel extends Kernel
     {
@@ -25,25 +26,27 @@
         protected function schedule(Schedule $schedule): void
         {
             $schedule->job(new CheckInviteHasExpired())
-                 ->name('User invites')
-                 ->everyFiveMinutes()
-                 ->withoutOverlapping();
+                ->cleanUp()
+                ->name('User invites')
+                ->everyFiveMinutes()
+                ->withoutOverlapping();
 
-            $schedule->job(new SyncSystemUsers())
-                ->then(function (Schedule $schedule) {
-                    SystemUser::all()->each(function (SystemUser $systemUser) {
-                        Bus::chain([
-                            new SyncSystemUserDomains($systemUser),
-                            new SyncSystemUserDNS($systemUser),
-                            new SyncSystemUserDatabases($systemUser),
-                            new SyncSystemUserMailDomains($systemUser),
-                        ])->dispatch();
-                    });
+            $schedule->recordJob(ScheduleTypes::SYSTEM_DATA, SyncSystem::class)
+                ->withChain(function () {
+                    System::with('domains', 'dns', 'databases', 'mailDomains')->get()
+                        ->each(function (System $system) {
+                            SyncSystemDomains::dispatch($system);
+                            SyncSystemDNS::dispatch($system);
+                            SyncSystemDatabases::dispatch($system);
+                            SyncSystemMailDomains::dispatch($system);
+                        });
                 })
-                ->name('System user data')
                 ->dailyAt('3:00')
-                ->withoutOverlapping()
-                ->emailOutputOnFailure('pmhuberts@gmail.com');
+                ->withoutOverlapping();
+
+            $schedule->recordJob(ScheduleTypes::SYSTEM_TEMPLATES, SyncSystemTemplates::class)
+                ->dailyAt('3:00')
+                ->withoutOverlapping();
         }
 
         /**

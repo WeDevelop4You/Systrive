@@ -14,13 +14,12 @@ class CreateSystemUsageStatistics extends Migration
     public function up()
     {
         Schema::create('system_usage_statistics', function (Blueprint $table) {
-            $table->id();
             $table->morphs('model');
             $table->string('type');
             $table->integer('total')->default(0);
             $table->date('date');
             $table->timestamps();
-            $table->unique(['model_type', 'model_id', 'type', 'date'], 'usage_statistic_index');
+            $table->unique(['model_type', 'model_id', 'type', 'date']);
         });
     }
 

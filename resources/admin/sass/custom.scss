@@ -15,8 +15,17 @@ html {
     transform: translateX(-50%);
 }
 
+.grid {
+    display: grid;
+}
+
 .gap-3 {
     gap: 0.75rem;
+}
+
+.flex-center-self {
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .line-height-0 {
@@ -39,6 +48,10 @@ html {
     cursor: pointer;
 }
 
+.cursor-default {
+    cursor: default;
+}
+
 .translation .v-expansion-panel-content__wrap {
     padding: 0 8px 12px;
 }
@@ -53,4 +66,20 @@ html {
 
 .theme--light.dialog-divide-color {
     background: $light-gray;
+}
+
+.v-toolbar__content {
+    gap: 0.375rem;
+}
+
+.v-skeleton-loader:not(.skeleton-round) > .v-skeleton-loader__bone {
+    border-radius: 0 !important;
+}
+
+.max-w-min-content {
+    max-width: min-content;
+}
+
+.no-active::before {
+    opacity: 0 !important;
 }

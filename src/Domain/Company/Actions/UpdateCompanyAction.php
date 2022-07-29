@@ -4,13 +4,18 @@
 
     use Domain\Company\DataTransferObjects\CompanyData;
     use Domain\Company\Models\Company;
-    use Domain\User\Models\User;
 
     class UpdateCompanyAction
     {
+        /**
+         * UpdateCompanyAction constructor.
+         *
+         * @param Company $company
+         * @param bool    $removeOwner
+         */
         public function __construct(
             private Company $company,
-            private bool $removeUser = false
+            private bool $removeOwner = false
         ) {
             //
         }
@@ -31,10 +36,12 @@
 
             $owner = $company->whereOwner()->first();
 
-            if (is_null($owner) || $owner->id !== $companyData->owner_id) {
-                $newOwner = User::find($companyData->owner_id);
-
-                (new ChangeCompanyOwnershipAction($newOwner, $owner, $this->removeUser))($company);
+            if (\is_null($owner) || $owner->email !== $companyData->owner) {
+                (new ChangeCompanyOwnershipAction(
+                    $owner,
+                    $companyData->owner,
+                    $this->removeOwner
+                ))($company);
             }
 
             return $company;

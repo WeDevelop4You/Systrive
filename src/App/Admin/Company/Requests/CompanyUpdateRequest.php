@@ -20,10 +20,15 @@
                 'email' => ['required', 'email'],
                 'domain' => ['nullable', 'url'],
                 'information' => ['nullable', 'string'],
-                'removeUser' => ['required', 'boolean'],
-                'owner' => [$ifSuperAdmin],
-                'owner.id' => [$ifSuperAdmin, 'exists:users,id'],
-                'owner.email' => [$ifSuperAdmin, 'email'],
+                'remove_owner' => ['sometimes', 'boolean'],
+                'owner' => [$ifSuperAdmin, 'email'],
             ];
+        }
+
+        protected function prepareForValidation()
+        {
+            $this->merge([
+                'owner' => $this?->owner['value'] ?? null,
+            ]);
         }
     }

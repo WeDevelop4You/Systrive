@@ -7,29 +7,69 @@ export default {
     namespaced: true,
 
     state: () => ({
-        modal: {},
+        modals: [],
         notifications: []
     }),
 
     mutations: {
-        setModal(state, data) {
-            state.modal = data
+        addModal(state, data) {
+            state.modals.push(data)
         },
 
-        addNotifications(state, data) {
+        addNotification(state, data) {
             state.notifications.push(data)
         },
 
-        removeNotifications(state, uuid) {
-            const index = state.notifications.findIndex(notification => notification.uuid === uuid)
+        removeAllModals(state) {
+            for (const [index] of state.modals) {
+                state.modals[index].show = false
 
-            state.notifications.splice(index, 1)
-        }
+                setTimeout(() => {
+                    state.modals.splice(0, 1)
+                }, 300)
+            }
+        },
+
+        removeAllNotifications(state) {
+            for (const [index] of state.notifications) {
+                state.notifications[index].show = false
+
+                setTimeout(() => {
+                    state.modals.splice(0, 1)
+                }, 300)
+            }
+        },
+
+        removeModal(state, identifier) {
+            const index = identifier
+                ? state.modals.findIndex(modal => modal.identifier === identifier)
+                : 0
+
+            if (index !== -1) {
+                state.modals[index].show = false
+
+                setTimeout(() => {
+                    state.modals.splice(index, 1)
+                }, 300)
+            }
+        },
+
+        removeNotification(state, identifier) {
+            const index = state.notifications.findIndex(notification => notification.identifier === identifier)
+
+            if (index !== -1) {
+                state.notifications[index].show = false
+
+                setTimeout(() => {
+                    state.notifications.splice(index, 1)
+                }, 300)
+            }
+        },
     },
 
     getters: {
-        modal(state) {
-            return state.modal
+        modals(state) {
+            return state.modals
         },
 
         notifications(state) {
@@ -39,41 +79,42 @@ export default {
 
     actions: {
         addPopup({commit}, content) {
-            let data = content.data
-            const type = content.type
+            const data = content.data
 
-            if (type === 'notification') {
-                const uuid = uuidGenerator()
+            switch (data.type) {
+                case 'notification':
+                    commit('addNotification', content)
 
-                data.uuid = uuid
-                commit('addNotifications', content)
+                    if (!data.stayable) {
+                        const displayTime = data.time || app.$config.notification.displayTime
 
-                if (!data.stayable) {
-                    const displayTime = data.time || app.$config.notification.displayTime
+                        setTimeout(() => {
+                            commit('removeNotification', content.identifier)
+                        }, displayTime);
+                    }
 
-                    setTimeout(() => {
-                        commit('removeNotifications', uuid)
-                    }, displayTime);
-                }
-            } else if (type === 'modal') {
-                content.show = true
+                    break
+                case 'modal':
+                    commit('addModal', content)
 
-                commit('setModal', content)
+                    break
             }
         },
 
         addNotification({dispatch}, {message, type = 'error'}) {
-            dispatch(
-                'addPopup',
+            dispatch('addPopup',
                 {
                     type: "notification",
+                    identifier: uuidGenerator(),
                     component: "SimpleNotification",
+                    attributes: {
+                        type: type,
+                    },
+                    content: {
+                        text: message
+                    },
                     data: {
                         stayable: false,
-                        message: {
-                            type: type,
-                            text: message
-                        }
                     }
                 },
             )

@@ -1,6 +1,6 @@
 export default {
     types: {
-        main: 'main',
+        default: 'default',
         company: 'company',
     },
 

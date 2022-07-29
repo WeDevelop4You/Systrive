@@ -3,8 +3,8 @@
     namespace App\Admin\Translation\Controllers;
 
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use WeDevelop4You\TranslationFinder\Classes\Manager;
     use WeDevelop4You\TranslationFinder\Exceptions\FailedToBuildTranslationFileException;
 
@@ -20,7 +20,7 @@
             Manager::publishAll();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.publish.translations')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.publish.translations')))
                 ->toJson();
         }
     }

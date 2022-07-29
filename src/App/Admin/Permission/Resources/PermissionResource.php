@@ -16,9 +16,11 @@
         {
             [$group, $permission] = explode('.', $this->name, 2);
 
+            $name = "permission.{$permission}";
+
             return [
                 'id' => $this->id,
-                'name' => translateToVuetify("permission.{$permission}"),
+                'name' => trans($name),
             ];
         }
     }

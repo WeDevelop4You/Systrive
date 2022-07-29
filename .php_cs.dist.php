@@ -39,6 +39,22 @@
             'keep_multiple_spaces_after_comma' => true,
         ],
         'single_trait_insert_per_statement' => true,
+        'no_extra_blank_lines' => [
+            'tokens' => [
+                'use'
+            ]
+        ],
+        'global_namespace_import' => [
+            'import_constants' => false,
+            'import_functions' => false
+        ],
+        'native_function_invocation' => [
+            'include' => [
+                '@compiler_optimized'
+            ],
+            'scope' => 'namespaced',
+            'strict' => true
+        ]
     ];
 
     $finder = Finder::create()

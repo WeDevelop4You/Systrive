@@ -8,6 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
+use ReflectionClass;
+use ReflectionException;
 use stdClass;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -31,16 +33,30 @@ class GenerateMapping extends Command
     /**
      * Execute the console command.
      *
+     * @throws ReflectionException
+     *
      * @return int
      */
     public function handle(): int
     {
-        $this->getModelClasses();
+        $this->getModelClasses()
+            ->each(function (string $class) {
+                $mappingData = $this->createMappingData($class);
+
+                $this->generateMapping($mappingData);
+
+                $this->info(
+                    "Generated model {$class} to {$mappingData->namespace}/{$mappingData->filename}"
+                );
+            });
 
         return 1;
     }
 
-    private function getModelClasses(): void
+    /**
+     * @return Collection
+     */
+    private function getModelClasses(): Collection
     {
         $finder = new Finder();
         $path = base_path('src/Domain');
@@ -55,62 +71,111 @@ class GenerateMapping extends Command
             ->ignoreDotFiles(true)
             ->files();
 
-        $classes = new Collection($files);
-
-        $classes->map(function (SplFileInfo $file) {
+        return Collection::make($files)->map(function (SplFileInfo $file) {
             return Str::of($file->getPathname())
                 ->after('src/')
                 ->replace(['/', '.php'], ['\\', '']);
         })->filter(function (string $class) {
             return is_subclass_of($class, Model::class);
-        })->each(function (string $class) {
-            $this->createMappingData($class);
         });
     }
 
-    private function createMappingData(string $class): void
+    /**
+     * @param string $class
+     *
+     * @throws ReflectionException
+     *
+     * @return stdClass
+     */
+    private function createMappingData(string $class): stdClass
     {
+        $namespace = Str::of($class)
+            ->before('\\Models')
+            ->append('\\Mappings');
+
+        $filename = Str::of($class)
+            ->afterLast('\\')
+            ->append('TableMap');
+
+        $path = Str::of($class)
+            ->replace('\\', '/')
+            ->before('/Models')
+            ->prepend(base_path() . '/src/')
+            ->append("/Mappings/{$filename}.php");
+
+        $mapping = new stdClass();
+        $mapping->path = $path;
+        $mapping->namespace = $namespace;
+        $mapping->fileName = $filename;
+        $mapping->constants = $this->getConstants($class);
+
+        return $mapping;
+    }
+
+    /**
+     * @param string $class
+     *
+     * @throws ReflectionException
+     *
+     * @return array
+     */
+    private function getConstants(string $class): array
+    {
+        /** @var Model $model */
         $model = new $class();
+        $table = $model->getTable();
+        $columns = Schema::getColumnListing($table);
+        $extraConstants = config("mapping.{$class}", []);
 
-        $columns = Schema::getColumnListing($model->getTable());
+        $constants[0] = [
+            'table' => $table,
+        ];
 
-        if (!is_null($columns)) {
-            $constants = [];
-
-            foreach ($columns as $column) {
-                $constants[$column] = $column;
-            }
-
-            $namespace = Str::of($class)
-                ->before('\\Models')
-                ->append('\\Mappings');
-
-            $filename = Str::of($class)
-                ->afterLast('\\')
-                ->append('TableMap');
-
-            $path = Str::of($class)
-                ->replace('\\', '/')
-                ->before('/Models')
-                ->prepend(base_path() . '/src/')
-                ->append("/Mappings/{$filename}.php");
-
-            $mapping = new stdClass();
-            $mapping->path = $path;
-            $mapping->namespace = $namespace;
-            $mapping->fileName = $filename;
-            $mapping->constants[] = $constants;
-
-            $extraConstants = config("mapping.{$class}", []);
-
-            if (!is_null($extraConstants)) {
-                $mapping->constants = array_merge($mapping->constants, $extraConstants);
-            }
-
-            $this->generateMapping($mapping);
-
-            $this->info("Generated {$mapping->fileName} ({$mapping->namespace})");
+        foreach ($columns as $column) {
+            $constants[2][$column] = $column;
         }
+
+        foreach ($columns as $column) {
+            $constants['table'][$column] = "{$table}.{$column}";
+        }
+
+        $relationships = $this->getRelationshipFromModel($class);
+        foreach ($relationships as $relationship) {
+            $name = Str::snake($relationship);
+
+            $constants['relationship'][$name] = $relationship;
+        }
+
+        if (!\is_null($extraConstants)) {
+            $constants = array_merge($constants, $extraConstants);
+        }
+
+        return $constants;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    private function getRelationshipFromModel(string $class): array
+    {
+        $reflector = new ReflectionClass($class);
+
+        return collect($reflector->getMethods())
+            ->filter(
+                fn ($method) =>
+                !empty($method->getReturnType()) &&
+                Str::contains(
+                    $method->getReturnType(),
+                    'Illuminate\Database\Eloquent\Relations'
+                ) &&
+                !Str::contains(
+                    $method->getName(),
+                    ['where'],
+                    true
+                )
+            )
+            ->pluck('name')
+            ->all();
     }
 
     private function generateMapping(object $mapping)
@@ -127,16 +192,20 @@ class GenerateMapping extends Command
         $data .= "\tclass {$mapping->fileName}\n";
         $data .= "\t{";
 
-        foreach ($mapping->constants as $suffix => $constants) {
+        foreach ($mapping->constants as $prefix => $constants) {
             $data .= "\n";
             foreach ($constants as $key => $value) {
                 $key = strtoupper($key);
 
-                if (is_string($suffix)) {
-                    $key = "{$key}_" . strtoupper($suffix);
+                if (\is_string($prefix)) {
+                    $key = strtoupper($prefix) . "_{$key}";
                 }
 
-                $data .= "\t\tpublic const {$key} = '{$value}';\n";
+                $data .= "\t\tpublic const {$key} = ";
+                $data .= \is_int($value)
+                    ? $value
+                    : "'{$value}'";
+                $data .= ";\n";
             }
         }
 

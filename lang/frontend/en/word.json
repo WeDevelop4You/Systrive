@@ -40,7 +40,7 @@
             "password": "Reset password"
         },
         "confirm": {
-            "password": "Comfirm password"
+            "password": "Confirm password"
         },
         "users": "Users",
         "translations": "Translations",
@@ -52,7 +52,8 @@
             "sources": "Translation sources"
         },
         "account": {
-            "account": "Account"
+            "account": "Account",
+            "settings": "Account settings"
         },
         "send_email": "Send email",
         "id": "ID",
@@ -118,6 +119,40 @@
         "databases": "Databases",
         "mail": {
             "domains": "Mail domains"
+        },
+        "usage": {
+            "disk": "Disk usages",
+            "bandwidth": "Bandwidth usages",
+            "usage": "Usage"
+        },
+        "personal": {
+            "data": "Personal data"
+        },
+        "security": "Security",
+        "current": {
+            "password": "Current password"
+        },
+        "change": {
+            "password": "Change password"
+        },
+        "2fa": "Two-factor authentication",
+        "setup": {
+            "2fa": "Setup two-factor authentication"
+        },
+        "enable": {
+            "enable": "Enable"
+        },
+        "scan": {
+            "qr": {
+                "code": "Scan QR code"
+            }
+        },
+        "check": {
+            "2fa": "Check two-factor authentication",
+            "check": "Check"
+        },
+        "disable": {
+            "disable": "Disabled"
         }
     }
 }

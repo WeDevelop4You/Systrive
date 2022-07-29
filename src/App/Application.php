@@ -8,5 +8,10 @@
     {
         protected $namespace = 'App\\';
 
-        protected $langPath = '../lang/backend';
+        public function __construct($basePath = null)
+        {
+            parent::__construct($basePath);
+
+            $this->useLangPath($this->langPath('backend'));
+        }
     }

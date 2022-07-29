@@ -7,9 +7,11 @@ return array (
     array (
       'api' => 
       array (
-        'success' => 'Command has been successfuly performed',
+        'success' => 'Command has been successfully performed',
       ),
     ),
+    'deleted' => 'Successfully deleted',
+    'saved' => 'Successfully saved',
   ),
   'error' => 
   array (

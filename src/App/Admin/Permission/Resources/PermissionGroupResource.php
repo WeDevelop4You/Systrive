@@ -14,10 +14,12 @@
          */
         public function toArray($request): array
         {
+            $name = "word.{$this->group}.{$this->group}";
+
             return [
                 'id' => $this->id,
                 'type' => $this->group,
-                'name' => translateToVuetify("word.{$this->group}.{$this->group}"),
+                'name' => trans($name),
                 'permissions' => PermissionResource::collection($this->permissions),
             ];
         }

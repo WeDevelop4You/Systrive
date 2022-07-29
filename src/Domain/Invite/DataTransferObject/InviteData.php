@@ -7,6 +7,13 @@
 
     class InviteData
     {
+        /**
+         * InviteData constructor.
+         *
+         * @param int         $companyId
+         * @param string      $token
+         * @param string|null $encryptEmail
+         */
         public function __construct(
             public int $companyId,
             public string $token,
@@ -20,7 +27,7 @@
          */
         public function decryptEmail(): string
         {
-            if (is_null($this->encryptEmail)) {
+            if (\is_null($this->encryptEmail)) {
                 return Auth::user()->email;
             }
 

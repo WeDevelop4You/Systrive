@@ -2,13 +2,19 @@
 
     namespace App\Admin\Company\Controllers;
 
+    use App\Admin\Company\Responses\CompanyDestroyResponse;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
 
     class CompanyDestroyController
     {
+        public function index(Company $company): JsonResponse
+        {
+            return CompanyDestroyResponse::create($company)->toJson();
+        }
+
         /**
          * @param Company $company
          *
@@ -19,7 +25,7 @@
             $company->delete();
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.delete.company')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.deleted')))
                 ->toJson();
         }
     }

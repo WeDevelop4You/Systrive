@@ -2,13 +2,12 @@
 
     namespace App\Admin\Translation\Controllers;
 
-    use App\Admin\Translation\Requests\TranslationUpdateRequests;
-    use App\Admin\Translation\Resources\TranslationKeyResource;
-
+    use App\Admin\Translation\Requests\TranslationUpdateRequest;
+    use App\Admin\Translation\Responses\TranslationEditResponse;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
-    use Support\Helpers\Response\Popups\Notifications\SimpleNotification;
-    use Support\Helpers\Response\Response;
+    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Response\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationEditController
@@ -20,19 +19,16 @@
          */
         public function index(TranslationKey $translationKey): JsonResponse
         {
-            $response = Response::create();
-            $response->addData(TranslationKeyResource::make($translationKey));
-
-            return $response->toJson();
+            return TranslationEditResponse::create($translationKey)->toJson();
         }
 
         /**
-         * @param TranslationUpdateRequests $request
-         * @param TranslationKey            $translationKey
+         * @param TranslationUpdateRequest $request
+         * @param TranslationKey           $translationKey
          *
          * @return JsonResponse
          */
-        public function action(TranslationUpdateRequests $request, TranslationKey $translationKey): JsonResponse
+        public function action(TranslationUpdateRequest $request, TranslationKey $translationKey): JsonResponse
         {
             $validated = (object) $request->validated();
 
@@ -40,7 +36,7 @@
                 ->each(function (array $translationData) use ($translationKey) {
                     $translationData = (object) $translationData;
 
-                    if (!is_null($translationData->translation)) {
+                    if (!\is_null($translationData->translation)) {
                         $translation = $translationKey->translations()->where('locale', $translationData->locale)->firstOrNew();
 
                         $translation->locale = $translationData->locale;
@@ -53,7 +49,7 @@
                 });
 
             return Response::create()
-                ->addPopup(new SimpleNotification(trans('response.success.update.translation')))
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))
                 ->toJson();
         }
     }

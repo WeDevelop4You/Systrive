@@ -2,10 +2,8 @@
 
     namespace Domain\Company\Actions;
 
-    use Domain\Company\Actions\User\InviteUserToCompanyAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
-    use Domain\Role\Mappings\RoleTableMap;
     use Domain\User\Models\User;
 
     class ChangeCompanyOwnershipAction
@@ -14,29 +12,31 @@
          * ChangeCompanyOwnershipAction constructor.
          *
          * @param User|null $oldOwner
-         * @param User      $newOwner
-         * @param bool      $removeUser
+         * @param string    $newOwnerEmail
+         * @param bool      $removeOwner
          */
         public function __construct(
-            private User $newOwner,
             private ?User $oldOwner,
-            private bool $removeUser = false
+            private string $newOwnerEmail,
+            private bool $removeOwner = false
         ) {
             //
         }
 
         public function __invoke(Company $company)
         {
-            if (!$company->whereUser($this->newOwner)->exists()) {
-                $companyUserData = new CompanyUserData([RoleTableMap::MAIN_ROLE], [], $this->newOwner->email);
+            $newOwner = $company->whereUserByEmail($this->newOwnerEmail)->first();
 
-                (new InviteUserToCompanyAction($company))($companyUserData);
+            if (\is_null($newOwner)) {
+                $companyUserData = new CompanyUserData([], [], $this->newOwnerEmail);
+
+                $newOwner = (new CreateCompanyUserInviteAction($company))($companyUserData);
             }
 
-            $company->updateOwnership($this->newOwner, true);
+            $company->updateOwnership($newOwner, true);
 
             if ($this->oldOwner instanceof User) {
-                if ($this->removeUser) {
+                if ($this->removeOwner) {
                     $company->users()->detach($this->oldOwner->id);
                 } else {
                     $company->updateOwnership($this->oldOwner);

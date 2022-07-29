@@ -1,9 +1,19 @@
 version = 1
 
-[[analyzers]]
-name = "php"
-enabled = true
+test_patterns = ["tests/**"]
+
+exclude_patterns = [
+  "_ide_helper.php",
+  ".phpstorm.meta.php"
+]
 
 [[analyzers]]
-name = "shell"
+name = "javascript"
+enabled = true
+
+  [analyzers.meta]
+  plugins = ["vue"]
+
+[[analyzers]]
+name = "php"
 enabled = true

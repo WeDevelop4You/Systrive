@@ -2,8 +2,8 @@
 
 namespace Support\Response\Components\Layouts;
 
-use Support\Enums\Vuetify\VuetifyAlignTypes;
-use Support\Enums\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\Vuetify\VuetifyAlignTypes;
+use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
 use Support\Response\Components\AbstractComponent;
 use Support\Traits\ComponentWithClasses;
 

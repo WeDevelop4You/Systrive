@@ -22,18 +22,32 @@ class SyncSystemDomains extends AbstractVestaSync
      */
     private System $system;
 
+    /**
+     * SyncSystemDomains constructor.
+     *
+     * @param System $system
+     */
+    public function __construct(System $system)
+    {
+        $this->database = $system->domains;
+        $this->system = $system->withoutRelations();
+
+        $this->onQueue('system');
+    }
+
+    /**
+     * @return string
+     */
     public function uniqueId(): string
     {
         return "{$this->system->username}_domains";
     }
 
-    public function setup(System $system): void
+    protected function initialize(): void
     {
-        $this->system = $system;
-        $this->database = $system->domains;
         $this->vesta = Vesta::api()->get(
             VestaCommands::GET_USER_DOMAINS,
-            $system->username
+            $this->system->username
         );
     }
 

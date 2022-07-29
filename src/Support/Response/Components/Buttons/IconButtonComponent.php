@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Buttons;
 
-use Support\Enums\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColors;
 use Support\Response\Components\Icons\IconComponent;
 
 class IconButtonComponent extends AbstractButtonComponent

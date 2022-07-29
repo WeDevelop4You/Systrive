@@ -11,10 +11,10 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\IconTypes;
-    use Support\Enums\Vuetify\VuetifyColors;
-    use Support\Enums\Vuetify\VuetifyTableAlignmentTypes;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Enums\Component\IconTypes;
+    use Support\Enums\Component\Vuetify\VuetifyColors;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
     use Support\Response\Components\Buttons\IconButtonComponent;
@@ -59,13 +59,10 @@
                     ->setSortable()
                     ->setSearchable(CompanyStatusTypes::class)
                     ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
-                    ->setFormat(function (Company $data, string $key) {
-                        /** @var CompanyStatusTypes $status */
-                        $status = $data->getAttribute($key);
-
+                    ->setFormat(function (Company $data) {
                         return ItemBadgeComponent::create()
-                            ->setValue($status->getTranslation())
-                            ->setColor($status->getColor())
+                            ->setValue($data->status->getTranslation())
+                            ->setColor($data->status->getColor())
                             ->setOutlined();
                     }),
                 Column::create(trans('word.created_at'), 'created_at')

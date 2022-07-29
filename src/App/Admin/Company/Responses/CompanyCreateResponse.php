@@ -4,7 +4,7 @@ namespace App\Admin\Company\Responses;
 
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
+use Support\Enums\Component\FormTypes;
 use Support\Enums\SessionKeyTypes;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;

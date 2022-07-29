@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Items;
 
-use Support\Enums\Vuetify\VuetifyTextColors;
+use Support\Enums\Component\Vuetify\VuetifyTextColors;
 
 class ItemURLComponent extends AbstractItemComponent
 {

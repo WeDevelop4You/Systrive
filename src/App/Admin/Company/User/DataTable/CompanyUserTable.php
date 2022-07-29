@@ -11,9 +11,9 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\IconTypes;
-    use Support\Enums\Vuetify\VuetifyTableAlignmentTypes;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Enums\Component\IconTypes;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
     use Support\Response\Components\Buttons\IconButtonComponent;
@@ -35,6 +35,7 @@
             $showActions = $canInvite || $canRevoke || $canEdit;
 
             $structure = [
+                Column::index(),
                 Column::create(trans('word.full_name'), 'full_name', 'profile.full_name')
                     ->setSortable(function (Relation|Builder $query, string $direction) {
                         return $query->orderBy(UserProfile::selectRaw("CONCAT_WS(' ', first_name, middle_name, last_name)")

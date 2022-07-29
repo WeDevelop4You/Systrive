@@ -3,7 +3,7 @@
 namespace Support\Response\Components\Popups\Modals;
 
 use Illuminate\Support\Arr;
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\PopupModalAction;

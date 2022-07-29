@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Icons;
 
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Components\AbstractComponent;
 
 abstract class AbstractIconComponent extends AbstractComponent

@@ -25,7 +25,7 @@ class SupervisorShowResponse extends AbstractResponse
                         LocaleTableComponent::create()
                             ->setFlat()
                             ->setSearchable()
-                            ->setVuexNamespace('supervisor')
+                            ->setVuexNamespace('supervisor/dataTable')
                             ->setHeaderUrl(
                                 route('admin.admin.supervisor.table.headers')
                             )

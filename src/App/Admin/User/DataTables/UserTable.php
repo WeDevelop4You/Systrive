@@ -7,8 +7,8 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\IconTypes;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Enums\Component\IconTypes;
+    use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
     use Support\Response\Components\Buttons\IconButtonComponent;

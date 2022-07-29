@@ -4,8 +4,8 @@ namespace App\Admin\Supervisor\Responses;
 
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\IconTypes;
-use Support\Enums\Vuetify\VuetifyColors;
+use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\Vuetify\VuetifyColors;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\IconButtonComponent;

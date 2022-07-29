@@ -6,7 +6,7 @@ use App\Admin\Company\Role\Resources\CompanyRoleResource;
 use Domain\Company\Models\Company;
 use Domain\Role\Models\Role;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
+use Support\Enums\Component\FormTypes;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;

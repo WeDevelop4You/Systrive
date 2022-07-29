@@ -7,8 +7,8 @@ use Domain\Company\Models\Company;
 use Domain\System\Models\SystemMailDomain;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\ChartTypes;
-use Support\Enums\IconTypes;
+use Support\Enums\Component\ChartTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Components\Buttons\IconButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
 use Support\Response\Components\Icons\IconComponent;
@@ -130,7 +130,7 @@ class SystemMailDomainOverviewResponse extends AbstractResponse
             ->setComponent(
                 LocaleTableComponent::create()
                     ->setTitle(trans('word.addresses'))
-                    ->setVuexNamespace('company/system/mailDomain')
+                    ->setVuexNamespace('company/system/mailDomain/dataTable')
                     ->setHeaderUrl(route('admin.system.mail.domain.address.table.headers', [
                         $this->company->id,
                         $this->mailDomain->system_id,

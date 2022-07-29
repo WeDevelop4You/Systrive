@@ -3,7 +3,7 @@
 namespace App\Admin\Account\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
 use Support\Response\Components\Layouts\ColComponent;
 use Support\Response\Components\Layouts\RowComponent;
 use Support\Response\Components\Overviews\PageComponent;

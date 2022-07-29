@@ -2,9 +2,9 @@
 
     namespace Support\Response\Components\Popups\Notifications;
 
-    use Support\Enums\IconTypes;
-    use Support\Enums\PopupTypes;
-    use Support\Enums\Vuetify\VuetifyAlertTypes;
+    use Support\Enums\Component\IconTypes;
+    use Support\Enums\Component\PopupTypes;
+    use Support\Enums\Component\Vuetify\VuetifyAlertTypes;
     use Support\Response\Components\Popups\AbstractPopupComponent;
     use Symfony\Component\HttpFoundation\Response;
 

@@ -3,7 +3,7 @@
     namespace App\Admin\System\MailDomain\DataTables;
 
     use Support\Abstracts\AbstractTable;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Components\Items\ItemBadgeComponent;
 
     class SystemMailDomainAddressTable extends AbstractTable

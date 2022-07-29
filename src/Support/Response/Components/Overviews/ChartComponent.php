@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Overviews;
 
-use Support\Enums\ChartTypes;
+use Support\Enums\Component\ChartTypes;
 use Support\Response\Components\AbstractComponent;
 
 class ChartComponent extends AbstractComponent

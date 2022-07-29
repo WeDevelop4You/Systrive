@@ -6,7 +6,7 @@ use Auth;
 use Domain\Company\Enums\CompanyUserStatusTypes;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Images\ImageComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
@@ -79,6 +79,10 @@ class MainNavigationResponse extends AbstractResponse
                     ->setTitle(trans('word.supervisor'))
                     ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_RUNNING))
                     ->setRoute(VueRouteHelper::create()->setName('admin.supervisor')),
+                NavigationItemComponent::create()
+                    ->setTitle(trans('word.jobs'))
+                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_BUSINESS_TIME))
+                    ->setRoute(VueRouteHelper::create()->setName('admin.jobs')),
             ]);
     }
 }

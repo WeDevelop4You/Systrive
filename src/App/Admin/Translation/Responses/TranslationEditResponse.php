@@ -4,7 +4,7 @@ namespace App\Admin\Translation\Responses;
 
 use App\Admin\Translation\Resources\TranslationKeyResource;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
+use Support\Enums\Component\FormTypes;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;

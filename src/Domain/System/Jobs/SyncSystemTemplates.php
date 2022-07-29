@@ -11,10 +11,19 @@ use Support\Enums\System\SystemTemplateTypes;
 use Support\Enums\VestaCommands;
 use Support\Services\Vesta;
 
-;
-
 class SyncSystemTemplates extends AbstractVestaSync
 {
+    /**
+     * SyncSystemTemplates constructor.
+     */
+    public function __construct()
+    {
+        $this->onQueue('system');
+    }
+
+    /**
+     * @return string
+     */
     public function uniqueId(): string
     {
         return "system_templates";
@@ -23,7 +32,7 @@ class SyncSystemTemplates extends AbstractVestaSync
     /**
      * @return void
      */
-    protected function setup(): void
+    protected function initialize(): void
     {
         $this->database = SystemTemplate::all();
         $webTemplates = Vesta::api()->get(

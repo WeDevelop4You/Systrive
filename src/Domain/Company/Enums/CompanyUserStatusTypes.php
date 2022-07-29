@@ -7,7 +7,7 @@ use Domain\Company\states\CompanyUserExpiredState;
 use Domain\Company\states\CompanyUserRequestedState;
 use Domain\Company\states\CompanyUserStates;
 use Domain\Invite\Models\Invite;
-use Support\Enums\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColors;
 use Support\Traits\DatabaseEnumSearch;
 
 enum CompanyUserStatusTypes: int

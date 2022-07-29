@@ -19,7 +19,7 @@ class CreateSystemUsageStatistics extends Migration
             $table->integer('total')->default(0);
             $table->date('date');
             $table->timestamps();
-            $table->unique(['model_type', 'model_id', 'type', 'date'], 'usage_statistic_index');
+            $table->unique(['model_type', 'model_id', 'type', 'date']);
         });
     }
 

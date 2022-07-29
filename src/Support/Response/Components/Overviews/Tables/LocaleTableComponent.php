@@ -11,4 +11,12 @@ class LocaleTableComponent extends AbstractTableComponent
     {
         return 'LocaleDataTable';
     }
+
+    /**
+     * @return LocaleTableComponent
+     */
+    public function setDisablePagination(): LocaleTableComponent
+    {
+        return $this->setAttribute('disablePagination', true);
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Admin\Startup\Responses;
 
 use App\Admin\Account\Responses\AccountSettingsOverviewResponse;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;

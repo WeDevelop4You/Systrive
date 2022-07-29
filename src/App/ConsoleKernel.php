@@ -12,6 +12,7 @@
     use Domain\System\Models\System;
     use Illuminate\Console\Scheduling\Schedule;
     use Illuminate\Foundation\Console\Kernel;
+    use Support\Enums\ScheduleTypes;
 
     class ConsoleKernel extends Kernel
     {
@@ -25,12 +26,13 @@
         protected function schedule(Schedule $schedule): void
         {
             $schedule->job(new CheckInviteHasExpired())
-                 ->name('User invites')
-                 ->everyFiveMinutes()
-                 ->withoutOverlapping();
+                ->cleanUp()
+                ->name('User invites')
+                ->everyFiveMinutes()
+                ->withoutOverlapping();
 
-            $schedule->job(new SyncSystem())
-                ->after(function () {
+            $schedule->recordJob(ScheduleTypes::SYSTEM_DATA, SyncSystem::class)
+                ->withChain(function () {
                     System::with('domains', 'dns', 'databases', 'mailDomains')->get()
                         ->each(function (System $system) {
                             SyncSystemDomains::dispatch($system);
@@ -39,12 +41,10 @@
                             SyncSystemMailDomains::dispatch($system);
                         });
                 })
-                ->name('System data')
                 ->dailyAt('3:00')
                 ->withoutOverlapping();
 
-            $schedule->job(new SyncSystemTemplates())
-                ->name('System templates')
+            $schedule->recordJob(ScheduleTypes::SYSTEM_TEMPLATES, SyncSystemTemplates::class)
                 ->dailyAt('3:00')
                 ->withoutOverlapping();
         }

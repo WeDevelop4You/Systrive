@@ -4,10 +4,15 @@
 
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Auth;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Helpers\DataTable\Build\Column;
 
     abstract class AbstractTable
     {
+        /**
+         * @var Collection
+         */
+        private Collection $columns;
+
         /**
          * @param mixed ...$arguments
          *
@@ -18,28 +23,16 @@
             return new static(...$arguments);
         }
 
-        final public function getHeaders(): array
-        {
-            return $this->getColumns()
-                ->map(fn (Column $column) => $column->export())
-                ->toArray();
-        }
-
-        final public function getFormattedColumnNames(): array
-        {
-            return $this->getColumns()
-                ->filter(fn (Column $column) => $column->hasFormat)
-                ->map(fn (Column $column) => $column->identifier)
-                ->values()
-                ->toArray();
-        }
-
         /**
          * @return Collection
          */
         final public function getColumns(): Collection
         {
-            return Collection::make($this->handle());
+            if (!isset($this->columns)) {
+                $this->columns = Collection::make($this->handle());
+            }
+
+            return $this->columns;
         }
 
         /**

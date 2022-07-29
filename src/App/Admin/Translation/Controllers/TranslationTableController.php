@@ -6,7 +6,7 @@
     use Illuminate\Http\JsonResponse;
     use Support\Abstracts\AbstractTable;
     use Support\Abstracts\Controllers\AbstractTableController;
-    use Support\Helpers\Data\Build\DataTable;
+    use Support\Helpers\DataTable\Build\DataTable;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationTableController extends AbstractTableController

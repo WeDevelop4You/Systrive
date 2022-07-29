@@ -33,6 +33,19 @@ if (!function_exists('createRelationshipString')) {
     }
 }
 
+if (!function_exists('alias')) {
+    /**
+     * @param string $alias
+     * @param string $column
+     *
+     * @return string
+     */
+    function alias(string $alias, string $column): string
+    {
+        return "{$alias}.{$column}";
+    }
+}
+
 if (!function_exists('setCompanyId')) {
     /**
      * @param int $id

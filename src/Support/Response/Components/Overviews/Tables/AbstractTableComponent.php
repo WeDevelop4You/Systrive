@@ -2,10 +2,19 @@
 
 namespace Support\Response\Components\Overviews\Tables;
 
+use Illuminate\Support\Arr;
 use Support\Response\Components\AbstractComponent;
 
 abstract class AbstractTableComponent extends AbstractComponent
 {
+    /**
+     * @var array|int[]
+     */
+    private array $totalPerPageOptions = [10, 25, 50];
+
+    /**
+     * AbstractTableComponent constructor.
+     */
     protected function __construct()
     {
         parent::__construct();
@@ -63,13 +72,29 @@ abstract class AbstractTableComponent extends AbstractComponent
     }
 
     /**
-     * @param array $itemsPerPage
+     * @param array|int[] $options
      *
      * @return static
      */
-    public function setItemsPerPage(array $itemsPerPage): static
+    public function setTotalPerPageOpOptions(array $options): static
     {
-        return $this->setAttribute('itemsPerPageOptions', $itemsPerPage);
+        $this->totalPerPageOptions = Arr::map($options, 'abs');
+
+        return $this;
+    }
+
+    /**
+     * @param int $total
+     *
+     * @return static
+     */
+    public function setTotalPerPage(int $total): static
+    {
+        if (\in_array($total, $this->totalPerPageOptions)) {
+            $this->setAttribute('totalPerPage', $total);
+        }
+
+        return $this;
     }
 
     /**
@@ -113,10 +138,20 @@ abstract class AbstractTableComponent extends AbstractComponent
     }
 
     /**
-     * @return AbstractTableComponent
+     * @return static
      */
-    public function setFlat(): AbstractTableComponent
+    public function setFlat(): static
     {
         return $this->setData('isFlat', true);
+    }
+
+    /**
+     * @return array
+     */
+    public function export(): array
+    {
+        $this->setAttribute('totalPerPageOptions', $this->totalPerPageOptions);
+
+        return parent::export();
     }
 }

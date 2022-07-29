@@ -24,7 +24,7 @@ class TranslationOverviewResponse extends AbstractResponse
                 ServerTableComponent::create()
                     ->setSearchable()
                     ->setTitle(trans('word.translations'))
-                    ->setVuexNamespace('translations')
+                    ->setVuexNamespace('translations/dataTable')
                     ->setHeaderUrl(route('admin.admin.translation.table.headers', [
                         'frontend',
                     ]))

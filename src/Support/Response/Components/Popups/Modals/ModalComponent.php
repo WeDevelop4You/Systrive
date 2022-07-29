@@ -2,8 +2,8 @@
 
     namespace Support\Response\Components\Popups\Modals;
 
-    use Support\Enums\PopupTypes;
-    use Support\Enums\Vuetify\VuetifyTransitionTypes;
+    use Support\Enums\Component\PopupTypes;
+    use Support\Enums\Component\Vuetify\VuetifyTransitionTypes;
     use Support\Response\Actions\AbstractAction;
     use Support\Response\Components\Overviews\CardComponent;
     use Support\Response\Components\Popups\AbstractPopupComponent;

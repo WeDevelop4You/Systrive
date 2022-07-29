@@ -3,9 +3,9 @@
 namespace App\Admin\Account\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
-use Support\Enums\Vuetify\VuetifyAlignTypes;
-use Support\Enums\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Vuetify\VuetifyAlignTypes;
+use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
 use Support\Response\Actions\BreadcrumbAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;

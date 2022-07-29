@@ -7,7 +7,7 @@ use Domain\Company\Models\Company;
 use Domain\System\Models\SystemDNS;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Enums\System\SystemTemplateTypes;
 use Support\Response\Components\Buttons\IconButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
@@ -114,7 +114,7 @@ class SystemDNSOverviewResponse extends AbstractResponse
             ->setComponent(
                 LocaleTableComponent::create()
                     ->setTitle(trans('word.records'))
-                    ->setVuexNamespace('company/system/dns')
+                    ->setVuexNamespace('company/system/dns/dataTable')
                     ->setHeaderUrl(route('admin.system.dns.record.table.headers', [
                         $this->company->id,
                         $this->dns->system_id,

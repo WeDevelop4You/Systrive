@@ -8,6 +8,7 @@ import System from "./modules/System"
 import Auth from "./modules/User/Auth"
 import Company from './modules/Company'
 import Guest from "./modules/User/guest"
+import Jobs from "./modules/SuperAdmin/jobs"
 import Navigation from "./modules/navigation"
 import Users from './modules/SuperAdmin/users'
 import Permissions from './modules/permissions'
@@ -36,6 +37,7 @@ export default new Vuex.Store({
                 registration: Registration,
             }
         },
+        jobs: Jobs,
         users: Users,
         locale: Locale,
         popups: Popups,

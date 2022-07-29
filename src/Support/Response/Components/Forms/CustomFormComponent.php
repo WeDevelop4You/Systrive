@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Forms;
 
-use Support\Enums\FormTypes;
+use Support\Enums\Component\FormTypes;
 
 class CustomFormComponent extends AbstractFormComponent
 {

@@ -42,7 +42,7 @@ class CompanyRoleOverviewResponse extends AbstractResponse
         return ServerTableComponent::create()
             ->setSearchable()
             ->setTitle(trans('word.role.role'))
-            ->setVuexNamespace('company/roles')
+            ->setVuexNamespace('company/roles/dataTable')
             ->setHeaderUrl(route('admin.company.role.table.headers', [
                 $company->id,
             ]))

@@ -17,6 +17,6 @@ Route::get('bot/detection', function () {
 })->name('bot.detection');
 
 Route::get('mailable', function () {
-    return \Support\Services\Supervisor::api()->getAllProcessInfo();
+    return \Domain\Job\Models\JobOperation::whereScheduleWithChildUuid('776bd9ea-dbf7-472d-92e7-28a582352984')->toSql();
 //        return (new \Domain\User\Notifications\UserPasswordChangeNotification())->toMail(null);
 });

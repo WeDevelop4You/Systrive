@@ -3,10 +3,10 @@
 namespace App\Admin\Authentication\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
-use Support\Enums\Vuetify\VuetifyButtonTypes;
-use Support\Enums\Vuetify\VuetifyColors;
-use Support\Enums\Vuetify\VuetifySizeTypes;
+use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Vuetify\VuetifyButtonTypes;
+use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifySizeTypes;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;

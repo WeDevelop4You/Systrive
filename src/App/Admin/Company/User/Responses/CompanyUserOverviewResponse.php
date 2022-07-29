@@ -41,7 +41,7 @@ class CompanyUserOverviewResponse extends AbstractResponse
         return ServerTableComponent::create()
             ->setSearchable()
             ->setTitle(trans('word.user.access'))
-            ->setVuexNamespace('company/users')
+            ->setVuexNamespace('company/users/dataTable')
             ->setHeaderUrl(route('admin.company.user.table.headers', [
                 $company->id,
             ]))

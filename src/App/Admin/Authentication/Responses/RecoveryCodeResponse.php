@@ -3,8 +3,8 @@
 namespace App\Admin\Authentication\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
-use Support\Enums\Vuetify\VuetifyButtonTypes;
+use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Vuetify\VuetifyButtonTypes;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;
 use Support\Response\Components\Forms\CustomFormComponent;

@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Overviews;
 
-use Support\Enums\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColors;
 use Support\Response\Components\AbstractComponent;
 use Support\Response\Components\Buttons\AbstractButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;

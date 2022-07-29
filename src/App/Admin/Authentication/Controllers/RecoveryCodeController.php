@@ -1,17 +1,17 @@
 <?php
 
-    namespace App\Admin\Authentication\Controllers;
+namespace App\Admin\Authentication\Controllers;
 
-    use App\Admin\Authentication\Responses\RecoveryCodeResponse;
-    use Illuminate\Http\JsonResponse;
+use App\Admin\Authentication\Responses\RecoveryCodeResponse;
+use Illuminate\Http\JsonResponse;
 
-    class RecoveryCodeController
+class RecoveryCodeController
+{
+    /**
+     * @return JsonResponse
+     */
+    public function index(): JsonResponse
     {
-        /**
-         * @return JsonResponse
-         */
-        public function index(): JsonResponse
-        {
-            return RecoveryCodeResponse::create()->toJson();
-        }
+        return RecoveryCodeResponse::create()->toJson();
     }
+}

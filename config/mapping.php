@@ -13,4 +13,11 @@ return [
             'model' => 'model',
         ],
     ],
+
+    \Domain\Job\Models\JobOperation::class => [
+        'duration_time' => [
+            'good' => 800,
+            'medium' => 2000,
+        ],
+    ],
 ];

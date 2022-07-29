@@ -2,7 +2,7 @@
 
     namespace Support\Response\Components\Popups;
 
-    use Support\Enums\PopupTypes;
+    use Support\Enums\Component\PopupTypes;
     use Support\Response\Components\AbstractComponent;
 
     abstract class AbstractPopupComponent extends AbstractComponent

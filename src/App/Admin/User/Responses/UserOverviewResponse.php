@@ -18,7 +18,7 @@ class UserOverviewResponse extends AbstractResponse
                 ServerTableComponent::create()
                     ->setSearchable()
                     ->setTitle(trans('word.users'))
-                    ->setVuexNamespace('users')
+                    ->setVuexNamespace('users/dataTable')
                     ->setHeaderUrl(route('admin.admin.user.table.headers'))
                     ->setItemsUrl(route('admin.admin.user.table.items'))
             );

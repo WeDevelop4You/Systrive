@@ -39,15 +39,24 @@ class GenerateMapping extends Command
      */
     public function handle(): int
     {
-        $this->getModelClasses();
+        $this->getModelClasses()
+            ->each(function (string $class) {
+                $mappingData = $this->createMappingData($class);
+
+                $this->generateMapping($mappingData);
+
+                $this->info(
+                    "Generated model {$class} to {$mappingData->namespace}/{$mappingData->filename}"
+                );
+            });
 
         return 1;
     }
 
     /**
-     * @throws ReflectionException
+     * @return Collection
      */
-    private function getModelClasses(): void
+    private function getModelClasses(): Collection
     {
         $finder = new Finder();
         $path = base_path('src/Domain');
@@ -62,23 +71,23 @@ class GenerateMapping extends Command
             ->ignoreDotFiles(true)
             ->files();
 
-        $classes = new Collection($files);
-
-        $classes->map(function (SplFileInfo $file) {
+        return Collection::make($files)->map(function (SplFileInfo $file) {
             return Str::of($file->getPathname())
                 ->after('src/')
                 ->replace(['/', '.php'], ['\\', '']);
         })->filter(function (string $class) {
             return is_subclass_of($class, Model::class);
-        })->each(function (string $class) {
-            $this->createMappingData($class);
         });
     }
 
     /**
+     * @param string $class
+     *
      * @throws ReflectionException
+     *
+     * @return stdClass
      */
-    private function createMappingData(string $class): void
+    private function createMappingData(string $class): stdClass
     {
         $namespace = Str::of($class)
             ->before('\\Models')
@@ -100,9 +109,7 @@ class GenerateMapping extends Command
         $mapping->fileName = $filename;
         $mapping->constants = $this->getConstants($class);
 
-        $this->generateMapping($mapping);
-
-        $this->info("Generated model {$class} to {$namespace}/{$filename}");
+        return $mapping;
     }
 
     /**
@@ -194,7 +201,11 @@ class GenerateMapping extends Command
                     $key = strtoupper($prefix) . "_{$key}";
                 }
 
-                $data .= "\t\tpublic const {$key} = '{$value}';\n";
+                $data .= "\t\tpublic const {$key} = ";
+                $data .= \is_int($value)
+                    ? $value
+                    : "'{$value}'";
+                $data .= ";\n";
             }
         }
 

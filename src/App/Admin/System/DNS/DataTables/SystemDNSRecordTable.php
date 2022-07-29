@@ -4,8 +4,8 @@
 
     use Illuminate\Support\Str;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\IconTypes;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Enums\Component\IconTypes;
+    use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Components\Buttons\IconButtonComponent;
     use Support\Response\Components\Buttons\MultipleButtonComponent;
     use Support\Response\Components\Icons\IconComponent;

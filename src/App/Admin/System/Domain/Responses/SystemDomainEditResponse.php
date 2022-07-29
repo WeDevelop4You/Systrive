@@ -8,7 +8,7 @@ use Domain\System\Models\System;
 use Domain\System\Models\SystemDomain;
 use Illuminate\Support\Arr;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\FormTypes;
+use Support\Enums\Component\FormTypes;
 use Support\Enums\VestaCommands;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;

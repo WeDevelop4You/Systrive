@@ -9,11 +9,14 @@
             :search="search"
             :headers="headers"
             :sort-by.sync="sortBy"
+            :items-per-page="totalPerPage"
+            :disable-pagination="disablePagination"
             :footer-props="{
-                itemsPerPageOptions: itemsPerPageOptions
+                itemsPerPageOptions: totalPerPageOptions
             }"
             multi-sort
             calculate-widths
+            disable-pagination
             :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !value.data.isFlat}"
         >
             <template #top>
@@ -95,6 +98,13 @@ export default {
     mixins: [
         TableProperties
     ],
+
+    props: {
+        disablePagination: {
+            type: Boolean,
+            default: false
+        },
+    },
 
     created() {
         this.load()

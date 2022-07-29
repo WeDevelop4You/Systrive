@@ -2,7 +2,7 @@
 
 namespace Domain\Git\Enums;
 
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 
 enum GitServiceTypes: string
 {

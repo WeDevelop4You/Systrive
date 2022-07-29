@@ -116,4 +116,31 @@ export default [
             ]
         }
     },
+    {
+        path: 'jobs/:chapters*',
+        name: 'admin.jobs',
+        component: () => import(/* webpackChunkName: "components/overviews/page" */ '../../components/Overviews/Page'),
+        props: {
+            value: {
+                data: {
+                    route: app.$api.route('admin.job.overview'),
+                }
+            }
+        },
+        meta: {
+            isAuthenticatedPage: true,
+            breadcrumbs: [
+                {
+                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
+                    to: {name: 'dashboard'}
+                },
+                {
+                    text: $vuetify.lang.t('$vuetify.word.sa.sa'),
+                },
+                {
+                    text: $vuetify.lang.t('$vuetify.word.jobs'),
+                }
+            ]
+        }
+    },
 ]

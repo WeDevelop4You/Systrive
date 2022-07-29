@@ -5,9 +5,9 @@
     use Domain\Role\Mappings\RoleTableMap;
     use Domain\Role\Models\Role;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\IconTypes;
-    use Support\Enums\Vuetify\VuetifyTableAlignmentTypes;
-    use Support\Helpers\Data\Build\Column;
+    use Support\Enums\Component\IconTypes;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
     use Support\Response\Components\Buttons\IconButtonComponent;

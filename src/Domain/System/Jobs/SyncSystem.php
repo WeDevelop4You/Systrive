@@ -12,6 +12,11 @@ use Support\Services\Vesta;
 
 class SyncSystem extends AbstractVestaSync
 {
+    public function __construct()
+    {
+        $this->onQueue('system');
+    }
+
     /**
      * @return string
      */
@@ -20,10 +25,7 @@ class SyncSystem extends AbstractVestaSync
         return "system_users";
     }
 
-    /**
-     * @return void
-     */
-    protected function setup(): void
+    protected function initialize(): void
     {
         $this->database = System::all();
         $this->vesta = Vesta::api()->get(

@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Buttons;
 
-use Support\Enums\Vuetify\VuetifySizeTypes;
+use Support\Enums\Component\Vuetify\VuetifySizeTypes;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Components\AbstractComponent;
 use Support\Response\Components\Utils\TooltipComponent;

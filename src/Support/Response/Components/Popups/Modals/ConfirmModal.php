@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Popups\Modals;
 
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Actions\PopupModalAction;
 use Support\Response\Components\Buttons\AbstractButtonComponent;

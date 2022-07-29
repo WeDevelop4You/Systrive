@@ -13,8 +13,6 @@ use Support\Enums\VestaCommands;
 use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
 
-;
-
 class SyncSystemDatabases extends AbstractVestaSync
 {
     /**
@@ -22,18 +20,32 @@ class SyncSystemDatabases extends AbstractVestaSync
      */
     private System $system;
 
+    /**
+     * SyncSystemDatabases constructor.
+     *
+     * @param System $system
+     */
+    public function __construct(System $system)
+    {
+        $this->database = $system->databases;
+        $this->system = $system->withoutRelations();
+
+        $this->onQueue('system');
+    }
+
+    /**
+     * @return string
+     */
     public function uniqueId(): string
     {
         return "{$this->system->username}_databases";
     }
 
-    public function setup(System $system)
+    protected function initialize(): void
     {
-        $this->system = $system;
-        $this->database = $system->databases;
         $this->vesta = Vesta::api()->get(
             VestaCommands::GET_USER_DATABASES,
-            $system->username
+            $this->system->username
         );
     }
 

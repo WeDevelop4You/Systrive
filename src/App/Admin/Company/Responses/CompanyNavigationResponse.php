@@ -11,7 +11,7 @@ use Domain\System\Models\SystemMailDomain;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\IconTypes;
+use Support\Enums\Component\IconTypes;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
 use Support\Response\Components\Navbar\NavbarComponent;

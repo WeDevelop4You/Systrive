@@ -31,17 +31,11 @@
         protected Collection $vesta;
 
         /**
-         * AbstractVestaSync constructor.
-         *
-         * @param ...$arguments
+         * @return void
          */
-        public function __construct(...$arguments)
+        protected function initialize(): void
         {
-            $this->onQueue('system');
-
-            if (method_exists(static::class, 'setup')) {
-                $this->setup(...$arguments);
-            }
+            //
         }
 
         /**
@@ -51,6 +45,8 @@
          */
         public function handle(): void
         {
+            $this->initialize();
+
             $this->database->each(function (Model $model) {
                 $this->contains($model)
                     ? $this->vesta = $this->reject($model)
@@ -81,9 +77,6 @@
             );
         }
 
-        /**
-         * @return string
-         */
         abstract public function uniqueId(): string;
 
         /**

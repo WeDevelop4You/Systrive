@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Items;
 
-use Support\Enums\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColors;
 
 class ItemBadgeComponent extends AbstractItemComponent
 {

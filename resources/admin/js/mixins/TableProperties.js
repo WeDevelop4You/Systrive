@@ -30,13 +30,18 @@ export default {
             default: false
         },
 
-        itemsPerPageOptions: {
+        totalPerPageOptions: {
             type: Array,
             default: () => [
                 10,
                 25,
                 50
             ]
+        },
+
+        totalPerPage: {
+            type: Number,
+            default: 10,
         },
 
         refreshButton: {

@@ -2,8 +2,8 @@
 
 namespace Support\Response\Components\Popups\Modals;
 
-use Support\Enums\IconTypes;
-use Support\Enums\Vuetify\VuetifyColors;
+use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\Vuetify\VuetifyColors;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\PopupModalAction;

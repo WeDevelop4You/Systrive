@@ -20,7 +20,7 @@ class CompanyOverviewResponse extends AbstractResponse
                 ServerTableComponent::create()
                     ->setSearchable()
                     ->setTitle(trans('word.companies'))
-                    ->setVuexNamespace('companies')
+                    ->setVuexNamespace('companies/dataTable')
                     ->setHeaderUrl(route('admin.admin.company.table.headers'))
                     ->setItemsUrl(route('admin.admin.company.table.items'))
                     ->setPrependComponent(

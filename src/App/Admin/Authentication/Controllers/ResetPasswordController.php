@@ -14,8 +14,6 @@ use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent
 use Support\Response\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCodes;
 
-use function view;
-
 class ResetPasswordController
 {
     /**
@@ -28,7 +26,7 @@ class ResetPasswordController
      */
     public function index(string $token, string $encryptEmail): View|Factory|Application
     {
-        return \view('admin::pages.reset-password')->with([
+        return view('admin::pages.reset-password')->with([
             'token' => $token,
             'encryptEmail' => $encryptEmail,
         ]);

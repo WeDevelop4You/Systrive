@@ -14,7 +14,7 @@
             :server-items-length="total"
             :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !value.data.isFlat}"
             :footer-props="{
-                itemsPerPageOptions: itemsPerPageOptions
+                itemsPerPageOptions: totalPerPageOptions
             }"
             multi-sort
             calculate-widths
@@ -107,7 +107,7 @@
             return {
                 page: 1,
                 sortDesc: [],
-                itemsPerPage: 10
+                itemsPerPage: this.totalPerPage
             }
         },
 
@@ -117,7 +117,7 @@
                 this.search = ''
                 this.sortBy = []
                 this.sortDesc = []
-                this.itemsPerPage = 10
+                this.itemsPerPage = this.totalPerPage
 
                 this.generateParams()
             },

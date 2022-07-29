@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Layouts;
 
-use Support\Enums\Vuetify\VuetifyAlignSelfTypes;
+use Support\Enums\Component\Vuetify\VuetifyAlignSelfTypes;
 use Support\Response\Components\AbstractComponent;
 
 class ColComponent extends AbstractComponent

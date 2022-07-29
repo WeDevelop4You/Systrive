@@ -16,7 +16,6 @@
             }"
             multi-sort
             calculate-widths
-            disable-pagination
             :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !value.data.isFlat}"
         >
             <template #top>

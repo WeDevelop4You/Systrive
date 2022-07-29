@@ -45,9 +45,9 @@ export default {
             })
         },
 
-        update({commit, getters}, route) {
-
-        }
+        // update({commit, getters}, route) {
+        //
+        // }
     },
 
     modules: {

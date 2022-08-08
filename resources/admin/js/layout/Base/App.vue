@@ -87,10 +87,10 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Popup from "../../layout/Popups";
-    import Breadcrumb from '../Breadcrumb'
-    import SvgLogoLine from '../../svg/LogoLine'
-    import Navbar from "../../components/Navbar/Navbar";
+    import Popup from "../../layout/Popups.vue";
+    import Breadcrumb from '../Breadcrumb.vue'
+    import SvgLogoLine from '../../svg/LogoLine.vue'
+    import Navbar from "../../components/Navbar/Navbar.vue";
 
     export default {
         name: "App",

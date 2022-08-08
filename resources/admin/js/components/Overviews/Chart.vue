@@ -14,8 +14,8 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import SkeletonChart from "../../layout/Skeletons/SkeletonChart";
-    import ComponentError from "../ComponentError";
+    import SkeletonChart from "../../layout/Skeletons/SkeletonChart.vue";
+    import ComponentError from "../ComponentError.vue";
 
     export default {
         name: "Chart",

@@ -37,7 +37,7 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Modal from "../components/Popups/Modal";
+    import Modal from "../components/Popups/Modal.vue";
 
     export default {
         name: "Index",

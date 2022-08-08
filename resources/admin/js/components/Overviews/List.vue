@@ -58,7 +58,7 @@
 
 <script>
 import ComponentProperties from "../../mixins/ComponentProperties";
-import SkeletonText from "../../layout/Skeletons/SkeletonText";
+import SkeletonText from "../../layout/Skeletons/SkeletonText.vue";
 
 export default {
     name: "List",

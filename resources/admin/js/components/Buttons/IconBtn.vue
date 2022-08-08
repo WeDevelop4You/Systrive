@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import Icon from "../Icons/Icon";
+    import Icon from "../Icons/Icon.vue";
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import Tooltip from "../Utils/Tooltip";
+    import Tooltip from "../Utils/Tooltip.vue";
 
     export default {
         name: "IconBtn",

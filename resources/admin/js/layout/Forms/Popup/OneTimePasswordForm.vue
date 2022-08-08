@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import ErrorMessage from "../../../components/Items/ErrorMessage";
+    import ErrorMessage from "../../../components/Items/ErrorMessage.vue";
     import customFormProperties from "../../../mixins/Form/CustomFormProperties";
 
     export default {

@@ -26,7 +26,7 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import tooltip from "../Utils/Tooltip";
+    import tooltip from "../Utils/Tooltip.vue";
 
     export default {
         name: "Btn",

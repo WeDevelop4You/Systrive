@@ -25,7 +25,7 @@
 
 <script>
     import ComponentProperties from "../../../../../mixins/ComponentProperties";
-    import NavigationItemIcon from "../NavigationItemIcon";
+    import NavigationItemIcon from "../NavigationItemIcon.vue";
 
     export default {
         name: "DarkModeSwitchList",

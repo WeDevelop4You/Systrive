@@ -27,9 +27,9 @@
 </template>
 
 <script>
-    import Popup from "../../layout/Popups";
-    import SvgMountain from '../../svg/Mountain'
-    import LocaleDropdown from "../../components/Custom/LocaleDropdown";
+    import Popup from "../../layout/Popups.vue";
+    import SvgMountain from '../../svg/Mountain.vue'
+    import LocaleDropdown from "../../components/Custom/LocaleDropdown.vue";
 
     export default {
         name: "Auth",

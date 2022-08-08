@@ -9,7 +9,7 @@
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
     import LazyImportProperties from "../../mixins/LazyImportProperties";
-    import ComponentError from "../ComponentError";
+    import ComponentError from "../ComponentError.vue";
 
     export default {
         name: "CustomForm",

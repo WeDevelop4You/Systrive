@@ -14,10 +14,10 @@
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
     import LazyImportProperties from "../../mixins/LazyImportProperties";
-    import ComponentLoading from "../ComponentLoading";
-    import SkeletonCard from "../../layout/Skeletons/SkeletonCard";
-    import ComponentError from "../ComponentError";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable";
+    import ComponentLoading from "../ComponentLoading.vue";
+    import SkeletonCard from "../../layout/Skeletons/SkeletonCard.vue";
+    import ComponentError from "../ComponentError.vue";
+    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
 
     export default {
         name: "Page",

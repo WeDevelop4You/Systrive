@@ -6,7 +6,7 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import Row from "../Layouts/Row";
+    import Row from "../Layouts/Row.vue";
 
     export default {
         name: "CustomForm",

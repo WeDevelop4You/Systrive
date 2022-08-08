@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import LCol from "./Col";
+    import LCol from "./Col.vue";
     import ComponentProperties from "../../mixins/ComponentProperties";
 
     export default {

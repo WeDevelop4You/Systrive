@@ -25,9 +25,9 @@
 
 <script>
     import ComponentProperties from "../../../../mixins/ComponentProperties";
-    import Icon from "./NavigationItemIcon"
-    import CImage from "./NavigationItemImage"
-    import Tooltip from "../../../Utils/Tooltip";
+    import Icon from "./NavigationItemIcon.vue"
+    import CImage from "./NavigationItemImage.vue"
+    import Tooltip from "../../../Utils/Tooltip.vue";
 
     export default {
         name: "NavigationItem",

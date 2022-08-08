@@ -58,9 +58,9 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import ComponentError from "../ComponentError";
-    import SkeletonList from "../../layout/Skeletons/SkeletonList";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable";
+    import ComponentError from "../ComponentError.vue";
+    import SkeletonList from "../../layout/Skeletons/SkeletonList.vue";
+    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
 
     export default {
         name: "Card",

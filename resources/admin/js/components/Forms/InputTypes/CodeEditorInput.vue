@@ -55,7 +55,7 @@
     import 'codemirror/addon/search/searchcursor.js'
     import 'codemirror/addon/search/search.js'
     import 'codemirror/keymap/sublime.js'
-    import ErrorMessage from "../../Items/ErrorMessage";
+    import ErrorMessage from "../../Items/ErrorMessage.vue";
 
     export default {
         name: "CodeEditorInput",

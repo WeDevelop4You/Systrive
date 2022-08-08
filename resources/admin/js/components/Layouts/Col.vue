@@ -9,9 +9,9 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import ComponentError from "../ComponentError";
-    import SkeletonCard from "../../layout/Skeletons/SkeletonCard";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable";
+    import ComponentError from "../ComponentError.vue";
+    import SkeletonCard from "../../layout/Skeletons/SkeletonCard.vue";
+    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
     import LazyImportProperties from "../../mixins/LazyImportProperties";
 
     export default {

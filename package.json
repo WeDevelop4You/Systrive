@@ -1,15 +1,10 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production",
         "lint": "./node_modules/.bin/eslint resources/admin --ext .js,.vue",
-        "lint-fix": "./node_modules/.bin/eslint resources/admin --ext .js,.vue --fix"
+        "lint-fix": "./node_modules/.bin/eslint resources/admin --ext .js,.vue --fix",
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
         "axios": "^0.21.1",

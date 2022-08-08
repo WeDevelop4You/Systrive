@@ -84,7 +84,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.$routeLoader.convertStringToRouteParams();
+    this.$loader.convertStringToRouteParams();
 
     if (this.route !== undefined) {
       this.load();
@@ -100,7 +100,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var vuexNamespace = typeof this.runLoader === 'string' ? this.runLoader : this.vuexNamespace;
 
       if (vuexNamespace !== undefined) {
-        this.$routeLoader.runStateAction(vuexNamespace);
+        this.$loader.runStateAction(vuexNamespace);
       }
     }
   },

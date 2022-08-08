@@ -1,7 +1,7 @@
-import Vuetify from "../vuetify";
-import {STATE_EDIT, STATE_NEW} from "../config";
+import Helper from "../../Providers/Helper";
+import {STATE_EDIT, STATE_NEW} from "../../Providers/Config";
 
-const $vuetify = Vuetify.framework
+const $vuetify = Helper.getVuetify()
 const parent = {template: `<router-view></router-view>`}
 
 export default [

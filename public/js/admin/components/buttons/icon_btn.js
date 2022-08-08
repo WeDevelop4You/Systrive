@@ -74,7 +74,7 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [_mixins_ComponentProperties__WEBPACK_IMPORTED_MODULE_1__["default"]],
   methods: {
     runDefaultAction: function runDefaultAction() {
-      this.callAction(this.value.data.action);
+      this.$actions.call(this.value.data.action);
     }
   }
 });
@@ -165,7 +165,7 @@ var render = function render() {
                 },
                 on: {
                   click: function click($event) {
-                    return _vm.callAction(_vm.value.data.action);
+                    return _vm.$actions.call(_vm.value.data.action);
                   }
                 }
               }, "v-btn", _vm.value.attributes, false), tooltip), [_c("icon", {

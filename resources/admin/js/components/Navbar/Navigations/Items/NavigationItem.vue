@@ -7,7 +7,7 @@
             v-bind="value.attributes"
             :class="{'pl-2': isHidden}"
             dense
-            @click="callAction(value.data.action)"
+            @click="$actions.call(value.data.action)"
             v-on="tooltip"
         >
             <component

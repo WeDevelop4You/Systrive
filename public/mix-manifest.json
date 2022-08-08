@@ -15,8 +15,6 @@
     "/js/admin/pages/company/system/mail_domain.js": "/js/admin/pages/company/system/mail_domain.js",
     "/js/admin/pages/company/admin/users.js": "/js/admin/pages/company/admin/users.js",
     "/js/admin/pages/company/admin/roles.js": "/js/admin/pages/company/admin/roles.js",
-    "/js/admin/components/overviews/page.js": "/js/admin/components/overviews/page.js",
-    "/js/admin/pages/super_admin/companies.js": "/js/admin/pages/super_admin/companies.js",
     "/js/admin/components/popups/notifications/simple.js": "/js/admin/components/popups/notifications/simple.js",
     "/js/admin/components/buttons/btn.js": "/js/admin/components/buttons/btn.js",
     "/js/admin/components/buttons/icon_btn.js": "/js/admin/components/buttons/icon_btn.js",
@@ -58,5 +56,7 @@
     "/js/admin/components/forms/input_types/select_input.js": "/js/admin/components/forms/input_types/select_input.js",
     "/js/admin/components/custom/locale_dropdown.js": "/js/admin/components/custom/locale_dropdown.js",
     "/css/admin/app.css": "/css/admin/app.css",
-    "/css/admin/custom.css": "/css/admin/custom.css"
+    "/css/admin/custom.css": "/css/admin/custom.css",
+    "/js/admin/components/overviews/page.js": "/js/admin/components/overviews/page.js",
+    "/js/admin/pages/super_admin/companies.js": "/js/admin/pages/super_admin/companies.js"
 }

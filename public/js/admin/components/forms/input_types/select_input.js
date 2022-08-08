@@ -143,7 +143,7 @@ var render = function render() {
     },
     on: {
       change: function change($event) {
-        return _vm.callAction(_vm.value.data.changeAction);
+        return _vm.$actions.call(_vm.value.data.changeAction);
       }
     },
     model: {

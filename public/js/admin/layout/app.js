@@ -917,11 +917,9 @@ __webpack_require__.r(__webpack_exports__);
       var action = isOpen ? this.value.data.openAction : this.value.data.closeAction;
 
       if (action) {
-        var promise = this.callAction(action);
-
-        if (this._returnIsPromise(promise)) {
-          promise["catch"](function () {});
-        }
+        var promise = this.$actions.call(action); // if (this.$actions.returnIsPromise(promise)) {
+        //     promise.catch(() => {})
+        // }
       }
     }
   }
@@ -1474,7 +1472,7 @@ var render = function render() {
           },
           on: {
             click: function click($event) {
-              return _vm.callAction(_vm.value.data.action);
+              return _vm.$actions.call(_vm.value.data.action);
             }
           }
         }, "v-list-item", _vm.value.attributes, false), tooltip), [_vm.value.data.prepend ? _c(_vm.value.data.prepend.componentName, {

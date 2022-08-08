@@ -781,11 +781,9 @@ __webpack_require__.r(__webpack_exports__);
       var action = isOpen ? this.value.data.openAction : this.value.data.closeAction;
 
       if (action) {
-        var promise = this.callAction(action);
-
-        if (this._returnIsPromise(promise)) {
-          promise["catch"](function () {});
-        }
+        var promise = this.$actions.call(action); // if (this.$actions.returnIsPromise(promise)) {
+        //     promise.catch(() => {})
+        // }
       }
     }
   }

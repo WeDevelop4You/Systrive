@@ -1,12 +1,8 @@
-import Vue from "vue";
-import Vuetify from "../vuetify";
-import {STATE_ALL, STATE_EDIT} from "../config";
-import Api from "../api";
+import Helper from "../../Providers/Helper";
+import {STATE_ALL, STATE_EDIT} from "../../Providers/Config";
 
-Vue.use(Api)
-
-const app = Vue.prototype
-const $vuetify = Vuetify.framework
+const $api = Helper.getApi()
+const $vuetify = Helper.getVuetify()
 
 export default [
     {
@@ -16,7 +12,7 @@ export default [
         props: {
             value: {
                 data: {
-                    route: app.$api.route('admin.user.overview')
+                    route: $api.route('admin.user.overview')
                 }
             }
         },
@@ -64,7 +60,7 @@ export default [
         props: {
             value: {
                 data: {
-                    route: app.$api.route('admin.translation.overview')
+                    route: $api.route('admin.translation.overview')
                 }
             }
         },
@@ -95,7 +91,7 @@ export default [
                     runLoader: 'supervisor',
                     vuexNamespace: 'supervisor/overview',
                     callbackDelay: 1000 * 60 * 10, // 10 minutes
-                    route: app.$api.route('admin.supervisor.overview'),
+                    route: $api.route('admin.supervisor.overview'),
                 }
             }
         },
@@ -123,7 +119,7 @@ export default [
         props: {
             value: {
                 data: {
-                    route: app.$api.route('admin.job.overview'),
+                    route: $api.route('admin.job.overview'),
                 }
             }
         },

@@ -7,11 +7,11 @@ export default {
         setShow(_, id) {
             const parameters = id ? {id} : {}
 
-            app.$routeLoader.setShow(parameters)
+            app.$state.setShow(parameters)
         },
 
         resetShow() {
-            app.$routeLoader.resetShow()
+            app.$state.resetShow()
         }
     },
 }

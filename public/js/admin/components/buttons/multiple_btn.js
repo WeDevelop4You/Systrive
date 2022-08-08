@@ -66,7 +66,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var defaultBtn = this.defaultBtn;
 
       if (defaultBtn) {
-        this.callAction(defaultBtn.data.action);
+        this.$actions.call(defaultBtn.data.action);
       }
     }
   }

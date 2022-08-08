@@ -5,7 +5,7 @@
         :disabled="isDisabled"
         :items="value.data.items"
         :label="value.content.label"
-        @change="callAction(value.data.changeAction)"
+        @change="$actions.call(value.data.changeAction)"
     />
 </template>
 

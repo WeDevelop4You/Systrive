@@ -77,7 +77,7 @@ export default {
                 },
                 show: () => {
                     dispatch('show', app.$api.route('admin.supervisor.show')).then(() => {
-                        app.$routeLoader.runStateAction('supervisor')
+                        app.$loader.runStateAction('supervisor')
                     })
                 },
             }

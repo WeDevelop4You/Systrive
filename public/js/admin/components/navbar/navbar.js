@@ -698,7 +698,7 @@ var render = function render() {
           },
           on: {
             click: function click($event) {
-              return _vm.callAction(_vm.value.data.action);
+              return _vm.$actions.call(_vm.value.data.action);
             }
           }
         }, "v-list-item", _vm.value.attributes, false), tooltip), [_vm.value.data.prepend ? _c(_vm.value.data.prepend.componentName, {

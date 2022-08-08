@@ -25,10 +25,8 @@ export default {
 
     actions: {
         async search({commit}, domain) {
-            const identifiers = app.$api.getIdentifiers()
-
             await app.$api.call({
-                url: app.$api.route('system.domain.search', identifiers.company, identifiers.system, domain),
+                url: app.$api.companyRoute('system.domain.search', domain),
                 method: "GET"
             }).then((response) => {
                 commit('setData', response.data.data)

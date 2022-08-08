@@ -11,11 +11,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _layout_Skeletons_SkeletonDataTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/Skeletons/SkeletonDataTable */ "./resources/admin/js/layout/Skeletons/SkeletonDataTable.vue");
+/* harmony import */ var _Providers_Helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Providers/Helper */ "./resources/admin/js/Providers/Helper.js");
+/* harmony import */ var _layout_Skeletons_SkeletonDataTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../layout/Skeletons/SkeletonDataTable */ "./resources/admin/js/layout/Skeletons/SkeletonDataTable.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    SkeletonDataTable: _layout_Skeletons_SkeletonDataTable__WEBPACK_IMPORTED_MODULE_0__["default"],
+    SkeletonDataTable: _layout_Skeletons_SkeletonDataTable__WEBPACK_IMPORTED_MODULE_1__["default"],
     Btn: function Btn() {
       return Promise.all(/*! import() | components/buttons/btn */[__webpack_require__.e("css/admin/app"), __webpack_require__.e("components/buttons/btn")]).then(__webpack_require__.bind(__webpack_require__, /*! ../components/Buttons/Btn */ "./resources/admin/js/components/Buttons/Btn.vue"));
     },
@@ -96,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 
       }
     });
-    this.$routeLoader.runStateAction(this.vuexNamespace);
+    this.$loader.runStateAction(_Providers_Helper__WEBPACK_IMPORTED_MODULE_0__["default"].getMainVuexNamespace(this.vuexNamespace));
   },
   methods: {
     load: function load() {
@@ -533,7 +535,7 @@ var render = function render() {
       expression: "headers.length"
     }],
     "class": _defineProperty({}, "rounded-lg v-sheet--outlined ".concat(_vm.elevation), !_vm.value.data.isFlat),
-    attrs: _defineProperty({
+    attrs: {
       items: _vm.items,
       search: _vm.search,
       headers: _vm.headers,
@@ -545,7 +547,7 @@ var render = function render() {
       },
       "multi-sort": "",
       "calculate-widths": ""
-    }, "disable-pagination", ""),
+    },
     on: {
       "update:sortBy": function updateSortBy($event) {
         _vm.sortBy = $event;

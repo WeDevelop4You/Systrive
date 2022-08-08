@@ -90,10 +90,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     data: {
       get: function get() {
-        return this.$auth.getPreference('dark_mode');
+        return this.$auth.preference('dark_mode');
       },
       set: function set(value) {
-        this.$auth.updatePreference('dark_mode', value);
+        this.$auth.changePreference('dark_mode', value);
       }
     },
     icon: function icon() {

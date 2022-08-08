@@ -1,15 +1,16 @@
 import Vue from 'vue'
-import $store from '../../store'
-import Vuetify from '../vuetify'
-import VueRouter from 'vue-router';
+import Helper from "../../Providers/Helper";
+import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
 // routes
-import Company from "./company";
-import SuperAdmin from "./super_admin";
+import Company from "./company"
+import SuperAdmin from "./super_admin"
 
-const $vuetify = Vuetify.framework
+const app = Helper.getApp(Vue)
+const $store = Helper.getStore()
+const $vuetify = Helper.getVuetify()
 const $parent = {template: `<router-view></router-view>`}
 
 const routes = [
@@ -106,29 +107,17 @@ const router = new VueRouter({
     routes: routes
 })
 
-const startLocation = VueRouter.START_LOCATION
-
 router.beforeEach(async (to, from, next) => {
-    const meta = to.meta
-    const isNotLoaded = (from === startLocation)
+    app.$activity.lastRoute = from.name ? from : to
 
-    if (isNotLoaded) {
-        Vue.prototype.$lastRoute = startLocation
+    if (to.meta.isAuthenticatedPage) {
+        const page = to.meta.page
 
-        await $store.dispatch('locale/getOne')
-        await $store.dispatch('locale/getMany')
-    } else {
-        Vue.prototype.$lastRoute = from
-    }
-
-    if (meta.isAuthenticatedPage) {
-        const page = meta.page
-
-        if (isNotLoaded) {
-            await $store.dispatch('initialize')
+        if (!app.$auth.check()) {
+            app.$auth.load();
         }
 
-        if ((!page && isNotLoaded) || page !== from.meta.page) {
+        if ((!page && !from.name) || page !== from.meta.page) {
             switch (page) {
                 case 'company':
                     await $store.dispatch('company/search', to.params.companyName)

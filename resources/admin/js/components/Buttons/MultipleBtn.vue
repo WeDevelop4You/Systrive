@@ -57,7 +57,7 @@
                 const defaultBtn = this.defaultBtn
 
                 if (defaultBtn) {
-                    this.callAction(defaultBtn.data.action)
+                    this.$actions.call(defaultBtn.data.action)
                 }
             }
         }

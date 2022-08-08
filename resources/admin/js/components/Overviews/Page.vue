@@ -76,7 +76,7 @@
         },
 
         created() {
-            this.$routeLoader.convertStringToRouteParams()
+            this.$loader.convertStringToRouteParams()
 
             if (this.route !== undefined) {
                 this.load()
@@ -94,7 +94,7 @@
                     : this.vuexNamespace
 
                 if (vuexNamespace !== undefined) {
-                    this.$routeLoader.runStateAction(vuexNamespace)
+                    this.$loader.runStateAction(vuexNamespace)
                 }
             }
         },

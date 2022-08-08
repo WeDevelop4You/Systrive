@@ -1,3 +1,4 @@
+import Helper from "../Providers/Helper";
 import SkeletonDataTable from "../layout/Skeletons/SkeletonDataTable";
 
 export default {
@@ -87,7 +88,7 @@ export default {
             },
         );
 
-        this.$routeLoader.runStateAction(this.vuexNamespace)
+        this.$loader.runStateAction(Helper.getMainVuexNamespace(this.vuexNamespace))
     },
 
     methods: {

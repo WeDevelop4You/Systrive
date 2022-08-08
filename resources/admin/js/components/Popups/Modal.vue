@@ -37,11 +37,11 @@
                     : this.value.data.closeAction
 
                 if (action) {
-                    const promise = this.callAction(action)
+                    const promise = this.$actions.call(action)
 
-                    if (this._returnIsPromise(promise)) {
-                        promise.catch(() => {})
-                    }
+                    // if (this.$actions.returnIsPromise(promise)) {
+                    //     promise.catch(() => {})
+                    // }
                 }
             }
         }

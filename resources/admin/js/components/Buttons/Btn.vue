@@ -8,7 +8,7 @@
             :disabled="$loading"
             :class="value.data.classes"
             depressed
-            @click="callAction(value.data.action)"
+            @click="$actions.call(value.data.action)"
             v-on="tooltip"
         >
             <template v-if="value.content.title">
@@ -42,7 +42,7 @@
 
         methods: {
             runDefaultAction() {
-                this.callAction(this.value.data.action)
+                this.$actions.call(this.value.data.action)
             }
         }
     }

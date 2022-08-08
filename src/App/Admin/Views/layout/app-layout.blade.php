@@ -13,7 +13,7 @@
         <script src="{{ mix('js/admin/app.js') }}" defer></script>
     </head>
     <body>
-        <div id="app">
+        <div id="mount">
             {{ $slot }}
         </div>
     </body>

@@ -20,13 +20,6 @@ import Translations from "./modules/SuperAdmin/translations"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    actions: {
-        initialize({dispatch}) {
-            dispatch('user/auth/getOne')
-            dispatch('user/auth/getPreferences')
-        }
-    },
-
     modules: {
         user: {
             namespaced: true,
@@ -37,6 +30,7 @@ export default new Vuex.Store({
                 registration: Registration,
             }
         },
+
         jobs: Jobs,
         users: Users,
         locale: Locale,

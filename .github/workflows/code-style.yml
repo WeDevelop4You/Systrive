@@ -1,33 +1,37 @@
 name: Code Style
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
 
 jobs:
-  ESLint:
+  ES-Lint:
     runs-on: ubuntu-latest
 
     steps:
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16'
-          
+
       - name: Checkout code
-        uses: actions/checkout@v2
-          
+        uses: actions/checkout@v3
+
       - name: Install modules
-        run: npm install 
-      
+        run: npm install
+
       - name: Run ESLint
         run: npm run lint
-        
-        
+
+
   PHP-CS-Fixer:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Run PHP CS Fixer
         uses: docker://oskarstark/php-cs-fixer-ga

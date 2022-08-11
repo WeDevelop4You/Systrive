@@ -4,7 +4,7 @@
 
     enum SessionKeyTypes: string
     {
-        case KEEP = 'session_get';
-        case ONCE = 'session_pull';
-        case REGISTRATION = 'session_registration';
+        case KEEP = 'response_session_data_keep';
+        case ONCE = 'response_session_data_once';
+        case REGISTRATION = 'registration_session_data';
     }

@@ -26,18 +26,18 @@
             ComponentLoading,
 
             Row: () => ({
-                component: import(/* webpackChunkName: "components/layouts/row" */ "../Layouts/Row"),
+                component: import("../Layouts/Row.vue"),
                 ...LazyImportProperties
             }),
             Table: () => ({
-                component: import(/* webpackChunkName: "components/overviews/table" */ "./Table"),
+                component: import("./Table.vue"),
                 loading: SkeletonDataTable,
                 delay: 0,
                 error: ComponentError,
                 timeout: 10000
             }),
             Card: () => ({
-                component: import(/* webpackChunkName: "components/overviews/card" */ '../Overviews/Card'),
+                component: import('../Overviews/Card.vue'),
                 loading: SkeletonCard,
                 delay: 0,
                 error: ComponentError,

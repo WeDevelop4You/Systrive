@@ -1,18 +1,18 @@
 import Helper from "../Providers/Helper";
-import SkeletonDataTable from "../layout/Skeletons/SkeletonDataTable";
+import SkeletonDataTable from "../layout/Skeletons/SkeletonDataTable.vue";
 
 export default {
     components: {
         SkeletonDataTable,
 
-        Btn: () => import(/* webpackChunkName: "components/buttons/btn" */ '../components/Buttons/Btn'),
-        IconBtn: () => import(/* webpackChunkName: "components/buttons/icon_btn" */ '../components/Buttons/IconBtn'),
-        MultipleBtn: () => import(/* webpackChunkName: "components/buttons/multiple_btn" */ '../components/Buttons/MultipleBtn'),
+        Btn: () => import('../components/Buttons/Btn.vue'),
+        IconBtn: () => import('../components/Buttons/IconBtn.vue'),
+        MultipleBtn: () => import('../components/Buttons/MultipleBtn.vue'),
 
-        Badge: () => import(/* webpackChunkName: "components/items/badge" */ '../components/Items/Badge'),
-        GroupBadges: () => import(/* webpackChunkName: "components/items/group_badges" */ '../components/Items/GroupBadges'),
+        Badge: () => import('../components/Items/Badge.vue'),
+        GroupBadges: () => import('../components/Items/GroupBadges.vue'),
 
-        SelectInput: () => import(/* webpackChunkName: "components/forms/input_types/select_input" */ '../components/Forms/InputTypes/SelectInput')
+        SelectInput: () => import('../components/Forms/InputTypes/SelectInput.vue')
     },
 
     props: {

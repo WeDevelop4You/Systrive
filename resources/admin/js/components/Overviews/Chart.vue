@@ -24,7 +24,7 @@
             SkeletonChart,
 
             SystemUsages: () => ({
-                component: import(/* webpackChunkName: "layout/charts/system_usages" */ '../../layout/Charts/SystemUsages'),
+                component: import('../../layout/Charts/SystemUsages.vue'),
                 loading: SkeletonChart,
                 delay: 0,
                 error: ComponentError,

@@ -103,15 +103,10 @@
         },
 
         props: {
-            responseData: {
+            response: {
                 required: true,
-                type: Object
+                type: Array
             },
-
-            responseDataKeep: {
-                required: true,
-                type: Object
-            }
         },
 
         data() {
@@ -128,8 +123,9 @@
         },
 
         created() {
-            this.$responseChain(this.responseData)
-            this.$responseChain(this.responseDataKeep)
+            this.response.forEach((data) => {
+                this.$responseChain(data)
+            })
 
             this.$store.dispatch('navigation/sub')
         },

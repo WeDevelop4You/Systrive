@@ -20,8 +20,8 @@
         name: "MultipleBtn",
 
         components: {
-            Btn: () => import(/* webpackChunkName: "components/buttons/btn" */ './Btn'),
-            IconBtn: () => import(/* webpackChunkName: "components/buttons/icon_btn" */ './IconBtn'),
+            Btn: () => import('./Btn.vue'),
+            IconBtn: () => import('./IconBtn.vue'),
         },
 
         mixins: [

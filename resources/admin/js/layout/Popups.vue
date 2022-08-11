@@ -44,7 +44,7 @@
 
         components: {
             Modal,
-            SimpleNotification: () => import(/* webpackChunkName: "components/popups/notifications/simple" */ '../components/Popups/Notifications/Simple'),
+            SimpleNotification: () => import('../components/Popups/Notifications/Simple.vue'),
         },
 
         computed: {

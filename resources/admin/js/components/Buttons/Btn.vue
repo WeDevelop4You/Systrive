@@ -33,7 +33,7 @@
 
         components: {
             tooltip,
-            TextIcon: () => import(/* webpackChunkName: "components/icons/text_icon" */ '../Icons/TextIcon')
+            TextIcon: () => import('../Icons/TextIcon.vue')
         },
 
         mixins: [

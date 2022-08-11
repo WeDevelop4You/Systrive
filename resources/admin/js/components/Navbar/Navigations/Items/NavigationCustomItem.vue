@@ -14,7 +14,7 @@
         name: "NavigationItem",
 
         components: {
-            DarkModeSwitch: () => import(/* webpackChunkName: "components/navbar/navigations/items/custom/dark_mode_switch" */ './Custom/DarkModeSwitch')
+            DarkModeSwitch: () => import('./Custom/DarkModeSwitch.vue')
         },
 
         mixins: [

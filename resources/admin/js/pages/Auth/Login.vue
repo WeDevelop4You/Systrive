@@ -64,14 +64,16 @@
                 type: String,
             },
 
-            responseData: {
+            response: {
                 required: true,
-                type: Object,
+                type: Array,
             },
         },
 
         created() {
-            this.$responseChain(this.responseData)
+            this.response.forEach((data) => {
+                this.$responseChain(data)
+            })
         },
 
         methods: {

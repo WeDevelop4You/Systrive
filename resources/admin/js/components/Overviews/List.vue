@@ -65,13 +65,13 @@ export default {
 
     components: {
         URL: () => ({
-            component: import(/* webpackChunkName: "components/items/url" */ '../Items/URL'),
+            component: import('../Items/URL.vue'),
             loading: SkeletonText,
             delay: 0,
         }),
-        Badge: () => import(/* webpackChunkName: "components/items/badge" */ '../Items/Badge'),
-        UpTimer: () => import(/* webpackChunkName: "components/items/timer" */ '../Items/UpTimer'),
-        GroupBadges: () => import(/* webpackChunkName: "components/items/group_badges" */ '../Items/GroupBadges'),
+        Badge: () => import('../Items/Badge.vue'),
+        UpTimer: () => import('../Items/UpTimer.vue'),
+        GroupBadges: () => import('../Items/GroupBadges.vue'),
     },
 
     mixins: [

@@ -17,47 +17,47 @@
         components: {
             ComponentError,
             PasswordForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/popup/password_form" */ '../../layout/Forms/PasswordForm'),
+                component: import('../../layout/Forms/PasswordForm.vue'),
                 ...LazyImportProperties
             }),
             TranslationForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/translation_form" */ '../../layout/Forms/TranslationForm'),
+                component: import('../../layout/Forms/TranslationForm.vue'),
                 ...LazyImportProperties
             }),
             UserProfileForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/popup/user_profile_form" */ '../../layout/Forms/UserProfileForm'),
+                component: import('../../layout/Forms/UserProfileForm.vue'),
                 ...LazyImportProperties
             }),
             CompanyForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/company/company_form" */ '../../layout/Forms/Company/CompanyForm'),
+                component: import('../../layout/Forms/Company/CompanyForm.vue'),
                 ...LazyImportProperties
             }),
             RecoveryCodeForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/popup/recovery_code_form" */ '../../layout/Forms/Popup/RecoveryCodeForm'),
+                component: import('../../layout/Forms/Popup/RecoveryCodeForm.vue'),
                 ...LazyImportProperties
             }),
             CompanyUserForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/company/company_user_form" */ '../../layout/Forms/Company/CompanyUserForm'),
+                component: import('../../layout/Forms/Company/CompanyUserForm.vue'),
                 ...LazyImportProperties
             }),
             CompanyRoleForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/company/company_role_form" */ '../../layout/Forms/Company/CompanyRoleForm'),
+                component: import('../../layout/Forms/Company/CompanyRoleForm.vue'),
                 ...LazyImportProperties
             }),
             DomainForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/company/system/domain_form" */ '../../layout/Forms/Company/System/DomainForm'),
+                component: import('../../layout/Forms/Company/System/DomainForm.vue'),
                 ...LazyImportProperties
             }),
             CompanyCompleteForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/popup/company_complete_form" */ '../../layout/Forms/Popup/CompanyCompleteForm'),
+                component: import('../../layout/Forms/Popup/CompanyCompleteForm.vue'),
                 ...LazyImportProperties
             }),
             OneTimePasswordValidateForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/popup/one_time_password_form" */ '../../layout/Forms/Popup/OneTimePasswordForm'),
+                component: import('../../layout/Forms/Popup/OneTimePasswordForm.vue'),
                 ...LazyImportProperties
             }),
             OneTimePasswordEnableForm: () => ({
-                component: import(/* webpackChunkName: "layout/forms/one_time_password_form" */ '../../layout/Forms/OneTimePasswordForm'),
+                component: import('../../layout/Forms/OneTimePasswordForm.vue'),
                 ...LazyImportProperties
             }),
         },

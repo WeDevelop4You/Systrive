@@ -1,4 +1,4 @@
-import ViewLayer from "../components/Overviews/Page";
+import ViewLayer from "../components/Overviews/Page.vue";
 
 export default {
     components: {

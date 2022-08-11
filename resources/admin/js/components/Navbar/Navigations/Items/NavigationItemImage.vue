@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import CImage from "../../../Images/Image"
+    import CImage from "../../../Images/Image.vue"
     import ComponentProperties from "../../../../mixins/ComponentProperties";
 
     export default {

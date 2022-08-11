@@ -23,10 +23,6 @@ export default {
     getters: {
         getItems(state) {
             return state.items
-        },
-
-        getType(state) {
-            return state.type
         }
     },
 

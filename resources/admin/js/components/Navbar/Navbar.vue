@@ -34,8 +34,8 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import GroupNavigation from "./Navigations/GroupNavigation";
-    import CollapseNavigation from "./Navigations/CollapseNavigation";
+    import GroupNavigation from "./Navigations/GroupNavigation.vue";
+    import CollapseNavigation from "./Navigations/CollapseNavigation.vue";
 
     export default {
         name: "Navbar",

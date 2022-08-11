@@ -13,8 +13,8 @@
         name: "Table",
 
         components: {
-            LocaleDataTable: () => import(/* webpackChunkName: "components/tables/locale_data_table" */ '../Tables/LocaleDataTable'),
-            ServerDataTable: () => import(/* webpackChunkName: "components/tables/server_data_table" */ '../Tables/ServerDataTable')
+            LocaleDataTable: () => import('../Tables/LocaleDataTable.vue'),
+            ServerDataTable: () => import('../Tables/ServerDataTable.vue')
         },
 
         mixins: [

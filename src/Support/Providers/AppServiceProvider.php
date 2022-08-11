@@ -15,7 +15,7 @@ use Illuminate\Support\ServiceProvider;
 use ReflectionException;
 use Support\Helpers\Application\ComponentConstructor;
 use Support\Helpers\Application\RouteConstructor;
-use Support\Helpers\Application\ViewConstructor;
+use Support\Helpers\Application\BladeConstructor;
 use Support\Mixins\BuilderMixin;
 use Support\Mixins\CallbackEventMixin;
 use Support\Mixins\RelationMixin;
@@ -60,12 +60,8 @@ class AppServiceProvider extends ServiceProvider
         Collection::make(config('applications'))->each(function (array $config, string $application) {
             $application = strtolower($application);
 
-            ViewConstructor::create($this->app, $application);
-            ComponentConstructor::create($this->app, $application);
-            RouteConstructor::create(
-                Collection::make(Arr::get($config, 'routes')),
-                $application
-            );
+            BladeConstructor::create($this->app, $application);
+            RouteConstructor::create(Collection::make(Arr::get($config, 'routes')), $application);
         });
     }
 }

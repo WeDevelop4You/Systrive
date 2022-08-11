@@ -10,8 +10,8 @@ export default {
 
     state: () => ({
         data: {},
-
         preferences: {},
+
         preferencesLoaded: false
     }),
 
@@ -23,10 +23,6 @@ export default {
         setPreference(state, {type, value}) {
             state.preferences[type] = value
         },
-
-        changeLoadPreferenceStatus(state, value) {
-            state.preferencesLoaded = value
-        }
     },
 
     getters: {
@@ -37,23 +33,21 @@ export default {
         preferences(state) {
             return state.preferences
         },
-
-        isPreferenceLoaded(state) {
-            return state.preferencesLoaded
-        }
     },
 
     actions: {
         getOne({commit}) {
-            app.$api.call({
+            return app.$api.call({
                 url: app.$api.route('auth.user'),
                 method: "GET"
             }).then((response) => {
                 const data = response.data.data
 
                 commit('setData', data)
-                commit('form/setEdit', Object.assign({}, data))
-            })
+                commit('form/setEdit', Object.assign({}, data));
+
+                return true
+            }).catch(() => false);
         },
 
         update({commit, getters}) {
@@ -67,9 +61,7 @@ export default {
         },
 
         getPreferences({commit}) {
-            commit('changeLoadPreferenceStatus', false)
-
-            app.$api.call({
+            return app.$api.call({
                 url: app.$api.route('account.preferences'),
                 method: "GET"
             }).then((response) => {
@@ -78,9 +70,9 @@ export default {
                 for (const [key, value] of Object.entries(data)) {
                     commit('setPreference', {type: key, value})
                 }
-            }).finally(() => {
-                commit('changeLoadPreferenceStatus', true)
-            })
+
+                return true
+            }).catch(() => false)
         },
 
         updatePreferences({state}) {

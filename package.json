@@ -1,34 +1,31 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production",
         "lint": "./node_modules/.bin/eslint resources/admin --ext .js,.vue",
-        "lint-fix": "./node_modules/.bin/eslint resources/admin --ext .js,.vue --fix"
+        "lint-fix": "./node_modules/.bin/eslint resources/admin --ext .js,.vue --fix",
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
+        "@vitejs/plugin-vue2": "^1.1.2",
         "axios": "^0.21.1",
         "deepmerge": "^4.2.2",
         "eslint": "^8.1.0",
         "eslint-plugin-vue": "^7.20.0",
         "jquery": "^3.6",
-        "laravel-mix": "^6.0.6",
+        "laravel-vite-plugin": "^0.5.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
         "resolve-url-loader": "^3.1.2",
         "sass": "~1.32.6",
         "sass-loader": "^11.0.1",
-        "vue": "^2.6.14",
+        "unplugin-vue-components": "^0.22.4",
+        "vite": "^3.0.2",
+        "vue": "^2.7.0",
         "vue-loader": "^15.9.7",
         "vue-template-compiler": "^2.6.12",
         "vuetify": "^2.5.6",
-        "vuetify-loader": "^1.7.2",
-        "vuetifyjs-mix-extension": "^0.0.20"
+        "vuetify-loader": "^1.7.2"
     },
     "dependencies": {
         "@growthbunker/vueflags": "^0.1.14",

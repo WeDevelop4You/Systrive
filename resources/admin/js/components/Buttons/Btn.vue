@@ -8,7 +8,7 @@
             :disabled="$loading"
             :class="value.data.classes"
             depressed
-            @click="callAction(value.data.action)"
+            @click="$actions.call(value.data.action)"
             v-on="tooltip"
         >
             <template v-if="value.content.title">
@@ -26,14 +26,14 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import tooltip from "../Utils/Tooltip";
+    import tooltip from "../Utils/Tooltip.vue";
 
     export default {
         name: "Btn",
 
         components: {
             tooltip,
-            TextIcon: () => import(/* webpackChunkName: "components/icons/text_icon" */ '../Icons/TextIcon')
+            TextIcon: () => import('../Icons/TextIcon.vue')
         },
 
         mixins: [
@@ -42,7 +42,7 @@
 
         methods: {
             runDefaultAction() {
-                this.callAction(this.value.data.action)
+                this.$actions.call(this.value.data.action)
             }
         }
     }

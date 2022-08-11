@@ -32,8 +32,8 @@ export default {
         changeEnvironment({getters, commit}, name) {
             const data = getters['environmentForm/data']
 
-            commit('setItemRoute', app.$api.route(name, data.environment))
-            commit('resetParams')
+            commit('dataTable/setItemRoute', app.$api.route(name, data.environment))
+            commit('dataTable/resetParams')
         },
 
         states({dispatch}, action) {

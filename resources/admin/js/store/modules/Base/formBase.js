@@ -40,7 +40,7 @@ export default function (options = defaultOptions) {
 
             setCreate(state, data) {
                 if (!options.disableLoader) {
-                    app.$routeLoader.setForm(false, state.parameters)
+                    app.$state.setForm(false, state.parameters)
                 }
 
                 state.data = data
@@ -53,7 +53,7 @@ export default function (options = defaultOptions) {
                         ? {...state.parameters}
                         : {...state.parameters, id: data.id}
 
-                    app.$routeLoader.setForm(true, parameters)
+                    app.$state.setForm(true, parameters)
                 }
 
                 state.data = data
@@ -67,7 +67,7 @@ export default function (options = defaultOptions) {
 
             resetForm(state) {
                 if (!options.disableLoader) {
-                    app.$routeLoader.resetForm()
+                    app.$state.resetForm()
                 }
 
                 setTimeout(() => {

@@ -58,7 +58,7 @@
 
 <script>
     import CustomFormProperties from "../../mixins/Form/CustomFormProperties";
-    import PasswordRequirements from "../../components/PasswordRequirements";
+    import PasswordRequirements from "../../components/PasswordRequirements.vue";
 
     export default {
         name: "Password",

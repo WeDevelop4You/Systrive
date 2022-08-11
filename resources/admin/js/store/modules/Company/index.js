@@ -40,17 +40,11 @@ export default {
             await app.$api.call({
                 url: app.$api.route('company.search', name),
                 method: "GET",
-                headers: {
-                    'X-Last-Route-Name': app.$lastRoute.name,
-                    'X-Last-Route-Path': app.$lastRoute.path,
-                }
             }).then((response) => {
                 const data = response.data.data;
 
                 commit('initialize', data)
                 dispatch("navigation/company", data.id, {root: true})
-            }).catch((error) => {
-                app.$responseChain(error.response.data)
             })
         },
 

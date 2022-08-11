@@ -8,7 +8,7 @@
                 v-bind="value.attributes"
                 :class="value.data.classes"
                 depressed
-                @click="callAction(value.data.action)"
+                @click="$actions.call(value.data.action)"
                 v-on="tooltip"
             >
                 <icon
@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import Icon from "../Icons/Icon";
+    import Icon from "../Icons/Icon.vue";
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import Tooltip from "../Utils/Tooltip";
+    import Tooltip from "../Utils/Tooltip.vue";
 
     export default {
         name: "IconBtn",
@@ -39,7 +39,7 @@
 
         methods: {
             runDefaultAction() {
-                this.callAction(this.value.data.action)
+                this.$actions.call(this.value.data.action)
             }
         }
     }

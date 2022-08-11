@@ -2,7 +2,7 @@ module.exports = {
     env: {
         "browser": true,
         "commonjs": true,
-        "es6": true
+        "es6": true,
     },
     extends: [
         // add more generic rule sets here, such as:
@@ -10,7 +10,8 @@ module.exports = {
         'plugin:vue/recommended',
     ],
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaVersion": 13,
     },
     rules: {
         // override/add rules settings here, such as:

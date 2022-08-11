@@ -39,10 +39,10 @@
 </template>
 
 <script>
-    import LAuth from '../../layout/Base/Auth'
-    import SvgLogoLine from '../../svg/LogoLine'
-    import LButtons from "../../layout/ButtonLayout";
-    import RecoveryForm from "../../layout/Forms/RecoveryForm";
+    import LAuth from '../../layout/Base/Auth.vue'
+    import SvgLogoLine from '../../svg/LogoLine.vue'
+    import LButtons from "../../layout/ButtonLayout.vue";
+    import RecoveryForm from "../../layout/Forms/RecoveryForm.vue";
 
     export default {
         name: "PasswordRecovery",

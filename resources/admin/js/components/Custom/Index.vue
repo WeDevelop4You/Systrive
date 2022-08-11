@@ -12,7 +12,7 @@
         name: "Index",
 
         components: {
-            LocaleDropdown: () => import(/* webpackChunkName: "components/custom/locale_dropdown" */ './LocaleDropdown')
+            LocaleDropdown: () => import('./LocaleDropdown.vue')
         },
 
         mixins: [

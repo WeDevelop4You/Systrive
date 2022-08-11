@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import badge from "./Badge";
+import badge from "./Badge.vue";
 import ComponentProperties from "../../mixins/ComponentProperties";
 
 export default {

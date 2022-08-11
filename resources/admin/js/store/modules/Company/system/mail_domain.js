@@ -25,10 +25,8 @@ export default {
 
     actions: {
         async search({commit}, mailDomain) {
-            const identifiers = app.$api.getIdentifiers()
-
             await app.$api.call({
-                url: app.$api.route('system.mail.domain.search', identifiers.company, identifiers.system, mailDomain)
+                url: app.$api.companyRoute('system.mail.domain.search', mailDomain)
             }).then((response) => {
                 commit('setData', response.data.data)
                 commit('overview/setComponent', response.data.component)

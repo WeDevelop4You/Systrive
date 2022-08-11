@@ -14,8 +14,8 @@
 
 <script>
     import ComponentProperties from "../../../mixins/ComponentProperties";
-    import NavigationItem from "./Items/NavigationItem";
-    import NavigationCustomItem from "./Items/NavigationCustomItem";
+    import NavigationItem from "./Items/NavigationItem.vue";
+    import NavigationCustomItem from "./Items/NavigationCustomItem.vue";
 
     export default {
         name: "GroupNavigation",

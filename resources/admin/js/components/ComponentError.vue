@@ -22,6 +22,6 @@
 
 <script>
     export default {
-        name: "ComponentError"
+        name: "ComponentError",
     }
 </script>

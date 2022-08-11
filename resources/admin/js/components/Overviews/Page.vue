@@ -14,10 +14,10 @@
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
     import LazyImportProperties from "../../mixins/LazyImportProperties";
-    import ComponentLoading from "../ComponentLoading";
-    import SkeletonCard from "../../layout/Skeletons/SkeletonCard";
-    import ComponentError from "../ComponentError";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable";
+    import ComponentLoading from "../ComponentLoading.vue";
+    import SkeletonCard from "../../layout/Skeletons/SkeletonCard.vue";
+    import ComponentError from "../ComponentError.vue";
+    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
 
     export default {
         name: "Page",
@@ -26,18 +26,18 @@
             ComponentLoading,
 
             Row: () => ({
-                component: import(/* webpackChunkName: "components/layouts/row" */ "../Layouts/Row"),
+                component: import("../Layouts/Row.vue"),
                 ...LazyImportProperties
             }),
             Table: () => ({
-                component: import(/* webpackChunkName: "components/overviews/table" */ "./Table"),
+                component: import("./Table.vue"),
                 loading: SkeletonDataTable,
                 delay: 0,
                 error: ComponentError,
                 timeout: 10000
             }),
             Card: () => ({
-                component: import(/* webpackChunkName: "components/overviews/card" */ '../Overviews/Card'),
+                component: import('../Overviews/Card.vue'),
                 loading: SkeletonCard,
                 delay: 0,
                 error: ComponentError,
@@ -76,7 +76,7 @@
         },
 
         created() {
-            this.$routeLoader.convertStringToRouteParams()
+            this.$loader.convertStringToRouteParams()
 
             if (this.route !== undefined) {
                 this.load()
@@ -94,7 +94,7 @@
                     : this.vuexNamespace
 
                 if (vuexNamespace !== undefined) {
-                    this.$routeLoader.runStateAction(vuexNamespace)
+                    this.$loader.runStateAction(vuexNamespace)
                 }
             }
         },

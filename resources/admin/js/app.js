@@ -1,4 +1,5 @@
 import './bootstrap'
+import '../sass/custom.scss'
 import 'line-awesome/dist/font-awesome-line-awesome/css/all.min.css';
 
 import Vue from 'vue'
@@ -21,10 +22,10 @@ export default new Vue({
     router: Router,
 
     components: {
-        LApp: () => import(/* webpackChunkName: "layout/app" */ './layout/Base/App'),
-        Login: () => import(/* webpackChunkName: "pages/auth/login" */ './pages/Auth/Login'),
-        Registration: () => import(/* webpackChunkName: "pages/auth/registration" */ './pages/Auth/Registration'),
-        ResetPassword: () => import(/* webpackChunkName: "pages/auth/reset_password" */ './pages/Auth/ResetPassword'),
-        PasswordRecovery: () => import(/* webpackChunkName: "pages/auth/password_recovery" */ './pages/Auth/PasswordRecovery')
+        LApp: () => import('./layout/Base/App.vue'),
+        Login: () => import('./pages/Auth/Login.vue'),
+        Registration: () => import('./pages/Auth/Registration.vue'),
+        ResetPassword: () => import('./pages/Auth/ResetPassword.vue'),
+        PasswordRecovery: () => import('./pages/Auth/PasswordRecovery.vue')
     }
 }).$mount('#mount');

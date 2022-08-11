@@ -27,10 +27,10 @@
 </template>
 
 <script>
-    import Icon from "../../Icons/Icon";
-    import NavigationItem from "./Items/NavigationItem";
+    import Icon from "../../Icons/Icon.vue";
+    import NavigationItem from "./Items/NavigationItem.vue";
     import ComponentProperties from "../../../mixins/ComponentProperties";
-    import NavigationCustomItem from "./Items/NavigationCustomItem";
+    import NavigationCustomItem from "./Items/NavigationCustomItem.vue";
 
     export default {
         name: "CollapseNavigation",

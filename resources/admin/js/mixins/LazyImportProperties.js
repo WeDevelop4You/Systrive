@@ -1,5 +1,5 @@
-import ComponentLoading from "../components/ComponentLoading";
-import ComponentError from "../components/ComponentError";
+import ComponentLoading from "../components/ComponentLoading.vue";
+import ComponentError from "../components/ComponentError.vue";
 
 export default {
     loading: ComponentLoading,

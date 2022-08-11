@@ -35,10 +35,10 @@
 </template>
 
 <script>
-    import LAuth from "../../layout/Base/Auth";
-    import FPassword from '../../layout/Forms/PasswordForm'
-    import SvgLogoLine from '../../svg/LogoLine'
-    import PasswordRequirements from "../../components/PasswordRequirements";
+    import LAuth from "../../layout/Base/Auth.vue";
+    import FPassword from '../../layout/Forms/PasswordForm.vue'
+    import SvgLogoLine from '../../svg/LogoLine.vue'
+    import PasswordRequirements from "../../components/PasswordRequirements.vue";
 
     export default {
         name: "PasswordReset",

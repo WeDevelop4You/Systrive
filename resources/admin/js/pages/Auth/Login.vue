@@ -43,10 +43,10 @@
 </template>
 
 <script>
-    import LAuth from '../../layout/Base/Auth'
-    import FLogin from '../../layout/Forms/LoginForm'
-    import SvgLogoLine from '../../svg/LogoLine'
-    import LButtons from "../../layout/ButtonLayout";
+    import LAuth from '../../layout/Base/Auth.vue'
+    import FLogin from '../../layout/Forms/LoginForm.vue'
+    import SvgLogoLine from '../../svg/LogoLine.vue'
+    import LButtons from "../../layout/ButtonLayout.vue";
 
     export default {
         name: "Login",
@@ -64,14 +64,16 @@
                 type: String,
             },
 
-            responseData: {
+            response: {
                 required: true,
-                type: Object,
+                type: Array,
             },
         },
 
         created() {
-            this.$responseChain(this.responseData)
+            this.response.forEach((data) => {
+                this.$responseChain(data)
+            })
         },
 
         methods: {

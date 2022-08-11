@@ -26,14 +26,14 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import tooltip from "../Utils/Tooltip";
+    import tooltip from "../Utils/Tooltip.vue";
 
     export default {
         name: "Btn",
 
         components: {
             tooltip,
-            TextIcon: () => import(/* webpackChunkName: "components/icons/text_icon" */ '../Icons/TextIcon')
+            TextIcon: () => import('../Icons/TextIcon.vue')
         },
 
         mixins: [

@@ -1,28 +1,34 @@
+import app from "vue"
+import api from "./Api"
+import store from "../store"
+import routes from "../plugins/routes"
+import vuetify from "../plugins/vuetify";
+import permission from "../config/permissions"
+
 export default class Helper
 {
     static getApi() {
-        return new (require('./Api').default)('admin')
+        return new api('admin')
     }
 
     static getApp(Vue = undefined) {
-
-        return (Vue ? Vue : require('vue').default).prototype
+        return (Vue ? Vue : app).prototype
     }
 
     static getStore() {
-        return require('../store').default
+        return store
     }
 
     static getVuetify() {
-        return require('../plugins/vuetify').default.framework
+        return vuetify.framework
     }
 
     static getPermissions() {
-        return require('../config/permissions').default
+        return permission
     }
 
     static getRouter() {
-        return require('../plugins/routes').default;
+        return routes
     }
 
     static getMainVuexNamespace(VuexNamespace) {

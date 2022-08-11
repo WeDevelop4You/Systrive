@@ -58,39 +58,39 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import ComponentError from "../ComponentError";
-    import SkeletonList from "../../layout/Skeletons/SkeletonList";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable";
+    import ComponentError from "../ComponentError.vue";
+    import SkeletonList from "../../layout/Skeletons/SkeletonList.vue";
+    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
 
     export default {
         name: "Card",
 
         components: {
-            Btn: () => import(/* webpackChunkName: "components/buttons/btn" */ '../Buttons/Btn'),
-            IconBtn: () => import(/* webpackChunkName: "components/buttons/icon_btn" */ '../Buttons/IconBtn'),
-            MultipleBtn: () => import(/* webpackChunkName: "components/buttons/multiple_btn" */ '../Buttons/MultipleBtn'),
+            Btn: () => import('../Buttons/Btn.vue'),
+            IconBtn: () => import('../Buttons/IconBtn.vue'),
+            MultipleBtn: () => import('../Buttons/MultipleBtn.vue'),
 
-            Content: () => import(/* webpackChunkName: "components/items/text" */ '../Items/Text'),
+            Content: () => import('../Items/Text.vue'),
             List: () => ({
-                component: import(/* webpackChunkName: "components/overviews/list" */ './List'),
+                component: import('./List.vue'),
                 loading: SkeletonList,
                 delay: 0,
                 error: ComponentError,
                 timeout: 10000
             }),
             Table: () => ({
-                component: import(/* webpackChunkName: "components/overviews/table" */ '../Overviews/Table'),
+                component: import('../Overviews/Table.vue'),
                 loading: SkeletonDataTable,
                 delay: 0,
                 error: ComponentError,
                 timeout: 10000
             }),
-            Chart: () => import(/* webpackChunkName: "components/overviews/chart" */ './Chart'),
-            FormLayout: () => import(/* webpackChunkName: "components/forms/form" */ '../Forms/Form'),
-            Navbar: () => import(/* webpackChunkName: "components/navbar/navbar" */ '../Navbar/Navbar'),
-            CustomFormLayout: () => import(/* webpackChunkName: "components/forms/custom_form" */ '../Forms/CustomForm'),
+            Chart: () => import('./Chart.vue'),
+            FormLayout: () => import('../Forms/Form.vue'),
+            Navbar: () => import('../Navbar/Navbar.vue'),
+            CustomFormLayout: () => import('../Forms/CustomForm.vue'),
 
-            Row: () => import(/* webpackChunkName: "components/layouts/row" */ '../Layouts/Row')
+            Row: () => import('../Layouts/Row.vue')
         },
 
         mixins: [

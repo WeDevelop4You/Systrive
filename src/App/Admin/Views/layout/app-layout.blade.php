@@ -6,11 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="{{ asset('images/admin/icon.png') }}">
-        <link rel="stylesheet" href="{{ mix('css/admin/app.css') }}">
-        <link rel="stylesheet" href="{{ mix('css/admin/custom.css') }}">
-
-        <script src="{{ mix('js/admin/app.js') }}" defer></script>
+        @vite('resources/admin/js/app.js')
     </head>
     <body>
         <div id="mount">

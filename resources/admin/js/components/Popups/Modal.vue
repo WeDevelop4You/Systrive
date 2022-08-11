@@ -13,7 +13,7 @@
 
 <script>
     import ComponentProperties from "../../mixins/ComponentProperties";
-    import Card from "../Overviews/Card";
+    import Card from "../Overviews/Card.vue";
 
     export default {
         name: "Modal",

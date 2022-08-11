@@ -26,6 +26,11 @@ class GenerateTranslation extends Command
      */
     private Filesystem $filesystem;
 
+    /**
+     * @var array
+     */
+    private array $imports = [];
+
     public function __construct()
     {
         $this->filesystem = new Filesystem();
@@ -38,7 +43,8 @@ class GenerateTranslation extends Command
      */
     public function handle(): void
     {
-        $data = "export default {\n";
+        $data = $this->importFiles();
+        $data .= "export default {\n";
         $data .= $this->createLocalesList();
         $data .= "}";
 
@@ -51,11 +57,12 @@ class GenerateTranslation extends Command
     private function createLocalesList(): string
     {
         $data = '';
-        $locales = config('translation.locales', []);
 
-        foreach ($locales as $locale) {
+        foreach ($this->imports as $locale => $import) {
+            $import = implode(",\n\t\t...", $import);
+
             $data .= "\t{$locale}: {\n";
-            $data .= $this->importFiles($locale);
+            $data .= "\t\t...{$import}\n";
             $data .= "\t},\n";
         }
 
@@ -63,20 +70,53 @@ class GenerateTranslation extends Command
     }
 
     /**
+     * @return string
+     */
+    private function importFiles(): string
+    {
+        $data = '';
+        $locales = config('translation.locales', []);
+
+        foreach ($locales as $locale) {
+            $import = $this->createImport('vuetify', $locale);
+
+            $this->addImport($locale, $import);
+            $data .= "import {$import} from 'vuetify/es5/locale/{$locale}'\n";
+
+            $files = $this->filesystem->allFiles(base_path("lang/frontend/{$locale}"));
+
+            foreach ($files as $file) {
+                $import = $this->createImport($file->getBasename('.json'), $locale);
+
+                $this->addImport($locale, $import);
+                $data .= "import {$import} from '../../../../lang/frontend/{$locale}/{$file->getFilename()}'\n";
+            }
+        }
+
+        return "{$data}\n";
+    }
+
+    /**
+     * @param string $prefix
      * @param string $locale
      *
      * @return string
      */
-    private function importFiles(string $locale): string
+    private function createImport(string $prefix, string $locale): string
     {
-        $files = $this->filesystem->allFiles(base_path("lang/frontend/{$locale}"));
+        $locale = strtoupper($locale);
 
-        $data = "\t\t...require('vuetify/es5/locale/{$locale}'),\n";
+        return "{$prefix}{$locale}";
+    }
 
-        foreach ($files as $file) {
-            $data .= "\t\t...require('../../../../lang/frontend/{$locale}/{$file->getFilename()}'),\n";
-        }
-
-        return $data;
+    /**
+     * @param string $locale
+     * @param string $import
+     *
+     * @return void
+     */
+    private function addImport(string $locale, string $import): void
+    {
+        $this->imports[$locale][] = $import;
     }
 }

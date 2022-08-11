@@ -37,14 +37,14 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Modal from "../components/Popups/Modal";
+    import Modal from "../components/Popups/Modal.vue";
 
     export default {
         name: "Index",
 
         components: {
             Modal,
-            SimpleNotification: () => import(/* webpackChunkName: "components/popups/notifications/simple" */ '../components/Popups/Notifications/Simple'),
+            SimpleNotification: () => import('../components/Popups/Notifications/Simple.vue'),
         },
 
         computed: {

@@ -86,7 +86,7 @@
 
 <script>
     import CustomFormProperties from "../../mixins/Form/CustomFormProperties";
-    import GroupBadges from "../../components/Items/GroupBadges";
+    import GroupBadges from "../../components/Items/GroupBadges.vue";
 
     export default {
         name: "TranslationForm",

@@ -148,12 +148,12 @@
 </template>
 
 <script>
-    import LAuth from '../../layout/Base/Auth'
-    import FPassword from '../../layout/Forms/PasswordForm'
-    import SvgLogoLine from '../../svg/LogoLine'
-    import UserProfileForm from '../../layout/Forms/UserProfileForm'
-    import PasswordRequirements from "../../components/PasswordRequirements";
-    import LButtons from "../../layout/ButtonLayout";
+    import LAuth from '../../layout/Base/Auth.vue'
+    import FPassword from '../../layout/Forms/PasswordForm.vue'
+    import SvgLogoLine from '../../svg/LogoLine.vue'
+    import UserProfileForm from '../../layout/Forms/UserProfileForm.vue'
+    import PasswordRequirements from "../../components/PasswordRequirements.vue";
+    import LButtons from "../../layout/ButtonLayout.vue";
     import FormMethods from "../../mixins/Form/FormMethods";
 
     export default {

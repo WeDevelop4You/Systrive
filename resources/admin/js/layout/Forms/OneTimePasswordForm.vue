@@ -79,9 +79,9 @@
 </template>
 
 <script>
-    import LButtons from "../../layout/ButtonLayout";
-    import LoadingImage from "../../components/Items/LoadingImage";
-    import ErrorMessage from "../../components/Items/ErrorMessage";
+    import LButtons from "../../layout/ButtonLayout.vue";
+    import LoadingImage from "../../components/Items/LoadingImage.vue";
+    import ErrorMessage from "../../components/Items/ErrorMessage.vue";
     import CustomFormProperties from "../../mixins/Form/CustomFormProperties";
 
     export default {

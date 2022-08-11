@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
@@ -15,7 +18,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "hisorange/browser-detect": "^4.4.1",
         "ihor/supervisor-xml-rpc": "^0.2.1",
-        "laravel/framework": "^9.00",
+        "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.5",
@@ -42,8 +45,8 @@
         ],
         "psr-4": {
             "App\\": "src/App/",
-            "Domain\\" : "src/Domain/",
-            "Support\\" : "src/Support/",
+            "Domain\\": "src/Domain/",
+            "Support\\": "src/Support/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

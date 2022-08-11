@@ -1,0 +1,44 @@
+name: Build
+
+on:
+  workflow_run:
+    workflows: Code Style
+    types:
+      - completed
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  Build-Front-End:
+    runs-on: ubuntu-latest
+    
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install modules
+        run: npm install
+      
+      - name: Build code
+        run: npm run build --if-present
+        
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+        
+      - name: Commit Build
+        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        with:
+            commit_message: New build from ${{ steps.extract_branch.outputs.branch }}
+            branch: main
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

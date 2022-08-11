@@ -37,7 +37,8 @@
                     : this.value.data.closeAction
 
                 if (action) {
-                    const promise = this.$actions.call(action)
+                    this.$actions.call(action)
+                    // const promise = this.$actions.call(action)
 
                     // if (this.$actions.returnIsPromise(promise)) {
                     //     promise.catch(() => {})

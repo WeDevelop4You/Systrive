@@ -3,10 +3,8 @@
     namespace Support\Helpers\Application;
 
     use Illuminate\Contracts\Foundation\Application;
-    use Illuminate\Support\Arr;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\App;
-    use Illuminate\Support\Facades\Blade;
     use Illuminate\Support\Facades\Session;
     use Illuminate\Support\Facades\View;
     use Illuminate\Support\Js;
@@ -14,10 +12,8 @@
     use Illuminate\Support\Str;
     use Illuminate\View\View as BladeView;
     use Support\Enums\SessionKeyTypes;
-    use Support\Response\Response;
     use Symfony\Component\Finder\Finder;
     use Symfony\Component\Finder\SplFileInfo;
-    use function Termwind\render;
 
     class BladeConstructor extends ServiceProvider
     {
@@ -108,7 +104,7 @@
             View::composer('*', function (BladeView $view) {
                 $data = Collection::make([
                     Session::get(SessionKeyTypes::KEEP->value),
-                    Session::pull(SessionKeyTypes::ONCE->value)
+                    Session::pull(SessionKeyTypes::ONCE->value),
                 ])
                 ->whereNotNull()
                 ->values()

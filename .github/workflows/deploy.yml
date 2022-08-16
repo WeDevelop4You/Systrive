@@ -65,20 +65,17 @@ jobs:
 
     if: ${{ success() }}
 
-    outputs:
-      id: ${{ steps.branch.outputs.pr_number }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Create Pull Request
-        id: pull-request
-        uses: repo-sync/pull-request@v2
+        uses: peter-evans/create-pull-request@v4
         with:
-          destination_branch: main
-          pr_title: merge ${{ github.ref_name }} into main
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          base: ${{ github.head_ref }}
+          branch: merge-${{ github.ref_name }}
+          title: merge ${{ github.ref_name }} into ${{ github.head_ref }}
+          delete-branch: true
 
 
 
@@ -96,7 +93,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ needs.pull-request.outputs.id }}
+          ref: merge-${{ github.ref_name }}
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3

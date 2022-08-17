@@ -118,4 +118,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Created a new vite build from commit ${{ github.event.head_commit.message }}
-          branch: ${{ github.ref_name }}
+          branch: merge-${{ github.ref_name }}

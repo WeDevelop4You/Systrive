@@ -28,9 +28,10 @@ jobs:
         run: npm run lint-fix
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: JS Fix styling
+          branch: ${{ github.ref_name }}
 
 
   php-code-style:
@@ -48,9 +49,10 @@ jobs:
           args: --config=.php_cs.dist.php --allow-risky=yes
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: PHP Fix styling
+          branch: ${{ github.ref_name }}
 
 
 
@@ -113,6 +115,7 @@ jobs:
         run: npm run build --if-present
 
       - name: Commit Build
-        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Created a new vite build from commit ${{ github.event.head_commit.message }}
+          branch: ${{ github.ref_name }}

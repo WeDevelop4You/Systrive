@@ -115,4 +115,4 @@ jobs:
       - name: Commit Build
         uses: stefanzweifel/git-auto-commit-action@v2.3.0
         with:
-          commit-message: Created a new vite build from ${{ github.event.head_commit.message }}
+          commit_message: Created a new vite build from commit ${{ github.event.head_commit.message }}

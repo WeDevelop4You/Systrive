@@ -73,7 +73,7 @@ jobs:
 
       - name: Reset branch
         run: |
-          git fetch origin ${{ github.ref_name }}
+          git fetch origin ${{ github.ref_name }}:${{ github.ref_name }}
           git reset --hard ${{ github.ref_name }}
 
       - name: Create Pull Request

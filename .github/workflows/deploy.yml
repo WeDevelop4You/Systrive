@@ -54,8 +54,8 @@ jobs:
 
 
 
-  build:
-    name: Build vite
+  pull-request:
+    name: Create pull request
 
     runs-on: ubuntu-latest
 
@@ -71,27 +71,10 @@ jobs:
         with:
           ref: main
 
-      - name: Reset promotion branch
+      - name: Reset branch
         run: |
-          git fetch origin ${{ github.ref_name }}:${{ github.ref_name }}
+          git fetch origin ${{ github.ref_name }}
           git reset --hard ${{ github.ref_name }}
-
-
-#      - name: Setup Node.js environment
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: '16'
-#
-#      - name: Install modules
-#        run: npm install
-#
-#      - name: Build code
-#        run: npm run build --if-present
-#
-#      - name: Commit Build
-#        uses: stefanzweifel/git-auto-commit-action@v2.3.0
-#        with:
-#          commit_message: New vite build
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
@@ -99,5 +82,37 @@ jobs:
           base: main
           branch: merge-${{ github.ref_name }}
           title: merge ${{ github.ref_name }} into main
-#          commit-message: Created a new vite build from ${{ github.event.head_commit.message }}
           delete-branch: true
+
+
+  build:
+    name: Build vite
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - pull-request
+
+    if: ${{ success() }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: merge-${{ github.ref_name }}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install modules
+        run: npm install
+
+      - name: Build code
+        run: npm run build --if-present
+
+      - name: Commit Build
+        uses: stefanzweifel/git-auto-commit-action@v2.3.0
+        with:
+          commit-message: Created a new vite build from ${{ github.event.head_commit.message }}

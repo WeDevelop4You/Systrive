@@ -3,7 +3,7 @@
     namespace App\Admin\Company\User\Controllers;
 
     use App\Admin\Company\User\Responses\CompanyUserRevokeConfirmResponse;
-    use Domain\Company\Actions\RevokeCompanyUserAction;
+    use Domain\Company\Actions\CompanyUserRevokeAction;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
@@ -32,7 +32,7 @@
          */
         public function action(Company $company, User $user): JsonResponse
         {
-            (new RevokeCompanyUserAction($company))($user);
+            (new CompanyUserRevokeAction($company))($user);
 
             return Response::create()
                 ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.deleted')))

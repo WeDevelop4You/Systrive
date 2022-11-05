@@ -7,8 +7,11 @@
             hide-overlay
             :mini-variant.sync="isMini"
         >
+            <template v-if="!isLoad">
+                <skeleton-navbar :is-hidden="isMini"/>
+            </template>
             <Navbar
-                v-if="Object.keys(main).length !== 0"
+                v-else
                 :value="main"
                 :is-hidden="isMini"
             />
@@ -89,8 +92,9 @@
     import {mapGetters} from "vuex";
     import Popup from "../../layout/Popups.vue";
     import Breadcrumb from '../Breadcrumb.vue'
-    import SvgLogoLine from '../../svg/LogoLine.vue'
+    import SvgLogoLine from '../../svg/Logo.vue'
     import Navbar from "../../components/Navbar/Navbar.vue";
+    import SkeletonNavbar from "../../layout/Skeletons/SkeletonNavbar.vue";
 
     export default {
         name: "App",
@@ -100,6 +104,7 @@
             Navbar,
             Breadcrumb,
             SvgLogoLine,
+            SkeletonNavbar
         },
 
         props: {
@@ -116,6 +121,10 @@
         },
 
         computed: {
+            isLoad() {
+                return Object.keys(this.main).length !== 0
+            },
+
             ...mapGetters({
                 sub: 'navigation/sub',
                 main: 'navigation/main',

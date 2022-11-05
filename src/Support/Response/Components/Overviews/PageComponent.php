@@ -11,7 +11,7 @@ class PageComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Page';
+        return 'PageComponent';
     }
 
     /**

@@ -17,8 +17,9 @@ return [
                 ],
             ],
             'ignore_plurals' => [
-                'git',
-                'supervisor',
+                'git' => 'git',
+                'cms' => 'companies',
+                'supervisor' => 'supervisor',
             ],
         ],
 

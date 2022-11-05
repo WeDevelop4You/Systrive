@@ -11,24 +11,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Support\Enums\ScheduleTypes;
+use Support\Enums\ScheduleType;
 
 /**
- * Domain\Job\Models\JobOperation.
+ * Domain\Job\Models\JobOperation
  *
- * @property int                     $id
- * @property ScheduleTypes|null      $schedule_type
- * @property int|null                $parent_id
- * @property string|null             $uuid
- * @property string|null             $name
- * @property int|null                $start_time
- * @property int|null                $end_time
+ * @property int $id
+ * @property ScheduleType|null $schedule_type
+ * @property int|null $parent_id
+ * @property string|null $uuid
+ * @property string|null $name
+ * @property int|null $start_time
+ * @property int|null $end_time
  * @property JobOperationStatusTypes $status
- * @property Carbon|null             $created_at
- * @property Carbon|null             $updated_at
- * @property-read JobOperation[]|JobOperationCollections $children
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read JobOperationCollections|JobOperation[] $children
  * @property-read JobOperation|null $parent
- *
  * @method static JobOperationCollections|static[] all($columns = ['*'])
  * @method static JobOperationCollections|static[] get($columns = ['*'])
  * @method static JobOperationQueryBuilders|JobOperation newModelQuery()
@@ -62,7 +61,7 @@ class JobOperation extends Model
     ];
 
     protected $casts = [
-        JobOperationTableMap::SCHEDULE_TYPE => ScheduleTypes::class,
+        JobOperationTableMap::SCHEDULE_TYPE => ScheduleType::class,
         JobOperationTableMap::START_TIME => 'int',
         JobOperationTableMap::END_TIME => 'int',
         JobOperationTableMap::STATUS => JobOperationStatusTypes::class,

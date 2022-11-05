@@ -15,15 +15,17 @@ class BreadcrumbAction extends AbstractAction
     public function add(string $text, ?VueRouteHelper $route = null): BreadcrumbAction
     {
         $data = [
-            'text' => $text,
-            'added' => true,
+            'label' => $text,
+            'additional' => [
+                'added' => true,
+            ]
         ];
 
         if ($route instanceof VueRouteHelper) {
             $data['to'] = $route->export();
         }
 
-        return $this->setMethod('actionBreadcrumbsAdd')
+        return $this->setMethod('breadcrumbsAddAction')
             ->setData($data, true);
     }
 }

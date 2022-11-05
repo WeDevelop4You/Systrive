@@ -4,17 +4,13 @@
 
     use App\Admin\Translation\DataTables\TranslationTable;
     use Illuminate\Http\JsonResponse;
-    use Support\Abstracts\AbstractTable;
     use Support\Abstracts\Controllers\AbstractTableController;
     use Support\Helpers\DataTable\Build\DataTable;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationTableController extends AbstractTableController
     {
-        protected function getDataTable(): AbstractTable
-        {
-            return TranslationTable::create();
-        }
+        protected string $dataTable = TranslationTable::class;
 
         /**
          * @param string $environment
@@ -23,7 +19,17 @@
          */
         public function index(string $environment): JsonResponse
         {
-            return DataTable::create($this->getDataTable())
+            $this->headers();
+        }
+
+        /**
+         * @param string $environment
+         *
+         * @return JsonResponse
+         */
+        public function action(string $environment): JsonResponse
+        {
+            return DataTable::create($this->structure())
                 ->query(TranslationKey::whereEnvironment($environment)->with('translations'))
                 ->export();
         }

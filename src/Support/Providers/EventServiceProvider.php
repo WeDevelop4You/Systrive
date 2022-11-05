@@ -2,6 +2,7 @@
 
 namespace Support\Providers;
 
+use Domain\Cms\Models\CmsColumn;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyUser;
 use Domain\Invite\Models\Invite;
@@ -51,6 +52,7 @@ class EventServiceProvider extends ServiceProvider
         User::observe(User::getObservers());
         Invite::observe(Invite::getObservers());
         Company::observe(Company::getObservers());
+        CmsColumn::observe(CmsColumn::getObservers());
         Supervisor::observe(Supervisor::getObservers());
         CompanyUser::observe(CompanyUser::getObservers());
 

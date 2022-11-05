@@ -11,7 +11,7 @@ class TooltipComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Tooltip';
+        return 'TooltipComponent';
     }
 
     /**

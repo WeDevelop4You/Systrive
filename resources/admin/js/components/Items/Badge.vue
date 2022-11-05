@@ -1,22 +1,21 @@
 <template>
     <v-chip
-        v-bind="value.attributes"
+        v-bind="component.attributes"
         label
         small
         link
+        class="cursor-default max-w-max-content"
     >
-        {{ value.content.value }}
+        {{ component.content.value }}
     </v-chip>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Badge",
 
-        mixins: [
-            ComponentProperties
-        ]
+        extends: ComponentBase
     }
 </script>

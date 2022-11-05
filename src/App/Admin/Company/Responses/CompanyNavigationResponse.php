@@ -2,6 +2,8 @@
 
 namespace App\Admin\Company\Responses;
 
+use Domain\Cms\Models\Cms;
+use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemDatabase;
@@ -11,12 +13,14 @@ use Domain\System\Models\SystemMailDomain;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
+use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
 use Support\Response\Components\Navbar\NavbarComponent;
 use Support\Response\Components\Navbar\Navigations\CollapseNavigationComponent;
 use Support\Response\Components\Navbar\Navigations\GroupNavigationComponent;
+use Support\Response\Components\Navbar\Navigations\Items\NavigationCreateItemComponent;
 use Support\Response\Components\Navbar\Navigations\Items\NavigationItemComponent;
 use Support\Response\Components\Utils\TooltipComponent;
 use Support\Response\Response;
@@ -32,7 +36,12 @@ class CompanyNavigationResponse extends AbstractResponse
         private readonly Company $company
     ) {
         $this->system = $company->system()
-            ->with(['domains', 'dns', 'databases', 'mailDomains'])
+            ->with([
+                'dns',
+                'domains',
+                'databases',
+                'mailDomains',
+            ])
             ->first();
     }
 
@@ -45,7 +54,20 @@ class CompanyNavigationResponse extends AbstractResponse
             ->setShaped()
             ->addItem($this->createDefaultNavigationItems());
 
-        if ($this->system instanceof System) {
+        if (
+            $this->company->hasCMSModule() &&
+            Auth::user()->hasPermission('cms.view')
+        ) {
+            $navbar->addDivider();
+            $navbar->addSubheader(trans('word.cms.cms'));
+            $navbar->addItems($this->createCmsNavigationItems());
+        }
+
+        if (
+            $this->system instanceof System &&
+            $this->company->hasSystemModule() &&
+            Auth::user()->hasPermission('system.view')
+        ) {
             $navbar->addDivider();
             $navbar->addSubheader(trans('word.system.system'));
             $navbar->addItems([
@@ -77,9 +99,46 @@ class CompanyNavigationResponse extends AbstractResponse
             ->addNavigation(
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.dashboard'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_HOME))
-                    ->setRoute(VueRouteHelper::getCompany($this->company))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_HOME))
+                    ->setRoute(VueRouteHelper::createCompany($this->company))
             );
+    }
+
+    private function createCmsNavigationItems(): array
+    {
+        return $this->company->cms->map(function (Cms $cms) {
+            $tables = $cms->tables()->map(function (CmsTable $table) use ($cms) {
+                return NavigationItemComponent::create()
+                    ->setTitle($table->label)
+                    ->setRoute(VueRouteHelper::create()
+                        ->setName('company.cms.table')
+                        ->setParams([
+                            'cmsName' => $cms->database,
+                            'tableName' => $table->name,
+                        ]));
+            })->addIf(
+                Auth::user()->isSuperAdmin(),
+                NavigationCreateItemComponent::create()
+                    ->setAction(
+                        VuexAction::create()->dispatch(
+                            'company/cms/table/create',
+                            route('admin.company.cms.table.create', [
+                                $this->company->id,
+                                $cms->id,
+                            ])
+                        )
+                    )
+                    ->setTooltip(
+                        TooltipComponent::create()
+                            ->setTop()
+                            ->setText(trans('word.create.table'))
+                    )
+            )->toArray();
+
+            return CollapseNavigationComponent::create()
+                ->setTitle($cms->name)
+                ->setNavigation($tables);
+        })->toArray();
     }
 
     /**
@@ -89,7 +148,7 @@ class CompanyNavigationResponse extends AbstractResponse
     {
         return CollapseNavigationComponent::create()
             ->setTitle(trans('word.domains'))
-            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_GLOBE))
+            ->setIcon(IconComponent::create()->setType(IconType::FAS_GLOBE))
             ->setNavigation(
                 $this->system->domains->map(function (SystemDomain $domain) {
                     return NavigationItemComponent::create()
@@ -102,8 +161,8 @@ class CompanyNavigationResponse extends AbstractResponse
                         )
                         ->setRoute(
                             VueRouteHelper::create()
-                                ->setName('company.domain')
-                                ->setParams(['domainName' => $domain->name])
+                                ->setName('company.system.domain')
+                                ->setParams(['name' => $domain->name])
                         );
                 })->toArray()
             );
@@ -116,15 +175,15 @@ class CompanyNavigationResponse extends AbstractResponse
     {
         return CollapseNavigationComponent::create()
             ->setTitle(trans('word.dns'))
-            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_SITEMAP))
+            ->setIcon(IconComponent::create()->setType(IconType::FAS_SITEMAP))
             ->setNavigation(
                 $this->system->dns->map(function (SystemDNS $dns) {
                     return NavigationItemComponent::create()
                         ->setTitle($dns->name)
                         ->setRoute(
                             VueRouteHelper::create()
-                                ->setName('company.dns')
-                                ->setParams(['domainNameServer' => $dns->name])
+                                ->setName('company.system.dns')
+                                ->setParams(['name' => $dns->name])
                         );
                 })->toArray()
             );
@@ -137,15 +196,15 @@ class CompanyNavigationResponse extends AbstractResponse
     {
         return CollapseNavigationComponent::create()
             ->setTitle(trans('word.databases'))
-            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_SERVER))
+            ->setIcon(IconComponent::create()->setType(IconType::FAS_SERVER))
             ->setNavigation(
                 $this->system->databases->map(function (SystemDatabase $database) {
                     return NavigationItemComponent::create()
                         ->setTitle(Str::after($database->name, "{$this->company->name}_"))
                         ->setRoute(
                             VueRouteHelper::create()
-                                ->setName('company.database')
-                                ->setParams(['databaseName' => $database->name])
+                                ->setName('company.system.database')
+                                ->setParams(['name' => $database->name])
                         );
                 })->toArray()
             );
@@ -158,15 +217,15 @@ class CompanyNavigationResponse extends AbstractResponse
     {
         return CollapseNavigationComponent::create()
             ->setTitle(trans('word.mail.domains'))
-            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_MAIL_BULK))
+            ->setIcon(IconComponent::create()->setType(IconType::FAS_MAIL_BULK))
             ->setNavigation(
                 $this->system->mailDomains->map(function (SystemMailDomain $mailDomain) {
                     return NavigationItemComponent::create()
                         ->setTitle($mailDomain->name)
                         ->setRoute(
                             VueRouteHelper::create()
-                                ->setName('company.mail')
-                                ->setParams(['mailDomainName' => $mailDomain->name])
+                                ->setName('company.system.mail')
+                                ->setParams(['name' => $mailDomain->name])
                         );
                 })->toArray()
             );
@@ -184,15 +243,15 @@ class CompanyNavigationResponse extends AbstractResponse
                 $user->hasPermission('user.view'),
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.users'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_USERS_COG))
-                    ->setRoute(VueRouteHelper::create()->setName('company.users'))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_USERS_COG))
+                    ->setRoute(VueRouteHelper::create()->setName('company.admin.users'))
             )
             ->addNavigationIf(
                 $user->hasPermission('role.view'),
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.roles'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_USER_SHIELD))
-                    ->setRoute(VueRouteHelper::create()->setName('company.roles'))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_USER_SHIELD))
+                    ->setRoute(VueRouteHelper::create()->setName('company.admin.roles'))
             );
     }
 }

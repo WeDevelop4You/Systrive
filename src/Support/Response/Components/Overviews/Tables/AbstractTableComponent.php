@@ -32,7 +32,7 @@ abstract class AbstractTableComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Table';
+        return 'TableComponent';
     }
 
     /**

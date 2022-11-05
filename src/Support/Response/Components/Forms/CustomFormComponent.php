@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Forms;
 
-use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Form\FormType;
 
 class CustomFormComponent extends AbstractFormComponent
 {
@@ -11,15 +11,15 @@ class CustomFormComponent extends AbstractFormComponent
      */
     protected function getComponentName(): string
     {
-        return 'CustomFormLayout';
+        return 'CustomFormComponent';
     }
 
     /**
-     * @param FormTypes $type
+     * @param FormType $type
      *
      * @return CustomFormComponent
      */
-    public function setType(FormTypes $type): CustomFormComponent
+    public function setType(FormType $type): CustomFormComponent
     {
         return $this->setData('type', $type->value);
     }

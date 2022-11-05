@@ -4,7 +4,7 @@ namespace App\Admin\Startup\Responses;
 
 use App\Admin\Account\Responses\AccountSettingsOverviewResponse;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
@@ -30,13 +30,13 @@ class SubNavigationResponse extends AbstractResponse
                             ->setNavigation([
                                 NavigationItemComponent::create()
                                     ->setTitle(trans('word.account.account'))
-                                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_USER_CIRCLE))
+                                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_USER_CIRCLE))
                                     ->setRoute(
                                         VueRouteHelper::create()->setName('account')
                                     ),
                                 NavigationItemComponent::create()
                                     ->setTitle(trans('word.settings'))
-                                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_COG))
+                                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_COG))
                                     ->setRoute(
                                         VueRouteHelper::create()
                                             ->setName('account.settings')
@@ -52,7 +52,7 @@ class SubNavigationResponse extends AbstractResponse
                             ->addNavigation(
                                 NavigationCustomItemComponent::create()
                                     ->setTitle(trans('word.dark.mode'))
-                                    ->setType('DarkModeSwitch')
+                                    ->setType('DarkModeSwitchComponent')
                             )
                     )
                     ->addDivider()
@@ -61,7 +61,7 @@ class SubNavigationResponse extends AbstractResponse
                             ->addNavigation(
                                 NavigationItemComponent::create()
                                     ->setTitle(trans('word.logout'))
-                                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_SIGN_OUT_ALT))
+                                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_SIGN_OUT_ALT))
                                     ->setAction(
                                         VuexAction::create()->dispatch('user/auth/logout')
                                     )

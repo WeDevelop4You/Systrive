@@ -2,9 +2,9 @@
 
 namespace Support\Response\Components\Popups\Modals;
 
-use Support\Enums\Component\IconTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
-use Support\Enums\Component\Vuetify\VuetifyTransitionTypes;
+use Support\Enums\Component\IconType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifyTransitionType;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\PopupModalAction;
 use Support\Response\Actions\VuexAction;
@@ -17,18 +17,29 @@ class ShowModal extends AbstractModal
 {
     private ?string $vuexNamespace;
 
-    protected function __construct(string $vuexNamespace)
+    /**
+     * ShowModal constructor.
+     *
+     * @param string|null $vuexNamespace
+     */
+    protected function __construct(?string $vuexNamespace = null)
     {
         $this->vuexNamespace = $vuexNamespace;
 
         parent::__construct();
     }
 
+    /**
+     * @return void
+     */
     protected function initializeModal(): void
     {
         $this->modal->setPersistent();
     }
 
+    /**
+     * @return void
+     */
     protected function initializeCard(): void
     {
         $this->card
@@ -36,13 +47,16 @@ class ShowModal extends AbstractModal
                 MultipleButtonComponent::create()
                     ->addButton(
                         IconButtonComponent::create()
-                            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TIMES))
+                            ->setIcon(IconComponent::create()->setType(IconType::FAS_TIMES))
                             ->setAction(
                                 ChainAction::create()
-                                    ->setActions([
-                                        PopupModalAction::create()->close($this->modal->getIdentifier()),
+                                    ->addAction(
+                                        VuexAction::create()->closeModal($this->modal->getIdentifier())
+                                    )
+                                    ->addActionIf(
+                                        !\is_null($this->vuexNamespace),
                                         VuexAction::create()->commit("{$this->vuexNamespace}/resetShow"),
-                                    ])
+                                    )
                             )
                     )
             );
@@ -69,18 +83,18 @@ class ShowModal extends AbstractModal
             ->setFullscreen()
             ->setHideOverlay()
             ->setNoClickAnimation()
-            ->setTransition(VuetifyTransitionTypes::MODAL_BOTTOM);
+            ->setTransition(VuetifyTransitionType::MODAL_BOTTOM);
 
         $this->card
             ->setLoadingBar()
             ->setRounded(false)
             ->setOutlined(false)
-            ->addAdditionalBodyClass('my-5')
+            ->addAdditionalBodyClass('mt-5')
             ->setColor(
-                VuetifyColors::theme(VuetifyColors::DARK_BACKGROUND, VuetifyColors::NONE)
+                VuetifyColor::theme(VuetifyColor::DARK_BACKGROUND, VuetifyColor::NONE)
             )
             ->setHeaderColor(
-                VuetifyColors::theme(VuetifyColors::DARK_HEADER, VuetifyColors::LIGHT_HEADER)
+                VuetifyColor::theme(VuetifyColor::DARK_HEADER, VuetifyColor::LIGHT_HEADER)
             );
 
         return $this;

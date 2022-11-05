@@ -1,6 +1,8 @@
 import Vue from "vue";
-import dataTableBase from "../Base/dataTableBase";
-import FormBase from "../Base/formBase";
+import FormBase from "../../base/formBase";
+import dataTableBase from "../../base/dataTableBase";
+import NotificationComponent from "../../../helpers/Components/NotificationComponent";
+import {STATE_CREATE, STATE_EDIT} from "../../../config/RouteState";
 
 const app = Vue.prototype
 
@@ -24,9 +26,9 @@ export default {
     },
 
     actions: {
-        dropList({commit, rootGetters}) {
+        dropList({commit}) {
             app.$api.call({
-                url: app.$api.route('company.role.list', rootGetters["company/id"]),
+                url: app.$api.companyRoute('company.role.list'),
                 method: "GET",
             }).then((response) => {
                 commit('setListItems', response.data.data)
@@ -53,7 +55,7 @@ export default {
                 commit("form/setErrors", errors)
 
                 if (Object.prototype.hasOwnProperty.call(errors, 'permissions')) {
-                    dispatch('popups/addNotification', {message: errors.permissions[0]}, {root: true})
+                    dispatch('popups/addPopup', NotificationComponent.createSimple(errors.permissions[0]), {root: true})
                 }
 
                 return Promise.reject()
@@ -80,21 +82,20 @@ export default {
                 commit("form/setErrors", errors)
 
                 if (Object.prototype.hasOwnProperty.call(errors, 'permissions')) {
-                    dispatch('popups/addNotification', {message: errors.permissions[0]}, {root: true})
+                    dispatch('popups/addPopup', NotificationComponent.createSimple(errors.permissions[0]), {root: true})
                 }
 
                 return Promise.reject()
             })
         },
 
-        states({dispatch, rootGetters}, action) {
-            const companyId = rootGetters['company/id']
+        states({dispatch}, action) {
             const actions = {
-                new: () => {
-                    dispatch('create', app.$api.route('company.role.create', companyId))
+                [STATE_CREATE]: () => {
+                    dispatch('create', app.$api.companyRoute('company.role.create'))
                 },
-                edit: () => {
-                    dispatch('edit', app.$api.route('company.role.edit', companyId, action.params.id))
+                [STATE_EDIT]: () => {
+                    dispatch('edit', app.$api.companyRoute('company.role.edit', action.params.id))
                 },
             }
 

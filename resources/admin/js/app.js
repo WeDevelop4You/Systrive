@@ -1,6 +1,6 @@
 import './bootstrap'
 import '../sass/custom.scss'
-import 'line-awesome/dist/font-awesome-line-awesome/css/all.min.css';
+import 'line-awesome/dist/font-awesome-line-awesome/css/all.min.css'
 
 import Vue from 'vue'
 import Store from './store'
@@ -23,9 +23,9 @@ export default new Vue({
 
     components: {
         LApp: () => import('./layout/Base/App.vue'),
-        Login: () => import('./pages/Auth/Login.vue'),
-        Registration: () => import('./pages/Auth/Registration.vue'),
-        ResetPassword: () => import('./pages/Auth/ResetPassword.vue'),
-        PasswordRecovery: () => import('./pages/Auth/PasswordRecovery.vue')
+        Login: () => import('./views/Auth/Login.vue'),
+        Registration: () => import('./views/Auth/Registration.vue'),
+        ResetPassword: () => import('./views/Auth/ResetPassword.vue'),
+        PasswordRecovery: () => import('./views/Auth/PasswordRecovery.vue')
     }
 }).$mount('#mount');

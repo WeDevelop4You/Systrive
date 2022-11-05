@@ -2,16 +2,16 @@
 
     namespace Support\Helpers\DataTable\Build;
 
-    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
     use Support\Traits\DatabaseEnumSearch;
 
     /**
-     * @property-read bool                       $hasDivider
-     * @property-read bool                       $isSortable
-     * @property-read bool                       $isSearchable
-     * @property-read bool                       $isEnumSearch
-     * @property-read bool                       $hasFormat
-     * @property-read VuetifyTableAlignmentTypes $alignment
+     * @property-read bool                      $hasDivider
+     * @property-read bool                      $isSortable
+     * @property-read bool                      $isSearchable
+     * @property-read bool                      $isEnumSearch
+     * @property-read bool                      $hasFormat
+     * @property-read VuetifyTableAlignmentType $alignment
      */
     class Column
     {
@@ -37,7 +37,7 @@
             $this->isEnumSearch = false;
             $this->hasFormat = false;
 
-            $this->alignment = VuetifyTableAlignmentTypes::START;
+            $this->alignment = VuetifyTableAlignmentType::START;
         }
 
         /**
@@ -83,7 +83,7 @@
         public static function actions(?string $key = null): Column
         {
             return static::create(trans('word.actions.actions'), 'actions', $key)
-                ->setAlignment(VuetifyTableAlignmentTypes::END);
+                ->setAlignment(VuetifyTableAlignmentType::END);
         }
 
         /**
@@ -166,11 +166,11 @@
         }
 
         /**
-         * @param VuetifyTableAlignmentTypes $value
+         * @param VuetifyTableAlignmentType $value
          *
          * @return $this
          */
-        public function setAlignment(VuetifyTableAlignmentTypes $value): Column
+        public function setAlignment(VuetifyTableAlignmentType $value): Column
         {
             $this->alignment = $value;
 

@@ -1,17 +1,17 @@
 <?php
 
-    namespace App;
+namespace App;
 
-    use Illuminate\Foundation\Application as ApplicationBase;
+use Illuminate\Foundation\Application as ApplicationBase;
 
-    class Application extends ApplicationBase
+class Application extends ApplicationBase
+{
+    protected $namespace = 'App\\';
+
+    public function __construct($basePath = null)
     {
-        protected $namespace = 'App\\';
+        parent::__construct($basePath);
 
-        public function __construct($basePath = null)
-        {
-            parent::__construct($basePath);
-
-            $this->useLangPath($this->langPath('backend'));
-        }
+        $this->useLangPath($this->langPath('backend'));
     }
+}

@@ -3,6 +3,8 @@
 namespace Domain\Invite\Models;
 
 use Domain\Company\Models\Company;
+use Domain\Company\States\AbstractCompanyState;
+use Domain\Company\States\AbstractCompanyUserState;
 use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Mappings\InviteTableMap;
 use Domain\Invite\Observers\InviteCreatedObserver;
@@ -16,16 +18,15 @@ use Illuminate\Support\Carbon;
 use Support\Traits\Observers;
 
 /**
- * Domain\Invite\Models\Invite.
+ * Domain\Invite\Models\Invite
  *
- * @property int         $company_id
- * @property int         $user_id
- * @property string      $token
+ * @property int $company_id
+ * @property int $user_id
+ * @property string $token
  * @property InviteTypes $type
- * @property string      $created_at
+ * @property mixed $created_at
  * @property-read Company $company
  * @property-read User $user
- *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
  * @method static InviteQueryBuilders|Invite query()
@@ -87,9 +88,28 @@ class Invite extends Model
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    /**
+     * @return AbstractCompanyState|AbstractCompanyUserState
+     */
+    public function state(): AbstractCompanyUserState|AbstractCompanyState
+    {
+        return $this->type->getState($this);
+    }
+
+    /**
+     * @return void
+     */
+    public function send(): void
+    {
+        $this->type->sendInvite($this);
     }
 
     /**

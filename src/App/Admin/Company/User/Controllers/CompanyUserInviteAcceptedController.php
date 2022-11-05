@@ -2,22 +2,23 @@
 
     namespace App\Admin\Company\User\Controllers;
 
-    use Domain\Company\Actions\User\UserInviteToCompanyAcceptedAction;
+    use Domain\Company\Actions\CompanyUserUpdateInviteToAcceptedAction;
     use Domain\Company\Models\Company;
     use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\Invite\DataTransferObject\InviteData;
+    use Domain\Invite\Exceptions\InvalidTokenException;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\SessionKeyTypes;
-    use Support\Exceptions\InvalidTokenException;
+    use Support\Enums\Component\ModalCloseType;
+    use Support\Enums\SessionKeyType;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
     use Support\Response\Components\Popups\Modals\ConfirmModal;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class CompanyUserInviteAcceptedController
     {
@@ -41,19 +42,19 @@
                         ->addFooterCancelButton(
                             action: RequestAction::create()
                                 ->forgetSessionKey(),
-                            closeModal: true
+                            close: ModalCloseType::SUCCESS
                         )
                         ->addFooterSubmitButton(
                             action: RequestAction::create()
                                 ->post(route('admin.company.user.invite.accepted', [$company->id, $token])),
-                            closeModal: true
+                            close: ModalCloseType::SUCCESS
                         )
                 );
             } catch (ModelNotFoundException | InvalidTokenException) {
-                Session::forget(SessionKeyTypes::KEEP->value);
+                Session::forget(SessionKeyType::KEEP->value);
 
                 $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+                    ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST);
             }
 
             return $response->toJson();
@@ -72,16 +73,16 @@
             try {
                 (new ValidateInviteTokenAction())(new InviteData($company->id, $token));
 
-                (new UserInviteToCompanyAcceptedAction(Auth::user()))($company);
+                (new CompanyUserUpdateInviteToAcceptedAction(Auth::user()))($company);
 
                 $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.company.invite.accepted')))
                     ->addAction(VuexAction::create()->dispatch('navigation/getCompanies'));
             } catch (ModelNotFoundException | InvalidTokenException) {
                 $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+                    ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST);
             }
 
-            Session::forget(SessionKeyTypes::KEEP->value);
+            Session::forget(SessionKeyType::KEEP->value);
 
             return $response->toJson();
         }

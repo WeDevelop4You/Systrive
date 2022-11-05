@@ -1,23 +1,21 @@
 <template>
     <v-tooltip
-        v-bind="value.attributes"
-        :disabled="!value.content.text"
+        v-bind="component.attributes"
+        :disabled="!component.content.text"
     >
         <template #activator="{on}">
             <slot :tooltip="on" />
         </template>
-        {{ value.content.text }}
+        {{ component.content.text }}
     </v-tooltip>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Tooltip",
 
-        mixins: [
-            ComponentProperties
-        ]
+        extends: ComponentBase,
     }
 </script>

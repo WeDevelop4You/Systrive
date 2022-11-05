@@ -3,7 +3,7 @@
 namespace Support\Response\Components\Popups\Modals;
 
 use Illuminate\Support\Arr;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\PopupModalAction;
@@ -36,6 +36,7 @@ class FormModal extends AbstractModal
     protected function initializeModal(): void
     {
         $this->setWidth(700);
+        $this->modal->setScrollable();
     }
 
     protected function initializeCard(): void
@@ -92,7 +93,7 @@ class FormModal extends AbstractModal
     public function setPersistent(): FormModal
     {
         $action = ChainAction::create()
-            ->addAction(PopupModalAction::create()->close($this->modal->getIdentifier()));
+            ->addAction(VuexAction::create()->closeModal($this->modal->getIdentifier()));
 
         if ($this->hasVuexNamespace()) {
             $action->addAction(VuexAction::create()->commit("{$this->vuexNamespace}/resetForm"));
@@ -105,7 +106,7 @@ class FormModal extends AbstractModal
                 MultipleButtonComponent::create()
                     ->addButton(
                         IconButtonComponent::create()
-                            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TIMES))
+                            ->setIcon(IconComponent::create()->setType(IconType::FAS_TIMES))
                             ->setAction($action)
                     )
             );
@@ -133,10 +134,10 @@ class FormModal extends AbstractModal
             $action = ChainAction::create()
                 ->setActions([
                     VuexAction::create()->commit("{$this->vuexNamespace}/resetForm"),
-                    PopupModalAction::create()->close($this->modal->getIdentifier()),
+                    VuexAction::create()->closeModal($this->modal->getIdentifier()),
                 ]);
         } else {
-            $action->setOnSuccessAsClosePopupModal($this->modal->getIdentifier());
+            $action->setCloseModalOnSuccessAction($this->modal->getIdentifier());
         }
 
         return $this->addFooterButton(
@@ -154,7 +155,7 @@ class FormModal extends AbstractModal
     public function addFooterSaveButton(AbstractAction $action): FormModal
     {
         $chainActions = ChainAction::create()
-            ->addAction(PopupModalAction::create()->close($this->modal->getIdentifier()));
+            ->addAction(VuexAction::create()->closeModal($this->modal->getIdentifier()));
 
         if ($this->hasVuexNamespace()) {
             $chainActions->addAction(
@@ -166,7 +167,7 @@ class FormModal extends AbstractModal
             );
         }
 
-        $action->setOnSuccess($chainActions);
+        $action->setOnSuccessAction($chainActions);
 
         return $this->addFooterButton(
             ButtonComponent::create()
@@ -197,7 +198,7 @@ class FormModal extends AbstractModal
      */
     private function getDataTableVuexNamespace(): string
     {
-        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace);
+        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace) . '/dataTable';
     }
 
     /**

@@ -9,7 +9,7 @@ use Domain\Supervisor\DataTransferObjects\SupervisorProcessData;
 use Domain\Supervisor\Models\Supervisor;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Support\Exceptions\ActionErrorException;
+use Support\Exceptions\Custom\ActionErrorException;
 use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Response\Response;
 

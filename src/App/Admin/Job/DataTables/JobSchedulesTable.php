@@ -10,10 +10,10 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Support\Abstracts\AbstractTable;
-use Support\Enums\Component\IconTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
-use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
-use Support\Enums\ScheduleTypes;
+use Support\Enums\Component\IconType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
+use Support\Enums\ScheduleType;
 use Support\Helpers\DataTable\Build\Column;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Components\Buttons\IconButtonComponent;
@@ -33,7 +33,7 @@ class JobSchedulesTable extends AbstractTable
             Column::index(),
             Column::create(trans('word.name'), 'schedule_type')
                 ->setSortable()
-                ->setSearchable(ScheduleTypes::class)
+                ->setSearchable(ScheduleType::class)
                 ->setFormat(function (JobOperation $data) {
                     return $data->schedule_type?->getTranslation();
                 }),
@@ -53,12 +53,12 @@ class JobSchedulesTable extends AbstractTable
                 ->setSearchable(function (Builder $query, string $search) {
                     return $query->orWhere(DB::raw("`end_time` - `start_time`"), 'like', "%{$search}%");
                 })
-                ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
+                ->setAlignment(VuetifyTableAlignmentType::CENTER)
                 ->setFormat(function (JobOperation $data) {
                     if (\is_null($data->start_time) || \is_null($data->end_time)) {
                         return ItemBadgeComponent::create()
                             ->setValue(trans('word.no.duration'))
-                            ->setColor(VuetifyColors::LIGHT_GRAY)
+                            ->setColor(VuetifyColor::LIGHT_GRAY)
                             ->setOutlined();
                     }
 
@@ -66,7 +66,7 @@ class JobSchedulesTable extends AbstractTable
                 }),
             Column::create(trans('word.status'), 'status')
                 ->setSortable()
-                ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
+                ->setAlignment(VuetifyTableAlignmentType::CENTER)
                 ->setSearchable(JobOperationStatusTypes::class)
                 ->setFormat(function (JobOperation $data) {
                     return ItemBadgeComponent::create()
@@ -75,7 +75,7 @@ class JobSchedulesTable extends AbstractTable
                         ->setOutlined();
                 }),
             Column::create(trans('word.processes'), 'children_count')
-                ->setAlignment(VuetifyTableAlignmentTypes::CENTER),
+                ->setAlignment(VuetifyTableAlignmentType::CENTER),
             Column::create(trans('word.created_at'), 'created_at')
                 ->setDivider()
                 ->setSortable()
@@ -88,7 +88,7 @@ class JobSchedulesTable extends AbstractTable
                     return MultipleButtonComponent::create()
                         ->addButton(
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_EYE))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_EYE))
                                 ->setTooltip(
                                     TooltipComponent::create()
                                         ->setTop()
@@ -118,9 +118,9 @@ class JobSchedulesTable extends AbstractTable
         $maxDurationTimeMedium = JobOperationTableMap::DURATION_TIME_MEDIUM * $data->children_count;
 
         $color = match (true) {
-            $duration < $maxDurationTimeGood => VuetifyColors::SUCCESS,
-            $duration < $maxDurationTimeMedium => VuetifyColors::WARNING,
-            default => VuetifyColors::ERROR
+            $duration < $maxDurationTimeGood => VuetifyColor::SUCCESS,
+            $duration < $maxDurationTimeMedium => VuetifyColor::WARNING,
+            default => VuetifyColor::ERROR
         };
 
         if ($duration >= 1000) {

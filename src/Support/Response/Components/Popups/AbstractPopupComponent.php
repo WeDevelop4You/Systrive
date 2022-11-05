@@ -2,7 +2,7 @@
 
     namespace Support\Response\Components\Popups;
 
-    use Support\Enums\Component\PopupTypes;
+    use Support\Enums\Component\PopupType;
     use Support\Response\Components\AbstractComponent;
 
     abstract class AbstractPopupComponent extends AbstractComponent
@@ -16,7 +16,7 @@
         }
 
         /**
-         * @return PopupTypes
+         * @return PopupType
          */
-        abstract protected function getType(): PopupTypes;
+        abstract protected function getType(): PopupType;
     }

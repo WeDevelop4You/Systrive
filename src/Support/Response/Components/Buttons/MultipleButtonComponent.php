@@ -14,7 +14,7 @@ class MultipleButtonComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'MultipleBtn';
+        return 'MultipleBtnComponent';
     }
 
     /**

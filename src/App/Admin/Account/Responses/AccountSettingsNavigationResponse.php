@@ -3,7 +3,7 @@
 namespace App\Admin\Account\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
 use Support\Response\Components\Navbar\NavbarComponent;
@@ -32,16 +32,16 @@ class AccountSettingsNavigationResponse extends AbstractResponse
                                     ->setNavigation([
                                         NavigationItemComponent::create()
                                             ->setTitle(trans('word.personal.data'))
-                                            ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_USER))
-                                            ->setRoute(VueRouteHelper::getAccountSettings('personal')),
+                                            ->setPrepend(IconComponent::create()->setType(IconType::FAS_USER))
+                                            ->setRoute(VueRouteHelper::createAccountSettings('personal')),
                                         NavigationItemComponent::create()
                                             ->setTitle(trans('word.security'))
-                                            ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_SHIELD_ALT))
-                                            ->setRoute(VueRouteHelper::getAccountSettings('security')),
+                                            ->setPrepend(IconComponent::create()->setType(IconType::FAS_SHIELD_ALT))
+                                            ->setRoute(VueRouteHelper::createAccountSettings('security')),
                                         NavigationItemComponent::create()
                                             ->setTitle(trans('word.git.account'))
-                                            ->setPrepend(IconComponent::create()->setType(IconTypes::FAB_GIT_ALT))
-                                            ->setRoute(VueRouteHelper::getAccountSettings('git')),
+                                            ->setPrepend(IconComponent::create()->setType(IconType::FAB_GIT_ALT))
+                                            ->setRoute(VueRouteHelper::createAccountSettings('git')),
                                     ])
                             )
                     )

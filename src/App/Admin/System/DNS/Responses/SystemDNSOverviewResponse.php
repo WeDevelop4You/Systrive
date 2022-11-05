@@ -2,13 +2,12 @@
 
 namespace App\Admin\System\DNS\Responses;
 
-use App\Admin\System\DNS\Resources\SystemDNSResource;
 use Domain\Company\Models\Company;
 use Domain\System\Models\SystemDNS;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\IconTypes;
-use Support\Enums\System\SystemTemplateTypes;
+use Support\Enums\Component\IconType;
+use Support\Enums\System\SystemTemplateType;
 use Support\Response\Components\Buttons\IconButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
 use Support\Response\Components\Icons\IconComponent;
@@ -50,8 +49,7 @@ class SystemDNSOverviewResponse extends AbstractResponse
                         $this->createCardList(),
                         $this->createTable(),
                     ])
-            )
-            ->addData(SystemDNSResource::make($this->dns));
+            );
     }
 
     private function createCardList(): ColComponent
@@ -64,7 +62,7 @@ class SystemDNSOverviewResponse extends AbstractResponse
                         MultipleButtonComponent::create()
                             ->addButton(
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                             )
                     )
                     ->addBody(
@@ -76,7 +74,7 @@ class SystemDNSOverviewResponse extends AbstractResponse
                                     ->setValue($this->dns->name),
                                 ItemTextComponent::create()
                                     ->setLabel(trans('word.template.template'))
-                                    ->setTemplate($this->data->get('TPL'), SystemTemplateTypes::DNS),
+                                    ->setTemplate($this->data->get('TPL'), SystemTemplateType::DNS),
                                 ItemTextComponent::create()
                                     ->setLabel(trans('word.ttl.ttl'))
                                     ->setValue($this->data->get('TTL')),

@@ -8,9 +8,9 @@ use Domain\Git\Models\GitAccount;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\Vuetify\VuetifyAlignTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
-use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\Vuetify\VuetifyAlignType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifyJustifyType;
 use Support\Response\Actions\BreadcrumbAction;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
@@ -62,8 +62,8 @@ class AccountSettingsGitOverviewResponse extends AbstractResponse
                             ->addBody(
                                 RowComponent::create()
                                     ->setNoGutters()
-                                    ->setAlign(VuetifyAlignTypes::CENTER)
-                                    ->setJustify(VuetifyJustifyTypes::SPACE_BETWEEN)
+                                    ->setAlign(VuetifyAlignType::CENTER)
+                                    ->setJustify(VuetifyJustifyType::SPACE_BETWEEN)
                                     ->setCols([
                                         ColComponent::create()
                                             ->setDefaultCol('auto')
@@ -92,7 +92,7 @@ class AccountSettingsGitOverviewResponse extends AbstractResponse
 
         if ($account instanceof GitAccount) {
             return ButtonComponent::create()
-                ->setColor(VuetifyColors::ERROR)
+                ->setColor(VuetifyColor::ERROR)
                 ->setTitleWithIcon(
                     TextIconComponent::create()
                         ->setLeftSide()
@@ -104,7 +104,7 @@ class AccountSettingsGitOverviewResponse extends AbstractResponse
                         route('admin.git.services.disconnect', [
                             $gitService->value,
                         ])
-                    )->setOnSuccess(
+                    )->setOnSuccessAction(
                         VuexAction::create()
                             ->dispatch(
                                 'user/auth/settings/overview/component',

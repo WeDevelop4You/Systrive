@@ -1,30 +1,33 @@
 <template>
     <v-list-item-icon
-        :class="{'mr-2': !isHidden}"
+        :class="[center ? 'mx-auto': {'mr-2': !isHidden}]"
         class="justify-center"
         style="min-width: 40px"
     >
-        <icon :value="value" />
+        <icon :value="component" />
     </v-list-item-icon>
 </template>
 
 <script>
-    import ComponentProperties from "../../../../mixins/ComponentProperties";
     import Icon from "../../../Icons/Icon.vue";
+    import ComponentBase from "../../../Base/ComponentBase";
 
     export default {
         name: "NavigationItemIcon",
+
+        extends: ComponentBase,
 
         components: {
             Icon
         },
 
-        mixins: [
-            ComponentProperties
-        ],
-
         props: {
             isHidden: {
+                type: Boolean,
+                default: false
+            },
+
+            center: {
                 type: Boolean,
                 default: false
             }

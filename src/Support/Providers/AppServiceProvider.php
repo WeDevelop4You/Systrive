@@ -17,6 +17,7 @@ use Support\Helpers\Application\BladeConstructor;
 use Support\Helpers\Application\RouteConstructor;
 use Support\Mixins\BuilderMixin;
 use Support\Mixins\CallbackEventMixin;
+use Support\Mixins\CollectionMixin;
 use Support\Mixins\RelationMixin;
 use Support\Mixins\ScheduleMixin;
 
@@ -54,6 +55,7 @@ class AppServiceProvider extends ServiceProvider
         Builder::mixin(new BuilderMixin());
         Relation::mixin(new RelationMixin());
         Schedule::mixin(new ScheduleMixin());
+        Collection::mixin(new CollectionMixin());
         CallbackEvent::mixin(new CallbackEventMixin());
 
         Collection::make(config('applications'))->each(function (array $config, string $application) {

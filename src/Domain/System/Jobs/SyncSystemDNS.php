@@ -8,7 +8,7 @@ use Domain\System\Models\SystemDNS;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
-use Support\Enums\VestaCommands;
+use Support\Enums\VestaCommand;
 use Support\Services\Vesta;
 
 ;
@@ -41,7 +41,7 @@ class SyncSystemDNS extends AbstractVestaSync
     protected function initialize(): void
     {
         $this->vesta = Vesta::api()->get(
-            VestaCommands::GET_USER_DNS_DOMAINS,
+            VestaCommand::GET_USER_DNS_DOMAINS,
             $this->system->username
         )->keys();
     }

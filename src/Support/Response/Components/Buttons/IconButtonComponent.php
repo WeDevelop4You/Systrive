@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Buttons;
 
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Response\Components\Icons\IconComponent;
 
 class IconButtonComponent extends AbstractButtonComponent
@@ -22,7 +22,7 @@ class IconButtonComponent extends AbstractButtonComponent
      */
     protected function getComponentName(): string
     {
-        return 'IconBtn';
+        return 'IconBtnComponent';
     }
 
     /**
@@ -36,11 +36,11 @@ class IconButtonComponent extends AbstractButtonComponent
     }
 
     /**
-     * @param VuetifyColors $color
+     * @param VuetifyColor $color
      *
      * @return IconButtonComponent
      */
-    public function setColorOnHover(VuetifyColors $color): IconButtonComponent
+    public function setColorOnHover(VuetifyColor $color): IconButtonComponent
     {
         return $this->setData('hoverColor', $color->value);
     }

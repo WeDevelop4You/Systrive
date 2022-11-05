@@ -7,6 +7,16 @@ use Support\Response\Components\Items\AbstractItemComponent;
 
 class ListComponent extends AbstractComponent
 {
+    /**
+     * @var string|null
+     */
+    private ?string $title = null;
+
+    /**
+     * @var bool
+     */
+    private bool $divider = false;
+
     protected function __construct()
     {
         parent::__construct();
@@ -19,7 +29,7 @@ class ListComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'List';
+        return 'ListComponent';
     }
 
     /**
@@ -29,8 +39,9 @@ class ListComponent extends AbstractComponent
      */
     public function addSubheader(string $title): ListComponent
     {
-        return $this->setData('list', ['subheader' => $title], true)
-            ->setData('hasSubheader', true);
+        $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -38,7 +49,9 @@ class ListComponent extends AbstractComponent
      */
     public function addDivider(): ListComponent
     {
-        return $this->setData('list', ['divider' => true], true);
+        $this->divider = true;
+
+        return $this;
     }
 
     /**
@@ -53,15 +66,35 @@ class ListComponent extends AbstractComponent
 
         foreach ($items as $item) {
             if ($item instanceof AbstractItemComponent) {
-                $itemList[] = $item->export();
+                if ($item->getCondition()) {
+                    $itemList[] = $item->export();
+                }
             } else {
                 $itemList[] = $item;
             }
         }
 
-        return $this->setData('list', [
-            'items' => $itemList,
-            'columns' => round(12 / $columns),
-        ], true);
+        if (empty($itemList)) {
+            return $this;
+        }
+
+        if (!\is_null($this->title)) {
+            $this->setData('list', ['subheader' => $this->title], true)
+                ->setData('hasSubheader', true);
+
+            $this->title = null;
+        }
+
+        if ($this->divider) {
+            $this->setData('list', ['divider' => true], true);
+
+            $this->divider = false;
+        }
+
+        return $this->setData(
+            'list',
+            ['items' => $itemList, 'columns' => round(12 / $columns),],
+            true
+        );
     }
 }

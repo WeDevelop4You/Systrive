@@ -5,17 +5,16 @@ namespace Domain\Role\Models;
 use Spatie\Permission\Models\Role as RoleSpatie;
 
 /**
- * Domain\Role\Models\Role.
+ * Domain\Role\Models\Role
  *
- * @property int                             $id
- * @property int|null                        $company_id
- * @property string                          $name
- * @property string                          $guard_name
+ * @property int $id
+ * @property int|null $company_id
+ * @property string $name
+ * @property string $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Permission[] $permissions
  * @property-read \Domain\User\Collections\UserCollections|\Domain\User\Models\User[] $users
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role permission($permissions)

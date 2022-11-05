@@ -2,12 +2,12 @@
 
     namespace Domain\Invite\Actions;
 
-    use Domain\Company\states\CompanyInvitedState;
-    use Domain\Company\states\CompanyUserRequestedState;
+    use Domain\Company\States\CompanyInvitedState;
+    use Domain\Company\States\CompanyUserRequestedState;
     use Domain\Invite\DataTransferObject\InviteData;
+    use Domain\Invite\Exceptions\InvalidTokenException;
     use Domain\Invite\Models\Invite;
     use Illuminate\Support\Facades\Hash;
-    use Support\Exceptions\InvalidTokenException;
 
     class ValidateInviteTokenAction
     {
@@ -28,8 +28,7 @@
                 return $invite;
             }
 
-            $invite->type->getStatus($invite)
-                ->changeStateWhen(CompanyInvitedState::class, CompanyUserRequestedState::class);
+            $invite->state()->changeStateWhen(CompanyInvitedState::class, CompanyUserRequestedState::class);
 
             throw new InvalidTokenException();
         }

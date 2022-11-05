@@ -22,6 +22,28 @@ class VueRouteHelper
     }
 
     /**
+     * @param Company $company
+     *
+     * @return VueRouteHelper
+     */
+    public static function createCompany(Company $company): VueRouteHelper
+    {
+        return static::create()->setName('company.dashboard')
+            ->setParams(['companyName' => $company->slug]);
+    }
+
+    /**
+     * @param string $page
+     *
+     * @return VueRouteHelper
+     */
+    public static function createAccountSettings(string $page): VueRouteHelper
+    {
+        return static::create()->setName('account.settings')
+            ->setParams(['page' => $page]);
+    }
+
+    /**
      * @param string $name
      *
      * @return VueRouteHelper
@@ -60,27 +82,5 @@ class VueRouteHelper
     public function export(): array
     {
         return $this->data;
-    }
-
-    /**
-     * @param Company $company
-     *
-     * @return VueRouteHelper
-     */
-    public static function getCompany(Company $company): VueRouteHelper
-    {
-        return static::create()->setName('company.dashboard')
-            ->setParams(['companyName' => $company->slug]);
-    }
-
-    /**
-     * @param string $page
-     *
-     * @return VueRouteHelper
-     */
-    public static function getAccountSettings(string $page): VueRouteHelper
-    {
-        return static::create()->setName('account.settings')
-            ->setParams(['page' => $page]);
     }
 }

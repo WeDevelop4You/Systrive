@@ -7,14 +7,15 @@ use App\Admin\Company\Controllers\CompanyInviteController;
 use App\Admin\Company\Controllers\CompanyNavigationController;
 use App\Admin\Company\Controllers\CompanyOverviewController;
 use App\Admin\Company\Controllers\CompanyResendInviteController;
+use App\Admin\Company\Controllers\CompanySearchController;
 use App\Admin\Company\Controllers\CompanyShowController;
 use App\Admin\Company\Controllers\CompanyTableController;
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('search/{company:slug}', [CompanyShowController::class, 'index'])->name('company.search');
+    Route::get('search/{company:slug}', [CompanySearchController::class, 'index'])->name('company.search');
 
     Route::prefix('{company}')->group(function () {
-        Route::get('show', [CompanyShowController::class, 'index'])->name('company.show');
+        Route::get('show', [CompanySearchController::class, 'index'])->name('company.show');
         Route::get('navigation', [CompanyNavigationController::class, 'index'])->name('company.navigation');
 
         Route::prefix('create/{token}')->controller(CompanyCreateController::class)->group(function () {

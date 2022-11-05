@@ -6,7 +6,7 @@ use App\Admin\Company\User\Resources\CompanyUserEditResource;
 use Domain\Company\Models\Company;
 use Domain\User\Models\User;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Form\FormType;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;
@@ -34,7 +34,7 @@ class CompanyUserEditResponse extends AbstractResponse
                     ->setTitle(trans('word.edit.edit'))
                     ->setForm(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::COMPANY_USER)
+                            ->setType(FormType::COMPANY_USER)
                     )
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(

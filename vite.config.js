@@ -4,10 +4,6 @@ import laravel from 'laravel-vite-plugin';
 import Components from 'unplugin-vue-components/vite';
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 
-function createFileNamePath({name}) {
-
-}
-
 export default defineConfig({
     resolve: {
         alias: {
@@ -15,9 +11,14 @@ export default defineConfig({
         }
     },
     plugins: [
-        laravel([
-            'resources/admin/js/app.js',
-        ]),
+        laravel({
+            input: [
+                'resources/admin/js/app.js',
+                'resources/admin/sass/TinyMCE/skin.scss',
+                'resources/admin/sass/TinyMCE/content.scss',
+                'resources/admin/sass/TinyMCE/skin.shadowdom.scss'
+            ],
+        }),
         vue({
             template: {
                 transformAssetUrls: {
@@ -46,7 +47,12 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 assetFileNames: ({name}) => {
-                    const regex = /(?:\.([^.]+))?$/;
+                    const regex = /(?:\.([^.]+))?$/
+                    const paths = name.split('/')
+
+                    if (paths.at(-2) === 'TinyMCE') {
+                        return 'assets/css/tinymce/[name].min.[ext]'
+                    }
 
                     switch (regex.exec(name).at(1)) {
                         case 'css':

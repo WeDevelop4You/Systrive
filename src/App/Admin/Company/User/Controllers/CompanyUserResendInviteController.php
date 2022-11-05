@@ -4,6 +4,7 @@
 
     use Domain\Company\Models\Company;
     use Domain\Invite\Jobs\SendInviteToUser;
+    use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
@@ -21,12 +22,12 @@
         public function action(Company $company, User $user): JsonResponse
         {
             $invite = $company->invites()
-                ->whereInviteByUserAndCompany($user, $company)
+                ->where(InviteTableMap::USER_ID, $user->id)
                 ->whereUserType()
                 ->first();
 
             if ($invite instanceof Invite) {
-                $invite->type->sendInvite($invite);
+                $invite->send();
             } else {
                 SendInviteToUser::dispatch($user, $company);
             }

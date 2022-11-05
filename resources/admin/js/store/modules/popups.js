@@ -1,7 +1,5 @@
-import Vue from 'vue';
-import { v4 as uuidGenerator } from 'uuid';
-
-const app = Vue.prototype
+import ModalComponent from "../../helpers/Components/ModalComponent";
+import NotificationComponent from "../../helpers/Components/NotificationComponent";
 
 export default {
     namespaced: true,
@@ -21,22 +19,22 @@ export default {
         },
 
         removeAllModals(state) {
-            for (const [index] of state.modals) {
-                state.modals[index].show = false
+            for (const modal of state.modals) {
+                modal.data.show = false
 
                 setTimeout(() => {
                     state.modals.splice(0, 1)
-                }, 300)
+                }, 1000)
             }
         },
 
         removeAllNotifications(state) {
-            for (const [index] of state.notifications) {
-                state.notifications[index].show = false
+            for (const notification of state.notifications) {
+                notification.data.show = false
 
                 setTimeout(() => {
                     state.modals.splice(0, 1)
-                }, 300)
+                }, 1000)
             }
         },
 
@@ -46,11 +44,11 @@ export default {
                 : 0
 
             if (index !== -1) {
-                state.modals[index].show = false
+                state.modals[index].data.show = false
 
                 setTimeout(() => {
                     state.modals.splice(index, 1)
-                }, 300)
+                }, 1000)
             }
         },
 
@@ -58,11 +56,11 @@ export default {
             const index = state.notifications.findIndex(notification => notification.identifier === identifier)
 
             if (index !== -1) {
-                state.notifications[index].show = false
+                state.notifications[index].data.show = false
 
                 setTimeout(() => {
                     state.notifications.splice(index, 1)
-                }, 300)
+                }, 1000)
             }
         },
     },
@@ -78,46 +76,23 @@ export default {
     },
 
     actions: {
-        addPopup({commit}, content) {
-            const data = content.data
+        addPopup({commit}, popup) {
+            switch (popup.constructor) {
+                case NotificationComponent:
+                    commit('addNotification', popup)
 
-            switch (data.type) {
-                case 'notification':
-                    commit('addNotification', content)
-
-                    if (!data.stayable) {
-                        const displayTime = data.time || app.$config.notification.displayTime
-
+                    if (!popup.data.stayable) {
                         setTimeout(() => {
-                            commit('removeNotification', content.identifier)
-                        }, displayTime);
+                            commit('removeNotification', popup.identifier)
+                        }, popup.data.displayTime);
                     }
 
                     break
-                case 'modal':
-                    commit('addModal', content)
+                case ModalComponent:
+                    commit('addModal', popup)
 
                     break
             }
-        },
-
-        addNotification({dispatch}, {message, type = 'error'}) {
-            dispatch('addPopup',
-                {
-                    type: "notification",
-                    identifier: uuidGenerator(),
-                    component: "SimpleNotification",
-                    attributes: {
-                        type: type,
-                    },
-                    content: {
-                        text: message
-                    },
-                    data: {
-                        stayable: false,
-                    }
-                },
-            )
         }
     },
 }

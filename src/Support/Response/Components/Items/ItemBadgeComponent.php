@@ -2,7 +2,8 @@
 
 namespace Support\Response\Components\Items;
 
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Response\Components\Utils\ThemeComponent;
 
 class ItemBadgeComponent extends AbstractItemComponent
 {
@@ -11,7 +12,7 @@ class ItemBadgeComponent extends AbstractItemComponent
      */
     protected function getComponentName(): string
     {
-        return 'Badge';
+        return 'BadgeComponent';
     }
 
     /**
@@ -23,13 +24,17 @@ class ItemBadgeComponent extends AbstractItemComponent
     }
 
     /**
-     * @param VuetifyColors $color
+     * @param VuetifyColor|ThemeComponent $color
      *
      * @return ItemBadgeComponent
      */
-    public function setColor(VuetifyColors $color): ItemBadgeComponent
+    public function setColor(VuetifyColor|ThemeComponent $color): ItemBadgeComponent
     {
-        return $this->setAttribute('color', $color->value);
+        $value = $color instanceof ThemeComponent
+            ? $color->export()
+            : $color->value;
+
+        return $this->setAttribute('color', $value);
     }
 
     /**
@@ -47,11 +52,11 @@ class ItemBadgeComponent extends AbstractItemComponent
             : ['yes', 'enabled'];
 
         if (!empty($value) && \in_array($value, $activeValues)) {
-            return $this->setColor(VuetifyColors::SUCCESS)
+            return $this->setColor(VuetifyColor::SUCCESS)
                 ->setValue(trans('word.active.active'));
         }
 
-        return $this->setColor(VuetifyColors::ERROR)
+        return $this->setColor(VuetifyColor::ERROR)
             ->setValue(trans('word.inactive.inactive'));
     }
 }

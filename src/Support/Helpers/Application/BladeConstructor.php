@@ -11,7 +11,7 @@
     use Illuminate\Support\ServiceProvider;
     use Illuminate\Support\Str;
     use Illuminate\View\View as BladeView;
-    use Support\Enums\SessionKeyTypes;
+    use Support\Enums\SessionKeyType;
     use Symfony\Component\Finder\Finder;
     use Symfony\Component\Finder\SplFileInfo;
 
@@ -103,8 +103,8 @@
         {
             View::composer('*', function (BladeView $view) {
                 $data = Collection::make([
-                    Session::get(SessionKeyTypes::KEEP->value),
-                    Session::pull(SessionKeyTypes::ONCE->value),
+                    Session::get(SessionKeyType::KEEP->value),
+                    Session::pull(SessionKeyType::ONCE->value),
                 ])
                 ->whereNotNull()
                 ->values()

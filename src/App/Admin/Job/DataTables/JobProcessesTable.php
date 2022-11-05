@@ -10,8 +10,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Support\Abstracts\AbstractTable;
-use Support\Enums\Component\Vuetify\VuetifyColors;
-use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
 use Support\Helpers\DataTable\Build\Column;
 use Support\Response\Components\Items\ItemBadgeComponent;
 
@@ -46,12 +46,12 @@ class JobProcessesTable extends AbstractTable
                 ->setSearchable(function (Builder $query, string $search) {
                     return $query->orWhere(DB::raw("`end_time` - `start_time`"), 'like', "%{$search}%");
                 })
-                ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
+                ->setAlignment(VuetifyTableAlignmentType::CENTER)
                 ->setFormat(function (JobOperation $data) {
                     if (\is_null($data->end_time)) {
                         return ItemBadgeComponent::create()
                             ->setValue(trans('word.no.duration'))
-                            ->setColor(VuetifyColors::LIGHT_GRAY)
+                            ->setColor(VuetifyColor::LIGHT_GRAY)
                             ->setOutlined();
                     }
 
@@ -59,7 +59,7 @@ class JobProcessesTable extends AbstractTable
                 }),
             Column::create(trans('word.status'), 'status')
                 ->setSortable()
-                ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
+                ->setAlignment(VuetifyTableAlignmentType::CENTER)
                 ->setSearchable(JobOperationStatusTypes::class)
                 ->setFormat(function (JobOperation $data) {
                     return ItemBadgeComponent::create()
@@ -85,9 +85,9 @@ class JobProcessesTable extends AbstractTable
     {
         $duration = $data->end_time - $data->start_time;
         $color = match (true) {
-            $duration < JobOperationTableMap::DURATION_TIME_GOOD => VuetifyColors::SUCCESS,
-            $duration < JobOperationTableMap::DURATION_TIME_MEDIUM => VuetifyColors::WARNING,
-            default => VuetifyColors::ERROR
+            $duration < JobOperationTableMap::DURATION_TIME_GOOD => VuetifyColor::SUCCESS,
+            $duration < JobOperationTableMap::DURATION_TIME_MEDIUM => VuetifyColor::WARNING,
+            default => VuetifyColor::ERROR
         };
 
         if ($duration >= 1000) {

@@ -9,7 +9,7 @@ use Domain\System\Models\SystemDatabase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
-use Support\Enums\VestaCommands;
+use Support\Enums\VestaCommand;
 use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
 
@@ -44,7 +44,7 @@ class SyncSystemDatabases extends AbstractVestaSync
     protected function initialize(): void
     {
         $this->vesta = Vesta::api()->get(
-            VestaCommands::GET_USER_DATABASES,
+            VestaCommand::GET_USER_DATABASES,
             $this->system->username
         );
     }

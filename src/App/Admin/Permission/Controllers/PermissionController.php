@@ -24,9 +24,8 @@
                 return new PermissionGroupData($group, $permissions);
             });
 
-            $response = new Response();
-            $response->addData(PermissionGroupResource::collection($data));
-
-            return $response->toJson();
+            return Response::create()
+                ->addData(PermissionGroupResource::collection($data))
+                ->toJson();
         }
     }

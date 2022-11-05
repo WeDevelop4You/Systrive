@@ -1,112 +1,80 @@
 <template>
     <v-card
-        v-bind="value.attributes"
+        v-bind="component.attributes"
         :loading="isLoading"
         :elevation="$config.elevation"
-        :class="{'pb-2': !value.data.hasBody}"
+        :class="{'pb-2': !component.data.hasBody}"
         class="pt-2"
     >
         <v-toolbar
             dense
-            :color="value.data.headerColor"
-            :elevation="value.data.headerColor === 'transparent' ? 0 : 2"
-            :class="{'mb-1': value.data.hasBody}"
+            :color="component.data.headerColor"
+            :elevation="component.data.headerColor === 'transparent' ? 0 : 2"
+            :class="{'mb-1': component.data.hasBody}"
             class="pl-4 pr-2"
         >
             <v-toolbar-title>
-                {{ value.content.title }}
+                {{ component.content.title }}
             </v-toolbar-title>
             <v-spacer />
             <component
-                :is="value.data.header.componentName"
-                v-if="value.data.header"
-                :value="value.data.header"
+                :is="component.data.header.componentName"
+                v-if="component.data.header"
+                :value="component.data.header"
             />
         </v-toolbar>
         <v-card-subtitle
-            v-if="value.data.subtitle"
+            v-if="component.data.subtitle"
             class="pt-3"
         >
             <component
-                :is="value.data.subtitle.componentName"
-                v-if="value.data.subtitle"
-                :value="value.data.subtitle"
+                :is="component.data.subtitle.componentName"
+                v-if="component.data.subtitle"
+                :value="component.data.subtitle"
             />
         </v-card-subtitle>
         <v-card-text
-            v-if="value.data.body"
+            v-if="component.data.body"
             :class="bodyClasses"
-            class="pt-0"
+            class="pt-1"
         >
             <component
                 :is="component.componentName"
-                v-for="component in value.data.body"
+                v-bind="component.attributes"
+                v-for="component in component.data.body"
                 :key="component.identifier"
                 :value="component"
                 @defaultAction="runDefaultAction"
             />
         </v-card-text>
-        <v-card-actions v-if="value.data.footer">
+        <v-card-actions v-if="component.data.footer">
             <component
-                :is="value.data.footer.componentName"
+                :is="component.data.footer.componentName"
                 ref="button"
-                :value="value.data.footer"
+                :value="component.data.footer"
             />
         </v-card-actions>
     </v-card>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
-    import ComponentError from "../ComponentError.vue";
-    import SkeletonList from "../../layout/Skeletons/SkeletonList.vue";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
+    import MainComponentBase from "../Base/MainComponentBase";
 
     export default {
         name: "Card",
 
-        components: {
-            Btn: () => import('../Buttons/Btn.vue'),
-            IconBtn: () => import('../Buttons/IconBtn.vue'),
-            MultipleBtn: () => import('../Buttons/MultipleBtn.vue'),
-
-            Content: () => import('../Items/Text.vue'),
-            List: () => ({
-                component: import('./List.vue'),
-                loading: SkeletonList,
-                delay: 0,
-                error: ComponentError,
-                timeout: 10000
-            }),
-            Table: () => ({
-                component: import('../Overviews/Table.vue'),
-                loading: SkeletonDataTable,
-                delay: 0,
-                error: ComponentError,
-                timeout: 10000
-            }),
-            Chart: () => import('./Chart.vue'),
-            FormLayout: () => import('../Forms/Form.vue'),
-            Navbar: () => import('../Navbar/Navbar.vue'),
-            CustomFormLayout: () => import('../Forms/CustomForm.vue'),
-
-            Row: () => import('../Layouts/Row.vue')
-        },
-
-        mixins: [
-            ComponentProperties
-        ],
+        extends: MainComponentBase,
 
         computed: {
             bodyClasses() {
                 return [
-                    {'pb-0': this.value.data.hasFooter},
-                    ...(this.value.data.additionalBodyClasses || [])
+                    {'pb-1': this.component.data.hasFooter},
+                    ...(this.component.data.additionalBodyClasses || [])
                 ]
             },
 
             isLoading() {
-                return this.value.data.hasLoadingBar && this.$loading ? 'primary' : false;
+                return this.component.data.hasLoadingBar && this.$loading ? 'primary' : false;
             }
         },
 

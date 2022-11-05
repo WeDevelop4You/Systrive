@@ -10,7 +10,7 @@
     use PragmaRX\Google2FA\Exceptions\InvalidAlgorithmException;
     use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
     use PragmaRX\Google2FA\Exceptions\SecretKeyTooShortException;
-    use Support\Enums\Component\FormTypes;
+    use Support\Enums\Component\Form\FormType;
     use Support\Response\Actions\VuexAction;
     use Support\Response\Components\Forms\CustomFormComponent;
     use Support\Response\Components\Popups\Modals\FormModal;
@@ -40,7 +40,7 @@
                         ->setTitle(trans('word.otp.enable'))
                         ->setForm(
                             CustomFormComponent::create()
-                                ->setType(FormTypes::ONE_TIME_PASSWORD_ENABLE),
+                                ->setType(FormType::ONE_TIME_PASSWORD_ENABLE),
                             'pa-0'
                         )
                 )

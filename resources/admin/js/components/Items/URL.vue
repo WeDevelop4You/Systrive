@@ -1,23 +1,25 @@
 <template>
     <div>
-        <template v-if="!value.content.value">
-            {{ $vuetify.lang.t('$vuetify.word.no_content') }}
+        <template v-if="!component.content.value">
+            <v-list-item-subtitle v-text="$vuetify.lang.t('$vuetify.word.no_content')"/>
         </template>
         <v-hover
             v-else
             v-slot="{ hover }"
         >
             <a
-                :class="[hover ? 'primary--text' : value.data.color]"
-                :href="value.content.value"
+                :class="[hover ? 'primary--text' : component.data.color]"
+                :href="component.content.value"
                 target="_blank"
-                style="max-width: max-content"
+                class="text-decoration-none max-w-max-content"
             >
-                {{ value.content.anchor || value.content.value.replace(/(^\w+:|^)\/\//, '') }}
+                <span class="text-decoration-underline">
+                    {{ component.content.anchor || component.content.value.replace(/(^\w+:|^)\/\//, '') }}
+                </span>
                 <v-icon
                     class="mt-n1"
                     style="transition: none"
-                    :class="[hover ? 'primary--text' : value.data.color]"
+                    :class="[hover ? 'primary--text' : component.data.color]"
                     size="20"
                 >
                     fa-external-link-alt
@@ -28,13 +30,11 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Url",
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
     }
 </script>

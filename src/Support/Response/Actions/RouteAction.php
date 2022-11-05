@@ -2,6 +2,7 @@
 
     namespace Support\Response\Actions;
 
+    use Domain\Company\Models\Company;
     use Illuminate\Container\Container;
     use Illuminate\Contracts\Container\BindingResolutionException;
     use Illuminate\Http\Request;
@@ -17,7 +18,7 @@
         public function goTo(VueRouteHelper $route): RouteAction
         {
             return $this->setData(['route' => $route->export()])
-                ->setMethod('actionGoToRoute');
+                ->setMethod('goToRouteAction');
         }
 
         /**
@@ -47,5 +48,15 @@
         public function goToDashboard(): RouteAction
         {
             return $this->goTo(VueRouteHelper::create()->setName('dashboard'));
+        }
+
+        /**
+         * @param Company $company
+         *
+         * @return RouteAction
+         */
+        public function goToCompany(Company $company): RouteAction
+        {
+            return $this->goTo(VueRouteHelper::createCompany($company));
         }
     }

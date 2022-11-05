@@ -53,23 +53,28 @@ class Rows
      */
     private function handle(): array
     {
-        return $this->items->map(function ($data) {
+        return $this->items->map(function (mixed $data) {
             $this->index++;
 
             return $this->fillColumnsWithData($data);
         })->values()->toArray();
     }
 
-    private function fillColumnsWithData($data): array
+    /**
+     * @param mixed $data
+     *
+     * @return array
+     */
+    private function fillColumnsWithData(mixed $data): array
     {
         return $this->columns->mapWithKeys(function (Column $column) use ($data) {
             $hasFormat = $column->hasFormat;
             $isModel = $data instanceof Model;
 
             $value = match (true) {
-                $hasFormat => $this->fillColumnFormatData($column, $data),
-                $isModel => $this->fillColumnModalData($column, $data),
-                default => Arr::get($data, $column->getKey())
+                $hasFormat => $this->getDataFromFormat($column, $data),
+                $isModel => $this->getDataFromModel($column, $data),
+                default => $this->getDataFromArray($column, $data)
             };
 
             return [$column->identifier => \is_null($value) ? '' : $value];
@@ -82,7 +87,7 @@ class Rows
      *
      * @return array|mixed
      */
-    private function fillColumnFormatData(Column $column, mixed $data): mixed
+    private function getDataFromFormat(Column $column, mixed $data): mixed
     {
         $format = App::call($column->getFormatCallback(), [
             'key' => $column->getKey(),
@@ -99,16 +104,27 @@ class Rows
 
     /**
      * @param Column $column
-     * @param Model  $model
+     * @param Model  $data
      *
      * @return mixed
      */
-    private function fillColumnModalData(Column $column, Model $model): mixed
+    private function getDataFromModel(Column $column, Model $data): mixed
     {
         foreach (explode('.', $column->getKey()) as $key) {
-            $model = $model?->getAttribute($key);
+            $data = $data?->getAttribute($key);
         }
 
-        return $model;
+        return $data;
+    }
+
+    /**
+     * @param Column $column
+     * @param        $data
+     *
+     * @return mixed
+     */
+    private function getDataFromArray(Column $column, $data): mixed
+    {
+        return Arr::get($data, $column->getKey());
     }
 }

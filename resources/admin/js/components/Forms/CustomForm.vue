@@ -1,18 +1,21 @@
 <template>
     <component
-        :is="value.data.type || 'ComponentError'"
-        v-bind="value.attributes"
+        v-if="isReady"
+        :is="component.data.type || 'ComponentError'"
+        v-bind="component.attributes"
         @defaultAction="$emit('defaultAction')"
     />
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
-    import LazyImportProperties from "../../mixins/LazyImportProperties";
+    import LazyImportProperties from "../../helpers/LazyImportConfig";
     import ComponentError from "../ComponentError.vue";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "CustomForm",
+
+        extends: ComponentBase,
 
         components: {
             ComponentError,
@@ -26,6 +29,10 @@
             }),
             UserProfileForm: () => ({
                 component: import('../../layout/Forms/UserProfileForm.vue'),
+                ...LazyImportProperties
+            }),
+            OneTimePasswordEnableForm: () => ({
+                component: import('../../layout/Forms/OneTimePasswordForm.vue'),
                 ...LazyImportProperties
             }),
             CompanyForm: () => ({
@@ -56,14 +63,23 @@
                 component: import('../../layout/Forms/Popup/OneTimePasswordForm.vue'),
                 ...LazyImportProperties
             }),
-            OneTimePasswordEnableForm: () => ({
-                component: import('../../layout/Forms/OneTimePasswordForm.vue'),
+            CmsForm: () => ({
+                component: import('../../layout/Forms/Company/Cms/CmsForm.vue'),
                 ...LazyImportProperties
             }),
         },
 
-        mixins: [
-            ComponentProperties
-        ]
+        props: {
+            vuexNamespace: {
+                required: true,
+                type: String,
+            }
+        },
+
+        computed: {
+            isReady() {
+                return this.$store.getters[`${this.vuexNamespace}/isReady`]
+            }
+        }
     }
 </script>

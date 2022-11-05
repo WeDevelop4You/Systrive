@@ -1,12 +1,12 @@
 <template>
     <v-row
-        :class="value.data.classes || []"
+        :class="component.data.classes || []"
         no-gutters
         class="align-center justify-end"
     >
         <component
             :is="btn.componentName"
-            v-for="btn in value.data.buttons"
+            v-for="btn in component.data.buttons"
             :key="btn.identifier"
             :value="btn"
         />
@@ -14,19 +14,12 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import MainComponentBase from "../Base/MainComponentBase";
 
     export default {
         name: "MultipleBtn",
 
-        components: {
-            Btn: () => import('./Btn.vue'),
-            IconBtn: () => import('./IconBtn.vue'),
-        },
-
-        mixins: [
-            ComponentProperties,
-        ],
+        extends: MainComponentBase,
 
         data() {
             return {
@@ -40,7 +33,7 @@
 
         methods: {
             findDefaultBtn() {
-                const buttons = this.value.data.buttons
+                const buttons = this.component.data.buttons
 
                 if (buttons) {
                     for (const btn of buttons) {

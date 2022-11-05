@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.24.0.
+ * Generated for Laravel 9.33.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1496,6 +1496,52 @@
                         /** @var \App\Application $instance */
                         $instance->offsetUnset($key);
         }
+                    /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {            //Method inherited from \Illuminate\Foundation\Application         
+                        \App\Application::macro($name, $macro);
+        }
+                    /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {            //Method inherited from \Illuminate\Foundation\Application         
+                        \App\Application::mixin($mixin, $replace);
+        }
+                    /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {            //Method inherited from \Illuminate\Foundation\Application         
+                        return \App\Application::hasMacro($name);
+        }
+                    /**
+         * Flush the existing macros.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function flushMacros()
+        {            //Method inherited from \Illuminate\Foundation\Application         
+                        \App\Application::flushMacros();
+        }
          
     }
             /**
@@ -1529,6 +1575,30 @@
         {            //Method inherited from \Illuminate\Foundation\Console\Kernel         
                         /** @var \App\ConsoleKernel $instance */
                         $instance->terminate($input, $status);
+        }
+                    /**
+         * Register a callback to be invoked when the command lifecyle duration exceeds a given amount of time.
+         *
+         * @param \DateTimeInterface|\Carbon\CarbonInterval|float|int $threshold
+         * @param callable $handler
+         * @return void 
+         * @static 
+         */ 
+        public static function whenCommandLifecycleIsLongerThan($threshold, $handler)
+        {            //Method inherited from \Illuminate\Foundation\Console\Kernel         
+                        /** @var \App\ConsoleKernel $instance */
+                        $instance->whenCommandLifecycleIsLongerThan($threshold, $handler);
+        }
+                    /**
+         * When the command being handled started.
+         *
+         * @return \Illuminate\Support\Carbon|null 
+         * @static 
+         */ 
+        public static function commandStartedAt()
+        {            //Method inherited from \Illuminate\Foundation\Console\Kernel         
+                        /** @var \App\ConsoleKernel $instance */
+                        return $instance->commandStartedAt();
         }
                     /**
          * Register a Closure based command with the application.
@@ -2184,6 +2254,17 @@
                         return $instance->setRequest($request);
         }
                     /**
+         * Get the timebox instance used by the guard.
+         *
+         * @return \Illuminate\Support\Timebox 
+         * @static 
+         */ 
+        public static function getTimebox()
+        {
+                        /** @var \Illuminate\Auth\SessionGuard $instance */
+                        return $instance->getTimebox();
+        }
+                    /**
          * Determine if the current user is authenticated. If not, throw an exception.
          *
          * @return \Domain\User\Models\User 
@@ -2768,9 +2849,9 @@
             /**
      * 
      *
-     * @method static \Illuminate\Broadcasting\Broadcasters\Broadcaster channel(string $channel, callable|string  $callback, array $options = [])
+     * @method static \Illuminate\Broadcasting\Broadcasters\Broadcaster channel(string $channel, callable|string $callback, array $options = [])
      * @method static mixed auth(\Illuminate\Http\Request $request)
-     * @method static void resolveAuthenticatedUserUsing(Closure $callback)
+     * @method static void resolveAuthenticatedUserUsing(\Closure $callback)
      * @see \Illuminate\Contracts\Broadcasting\Factory
      */ 
         class Broadcast {
@@ -3137,6 +3218,18 @@
                         return $instance->map($map);
         }
                     /**
+         * Specify the jobs that should be dispatched instead of faked.
+         *
+         * @param array|string $jobsToDispatch
+         * @return void 
+         * @static 
+         */ 
+        public static function except($jobsToDispatch)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->except($jobsToDispatch);
+        }
+                    /**
          * Assert if a job was dispatched based on a truth-test callback.
          *
          * @param string|\Closure $command
@@ -3314,6 +3407,17 @@
                         $instance->assertBatchCount($count);
         }
                     /**
+         * Assert that no batched jobs were dispatched.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function assertNothingBatched()
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        $instance->assertNothingBatched();
+        }
+                    /**
          * Get all of the jobs matching a truth-test callback.
          *
          * @param string $command
@@ -3399,6 +3503,18 @@
         {
                         /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
                         return $instance->hasDispatchedAfterResponse($command);
+        }
+                    /**
+         * Dispatch an empty job batch for testing.
+         *
+         * @param string $name
+         * @return \Illuminate\Bus\Batch 
+         * @static 
+         */ 
+        public static function dispatchFakeBatch($name = '')
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\BusFake $instance */
+                        return $instance->dispatchFakeBatch($name);
         }
                     /**
          * Record the fake pending batch dispatch.
@@ -4302,7 +4418,7 @@
                         return $instance->make($name, $value, $minutes, $path, $domain, $secure, $httpOnly, $raw, $sameSite);
         }
                     /**
-         * Create a cookie that lasts "forever" (five years).
+         * Create a cookie that lasts "forever" (400 days).
          *
          * @param string $name
          * @param string $value
@@ -6154,6 +6270,18 @@
                         \Illuminate\Events\Dispatcher::flushMacros();
         }
                     /**
+         * Specify the events that should be dispatched instead of faked.
+         *
+         * @param array|string $eventsToDispatch
+         * @return \Illuminate\Support\Testing\Fakes\EventFake 
+         * @static 
+         */ 
+        public static function except($eventsToDispatch)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\EventFake $instance */
+                        return $instance->except($eventsToDispatch);
+        }
+                    /**
          * Assert if an event has a listener attached to it.
          *
          * @param string $expectedEvent
@@ -7489,7 +7617,7 @@
                     /**
          * Register a stub callable that will intercept requests and be able to return stub responses.
          *
-         * @param callable|array $callback
+         * @param callable|array|null $callback
          * @return \Illuminate\Http\Client\Factory 
          * @static 
          */ 
@@ -8320,7 +8448,6 @@
      * @method static void alwaysReplyTo(string $address, string|null $name = null)
      * @method static void alwaysReturnPath(string $address)
      * @method static void alwaysTo(string $address, string|null $name = null)
-     * @method static \Illuminate\Mail\PendingMail cc($users)
      * @method static \Illuminate\Mail\SentMessage|null plain(string $view, array $data, $callback)
      * @method static \Illuminate\Mail\SentMessage|null html(string $html, $callback)
      * @method static mixed laterOn(string $queue, \DateTimeInterface|\DateInterval|int $delay, \Illuminate\Contracts\Mail\Mailable|string|array $view)
@@ -8607,6 +8734,18 @@
         {
                         /** @var \Illuminate\Support\Testing\Fakes\MailFake $instance */
                         return $instance->to($users);
+        }
+                    /**
+         * Begin the process of mailing a mailable class instance.
+         *
+         * @param mixed $users
+         * @return \Illuminate\Mail\PendingMail 
+         * @static 
+         */ 
+        public static function cc($users)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\MailFake $instance */
+                        return $instance->cc($users);
         }
                     /**
          * Begin the process of mailing a mailable class instance.
@@ -9307,6 +9446,18 @@
                         return $instance->setApplication($app);
         }
                     /**
+         * Specify the jobs that should be queued instead of faked.
+         *
+         * @param array|string $jobsToBeQueued
+         * @return \Illuminate\Support\Testing\Fakes\QueueFake 
+         * @static 
+         */ 
+        public static function except($jobsToBeQueued)
+        {
+                        /** @var \Illuminate\Support\Testing\Fakes\QueueFake $instance */
+                        return $instance->except($jobsToBeQueued);
+        }
+                    /**
          * Assert if a job was pushed based on a truth-test callback.
          *
          * @param string|\Closure $job
@@ -9779,18 +9930,6 @@
                         return $instance->intended($default, $status, $headers, $secure);
         }
                     /**
-         * Set the intended url.
-         *
-         * @param string $url
-         * @return \Illuminate\Routing\Redirector 
-         * @static 
-         */ 
-        public static function setIntendedUrl($url)
-        {
-                        /** @var \Illuminate\Routing\Redirector $instance */
-                        return $instance->setIntendedUrl($url);
-        }
-                    /**
          * Create a new redirect response to the given path.
          *
          * @param string $path
@@ -9917,6 +10056,29 @@
         {
                         /** @var \Illuminate\Routing\Redirector $instance */
                         $instance->setSession($session);
+        }
+                    /**
+         * Get the "intended" URL from the session.
+         *
+         * @return string|null 
+         * @static 
+         */ 
+        public static function getIntendedUrl()
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->getIntendedUrl();
+        }
+                    /**
+         * Set the "intended" URL in the session.
+         *
+         * @param string $url
+         * @return \Illuminate\Routing\Redirector 
+         * @static 
+         */ 
+        public static function setIntendedUrl($url)
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->setIntendedUrl($url);
         }
                     /**
          * Register a custom macro.
@@ -11421,6 +11583,40 @@
                         return $instance->isFromTrustedProxy();
         }
                     /**
+         * Filter the given array of rules into an array of rules that are included in precognitive headers.
+         *
+         * @param array $rules
+         * @return array 
+         * @static 
+         */ 
+        public static function filterPrecognitiveRules($rules)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->filterPrecognitiveRules($rules);
+        }
+                    /**
+         * Determine if the request is attempting to be precognitive.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isAttemptingPrecognition()
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->isAttemptingPrecognition();
+        }
+                    /**
+         * Determine if the request is precognitive.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function isPrecognitive()
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->isPrecognitive();
+        }
+                    /**
          * Determine if the request is sending JSON.
          *
          * @return bool 
@@ -11832,12 +12028,39 @@
                         return $instance->boolean($key, $default);
         }
                     /**
+         * Retrieve input as an integer value.
+         *
+         * @param string $key
+         * @param int $default
+         * @return int 
+         * @static 
+         */ 
+        public static function integer($key, $default = 0)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->integer($key, $default);
+        }
+                    /**
+         * Retrieve input as a float value.
+         *
+         * @param string $key
+         * @param float $default
+         * @return float 
+         * @static 
+         */ 
+        public static function float($key, $default = 0.0)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->float($key, $default);
+        }
+                    /**
          * Retrieve input from the request as a Carbon instance.
          *
          * @param string $key
          * @param string|null $format
          * @param string|null $tz
          * @return \Illuminate\Support\Carbon|null 
+         * @throws \Carbon\Exceptions\InvalidFormatException
          * @static 
          */ 
         public static function date($key, $format = null, $tz = null)
@@ -11848,9 +12071,10 @@
                     /**
          * Retrieve input from the request as an enum.
          *
+         * @template TEnum
          * @param string $key
-         * @param string $enumClass
-         * @return mixed|null 
+         * @param \Illuminate\Http\class-string<TEnum> $enumClass
+         * @return \Illuminate\Http\TEnum|null 
          * @static 
          */ 
         public static function enum($key, $enumClass)
@@ -11985,13 +12209,13 @@
          * Dump the request items and end the script.
          *
          * @param mixed $keys
-         * @return void 
+         * @return \Illuminate\Http\never 
          * @static 
          */ 
         public static function dd(...$keys)
         {
                         /** @var \Illuminate\Http\Request $instance */
-                        $instance->dd(...$keys);
+                        return $instance->dd(...$keys);
         }
                     /**
          * Dump the items.
@@ -13459,6 +13683,16 @@
                         \Illuminate\Database\Schema\MySqlBuilder::morphUsingUuids();
         }
                     /**
+         * Set the default morph key type for migrations to ULIDs.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function morphUsingUlids()
+        {            //Method inherited from \Illuminate\Database\Schema\Builder         
+                        \Illuminate\Database\Schema\MySqlBuilder::morphUsingUlids();
+        }
+                    /**
          * Determine if the given table has a given column.
          *
          * @param string $table
@@ -14430,6 +14664,18 @@
         {
                         /** @var \Illuminate\Filesystem\FilesystemManager $instance */
                         return $instance->createS3Driver($config);
+        }
+                    /**
+         * Create a scoped driver.
+         *
+         * @param array $config
+         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @static 
+         */ 
+        public static function createScopedDriver($config)
+        {
+                        /** @var \Illuminate\Filesystem\FilesystemManager $instance */
+                        return $instance->createScopedDriver($config);
         }
                     /**
          * Set the given disk instance.
@@ -15576,6 +15822,18 @@
         {
                         /** @var \Illuminate\Routing\UrlGenerator $instance */
                         return $instance->setKeyResolver($keyResolver);
+        }
+                    /**
+         * Clone a new instance of the URL generator with a different encryption key resolver.
+         *
+         * @param callable $keyResolver
+         * @return \Illuminate\Routing\UrlGenerator 
+         * @static 
+         */ 
+        public static function withKeyResolver($keyResolver)
+        {
+                        /** @var \Illuminate\Routing\UrlGenerator $instance */
+                        return $instance->withKeyResolver($keyResolver);
         }
                     /**
          * Get the root controller namespace.
@@ -16743,6 +17001,42 @@
         class Str {
          
     }
+            /**
+     * 
+     *
+     * @template TKey of array-key
+     * @template TValue
+     * @implements \ArrayAccess<TKey, TValue>
+     * @implements \Illuminate\Support\Enumerable<TKey, TValue>
+     */ 
+        class Collection {
+                    /**
+         * 
+         *
+         * @see \Support\Mixins\CollectionMixin::addIf()
+         * @param bool $condition
+         * @param mixed|null $item
+         * @return static 
+         * @static 
+         */ 
+        public static function addIf($condition, $item)
+        {
+                        return \Illuminate\Support\Collection::addIf($condition, $item);
+        }
+                    /**
+         * 
+         *
+         * @see \Support\Mixins\CollectionMixin::json()
+         * @param string $value
+         * @return static 
+         * @static 
+         */ 
+        public static function json($value)
+        {
+                        return \Illuminate\Support\Collection::json($value);
+        }
+         
+    }
      
 }
 
@@ -17063,12 +17357,19 @@
      * @method static bool isLinux()
      * @method static bool isInApp()
      * @method static bool isBot()
-     * @method static string mobileGrade()
-     * @method static string deviceModel()
+     * @method static bool isIEVersion()
+     * @method static string browserEngine()
+     * @method static string browserName()
+     * @method static string browserVersion()
      * @method static string deviceFamily()
+     * @method static string deviceModel()
+     * @method static string deviceType()
+     * @method static string mobileGrade()
+     * @method static string platformName()
+     * @method static string platformVersion()
+     * @method static string userAgent()
      * @method static string|null platformFamily()
      * @method static string|null browserFamily()
-     * @method static string browserEngine()
      * @method static int browserVersionMajor()
      * @method static int browserVersionMinor()
      * @method static int browserVersionPatch()
@@ -17243,6 +17544,235 @@
         {            //Method inherited from \Illuminate\Support\Manager         
                         /** @var \Laravel\Socialite\SocialiteManager $instance */
                         return $instance->getContainer();
+        }
+         
+    }
+     
+}
+
+    namespace Sentry\Laravel { 
+            /**
+     * 
+     *
+     * @see \Sentry\State\HubInterface
+     */ 
+        class Facade {
+                    /**
+         * Gets the client bound to the top of the stack.
+         *
+         * @static 
+         */ 
+        public static function getClient()
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->getClient();
+        }
+                    /**
+         * Gets the ID of the last captured event.
+         *
+         * @static 
+         */ 
+        public static function getLastEventId()
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->getLastEventId();
+        }
+                    /**
+         * Creates a new scope to store context information that will be layered on
+         * top of the current one. It is isolated, i.e. all breadcrumbs and context
+         * information added to this scope will be removed once the scope ends. Be
+         * sure to always remove this scope with {@see Hub::popScope} when the
+         * operation finishes or throws.
+         *
+         * @static 
+         */ 
+        public static function pushScope()
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->pushScope();
+        }
+                    /**
+         * Removes a previously pushed scope from the stack. This restores the state
+         * before the scope was pushed. All breadcrumbs and context information added
+         * since the last call to {@see Hub::pushScope} are discarded.
+         *
+         * @static 
+         */ 
+        public static function popScope()
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->popScope();
+        }
+                    /**
+         * Creates a new scope with and executes the given operation within. The scope
+         * is automatically removed once the operation finishes or throws.
+         *
+         * @param callable $callback The callback to be executed
+         * @return mixed|void The callback's return value, upon successful execution
+         * @psalm-template T
+         * @psalm-param callable(Scope): T $callback
+         * @psalm-return T
+         * @static 
+         */ 
+        public static function withScope($callback)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->withScope($callback);
+        }
+                    /**
+         * Calls the given callback passing to it the current scope so that any
+         * operation can be run within its context.
+         *
+         * @param callable $callback The callback to be executed
+         * @static 
+         */ 
+        public static function configureScope($callback)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->configureScope($callback);
+        }
+                    /**
+         * Binds the given client to the current scope.
+         *
+         * @param \Sentry\ClientInterface $client The client
+         * @static 
+         */ 
+        public static function bindClient($client)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->bindClient($client);
+        }
+                    /**
+         * Captures a message event and sends it to Sentry.
+         *
+         * @param string $message The message
+         * @param \Sentry\Severity|null $level The severity level of the message
+         * @param \Sentry\EventHint|null $hint Object that can contain additional information about the event
+         * @static 
+         */ 
+        public static function captureMessage($message, $level = null, $hint = null)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->captureMessage($message, $level, $hint);
+        }
+                    /**
+         * Captures an exception event and sends it to Sentry.
+         *
+         * @param \Throwable $exception The exception
+         * @param \Sentry\EventHint|null $hint Object that can contain additional information about the event
+         * @static 
+         */ 
+        public static function captureException($exception, $hint = null)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->captureException($exception, $hint);
+        }
+                    /**
+         * Captures a new event using the provided data.
+         *
+         * @param \Event $event The event being captured
+         * @param \Sentry\EventHint|null $hint May contain additional information about the event
+         * @static 
+         */ 
+        public static function captureEvent($event, $hint = null)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->captureEvent($event, $hint);
+        }
+                    /**
+         * Captures an event that logs the last occurred error.
+         *
+         * @param \Sentry\EventHint|null $hint Object that can contain additional information about the event
+         * @static 
+         */ 
+        public static function captureLastError($hint = null)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->captureLastError($hint);
+        }
+                    /**
+         * Records a new breadcrumb which will be attached to future events. They
+         * will be added to subsequent events to provide more context on user's
+         * actions prior to an error or crash.
+         *
+         * @param \Sentry\Breadcrumb $breadcrumb The breadcrumb to record
+         * @return bool Whether the breadcrumb was actually added to the current scope
+         * @static 
+         */ 
+        public static function addBreadcrumb($breadcrumb)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->addBreadcrumb($breadcrumb);
+        }
+                    /**
+         * Gets the integration whose FQCN matches the given one if it's available on the current client.
+         *
+         * @param string $className The FQCN of the integration
+         * @psalm-template T of IntegrationInterface
+         * @psalm-param class-string<T> $className
+         * @psalm-return T|null
+         * @static 
+         */ 
+        public static function getIntegration($className)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->getIntegration($className);
+        }
+                    /**
+         * Starts a new `Transaction` and returns it. This is the entry point to manual
+         * tracing instrumentation.
+         * 
+         * A tree structure can be built by adding child spans to the transaction, and
+         * child spans to other spans. To start a new child span within the transaction
+         * or any span, call the respective `startChild()` method.
+         * 
+         * Every child span must be finished before the transaction is finished,
+         * otherwise the unfinished spans are discarded.
+         * 
+         * The transaction must be finished with a call to its `finish()` method, at
+         * which point the transaction with all its finished child spans will be sent to
+         * Sentry.
+         *
+         * @param \Sentry\State\array<string,  mixed> $customSamplingContext Additional context that will be passed to the {@see SamplingContext}
+         * @param \Sentry\Tracing\TransactionContext $context Properties of the new transaction
+         * @param \Sentry\State\array<string,  mixed> $customSamplingContext Additional context that will be passed to the {@see SamplingContext}
+         * @static 
+         */ 
+        public static function startTransaction($context, $customSamplingContext = [])
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->startTransaction($context, $customSamplingContext);
+        }
+                    /**
+         * Returns the transaction that is on the Hub.
+         *
+         * @static 
+         */ 
+        public static function getTransaction()
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->getTransaction();
+        }
+                    /**
+         * Sets the span on the Hub.
+         *
+         * @param \Sentry\Tracing\Span|null $span The span
+         * @static 
+         */ 
+        public static function setSpan($span)
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->setSpan($span);
+        }
+                    /**
+         * Returns the span that is on the Hub.
+         *
+         * @static 
+         */ 
+        public static function getSpan()
+        {
+                        /** @var \Sentry\State\Hub $instance */
+                        return $instance->getSpan();
         }
          
     }
@@ -17856,13 +18386,14 @@
          * 
          *
          * @see \Support\Mixins\ScheduleMixin::recordJob()
-         * @param \Support\Enums\ScheduleTypes $type
+         * @param \Support\Enums\ScheduleType $type
          * @param string $job
+         * @param array $arguments
          * @static 
          */ 
-        public static function recordJob($type, $job)
+        public static function recordJob($type, $job, $arguments = [])
         {
-                        return \Illuminate\Console\Scheduling\Schedule::recordJob($type, $job);
+                        return \Illuminate\Console\Scheduling\Schedule::recordJob($type, $job, $arguments);
         }
          
     }
@@ -17878,17 +18409,6 @@
      *
      */ 
         class Event {
-                    /**
-         * 
-         *
-         * @see \Support\Mixins\CallbackEventMixin::cleanUp()
-         * @return static 
-         * @static 
-         */ 
-        public static function cleanUp()
-        {
-                        return \Illuminate\Console\Scheduling\Event::cleanUp();
-        }
                     /**
          * 
          *
@@ -20243,7 +20763,7 @@ namespace  {
              *
              * @param string $column
              * @param string $operator
-             * @param \DateTimeInterface|string|null $value
+             * @param \DateTimeInterface|string|int|null $value
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -20259,7 +20779,7 @@ namespace  {
              *
              * @param string $column
              * @param string $operator
-             * @param \DateTimeInterface|string|null $value
+             * @param \DateTimeInterface|string|int|null $value
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */ 
@@ -20274,7 +20794,7 @@ namespace  {
              *
              * @param string $column
              * @param string $operator
-             * @param \DateTimeInterface|string|null $value
+             * @param \DateTimeInterface|string|int|null $value
              * @param string $boolean
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -20290,7 +20810,7 @@ namespace  {
              *
              * @param string $column
              * @param string $operator
-             * @param \DateTimeInterface|string|null $value
+             * @param \DateTimeInterface|string|int|null $value
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */ 
@@ -21016,7 +21536,7 @@ namespace  {
                 /**
              * Add a union statement to the query.
              *
-             * @param \Illuminate\Database\Query\Builder|\Closure $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
              * @param bool $all
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -21030,7 +21550,7 @@ namespace  {
                 /**
              * Add a union all statement to the query.
              *
-             * @param \Illuminate\Database\Query\Builder|\Closure $query
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder $query
              * @return \Illuminate\Database\Query\Builder 
              * @static 
              */ 
@@ -21674,6 +22194,7 @@ namespace  {
             class View extends \Illuminate\Support\Facades\View {}
             class Browser extends \hisorange\BrowserDetect\Facade {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
+            class Sentry extends \Sentry\Laravel\Facade {}
             class OpenGraph extends \shweshi\OpenGraph\Facades\OpenGraphFacade {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
      

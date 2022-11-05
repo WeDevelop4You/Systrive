@@ -9,7 +9,7 @@ class TextIconComponent extends AbstractIconComponent
      */
     protected function getComponentName(): string
     {
-        return 'TextIcon';
+        return 'TextIconComponent';
     }
 
     /**

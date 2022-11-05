@@ -7,7 +7,7 @@
 </template>
 
 <script>
-export default {
-    name: "SkeletonChart"
-}
+    export default {
+        name: "SkeletonChart",
+    }
 </script>

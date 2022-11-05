@@ -1,22 +1,20 @@
 <template>
     <component
-        :is="value.data.type"
-        :value="value"
+        :is="component.data.type"
+        :value="component"
     />
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Index",
 
-        components: {
-            LocaleDropdown: () => import('./LocaleDropdown.vue')
-        },
+        extends: ComponentBase,
 
-        mixins: [
-            ComponentProperties
-        ]
+        components: {
+            LocaleDropdownComponent: () => import('./LocaleDropdown.vue')
+        },
     }
 </script>

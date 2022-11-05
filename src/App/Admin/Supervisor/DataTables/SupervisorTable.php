@@ -4,7 +4,7 @@ namespace App\Admin\Supervisor\DataTables;
 
 use Domain\Supervisor\Models\Supervisor;
 use Support\Abstracts\AbstractTable;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
 use Support\Helpers\DataTable\Build\Column;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
@@ -28,7 +28,7 @@ class SupervisorTable extends AbstractTable
                     return MultipleButtonComponent::create()
                         ->setButtons([
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()->dispatch(
                                         'supervisor/edit',
@@ -38,7 +38,7 @@ class SupervisorTable extends AbstractTable
                                     )
                                 ),
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TRASH))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                 ->setAction(
                                     RequestAction::create()->get(
                                         route('admin.admin.supervisor.process.destroy', [

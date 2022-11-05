@@ -1,15 +1,14 @@
 <template>
-    <v-img v-bind="value.attributes" />
+    <v-img v-bind="component.attributes" />
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "CImage",
 
-        mixins: [
-            ComponentProperties
-        ]
+        extends: ComponentBase,
+
     }
 </script>

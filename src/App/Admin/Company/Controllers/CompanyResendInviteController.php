@@ -20,7 +20,7 @@
             /** @var invite $invite */
             $invite = $company->invites()->whereCompanyType()->first();
 
-            $invite->type->sendInvite($invite);
+            $invite->send();
 
             return Response::create()
                 ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.invite.resend')))

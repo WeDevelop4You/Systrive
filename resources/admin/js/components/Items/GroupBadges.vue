@@ -1,7 +1,7 @@
 <template>
     <v-chip-group column>
         <badge
-            v-for="(badge, index) in value.data.badges"
+            v-for="(badge, index) in component.data.badges"
             :key="index"
             :value="badge"
         />
@@ -10,17 +10,15 @@
 
 <script>
 import badge from "./Badge.vue";
-import ComponentProperties from "../../mixins/ComponentProperties";
+import ComponentBase from "../Base/ComponentBase";
 
 export default {
     name: "GroupBadges",
 
+    extends: ComponentBase,
+
     components: {
         badge,
     },
-
-    mixins: [
-        ComponentProperties
-    ],
 }
 </script>

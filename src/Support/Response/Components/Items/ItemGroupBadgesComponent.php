@@ -9,7 +9,7 @@ class ItemGroupBadgesComponent extends AbstractItemComponent
      */
     protected function getComponentName(): string
     {
-        return 'GroupBadges';
+        return 'GroupBadgesComponent';
     }
 
     /**

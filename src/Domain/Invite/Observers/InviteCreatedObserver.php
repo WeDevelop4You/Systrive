@@ -2,8 +2,8 @@
 
     namespace Domain\Invite\Observers;
 
-    use Domain\Company\states\CompanyExpiredState;
-    use Domain\Company\states\CompanyUserExpiredState;
+    use Domain\Company\States\CompanyExpiredState;
+    use Domain\Company\States\CompanyUserExpiredState;
     use Domain\Invite\Models\Invite;
 
     class InviteCreatedObserver
@@ -15,7 +15,6 @@
          */
         public function created(Invite $invite): void
         {
-            $invite->type->getStatus($invite)
-                ->changeStateWhen(CompanyExpiredState::class, CompanyUserExpiredState::class);
+            $invite->state()->changeStateWhen(CompanyExpiredState::class, CompanyUserExpiredState::class);
         }
     }

@@ -39,7 +39,7 @@
 </template>
 
 <script>
-    import customFormProperties from "../../mixins/Form/CustomFormProperties";
+    import customFormProperties from "../../mixins/CustomFormProperties";
 
     export default {
         name: "Login",

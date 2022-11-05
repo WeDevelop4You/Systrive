@@ -6,8 +6,8 @@
     use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyTableMap;
     use Domain\Company\Mappings\CompanyUserTableMap;
-    use Domain\Company\states\CompanyInvitedState;
-    use Domain\Company\states\CompanyUserRequestedState;
+    use Domain\Company\States\CompanyInvitedState;
+    use Domain\Company\States\CompanyUserRequestedState;
     use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
     use Domain\User\Mappings\UserTableMap;
@@ -46,8 +46,7 @@
                     $query->whereColumn(CompanyTableMap::TABLE_ID, InviteTableMap::TABLE_COMPANY_ID)
                         ->where(CompanyTableMap::TABLE_STATUS, CompanyStatusTypes::INVITED);
                 })->get()->each(function (Invite $invite) {
-                    $invite->type->getStatus($invite)
-                        ->changeStateWhen(CompanyInvitedState::class, CompanyUserRequestedState::class);
+                    $invite->state()->changeStateWhen(CompanyInvitedState::class, CompanyUserRequestedState::class);
                 });
         }
     }

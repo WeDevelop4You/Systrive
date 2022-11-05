@@ -1,7 +1,8 @@
 import Vue from 'vue';
 
-import dataTableBase from "../Base/dataTableBase";
-import FormBase from "../Base/formBase";
+import dataTableBase from "../../base/dataTableBase";
+import FormBase from "../../base/formBase";
+import {STATE_CREATE, STATE_EDIT} from "../../../config/RouteState";
 
 const app = Vue.prototype
 
@@ -58,14 +59,13 @@ export default {
             })
         },
 
-        states({dispatch, rootGetters}, action) {
-            const companyId = rootGetters['company/id']
+        states({dispatch}, action) {
             const actions = {
-                new: () => {
-                    dispatch('create', app.$api.route('company.user.invite', companyId))
+                [STATE_CREATE]: () => {
+                    dispatch('create', app.$api.companyRoute('company.user.invite'))
                 },
-                edit: () => {
-                    dispatch('edit', app.$api.route('company.user.edit', companyId, action.params.id))
+                [STATE_EDIT]: () => {
+                    dispatch('edit', app.$api.companyRoute('company.user.edit', action.params.id))
                 },
             }
 

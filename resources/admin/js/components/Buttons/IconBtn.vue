@@ -1,19 +1,19 @@
 <template>
     <tooltip
         v-slot="{tooltip}"
-        :value="value.data.tooltip"
+        :value="component.data.tooltip"
     >
         <v-hover v-slot="{hover}">
             <v-btn
-                v-bind="value.attributes"
-                :class="value.data.classes"
+                v-bind="component.attributes"
+                :class="component.data.classes"
                 depressed
-                @click="$actions.call(value.data.action)"
+                @click="$actions.call(component.data.action)"
                 v-on="tooltip"
             >
                 <icon
-                    :value="value.data.icon"
-                    :color="hover ? value.data.hoverColor : undefined"
+                    :value="component.data.icon"
+                    :hover-color="hover ? component.data.hoverColor : undefined"
                 />
             </v-btn>
         </v-hover>
@@ -22,24 +22,22 @@
 
 <script>
     import Icon from "../Icons/Icon.vue";
-    import ComponentProperties from "../../mixins/ComponentProperties";
     import Tooltip from "../Utils/Tooltip.vue";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "IconBtn",
+
+        extends: ComponentBase,
 
         components: {
             Tooltip,
             Icon,
         },
 
-        mixins: [
-            ComponentProperties
-        ],
-
         methods: {
             runDefaultAction() {
-                this.$actions.call(this.value.data.action)
+                this.$actions.call(this.component.data.action)
             }
         }
     }

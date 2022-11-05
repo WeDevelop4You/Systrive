@@ -9,7 +9,7 @@ use Domain\System\Models\SystemMailDomain;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
-use Support\Enums\VestaCommands;
+use Support\Enums\VestaCommand;
 use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
 
@@ -46,7 +46,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
     protected function initialize(): void
     {
         $this->vesta = Vesta::api()->get(
-            VestaCommands::GET_USER_MAIL_DOMAINS,
+            VestaCommand::GET_USER_MAIL_DOMAINS,
             $this->system->username
         );
     }

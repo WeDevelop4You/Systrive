@@ -2,9 +2,10 @@
 
     namespace Support\Response\Components\Buttons;
 
-    use Support\Enums\Component\Vuetify\VuetifyButtonTypes;
-    use Support\Enums\Component\Vuetify\VuetifyColors;
+    use Support\Enums\Component\Vuetify\VuetifyButtonType;
+    use Support\Enums\Component\Vuetify\VuetifyColor;
     use Support\Response\Components\Icons\TextIconComponent;
+    use Support\Response\Components\Utils\ThemeComponent;
 
     class ButtonComponent extends AbstractButtonComponent
     {
@@ -13,7 +14,7 @@
          */
         protected function getComponentName(): string
         {
-            return 'Btn';
+            return 'BtnComponent';
         }
 
         /**
@@ -37,21 +38,25 @@
         }
 
         /**
-         * @param VuetifyColors $color
+         * @param VuetifyColor|ThemeComponent $color
          *
          * @return ButtonComponent
          */
-        public function setColor(VuetifyColors $color = VuetifyColors::PRIMARY): ButtonComponent
+        public function setColor(VuetifyColor|ThemeComponent $color = VuetifyColor::PRIMARY): ButtonComponent
         {
-            return $this->setAttribute('color', $color->value);
+            $value = $color instanceof ThemeComponent
+                ? $color->export()
+                : $color->value;
+
+            return $this->setAttribute('color', $value);
         }
 
         /**
-         * @param VuetifyButtonTypes $type
+         * @param VuetifyButtonType $type
          *
          * @return ButtonComponent
          */
-        public function setType(VuetifyButtonTypes $type = VuetifyButtonTypes::TEXT): ButtonComponent
+        public function setType(VuetifyButtonType $type = VuetifyButtonType::TEXT): ButtonComponent
         {
             return $this->setAttribute($type->value, true);
         }

@@ -2,14 +2,14 @@
 
     namespace Support\Response\Actions;
 
-    use Support\Enums\RequestMethodTypes;
-    use Support\Enums\SessionKeyTypes;
+    use Support\Enums\RequestMethodType;
+    use Support\Enums\SessionKeyType;
 
     class RequestAction extends AbstractAction
     {
         public function __construct()
         {
-            $this->setMethod('actionRequest');
+            $this->setMethod('requestAction');
         }
 
         /**
@@ -22,7 +22,7 @@
             return $this->setData([
                 'url' => $url,
                 'params' => [],
-                'method' => RequestMethodTypes::GET->value,
+                'method' => RequestMethodType::GET->value,
             ]);
         }
 
@@ -37,7 +37,21 @@
             return $this->setData([
                 'url' => $url,
                 'params' => $params,
-                'method' => RequestMethodTypes::POST->value,
+                'method' => RequestMethodType::PATCH->value,
+            ]);
+        }
+
+        /**
+         * @param string $url
+         *
+         * @return RequestAction
+         */
+        public function put(string $url): RequestAction
+        {
+            return $this->setData([
+                'url' => $url,
+                'params' => [],
+                'method' => RequestMethodType::PUT->value,
             ]);
         }
 
@@ -52,7 +66,7 @@
             return $this->setData([
                 'url' => $url,
                 'params' => $params,
-                'method' => RequestMethodTypes::PATCH->value,
+                'method' => RequestMethodType::PATCH->value,
             ]);
         }
 
@@ -66,16 +80,16 @@
             return $this->setData([
                 'url' => $url,
                 'params' => [],
-                'method' => RequestMethodTypes::DELETE->value,
+                'method' => RequestMethodType::DELETE->value,
             ]);
         }
 
         /**
-         * @param SessionKeyTypes $key
+         * @param SessionKeyType $key
          *
          * @return RequestAction
          */
-        public function forgetSessionKey(SessionKeyTypes $key = SessionKeyTypes::KEEP): RequestAction
+        public function forgetSessionKey(SessionKeyType $key = SessionKeyType::KEEP): RequestAction
         {
             return $this->delete(
                 route('admin.session.delete', [

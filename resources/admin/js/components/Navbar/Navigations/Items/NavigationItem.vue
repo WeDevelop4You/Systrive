@@ -1,46 +1,44 @@
 <template>
     <tooltip
         v-slot="{tooltip}"
-        :value="value.data.tooltip"
+        :value="component.data.tooltip"
     >
         <v-list-item
-            v-bind="value.attributes"
+            v-bind="component.attributes"
             :class="{'pl-2': isHidden}"
             dense
-            @click="$actions.call(value.data.action)"
+            @click="$actions.call(component.data.action)"
             v-on="tooltip"
         >
             <component
-                :is="value.data.prepend.componentName"
-                v-if="value.data.prepend"
-                :value="value.data.prepend"
+                :is="component.data.prepend.componentName"
+                v-if="component.data.prepend"
+                :value="component.data.prepend"
                 :is-hidden="isHidden"
             />
             <v-list-item-content>
-                <v-list-item-title v-html="value.content.title" />
+                <v-list-item-title v-text="component.content.title" />
             </v-list-item-content>
         </v-list-item>
     </tooltip>
 </template>
 
 <script>
-    import ComponentProperties from "../../../../mixins/ComponentProperties";
-    import Icon from "./NavigationItemIcon.vue"
-    import CImage from "./NavigationItemImage.vue"
     import Tooltip from "../../../Utils/Tooltip.vue";
+    import IconComponent from "./NavigationItemIcon.vue"
+    import ImageComponent from "./NavigationItemImage.vue"
+    import ComponentBase from "../../../Base/ComponentBase";
 
     export default {
         name: "NavigationItem",
 
-        components: {
-            Icon,
-            CImage,
-            Tooltip
-        },
+        extends: ComponentBase,
 
-        mixins: [
-            ComponentProperties
-        ],
+        components: {
+            Tooltip,
+            IconComponent,
+            ImageComponent,
+        },
 
         props: {
             isHidden: {

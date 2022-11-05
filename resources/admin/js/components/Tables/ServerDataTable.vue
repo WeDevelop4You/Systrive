@@ -12,7 +12,7 @@
             :sort-desc.sync="sortDesc"
             :items-per-page.sync="itemsPerPage"
             :server-items-length="total"
-            :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !value.data.isFlat}"
+            :class="{[`rounded-lg v-sheet--outlined ${elevation}`]: !component.data.isFlat}"
             :footer-props="{
                 itemsPerPageOptions: totalPerPageOptions
             }"
@@ -22,11 +22,11 @@
         >
             <template #top>
                 <v-row
-                    v-if="value.content.title"
+                    v-if="component.content.title"
                     no-gutters
                     class="px-4 pt-3"
                 >
-                    <span class="headline">{{ value.content.title }}</span>
+                    <span class="headline">{{ component.content.title }}</span>
                 </v-row>
                 <v-toolbar
                     flat
@@ -34,15 +34,15 @@
                     class="px-4"
                 >
                     <component
-                        :is="value.data.prepend.componentName"
-                        v-if="value.data.prepend"
-                        :value="value.data.prepend"
+                        :is="component.data.prepend.componentName"
+                        v-if="component.data.prepend"
+                        :value="component.data.prepend"
                     />
                     <v-spacer />
                     <component
-                        :is="value.data.append.componentName"
-                        v-if="value.data.append"
-                        :value="value.data.append"
+                        :is="component.data.append.componentName"
+                        v-if="component.data.append"
+                        :value="component.data.append"
                     />
                     <template v-if="searchable">
                         <v-text-field
@@ -94,14 +94,12 @@
 
 <script>
     import _ from "lodash";
-    import TableProperties from "../../mixins/TableProperties";
+    import TableComponentBase from "../Base/TableComponentBase";
 
     export default {
         name: "ServerDataTable",
 
-        mixins: [
-            TableProperties
-        ],
+        extends: TableComponentBase,
 
         data() {
             return {

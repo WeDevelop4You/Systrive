@@ -8,7 +8,6 @@
     use BaconQrCode\Renderer\RendererStyle\RendererStyle;
     use BaconQrCode\Writer;
     use Domain\User\Models\UserSecurity;
-    use Illuminate\Support\Facades\Crypt;
     use Illuminate\Support\Str;
     use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
     use PragmaRX\Google2FA\Exceptions\InvalidAlgorithmException;
@@ -47,7 +46,7 @@
                 $secretKey = $google2fa->generateSecretKey(32, $prefix);
                 $imageData = $google2fa->getQRCodeUrl(config('app.name'), $user->email, $secretKey);
 
-                $security->secret_key = Crypt::encryptString($secretKey);
+                $security->secret_key = $secretKey;
                 $security->save();
 
                 $base64 = base64_encode($writer->writeString($imageData));

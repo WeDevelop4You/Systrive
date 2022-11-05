@@ -1,7 +1,8 @@
 import Vue from 'vue';
-import dataTableBase from "../Base/dataTableBase";
-import FormBase from "../Base/formBase";
-import ShowBase from "../Base/showBase";
+import dataTableBase from "../../base/dataTableBase";
+import FormBase from "../../base/formBase";
+import ShowBase from "../../base/showBase";
+import {STATE_CREATE, STATE_EDIT, STATE_SHOW} from "../../../config/RouteState";
 
 const app = Vue.prototype
 
@@ -84,13 +85,13 @@ export default {
 
         states({dispatch}, action) {
             const actions = {
-                new: () => {
+                [STATE_CREATE]: () => {
                     dispatch('create', app.$api.route('admin.company.invite'))
                 },
-                edit: () => {
+                [STATE_EDIT]: () => {
                     dispatch('edit', app.$api.route('admin.company.edit', action.params.id))
                 },
-                show: () => {
+                [STATE_SHOW]: () => {
                     dispatch('show', app.$api.route('admin.company.show', action.params.id))
                 },
             }

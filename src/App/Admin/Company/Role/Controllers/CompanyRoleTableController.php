@@ -5,16 +5,12 @@
     use App\Admin\Company\Role\DataTable\CompanyRoleTable;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
-    use Support\Abstracts\AbstractTable;
     use Support\Abstracts\Controllers\AbstractTableController;
     use Support\Helpers\DataTable\Build\DataTable;
 
     class CompanyRoleTableController extends AbstractTableController
     {
-        protected function getDataTable(): AbstractTable
-        {
-            return CompanyRoleTable::create();
-        }
+        protected string $dataTable = CompanyRoleTable::class;
 
         /**
          * @param Company $company
@@ -23,7 +19,17 @@
          */
         public function index(Company $company): JsonResponse
         {
-            return DataTable::create($this->getDataTable())
+            return $this->headers();
+        }
+
+        /**
+         * @param Company $company
+         *
+         * @return JsonResponse
+         */
+        public function action(Company $company): JsonResponse
+        {
+            return DataTable::create($this->structure())
                 ->query($company->roles()->withCount('permissions'))
                 ->export();
         }

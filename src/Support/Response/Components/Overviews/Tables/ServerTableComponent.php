@@ -9,6 +9,6 @@ class ServerTableComponent extends AbstractTableComponent
      */
     protected function getType(): string
     {
-        return 'ServerDataTable';
+        return 'ServerDataTableComponent';
     }
 }

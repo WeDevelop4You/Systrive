@@ -4,8 +4,8 @@ namespace App\Admin\Supervisor\Responses;
 
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\IconTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\IconType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\IconButtonComponent;
@@ -47,11 +47,11 @@ class SupervisorOverviewResponse extends AbstractResponse
                         MultipleButtonComponent::create()
                             ->setButtons([
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PLAY))
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
                                     ->setAction(
                                         RequestAction::create()
                                             ->post(route('admin.admin.supervisor.process.start'))
-                                            ->setOnSuccess($this->getOverviewAction())
+                                            ->setOnSuccessAction($this->getOverviewAction())
                                     )
                                     ->setTooltip(
                                         TooltipComponent::create()
@@ -59,11 +59,11 @@ class SupervisorOverviewResponse extends AbstractResponse
                                             ->setText(trans('word.supervisor.start.all'))
                                     ),
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_STOP))
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
                                     ->setAction(
                                         RequestAction::create()
                                             ->post(route('admin.admin.supervisor.process.stop'))
-                                            ->setOnSuccess($this->getOverviewAction())
+                                            ->setOnSuccessAction($this->getOverviewAction())
                                     )
                                     ->setTooltip(
                                         TooltipComponent::create()
@@ -71,7 +71,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                                             ->setText(trans('word.supervisor.stop.all'))
                                     ),
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_COG))
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_COG))
                                     ->setAction(
                                         VuexAction::create()->dispatch(
                                             'supervisor/show',
@@ -126,9 +126,9 @@ class SupervisorOverviewResponse extends AbstractResponse
     private function createList(object $process): array
     {
         $color = match ($process->state) {
-            20 => VuetifyColors::SUCCESS,
-            10, 30, 40 => VuetifyColors::WARNING,
-            default => VuetifyColors::ERROR
+            20 => VuetifyColor::SUCCESS,
+            10, 30, 40 => VuetifyColor::WARNING,
+            default => VuetifyColor::ERROR
         };
 
         $list = [
@@ -173,13 +173,13 @@ class SupervisorOverviewResponse extends AbstractResponse
         if (Supervisor::inProcessRunning($process->state)) {
             return [
                 IconButtonComponent::create()
-                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_SYNC))
+                    ->setIcon(IconComponent::create()->setType(IconType::FAS_SYNC))
                     ->setAction(
                         RequestAction::create()
                             ->post(route('admin.admin.supervisor.process.restart', [
                                 $process->name,
                             ]))
-                            ->setOnSuccess($this->getOverviewAction())
+                            ->setOnSuccessAction($this->getOverviewAction())
                     )
                     ->setTooltip(
                         TooltipComponent::create()
@@ -187,13 +187,13 @@ class SupervisorOverviewResponse extends AbstractResponse
                             ->setText(trans('word.supervisor.restart'))
                     ),
                 IconButtonComponent::create()
-                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_STOP))
+                    ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
                     ->setAction(
                         RequestAction::create()
                             ->post(route('admin.admin.supervisor.process.stop', [
                                 $process->name,
                             ]))
-                            ->setOnSuccess($this->getOverviewAction())
+                            ->setOnSuccessAction($this->getOverviewAction())
                     )
                     ->setTooltip(
                         TooltipComponent::create()
@@ -205,13 +205,13 @@ class SupervisorOverviewResponse extends AbstractResponse
 
         return [
             IconButtonComponent::create()
-                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PLAY))
+                ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
                 ->setAction(
                     RequestAction::create()
                         ->post(route('admin.admin.supervisor.process.start', [
                             $process->name,
                         ]))
-                        ->setOnSuccess($this->getOverviewAction())
+                        ->setOnSuccessAction($this->getOverviewAction())
                 )
                 ->setTooltip(
                     TooltipComponent::create()

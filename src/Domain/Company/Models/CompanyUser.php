@@ -14,26 +14,25 @@
     use Support\Traits\Observers;
 
     /**
-     * Domain\Company\Models\CompanyUser.
-     *
-     * @property int                         $id
-     * @property int                         $user_id
-     * @property int                         $company_id
-     * @property int                         $is_owner
-     * @property CompanyUserStatusTypes|null $status
-     * @property-read User $user
-     *
-     * @method static CompanyUserQueryBuilders|CompanyUser firstWithInvite(\Domain\Invite\Models\Invite $invite)
-     * @method static CompanyUserQueryBuilders|CompanyUser newModelQuery()
-     * @method static CompanyUserQueryBuilders|CompanyUser newQuery()
-     * @method static CompanyUserQueryBuilders|CompanyUser query()
-     * @method static CompanyUserQueryBuilders|CompanyUser whereCompanyId($value)
-     * @method static CompanyUserQueryBuilders|CompanyUser whereId($value)
-     * @method static CompanyUserQueryBuilders|CompanyUser whereIsOwner($value)
-     * @method static CompanyUserQueryBuilders|CompanyUser whereStatus($value)
-     * @method static CompanyUserQueryBuilders|CompanyUser whereUserId($value)
-     * @mixin Eloquent
-     */
+ * Domain\Company\Models\CompanyUser
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $company_id
+ * @property int $is_owner
+ * @property CompanyUserStatusTypes|null $status
+ * @property-read User $user
+ * @method static CompanyUserQueryBuilders|CompanyUser firstWithInvite(\Domain\Invite\Models\Invite $invite)
+ * @method static CompanyUserQueryBuilders|CompanyUser newModelQuery()
+ * @method static CompanyUserQueryBuilders|CompanyUser newQuery()
+ * @method static CompanyUserQueryBuilders|CompanyUser query()
+ * @method static CompanyUserQueryBuilders|CompanyUser whereCompanyId($value)
+ * @method static CompanyUserQueryBuilders|CompanyUser whereId($value)
+ * @method static CompanyUserQueryBuilders|CompanyUser whereIsOwner($value)
+ * @method static CompanyUserQueryBuilders|CompanyUser whereStatus($value)
+ * @method static CompanyUserQueryBuilders|CompanyUser whereUserId($value)
+ * @mixin Eloquent
+ */
     class CompanyUser extends Pivot
     {
         use Observers;

@@ -9,6 +9,6 @@ class ItemUpTimerComponent extends AbstractItemComponent
      */
     protected function getComponentName(): string
     {
-        return 'UpTimer';
+        return 'UpTimerComponent';
     }
 }

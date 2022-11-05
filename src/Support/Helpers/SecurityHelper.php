@@ -5,7 +5,6 @@
     use Domain\User\Models\UserSecurity;
     use Illuminate\Contracts\Encryption\DecryptException;
     use Illuminate\Support\Collection;
-    use Illuminate\Support\Facades\Crypt;
     use Illuminate\Support\Str;
     use PragmaRX\Google2FA\Exceptions\IncompatibleWithGoogleAuthenticatorException;
     use PragmaRX\Google2FA\Exceptions\InvalidCharactersException;
@@ -25,7 +24,7 @@
          * @param ?UserSecurity $security
          */
         private function __construct(
-            private ?UserSecurity $security
+            private readonly ?UserSecurity $security
         ) {
             $this->provider = new Google2FA();
         }
@@ -57,7 +56,7 @@
          */
         public function getKey(): string
         {
-            return Crypt::decryptString($this->security->secret_key);
+            return $this->security->secret_key->decryptString();
         }
 
         /**
@@ -67,7 +66,7 @@
          */
         public function getRecoveryCodes(): array
         {
-            return Crypt::decrypt($this->security->recovery_codes);
+            return $this->security->recovery_codes->decrypt();
         }
 
         /**
@@ -134,7 +133,7 @@
 
         private function saveRecoveryCodes(array $recoveryCodes): void
         {
-            $this->security->recovery_codes = Crypt::encrypt($recoveryCodes);
+            $this->security->recovery_codes = $recoveryCodes;
             $this->security->save();
         }
     }

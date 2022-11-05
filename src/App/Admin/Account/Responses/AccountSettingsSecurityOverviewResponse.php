@@ -5,10 +5,10 @@ namespace App\Admin\Account\Responses;
 use Domain\User\Mappings\UserSecurityTableMap;
 use Illuminate\Support\Facades\Auth;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
-use Support\Enums\Component\Vuetify\VuetifyAlignTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
-use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\Form\FormType;
+use Support\Enums\Component\Vuetify\VuetifyAlignType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifyJustifyType;
 use Support\Response\Actions\BreadcrumbAction;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
@@ -51,7 +51,7 @@ class AccountSettingsSecurityOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.password.password'))
                     ->addBody(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::PASSWORD)
+                            ->setType(FormType::PASSWORD)
                             ->setVuexNamespace('user/auth/settings/passwordForm')
                     )
                     ->setFooterButton(
@@ -88,8 +88,8 @@ class AccountSettingsSecurityOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.one_time_password'))
                     ->addBody(
                         RowComponent::create()
-                            ->setJustify(VuetifyJustifyTypes::SPACE_BETWEEN)
-                            ->setAlign(VuetifyAlignTypes::CENTER)
+                            ->setJustify(VuetifyJustifyType::SPACE_BETWEEN)
+                            ->setAlign(VuetifyAlignType::CENTER)
                             ->setCols([
                                 ColComponent::create()
                                     ->setDefaultCol('auto')
@@ -131,7 +131,7 @@ class AccountSettingsSecurityOverviewResponse extends AbstractResponse
                                             ->addButtonIf(
                                                 $isEnabled,
                                                 ButtonComponent::create()
-                                                    ->setColor(VuetifyColors::ERROR)
+                                                    ->setColor(VuetifyColor::ERROR)
                                                     ->setTitle(trans('word.disable.disable'))
                                                     ->setAction(
                                                         RequestAction::create()

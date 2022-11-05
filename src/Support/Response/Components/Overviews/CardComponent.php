@@ -2,10 +2,11 @@
 
 namespace Support\Response\Components\Overviews;
 
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Response\Components\AbstractComponent;
 use Support\Response\Components\Buttons\AbstractButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
+use Support\Response\Components\Utils\ThemeComponent;
 
 class CardComponent extends AbstractComponent
 {
@@ -17,12 +18,12 @@ class CardComponent extends AbstractComponent
         $this->setOutlined();
         $this->setHasBody(false);
         $this->setHasFooter(false);
-        $this->setHeaderColor(VuetifyColors::TRANSPARENT);
+        $this->setHeaderColor(VuetifyColor::TRANSPARENT);
     }
 
     protected function getComponentName(): string
     {
-        return 'Card';
+        return 'CardComponent';
     }
 
     /**
@@ -56,13 +57,17 @@ class CardComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifyColors $colors
+     * @param VuetifyColor|ThemeComponent $color
      *
      * @return $this
      */
-    public function setColor(VuetifyColors $colors): static
+    public function setColor(VuetifyColor|ThemeComponent $color): static
     {
-        return $this->setAttribute('color', $colors->value);
+        $value = $color instanceof ThemeComponent
+            ? $color->export()
+            : $color->value;
+
+        return $this->setAttribute('color', $value);
     }
 
     /**
@@ -76,13 +81,17 @@ class CardComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifyColors $color
+     * @param VuetifyColor|ThemeComponent $color
      *
      * @return static
      */
-    public function setHeaderColor(VuetifyColors $color): static
+    public function setHeaderColor(VuetifyColor|ThemeComponent $color): static
     {
-        return $this->setData('headerColor', $color->value);
+        $value = $color instanceof ThemeComponent
+            ? $color->export()
+            : $color->value;
+
+        return $this->setData('headerColor', $value);
     }
 
     /**

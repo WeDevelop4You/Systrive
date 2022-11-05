@@ -6,14 +6,13 @@ use Domain\System\Mappings\SystemDNSTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\System\Models\SystemDNS.
+ * Domain\System\Models\SystemDNS
  *
- * @property int                             $id
- * @property int                             $system_id
- * @property string                          $name
+ * @property int $id
+ * @property int $system_id
+ * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS query()

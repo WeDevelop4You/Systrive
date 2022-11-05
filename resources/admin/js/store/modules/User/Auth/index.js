@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import settings from "./Settings";
 import permissions from "./permissions";
-import FormBase from "../../Base/formBase";
+import FormBase from "../../../base/formBase";
 
 const app = Vue.prototype
 

@@ -2,13 +2,12 @@
 
 namespace App\Admin\System\MailDomain\Responses;
 
-use App\Admin\System\MailDomain\Resources\SystemMailDomainResource;
 use Domain\Company\Models\Company;
 use Domain\System\Models\SystemMailDomain;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\ChartTypes;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\ChartType;
+use Support\Enums\Component\IconType;
 use Support\Response\Components\Buttons\IconButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
 use Support\Response\Components\Icons\IconComponent;
@@ -45,8 +44,7 @@ class SystemMailDomainOverviewResponse extends AbstractResponse
                         $this->createCardDiskUsages(),
                         $this->createTable(),
                     ])
-            )
-            ->addData(new SystemMailDomainResource($this->mailDomain));
+            );
     }
 
     /**
@@ -62,7 +60,7 @@ class SystemMailDomainOverviewResponse extends AbstractResponse
                         MultipleButtonComponent::create()
                             ->addButton(
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                             )
                     )
                     ->addBody(
@@ -111,7 +109,7 @@ class SystemMailDomainOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.disk.disk'))
                     ->addBody(
                         ChartComponent::create()
-                            ->setType(ChartTypes::SYSTEM_USAGES)
+                            ->setType(ChartType::SYSTEM_USAGES)
                             ->setUrl(route('admin.system.mail.domain.usage', [
                                 $this->company->id,
                                 $this->mailDomain->system_id,

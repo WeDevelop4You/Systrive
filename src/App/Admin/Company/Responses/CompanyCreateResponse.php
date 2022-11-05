@@ -4,8 +4,8 @@ namespace App\Admin\Company\Responses;
 
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
-use Support\Enums\SessionKeyTypes;
+use Support\Enums\Component\Form\FormType;
+use Support\Enums\SessionKeyType;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
@@ -39,12 +39,12 @@ class CompanyCreateResponse extends AbstractResponse
                     ->setTitle(trans('modal.company.complete'))
                     ->setForm(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::COMPANY_COMPLETE)
+                            ->setType(FormType::COMPANY_COMPLETE)
                     )
                     ->addFooterCancelButton(
                         RequestAction::create()
                             ->delete(route('admin.session.delete', [
-                                'key' => SessionKeyTypes::KEEP->value,
+                                'key' => SessionKeyType::KEEP->value,
                             ])),
                     )->addFooterSaveButton(
                         VuexAction::create()

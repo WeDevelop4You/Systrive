@@ -6,16 +6,15 @@ use Domain\Git\Mappings\GitAccountAccessTokensTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\Git\Models\GitAccountAccessTokens.
+ * Domain\Git\Models\GitAccountAccessTokens
  *
- * @property int                             $id
- * @property int                             $git_account_id
- * @property string                          $token
- * @property string|null                     $refresh_token
- * @property int|null                        $expires_in
+ * @property int $id
+ * @property int $git_account_id
+ * @property string $token
+ * @property string|null $refresh_token
+ * @property int|null $expires_in
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens query()

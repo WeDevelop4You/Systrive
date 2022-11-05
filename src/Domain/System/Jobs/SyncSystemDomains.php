@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
-use Support\Enums\VestaCommands;
+use Support\Enums\VestaCommand;
 use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
 
@@ -46,7 +46,7 @@ class SyncSystemDomains extends AbstractVestaSync
     protected function initialize(): void
     {
         $this->vesta = Vesta::api()->get(
-            VestaCommands::GET_USER_DOMAINS,
+            VestaCommand::GET_USER_DOMAINS,
             $this->system->username
         );
     }

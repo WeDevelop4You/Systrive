@@ -14,6 +14,7 @@
             return [
                 'name' => ['required', 'unique:companies,name'],
                 'email' => ['required', 'email'],
+                'modules' => ['required', 'array'],
             ];
         }
 

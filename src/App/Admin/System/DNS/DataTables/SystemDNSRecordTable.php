@@ -4,7 +4,7 @@
 
     use Illuminate\Support\Str;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\Component\IconTypes;
+    use Support\Enums\Component\IconType;
     use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Components\Buttons\IconButtonComponent;
     use Support\Response\Components\Buttons\MultipleButtonComponent;
@@ -53,7 +53,7 @@
                         return MultipleButtonComponent::create()
                             ->setButtons([
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TRASH)),
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH)),
                             ]);
                     }),
             ];

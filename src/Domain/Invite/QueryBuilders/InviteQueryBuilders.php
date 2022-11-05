@@ -13,6 +13,14 @@
 
     class InviteQueryBuilders extends Builder
     {
+        public function whereType(InviteTypes $type): InviteQueryBuilders
+        {
+            return match ($type) {
+                InviteTypes::USER => $this->whereUserType(),
+                InviteTypes::COMPANY => $this->whereCompanyType(),
+            };
+        }
+
         /**
          * @return InviteQueryBuilders
          */
@@ -27,14 +35,6 @@
         public function whereCompanyType(): InviteQueryBuilders
         {
             return $this->where(InviteTableMap::TYPE, InviteTypes::COMPANY);
-        }
-
-        public function whereType(InviteTypes $type): InviteQueryBuilders
-        {
-            return match ($type) {
-                InviteTypes::USER => $this->whereUserType(),
-                InviteTypes::COMPANY => $this->whereCompanyType(),
-            };
         }
 
         /**

@@ -1,6 +1,7 @@
 import Vue from 'vue';
-import dataTableBase from "../Base/dataTableBase";
-import FormBase from "../Base/formBase";
+import dataTableBase from "../../base/dataTableBase";
+import FormBase from "../../base/formBase";
+import {STATE_EDIT} from "../../../config/RouteState";
 
 const app = Vue.prototype
 
@@ -38,7 +39,7 @@ export default {
 
         states({dispatch}, action) {
             const actions = {
-                edit: () => {
+                [STATE_EDIT]: () => {
                     dispatch('edit', app.$api.route('admin.translation.edit', action.params.id));
                 },
             }

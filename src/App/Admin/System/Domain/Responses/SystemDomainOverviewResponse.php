@@ -2,17 +2,16 @@
 
 namespace App\Admin\System\Domain\Responses;
 
-use App\Admin\System\Domain\Resources\SystemDomainShowResource;
 use Domain\Company\Models\Company;
 use Domain\System\Enums\SystemUsageStatisticTypes;
 use Domain\System\Models\System;
 use Domain\System\Models\SystemDomain;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\ChartTypes;
-use Support\Enums\Component\IconTypes;
-use Support\Enums\System\SystemTemplateTypes;
-use Support\Enums\VestaCommands;
+use Support\Enums\Component\ChartType;
+use Support\Enums\Component\IconType;
+use Support\Enums\System\SystemTemplateType;
+use Support\Enums\VestaCommand;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\IconButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
@@ -56,8 +55,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
                         $this->createCardDiskUsages(),
                         $this->createCardBandwidthUsages(),
                     ])
-            )
-            ->addData(new SystemDomainShowResource($this->domain));
+            );
     }
 
     /**
@@ -67,7 +65,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
     {
         $data = Collection::make(
             Vesta::api()->get(
-                VestaCommands::GET_USER_DOMAIN,
+                VestaCommand::GET_USER_DOMAIN,
                 $this->system->username,
                 $this->domain->name
             )->first()
@@ -81,7 +79,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
                         MultipleButtonComponent::create()
                             ->addButton(
                                 IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
+                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                     ->setAction(
                                         VuexAction::create()->dispatch(
                                             'company/system/domain/edit',
@@ -103,7 +101,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
                                     ->setValue($this->domain->name),
                                 ItemTextComponent::create()
                                     ->setLabel(trans('word.template.template'))
-                                    ->setTemplate($data->get('TPL'), SystemTemplateTypes::WEB),
+                                    ->setTemplate($data->get('TPL'), SystemTemplateType::WEB),
                                 ItemGroupBadgesComponent::create()
                                     ->setLabel(trans('word.aliases.aliases'))
                                     ->convertStringArray($data->get('ALIAS')),
@@ -116,7 +114,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
                             ->addItems([
                                 ItemTextComponent::create()
                                     ->setLabel(trans('word.template.template'))
-                                    ->setTemplate($data->get('PROXY'), SystemTemplateTypes::DNS),
+                                    ->setTemplate($data->get('PROXY'), SystemTemplateType::DNS),
                                 ItemGroupBadgesComponent::create()
                                     ->setLabel(trans('word.extensions.extensions'))
                                     ->convertStringArray($data->get('PROXY_EXT')),
@@ -147,7 +145,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.disk.disk'))
                     ->addBody(
                         ChartComponent::create()
-                            ->setType(ChartTypes::SYSTEM_USAGES)
+                            ->setType(ChartType::SYSTEM_USAGES)
                             ->setUrl(route('admin.system.domain.usage', [
                                 $this->company->id,
                                 $this->system->id,
@@ -170,7 +168,7 @@ class SystemDomainOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.bandwidth.bandwidth'))
                     ->addBody(
                         ChartComponent::create()
-                            ->setType(ChartTypes::SYSTEM_USAGES)
+                            ->setType(ChartType::SYSTEM_USAGES)
                             ->setUrl(route('admin.system.domain.usage', [
                                 $this->company->id,
                                 $this->system->id,

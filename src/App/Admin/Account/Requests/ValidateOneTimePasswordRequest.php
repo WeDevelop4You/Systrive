@@ -2,8 +2,8 @@
 
 namespace App\Admin\Account\Requests;
 
+use Domain\Authentication\Rules\SecurityRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Rules\SecurityRule;
 
 class ValidateOneTimePasswordRequest extends FormRequest
 {

@@ -6,6 +6,7 @@ use App\Admin\Authentication\Requests\RegistrationRequest;
 use Domain\Authentication\Actions\RegisterUserAction;
 use Domain\Invite\Actions\ValidateInviteTokenAction;
 use Domain\Invite\DataTransferObject\InviteData;
+use Domain\Invite\Exceptions\InvalidTokenException;
 use Domain\User\DataTransferObjects\UserProfileData;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Foundation\Application;
@@ -15,11 +16,10 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
-use Support\Enums\SessionKeyTypes;
-use Support\Exceptions\InvalidTokenException;
+use Support\Enums\SessionKeyType;
 use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Response\Response;
-use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class RegistrationController
 {
@@ -28,9 +28,9 @@ class RegistrationController
      */
     public function index(): View|Factory|RedirectResponse|Application
     {
-        if (Session::has(SessionKeyTypes::REGISTRATION->value)) {
+        if (Session::has(SessionKeyType::REGISTRATION->value)) {
             try {
-                $inviteData = new InviteData(...Response::getSessionData(SessionKeyTypes::REGISTRATION));
+                $inviteData = new InviteData(...Response::getSessionData(SessionKeyType::REGISTRATION));
 
                 $invite = (new ValidateInviteTokenAction())($inviteData);
 
@@ -38,7 +38,7 @@ class RegistrationController
             } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
                 Response::create()
                     ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
+                    ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST)
                     ->toSession();
             }
         }
@@ -55,7 +55,7 @@ class RegistrationController
     {
         $response = new Response();
 
-        if (Session::has(SessionKeyTypes::REGISTRATION->value)) {
+        if (Session::has(SessionKeyType::REGISTRATION->value)) {
             $data = new UserProfileData(...$request->only([
                 'first_name',
                 'middle_name',
@@ -78,7 +78,7 @@ class RegistrationController
         }
 
         return $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
-            ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST)
+            ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST)
             ->toJson();
     }
 }

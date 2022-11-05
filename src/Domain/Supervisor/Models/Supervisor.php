@@ -10,14 +10,13 @@ use Support\Services\Supervisor as SupervisorService;
 use Support\Traits\Observers;
 
 /**
- * Domain\Supervisor\Models\Supervisor.
+ * Domain\Supervisor\Models\Supervisor
  *
- * @property int                             $id
- * @property string                          $name
- * @property string                          $filename
+ * @property int $id
+ * @property string $name
+ * @property string $filename
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor query()

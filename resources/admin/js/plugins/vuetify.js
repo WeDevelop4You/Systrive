@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuetify from 'vuetify/lib/framework'
-import translations from '../config/translations'
+import translations from '../config/Translations'
 
 Vue.use(Vuetify)
 
@@ -32,7 +32,7 @@ export default new Vuetify({
         },
 
         options: {
-            customProperties: false
+            customProperties: true
         },
     },
 

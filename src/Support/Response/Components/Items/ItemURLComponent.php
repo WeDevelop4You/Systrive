@@ -2,7 +2,8 @@
 
 namespace Support\Response\Components\Items;
 
-use Support\Enums\Component\Vuetify\VuetifyTextColors;
+use Support\Enums\Component\Vuetify\VuetifyTextColor;
+use Support\Response\Components\Utils\ThemeComponent;
 
 class ItemURLComponent extends AbstractItemComponent
 {
@@ -10,7 +11,7 @@ class ItemURLComponent extends AbstractItemComponent
     {
         parent::__construct();
 
-        $this->setColor(VuetifyTextColors::SECONDARY);
+        $this->setColor(VuetifyTextColor::SECONDARY);
     }
 
     /**
@@ -18,7 +19,7 @@ class ItemURLComponent extends AbstractItemComponent
      */
     protected function getComponentName(): string
     {
-        return 'URL';
+        return 'URLComponent';
     }
 
     /**
@@ -46,12 +47,16 @@ class ItemURLComponent extends AbstractItemComponent
     }
 
     /**
-     * @param VuetifyTextColors $color
+     * @param VuetifyTextColor|ThemeComponent $color
      *
      * @return ItemURLComponent
      */
-    public function setColor(VuetifyTextColors $color): ItemURLComponent
+    public function setColor(VuetifyTextColor|ThemeComponent $color): ItemURLComponent
     {
-        return $this->setData('color', $color->value);
+        $value = $color instanceof ThemeComponent
+            ? $color->export()
+            : $color->value;
+
+        return $this->setData('color', $value);
     }
 }

@@ -4,12 +4,12 @@
 
     use App\Admin\Company\Requests\CompanyCreateRequest;
     use App\Admin\Company\Responses\CompanyInviteResponse;
-    use Domain\Company\Actions\CreateCompanyAction;
+    use Domain\Company\Actions\CompanyStoreAction;
     use Domain\Invite\DataTransferObject\CompanyInviteData;
     use Illuminate\Http\JsonResponse;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class CompanyInviteController
     {
@@ -30,11 +30,11 @@
         {
             $data = new CompanyInviteData(...$requests->validated());
 
-            (new CreateCompanyAction())($data);
+            (new CompanyStoreAction())($data);
 
             return Response::create()
                 ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))
-                ->setStatusCode(ResponseCodes::HTTP_CREATED)
+                ->setStatusCode(ResponseCode::HTTP_CREATED)
                 ->toJson();
         }
     }

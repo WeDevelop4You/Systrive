@@ -48,38 +48,46 @@
                         v-text="$vuetify.lang.t(group.name)"
                     />
                 </v-col>
-                <template v-for="(item, index) in group.permissions">
+                <template v-for="(subGroups, name) in group.permissions">
+                    <template v-for="(item, index) in subGroups">
+                        <v-col
+                            v-if="name === 'view'"
+                            :key="`${key}_${name}_${index}`"
+                            class="py-0"
+                            cols="12"
+                            order="0"
+                        >
+                            <v-checkbox
+                                v-model="permissions"
+                                :value="item.id"
+                                :label="$vuetify.lang.t(item.name)"
+                                :disabled="hasRolePermissions(item.id)"
+                                dense
+                                hide-details
+                            />
+                        </v-col>
+                        <v-col
+                            v-else
+                            :key="`${key}_${name}_${index}`"
+                            class="py-0"
+                            cols="auto"
+                        >
+                            <v-checkbox
+                                v-model="permissions"
+                                :value="item.id"
+                                :label="$vuetify.lang.t(item.name)"
+                                :disabled="isViewSelected(group.id) || hasRolePermissions(item.id)"
+                                hide-details
+                                dense
+                            />
+                        </v-col>
+                    </template>
                     <v-col
-                        v-if="group.id === item.id"
-                        :key="`${key}_${index}`"
+                        v-if="Object.keys(group.permissions).pop() !== name"
                         class="py-0"
                         cols="12"
-                        order="0"
                     >
-                        <v-checkbox
-                            v-model="permissions"
-                            :value="item.id"
-                            :label="$vuetify.lang.t(item.name)"
-                            :disabled="hasRolePermissions(item.id)"
-                            dense
-                            hide-details
-                        />
                         <v-divider class="mt-2" />
-                    </v-col>
-                    <v-col
-                        v-else
-                        :key="`${key}_${index}`"
-                        class="py-0"
-                        cols="auto"
-                    >
-                        <v-checkbox
-                            v-model="permissions"
-                            :value="item.id"
-                            :label="$vuetify.lang.t(item.name)"
-                            :disabled="isViewSelected(group.id) || hasRolePermissions(item.id)"
-                            hide-details
-                            dense
-                        />
                     </v-col>
                 </template>
             </v-row>
@@ -89,7 +97,7 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import CustomFormProperties from "../../../mixins/Form/CustomFormProperties";
+    import CustomFormProperties from "../../../mixins/CustomFormProperties";
 
     export default {
         name: "CompanyUserForm",
@@ -137,33 +145,13 @@
         },
 
         created() {
-            if (this.$store.getters[`${this.vuexNamespace}/status`] === 'ready') {
-                this.getData()
-            }
+            this.roles = this.data.roles
+            this.permissions = this.data.permissions
 
-            this.unwatch = this.$store.watch(
-                (state, getters) => getters[`${this.vuexNamespace}/status`],
-                (status) => {
-                    switch (status) {
-                        case 'ready':
-                            this.getData()
-                    }
-                },
-            );
-        },
-
-        beforeDestroy() {
-            this.unwatch();
+            this.changeRolePermissions(this.data.roles)
         },
 
         methods: {
-            getData() {
-                this.roles = this.data.roles
-                this.permissions = this.data.permissions
-
-                this.changeRolePermissions(this.data.roles)
-            },
-
             changeRolePermissions(roles) {
                 let permissions = roles.map(role => {
                     return role.permissions

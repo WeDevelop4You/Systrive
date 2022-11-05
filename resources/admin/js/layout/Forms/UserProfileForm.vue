@@ -86,6 +86,7 @@
                     v-model="data.birth_date"
                     :max="maxDate"
                     no-title
+                    color="primary"
                     @input="datePickerClose"
                 />
             </v-menu>
@@ -94,7 +95,7 @@
 </template>
 
 <script>
-    import CustomFormProperties from "../../mixins/Form/CustomFormProperties";
+    import CustomFormProperties from "../../mixins/CustomFormProperties";
 
     export default {
         name: "UserProfileForm",

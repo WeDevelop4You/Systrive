@@ -24,6 +24,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "pragmarx/google2fa": "^8.0",
+        "sentry/sentry-laravel": "^2.14",
         "shweshi/opengraph": "^1.0",
         "spatie/laravel-permission": "^5.1",
         "wedevelop4you/laravel-translation-finder": "dev-master"

@@ -9,7 +9,7 @@
     use Illuminate\Support\Facades\Session;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class UserLocaleController
     {
@@ -40,7 +40,7 @@
                 (new UpdateUserLocaleAction())($locale);
             } else {
                 $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.locale')))
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+                    ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST);
             }
 
             return $response->toJson();

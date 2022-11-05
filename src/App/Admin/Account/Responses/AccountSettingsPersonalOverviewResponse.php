@@ -3,9 +3,9 @@
 namespace App\Admin\Account\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
-use Support\Enums\Component\Vuetify\VuetifyAlignTypes;
-use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\Form\FormType;
+use Support\Enums\Component\Vuetify\VuetifyAlignType;
+use Support\Enums\Component\Vuetify\VuetifyJustifyType;
 use Support\Response\Actions\BreadcrumbAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;
@@ -48,7 +48,7 @@ class AccountSettingsPersonalOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.personal.data'))
                     ->addBody(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::USER_PROFILE)
+                            ->setType(FormType::USER_PROFILE)
                             ->setVuexNamespace('user/auth/form')
                     )
                     ->setFooterButton(
@@ -78,8 +78,8 @@ class AccountSettingsPersonalOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.preferences'))
                     ->addBody(
                         RowComponent::create()
-                            ->setAlign(VuetifyAlignTypes::CENTER)
-                            ->setJustify(VuetifyJustifyTypes::SPACE_BETWEEN)
+                            ->setAlign(VuetifyAlignType::CENTER)
+                            ->setJustify(VuetifyJustifyType::SPACE_BETWEEN)
                             ->setCols([
                                 ColComponent::create()
                                     ->setDefaultCol('auto')
@@ -92,7 +92,7 @@ class AccountSettingsPersonalOverviewResponse extends AbstractResponse
                                     ->setDefaultCol('auto')
                                     ->setComponent(
                                         CustomComponent::create()
-                                            ->setType('LocaleDropdown')
+                                            ->setType('LocaleDropdownComponent')
                                     ),
                             ])
                     )

@@ -2,7 +2,7 @@
 
 namespace Domain\Git\Enums;
 
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
 
 enum GitServiceTypes: string
 {
@@ -21,13 +21,13 @@ enum GitServiceTypes: string
     }
 
     /**
-     * @return IconTypes
+     * @return IconType
      */
-    public function icon(): IconTypes
+    public function icon(): IconType
     {
         return match ($this) {
-            self::GITHUB => IconTypes::FAB_GITHUB,
-            self::GITLAB => IconTypes::FAB_GITLAB,
+            self::GITHUB => IconType::FAB_GITHUB,
+            self::GITLAB => IconType::FAB_GITLAB,
         };
     }
 }

@@ -5,24 +5,28 @@
     use App\Admin\Company\DataTables\CompanyTable;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
-    use Support\Abstracts\AbstractTable;
     use Support\Abstracts\Controllers\AbstractTableController;
     use Support\Helpers\DataTable\Build\DataTable;
 
     class CompanyTableController extends AbstractTableController
     {
-        protected function getDataTable(): AbstractTable
-        {
-            return CompanyTable::create();
-        }
+        protected string $dataTable = CompanyTable::class;
 
         /**
          * @return JsonResponse
          */
         public function index(): JsonResponse
         {
-            return DataTable::create($this->getDataTable())
-                ->query(Company::query()->with('owner'))
+            return $this->headers();
+        }
+
+        /**
+         * @return JsonResponse
+         */
+        public function action(): JsonResponse
+        {
+            return DataTable::create($this->structure())
+                ->query(Company::with('owner'))
                 ->export();
         }
     }

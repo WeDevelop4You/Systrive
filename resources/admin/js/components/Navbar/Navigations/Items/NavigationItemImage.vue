@@ -1,31 +1,29 @@
 <template>
     <v-list-item-avatar
         :class="{'mr-2': !isHidden}"
-        :max-width="value.attributes.maxWidth"
-        :max-height="value.attributes.maxHeight"
+        :max-width="component.attributes.maxWidth"
+        :max-height="component.attributes.maxHeight"
         class="my-0"
     >
         <c-image
             class="mx-auto"
-            :value="value"
+            :value="component"
         />
     </v-list-item-avatar>
 </template>
 
 <script>
     import CImage from "../../../Images/Image.vue"
-    import ComponentProperties from "../../../../mixins/ComponentProperties";
+    import ComponentBase from "../../../Base/ComponentBase";
 
     export default {
         name: "NavigationItemIcon",
 
+        extends: ComponentBase,
+
         components: {
             CImage
         },
-
-        mixins: [
-            ComponentProperties
-        ],
 
         props: {
             isHidden: {

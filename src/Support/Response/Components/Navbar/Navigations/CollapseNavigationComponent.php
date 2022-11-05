@@ -11,7 +11,7 @@ class CollapseNavigationComponent extends AbstractNavigationComponent
      */
     protected function getComponentName(): string
     {
-        return 'CollapseNavigation';
+        return 'CollapseNavigationComponent';
     }
 
     /**

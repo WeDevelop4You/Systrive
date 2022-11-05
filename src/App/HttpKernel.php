@@ -34,15 +34,17 @@ class HttpKernel extends Kernel
     protected $middlewarePriority = [
         \Illuminate\Cookie\Middleware\EncryptCookies::class,
         \Illuminate\Session\Middleware\StartSession::class,
-        \Support\Middleware\SetLocale::class,
+        \Support\Middleware\Localization::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests::class,
         \Illuminate\Routing\Middleware\ThrottleRequests::class,
         \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
         \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Domain\Cms\Middleware\InitialiseCmsDatabase::class,
+        \Domain\Cms\Middleware\InitialiseCmsTable::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
-        \Support\Middleware\SetCompanyPermissions::class,
+        \Support\Middleware\InitialiseCompany::class,
     ];
 
     /**
@@ -59,7 +61,7 @@ class HttpKernel extends Kernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Support\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Support\Middleware\SetLocale::class,
+            \Support\Middleware\Localization::class,
         ],
 
         'api' => [
@@ -67,8 +69,8 @@ class HttpKernel extends Kernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            \Support\Middleware\SetLocale::class,
-            \Support\Middleware\SetCompanyPermissions::class,
+            \Support\Middleware\Localization::class,
+            \Support\Middleware\InitialiseCompany::class,
         ],
     ];
 
@@ -90,7 +92,9 @@ class HttpKernel extends Kernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'permission.company' => \Domain\Permission\Middleware\CompanyPermissionsMiddleware::class,
         'csrf' => \Support\Middleware\VerifyCsrfToken::class,
+        'cms' => \Domain\Cms\Middleware\InitialiseCmsDatabase::class,
+        'cms.table' => \Domain\Cms\Middleware\InitialiseCmsTable::class,
     ];
 }

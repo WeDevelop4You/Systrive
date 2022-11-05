@@ -8,7 +8,7 @@ use Domain\System\Models\System;
 use Domain\System\Models\SystemDatabase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
-use Support\Enums\VestaCommands;
+use Support\Enums\VestaCommand;
 use Support\Services\Vesta;
 
 class SystemDatabaseOverviewController
@@ -23,7 +23,7 @@ class SystemDatabaseOverviewController
     public function index(Company $company, System $system, SystemDatabase $database): JsonResponse
     {
         $configData = Vesta::api()
-            ->get(VestaCommands::GET_USER_DATABASE, $system->username, $database->name)
+            ->get(VestaCommand::GET_USER_DATABASE, $system->username, $database->name)
             ->first();
 
         return SystemDatabaseOverviewResponse::create($company, $database, Collection::make($configData))->toJson();

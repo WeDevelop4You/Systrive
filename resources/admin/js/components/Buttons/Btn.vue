@@ -1,48 +1,52 @@
 <template>
     <tooltip
         v-slot="{tooltip}"
-        :value="value.data.tooltip"
+        :value="component.data.tooltip"
     >
         <v-btn
-            v-bind="value.attributes"
+            v-bind="component.attributes"
             :disabled="$loading"
-            :class="value.data.classes"
+            :class="component.data.classes"
             depressed
-            @click="$actions.call(value.data.action)"
+            @click="$actions.call(component.data.action)"
             v-on="tooltip"
         >
-            <template v-if="value.content.title">
-                {{ value.content.title }}
+            <template v-if="component.content.title">
+                {{ component.content.title }}
+            </template>
+            <template v-else-if="component.data.component">
+                <component
+                    :is="component.data.component.componentName"
+                    :value="component.data.component"
+                />
             </template>
             <template v-else>
-                <component
-                    :is="value.data.component.componentName"
-                    :value="value.data.component"
-                />
+                <component-error small/>
             </template>
         </v-btn>
     </tooltip>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
-    import tooltip from "../Utils/Tooltip.vue";
+    import Tooltip from "../Utils/Tooltip.vue";
+    import ComponentBase from "../Base/ComponentBase";
+    import ComponentError from "../ComponentError.vue";
+    import TextIconComponent from "../Icons/TextIcon.vue";
 
     export default {
         name: "Btn",
 
-        components: {
-            tooltip,
-            TextIcon: () => import('../Icons/TextIcon.vue')
-        },
+        extends: ComponentBase,
 
-        mixins: [
-            ComponentProperties,
-        ],
+        components: {
+            Tooltip,
+            ComponentError,
+            TextIconComponent,
+        },
 
         methods: {
             runDefaultAction() {
-                this.$actions.call(this.value.data.action)
+                this.$actions.call(this.component.data.action)
             }
         }
     }

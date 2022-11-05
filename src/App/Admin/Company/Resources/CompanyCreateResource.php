@@ -2,9 +2,13 @@
 
     namespace App\Admin\Company\Resources;
 
+    use Domain\Company\Models\Company;
     use Illuminate\Http\Request;
     use Illuminate\Http\Resources\Json\JsonResource;
 
+    /**
+     * @mixin Company
+     */
     class CompanyCreateResource extends JsonResource
     {
         /**
@@ -17,6 +21,7 @@
             return [
                 'name' => null,
                 'owner' => null,
+                'modules' => CompanyModuleResource::make($this->modules),
             ];
         }
     }

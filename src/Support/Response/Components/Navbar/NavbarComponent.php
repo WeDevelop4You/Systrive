@@ -12,7 +12,7 @@ class NavbarComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Navbar';
+        return 'NavbarComponent';
     }
 
     /**

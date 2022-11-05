@@ -44,7 +44,7 @@
 
         components: {
             Modal,
-            SimpleNotification: () => import('../components/Popups/Notifications/Simple.vue'),
+            SimpleNotificationComponent: () => import('../components/Popups/Notifications/Simple.vue'),
         },
 
         computed: {

@@ -4,15 +4,15 @@ namespace App\Admin\Authentication\Controllers;
 
 use App\Admin\Authentication\Requests\LoginRequest;
 use App\Admin\Authentication\Responses\OneTimePasswordResponse;
+use Domain\Authentication\Exceptions\RequiredOneTimePasswordException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
-use Support\Exceptions\RequiredOneTimePasswordException;
 use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Response\Response;
-use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class LoginController
 {
@@ -47,7 +47,7 @@ class LoginController
             $response->addErrors($e->errors());
         } catch (RequiredOneTimePasswordException) {
             $response = OneTimePasswordResponse::create()
-                ->setStatusCode(ResponseCodes::HTTP_UNPROCESSABLE_ENTITY);
+                ->setStatusCode(ResponseCode::HTTP_UNPROCESSABLE_ENTITY);
         }
 
         return $response->toJson();

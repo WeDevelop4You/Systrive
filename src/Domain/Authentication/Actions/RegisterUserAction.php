@@ -2,11 +2,12 @@
 
     namespace Domain\Authentication\Actions;
 
-    use Domain\Company\Actions\User\UserInviteToCompanyAcceptedAction;
+    use Domain\Company\Actions\CompanyUserUpdateInviteToAcceptedAction;
     use Domain\Company\Models\Company;
     use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\Invite\DataTransferObject\InviteData;
     use Domain\Invite\Enums\InviteTypes;
+    use Domain\Invite\Exceptions\InvalidTokenException;
     use Domain\Invite\Models\Invite;
     use Domain\User\Actions\UpdateUserPasswordAction;
     use Domain\User\Actions\UpdateUserProfileAction;
@@ -16,8 +17,7 @@
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\SessionKeyTypes;
-    use Support\Exceptions\InvalidTokenException;
+    use Support\Enums\SessionKeyType;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Response;
 
@@ -54,7 +54,7 @@
         public function __construct(
             private readonly string $password,
         ) {
-            $this->inviteData = new InviteData(...Response::getSessionData(SessionKeyTypes::REGISTRATION));
+            $this->inviteData = new InviteData(...Response::getSessionData(SessionKeyType::REGISTRATION));
 
             $this->invite = (new ValidateInviteTokenAction())($this->inviteData);
 
@@ -79,7 +79,7 @@
 
             $this->InviteTypeAction();
 
-            Session::forget(SessionKeyTypes::REGISTRATION->value);
+            Session::forget(SessionKeyType::REGISTRATION->value);
 
             Auth::login($this->user, true);
         }
@@ -93,7 +93,7 @@
         {
             switch ($this->invite->type) {
                 case InviteTypes::USER:
-                    (new UserInviteToCompanyAcceptedAction($this->user))($this->company);
+                    (new CompanyUserUpdateInviteToAcceptedAction($this->user))($this->company);
 
                     break;
                 case InviteTypes::COMPANY:
@@ -102,7 +102,7 @@
                             RequestAction::create()
                             ->get(route('admin.company.create', [$this->company->id, $this->inviteData->token]))
                         )
-                        ->toSession(SessionKeyTypes::KEEP);
+                        ->toSession(SessionKeyType::KEEP);
 
                     break;
                 default:

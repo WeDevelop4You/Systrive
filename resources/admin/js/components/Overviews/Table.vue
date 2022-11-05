@@ -12,12 +12,12 @@
     export default {
         name: "Table",
 
-        extends: ComponentBase,
-
         components: {
             LocaleDataTableComponent: () => import('../Tables/LocaleDataTable.vue'),
             ServerDataTableComponent: () => import('../Tables/ServerDataTable.vue')
         },
+
+        extends: ComponentBase,
 
         data() {
             return {

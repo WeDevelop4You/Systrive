@@ -8,7 +8,7 @@
             :mini-variant.sync="isMini"
         >
             <template v-if="!isLoad">
-                <skeleton-navbar :is-hidden="isMini"/>
+                <skeleton-navbar :is-hidden="isMini" />
             </template>
             <Navbar
                 v-else

@@ -84,6 +84,7 @@
                     </template>
                     <v-col
                         v-if="Object.keys(group.permissions).pop() !== name"
+                        :key="`${key}_${name}`"
                         class="py-0"
                         cols="12"
                     >

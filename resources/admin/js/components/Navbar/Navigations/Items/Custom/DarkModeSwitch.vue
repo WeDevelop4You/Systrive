@@ -31,11 +31,11 @@
     export default {
         name: "DarkModeSwitchList",
 
-        extends: ComponentBase,
-
         components: {
             NavigationItemIcon
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

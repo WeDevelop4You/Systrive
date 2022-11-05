@@ -19,11 +19,11 @@
     export default {
         name: "NavigationItemIcon",
 
-        extends: ComponentBase,
-
         components: {
             CImage
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

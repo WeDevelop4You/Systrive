@@ -38,14 +38,14 @@
     export default {
         name: "CollapseNavigation",
 
-        extends: ComponentBase,
-
         components: {
             Icon,
             NavigationItemComponent,
             NavigationCreateItemComponent,
             NavigationCustomItemComponent
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

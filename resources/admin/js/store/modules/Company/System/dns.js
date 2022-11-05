@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import dataTableBase from "../../../base/dataTableBase";
 import OverviewBase from "../../../base/overviewBase";
 

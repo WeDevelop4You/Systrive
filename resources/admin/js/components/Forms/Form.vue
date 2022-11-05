@@ -12,11 +12,11 @@
     export default {
         name: "Form",
 
-        extends: ComponentBase,
-
         components: {
             Row,
         },
+
+        extends: ComponentBase,
 
         props: {
             vuexNamespace: {

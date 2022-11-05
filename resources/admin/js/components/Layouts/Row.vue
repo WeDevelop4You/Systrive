@@ -18,10 +18,10 @@
     export default {
         name: "Row",
 
-        extends: ComponentBase,
-
         components: {
             LCol,
         },
+
+        extends: ComponentBase,
     }
 </script>

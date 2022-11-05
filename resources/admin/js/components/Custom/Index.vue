@@ -11,10 +11,10 @@
     export default {
         name: "Index",
 
-        extends: ComponentBase,
-
         components: {
             LocaleDropdownComponent: () => import('./LocaleDropdown.vue')
         },
+
+        extends: ComponentBase,
     }
 </script>

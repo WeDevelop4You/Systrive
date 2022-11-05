@@ -15,10 +15,10 @@ import ComponentBase from "../Base/ComponentBase";
 export default {
     name: "GroupBadges",
 
-    extends: ComponentBase,
-
     components: {
         badge,
     },
+
+    extends: ComponentBase,
 }
 </script>

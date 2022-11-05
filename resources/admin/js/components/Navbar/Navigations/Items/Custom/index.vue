@@ -12,11 +12,11 @@
     export default {
         name: "NavigationItem",
 
-        extends: ComponentBase,
-
         components: {
             DarkModeSwitchComponent: () => import('./DarkModeSwitch.vue')
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

@@ -18,11 +18,11 @@
     export default {
         name: "Modal",
 
-        extends: ComponentBase,
-
         components: {
             Card
         },
+
+        extends: ComponentBase,
 
         methods: {
             change(isOpen) {

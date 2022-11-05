@@ -11,10 +11,10 @@
     export default {
         name: "CustomInput",
 
-        extends: ComponentBase,
-
         components: {
             SelectColumnInputComponent: () => import('./Custom/SelectColumnInput.vue')
-        }
+        },
+
+        extends: ComponentBase
     }
 </script>

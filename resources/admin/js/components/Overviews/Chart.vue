@@ -20,8 +20,6 @@
     export default {
         name: "Chart",
 
-        extends: ComponentBase,
-
         components: {
             SkeletonChart,
 
@@ -33,6 +31,8 @@
                 timeout: 10000
             }),
         },
+
+        extends: ComponentBase,
 
         data() {
             return {

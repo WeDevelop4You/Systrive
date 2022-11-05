@@ -16,11 +16,11 @@
     export default {
         name: "ConditionInput",
 
-        extends: ComponentBase,
-
         components: {
             LCol
         },
+
+        extends: ComponentBase,
 
         data() {
             return {

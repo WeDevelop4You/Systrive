@@ -22,12 +22,12 @@
     export default {
         name: "RichTextareaInput",
 
-        extends: FormComponentBase,
-
 
         components: {
             Editor
         },
+
+        extends: FormComponentBase,
 
         data() {
             return {

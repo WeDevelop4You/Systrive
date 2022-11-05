@@ -13,7 +13,7 @@
     import FormComponentBase from "../../Base/FormComponentBase";
 
     export default {
-        name: "checkboxInput",
+        name: "CheckboxInput",
 
         extends: FormComponentBase
     }

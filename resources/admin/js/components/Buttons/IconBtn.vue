@@ -28,12 +28,12 @@
     export default {
         name: "IconBtn",
 
-        extends: ComponentBase,
-
         components: {
             Tooltip,
             Icon,
         },
+
+        extends: ComponentBase,
 
         methods: {
             runDefaultAction() {

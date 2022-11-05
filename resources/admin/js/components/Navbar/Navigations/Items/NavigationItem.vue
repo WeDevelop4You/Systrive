@@ -32,13 +32,13 @@
     export default {
         name: "NavigationItem",
 
-        extends: ComponentBase,
-
         components: {
             Tooltip,
             IconComponent,
             ImageComponent,
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

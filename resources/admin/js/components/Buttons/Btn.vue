@@ -21,7 +21,7 @@
                 />
             </template>
             <template v-else>
-                <component-error small/>
+                <component-error small />
             </template>
         </v-btn>
     </tooltip>
@@ -36,13 +36,13 @@
     export default {
         name: "Btn",
 
-        extends: ComponentBase,
-
         components: {
             Tooltip,
             ComponentError,
             TextIconComponent,
         },
+
+        extends: ComponentBase,
 
         methods: {
             runDefaultAction() {

@@ -40,12 +40,12 @@
     export default {
         name: "Navbar",
 
-        extends: ComponentBase,
-
         components: {
             GroupNavigationComponent,
             CollapseNavigationComponent,
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

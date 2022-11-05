@@ -4,8 +4,8 @@
             <ComponentLoading />
         </template>
         <component
-            v-else
             :is="overview.componentName"
+            v-else
             :value="overview"
         />
     </div>
@@ -20,15 +20,6 @@
     export default {
         name: "Page",
 
-        props: {
-            value: {
-                type: Object,
-                default: () => {
-                    return {data: {}}
-                }
-            }
-        },
-
         components: {
             ComponentError,
             ComponentLoading,
@@ -37,6 +28,25 @@
         mixins: [
             ComponentList
         ],
+
+        beforeRouteUpdate(to, from, next) {
+            if (this.hasUpdateOnRouteChange && this.getUpdateOnRouteChangeCondition(to, from)) {
+                this.component = Component.empty()
+
+                this.getComponent(to)
+            }
+
+            next()
+        },
+
+        props: {
+            value: {
+                type: Object,
+                default: () => {
+                    return {data: {}}
+                }
+            }
+        },
 
         data() {
             return {
@@ -47,16 +57,6 @@
                 refreshDelay: this.value.data.refreshDelay,
                 updateOnRouteChange: this.value.data.updateOnRouteChange
             }
-        },
-
-        beforeRouteUpdate(to, from, next) {
-            if (this.hasUpdateOnRouteChange && this.getUpdateOnRouteChangeCondition(to, from)) {
-                this.component = Component.empty()
-
-                this.getComponent(to)
-            }
-
-            next()
         },
 
         computed: {

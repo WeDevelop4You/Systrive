@@ -1,7 +1,7 @@
 <template>
     <component
-        v-if="isReady"
         :is="component.data.type || 'ComponentError'"
+        v-if="isReady"
         v-bind="component.attributes"
         @defaultAction="$emit('defaultAction')"
     />
@@ -14,8 +14,6 @@
 
     export default {
         name: "CustomForm",
-
-        extends: ComponentBase,
 
         components: {
             ComponentError,
@@ -68,6 +66,8 @@
                 ...LazyImportProperties
             }),
         },
+
+        extends: ComponentBase,
 
         props: {
             vuexNamespace: {

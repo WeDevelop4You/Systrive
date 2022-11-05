@@ -23,10 +23,10 @@
     export default {
         name: "TextIcon",
 
-        extends: ComponentBase,
-
         components: {
             Fragment
         },
+
+        extends: ComponentBase,
     }
 </script>

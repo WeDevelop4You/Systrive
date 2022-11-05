@@ -21,13 +21,13 @@
     export default {
         name: "GroupNavigation",
 
-        extends: ComponentBase,
-
         components: {
             NavigationItemComponent,
             NavigationCreateItemComponent,
             NavigationCustomItemComponent
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

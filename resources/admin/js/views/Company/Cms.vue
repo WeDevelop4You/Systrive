@@ -1,16 +1,10 @@
 <template>
-    <router-view v-if="isLoaded"/>
+    <router-view v-if="isLoaded" />
 </template>
 
 <script>
     export default {
         name: "Cms",
-
-        data() {
-            return {
-                isLoaded: false
-            }
-        },
 
         beforeRouteUpdate(to, from, next) {
             if (to.params.cmsName !== from.params.cmsName) {
@@ -18,6 +12,12 @@
             }
 
             next()
+        },
+
+        data() {
+            return {
+                isLoaded: false
+            }
         },
 
         created() {

@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-if="!component.content.value">
-            <v-list-item-subtitle v-text="$vuetify.lang.t('$vuetify.word.no_content')"/>
+            <v-list-item-subtitle v-text="$vuetify.lang.t('$vuetify.word.no_content')" />
         </template>
         <v-hover
             v-else

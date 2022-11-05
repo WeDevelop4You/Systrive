@@ -14,7 +14,8 @@
             <icon
                 :value="icon"
                 center
-                class="mx-auto"/>
+                class="mx-auto"
+            />
         </v-list-item>
     </tooltip>
 </template>
@@ -28,12 +29,12 @@
     export default {
         name: "NavigationCreateItem",
 
-        extends: ComponentBase,
-
         components: {
             Icon,
             Tooltip
         },
+
+        extends: ComponentBase,
 
         props: {
             isHidden: {

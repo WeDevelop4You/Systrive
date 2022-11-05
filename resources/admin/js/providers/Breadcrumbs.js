@@ -1,7 +1,6 @@
 import Breadcrumb from "../helpers/Breadcrumb";
 import Import from "../helpers/Import";
 
-const $store = Import.store()
 const $vuetify = Import.vuetify()
 
 class Breadcrumbs {

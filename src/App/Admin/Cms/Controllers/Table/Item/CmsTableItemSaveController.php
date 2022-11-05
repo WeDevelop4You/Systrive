@@ -3,7 +3,6 @@
 namespace App\Admin\Cms\Controllers\Table\Item;
 
 use App\Admin\Cms\Requests\CmsTableItemRequest;
-use App\Admin\Cms\Responses\Table\Item\CmsTableItemHistoryResponse;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;

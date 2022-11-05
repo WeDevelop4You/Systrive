@@ -14,22 +14,23 @@ use Illuminate\Support\Carbon;
 use Support\Enums\ScheduleType;
 
 /**
- * Domain\Job\Models\JobOperation
+ * Domain\Job\Models\JobOperation.
  *
- * @property int $id
- * @property ScheduleType|null $schedule_type
- * @property int|null $parent_id
- * @property string|null $uuid
- * @property string|null $name
- * @property int|null $start_time
- * @property int|null $end_time
+ * @property int                     $id
+ * @property ScheduleType|null       $schedule_type
+ * @property int|null                $parent_id
+ * @property string|null             $uuid
+ * @property string|null             $name
+ * @property int|null                $start_time
+ * @property int|null                $end_time
  * @property JobOperationStatusTypes $status
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read JobOperationCollections|JobOperation[] $children
+ * @property Carbon|null             $created_at
+ * @property Carbon|null             $updated_at
+ * @property-read JobOperation[]|JobOperationCollections $children
  * @property-read JobOperation|null $parent
- * @method static JobOperationCollections|static[] all($columns = ['*'])
- * @method static JobOperationCollections|static[] get($columns = ['*'])
+ *
+ * @method static JobOperationCollections|static[]       all($columns = ['*'])
+ * @method static JobOperationCollections|static[]       get($columns = ['*'])
  * @method static JobOperationQueryBuilders|JobOperation newModelQuery()
  * @method static JobOperationQueryBuilders|JobOperation newQuery()
  * @method static JobOperationQueryBuilders|JobOperation query()
@@ -44,6 +45,7 @@ use Support\Enums\ScheduleType;
  * @method static JobOperationQueryBuilders|JobOperation whereStatus($value)
  * @method static JobOperationQueryBuilders|JobOperation whereUpdatedAt($value)
  * @method static JobOperationQueryBuilders|JobOperation whereUuid($value)
+ *
  * @mixin Eloquent
  */
 class JobOperation extends Model

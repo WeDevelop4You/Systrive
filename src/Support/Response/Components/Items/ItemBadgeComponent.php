@@ -24,7 +24,7 @@ class ItemBadgeComponent extends AbstractItemComponent
     }
 
     /**
-     * @param VuetifyColor|ThemeComponent $color
+     * @param ThemeComponent|VuetifyColor $color
      *
      * @return ItemBadgeComponent
      */

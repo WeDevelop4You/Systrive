@@ -5,7 +5,6 @@ namespace Support\Response\Components\Popups\Modals;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\ModalCloseType;
 use Support\Response\Actions\AbstractAction;
-use Support\Response\Actions\PopupModalAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\AbstractButtonComponent;
 use Support\Response\Components\Buttons\ButtonComponent;

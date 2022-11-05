@@ -6,7 +6,6 @@ use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Enums\Component\Vuetify\VuetifyTransitionType;
 use Support\Response\Actions\ChainAction;
-use Support\Response\Actions\PopupModalAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\AbstractComponent;
 use Support\Response\Components\Buttons\IconButtonComponent;

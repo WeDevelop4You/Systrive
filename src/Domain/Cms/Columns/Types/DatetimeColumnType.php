@@ -16,7 +16,7 @@ use Support\Response\Components\Forms\Inputs\DatetimePickerInputComponent;
 class DatetimeColumnType extends AbstractColumnType
 {
     private array $validation = [
-        'string', 'date_format:Y-m-d H:i:s'
+        'string', 'date_format:Y-m-d H:i:s',
     ];
 
     protected function getOptions(): Collection
@@ -51,7 +51,7 @@ class DatetimeColumnType extends AbstractColumnType
             ->setFormat(function (Model $data, string $key) {
                 $value = $data->getAttribute($key);
 
-                if (!is_null($value)) {
+                if (!\is_null($value)) {
                     if (!$value instanceof Carbon) {
                         $value = new Carbon($value);
                     }

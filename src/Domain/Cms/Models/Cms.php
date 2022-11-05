@@ -14,36 +14,37 @@ use Illuminate\Support\Carbon;
 use Support\Casts\EncryptionCast;
 use Support\Helpers\DecryptHelper;
 use Support\Services\Cms as CmsService;
-use function in_array;
 
 /**
- * Domain\Cms\Models\Cms
+ * Domain\Cms\Models\Cms.
  *
- * @property int $id
- * @property int|null $company_id
- * @property string $name
- * @property string $database
+ * @property int           $id
+ * @property int|null      $company_id
+ * @property string        $name
+ * @property string        $database
  * @property DecryptHelper $username
  * @property DecryptHelper $password
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Carbon|null $deleted_at
+ * @property Carbon|null   $created_at
+ * @property Carbon|null   $updated_at
+ * @property Carbon|null   $deleted_at
  * @property-read Company|null $company
- * @method static Builder|Cms newModelQuery()
- * @method static Builder|Cms newQuery()
+ *
+ * @method static Builder|Cms                            newModelQuery()
+ * @method static Builder|Cms                            newQuery()
  * @method static \Illuminate\Database\Query\Builder|Cms onlyTrashed()
- * @method static Builder|Cms query()
- * @method static Builder|Cms whereCompanyId($value)
- * @method static Builder|Cms whereCreatedAt($value)
- * @method static Builder|Cms whereDatabase($value)
- * @method static Builder|Cms whereDeletedAt($value)
- * @method static Builder|Cms whereId($value)
- * @method static Builder|Cms whereName($value)
- * @method static Builder|Cms wherePassword($value)
- * @method static Builder|Cms whereUpdatedAt($value)
- * @method static Builder|Cms whereUsername($value)
+ * @method static Builder|Cms                            query()
+ * @method static Builder|Cms                            whereCompanyId($value)
+ * @method static Builder|Cms                            whereCreatedAt($value)
+ * @method static Builder|Cms                            whereDatabase($value)
+ * @method static Builder|Cms                            whereDeletedAt($value)
+ * @method static Builder|Cms                            whereId($value)
+ * @method static Builder|Cms                            whereName($value)
+ * @method static Builder|Cms                            wherePassword($value)
+ * @method static Builder|Cms                            whereUpdatedAt($value)
+ * @method static Builder|Cms                            whereUsername($value)
  * @method static \Illuminate\Database\Query\Builder|Cms withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Cms withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Cms extends Model
@@ -102,7 +103,7 @@ class Cms extends Model
      */
     public function resolveChildRouteBinding($childType, $value, $field): ?Model
     {
-        if (in_array($childType, ['table'])) {
+        if (\in_array($childType, ['table'])) {
             CmsService::createConnection($this);
 
             return match ($childType) {

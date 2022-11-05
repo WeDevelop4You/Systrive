@@ -2,15 +2,10 @@
 
 namespace Domain\Cms\Rules;
 
-use Domain\User\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Support\Helpers\SecurityHelper;
 
 class ArrayMustContainRule implements Rule
 {
@@ -34,7 +29,7 @@ class ArrayMustContainRule implements Rule
         }
 
         foreach ($this->items as $item) {
-            if (!in_array($item, $value)) {
+            if (!\in_array($item, $value)) {
                 return false;
             }
         }

@@ -21,25 +21,25 @@
         public function render(Request $request): bool|JsonResponse
         {
 //            if ($request->is('api/*') && $request->routeIs('admin.*')) {
-                $response = new Response();
+            $response = new Response();
 
-                switch ($request->getMethod()) {
-                    case 'DELETE':
-                        $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.delete')));
+            switch ($request->getMethod()) {
+                case 'DELETE':
+                    $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.delete')));
 
-                        break;
-                    case 'GET':
-                        $lastRouteName = $request->header('X-Last-Route-Name', '');
+                    break;
+                case 'GET':
+                    $lastRouteName = $request->header('X-Last-Route-Name', '');
 
-                        if (Str::startsWith($lastRouteName, ['company.'])) {
-                            $response->addAction(RouteAction::create()->goToDashboard());
-                        }
-                        // no break
-                    default:
-                        $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.not.found')));
-                }
+                    if (Str::startsWith($lastRouteName, ['company.'])) {
+                        $response->addAction(RouteAction::create()->goToDashboard());
+                    }
+                    // no break
+                default:
+                    $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.not.found')));
+            }
 
-                return $response->setStatusCode(ResponseCode::HTTP_NOT_FOUND)->toJson();
+            return $response->setStatusCode(ResponseCode::HTTP_NOT_FOUND)->toJson();
 //            }
 //
 //            return false;

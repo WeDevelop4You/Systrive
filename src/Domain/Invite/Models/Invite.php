@@ -18,15 +18,16 @@ use Illuminate\Support\Carbon;
 use Support\Traits\Observers;
 
 /**
- * Domain\Invite\Models\Invite
+ * Domain\Invite\Models\Invite.
  *
- * @property int $company_id
- * @property int $user_id
- * @property string $token
+ * @property int         $company_id
+ * @property int         $user_id
+ * @property string      $token
  * @property InviteTypes $type
- * @property mixed $created_at
+ * @property mixed       $created_at
  * @property-read Company $company
  * @property-read User $user
+ *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
  * @method static InviteQueryBuilders|Invite query()
@@ -41,6 +42,7 @@ use Support\Traits\Observers;
  * @method static InviteQueryBuilders|Invite whereUserByEmail(string $email)
  * @method static InviteQueryBuilders|Invite whereUserId($value)
  * @method static InviteQueryBuilders|Invite whereUserType()
+ *
  * @mixin Eloquent
  */
 class Invite extends Model

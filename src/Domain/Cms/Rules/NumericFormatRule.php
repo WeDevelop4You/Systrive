@@ -2,15 +2,7 @@
 
 namespace Domain\Cms\Rules;
 
-use Domain\User\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Support\Helpers\SecurityHelper;
 
 class NumericFormatRule implements Rule
 {
@@ -30,13 +22,13 @@ class NumericFormatRule implements Rule
     public function passes($attribute, $value): bool
     {
         if (!$this->places) {
-            return strlen($value) <= $this->total;
+            return \strlen($value) <= $this->total;
         }
 
-         return preg_match(
-             "/[0-9]{1,{$this->total}}(.[0-9]{1,{$this->places}})?$/",
-             $value
-         );
+        return preg_match(
+            "/[0-9]{1,{$this->total}}(.[0-9]{1,{$this->places}})?$/",
+            $value
+        );
     }
 
     /**
@@ -47,4 +39,3 @@ class NumericFormatRule implements Rule
         return trans('validation.format.number');
     }
 }
-

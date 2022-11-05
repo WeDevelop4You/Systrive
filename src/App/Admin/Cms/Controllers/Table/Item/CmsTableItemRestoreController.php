@@ -2,7 +2,6 @@
 
 namespace App\Admin\Cms\Controllers\Table\Item;
 
-use App\Admin\Cms\Responses\Table\Item\CmsTableItemHistoryResponse;
 use App\Admin\Cms\Responses\Table\Item\CmsTableItemRestoreResponse;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsModel;

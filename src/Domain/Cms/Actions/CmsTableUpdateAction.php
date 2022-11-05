@@ -31,8 +31,8 @@ class CmsTableUpdateAction
     /**
      * @param CmsTableData $data
      *
-     *
      * @throws Exception
+     *
      * @return int
      */
     public function __invoke(CmsTableData $data): int
@@ -86,13 +86,14 @@ class CmsTableUpdateAction
         $after = null;
         $existingColumns = $this->deleteColumns($columns);
 
-        $columns->map(function(CmsColumn $column) use ($existingColumns) {
+        $columns->map(function (CmsColumn $column) use ($existingColumns) {
             $existingColumn = $existingColumns->firstWhere(
-                CmsColumnTableMap::KEY, $column->getAttribute(CmsColumnTableMap::ORIGINAL_KEY)
+                CmsColumnTableMap::KEY,
+                $column->getAttribute(CmsColumnTableMap::ORIGINAL_KEY)
             );
 
             if ($existingColumn instanceof CmsColumn) {
-                if (in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                if (\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
                     $existingColumn->after = $column->after;
 
                     return $existingColumn;
@@ -116,7 +117,7 @@ class CmsTableUpdateAction
         })
             ->sortBy(CmsColumnTableMap::AFTER)
             ->each(function (CmsColumn $column, int $index) use (&$after) {
-                $this->schema->table($this->table->name, function(Blueprint $table) use ($column, $index, $after) {
+                $this->schema->table($this->table->name, function (Blueprint $table) use ($column, $index, $after) {
                     $exist = $column->exists;
                     $template = $column->template();
 
@@ -152,7 +153,7 @@ class CmsTableUpdateAction
     /**
      * @param Collection $columns
      *
-     * @return Collection|array
+     * @return array|Collection
      */
     private function deleteColumns(Collection $columns): Collection|array
     {
@@ -160,15 +161,15 @@ class CmsTableUpdateAction
 
         return $this->table->columns->filter(function (CmsColumn $column) use ($keys) {
             if (
-                in_array($column->key, $keys) ||
-                in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS)
+                \in_array($column->key, $keys) ||
+                \in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS)
             ) {
                 return true;
             }
 
             $this->schema->table(
                 $this->table->name,
-                fn(Blueprint $table) => $table->dropColumn($column->key)
+                fn (Blueprint $table) => $table->dropColumn($column->key)
             );
 
             $column->delete();

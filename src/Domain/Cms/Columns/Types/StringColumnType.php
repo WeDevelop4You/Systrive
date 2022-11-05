@@ -2,13 +2,11 @@
 
 namespace Domain\Cms\Columns\Types;
 
-use Domain\Cms\Columns\Options\DefaultColumnOption;
 use Domain\Cms\Columns\Options\Defaults\DefaultStringColumnOption;
 use Domain\Cms\Columns\Options\MaxLengthColumnOption;
 use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Columns\Options\UniqueColumnOption;
-use Domain\Cms\Enums\CmsColumnDefaultType;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Foundation\Http\FormRequest;

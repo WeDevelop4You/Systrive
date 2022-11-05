@@ -40,4 +40,4 @@ Route::prefix('{company}/roles')
                     Route::delete('/', 'action')->name('company.role.destroy');
                 });
         });
-});
+    });

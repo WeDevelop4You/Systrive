@@ -23,7 +23,7 @@ class CollectionMixin
 
     public static function json(): Closure
     {
-        return function(string $value): static {
+        return function (string $value): static {
             return static::make(json_decode($value, true));
         };
     }

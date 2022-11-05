@@ -9,7 +9,6 @@ use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Response\Actions\ChainAction;
-use Support\Response\Actions\PopupModalAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;
 use Support\Response\Components\Buttons\MultipleButtonComponent;
@@ -32,8 +31,8 @@ class CmsTableCreateResponse extends AbstractResponse
     /**
      * CmsTableResponse constructor.
      *
-     * @param Company  $company
-     * @param Cms      $cms
+     * @param Company $company
+     * @param Cms     $cms
      */
     public function __construct(
         private readonly Company $company,
@@ -65,7 +64,7 @@ class CmsTableCreateResponse extends AbstractResponse
                 'company/cms/table/columns/list',
                 route('admin.company.cms.table.column.create.list', [
                     $this->company->id,
-                    $this->cms->id
+                    $this->cms->id,
                 ])
             ))
             ->addPopup(
@@ -93,13 +92,13 @@ class CmsTableCreateResponse extends AbstractResponse
             ->setHeaderUrl(
                 route('admin.company.cms.table.column.create.table.headers', [
                     $this->company->id,
-                    $this->cms->id
+                    $this->cms->id,
                 ])
             )
             ->setItemsUrl(
                 route('admin.company.cms.table.column.create.table.items', [
                     $this->company->id,
-                    $this->cms->id
+                    $this->cms->id,
                 ])
             )
             ->setPrependComponent(

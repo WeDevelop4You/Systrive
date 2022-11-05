@@ -16,7 +16,7 @@ use Support\Response\Components\Forms\Inputs\TimePickerInputComponent;
 class TimeColumnType extends AbstractColumnType
 {
     private array $validation = [
-        'string', 'date_format:H:i:s'
+        'string', 'date_format:H:i:s',
     ];
 
     protected function getOptions(): Collection
@@ -28,7 +28,7 @@ class TimeColumnType extends AbstractColumnType
             new DefaultTimestampColumnOption(
                 $this->validation
             ),
-            new RowColColumnOption()
+            new RowColColumnOption(),
         ]);
     }
 
@@ -51,7 +51,7 @@ class TimeColumnType extends AbstractColumnType
             ->setFormat(function (Model $data, string $key) {
                 $value = $data->getAttribute($key);
 
-                if (!is_null($value)) {
+                if (!\is_null($value)) {
                     if (!$value instanceof Carbon) {
                         $value = new Carbon($value);
                     }

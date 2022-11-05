@@ -2,8 +2,6 @@
 
 namespace App\Admin\Cms\Controllers;
 
-use App\Admin\Cms\Responses\CmsDestroyResponse;
-use Domain\Cms\Actions\CmsDestroyAction;
 use Domain\Cms\Actions\CmsRestoreAction;
 use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;

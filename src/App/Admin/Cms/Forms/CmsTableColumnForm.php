@@ -5,7 +5,6 @@ namespace App\Admin\Cms\Forms;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Models\CmsColumn;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractForm;
 use Support\Enums\Component\Form\FormSelectInputType;
@@ -93,7 +92,7 @@ class CmsTableColumnForm extends AbstractForm
                         ConditionInputComponent::create()
                             ->setPath('type.additional')
                             ->setVuexNamespace('company/cms/table/columns/form/data')
-                    )
+                    ),
             ]);
     }
 }

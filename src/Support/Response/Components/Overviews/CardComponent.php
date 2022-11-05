@@ -57,7 +57,7 @@ class CardComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifyColor|ThemeComponent $color
+     * @param ThemeComponent|VuetifyColor $color
      *
      * @return $this
      */
@@ -81,7 +81,7 @@ class CardComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifyColor|ThemeComponent $color
+     * @param ThemeComponent|VuetifyColor $color
      *
      * @return static
      */

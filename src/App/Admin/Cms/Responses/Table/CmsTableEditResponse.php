@@ -9,7 +9,6 @@ use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Response\Actions\ChainAction;
-use Support\Response\Actions\PopupModalAction;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;
@@ -69,7 +68,7 @@ class CmsTableEditResponse extends AbstractResponse
                 route('admin.company.cms.table.column.edit.list', [
                     $this->company->id,
                     $this->cms->id,
-                    $this->table->id
+                    $this->table->id,
                 ])
             ))
             ->addPopup(
@@ -98,14 +97,14 @@ class CmsTableEditResponse extends AbstractResponse
                 route('admin.company.cms.table.column.edit.table.headers', [
                     $this->company->id,
                     $this->cms->id,
-                    $this->table->id
+                    $this->table->id,
                 ])
             )
             ->setItemsUrl(
                 route('admin.company.cms.table.column.edit.table.items', [
                     $this->company->id,
                     $this->cms->id,
-                    $this->table->id
+                    $this->table->id,
                 ])
             )
             ->setPrependComponent(
@@ -146,7 +145,7 @@ class CmsTableEditResponse extends AbstractResponse
                             route('admin.company.cms.table.confirm', [
                                 $this->company->id,
                                 $this->cms->id,
-                                $this->table->id
+                                $this->table->id,
                             ])
                         )
                     )

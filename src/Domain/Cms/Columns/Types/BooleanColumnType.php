@@ -21,7 +21,7 @@ class BooleanColumnType extends AbstractColumnType
     {
         return Collection::make([
             new DefaultBooleanColumnOption(),
-            new RowColColumnOption()
+            new RowColColumnOption(),
         ]);
     }
 
@@ -42,7 +42,7 @@ class BooleanColumnType extends AbstractColumnType
             ->setSortable()
             ->setSearchable()
             ->setAlignment(VuetifyTableAlignmentType::CENTER)
-            ->setFormat(function(CmsModel $data) {
+            ->setFormat(function (CmsModel $data) {
                 if ($data->getAttribute($this->column->key)) {
                     return IconComponent::create()
                         ->setType(IconType::FAS_CHECK)

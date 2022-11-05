@@ -21,7 +21,10 @@ class CmsTableColumnEditController
     public function index(Request $request, Company $company, Cms $cms, string $key): JsonResponse
     {
         return CmsTableColumnEditResponse::create(
-            $company, $cms, $key, $request->query('isEditing', false)
+            $company,
+            $cms,
+            $key,
+            $request->query('isEditing', false)
         )->toJson();
     }
 }

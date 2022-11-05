@@ -28,7 +28,7 @@ class CompanyModulesCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes): string
     {
-        if (is_array($value)) {
+        if (\is_array($value)) {
             $value = Collection::make($value);
         }
 

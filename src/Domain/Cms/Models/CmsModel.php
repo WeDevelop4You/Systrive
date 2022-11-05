@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Support\Services\Cms;
 
 /**
- * CmsColumnTableMap
+ * CmsColumnTableMap.
  *
  * @property int                             $id
  * @property \Illuminate\Support\Carbon|null $created_at

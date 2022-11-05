@@ -22,7 +22,7 @@ abstract class AbstractRequest extends FormRequest
      */
     protected function isUpdating(): bool
     {
-        return in_array($this->getMethod(), ['PATCH', 'PUT']);
+        return \in_array($this->getMethod(), ['PATCH', 'PUT']);
     }
 
     private function otherRules(): array

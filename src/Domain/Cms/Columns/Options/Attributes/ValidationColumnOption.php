@@ -14,9 +14,9 @@ interface ValidationColumnOption
     public function isDirty(mixed $value): bool;
 
     /**
-     * validation for creating and editing item
+     * validation for creating and editing item.
      *
-     * @return string[]|string|object
+     * @return object|string|string[]
      */
     public function getValidation(FormRequest $request): array|string|object;
 }

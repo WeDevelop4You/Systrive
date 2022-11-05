@@ -11,9 +11,11 @@ use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
+
+use function PHPUnit\Framework\isEmpty;
+
 use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Response\Components\Layouts\ColComponent;
-use function PHPUnit\Framework\isEmpty;
 
 class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnOption
 {
@@ -35,6 +37,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnO
 
     /**
      * @inheritDoc
+     *
      * @throws Exception
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
@@ -43,13 +46,13 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnO
 
         if ($this->getValue()) {
             $columnDefinition->unique($index);
-        } else if (!isEmpty($column->table_id)) {
+        } elseif (!isEmpty($column->table_id)) {
             $indexes = Schema::connection('cms')
                 ->getConnection()
                 ->getDoctrineSchemaManager()
                 ->listTableIndexes($column->table->name);
 
-            if (array_key_exists($index, $indexes)) {
+            if (\array_key_exists($index, $indexes)) {
                 $table->dropUnique($index);
             }
         }

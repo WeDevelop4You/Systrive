@@ -45,7 +45,7 @@ class CmsTableDestroyController
                 ->addAction(
                     ChainAction::create()->setActions([
                         VuexAction::create()->dispatch('navigation/company', $company->id),
-                        RouteAction::create()->goToCompany($company)
+                        RouteAction::create()->goToCompany($company),
                     ])
                 )
                 ->addPopup(

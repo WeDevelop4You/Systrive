@@ -15,4 +15,4 @@ Route::prefix('{company}/{system}/mail/domains')
             Route::dataTable(SystemMailDomainAddressTableController::class, 'system.mail.domain.address');
             Route::get('usage', [SystemMailDomainUsageController::class, 'index'])->name('system.mail.domain.usage');
         });
-});
+    });

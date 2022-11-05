@@ -84,7 +84,7 @@ class CmsTable extends AbstractTable
     {
         return MultipleButtonComponent::create()
             ->addButtonIf(
-                is_null($data->deleted_at),
+                \is_null($data->deleted_at),
                 IconButtonComponent::create()
                     ->setColorOnHover(VuetifyColor::ERROR)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
@@ -102,7 +102,7 @@ class CmsTable extends AbstractTable
                     ),
             )
             ->addButtonIf(
-                !is_null($data->deleted_at),
+                !\is_null($data->deleted_at),
                 IconButtonComponent::create()
                     ->setColorOnHover(VuetifyColor::ACCENT)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH_RESTORE))

@@ -16,7 +16,7 @@ class CompanyPermissionsMiddleware
             throw UnauthorizedException::notLoggedIn();
         }
 
-        $permissions = is_array($permission)
+        $permissions = \is_array($permission)
             ? $permission
             : explode('|', $permission);
 

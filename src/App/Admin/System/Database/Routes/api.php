@@ -13,4 +13,4 @@ Route::prefix('{company}/{system}/databases')
         Route::prefix('{database}')->group(function () {
             Route::get('usage', [SystemDatabaseUsageController::class, 'index'])->name('system.database.usage');
         });
-});
+    });

@@ -8,7 +8,6 @@ use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Observers\CmsColumnDeletingObserver;
 use Eloquent;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,20 +16,21 @@ use Illuminate\Support\Collection;
 use Support\Traits\Observers;
 
 /**
- * Domain\Cms\Models\CmsColumn
+ * Domain\Cms\Models\CmsColumn.
  *
- * @property int $id
- * @property int $table_id
- * @property string $label
- * @property string $key
+ * @property int           $id
+ * @property int           $table_id
+ * @property string        $label
+ * @property string        $key
  * @property CmsColumnType $type
- * @property int $after
- * @property int $editable
- * @property int $deletable
- * @property Collection $properties
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property int           $after
+ * @property int           $editable
+ * @property int           $deletable
+ * @property Collection    $properties
+ * @property Carbon|null   $created_at
+ * @property Carbon|null   $updated_at
  * @property-read \Domain\Cms\Models\CmsTable|null $table
+ *
  * @method static Builder|CmsColumn newModelQuery()
  * @method static Builder|CmsColumn newQuery()
  * @method static Builder|CmsColumn query()
@@ -45,6 +45,7 @@ use Support\Traits\Observers;
  * @method static Builder|CmsColumn whereTableId($value)
  * @method static Builder|CmsColumn whereType($value)
  * @method static Builder|CmsColumn whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class CmsColumn extends Model
@@ -78,7 +79,7 @@ class CmsColumn extends Model
     ];
 
     protected array $observers = [
-        CmsColumnDeletingObserver::class
+        CmsColumnDeletingObserver::class,
     ];
 
     /**

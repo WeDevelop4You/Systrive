@@ -64,10 +64,9 @@ enum CmsColumnType: int
         };
     }
 
-
-
     /**
      * @throws Exception
+     *
      * @return string
      */
     private function getClassname(): string
@@ -93,6 +92,7 @@ enum CmsColumnType: int
      * @param CmsColumn $column
      *
      * @throws Exception
+     *
      * @return AbstractColumnType
      */
     public function create(CmsColumn $column): AbstractColumnType
@@ -102,6 +102,7 @@ enum CmsColumnType: int
 
     /**
      * @throws Exception
+     *
      * @return Collection
      */
     public function options(): Collection

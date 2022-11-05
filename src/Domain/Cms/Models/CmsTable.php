@@ -6,19 +6,19 @@ use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Support\Services\Cms as CmsService;
 
 /**
- * Domain\Cms\Models\CmsTable
+ * Domain\Cms\Models\CmsTable.
  *
- * @property int $id
- * @property string $label
- * @property string $name
- * @property int $editable
- * @property int $is_table
+ * @property int                             $id
+ * @property string                          $label
+ * @property string                          $name
+ * @property int                             $editable
+ * @property int                             $is_table
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Cms\Models\CmsColumn[] $columns
+ * @property-read \Domain\Cms\Models\CmsColumn[]|\Illuminate\Database\Eloquent\Collection $columns
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable query()
@@ -28,6 +28,7 @@ use Support\Services\Cms as CmsService;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereLabel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CmsTable extends Model
@@ -70,7 +71,7 @@ class CmsTable extends Model
      */
     public function resolveChildRouteBinding($childType, $value, $field): ?Model
     {
-        if (in_array($childType, ['item'])) {
+        if (\in_array($childType, ['item'])) {
             return match ($childType) {
                 'item' => CmsModel::where($field ?? CmsModel::getModel()->getKeyName(), $value)->firstOrFail(),
             };

@@ -38,7 +38,7 @@
         }
 
         /**
-         * @param VuetifyColor|ThemeComponent $color
+         * @param ThemeComponent|VuetifyColor $color
          *
          * @return ButtonComponent
          */

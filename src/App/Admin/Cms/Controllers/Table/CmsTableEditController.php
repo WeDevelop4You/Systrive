@@ -66,7 +66,7 @@ class CmsTableEditController
                         VueRouteHelper::create()
                             ->setName('company.cms.table')
                             ->setParams(['tableName' => $table->name])
-                    )
+                    ),
                 ]),
             CmsTableUpdateAction::REFRESH_TABLE => VuexAction::create()
                 ->resetTable('company/cms/table/items/dataTable')

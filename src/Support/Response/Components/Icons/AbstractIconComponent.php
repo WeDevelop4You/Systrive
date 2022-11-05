@@ -20,7 +20,7 @@ abstract class AbstractIconComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifyColor|ThemeComponent $color
+     * @param ThemeComponent|VuetifyColor $color
      *
      * @return $this
      */

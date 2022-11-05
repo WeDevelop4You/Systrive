@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Support\Casts\EncryptionCast;
 
 /**
- * Domain\User\Models\UserSecurity
+ * Domain\User\Models\UserSecurity.
  *
- * @property int $user_id
- * @property \Support\Helpers\DecryptHelper $secret_key
+ * @property int                                 $user_id
+ * @property \Support\Helpers\DecryptHelper      $secret_key
  * @property \Support\Helpers\DecryptHelper|null $recovery_codes
- * @property bool $enabled
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property bool                                $enabled
+ * @property \Illuminate\Support\Carbon|null     $created_at
+ * @property \Illuminate\Support\Carbon|null     $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity query()
@@ -24,6 +25,7 @@ use Support\Casts\EncryptionCast;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereSecretKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class UserSecurity extends Model

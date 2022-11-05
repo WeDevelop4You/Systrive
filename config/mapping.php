@@ -27,12 +27,12 @@ return [
         ],
         'used' => [
             'names' => ['cms_tables', 'cms_columns', 'migrations'],
-        ]
+        ],
     ],
 
     \Domain\Cms\Models\CmsColumn::class => [
         'original' => [
             'key' => 'original_key',
         ],
-    ]
+    ],
 ];

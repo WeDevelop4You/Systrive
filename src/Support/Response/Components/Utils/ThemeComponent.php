@@ -26,7 +26,7 @@ class ThemeComponent
     {
         return [
             'dark' => $this->dark->value,
-            'light' => $this->light->value
+            'light' => $this->light->value,
         ];
     }
 }

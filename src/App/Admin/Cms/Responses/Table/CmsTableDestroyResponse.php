@@ -33,7 +33,7 @@ class CmsTableDestroyResponse extends AbstractResponse
                             route('admin.company.cms.table.destroy', [
                                 $this->company->id,
                                 $this->cms->id,
-                                $this->table->id
+                                $this->table->id,
                             ]),
                         )
                     )

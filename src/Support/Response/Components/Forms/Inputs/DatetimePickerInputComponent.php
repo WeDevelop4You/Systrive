@@ -7,7 +7,8 @@ use Support\Response\Components\Forms\Attributes\InputComponentWithTime;
 
 class DatetimePickerInputComponent extends AbstractInputComponent
 {
-    use InputComponentWithTime, InputComponentWithDate;
+    use InputComponentWithTime;
+    use InputComponentWithDate;
 
     protected function __construct()
     {

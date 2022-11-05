@@ -7,7 +7,6 @@ use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Support\Enums\Component\ModalCloseType;
-use Support\Response\Actions\AbstractAction;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\NoAction;
 use Support\Response\Actions\VuexAction;
@@ -40,7 +39,7 @@ class CmsTableConfirmController
                             route('admin.company.cms.table.edit', [
                                 $company->id,
                                 $cms->id,
-                                $table->id
+                                $table->id,
                             ])
                         )->setOnSuccessAction(
                             ChainAction::create()->setActions([

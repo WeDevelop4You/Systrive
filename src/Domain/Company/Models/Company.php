@@ -31,30 +31,31 @@ use Illuminate\Support\Facades\Auth;
 use Support\Traits\Observers;
 
 /**
- * Domain\Company\Models\Company
+ * Domain\Company\Models\Company.
  *
- * @property int $id
- * @property string $name
- * @property string $slug
- * @property string|null $email
- * @property string|null $domain
- * @property string|null $information
- * @property CompanyStatusTypes $status
+ * @property int                            $id
+ * @property string                         $name
+ * @property string                         $slug
+ * @property string|null                    $email
+ * @property string|null                    $domain
+ * @property string|null                    $information
+ * @property CompanyStatusTypes             $status
  * @property \Illuminate\Support\Collection $modules
- * @property mixed|null $preferences
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Collection|Cms[] $cms
+ * @property mixed|null                     $preferences
+ * @property Carbon|null                    $created_at
+ * @property Carbon|null                    $updated_at
+ * @property-read Cms[]|Collection $cms
  * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
  * @property-read Collection|Invite[] $invites
  * @property-read User|null $owner
  * @property-read Collection|Role[] $roles
  * @property-read System|null $system
  * @property-read System|null $systems
- * @property-read UserCollections|User[] $users
- * @property-read UserCollections|User[] $whereOwner
- * @method static CompanyCollections|static[] all($columns = ['*'])
- * @method static CompanyCollections|static[] get($columns = ['*'])
+ * @property-read User[]|UserCollections $users
+ * @property-read User[]|UserCollections $whereOwner
+ *
+ * @method static CompanyCollections|static[]  all($columns = ['*'])
+ * @method static CompanyCollections|static[]  get($columns = ['*'])
  * @method static CompanyQueryBuilders|Company newModelQuery()
  * @method static CompanyQueryBuilders|Company newQuery()
  * @method static CompanyQueryBuilders|Company query()
@@ -70,6 +71,7 @@ use Support\Traits\Observers;
  * @method static CompanyQueryBuilders|Company whereStatus($value)
  * @method static CompanyQueryBuilders|Company whereUpdatedAt($value)
  * @method static CompanyQueryBuilders|Company whereUser(\Domain\User\Models\User $user)
+ *
  * @mixin Eloquent
  */
 class Company extends Model

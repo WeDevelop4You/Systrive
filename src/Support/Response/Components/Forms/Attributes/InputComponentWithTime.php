@@ -5,8 +5,8 @@ namespace Support\Response\Components\Forms\Attributes;
 trait InputComponentWithTime
 {
     /**
-    * @return $this
-    */
+     * @return $this
+     */
     public function setUseSeconds(bool $condition = true): static
     {
         if ($condition) {

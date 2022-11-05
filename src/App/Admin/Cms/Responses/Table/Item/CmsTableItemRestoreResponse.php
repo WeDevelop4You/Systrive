@@ -40,7 +40,8 @@ class CmsTableItemRestoreResponse extends AbstractResponse
     {
         return Response::create()
             ->addAction(VuexAction::create()->dispatch(
-                'company/cms/table/items/init', 'restoreForm'
+                'company/cms/table/items/init',
+                'restoreForm'
             ))
             ->addPopup(
                 FormModal::create('company/cms/table/items/restoreForm')

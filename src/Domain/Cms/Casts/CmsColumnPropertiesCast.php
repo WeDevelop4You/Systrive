@@ -15,9 +15,9 @@ class CmsColumnPropertiesCast implements CastsAttributes
 {
     /**
      * @param CmsColumn $model
-     * @param string $key
-     * @param        $value
-     * @param array  $attributes
+     * @param string    $key
+     * @param           $value
+     * @param array     $attributes
      *
      * @return Collection
      */
@@ -27,7 +27,7 @@ class CmsColumnPropertiesCast implements CastsAttributes
             $value = Collection::json($value ?? '');
 
             return $this->getOptions($attributes)
-                ->map(function(AbstractColumnOption $option) use ($value) {
+                ->map(function (AbstractColumnOption $option) use ($value) {
                     $option->setValue(
                         $value->get($option->getKey(), $option->getDefault())
                     );
@@ -38,7 +38,6 @@ class CmsColumnPropertiesCast implements CastsAttributes
 
         return Collection::make();
     }
-
 
     /**
      * @param CmsColumn $model
@@ -52,18 +51,18 @@ class CmsColumnPropertiesCast implements CastsAttributes
     {
         $key = Arr::get($attributes, CmsColumnTableMap::KEY);
 
-        if (in_array($key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+        if (\in_array($key, CmsTableTableMap::REQUIRED_COLUMNS)) {
             return '[]';
         }
 
         $value = $this->getValue($value);
 
-        if (is_string($value)) {
+        if (\is_string($value)) {
             return $value;
         }
 
         return $this->getOptions($attributes)
-            ->mapWithKeys(function(AbstractColumnOption $option) use ($value) {
+            ->mapWithKeys(function (AbstractColumnOption $option) use ($value) {
                 $key = $option->getKey();
 
                 return [$key => $value->get($key, $option->getDefault())];
@@ -82,7 +81,7 @@ class CmsColumnPropertiesCast implements CastsAttributes
             $options = $value->filter(fn ($option) => $option instanceof AbstractColumnOption);
 
             if ($options->isNotEmpty()) {
-                return $options->mapWithKeys(function(AbstractColumnOption $option) {
+                return $options->mapWithKeys(function (AbstractColumnOption $option) {
                     return [$option->getKey() => $option->getValue()];
                 })->toJson();
             }
@@ -102,11 +101,10 @@ class CmsColumnPropertiesCast implements CastsAttributes
     {
         $type = Arr::get($attributes, CmsColumnTableMap::TYPE);
 
-        if (!is_null($type)) {
+        if (!\is_null($type)) {
             return CmsColumnType::from($type)->options() ;
         }
 
         return Collection::make();
     }
 }
-

@@ -10,11 +10,9 @@
     use Domain\Invite\Jobs\SendCompanyInvite;
     use Domain\Role\Actions\CreateRoleAction;
     use Domain\Role\DataTransferObjects\RoleData;
-    use Domain\Role\Mappings\RoleTableMap;
     use Domain\Role\Seeders\RoleSeeder;
     use Domain\User\Actions\CreateUserAction;
     use Illuminate\Support\Arr;
-    use Spatie\Permission\Models\Permission;
 
     class CompanyStoreAction
     {
@@ -40,7 +38,7 @@
                 CompanyUserTableMap::IS_OWNER => true,
             ]);
 
-            RoleSeeder::create()->each(fn(RoleData $role) => (new CreateRoleAction($company))($role));
+            RoleSeeder::create()->each(fn (RoleData $role) => (new CreateRoleAction($company))($role));
 
             SendCompanyInvite::dispatch($user, $company);
 

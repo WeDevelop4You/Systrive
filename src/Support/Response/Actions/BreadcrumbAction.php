@@ -18,7 +18,7 @@ class BreadcrumbAction extends AbstractAction
             'label' => $text,
             'additional' => [
                 'added' => true,
-            ]
+            ],
         ];
 
         if ($route instanceof VueRouteHelper) {

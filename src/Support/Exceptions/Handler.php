@@ -70,6 +70,7 @@ class Handler extends ExceptionHandler
      * @param Throwable $e
      *
      * @throws ReflectionException
+     *
      * @return mixed|void
      */
     protected function renderViaCallbacks($request, Throwable $e)

@@ -28,7 +28,9 @@ class CmsTableColumnCreateController
     public function index(Request $request, Company $company, Cms $cms): JsonResponse
     {
         return CmsTableColumnCreateResponse::create(
-            $company, $cms, $request->query('isEditing', false)
+            $company,
+            $cms,
+            $request->query('isEditing', false)
         )->toJson();
     }
 

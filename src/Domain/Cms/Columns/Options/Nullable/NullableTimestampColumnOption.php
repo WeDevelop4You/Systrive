@@ -2,11 +2,9 @@
 
 namespace Domain\Cms\Columns\Options\Nullable;
 
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Response\Components\Layouts\ColComponent;
@@ -29,7 +27,7 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
         if ($this->getValue()) {
             $columnDefinition->default($this->getValue());
         } else {
-            $timestamp = match ($this->type)  {
+            $timestamp = match ($this->type) {
                 'time' => Carbon::now()->toTimeString(),
                 'date' => Carbon::now()->toDateString(),
                 'datetime' => Carbon::now()->toDateTimeString(),

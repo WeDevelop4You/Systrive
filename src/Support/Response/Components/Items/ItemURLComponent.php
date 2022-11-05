@@ -47,7 +47,7 @@ class ItemURLComponent extends AbstractItemComponent
     }
 
     /**
-     * @param VuetifyTextColor|ThemeComponent $color
+     * @param ThemeComponent|VuetifyTextColor $color
      *
      * @return ItemURLComponent
      */

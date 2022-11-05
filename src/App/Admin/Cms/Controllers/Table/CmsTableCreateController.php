@@ -67,7 +67,7 @@ class CmsTableCreateController
                             ->setName('company.cms.table')
                             ->setParams([
                                 'cmsName' => $cms->database,
-                                'tableName' => $table->name
+                                'tableName' => $table->name,
                             ])
                     ),
                     VuexAction::create()->dispatch(

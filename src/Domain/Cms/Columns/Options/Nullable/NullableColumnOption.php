@@ -2,7 +2,6 @@
 
 namespace Domain\Cms\Columns\Options\Nullable;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Response\Components\Layouts\ColComponent;
 

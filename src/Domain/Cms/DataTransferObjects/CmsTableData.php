@@ -20,10 +20,10 @@ final class CmsTableData
         public readonly bool $editable
     ) {
         $this->columns = Collection::make($columns)
-            ->map(function(array $column) {
+            ->map(function (array $column) {
                 $model = new CmsColumn($column);
 
-                if (in_array($model->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                if (\in_array($model->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
                     $model->editable = false;
                     $model->deletable = false;
                 }

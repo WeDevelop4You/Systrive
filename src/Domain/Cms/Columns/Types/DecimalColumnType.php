@@ -33,7 +33,7 @@ class DecimalColumnType extends AbstractColumnType
             new PlacesColumnOption(
                 ['integer', 'min:0', 'max:30']
             ),
-            new RowColColumnOption()
+            new RowColColumnOption(),
         ]);
     }
 
@@ -75,7 +75,7 @@ class DecimalColumnType extends AbstractColumnType
     {
         return [
             'numeric',
-            new NumericFormatRule($this->getTotalValue(), $this->getPlacesValue())
+            new NumericFormatRule($this->getTotalValue(), $this->getPlacesValue()),
         ];
     }
 

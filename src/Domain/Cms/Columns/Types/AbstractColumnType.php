@@ -22,7 +22,7 @@ abstract class AbstractColumnType
     /**
      * @var CmsColumn
      */
-    readonly protected CmsColumn $column;
+    protected readonly CmsColumn $column;
 
     /**
      * @param CmsColumn $column

@@ -14,4 +14,4 @@ Route::prefix('{company}/{system}/dns')
         Route::prefix('{dns}')->group(function () {
             Route::dataTable(SystemDNSRecordTableController::class, 'system.dns.record');
         });
-});
+    });

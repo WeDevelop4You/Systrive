@@ -242,11 +242,11 @@ class GenerateMappingCommand extends Command
      */
     private function getValue(mixed $value): mixed
     {
-        if (is_string($value)) {
+        if (\is_string($value)) {
             return "'{$value}'";
         }
 
-        if (is_array($value)) {
+        if (\is_array($value)) {
             $array = implode("', '", $value);
 
             return "['{$array}']";

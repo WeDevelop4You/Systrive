@@ -17,7 +17,7 @@ class IntegerColumnType extends AbstractColumnType
     private array $validation = [
         'integer',
         'max:2147483647',
-        'gte:-2147483648'
+        'gte:-2147483648',
     ];
 
     protected function getOptions(): Collection
@@ -27,7 +27,7 @@ class IntegerColumnType extends AbstractColumnType
             new DefaultIntegerColumnOption(
                 $this->validation
             ),
-            new RowColColumnOption()
+            new RowColColumnOption(),
         ]);
     }
 

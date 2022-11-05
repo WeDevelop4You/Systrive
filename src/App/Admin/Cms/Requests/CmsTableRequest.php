@@ -7,7 +7,6 @@ use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\CmsTable;
 use Domain\Cms\Rules\ArrayMustContainRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Support\Abstracts\AbstractRequest;
@@ -22,18 +21,18 @@ class CmsTableRequest extends AbstractRequest
      */
     protected function defaultRules(): array
     {
-        $minimal = count(CmsTableTableMap::REQUIRED_COLUMNS) + 1;
+        $minimal = \count(CmsTableTableMap::REQUIRED_COLUMNS) + 1;
 
         return [
             CmsTableTableMap::NAME => [
                 'required', 'string', 'alpha_dash',
-                Rule::notIn(CmsTableTableMap::USED_NAMES)
+                Rule::notIn(CmsTableTableMap::USED_NAMES),
             ],
             CmsTableTableMap::LABEL => ['required', 'string'],
             CmsTableTableMap::EDITABLE => ['required', 'boolean'],
             'columns' => [
                 'required', 'array', "min:{$minimal}",
-                new ArrayMustContainRule(CmsTableTableMap::REQUIRED_COLUMNS, CmsColumnTableMap::KEY)
+                new ArrayMustContainRule(CmsTableTableMap::REQUIRED_COLUMNS, CmsColumnTableMap::KEY),
             ],
             'columns.*.original_key' => ['required', 'string'],
             'columns.*.key' => ['required', 'string', 'alpha_dash', 'max:64', 'distinct:ignore_case'],
@@ -51,7 +50,7 @@ class CmsTableRequest extends AbstractRequest
     protected function storeRules(): array
     {
         return [
-            CmsTableTableMap::NAME => [Rule::unique(CmsTable::class)]
+            CmsTableTableMap::NAME => [Rule::unique(CmsTable::class)],
         ];
     }
 
@@ -61,7 +60,7 @@ class CmsTableRequest extends AbstractRequest
     protected function updateRules(): array
     {
         return [
-            CmsTableTableMap::NAME => [Rule::unique(CmsTable::class)->ignore($this->table->id)]
+            CmsTableTableMap::NAME => [Rule::unique(CmsTable::class)->ignore($this->table->id)],
         ];
     }
 

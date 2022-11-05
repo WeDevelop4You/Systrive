@@ -39,7 +39,7 @@ class RichTextColumnType extends AbstractColumnType
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
             ->setSearchable()
-            ->setFormat(function(CmsModel $data) {
+            ->setFormat(function (CmsModel $data) {
                 return Str::words($data->getAttribute($this->column->key), 3);
             });
     }

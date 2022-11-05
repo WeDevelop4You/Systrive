@@ -2,8 +2,6 @@
 
 namespace Support\Response\Components\Forms\Utils;
 
-use Illuminate\Support\Collection;
-
 class KeyValueObject
 {
     /**

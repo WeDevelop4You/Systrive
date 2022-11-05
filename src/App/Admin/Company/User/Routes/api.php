@@ -50,4 +50,4 @@ Route::prefix('{company}/users')
                     Route::delete('/', 'action')->name('company.user.revoke')->withTrashed();
                 });
         });
-});
+    });

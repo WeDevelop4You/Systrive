@@ -18,12 +18,11 @@ class RoleSeeder extends AbstractSeeder
     {
         $permissions = Permission::all();
 
-        return $permissions->mapToGroups(function(Permission $permission) {
+        return $permissions->mapToGroups(function (Permission $permission) {
             $key = Str::beforeLast($permission->name, '.');
 
             return [$key => $permission->id];
-        })->map(function(Collection $ids, string $key) use ($permissions) {
-
+        })->map(function (Collection $ids, string $key) use ($permissions) {
             if (Str::contains($key, '.')) {
                 $group = Str::before($key, '.');
                 $view = $permissions->firstWhere('name', "{$group}.view");

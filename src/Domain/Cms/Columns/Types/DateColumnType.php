@@ -3,7 +3,6 @@
 namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Columns\Options\Defaults\DefaultTimestampColumnOption;
-use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
 use Domain\Cms\Columns\Options\Nullable\NullableTimestampColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
@@ -17,7 +16,7 @@ use Support\Response\Components\Forms\Inputs\DatePickerInputComponent;
 class DateColumnType extends AbstractColumnType
 {
     private array $validation = [
-        'string', 'date_format:Y-m-d'
+        'string', 'date_format:Y-m-d',
     ];
 
     protected function getOptions(): Collection
@@ -29,7 +28,7 @@ class DateColumnType extends AbstractColumnType
             new DefaultTimestampColumnOption(
                 $this->validation,
             ),
-            new RowColColumnOption()
+            new RowColColumnOption(),
         ]);
     }
 
@@ -52,7 +51,7 @@ class DateColumnType extends AbstractColumnType
             ->setFormat(function (Model $data, string $key) {
                 $value = $data->getAttribute($key);
 
-                if (!is_null($value)) {
+                if (!\is_null($value)) {
                     if (!$value instanceof Carbon) {
                         $value = new Carbon($value);
                     }

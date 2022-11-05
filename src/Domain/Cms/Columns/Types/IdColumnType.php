@@ -3,8 +3,6 @@
 namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Models\CmsModel;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Helpers\DataTable\Build\Column;

@@ -96,7 +96,7 @@ abstract class AbstractColumnOption
     abstract public function getFormComponent(bool $isEditing): ColComponent;
 
     /**
-     * validation for creating and editing columns properties
+     * validation for creating and editing columns properties.
      *
      * @param FormRequest $request
      *

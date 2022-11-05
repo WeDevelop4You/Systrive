@@ -19,4 +19,4 @@ Route::prefix('{company}/{system}/domains')
                 Route::patch('/', 'action')->name('system.domain.edit');
             });
         });
-});
+    });

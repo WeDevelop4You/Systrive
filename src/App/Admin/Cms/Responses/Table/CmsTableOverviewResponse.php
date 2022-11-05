@@ -47,7 +47,8 @@ class CmsTableOverviewResponse extends AbstractResponse
             $content = $this->createForm();
 
             $response->addAction(VuexAction::create()->dispatch(
-                'company/cms/table/items/init', 'form'
+                'company/cms/table/items/init',
+                'form'
             ));
         }
 
@@ -146,7 +147,7 @@ class CmsTableOverviewResponse extends AbstractResponse
                             )
                         )
                 )
-            );
+        );
     }
 
     private function createForm(): ColComponent

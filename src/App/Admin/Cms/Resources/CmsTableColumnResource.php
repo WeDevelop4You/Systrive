@@ -21,7 +21,7 @@ class CmsTableColumnResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $properties = $this->properties->mapWithKeys(function(AbstractColumnOption $option) {
+        $properties = $this->properties->mapWithKeys(function (AbstractColumnOption $option) {
             return [$option->getKey() => $option->getValue()];
         })->toArray();
 
@@ -33,7 +33,7 @@ class CmsTableColumnResource extends JsonResource
             CmsColumnTableMap::TYPE => $this->type?->value,
             CmsColumnTableMap::EDITABLE => $this->editable ?? true,
             CmsColumnTableMap::DELETABLE => $this->deletable,
-            CmsColumnTableMap::PROPERTIES => $properties ?: new ArrayObject()
+            CmsColumnTableMap::PROPERTIES => $properties ?: new ArrayObject(),
         ];
     }
 }

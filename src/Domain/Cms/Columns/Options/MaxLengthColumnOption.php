@@ -12,7 +12,6 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColu
     public function __construct(
         private readonly int $default
     ) {
-
     }
 
     /**

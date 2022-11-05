@@ -32,7 +32,7 @@
                         return $this->createPermission($permission, 'view');
                     }
 
-                    if (count($split) === 2) {
+                    if (\count($split) === 2) {
                         return $this->createPermission($permission, 'default');
                     }
 

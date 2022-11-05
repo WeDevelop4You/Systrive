@@ -9,7 +9,7 @@ class CmsColumnDeletingObserver
 {
     public function deleting(CmsColumn $column): bool
     {
-        if (in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+        if (\in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
             return false;
         }
 

@@ -1,0 +1,1 @@
+import e from"./73708e75.js";const o={components:{ViewLayer:e},data(){return{overview:{data:{},content:{},attributes:{},identifier:"",componentName:""}}},created(){this.load()},methods:{load(){this.overview.data.route=this.getRoute()}}};export{o as V};

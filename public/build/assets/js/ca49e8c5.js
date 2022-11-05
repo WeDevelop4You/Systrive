@@ -1,1 +1,0 @@
-import{m as a}from"./89ae458c.js";import{n as e}from"./75131b1e.js";const o={name:"Dashboard",computed:{...a({company:"company/identifiers"})}};var s=function(){var n=this,r=n._self._c;return r("div",[n._v(" "+n._s(n.company)+" ")])},t=[],m=e(o,s,t,!1,null,null,null,null);const i=m.exports;export{i as default};

@@ -30,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Job wherePayload($value)
  * @method static Builder|Job whereQueue($value)
  * @method static Builder|Job whereReservedAt($value)
+ *
  * @mixin Eloquent
  */
 class Job extends Model

@@ -40,6 +40,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|UserProfile wherePreferences($value)
  * @method static Builder|UserProfile whereUpdatedAt($value)
  * @method static Builder|UserProfile whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class UserProfile extends Model

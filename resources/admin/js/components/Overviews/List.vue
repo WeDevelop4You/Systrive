@@ -4,7 +4,7 @@
         color="transparent"
         class="dialog-divide-color pt-0"
     >
-        <template v-for="(property, index) in value.data.list">
+        <template v-for="(property, index) in component.data.list">
             <template v-if="property.divider">
                 <v-divider
                     :key="index"
@@ -14,7 +14,7 @@
             <template v-else-if="property.subheader">
                 <v-subheader
                     :key="index"
-                    :class="[value.data.hasSubheader ? 'pl-4' : '']"
+                    :class="[component.data.hasSubheader ? 'pl-4' : '']"
                     class="subtitle-1"
                     style="height: 25px"
                     v-text="property.subheader"
@@ -32,7 +32,7 @@
                         cols="12"
                     >
                         <v-list-item
-                            :class="[value.data.hasSubheader ? 'pl-6' : '']"
+                            :class="[component.data.hasSubheader ? 'pl-6' : '']"
                             dense
                         >
                             <v-list-item-content>
@@ -57,25 +57,11 @@
 </template>
 
 <script>
-import ComponentProperties from "../../mixins/ComponentProperties";
-import SkeletonText from "../../layout/Skeletons/SkeletonText.vue";
+    import MainComponentBase from "../Base/MainComponentBase";
 
-export default {
-    name: "List",
+    export default {
+        name: "List",
 
-    components: {
-        URL: () => ({
-            component: import('../Items/URL.vue'),
-            loading: SkeletonText,
-            delay: 0,
-        }),
-        Badge: () => import('../Items/Badge.vue'),
-        UpTimer: () => import('../Items/UpTimer.vue'),
-        GroupBadges: () => import('../Items/GroupBadges.vue'),
-    },
-
-    mixins: [
-        ComponentProperties
-    ]
-}
+        extends: MainComponentBase,
+    }
 </script>

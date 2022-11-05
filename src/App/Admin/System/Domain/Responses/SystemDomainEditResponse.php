@@ -8,8 +8,8 @@ use Domain\System\Models\System;
 use Domain\System\Models\SystemDomain;
 use Illuminate\Support\Arr;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
-use Support\Enums\VestaCommands;
+use Support\Enums\Component\Form\FormType;
+use Support\Enums\VestaCommand;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;
@@ -38,7 +38,7 @@ class SystemDomainEditResponse extends AbstractResponse
     protected function handle(): Response
     {
         $data = Vesta::api()->get(
-            VestaCommands::GET_USER_DOMAIN,
+            VestaCommand::GET_USER_DOMAIN,
             $this->system->username,
             $this->domain->name
         )->first();
@@ -51,7 +51,7 @@ class SystemDomainEditResponse extends AbstractResponse
                 FormModal::create('company/system/domain/form', withoutDataTableRefresh: true)
                     ->setPersistent()
                     ->setForm(
-                        CustomFormComponent::create()->setType(FormTypes::DOMAIN_FORM)
+                        CustomFormComponent::create()->setType(FormType::DOMAIN_FORM)
                     )
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(

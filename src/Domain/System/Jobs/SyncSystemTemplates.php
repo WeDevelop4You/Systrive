@@ -7,8 +7,8 @@ use Domain\System\Models\SystemTemplate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
-use Support\Enums\System\SystemTemplateTypes;
-use Support\Enums\VestaCommands;
+use Support\Enums\System\SystemTemplateType;
+use Support\Enums\VestaCommand;
 use Support\Services\Vesta;
 
 class SyncSystemTemplates extends AbstractVestaSync
@@ -36,16 +36,16 @@ class SyncSystemTemplates extends AbstractVestaSync
     {
         $this->database = SystemTemplate::all();
         $webTemplates = Vesta::api()->get(
-            VestaCommands::GET_WEB_TEMPLATES
-        )->crossJoin([SystemTemplateTypes::WEB->value]);
+            VestaCommand::GET_WEB_TEMPLATES
+        )->crossJoin([SystemTemplateType::WEB->value]);
 
         $dnsTemplates = Vesta::api()->get(
-            VestaCommands::GET_DNS_TEMPLATES
-        )->crossJoin([SystemTemplateTypes::DNS->value]);
+            VestaCommand::GET_DNS_TEMPLATES
+        )->crossJoin([SystemTemplateType::DNS->value]);
 
         $proxyTemplates = Vesta::api()->get(
-            VestaCommands::GET_PROXY_TEMPLATES
-        )->crossJoin([SystemTemplateTypes::PROXY->value]);
+            VestaCommand::GET_PROXY_TEMPLATES
+        )->crossJoin([SystemTemplateType::PROXY->value]);
 
         $this->vesta = Collection::make([
             ...$webTemplates,

@@ -61,7 +61,10 @@
                     <error-message :message="errors.one_time_password" />
                 </v-col>
             </v-row>
-            <l-buttons no-padding>
+            <v-row
+                no-gutters
+                class="gap-3 justify-end mx-2"
+            >
                 <v-btn
                     text
                     @click="step = 1"
@@ -73,22 +76,20 @@
                     @click="validate"
                     v-text="$vuetify.lang.t('$vuetify.word.check.check')"
                 />
-            </l-buttons>
+            </v-row>
         </v-stepper-content>
     </v-stepper>
 </template>
 
 <script>
-    import LButtons from "../../layout/ButtonLayout.vue";
     import LoadingImage from "../../components/Items/LoadingImage.vue";
     import ErrorMessage from "../../components/Items/ErrorMessage.vue";
-    import CustomFormProperties from "../../mixins/Form/CustomFormProperties";
+    import CustomFormProperties from "../../mixins/CustomFormProperties";
 
     export default {
         name: "OneTimePasswordForm",
 
         components: {
-            LButtons,
             LoadingImage,
             ErrorMessage,
         },

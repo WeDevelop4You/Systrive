@@ -12,52 +12,50 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
-    import LazyImportProperties from "../../mixins/LazyImportProperties";
-    import ComponentLoading from "../ComponentLoading.vue";
-    import SkeletonCard from "../../layout/Skeletons/SkeletonCard.vue";
     import ComponentError from "../ComponentError.vue";
-    import SkeletonDataTable from "../../layout/Skeletons/SkeletonDataTable.vue";
+    import ComponentLoading from "../ComponentLoading.vue";
+    import Component from "../../helpers/Components/Component";
+    import ComponentList from "../../mixins/ComponentList";
 
     export default {
         name: "Page",
 
         components: {
+            ComponentError,
             ComponentLoading,
-
-            Row: () => ({
-                component: import("../Layouts/Row.vue"),
-                ...LazyImportProperties
-            }),
-            Table: () => ({
-                component: import("./Table.vue"),
-                loading: SkeletonDataTable,
-                delay: 0,
-                error: ComponentError,
-                timeout: 10000
-            }),
-            Card: () => ({
-                component: import('../Overviews/Card.vue'),
-                loading: SkeletonCard,
-                delay: 0,
-                error: ComponentError,
-                timeout: 10000
-            }),
         },
 
         mixins: [
-            ComponentProperties
+            ComponentList
         ],
+
+        beforeRouteUpdate(to, from, next) {
+            if (this.hasUpdateOnRouteChange && this.getUpdateOnRouteChangeCondition(to, from)) {
+                this.component = Component.empty()
+
+                this.getComponent(to)
+            }
+
+            next()
+        },
+
+        props: {
+            value: {
+                type: Object,
+                default: () => {
+                    return {data: {}}
+                }
+            }
+        },
 
         data() {
             return {
                 component: {},
                 route: this.value.data.route,
-                runLoader: this.value.data.runLoader,
+                loadState: this.value.data.loadState,
                 vuexNamespace: this.value.data.vuexNamespace,
-                callbackDelay: this.value.data.callbackDelay,
-                hasVuexNamespace: this.value.data.vuexNamespace !== undefined,
-                hasCallbackDelay: this.value.data.callbackDelay !== undefined,
+                refreshDelay: this.value.data.refreshDelay,
+                updateOnRouteChange: this.value.data.updateOnRouteChange
             }
         },
 
@@ -67,7 +65,7 @@
             },
 
             overview() {
-                if (this.vuexNamespace !== undefined) {
+                if (this.hasVuexNamespace()) {
                     return this.$store.getters[`${this.vuexNamespace}/component`]
                 }
 
@@ -78,43 +76,105 @@
         created() {
             this.$loader.convertStringToRouteParams()
 
-            if (this.route !== undefined) {
-                this.load()
+            if (this.hasRoute()) {
+                this.getComponent()
             }
 
-            if (this.hasCallbackDelay) {
-                this.interval = setInterval(() => {
-                    this.load()
-                }, this.callbackDelay)
+            if (this.hasRefreshDelay()) {
+                this.createRefresh()
             }
 
-            if (this.runLoader !== undefined) {
-                const vuexNamespace = typeof this.runLoader === 'string'
-                    ? this.runLoader
-                    : this.vuexNamespace
-
-                if (vuexNamespace !== undefined) {
-                    this.$loader.runStateAction(vuexNamespace)
-                }
+            if (this.hasLoadState()) {
+                this.runLoadState()
             }
         },
 
         beforeDestroy() {
-            if (this.hasCallbackDelay) {
+            if (this.hasRefreshDelay()) {
                 clearInterval(this.interval)
             }
         },
 
         methods: {
-            load() {
-                if (this.vuexNamespace !== undefined) {
-                    this.$store.dispatch(`${this.vuexNamespace}/component`, this.route)
-                } else {
-                    this.$api.call({
-                        url: this.route
-                    }).then((response) => {
-                        this.component = response.data.component || {}
-                    })
+            hasRoute() {
+                return this.route !== undefined
+            },
+
+            hasVuexNamespace() {
+                return this.vuexNamespace !== undefined
+            },
+
+            hasRefreshDelay() {
+                return this.refreshDelay !== undefined
+            },
+
+            hasLoadState() {
+                return this.loadState !== undefined
+            },
+
+            hasUpdateOnRouteChange() {
+                return this.updateOnRouteChange !== undefined
+            },
+
+            createRoute(to) {
+                const route = this.route
+
+                return typeof route === "function"
+                    ? route.call(this, {store: this.$store, route: to || this.$route})
+                    : route
+            },
+
+            createRefresh() {
+                this.interval = setInterval(() => {
+                    this.getComponent()
+                }, this.refreshDelay)
+            },
+
+            getComponent(to) {
+                const route = this.createRoute(to)
+
+                this.hasVuexNamespace() ? this.getComponentWithVuex(route) : this.getComponentWithApi(route)
+            },
+
+            getComponentWithVuex(route) {
+                this.$store.dispatch(`${this.vuexNamespace}/component`, route)
+            },
+
+            getComponentWithApi(route) {
+                const errorComponent = new Component({
+                    componentName: 'ComponentError'
+                })
+
+                this.$api.call({
+                    url: route,
+                    method: "GET"
+                }).then((response) => {
+                    this.component = response.data.component || errorComponent
+                })
+            },
+
+            getLoadStateVuexNamespace() {
+                switch (typeof this.loadState) {
+                    case "boolean":
+                        return ''
+                    case "string":
+                        return this.loadState
+                    default:
+                        return this.vuexNamespace
+                }
+            },
+
+            getUpdateOnRouteChangeCondition(to, from) {
+                return typeof this.updateOnRouteChange === 'function'
+                    ? this.updateOnRouteChange.call(this, to, from)
+                    : this.updateOnRouteChange
+            },
+
+            runLoadState() {
+                const vuexNamespace = this.getLoadStateVuexNamespace()
+
+                if (vuexNamespace !== undefined) {
+                    this.$loader.runStateAction(vuexNamespace)
                 }
             }
         }

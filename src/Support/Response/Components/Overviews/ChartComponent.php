@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Overviews;
 
-use Support\Enums\Component\ChartTypes;
+use Support\Enums\Component\ChartType;
 use Support\Response\Components\AbstractComponent;
 
 class ChartComponent extends AbstractComponent
@@ -12,15 +12,15 @@ class ChartComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Chart';
+        return 'ChartComponent';
     }
 
     /**
-     * @param ChartTypes $type
+     * @param ChartType $type
      *
      * @return ChartComponent
      */
-    public function setType(ChartTypes $type): ChartComponent
+    public function setType(ChartType $type): ChartComponent
     {
         return $this->setData('type', $type->value);
     }

@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereRefreshToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class GitAccountAccessTokens extends Model

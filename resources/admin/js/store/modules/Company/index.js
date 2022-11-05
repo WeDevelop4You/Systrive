@@ -1,9 +1,13 @@
 import Vue from 'vue';
 
-import Users from "./users";
-import Roles from "./roles";
-import system from "./system";
-import FormBase from "../Base/formBase";
+import cms from "./Cms";
+import users from "./users";
+import roles from "./roles";
+import dns from "./System/dns";
+import domain from "./System/domain";
+import FormBase from "../../base/formBase";
+import database from "./System/database";
+import mailDomain from "./System/mail_domain";
 
 const app = Vue.prototype
 
@@ -27,11 +31,9 @@ export default {
             return state.id
         },
 
-        identifiers(state) {
-            return {
-                company: state.id,
-                system: state.systemId
-            }
+        systemId(state) {
+            return state.systemId
+
         }
     },
 
@@ -62,9 +64,20 @@ export default {
     },
 
     modules: {
-        users: Users,
-        roles: Roles,
-        system: system,
+        cms: cms,
+        users: users,
+        roles: roles,
         form: FormBase(),
+
+        system: {
+            namespaced: true,
+
+            modules: {
+                dns: dns,
+                domain: domain,
+                database: database,
+                mailDomain: mailDomain,
+            }
+        },
     }
 }

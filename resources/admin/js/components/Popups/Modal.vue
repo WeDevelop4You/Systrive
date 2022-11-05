@@ -1,19 +1,19 @@
 <template>
     <v-dialog
-        v-model="value.data.show"
-        v-bind="value.attributes"
+        v-model="component.data.show"
+        v-bind="component.attributes"
         :elevation="$config.elevation"
         @input="change($event)"
     >
         <card
-            :value="value.data.card"
+            :value="component.data.card"
         />
     </v-dialog>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
     import Card from "../Overviews/Card.vue";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Modal",
@@ -22,19 +22,17 @@
             Card
         },
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         methods: {
             change(isOpen) {
                 if (!isOpen) {
-                    this.$store.commit('popups/removeModal', this.value.identifier)
+                    this.$store.commit('popups/removeModal', this.component.identifier)
                 }
 
                 const action = isOpen
-                    ? this.value.data.openAction
-                    : this.value.data.closeAction
+                    ? this.component.data.openAction
+                    : this.component.data.closeAction
 
                 if (action) {
                     this.$actions.call(action)

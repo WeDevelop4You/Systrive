@@ -32,6 +32,7 @@
      * @method static CompanyUserQueryBuilders|CompanyUser whereIsOwner($value)
      * @method static CompanyUserQueryBuilders|CompanyUser whereStatus($value)
      * @method static CompanyUserQueryBuilders|CompanyUser whereUserId($value)
+     *
      * @mixin Eloquent
      */
     class CompanyUser extends Pivot

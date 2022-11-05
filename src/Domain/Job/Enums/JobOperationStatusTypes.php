@@ -2,7 +2,7 @@
 
 namespace Domain\Job\Enums;
 
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Traits\DatabaseEnumSearch;
 
 enum JobOperationStatusTypes: int
@@ -30,15 +30,15 @@ enum JobOperationStatusTypes: int
     }
 
     /**
-     * @return VuetifyColors
+     * @return VuetifyColor
      */
-    public function getColor(): VuetifyColors
+    public function getColor(): VuetifyColor
     {
         return match ($this) {
-            self::WAITING => VuetifyColors::LIGHT_GRAY,
-            self::PROCESSING, self::RETRY => VuetifyColors::WARNING,
-            self::SUCCESS => VuetifyColors::SUCCESS,
-            self::FAILED => VuetifyColors::ERROR
+            self::WAITING => VuetifyColor::LIGHT_GRAY,
+            self::PROCESSING, self::RETRY => VuetifyColor::WARNING,
+            self::SUCCESS => VuetifyColor::SUCCESS,
+            self::FAILED => VuetifyColor::ERROR
         };
     }
 

@@ -3,6 +3,8 @@
 namespace Domain\Invite\Models;
 
 use Domain\Company\Models\Company;
+use Domain\Company\States\AbstractCompanyState;
+use Domain\Company\States\AbstractCompanyUserState;
 use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Mappings\InviteTableMap;
 use Domain\Invite\Observers\InviteCreatedObserver;
@@ -22,7 +24,7 @@ use Support\Traits\Observers;
  * @property int         $user_id
  * @property string      $token
  * @property InviteTypes $type
- * @property string      $created_at
+ * @property mixed       $created_at
  * @property-read Company $company
  * @property-read User $user
  *
@@ -40,6 +42,7 @@ use Support\Traits\Observers;
  * @method static InviteQueryBuilders|Invite whereUserByEmail(string $email)
  * @method static InviteQueryBuilders|Invite whereUserId($value)
  * @method static InviteQueryBuilders|Invite whereUserType()
+ *
  * @mixin Eloquent
  */
 class Invite extends Model
@@ -87,9 +90,28 @@ class Invite extends Model
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    /**
+     * @return AbstractCompanyState|AbstractCompanyUserState
+     */
+    public function state(): AbstractCompanyUserState|AbstractCompanyState
+    {
+        return $this->type->getState($this);
+    }
+
+    /**
+     * @return void
+     */
+    public function send(): void
+    {
+        $this->type->sendInvite($this);
     }
 
     /**

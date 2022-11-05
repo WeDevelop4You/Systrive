@@ -10,7 +10,7 @@
             :is-hidden="isHidden"
         />
         <v-list-item-content style="padding-bottom: 10px">
-            <v-list-item-title v-text="value.content.title" />
+            <v-list-item-title v-text="component.content.title" />
         </v-list-item-content>
         <v-list-item-action class="my-2">
             <v-switch
@@ -24,8 +24,9 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../../../../mixins/ComponentProperties";
     import NavigationItemIcon from "../NavigationItemIcon.vue";
+    import Component from "../../../../../helpers/Components/Component";
+    import ComponentBase from "../../../../Base/ComponentBase";
 
     export default {
         name: "DarkModeSwitchList",
@@ -34,9 +35,7 @@
             NavigationItemIcon
         },
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         props: {
             isHidden: {
@@ -57,11 +56,11 @@
             },
 
             icon() {
-                return {
+                return new Component({
                     content: {
                         type: this.$vuetify.theme.dark ? 'fas fa-moon' : 'fas fa-sun'
                     },
-                }
+                })
             }
         },
     }

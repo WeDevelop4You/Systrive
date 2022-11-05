@@ -1,23 +1,27 @@
 <template>
     <v-icon :color="color">
-        {{ value.content.type }}
+        {{ component.content.type }}
     </v-icon>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Icon",
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         props: {
-            color: {
+            hoverColor: {
                 type: String,
                 default: undefined
+            }
+        },
+
+        computed: {
+            color() {
+                return this.hoverColor || this.component.attributes.color
             }
         }
     }

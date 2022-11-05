@@ -70,7 +70,7 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import CustomFormProperties from "../../../mixins/Form/CustomFormProperties";
+    import CustomFormProperties from "../../../mixins/CustomFormProperties";
 
     export default {
         name: "CompanyRole",

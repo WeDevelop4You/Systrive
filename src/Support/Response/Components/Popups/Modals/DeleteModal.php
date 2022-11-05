@@ -2,11 +2,10 @@
 
 namespace Support\Response\Components\Popups\Modals;
 
-use Support\Enums\Component\IconTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\IconType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Actions\ChainAction;
-use Support\Response\Actions\PopupModalAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\AbstractButtonComponent;
 use Support\Response\Components\Buttons\ButtonComponent;
@@ -30,7 +29,7 @@ class DeleteModal extends AbstractModal
     /**
      * DeleteModal constructor.
      */
-    protected function __construct(string $vuexNamespace)
+    protected function __construct(?string $vuexNamespace = null)
     {
         $this->vuexNamespace = $vuexNamespace;
 
@@ -51,8 +50,8 @@ class DeleteModal extends AbstractModal
                 MultipleButtonComponent::create()
                     ->addButton(
                         IconButtonComponent::create()
-                            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TIMES))
-                            ->setAction(PopupModalAction::create()->close($this->modal->getIdentifier()))
+                            ->setIcon(IconComponent::create()->setType(IconType::FAS_TIMES))
+                            ->setAction(VuexAction::create()->closeModal($this->modal->getIdentifier()))
                     )
             );
 
@@ -109,18 +108,9 @@ class DeleteModal extends AbstractModal
      *
      * @return DeleteModal
      */
-    public function addFooterForceDeleteButton(
-        AbstractAction $action,
-        ?string $title = null,
-    ): DeleteModal {
-        $chainActions = ChainAction::create()
-            ->addAction(PopupModalAction::create()->close($this->modal->getIdentifier()));
-
-        if ($this->hasVuexNamespace()) {
-            $chainActions->addAction(VuexAction::create()->refreshTable($this->vuexNamespace));
-        }
-
-        $action->setOnSuccess($chainActions);
+    public function addFooterForceDeleteButton(AbstractAction $action, ?string $title = null): DeleteModal
+    {
+        $action->setOnSuccessAction($this->createOnSuccessAction());
 
         return $this->addFooterButton(
             ButtonComponent::create()
@@ -136,25 +126,29 @@ class DeleteModal extends AbstractModal
      *
      * @return DeleteModal
      */
-    public function addFooterDeleteButton(
-        AbstractAction $action,
-        ?string $title = null,
-    ): DeleteModal {
-        $chainActions = ChainAction::create()
-            ->addAction(PopupModalAction::create()->close($this->modal->getIdentifier()));
-
-        if ($this->hasVuexNamespace()) {
-            $chainActions->addAction(VuexAction::create()->refreshTable($this->vuexNamespace));
-        }
-
-        $action->setOnSuccess($chainActions);
+    public function addFooterDeleteButton(AbstractAction $action, ?string $title = null): DeleteModal
+    {
+        $action->setOnSuccessAction($this->createOnSuccessAction());
 
         return $this->addFooterButton(
             ButtonComponent::create()
                 ->setAction($action)
-                ->setColor(VuetifyColors::ERROR)
+                ->setColor(VuetifyColor::ERROR)
                 ->setTitle($title ?: trans('word.delete.delete'))
         );
+    }
+
+    /**
+     * @return ChainAction
+     */
+    private function createOnSuccessAction(): ChainAction
+    {
+        return ChainAction::create()
+            ->addAction(VuexAction::create()->closeModal($this->modal->getIdentifier()))
+            ->addActionIf(
+                $this->hasVuexNamespace(),
+                VuexAction::create()->refreshTable($this->vuexNamespace ?? '')
+            );
     }
 
     /**
@@ -165,7 +159,7 @@ class DeleteModal extends AbstractModal
         return $this->addFooterButton(
             ButtonComponent::create()
                 ->setTitle(trans('word.cancel.cancel'))
-                ->setAction(PopupModalAction::create()->close($this->modal->getIdentifier()))
+                ->setAction(VuexAction::create()->closeModal($this->modal->getIdentifier()))
         );
     }
 

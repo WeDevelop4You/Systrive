@@ -11,9 +11,9 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\Component\IconTypes;
-    use Support\Enums\Component\Vuetify\VuetifyColors;
-    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Enums\Component\IconType;
+    use Support\Enums\Component\Vuetify\VuetifyColor;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
     use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
@@ -58,7 +58,7 @@
                 Column::create(trans('word.status.status'), 'status')
                     ->setSortable()
                     ->setSearchable(CompanyStatusTypes::class)
-                    ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
+                    ->setAlignment(VuetifyTableAlignmentType::CENTER)
                     ->setFormat(function (Company $data) {
                         return ItemBadgeComponent::create()
                             ->setValue($data->status->getTranslation())
@@ -90,8 +90,8 @@
                 ->addButtonIf(
                     $data->status === CompanyStatusTypes::EXPIRED,
                     IconButtonComponent::create()
-                        ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PAPER_PLANE))
-                        ->setColorOnHover(VuetifyColors::PRIMARY)
+                        ->setIcon(IconComponent::create()->setType(IconType::FAS_PAPER_PLANE))
+                        ->setColorOnHover(VuetifyColor::PRIMARY)
                         ->setTooltip(
                             TooltipComponent::create()
                                 ->setText(trans('word.resend.invite'))
@@ -104,15 +104,15 @@
                                         $data->id,
                                     ])
                                 )
-                                ->setOnSuccess(
+                                ->setOnSuccessAction(
                                     VuexAction::create()->refreshTable('companies')
                                 )
                         ),
                 )
                 ->setButtons([
                     IconButtonComponent::create()
-                        ->setIcon(IconComponent::create()->setType(IconTypes::FAS_EYE))
-                        ->setColorOnHover(VuetifyColors::INFO)
+                        ->setIcon(IconComponent::create()->setType(IconType::FAS_EYE))
+                        ->setColorOnHover(VuetifyColor::INFO)
                         ->setTooltip(
                             TooltipComponent::create()
                                 ->setText(trans('word.show.show'))
@@ -128,8 +128,8 @@
                                 )
                         ),
                     IconButtonComponent::create()
-                        ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
-                        ->setColorOnHover(VuetifyColors::WARNING)
+                        ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
+                        ->setColorOnHover(VuetifyColor::WARNING)
                         ->setTooltip(
                             TooltipComponent::create()
                                 ->setText(trans('word.edit.edit'))
@@ -144,8 +144,8 @@
                             )
                         ),
                     IconButtonComponent::create()
-                        ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TRASH))
-                        ->setColorOnHover(VuetifyColors::ERROR)
+                        ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
+                        ->setColorOnHover(VuetifyColor::ERROR)
                         ->setTooltip(
                             TooltipComponent::create()
                                 ->setText(trans('word.delete.delete'))

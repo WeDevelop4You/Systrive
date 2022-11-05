@@ -9,6 +9,6 @@ class GroupNavigationComponent extends AbstractNavigationComponent
      */
     protected function getComponentName(): string
     {
-        return 'GroupNavigation';
+        return 'GroupNavigationComponent';
     }
 }

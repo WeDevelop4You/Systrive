@@ -6,7 +6,8 @@ use Domain\Invite\DataTransferObject\InviteData;
 use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Models\Invite;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\SessionKeyTypes;
+use Support\Enums\Component\ModalCloseType;
+use Support\Enums\SessionKeyType;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Components\Popups\Modals\ConfirmModal;
 use Support\Response\Response;
@@ -52,7 +53,7 @@ class InviteStateResponse extends AbstractResponse
 
         return Response::create()
             ->addData($inviteData->export())
-            ->toSession(SessionKeyTypes::REGISTRATION);
+            ->toSession(SessionKeyType::REGISTRATION);
     }
 
     /**
@@ -67,7 +68,7 @@ class InviteStateResponse extends AbstractResponse
                         'admin.company.user.invite.accepted',
                         [$this->invite->company_id, $this->token]
                     ))
-            )->toSession(SessionKeyTypes::KEEP);
+            )->toSession(SessionKeyType::KEEP);
     }
 
     /**
@@ -81,8 +82,8 @@ class InviteStateResponse extends AbstractResponse
                     ->setTitle(trans('modal.confirm.company.complete.title'))
                     ->setText(trans('modal.confirm.company.complete.text'))
                     ->addFooterCancelButton(
-                        action: RequestAction::create()->forgetSessionKey(),
-                        closeModal: true
+                        RequestAction::create()->forgetSessionKey(),
+                        close: ModalCloseType::SUCCESS
                     )
                     ->addFooterSubmitButton(
                         RequestAction::create()
@@ -91,8 +92,8 @@ class InviteStateResponse extends AbstractResponse
                                 [$this->invite->company_id, $this->token]
                             )),
                         trans('word.complete.complete'),
-                        true
+                        ModalCloseType::SUCCESS
                     )
-            )->toSession(SessionKeyTypes::KEEP);
+            )->toSession(SessionKeyType::KEEP);
     }
 }

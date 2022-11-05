@@ -1,14 +1,14 @@
 <template>
     <v-alert
-        v-model="value.data.show"
-        v-bind="value.attributes"
+        v-model="component.data.show"
+        v-bind="component.attributes"
         border="left"
         colored-border
         transition="scale-transition"
     >
-        <div v-html="value.content.text" />
+        <div v-html="component.content.text" />
         <template
-            v-if="value.data.dismissible"
+            v-if="component.data.dismissible"
             #close
         >
             <v-btn
@@ -24,19 +24,16 @@
 </template>
 
 <script>
+    import ComponentBase from "../../Base/ComponentBase";
+
     export default {
         name: "Simple",
 
-        props: {
-            value: {
-                type: Object,
-                required: true
-            },
-        },
+        extends: ComponentBase,
 
         methods: {
             remove() {
-                this.$store.commit('popups/removeNotification', this.value.identifier)
+                this.$store.commit('popups/removeNotification', this.component.identifier)
             }
         }
     }

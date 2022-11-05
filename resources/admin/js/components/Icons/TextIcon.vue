@@ -1,24 +1,24 @@
 <template>
     <fragment>
         <v-icon
-            v-if="value.data.side === 'left'"
+            v-if="component.data.side === 'left'"
             left
         >
-            {{ value.content.type }}
+            {{ component.content.type }}
         </v-icon>
-        {{ value.content.text }}
+        {{ component.content.text }}
         <v-icon
-            v-if="value.data.side === 'right'"
+            v-if="component.data.side === 'right'"
             right
         >
-            {{ value.content.type }}
+            {{ component.content.type }}
         </v-icon>
     </fragment>
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
     import {Fragment} from "vue-fragment";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "TextIcon",
@@ -27,8 +27,6 @@
             Fragment
         },
 
-        mixins: [
-            ComponentProperties
-        ]
+        extends: ComponentBase,
     }
 </script>

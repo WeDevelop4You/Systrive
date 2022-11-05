@@ -2,6 +2,8 @@
 
     namespace Support\Response\Actions;
 
+    use Ramsey\Uuid\UuidInterface;
+
     class VuexAction extends AbstractAction
     {
         /**
@@ -15,7 +17,7 @@
             return $this->setData([
                 'type' => $type,
                 'params' => $params,
-            ])->setMethod('actionVuexCommitMethod');
+            ])->setMethod('vuexCommitMethodAction');
         }
 
         /**
@@ -29,7 +31,7 @@
             return $this->setData([
                 'type' => $type,
                 'params' => $params,
-            ])->setMethod('actionVuexDispatchMethod');
+            ])->setMethod('vuexDispatchMethodAction');
         }
 
         /**
@@ -40,5 +42,33 @@
         public function refreshTable(string $vuexNamespace): VuexAction
         {
             return $this->dispatch("{$vuexNamespace}/getItems");
+        }
+
+        /**
+         * @param string $vuexNamespace
+         *
+         * @return VuexAction
+         */
+        public function resetTable(string $vuexNamespace): VuexAction
+        {
+            return $this->dispatch("{$vuexNamespace}/reset");
+        }
+
+        /**
+         * @param UuidInterface|null $identifier
+         *
+         * @return VuexAction
+         */
+        public function closeModal(UuidInterface|null $identifier = null): VuexAction
+        {
+            return $this->commit('popups/removeModal', $identifier);
+        }
+
+        /**
+         * @return VuexAction
+         */
+        public function closeAllModals(): VuexAction
+        {
+            return $this->commit('popups/removeAllModals');
         }
     }

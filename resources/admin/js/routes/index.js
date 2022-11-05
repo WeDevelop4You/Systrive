@@ -1,10 +1,12 @@
-import Helper from "../Providers/Helper";
+import Import from "../helpers/Import";
+import Breadcrumb from "../helpers/Breadcrumb";
 
 // routes
 import Company from "./company"
 import SuperAdmin from "./super_admin"
 
-const $vuetify = Helper.getVuetify()
+const app = Import.app()
+const $vuetify = Import.vuetify()
 const $parent = {template: `<router-view></router-view>`}
 
 export default [
@@ -24,31 +26,24 @@ export default [
         path: '/dashboard',
         alias: '/',
         name: 'dashboard',
-        component: () => import('../pages/Dashboard.vue'),
+        component: () => import('../views/Dashboard.vue'),
         meta: {
             isAuthenticatedPage: true,
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                }
-            ]
+            breadcrumbs() {
+                app.$breadcrumbs.setDashboard()
+            }
         }
     },
     {
         path: '/account',
         name: 'account',
-        component: () => import('../pages/Account/Profile.vue'),
+        component: () => import('../views/Account/Profile.vue'),
         meta: {
             isAuthenticatedPage: true,
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: { name: 'dashboard' }
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.account.account'),
-                }
-            ]
+            breadcrumbs() {
+                app.$breadcrumbs.setDashboard(true)
+                    .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.account.account')))
+            }
         }
     },
     {
@@ -58,18 +53,13 @@ export default [
             {
                 path: ':page(personal|security|git)',
                 name: 'account.settings',
-                component: () => import('../pages/Account/Settings.vue'),
+                component: () => import('../views/Account/Settings.vue'),
                 meta: {
                     isAuthenticatedPage: true,
-                    breadcrumbs: [
-                        {
-                            text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                            to: { name: 'dashboard' }
-                        },
-                        {
-                            text: $vuetify.lang.t('$vuetify.word.settings'),
-                        }
-                    ]
+                    breadcrumbs() {
+                        app.$breadcrumbs.setDashboard(true)
+                            .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.settings')))
+                    }
                 }
             },
             {

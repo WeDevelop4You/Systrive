@@ -1,8 +1,9 @@
 import Vue from "vue";
-import OverviewBase from "../Base/overviewBase";
-import FormBase from "../Base/formBase";
-import ShowBase from "../Base/showBase";
-import DataTableBase from "../Base/dataTableBase";
+import OverviewBase from "../../base/overviewBase";
+import FormBase from "../../base/formBase";
+import ShowBase from "../../base/showBase";
+import DataTableBase from "../../base/dataTableBase";
+import {STATE_CREATE, STATE_EDIT, STATE_SHOW} from "../../../config/RouteState";
 
 const app = Vue.prototype
 
@@ -69,13 +70,13 @@ export default {
 
         states({dispatch}, action) {
             const actions = {
-                new: () => {
+                [STATE_CREATE]: () => {
                     dispatch('create', app.$api.route('admin.supervisor.process.create'))
                 },
-                edit: () => {
+                [STATE_EDIT]: () => {
                     dispatch('edit', app.$api.route('admin.supervisor.process.edit', action.params.id))
                 },
-                show: () => {
+                [STATE_SHOW]: () => {
                     dispatch('show', app.$api.route('admin.supervisor.show')).then(() => {
                         app.$loader.runStateAction('supervisor')
                     })

@@ -4,7 +4,7 @@
             <SkeletonChart />
         </template>
         <component
-            :is="value.data.type"
+            :is="component.data.type"
             v-show="chartData.length"
             :labels="labels"
             :chart-data="chartData"
@@ -13,9 +13,9 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
     import SkeletonChart from "../../layout/Skeletons/SkeletonChart.vue";
     import ComponentError from "../ComponentError.vue";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Chart",
@@ -23,7 +23,7 @@
         components: {
             SkeletonChart,
 
-            SystemUsages: () => ({
+            SystemUsagesComponent: () => ({
                 component: import('../../layout/Charts/SystemUsages.vue'),
                 loading: SkeletonChart,
                 delay: 0,
@@ -32,9 +32,7 @@
             }),
         },
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         data() {
             return {
@@ -50,7 +48,7 @@
         methods: {
             getData() {
                 this.$api.call({
-                    url: this.value.data.url,
+                    url: this.component.data.url,
                     method: "GET",
                 }).then((response) => {
                     const chart = response.data.data

@@ -1,15 +1,18 @@
-import Api from "../Providers/Api";
-import Auth from "../Providers/Auth";
-import Config from "../Providers/Config";
-import Loader from "../Providers/Loader";
-import State from "../Providers/State";
-import Actions from "../Providers/Actions";
-import Helper from "../Providers/Helper";
-import Activity from "../Providers/Activity";
+import Api from "../providers/Api";
+import Auth from "../providers/Auth";
+import Import from "../helpers/Import";
+import State from "../providers/State";
+import Config from "../providers/Config";
+import Loader from "../providers/Loader";
+import Actions from "../providers/Actions";
+import Activity from "../providers/Activity";
+import Breadcrumbs from "../providers/Breadcrumbs";
+import ModalComponent from "../helpers/Components/ModalComponent";
+import NotificationComponent from "../helpers/Components/NotificationComponent";
 
 export default function install(Vue) {
-    const app = Helper.getApp(Vue)
-    const store = Helper.getStore()
+    const app = Import.app(Vue)
+    const store = Import.store()
 
     // Load order for providers
     //
@@ -24,17 +27,40 @@ export default function install(Vue) {
     app.$state = new State()
     app.$actions = new Actions()
 
-    app.$request = Vue.observable({
-        total: 0
-    })
+    app.$request = Vue.observable({total: 0})
+    app.$breadcrumbs = Vue.observable(new Breadcrumbs())
 
+    /**
+     *  @param {string} data.redirect
+     *  @param {Object} data.popup
+     *  @param {Object} data.action
+     */
     app.$responseChain = (data) => {
+        if (String.prototype.startsWith.call(data, '<script>')) {
+            store.dispatch('popups/addPopup', ModalComponent.createDebugger(data))
+
+            return;
+        }
+
         if (Object.prototype.hasOwnProperty.call(data,'redirect')) {
             window.location.href = data.redirect
         }
 
         if (Object.prototype.hasOwnProperty.call(data,'popup')) {
-            store.dispatch('popups/addPopup', data.popup).catch(() => {});
+            let popup = {}
+
+            switch (data.popup.data.type) {
+                case 'notification':
+                    popup = new NotificationComponent(data.popup)
+
+                    break
+                case 'modal':
+                    popup = new ModalComponent(data.popup)
+
+                    break
+            }
+
+            store.dispatch('popups/addPopup', popup).catch(() => {});
         }
 
         if (Object.prototype.hasOwnProperty.call(data, 'action')) {

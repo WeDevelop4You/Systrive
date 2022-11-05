@@ -8,15 +8,17 @@
     use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
     use Illuminate\Http\Resources\Json\JsonResource;
     use Illuminate\Http\Resources\Json\ResourceCollection;
+    use Illuminate\Http\Response as HttpResponse;
     use Illuminate\Routing\Redirector;
+    use Illuminate\Support\Facades\Response as ResponseConstructor;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\SessionKeyTypes;
+    use Support\Enums\SessionKeyType;
     use Support\Response\Actions\AbstractAction;
     use Support\Response\Components\AbstractComponent;
     use Support\Response\Components\Popups\AbstractPopupComponent;
     use Support\Response\Components\Popups\Modals\AbstractModal;
     use Support\Response\Components\Popups\Notifications\AbstractNotificationComponent;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class Response
     {
@@ -33,7 +35,7 @@
         /**
          * @var int
          */
-        private int $statusCode = ResponseCodes::HTTP_OK;
+        private int $statusCode = ResponseCode::HTTP_OK;
 
         /**
          * @var array
@@ -86,7 +88,7 @@
          *
          * @return Response
          */
-        public function addErrors(string|array $key, ?array $errors = null, int $statusCode = ResponseCodes::HTTP_BAD_REQUEST): Response
+        public function addErrors(string|array $key, ?array $errors = null, int $statusCode = ResponseCode::HTTP_BAD_REQUEST): Response
         {
             $this->setStatusCode($statusCode);
 
@@ -197,19 +199,23 @@
         }
 
         /**
-         * @return JsonResponse
+         * @return HttpResponse|JsonResponse
          */
-        public function toJson(): JsonResponse
+        public function toJson(): HttpResponse|JsonResponse
         {
-            return response()->json($this->createResponseContent(), $this->statusCode);
+            $content = $this->createResponseContent();
+
+            return empty($content)
+                ? ResponseConstructor::noContent()
+                : ResponseConstructor::json($content, $this->statusCode);
         }
 
         /**
-         * @param SessionKeyTypes $key
+         * @param SessionKeyType $key
          *
          * @return Response
          */
-        public function toSession(SessionKeyTypes $key = SessionKeyTypes::ONCE): Response
+        public function toSession(SessionKeyType $key = SessionKeyType::ONCE): Response
         {
             Session::put($key->value, $this->createResponseContent());
 
@@ -225,11 +231,11 @@
         }
 
         /**
-         * @param SessionKeyTypes $key
+         * @param SessionKeyType $key
          *
          * @return mixed
          */
-        public static function getSessionData(SessionKeyTypes $key = SessionKeyTypes::KEEP): mixed
+        public static function getSessionData(SessionKeyType $key = SessionKeyType::KEEP): mixed
         {
             return Session::get("{$key->value}.data");
         }

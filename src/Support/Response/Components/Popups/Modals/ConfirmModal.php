@@ -2,9 +2,10 @@
 
 namespace Support\Response\Components\Popups\Modals;
 
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
+use Support\Enums\Component\ModalCloseType;
 use Support\Response\Actions\AbstractAction;
-use Support\Response\Actions\PopupModalAction;
+use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\AbstractButtonComponent;
 use Support\Response\Components\Buttons\ButtonComponent;
 use Support\Response\Components\Buttons\IconButtonComponent;
@@ -33,8 +34,8 @@ class ConfirmModal extends AbstractModal
                 MultipleButtonComponent::create()
                     ->addButton(
                         IconButtonComponent::create()
-                            ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TIMES))
-                            ->setAction(PopupModalAction::create()->close($this->modal->getIdentifier()))
+                            ->setIcon(IconComponent::create()->setType(IconType::FAS_TIMES))
+                            ->setAction(VuexAction::create()->closeModal($this->modal->getIdentifier()))
                     )
             );
 
@@ -85,14 +86,21 @@ class ConfirmModal extends AbstractModal
     /**
      * @param AbstractAction $action
      * @param string|null    $title
-     * @param bool           $closeModal
+     * @param ModalCloseType $close
      *
      * @return ConfirmModal
      */
-    public function addFooterCancelButton(AbstractAction $action, ?string $title = null, bool $closeModal = false): ConfirmModal
-    {
-        if ($closeModal) {
-            $action->setOnSuccessAsClosePopupModal($this->modal->getIdentifier());
+    public function addFooterCancelButton(
+        AbstractAction $action,
+        ?string        $title = null,
+        ModalCloseType $close = ModalCloseType::NEVER
+    ): ConfirmModal {
+        if (ModalCloseType::isSuccess($close)) {
+            $action->setCloseModalOnSuccessAction($this->modal->getIdentifier());
+        }
+
+        if (ModalCloseType::isFail($close)) {
+            $action->setCloseModalOnFailAction($this->modal->getIdentifier());
         }
 
         return $this->addFooterButton(
@@ -105,14 +113,21 @@ class ConfirmModal extends AbstractModal
     /**
      * @param AbstractAction $action
      * @param string|null    $title
-     * @param bool           $closeModal
+     * @param ModalCloseType $close
      *
      * @return ConfirmModal
      */
-    public function addFooterSubmitButton(AbstractAction $action, ?string $title = null, bool $closeModal = false): ConfirmModal
-    {
-        if ($closeModal) {
-            $action->setOnSuccessAsClosePopupModal($this->modal->getIdentifier());
+    public function addFooterSubmitButton(
+        AbstractAction $action,
+        ?string        $title = null,
+        ModalCloseType $close = ModalCloseType::NEVER
+    ): ConfirmModal {
+        if (ModalCloseType::isSuccess($close)) {
+            $action->setCloseModalOnSuccessAction($this->modal->getIdentifier());
+        }
+
+        if (ModalCloseType::isFail($close)) {
+            $action->setCloseModalOnFailAction($this->modal->getIdentifier());
         }
 
         return $this->addFooterButton(

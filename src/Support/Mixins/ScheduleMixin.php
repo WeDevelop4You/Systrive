@@ -6,7 +6,6 @@ use Closure;
 use Domain\Job\Enums\JobOperationStatusTypes;
 use Domain\Job\Models\JobOperation;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * @mixin Schedule
@@ -20,17 +19,13 @@ class ScheduleMixin
      */
     public function recordJob(): Closure
     {
-        return function (\Support\Enums\ScheduleTypes $type, string $job) {
-            return $this->job(new $job())
-                ->cleanUp()
-                ->before(function () use ($type) {
-                    $scheduleJob = new JobOperation();
-                    $scheduleJob->schedule_type = $type;
-                    $scheduleJob->status = JobOperationStatusTypes::PROCESSING;
-                    $scheduleJob->save();
+        return function (\Support\Enums\ScheduleType $type, string $job, array $arguments = []) {
+            $scheduleJob = new JobOperation();
+            $scheduleJob->schedule_type = $type;
+            $scheduleJob->status = JobOperationStatusTypes::PROCESSING;
+            $scheduleJob->save();
 
-                    Cache::forever(ScheduleMixin::CACHE_SCHEDULE_RECORD_ID, $scheduleJob->id);
-                })
+            return $this->job(new $job($scheduleJob->id, ...$arguments))
                 ->name($type->getName());
         };
     }

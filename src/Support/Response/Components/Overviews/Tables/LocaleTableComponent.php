@@ -9,7 +9,7 @@ class LocaleTableComponent extends AbstractTableComponent
      */
     protected function getType(): string
     {
-        return 'LocaleDataTable';
+        return 'LocaleDataTableComponent';
     }
 
     /**

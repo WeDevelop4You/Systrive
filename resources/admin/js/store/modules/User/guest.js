@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import FormBase from "../Base/formBase";
+import FormBase from "../../base/formBase";
 import Password from "../password";
 
 const app = Vue.prototype
@@ -89,12 +89,14 @@ export default {
             disableLoader: true
         }),
         recoveryCodeForm: FormBase({
+            isReady: true,
             disableLoader: true
         }),
         resetPasswordForm: FormBase({
             disableLoader: true
         }),
         oneTimePasswordForm: FormBase({
+            isReady: true,
             disableLoader: true
         }),
         passwordRecoveryForm: FormBase({

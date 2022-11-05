@@ -152,7 +152,7 @@ return [
     */
 
     'ignored_models' => [
-
+        \Domain\Cms\Models\CmsModel::class,
     ],
 
     /*

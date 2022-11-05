@@ -1,8 +1,11 @@
 <?php
 
-namespace Domain\Company\states;
+namespace Domain\Company\States;
 
-class CompanyUserAcceptedState extends CompanyUserStates
+class CompanyUserAcceptedState extends AbstractCompanyUserState
 {
-    //
+    public function changeState(): void
+    {
+        // TODO: Implement changeState() method.
+    }
 }

@@ -15,7 +15,7 @@
 
 <script>
     import ErrorMessage from "../../../components/Items/ErrorMessage.vue";
-    import customFormProperties from "../../../mixins/Form/CustomFormProperties";
+    import customFormProperties from "../../../mixins/CustomFormProperties";
 
     export default {
         name: "OneTimePassword",

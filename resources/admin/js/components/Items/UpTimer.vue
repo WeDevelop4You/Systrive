@@ -3,14 +3,12 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "UpTimer",
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         data() {
             return {
@@ -71,7 +69,7 @@
 
         methods: {
             calculateUptime() {
-                this.uptime = Math.floor(Date.now() / 1000) - this.value.content.value
+                this.uptime = Math.floor(Date.now() / 1000) - this.component.content.value
            }
         }
     }

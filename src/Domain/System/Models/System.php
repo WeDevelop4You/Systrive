@@ -33,6 +33,7 @@
      * @method static Builder|System whereId($value)
      * @method static Builder|System whereUpdatedAt($value)
      * @method static Builder|System whereUsername($value)
+     *
      * @mixin Eloquent
      */
     class System extends Model

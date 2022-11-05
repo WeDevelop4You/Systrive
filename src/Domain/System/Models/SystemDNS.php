@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class SystemDNS extends Model

@@ -9,7 +9,7 @@ class CustomComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Custom';
+        return 'CustomComponent';
     }
 
     public function setType(string $type): CustomComponent

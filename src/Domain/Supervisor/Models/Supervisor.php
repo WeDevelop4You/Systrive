@@ -26,6 +26,7 @@ use Support\Traits\Observers;
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Supervisor extends Model

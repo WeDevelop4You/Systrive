@@ -4,7 +4,7 @@
 
     use App\Admin\Company\User\Requests\CompanyUserUpdateRequest;
     use App\Admin\Company\User\Responses\CompanyUserEditResponse;
-    use Domain\Company\Actions\User\UserPermissionsForCompanyAction;
+    use Domain\Company\Actions\CompanyUserUpdatePermissionsAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Domain\User\Models\User;
@@ -38,7 +38,7 @@
         {
             $data = new CompanyUserData(...$request->validated());
 
-            (new UserPermissionsForCompanyAction($company, $user))($data);
+            (new CompanyUserUpdatePermissionsAction($company, $user))($data);
 
             return Response::create()
                 ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))

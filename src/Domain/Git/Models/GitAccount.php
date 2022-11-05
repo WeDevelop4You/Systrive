@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount whereUsername($value)
+ *
  * @mixin \Eloquent
  */
 class GitAccount extends Model

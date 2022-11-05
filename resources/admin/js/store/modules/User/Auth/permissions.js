@@ -45,7 +45,7 @@ export default {
 
             if (app.$auth.cannot(app.$config.permissions.superAdmin) && companyId) {
                 app.$api.call({
-                    url: app.$api.route('company.user.permissions', companyId),
+                    url: app.$api.companyRoute('company.user.permissions'),
                     method: "GET"
                 }).then((response) => {
                     commit("setItems", response.data.data)

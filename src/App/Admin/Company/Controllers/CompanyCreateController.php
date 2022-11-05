@@ -4,21 +4,21 @@
 
     use App\Admin\Company\Requests\CompanyCompleteRequest;
     use App\Admin\Company\Responses\CompanyCreateResponse;
-    use Domain\Company\Actions\CompleteCompanyAction;
+    use Domain\Company\Actions\CompanyCompleteAction;
     use Domain\Company\DataTransferObjects\CompleteCompanyData;
     use Domain\Company\Models\Company;
     use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\Invite\DataTransferObject\InviteData;
+    use Domain\Invite\Exceptions\InvalidTokenException;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\Session;
-    use Support\Enums\SessionKeyTypes;
-    use Support\Exceptions\InvalidTokenException;
+    use Support\Enums\SessionKeyType;
     use Support\Response\Actions\RouteAction;
     use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class CompanyCreateController
     {
@@ -37,13 +37,13 @@
 
                 $response = CompanyCreateResponse::create($company, $token);
             } catch (ModelNotFoundException | InvalidTokenException) {
-                Session::forget(SessionKeyTypes::KEEP->value);
+                Session::forget(SessionKeyType::KEEP->value);
 
                 $response->addPopup(
                     SimpleNotificationComponent::create()
                         ->setText(trans('response.error.invalid.token'))
                 )
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+                    ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST);
             }
 
             return $response->toJson();
@@ -65,9 +65,9 @@
 
                 $data = new CompleteCompanyData(...$request->validated());
 
-                (new CompleteCompanyAction($company))($data);
+                (new CompanyCompleteAction($company))($data);
 
-                $response->addAction(RouteAction::create()->goTo(VueRouteHelper::getCompany($company)))
+                $response->addAction(RouteAction::create()->goTo(VueRouteHelper::createCompany($company)))
                     ->addPopup(
                         SimpleNotificationComponent::create()
                             ->setText(trans('response.success.company.complete'))
@@ -77,10 +77,10 @@
                     SimpleNotificationComponent::create()
                         ->setText(trans('response.error.invalid.token'))
                 )
-                    ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+                    ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST);
             }
 
-            Session::forget(SessionKeyTypes::KEEP->value);
+            Session::forget(SessionKeyType::KEEP->value);
 
             return $response->toJson();
         }

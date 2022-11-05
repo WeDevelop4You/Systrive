@@ -34,8 +34,8 @@
                     'id' => $database->id,
                     'name' => Str::after($database->name, "{$this->name}_"),
                     'route' => [
-                        'name' => 'company.database',
-                        'params' => ['databaseName' => $database->name],
+                        'name' => 'company.system.database',
+                        'params' => ['name' => $database->name],
                     ],
                 ];
             })->toArray();
@@ -48,8 +48,8 @@
                     'id' => $mailDomains->id,
                     'name' => $mailDomains->name,
                     'route' => [
-                        'name' => 'company.mail',
-                        'params' => ['mailDomainName' => $mailDomains->name],
+                        'name' => 'company.system.mail',
+                        'params' => ['name' => $mailDomains->name],
                     ],
                 ];
             })->toArray();

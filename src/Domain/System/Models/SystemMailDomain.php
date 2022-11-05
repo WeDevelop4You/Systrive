@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class SystemMailDomain extends Model

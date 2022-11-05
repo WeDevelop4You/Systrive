@@ -9,7 +9,7 @@ class ChainAction extends AbstractAction
      */
     protected function __construct()
     {
-        $this->setMethod('actionChain');
+        $this->setMethod('chainAction');
     }
 
     /**

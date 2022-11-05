@@ -6,7 +6,7 @@ use App\Admin\Company\Role\Resources\CompanyRoleResource;
 use Domain\Company\Models\Company;
 use Domain\Role\Models\Role;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Form\FormType;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;
@@ -38,7 +38,7 @@ class CompanyRoleCreateResponse extends AbstractResponse
                     ->setTitle(trans('word.create.create'))
                     ->setForm(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::COMPANY_ROLE)
+                            ->setType(FormType::COMPANY_ROLE)
                     )
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(

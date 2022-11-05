@@ -2,6 +2,8 @@
 
 namespace App\Admin\Authentication\Requests;
 
+use Domain\Authentication\Exceptions\RequiredOneTimePasswordException;
+use Domain\Authentication\Rules\SecurityRule;
 use Domain\User\Models\User;
 use Domain\User\Models\UserSecurity;
 use Illuminate\Auth\Events\Lockout;
@@ -10,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Support\Exceptions\RequiredOneTimePasswordException;
-use Support\Rules\SecurityRule;
 
 class LoginRequest extends FormRequest
 {

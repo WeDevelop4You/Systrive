@@ -27,6 +27,7 @@ use WeDevelop4You\TranslationFinder\Models\TranslationKey as TranslationKeyWeDev
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey whereTags($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class TranslationKey extends TranslationKeyWeDevelop4You

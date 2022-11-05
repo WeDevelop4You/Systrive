@@ -1,10 +1,10 @@
 <template>
     <v-row
-        v-bind="value.attributes"
-        :class="value.data.classes"
+        v-bind="component.attributes"
+        :class="component.data.classes"
     >
         <l-col
-            v-for="component in value.data.cols"
+            v-for="component in component.data.cols"
             :key="component.identifier"
             :value="component"
         />
@@ -13,7 +13,7 @@
 
 <script>
     import LCol from "./Col.vue";
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Row",
@@ -22,8 +22,6 @@
             LCol,
         },
 
-        mixins: [
-            ComponentProperties,
-        ]
+        extends: ComponentBase,
     }
 </script>

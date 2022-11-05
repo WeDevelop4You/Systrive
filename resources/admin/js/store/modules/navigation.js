@@ -12,11 +12,11 @@ export default {
 
     mutations: {
         setMain(state, data) {
-            state.main = data.component
+            state.main = data
         },
 
         setSub(state, data) {
-            state.sub = data.component
+            state.sub = data
         },
     },
 
@@ -32,20 +32,24 @@ export default {
 
     actions: {
         main({commit}) {
+            commit('setMain', {})
+
             app.$api.call({
                 url: app.$api.route('navigation.main'),
                 method: "GET",
             }).then((response) => {
-                commit("setMain", response.data)
+                commit("setMain", response.data.component || {})
             })
         },
 
         company({commit}, id) {
+            commit('setMain', {})
+
             app.$api.call({
                 url: app.$api.route('company.navigation', id),
                 method: "GET"
             }).then((response) => {
-                commit("setMain", response.data)
+                commit("setMain", response.data.component || {})
             })
         },
 
@@ -54,7 +58,7 @@ export default {
                 url: app.$api.route('navigation.sub'),
                 method: "GET",
             }).then((response) => {
-                commit("setSub", response.data)
+                commit("setSub", response.data.component || {})
             })
         },
     },

@@ -85,7 +85,7 @@
 </template>
 
 <script>
-    import CustomFormProperties from "../../mixins/Form/CustomFormProperties";
+    import CustomFormProperties from "../../mixins/CustomFormProperties";
     import GroupBadges from "../../components/Items/GroupBadges.vue";
 
     export default {

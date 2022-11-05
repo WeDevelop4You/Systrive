@@ -5,7 +5,7 @@ namespace App\Admin\Company\Responses;
 use App\Admin\Company\Resources\CompanyCreateResource;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Form\FormType;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;
@@ -26,7 +26,7 @@ class CompanyInviteResponse extends AbstractResponse
                     ->setTitle(trans('word.invite.invite'))
                     ->setForm(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::COMPANY)
+                            ->setType(FormType::COMPANY)
                     )
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(

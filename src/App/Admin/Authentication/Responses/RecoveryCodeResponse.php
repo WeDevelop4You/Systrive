@@ -3,8 +3,8 @@
 namespace App\Admin\Authentication\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
-use Support\Enums\Component\Vuetify\VuetifyButtonTypes;
+use Support\Enums\Component\Form\FormType;
+use Support\Enums\Component\Vuetify\VuetifyButtonType;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;
 use Support\Response\Components\Forms\CustomFormComponent;
@@ -30,13 +30,13 @@ class RecoveryCodeResponse extends AbstractResponse
                 $modal->setWidth(323)
                     ->setTitle(trans('modal.recovery.code'))
                     ->setForm(
-                        CustomFormComponent::create()->setType(FormTypes::RECOVERY_CODE)
+                        CustomFormComponent::create()->setType(FormType::RECOVERY_CODE)
                     )
                     ->addFooterButton(
                         ButtonComponent::create()
                             ->setColor()
                             ->setTitle(trans('modal.verify.verify'))
-                            ->setType(VuetifyButtonTypes::BLOCK)
+                            ->setType(VuetifyButtonType::BLOCK)
                             ->setAction(
                                 VuexAction::create()->dispatch('user/guest/login', 'RC')
                             )->setDefault()

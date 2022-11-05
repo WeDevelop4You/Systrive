@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class SystemDatabase extends Model

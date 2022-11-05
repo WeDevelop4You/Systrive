@@ -2,9 +2,11 @@
 
     namespace Support\Helpers\Application;
 
+    use Illuminate\Routing\Route as Routes;
     use Illuminate\Support\Arr;
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Route as RouteList;
     use Illuminate\Support\Str;
     use Symfony\Component\Finder\Finder;
 
@@ -97,14 +99,14 @@
         private function generatePrefix(string $path, ?string $prefix = null): string
         {
             $prefixes = Arr::wrap($prefix);
-            $maps = explode('/', $path);
+            $directories = explode('/', $path);
 
-            $map = strtolower(Arr::first($maps, null, ''));
+            $directory = strtolower(Arr::first($directories, null, ''));
 
-            if (!empty($map) && !\in_array($map, ['routes', 'authentication'])) {
-                $count = \in_array($map, $this->ignorePlurals) ? 1 : 2;
-
-                $prefixes[] = Str::plural($map, $count);
+            if (!empty($directory) && !\in_array($directory, ['routes', 'authentication'])) {
+                $prefixes[] = \array_key_exists($directory, $this->ignorePlurals)
+                    ? $this->ignorePlurals[$directory]
+                    : Str::plural($directory);
             }
 
             return implode('/', $prefixes);
@@ -117,9 +119,31 @@
         {
             Route::macro('dataTable', function (string $controller, string $name, string $prefix = '') {
                 Route::prefix("{$prefix}/table")->controller($controller)->group(function () use ($name) {
-                    Route::get('items', 'index')->name("{$name}.table.items");
-                    Route::get('headers', 'headers')->name("{$name}.table.headers");
+                    Route::get('items', 'action')->name("{$name}.table.items");
+                    Route::get('headers', 'index')->name("{$name}.table.headers");
                 });
             });
+        }
+
+        /**
+         * @param string $application
+         *
+         * @return Collection
+         */
+        public static function getApiRoutes(string $application): Collection
+        {
+            return Collection::make(RouteList::getRoutes())
+                ->mapWithKeys(function (Routes $route, int $index) use ($application) {
+                    if (\in_array('api', $route->getAction('middleware')) &&
+                        Str::startsWith($route->getName(), "{$application}.")
+                    ) {
+                        $name = $route->getName() ?: "no_name_{$index}";
+                        $uri = '/' . trim($route->uri(), '/');
+
+                        return [$name => $uri];
+                    }
+
+                    return [];
+                });
         }
     }

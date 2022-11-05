@@ -17,8 +17,6 @@
          */
         public function index(Request $request, Company $company): JsonResponse
         {
-            $isSuperAdminRoute = $request->routeIs('admin.admin.*');
-
-            return CompanyShowResponse::create($company, $isSuperAdminRoute)->toJson();
+            return CompanyShowResponse::create($company)->toJson();
         }
     }

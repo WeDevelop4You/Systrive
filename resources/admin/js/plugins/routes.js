@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Routes from "../routes";
 import VueRouter from 'vue-router'
-import Helper from "../Providers/Helper";
+import Import from "../helpers/Import";
 
 Vue.use(VueRouter)
 
-const app = Helper.getApp()
-const $store = Helper.getStore()
+const app = Import.app()
+const $store = Import.store()
 
 const router = new VueRouter({
     mode: 'history',
@@ -19,7 +19,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.meta.isAuthenticatedPage) {
         const page = to.meta.page
 
-        if (!app.$auth.check()) {
+        if (!app.$auth.isLoaded()) {
             app.$auth.load();
         }
 
@@ -38,6 +38,14 @@ router.beforeEach(async (to, from, next) => {
     }
 
     next()
+})
+
+router.afterEach((to) => {
+    const meta = to.meta
+
+    if (meta.breadcrumbs instanceof Function) {
+        meta.breadcrumbs.call(this, to)
+    }
 })
 
 export default router

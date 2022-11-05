@@ -33,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|SystemUsageStatistic whereTotal($value)
  * @method static Builder|SystemUsageStatistic whereType($value)
  * @method static Builder|SystemUsageStatistic whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class SystemUsageStatistic extends Model

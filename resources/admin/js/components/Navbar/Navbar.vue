@@ -1,9 +1,9 @@
 <template>
     <v-list
-        v-bind="value.attributes"
+        v-bind="component.attributes"
         dense
     >
-        <template v-for="(item, index) in value.data.list">
+        <template v-for="(item, index) in component.data.list">
             <template v-if="item.subheader">
                 <v-subheader
                     v-show="!isHidden"
@@ -33,27 +33,25 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
-    import GroupNavigation from "./Navigations/GroupNavigation.vue";
-    import CollapseNavigation from "./Navigations/CollapseNavigation.vue";
+    import ComponentBase from "../Base/ComponentBase";
+    import GroupNavigationComponent from "./Navigations/GroupNavigation.vue";
+    import CollapseNavigationComponent from "./Navigations/CollapseNavigation.vue";
 
     export default {
         name: "Navbar",
 
         components: {
-            GroupNavigation,
-            CollapseNavigation,
+            GroupNavigationComponent,
+            CollapseNavigationComponent,
         },
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         props: {
             isHidden: {
                 type: Boolean,
                 default: false
             }
-        }
+        },
     }
 </script>

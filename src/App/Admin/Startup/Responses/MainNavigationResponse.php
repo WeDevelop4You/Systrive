@@ -6,7 +6,7 @@ use Auth;
 use Domain\Company\Enums\CompanyUserStatusTypes;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\IconTypes;
+use Support\Enums\Component\IconType;
 use Support\Response\Components\Icons\IconComponent;
 use Support\Response\Components\Images\ImageComponent;
 use Support\Response\Components\Navbar\Helpers\VueRouteHelper;
@@ -53,7 +53,7 @@ class MainNavigationResponse extends AbstractResponse
                                 ->setSize(28)
                         )
                         ->setRoute(
-                            VueRouteHelper::getCompany($company)
+                            VueRouteHelper::createCompany($company)
                         );
                 })->toArray()
             );
@@ -65,23 +65,23 @@ class MainNavigationResponse extends AbstractResponse
             ->setNavigation([
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.users'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_USERS))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_USERS))
                     ->setRoute(VueRouteHelper::create()->setName('admin.users')),
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.companies'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_ADDRESS_CARD))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_ADDRESS_CARD))
                     ->setRoute(VueRouteHelper::create()->setName('admin.companies')),
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.translations'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_LANGUAGE))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_LANGUAGE))
                     ->setRoute(VueRouteHelper::create()->setName('admin.translations')),
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.supervisor'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_RUNNING))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_RUNNING))
                     ->setRoute(VueRouteHelper::create()->setName('admin.supervisor')),
                 NavigationItemComponent::create()
                     ->setTitle(trans('word.jobs'))
-                    ->setPrepend(IconComponent::create()->setType(IconTypes::FAS_BUSINESS_TIME))
+                    ->setPrepend(IconComponent::create()->setType(IconType::FAS_BUSINESS_TIME))
                     ->setRoute(VueRouteHelper::create()->setName('admin.jobs')),
             ]);
     }

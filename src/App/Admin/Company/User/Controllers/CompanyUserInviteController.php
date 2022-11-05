@@ -4,7 +4,7 @@
 
     use App\Admin\Company\User\Requests\CompanyUserInviteRequest;
     use App\Admin\Company\User\Responses\CompanyUserInviteResponse;
-    use Domain\Company\Actions\CreateCompanyUserInviteAction;
+    use Domain\Company\Actions\CompanyUserStoreInviteAction;
     use Domain\Company\DataTransferObjects\CompanyUserData;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
@@ -33,7 +33,7 @@
         {
             $data = new CompanyUserData(...$request->validated());
 
-            (new CreateCompanyUserInviteAction($company))($data);
+            (new CompanyUserStoreInviteAction($company))($data);
 
             return Response::create()
                 ->addPopup(

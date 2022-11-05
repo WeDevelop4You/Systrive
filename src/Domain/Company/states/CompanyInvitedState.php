@@ -1,10 +1,10 @@
 <?php
 
-namespace Domain\Company\states;
+namespace Domain\Company\States;
 
 use Domain\Company\Enums\CompanyStatusTypes;
 
-class CompanyInvitedState extends CompanyStates
+class CompanyInvitedState extends AbstractCompanyState
 {
     /**
      * @return void

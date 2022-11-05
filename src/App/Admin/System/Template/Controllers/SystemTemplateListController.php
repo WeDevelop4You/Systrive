@@ -6,17 +6,17 @@ use App\Admin\System\Template\Resources\SystemTemplateListResource;
 use Domain\System\Models\SystemTemplate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Support\Enums\System\SystemTemplateTypes;
+use Support\Enums\System\SystemTemplateType;
 use Support\Response\Response;
 
 class SystemTemplateListController
 {
     /**
-     * @param SystemTemplateTypes $type
+     * @param SystemTemplateType $type
      *
      * @return JsonResponse
      */
-    public function index(SystemTemplateTypes $type): JsonResponse
+    public function index(SystemTemplateType $type): JsonResponse
     {
         $query = SystemTemplate::whereType($type);
 

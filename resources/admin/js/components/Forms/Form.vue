@@ -1,22 +1,34 @@
 <template>
     <row
-        :value="value.data.form"
+        v-if="isReady"
+        :value="component.data.form"
     />
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
     import Row from "../Layouts/Row.vue";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
-        name: "CustomForm",
+        name: "Form",
 
         components: {
             Row,
         },
 
-        mixins: [
-            ComponentProperties
-        ]
+        extends: ComponentBase,
+
+        props: {
+            vuexNamespace: {
+                required: true,
+                type: String
+            },
+        },
+
+        computed: {
+            isReady() {
+                return this.$store.getters[`${this.vuexNamespace}/isReady`]
+            }
+        }
     }
 </script>

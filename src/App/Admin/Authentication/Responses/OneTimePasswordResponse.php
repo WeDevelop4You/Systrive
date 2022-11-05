@@ -3,10 +3,10 @@
 namespace App\Admin\Authentication\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
-use Support\Enums\Component\Vuetify\VuetifyButtonTypes;
-use Support\Enums\Component\Vuetify\VuetifyColors;
-use Support\Enums\Component\Vuetify\VuetifySizeTypes;
+use Support\Enums\Component\Form\FormType;
+use Support\Enums\Component\Vuetify\VuetifyButtonType;
+use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifySizeType;
 use Support\Response\Actions\ChainAction;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
@@ -34,12 +34,12 @@ class OneTimePasswordResponse extends AbstractResponse
                 $modal->setWidth(323)
                     ->setTitle(trans('modal.verify.title'))
                     ->setForm(
-                        CustomFormComponent::create()->setType(FormTypes::ONE_TIME_PASSWORD)
+                        CustomFormComponent::create()->setType(FormType::ONE_TIME_PASSWORD)
                     )
                     ->addFooterButton(
                         ButtonComponent::create()
                             ->setColor()
-                            ->setType(VuetifyButtonTypes::BLOCK)
+                            ->setType(VuetifyButtonType::BLOCK)
                             ->setTitle(trans('modal.verify.verify'))
                             ->setAction(
                                 VuexAction::create()->dispatch('user/guest/login', 'OTP')
@@ -47,16 +47,16 @@ class OneTimePasswordResponse extends AbstractResponse
                     )
                     ->addFooterButton(
                         ButtonComponent::create()
-                            ->setSize(VuetifySizeTypes::X_SMALL)
-                            ->setType(VuetifyButtonTypes::BLOCK)
-                            ->setColor(VuetifyColors::TRANSPARENT)
+                            ->setSize(VuetifySizeType::X_SMALL)
+                            ->setType(VuetifyButtonType::BLOCK)
+                            ->setColor(VuetifyColor::TRANSPARENT)
                             ->setTitle(trans('modal.use.recovery.code'))
                             ->setAction(
                                 ChainAction::create()
                                     ->addAction(
                                         RequestAction::create()
                                             ->get(route('admin.recovery.code'))
-                                            ->setOnSuccessAsClosePopupModal($modal->getIdentifier())
+                                            ->setCloseModalOnSuccessAction($modal->getIdentifier())
                                     )->addAction(
                                         VuexAction::create()->commit('user/guest/oneTimePasswordForm/setData', [])
                                     )

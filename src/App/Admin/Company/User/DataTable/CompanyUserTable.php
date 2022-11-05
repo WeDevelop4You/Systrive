@@ -11,8 +11,8 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\Component\IconTypes;
-    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Enums\Component\IconType;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
     use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
@@ -53,7 +53,7 @@
                     ->setSortable()
                     ->setDivider($showActions)
                     ->setSearchable(CompanyUserStatusTypes::class)
-                    ->setAlignment(VuetifyTableAlignmentTypes::CENTER)
+                    ->setAlignment(VuetifyTableAlignmentType::CENTER)
                     ->setFormat(function (User $data) {
                         /** @var CompanyUserStatusTypes $status */
                         $status = $data->pivot->status;
@@ -79,18 +79,18 @@
                         ->addButtonIf(
                             $pivot->status === CompanyUserStatusTypes::EXPIRED && $canInvite,
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PAPER_PLANE))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_PAPER_PLANE))
                                 ->setAction(
                                     RequestAction::create()
                                         ->post(route('admin.company.user.invite.resend', $params))
-                                        ->setOnSuccess(
+                                        ->setOnSuccessAction(
                                             VuexAction::create()->refreshTable('company/users')
                                         )
                                 ),
                         )->addButtonIf(
                             $canEdit && ($pivot->is_owner || $data->id !== Auth::id()),
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()->dispatch(
                                         "company/users/edit",
@@ -100,7 +100,7 @@
                         )->addButtonIf(
                             !$pivot->is_owner && $canRevoke,
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_USER_MINUS))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_USER_MINUS))
                                 ->setAction(
                                     RequestAction::create()
                                         ->get(route('admin.company.user.revoke', $params))

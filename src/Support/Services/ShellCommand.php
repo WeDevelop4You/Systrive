@@ -4,7 +4,7 @@ namespace Support\Services;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use Support\Exceptions\ShellCommandFailedException;
+use Support\Exceptions\Custom\ShellCommandFailedException;
 use Symfony\Component\Process\Process;
 
 class ShellCommand

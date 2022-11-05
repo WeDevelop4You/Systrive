@@ -1,10 +1,10 @@
 <?php
 
-namespace Domain\Company\states;
+namespace Domain\Company\States;
 
 use Domain\Company\Enums\CompanyUserStatusTypes;
 
-class CompanyUserRequestedState extends CompanyUserStates
+class CompanyUserRequestedState extends AbstractCompanyUserState
 {
     public function changeState(): void
     {

@@ -3,7 +3,7 @@
 namespace App\Admin\Account\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\Vuetify\VuetifyJustifyTypes;
+use Support\Enums\Component\Vuetify\VuetifyJustifyType;
 use Support\Response\Components\Layouts\ColComponent;
 use Support\Response\Components\Layouts\RowComponent;
 use Support\Response\Components\Overviews\PageComponent;
@@ -18,7 +18,7 @@ class AccountSettingsOverviewResponse extends AbstractResponse
         return Response::create()
             ->addComponent(
                 RowComponent::create()
-                    ->setJustify(VuetifyJustifyTypes::CENTER)
+                    ->setJustify(VuetifyJustifyType::CENTER)
                     ->setCols([
                         $this->createNavbar(),
                         $this->createPageOverview(),

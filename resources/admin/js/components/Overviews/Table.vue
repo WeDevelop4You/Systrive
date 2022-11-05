@@ -1,25 +1,23 @@
 <template>
     <component
-        v-bind="value.attributes"
-        :is="value.data.type"
-        :value="value"
+        v-bind="component.attributes"
+        :is="component.data.type"
+        :value="component"
     />
 </template>
 
 <script>
-    import ComponentProperties from "../../mixins/ComponentProperties";
+    import ComponentBase from "../Base/ComponentBase";
 
     export default {
         name: "Table",
 
         components: {
-            LocaleDataTable: () => import('../Tables/LocaleDataTable.vue'),
-            ServerDataTable: () => import('../Tables/ServerDataTable.vue')
+            LocaleDataTableComponent: () => import('../Tables/LocaleDataTable.vue'),
+            ServerDataTableComponent: () => import('../Tables/ServerDataTable.vue')
         },
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         data() {
             return {
@@ -34,8 +32,8 @@
         methods: {
             setup() {
                 this.$store.commit(`${this.vuexNamespace}/setRoutes`, {
-                    items: this.value.data.itemsUrl,
-                    headers: this.value.data.headerUrl,
+                    items: this.component.data.itemsUrl,
+                    headers: this.component.data.headerUrl,
                 })
 
                 this.$store.dispatch(`${this.vuexNamespace}/getHeaders`)

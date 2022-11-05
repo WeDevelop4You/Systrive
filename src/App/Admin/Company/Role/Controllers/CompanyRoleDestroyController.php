@@ -9,7 +9,7 @@
     use Illuminate\Http\JsonResponse;
     use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
     use Support\Response\Response;
-    use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+    use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class CompanyRoleDestroyController
     {
@@ -41,7 +41,7 @@
                 ->addPopup(
                     SimpleNotificationComponent::create()
                         ->setText(trans('response.error.delete.admin.role')),
-                    ResponseCodes::HTTP_BAD_REQUEST
+                    ResponseCode::HTTP_BAD_REQUEST
                 )
                 ->toJson();
         }

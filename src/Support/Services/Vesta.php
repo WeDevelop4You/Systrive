@@ -4,10 +4,10 @@
 
     use CurlHandle;
     use Illuminate\Support\Collection;
-    use Support\Enums\VestaCommands;
-    use Support\Exceptions\UnknownResponseCodeException;
-    use Support\Exceptions\VestaCommandException;
-    use Support\Exceptions\VestaCredentialsNotSetException;
+    use Support\Enums\VestaCommand;
+    use Support\Exceptions\Custom\UnknownResponseCodeException;
+    use Support\Exceptions\Custom\VestaCommandException;
+    use Support\Exceptions\Custom\VestaCredentialsNotSetException;
 
     class Vesta
     {
@@ -58,12 +58,12 @@
         }
 
         /**
-         * @param VestaCommands $command
-         * @param array         $parameters
+         * @param VestaCommand $command
+         * @param array        $parameters
          *
          * @return Collection
          */
-        public function get(VestaCommands $command, ...$parameters): Collection
+        public function get(VestaCommand $command, ...$parameters): Collection
         {
             $parameters = [...$parameters, 'json'];
 
@@ -75,18 +75,18 @@
         }
 
         /**
-         * @param string $command
-         * @param array  $parameters
+         * @param VestaCommand $command
+         * @param array        $parameters
          *
          * @throws VestaCommandException
          *
          * @return bool
          */
-        public function post(string $command, ...$parameters): bool
+        public function post(VestaCommand $command, array $parameters): bool
         {
             $parameters = ['returncode' => 'yes', ...$parameters];
 
-            $this->createRequestData($command, $parameters);
+            $this->createRequestData($command->value, $parameters);
 
             $response = (int) $this->execute();
 

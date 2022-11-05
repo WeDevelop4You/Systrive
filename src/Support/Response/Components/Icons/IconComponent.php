@@ -9,6 +9,6 @@ class IconComponent extends AbstractIconComponent
      */
     protected function getComponentName(): string
     {
-        return 'Icon';
+        return 'IconComponent';
     }
 }

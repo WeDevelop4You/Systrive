@@ -2,10 +2,12 @@
 
     namespace Support\Response\Components\Popups\Notifications;
 
-    use Support\Enums\Component\IconTypes;
-    use Support\Enums\Component\PopupTypes;
-    use Support\Enums\Component\Vuetify\VuetifyAlertTypes;
+    use Support\Enums\Component\IconType;
+    use Support\Enums\Component\PopupType;
+    use Support\Enums\Component\Vuetify\VuetifyAlertType;
+    use Support\Enums\Component\Vuetify\VuetifyColor;
     use Support\Response\Components\Popups\AbstractPopupComponent;
+    use Support\Response\Components\Utils\ThemeComponent;
     use Symfony\Component\HttpFoundation\Response;
 
     abstract class AbstractNotificationComponent extends AbstractPopupComponent
@@ -24,11 +26,11 @@
         }
 
         /**
-         * @return PopupTypes
+         * @return PopupType
          */
-        protected function getType(): PopupTypes
+        protected function getType(): PopupType
         {
-            return PopupTypes::NOTIFICATION;
+            return PopupType::NOTIFICATION;
         }
 
         /**
@@ -44,33 +46,37 @@
         }
 
         /**
-         * @param VuetifyAlertTypes $type
+         * @param VuetifyAlertType $type
          *
          * @return AbstractPopupComponent
          */
-        public function setAlertType(VuetifyAlertTypes $type): AbstractPopupComponent
+        public function setAlertType(VuetifyAlertType $type): AbstractPopupComponent
         {
             return $this->setAttribute('type', $type->value);
         }
 
         /**
-         * @param IconTypes $icon
+         * @param IconType $icon
          *
          * @return AbstractPopupComponent
          */
-        public function setIcon(IconTypes $icon): AbstractPopupComponent
+        public function setIcon(IconType $icon): AbstractPopupComponent
         {
             return $this->setAttribute('icon', $icon->value);
         }
 
         /**
-         * @param string $color
+         * @param ThemeComponent|VuetifyColor $color
          *
          * @return AbstractPopupComponent
          */
-        final public function setColor(string $color): AbstractPopupComponent
+        final public function setColor(VuetifyColor|ThemeComponent $color): AbstractPopupComponent
         {
-            return $this->setAttribute('color', $color);
+            $value = $color instanceof ThemeComponent
+                ? $color->export()
+                : $color->value;
+
+            return $this->setAttribute('color', $value);
         }
 
         /**
@@ -78,11 +84,9 @@
          *
          * @return AbstractPopupComponent
          */
-        public function setTime(int $time): AbstractPopupComponent
+        public function setDisplayTime(int $time): AbstractPopupComponent
         {
-            $this->setData('time', $time);
-
-            return $this;
+            return $this->setData('displayTime', $time);
         }
 
         /**
@@ -118,22 +122,22 @@
                 case 200:
                 case 201:
                 case 204:
-                    $this->setAlertType(VuetifyAlertTypes::SUCCESS);
+                    $this->setAlertType(VuetifyAlertType::SUCCESS);
 
                     break;
                 case 403:
-                    $this->setAlertType(VuetifyAlertTypes::WARNING);
+                    $this->setAlertType(VuetifyAlertType::WARNING);
 
                     break;
                 case 400:
                 case 401:
                 case 404:
                 case 422:
-                    $this->setAlertType(VuetifyAlertTypes::ERROR);
+                    $this->setAlertType(VuetifyAlertType::ERROR);
 
                     break;
                 default:
-                    $this->setAlertType(VuetifyAlertTypes::INFO);
+                    $this->setAlertType(VuetifyAlertType::INFO);
                     $this->setText(trans('response.unknown.status_code'));
             }
         }

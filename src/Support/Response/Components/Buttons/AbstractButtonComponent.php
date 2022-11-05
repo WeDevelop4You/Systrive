@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Buttons;
 
-use Support\Enums\Component\Vuetify\VuetifySizeTypes;
+use Support\Enums\Component\Vuetify\VuetifySizeType;
 use Support\Response\Actions\AbstractAction;
 use Support\Response\Components\AbstractComponent;
 use Support\Response\Components\Utils\TooltipComponent;
@@ -20,11 +20,11 @@ abstract class AbstractButtonComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifySizeTypes $size
+     * @param VuetifySizeType $size
      *
      * @return static
      */
-    public function setSize(VuetifySizeTypes $size = VuetifySizeTypes::SMALL): static
+    public function setSize(VuetifySizeType $size = VuetifySizeType::SMALL): static
     {
         return $this->setAttribute($size->value, true);
     }

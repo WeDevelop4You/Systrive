@@ -1,8 +1,10 @@
-import Helper from "../Providers/Helper";
-import {STATE_ALL, STATE_EDIT} from "../Providers/Config";
+import Import from "../helpers/Import";
+import Breadcrumb from "../helpers/Breadcrumb";
+import {STATE_ALL, STATE_EDIT} from "../config/RouteState";
 
-const $api = Helper.getApi()
-const $vuetify = Helper.getVuetify()
+const app = Import.app()
+const $api = Import.api()
+const $vuetify = Import.vuetify()
 
 export default [
     {
@@ -18,39 +20,23 @@ export default [
         },
         meta: {
             isAuthenticatedPage: true,
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: {name: 'dashboard'}
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.sa.sa'),
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.users'),
-                }
-            ],
+            breadcrumbs() {
+                app.$breadcrumbs.setSuperAdmin()
+                    .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.users')))
+            }
         }
     },
     {
         path: 'companies/:chapters*',
         name: 'admin.companies',
-        component: () => import('../pages/SuperAdmin/Companies.vue'),
+        component: () => import('../views/SuperAdmin/Companies.vue'),
         meta: {
             isAuthenticatedPage: true,
             allowedStates: STATE_ALL,
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: {name: 'dashboard'}
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.sa.sa'),
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.companies'),
-                }
-            ]
+            breadcrumbs() {
+                app.$breadcrumbs.setSuperAdmin()
+                    .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.companies')))
+            }
         }
     },
     {
@@ -67,18 +53,10 @@ export default [
         meta: {
             isAuthenticatedPage: true,
             allowedStates: [STATE_EDIT],
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: {name: 'dashboard'}
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.sa.sa'),
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.translations'),
-                }
-            ],
+            breadcrumbs() {
+                app.$breadcrumbs.setSuperAdmin()
+                    .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.translations')))
+            }
         }
     },
     {
@@ -88,9 +66,9 @@ export default [
         props: {
             value: {
                 data: {
-                    runLoader: 'supervisor',
+                    loadState: 'supervisor',
+                    refreshDelay: 1000 * 60 * 10, // every 10 minutes
                     vuexNamespace: 'supervisor/overview',
-                    callbackDelay: 1000 * 60 * 10, // 10 minutes
                     route: $api.route('admin.supervisor.overview'),
                 }
             }
@@ -98,18 +76,10 @@ export default [
         meta: {
             isAuthenticatedPage: true,
             allowedStates: STATE_ALL,
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: {name: 'dashboard'}
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.sa.sa'),
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.supervisor'),
-                }
-            ]
+            breadcrumbs() {
+                app.$breadcrumbs.setSuperAdmin()
+                    .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.supervisor')))
+            }
         }
     },
     {
@@ -119,24 +89,16 @@ export default [
         props: {
             value: {
                 data: {
-                    route: $api.route('admin.job.overview'),
+                    route: $api.route('admin.job.schedule.overview'),
                 }
             }
         },
         meta: {
             isAuthenticatedPage: true,
-            breadcrumbs: [
-                {
-                    text: $vuetify.lang.t('$vuetify.word.dashboard'),
-                    to: {name: 'dashboard'}
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.sa.sa'),
-                },
-                {
-                    text: $vuetify.lang.t('$vuetify.word.jobs'),
-                }
-            ]
+            breadcrumbs() {
+                app.$breadcrumbs.setSuperAdmin()
+                    .add(new Breadcrumb($vuetify.lang.t('$vuetify.word.jobs')))
+            }
         }
     },
 ]

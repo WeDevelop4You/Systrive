@@ -5,8 +5,8 @@
     use Domain\Role\Mappings\RoleTableMap;
     use Domain\Role\Models\Role;
     use Support\Abstracts\AbstractTable;
-    use Support\Enums\Component\IconTypes;
-    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentTypes;
+    use Support\Enums\Component\IconType;
+    use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
     use Support\Helpers\DataTable\Build\Column;
     use Support\Response\Actions\RequestAction;
     use Support\Response\Actions\VuexAction;
@@ -33,7 +33,7 @@
                     ->setSearchable(),
                 Column::create(trans('word.permission.total'), 'permissions_count')
                     ->setSortable()
-                    ->setAlignment(VuetifyTableAlignmentTypes::CENTER),
+                    ->setAlignment(VuetifyTableAlignmentType::CENTER),
                 Column::create(trans('word.created_at'), 'created_at')
                     ->setSortable()
                     ->setSearchable()
@@ -55,7 +55,7 @@
                         ->addButtonIf(
                             $canEdit && $isMainRole,
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_PEN))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()->dispatch(
                                         'company/roles/edit',
@@ -66,7 +66,7 @@
                         ->addButtonIf(
                             $canDelete && $isMainRole,
                             IconButtonComponent::create()
-                                ->setIcon(IconComponent::create()->setType(IconTypes::FAS_TRASH))
+                                ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                 ->setAction(
                                     RequestAction::create()
                                         ->get(route('admin.company.role.destroy', $params))

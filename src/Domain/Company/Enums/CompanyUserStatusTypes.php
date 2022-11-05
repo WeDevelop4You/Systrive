@@ -2,12 +2,12 @@
 
 namespace Domain\Company\Enums;
 
-use Domain\Company\states\CompanyUserAcceptedState;
-use Domain\Company\states\CompanyUserExpiredState;
-use Domain\Company\states\CompanyUserRequestedState;
-use Domain\Company\states\CompanyUserStates;
+use Domain\Company\States\AbstractCompanyUserState;
+use Domain\Company\States\CompanyUserAcceptedState;
+use Domain\Company\States\CompanyUserExpiredState;
+use Domain\Company\States\CompanyUserRequestedState;
 use Domain\Invite\Models\Invite;
-use Support\Enums\Component\Vuetify\VuetifyColors;
+use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Traits\DatabaseEnumSearch;
 
 enum CompanyUserStatusTypes: int
@@ -33,9 +33,9 @@ enum CompanyUserStatusTypes: int
     /**
      * @param Invite $invite
      *
-     * @return CompanyUserStates
+     * @return AbstractCompanyUserState
      */
-    public function getState(Invite $invite): CompanyUserStates
+    public function getState(Invite $invite): AbstractCompanyUserState
     {
         return match ($this) {
             self::REQUESTED => new CompanyUserRequestedState($invite),
@@ -44,12 +44,12 @@ enum CompanyUserStatusTypes: int
         };
     }
 
-    public function getColor(): VuetifyColors
+    public function getColor(): VuetifyColor
     {
         return match ($this) {
-            self::REQUESTED => VuetifyColors::INFO,
-            self::EXPIRED => VuetifyColors::WARNING,
-            self::ACCEPTED => VuetifyColors::SUCCESS,
+            self::REQUESTED => VuetifyColor::INFO,
+            self::EXPIRED => VuetifyColor::WARNING,
+            self::ACCEPTED => VuetifyColor::SUCCESS,
         };
     }
 }

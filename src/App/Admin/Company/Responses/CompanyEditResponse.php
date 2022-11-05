@@ -5,7 +5,7 @@ namespace App\Admin\Company\Responses;
 use App\Admin\Company\Resources\CompanyEditResource;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\FormTypes;
+use Support\Enums\Component\Form\FormType;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Forms\CustomFormComponent;
 use Support\Response\Components\Popups\Modals\FormModal;
@@ -37,7 +37,7 @@ class CompanyEditResponse extends AbstractResponse
                     ->setTitle(trans('word.edit.edit'))
                     ->setForm(
                         CustomFormComponent::create()
-                            ->setType(FormTypes::COMPANY)
+                            ->setType(FormType::COMPANY)
                     )
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(

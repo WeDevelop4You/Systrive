@@ -26,6 +26,7 @@ use Spatie\Permission\Models\Role as RoleSpatie;
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Role extends RoleSpatie

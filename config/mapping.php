@@ -20,4 +20,19 @@ return [
             'medium' => 2000,
         ],
     ],
+
+    \Domain\Cms\Models\CmsTable::class => [
+        'required' => [
+            'columns' => ['id', 'created_at', 'updated_at'],
+        ],
+        'used' => [
+            'names' => ['cms_tables', 'cms_columns', 'migrations'],
+        ],
+    ],
+
+    \Domain\Cms\Models\CmsColumn::class => [
+        'original' => [
+            'key' => 'original_key',
+        ],
+    ],
 ];

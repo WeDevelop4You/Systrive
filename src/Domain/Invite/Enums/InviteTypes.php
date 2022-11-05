@@ -3,8 +3,8 @@
 namespace Domain\Invite\Enums;
 
 use Domain\Company\Models\CompanyUser;
-use Domain\Company\states\CompanyStates;
-use Domain\Company\states\CompanyUserStates;
+use Domain\Company\States\AbstractCompanyState;
+use Domain\Company\States\AbstractCompanyUserState;
 use Domain\Invite\Jobs\SendCompanyInvite;
 use Domain\Invite\Jobs\SendInviteToUser;
 use Domain\Invite\Models\Invite;
@@ -14,7 +14,7 @@ enum InviteTypes: string
     case USER = 'user';
     case COMPANY = 'company';
 
-    public function getStatus(Invite $invite): CompanyUserStates|CompanyStates
+    public function getState(Invite $invite): AbstractCompanyUserState|AbstractCompanyState
     {
         return match ($this) {
             self::USER => $this->getCompanyUserStatus($invite),
@@ -38,9 +38,9 @@ enum InviteTypes: string
     /**
      * @param Invite $invite
      *
-     * @return CompanyUserStates
+     * @return AbstractCompanyUserState
      */
-    private function getCompanyUserStatus(Invite $invite): CompanyUserStates
+    private function getCompanyUserStatus(Invite $invite): AbstractCompanyUserState
     {
         return CompanyUser::firstWithInvite($invite)->status->getState($invite);
     }
@@ -48,9 +48,9 @@ enum InviteTypes: string
     /**
      * @param Invite $invite
      *
-     * @return CompanyStates
+     * @return AbstractCompanyState
      */
-    private function getCompanyStatus(Invite $invite): CompanyStates
+    private function getCompanyStatus(Invite $invite): AbstractCompanyState
     {
         return $invite->company->status->getState($invite);
     }

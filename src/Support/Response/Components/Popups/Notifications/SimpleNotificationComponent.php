@@ -6,6 +6,6 @@
     {
         protected function getComponentName(): string
         {
-            return 'SimpleNotification';
+            return 'SimpleNotificationComponent';
         }
     }

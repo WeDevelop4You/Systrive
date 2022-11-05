@@ -1,5 +1,5 @@
-import DataTableBase from "../Base/dataTableBase";
-import ShowBase from "../Base/showBase";
+import DataTableBase from "../../base/dataTableBase";
+import ShowBase from "../../base/showBase";
 
 export default {
     namespaced: true,

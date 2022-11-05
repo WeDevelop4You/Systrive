@@ -1,6 +1,6 @@
 import Vue from "vue";
-import OverviewBase from "../../Base/overviewBase";
-import FormBase from "../../Base/formBase";
+import OverviewBase from "../../../base/overviewBase";
+import FormBase from "../../../base/formBase";
 import Password from "../../password";
 
 const app = Vue.prototype

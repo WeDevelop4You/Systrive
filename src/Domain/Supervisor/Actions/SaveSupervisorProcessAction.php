@@ -7,8 +7,8 @@ use Domain\Supervisor\Models\Supervisor;
 use Exception;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
-use Support\Exceptions\ActionErrorException;
-use Support\Exceptions\ShellCommandFailedException;
+use Support\Exceptions\Custom\ActionErrorException;
+use Support\Exceptions\Custom\ShellCommandFailedException;
 use Support\Services\ShellCommand;
 use Support\Services\Supervisor as SupervisorService;
 

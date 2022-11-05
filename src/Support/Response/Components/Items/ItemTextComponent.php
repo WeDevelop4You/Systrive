@@ -3,7 +3,7 @@
 namespace Support\Response\Components\Items;
 
 use Domain\System\Models\SystemTemplate;
-use Support\Enums\System\SystemTemplateTypes;
+use Support\Enums\System\SystemTemplateType;
 
 class ItemTextComponent extends AbstractItemComponent
 {
@@ -12,16 +12,16 @@ class ItemTextComponent extends AbstractItemComponent
      */
     protected function getComponentName(): string
     {
-        return 'Content';
+        return 'ContentComponent';
     }
 
     /**
-     * @param string              $value
-     * @param SystemTemplateTypes $type
+     * @param string             $value
+     * @param SystemTemplateType $type
      *
      * @return ItemTextComponent
      */
-    public function setTemplate(string $value, SystemTemplateTypes $type): ItemTextComponent
+    public function setTemplate(string $value, SystemTemplateType $type): ItemTextComponent
     {
         $template = SystemTemplate::whereValueAndType($value, $type)->first();
 

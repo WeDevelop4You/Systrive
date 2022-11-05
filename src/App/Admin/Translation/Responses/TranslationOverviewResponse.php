@@ -7,7 +7,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Response\Actions\RequestAction;
 use Support\Response\Actions\VuexAction;
 use Support\Response\Components\Buttons\ButtonComponent;
-use Support\Response\Components\Forms\InputTypes\SelectInputComponent;
+use Support\Response\Components\Forms\Inputs\SelectInputComponent;
 use Support\Response\Components\Overviews\Tables\ServerTableComponent;
 use Support\Response\Response;
 use WeDevelop4You\TranslationFinder\Models\TranslationKey;

@@ -28,6 +28,7 @@
      * @method static Builder|SystemDomain whereName($value)
      * @method static Builder|SystemDomain whereSystemId($value)
      * @method static Builder|SystemDomain whereUpdatedAt($value)
+     *
      * @mixin Eloquent
      */
     class SystemDomain extends Model

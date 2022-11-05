@@ -11,7 +11,7 @@ class ImageComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'CImage';
+        return 'ImageComponent';
     }
 
     /**

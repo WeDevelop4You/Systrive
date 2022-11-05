@@ -4,7 +4,7 @@
     >
         <component
             :is="navigation.componentName"
-            v-for="navigation in value.data.navigations"
+            v-for="navigation in component.data.navigations"
             :key="navigation.identifier"
             :is-hidden="isHidden"
             :value="navigation"
@@ -13,21 +13,21 @@
 </template>
 
 <script>
-    import ComponentProperties from "../../../mixins/ComponentProperties";
-    import NavigationItem from "./Items/NavigationItem.vue";
-    import NavigationCustomItem from "./Items/NavigationCustomItem.vue";
+    import ComponentBase from "../../Base/ComponentBase";
+    import NavigationItemComponent from "./Items/NavigationItem.vue";
+    import NavigationCustomItemComponent from "./Items/Custom/index.vue";
+    import NavigationCreateItemComponent from "./Items/NavigationCreateItem.vue";
 
     export default {
         name: "GroupNavigation",
 
         components: {
-            NavigationItem,
-            NavigationCustomItem
+            NavigationItemComponent,
+            NavigationCreateItemComponent,
+            NavigationCustomItemComponent
         },
 
-        mixins: [
-            ComponentProperties
-        ],
+        extends: ComponentBase,
 
         props: {
             isHidden: {

@@ -76,20 +76,47 @@
             v-if="isEditing"
             cols="12"
         >
-            <v-textarea
-                v-model="data.information"
-                :label="$vuetify.lang.t('$vuetify.word.information')"
+            <v-text-field
+                v-model="data.domain"
+                :error-messages="errors.domain"
+                :label="$vuetify.lang.t('$vuetify.word.domain')"
                 dense
                 outlined
-                hide-details
+                hide-details="auto"
+                @input="clearError('domain')"
             />
+        </v-col>
+        <v-col
+            v-if="$auth.can($config.permissions.superAdmin)"
+            cols="12"
+        >
+            <v-subheader
+                class="subtitle-1 px-0"
+                style="height: 25px"
+                v-text="$vuetify.lang.t('$vuetify.word.modules')"
+            />
+            <v-row class="my-0">
+                <v-col
+                    v-for="(module, index) in data.modules"
+                    :key="index"
+                    class="py-0"
+                    cols="auto"
+                >
+                    <v-checkbox
+                        v-model="module.value"
+                        :label="module.title"
+                        hide-details
+                        dense
+                    />
+                </v-col>
+            </v-row>
         </v-col>
     </v-row>
 </template>
 
 <script>
     import {mapGetters} from "vuex";
-    import CustomFormProperties from "../../../mixins/Form/CustomFormProperties"
+    import CustomFormProperties from "../../../mixins/CustomFormProperties"
 
     export default {
         name: "CompanyForm",

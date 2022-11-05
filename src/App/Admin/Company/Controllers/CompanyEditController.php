@@ -4,7 +4,7 @@
 
     use App\Admin\Company\Requests\CompanyUpdateRequest;
     use App\Admin\Company\Responses\CompanyEditResponse;
-    use Domain\Company\Actions\UpdateCompanyAction;
+    use Domain\Company\Actions\CompanyUpdateAction;
     use Domain\Company\DataTransferObjects\CompanyData;
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
@@ -25,10 +25,17 @@
 
         public function action(CompanyUpdateRequest $request, Company $company): JsonResponse
         {
-            $data = new CompanyData(...$request->only('name', 'email', 'domain', 'information', 'owner'));
+            $data = new CompanyData(...$request->only(
+                'name',
+                'email',
+                'domain',
+                'modules',
+                'information',
+                'owner'
+            ));
             $removeOwner = $request->get('remove_owner', false);
 
-            (new UpdateCompanyAction($company, $removeOwner))($data);
+            (new CompanyUpdateAction($company, $removeOwner))($data);
 
             return Response::create()
                 ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.saved')))

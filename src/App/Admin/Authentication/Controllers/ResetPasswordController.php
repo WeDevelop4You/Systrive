@@ -12,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
 use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Response\Response;
-use Symfony\Component\HttpFoundation\Response as ResponseCodes;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class ResetPasswordController
 {
@@ -56,7 +56,7 @@ class ResetPasswordController
             $response->addRedirect(route('admin.login'));
         } else {
             $response->addPopup(SimpleNotificationComponent::create()->setText(trans($status)))
-                ->setStatusCode(ResponseCodes::HTTP_BAD_REQUEST);
+                ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST);
         }
 
         return $response->toJson();

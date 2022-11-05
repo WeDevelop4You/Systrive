@@ -2,7 +2,7 @@
 
 namespace Support\Response\Components\Layouts;
 
-use Support\Enums\Component\Vuetify\VuetifyAlignSelfTypes;
+use Support\Enums\Component\Vuetify\VuetifyAlignSelfType;
 use Support\Response\Components\AbstractComponent;
 
 class ColComponent extends AbstractComponent
@@ -19,7 +19,7 @@ class ColComponent extends AbstractComponent
      */
     protected function getComponentName(): string
     {
-        return 'Col';
+        return 'ColComponent';
     }
 
     /**
@@ -33,11 +33,11 @@ class ColComponent extends AbstractComponent
     }
 
     /**
-     * @param VuetifyAlignSelfTypes $alignSelf
+     * @param VuetifyAlignSelfType $alignSelf
      *
      * @return ColComponent
      */
-    public function setAlignSelf(VuetifyAlignSelfTypes $alignSelf): ColComponent
+    public function setAlignSelf(VuetifyAlignSelfType $alignSelf): ColComponent
     {
         return $this->setAttribute('align-self', $alignSelf->value);
     }

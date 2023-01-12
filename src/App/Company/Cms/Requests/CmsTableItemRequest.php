@@ -2,7 +2,6 @@
 
 namespace App\Company\Cms\Requests;
 
-use Domain\Cms\Helpers\CmsTableHelper;
 use Domain\Cms\Models\CmsTable;
 use Illuminate\Foundation\Http\FormRequest;
 

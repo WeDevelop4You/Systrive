@@ -3,7 +3,6 @@
 namespace App\Company\Cms\Controllers\Column;
 
 use App\Company\Cms\Resources\CmsTableColumnResource;
-use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsTable;
 use Domain\Cms\Seeders\ColumnSeeder;

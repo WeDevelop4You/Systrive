@@ -2,8 +2,6 @@
 
 namespace App\Company\Cms\DataTables;
 
-use Domain\Cms\Collections\CmsColumnCollections;
-use Domain\Cms\Helpers\CmsTableHelper;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;

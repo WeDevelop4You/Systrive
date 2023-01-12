@@ -19,21 +19,22 @@ use Support\Services\Cms as CmsService;
 use Support\Traits\Observers;
 
 /**
- * Domain\Cms\Models\Cms
+ * Domain\Cms\Models\Cms.
  *
- * @property int $id
- * @property int|null $company_id
- * @property string $name
- * @property string $database
+ * @property int           $id
+ * @property int|null      $company_id
+ * @property string        $name
+ * @property string        $database
  * @property DecryptHelper $username
  * @property DecryptHelper $password
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Carbon|null $deleted_at
+ * @property Carbon|null   $created_at
+ * @property Carbon|null   $updated_at
+ * @property Carbon|null   $deleted_at
  * @property-read Company|null $company
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newQuery()
- * @method static Builder|Cms onlyTrashed()
+ * @method static Builder|Cms                               onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms query()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereCreatedAt($value)
@@ -44,13 +45,16 @@ use Support\Traits\Observers;
  * @method static \Illuminate\Database\Eloquent\Builder|Cms wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUsername($value)
- * @method static Builder|Cms withTrashed()
- * @method static Builder|Cms withoutTrashed()
+ * @method static Builder|Cms                               withTrashed()
+ * @method static Builder|Cms                               withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Cms extends Model
 {
-    use SoftDeletes, Prunable, Observers;
+    use SoftDeletes;
+    use Prunable;
+    use Observers;
 
     /**
      * @var string
@@ -76,7 +80,7 @@ class Cms extends Model
     ];
 
     protected static array $observers = [
-        CmsForceDeletedObserver::class
+        CmsForceDeletedObserver::class,
     ];
 
     /**

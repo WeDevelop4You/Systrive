@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         JobQueued::class => [
-            MonitorCreate::class
+            MonitorCreate::class,
         ],
         JobProcessing::class => [
             MonitorProcessing::class,
@@ -41,6 +41,5 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
     }
 }

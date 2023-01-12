@@ -12,7 +12,7 @@ trait ModelBroadcastRateLimit
             ? $this->rateLimit
             : $this->rateLimit();
 
-        $displayName = get_class($this->newBroadcastableEvent('rateLimit'));
+        $displayName = \get_class($this->newBroadcastableEvent('rateLimit'));
 
         return $rateLimit < Job::whereJsonContains('payload->displayName', $displayName)->count();
     }

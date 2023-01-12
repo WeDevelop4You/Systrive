@@ -5,7 +5,7 @@ namespace Support\Client\Components\Forms\Inputs;
 class FileInputComponent extends AbstractInputComponent
 {
     /**
-     * FileInputComponent constructor
+     * FileInputComponent constructor.
      */
     protected function __construct()
     {

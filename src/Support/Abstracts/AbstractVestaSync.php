@@ -57,7 +57,8 @@ abstract class AbstractVestaSync implements ShouldQueue, ShouldBeUnique, ShouldB
     /**
      * Handle a job failure.
      *
-     * @param  Throwable  $exception
+     * @param Throwable $exception
+     *
      * @return void
      */
     public function failed(Throwable $exception): void

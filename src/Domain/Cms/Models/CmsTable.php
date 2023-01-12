@@ -8,18 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Domain\Cms\Models\CmsTable
+ * Domain\Cms\Models\CmsTable.
  *
- * @property int $id
- * @property string $label
- * @property string $name
- * @property bool $editable
- * @property bool $is_table
+ * @property int                             $id
+ * @property string                          $label
+ * @property string                          $name
+ * @property bool                            $editable
+ * @property bool                            $is_table
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $columns
  * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $formColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $tableColumns
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable query()
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereLabel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CmsTable extends Model

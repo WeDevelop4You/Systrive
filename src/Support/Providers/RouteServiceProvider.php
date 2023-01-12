@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->createDataTableMacro();
         $this->configureRateLimiting();
 
-        Config::collect('applications')->eachCollect(function(Collection $config, string $application) {
+        Config::collect('applications')->eachCollect(function (Collection $config, string $application) {
             $this->load(
                 $config->getCollect('routes'),
                 $config->get('path'),
@@ -93,7 +93,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $route = Route::domain($domain)->name($name);
 
-        $config->getCollect('files')->eachCollect(function(Collection $config) use ($path, $plurals, $route) {
+        $config->getCollect('files')->eachCollect(function (Collection $config) use ($path, $plurals, $route) {
             $filename = $config->get('filename');
             $middleware = $config->get('middleware');
             $additional = $config->get('prefix', '');
@@ -129,7 +129,7 @@ class RouteServiceProvider extends ServiceProvider
         return Str::of($path)
             ->dirname()
             ->split('/\//')
-            ->map(function(string $name) use ($plurals) {
+            ->map(function (string $name) use ($plurals) {
                 $name = Str::lower($name);
 
                 return Arr::get($plurals, $name, Str::plural($name));

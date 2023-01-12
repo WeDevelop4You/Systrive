@@ -4,10 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class () extends Migration {
     public function up()
     {
-        Schema::create('cms_files', function(Blueprint $table) {
+        Schema::create('cms_files', function (Blueprint $table) {
             $table->id();
             $table->string("table_type");
             $table->unsignedBigInteger('table_id');

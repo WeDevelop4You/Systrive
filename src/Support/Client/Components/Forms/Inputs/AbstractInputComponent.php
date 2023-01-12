@@ -13,7 +13,8 @@ use Support\Helpers\VuexNamespaceHelper;
  */
 abstract class AbstractInputComponent extends Component
 {
-    use ComponentWithClasses, ComponentWithIfStatement;
+    use ComponentWithClasses;
+    use ComponentWithIfStatement;
 
     /**
      * AbstractInputComponent constructor.

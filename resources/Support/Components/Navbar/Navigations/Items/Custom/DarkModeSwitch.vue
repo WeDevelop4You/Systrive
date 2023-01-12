@@ -31,7 +31,7 @@
 <script>
     import Icon from "../../../../Misc/Icons/Icon.vue";
     import ComponentBase from "../../../../Base/ComponentBase";
-    import Component from "../../../../../helpers/Components/Component";
+    import Component from "../../../../../Helpers/Components/Component";
 
     export default {
         name: "DarkModeSwitchList",

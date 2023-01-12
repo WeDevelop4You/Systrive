@@ -1,4 +1,4 @@
-import Breadcrumb from "../helpers/Breadcrumb";
+import Breadcrumb from "../Helpers/Breadcrumb";
 
 class Breadcrumbs {
     #vuetify

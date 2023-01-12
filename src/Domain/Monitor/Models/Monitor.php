@@ -14,16 +14,17 @@ use Psr\SimpleCache\InvalidArgumentException;
 use Support\Traits\ModelBroadcastRateLimit;
 
 /**
- * Domain\Monitor\Models\Monitor
+ * Domain\Monitor\Models\Monitor.
  *
- * @property int $id
- * @property string $uuid
- * @property string $name
- * @property MonitorStatusType $status
- * @property int|null $started
- * @property int|null $ended
+ * @property int                             $id
+ * @property string                          $uuid
+ * @property string                          $name
+ * @property MonitorStatusType               $status
+ * @property int|null                        $started
+ * @property int|null                        $ended
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor query()
@@ -35,11 +36,13 @@ use Support\Traits\ModelBroadcastRateLimit;
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereUuid($value)
+ *
  * @mixin \Eloquent
  */
 class Monitor extends Model
 {
-    use BroadcastsEvents, ModelBroadcastRateLimit;
+    use BroadcastsEvents;
+    use ModelBroadcastRateLimit;
 
     protected $table = "monitors";
 
@@ -58,7 +61,7 @@ class Monitor extends Model
     protected $casts = [
         MonitorTableMap::COL_ENDED => 'integer',
         MonitorTableMap::COL_STARTED => 'integer',
-        MonitorTableMap::COL_STATUS => MonitorStatusType::class
+        MonitorTableMap::COL_STATUS => MonitorStatusType::class,
     ];
 
     /**
@@ -79,7 +82,8 @@ class Monitor extends Model
      * @param string $event
      *
      * @throws InvalidArgumentException
-     * @return Channel|array
+     *
+     * @return array|Channel
      */
     public function broadcastOn($event): Channel|array
     {
@@ -93,7 +97,8 @@ class Monitor extends Model
     /**
      * The model event's broadcast name.
      *
-     * @param  string  $event
+     * @param string $event
+     *
      * @return string|null
      */
     public function broadcastAs(string $event): ?string
@@ -104,7 +109,8 @@ class Monitor extends Model
     /**
      * Get the data to broadcast for the model.
      *
-     * @param  string  $event
+     * @param string $event
+     *
      * @return array
      */
     public function broadcastWith(string $event): array

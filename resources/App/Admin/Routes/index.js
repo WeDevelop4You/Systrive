@@ -13,7 +13,7 @@ export default [
     }, {
         path: '/users/:chapters*',
         name: 'admin.users',
-        component: () => import('../../../Support/components/Overviews/Page.vue'),
+        component: () => import('../../../Support/Components/Overviews/Page.vue'),
         props: {
             value: {
                 data: {
@@ -38,7 +38,7 @@ export default [
     }, {
         path: '/translations/:chapters*',
         name: 'admin.translations',
-        component: () => import('../../../Support/components/Overviews/Page.vue'),
+        component: () => import('../../../Support/Components/Overviews/Page.vue'),
         props: {
             value: {
                 data: {
@@ -54,7 +54,7 @@ export default [
     }, {
         path: '/monitor',
         name: 'admin.monitor',
-        component: () => import('../../../Support/components/Overviews/Page.vue'),
+        component: () => import('../../../Support/Components/Overviews/Page.vue'),
         props: {
             value: {
                 data: {
@@ -70,7 +70,7 @@ export default [
     }, {
         path: '/supervisor/:chapters*',
         name: 'admin.supervisor',
-        component: () => import('../../../Support/components/Overviews/Page.vue'),
+        component: () => import('../../../Support/Components/Overviews/Page.vue'),
         props: {
             value: {
                 data: {

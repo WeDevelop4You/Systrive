@@ -1,7 +1,7 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import {Store, install} from "vuex";
 
-Vue.use(Vuex)
+Vue.use(install)
 
 // Modules
 import FormBase from "../../../Support/Store/Base/formBase";
@@ -22,7 +22,7 @@ import OverviewBase from "../../../Support/Store/Base/overviewBase";
 
 const app = Vue.prototype
 
-export default new Vuex.Store({
+export default new Store({
     state: () => ({
         id: null,
         systemId: null

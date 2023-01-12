@@ -8,15 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Domain\Git\Models\GitAccount
+ * Domain\Git\Models\GitAccount.
  *
- * @property int $id
- * @property int $user_id
- * @property GitServiceTypes $service
- * @property string $username
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property GitServiceTypes                 $service
+ * @property string                          $username
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Git\Models\GitAccountAccessTokens|null $accessToken
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount query()
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccount whereUsername($value)
+ *
  * @mixin \Eloquent
  */
 class GitAccount extends Model

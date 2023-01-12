@@ -30,7 +30,7 @@
 <script>
     import Icon from "../../Misc/Icons/Icon.vue";
     import ComponentBase from "../../Base/ComponentBase";
-    import Component from "../../../helpers/Components/Component";
+    import Component from "../../../Helpers/Components/Component";
     import NavigationItemComponent from "./Items/NavigationItem.vue";
     import NavigationCustomItemComponent from "./Items/Custom/index.vue";
     import NavigationCreateItemComponent from "./Items/NavigationCreateItem.vue";

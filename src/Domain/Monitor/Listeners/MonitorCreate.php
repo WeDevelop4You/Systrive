@@ -5,7 +5,6 @@ namespace Domain\Monitor\Listeners;
 use Domain\Monitor\Enums\MonitorStatusType;
 use Domain\Monitor\Interfaces\ShouldBeNamed;
 use Domain\Monitor\Interfaces\WithMonitoring;
-use Domain\Monitor\Mappings\JobTableMap;
 use Domain\Monitor\Models\Job;
 use Domain\Monitor\Models\Monitor;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -21,6 +20,7 @@ class MonitorCreate
      * @param JobQueued $event
      *
      * @throws ReflectionException
+     *
      * @return void
      */
     public function handle(JobQueued $event): void

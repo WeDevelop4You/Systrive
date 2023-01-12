@@ -3,7 +3,6 @@
 namespace App\Company\Cms\Controllers\Column;
 
 use App\Company\Cms\DataTables\CmsTableColumnTable;
-use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsTable;
 use Domain\Cms\Seeders\ColumnSeeder;
@@ -11,7 +10,6 @@ use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Support\Abstracts\Controllers\AbstractTableController;
 use Support\Client\DataTable\Table;
-use function is_null;
 
 class CmsTableColumnTableController extends AbstractTableController
 {
@@ -38,7 +36,7 @@ class CmsTableColumnTableController extends AbstractTableController
      */
     public function action(Company $company, Cms $cms, ?CmsTable $table = null): JsonResponse
     {
-        $items = is_null($table) ? ColumnSeeder::create() : $table->columns()->sorted()->get();
+        $items = \is_null($table) ? ColumnSeeder::create() : $table->columns()->sorted()->get();
 
         return Table::create($this->structure($company, $cms))
             ->withoutQuery($items)

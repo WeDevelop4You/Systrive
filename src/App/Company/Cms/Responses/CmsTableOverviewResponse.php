@@ -2,7 +2,6 @@
 
 namespace App\Company\Cms\Responses;
 
-use Domain\Cms\Helpers\CmsTableHelper;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;

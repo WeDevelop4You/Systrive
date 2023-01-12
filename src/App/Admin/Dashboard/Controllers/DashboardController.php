@@ -16,4 +16,3 @@ class DashboardController
         return view('admin::pages.dashboard');
     }
 }
-

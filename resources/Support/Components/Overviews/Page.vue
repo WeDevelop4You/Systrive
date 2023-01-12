@@ -15,7 +15,7 @@
 <script>
     import ComponentError from "../ComponentError.vue";
     import ComponentLoading from "../ComponentLoading.vue";
-    import Component from "../../helpers/Components/Component";
+    import Component from "../../Helpers/Components/Component";
     import ComponentList from "../../Mixins/ComponentList";
     import Loader from "../../Providers/Loader";
 

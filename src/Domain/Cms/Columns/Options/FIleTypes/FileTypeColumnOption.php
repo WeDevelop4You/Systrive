@@ -50,6 +50,5 @@ class FileTypeColumnOption extends AbstractColumnOption implements ComponentColu
 
     private function getItems(): array
     {
-
     }
 }

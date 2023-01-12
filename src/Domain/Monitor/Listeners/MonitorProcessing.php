@@ -26,6 +26,5 @@ class MonitorProcessing
             $monitor->started = Carbon::now()->getTimestampMs();
             $monitor->save();
         }
-
     }
 }

@@ -21,7 +21,7 @@ class Supervisor
     {
         $this->api = new Api(
             config('services.supervisor.url'),
-            config('services.supervisor.post'),
+            config('services.supervisor.port'),
             config('services.supervisor.username'),
             config('services.supervisor.password'),
         );

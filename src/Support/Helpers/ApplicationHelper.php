@@ -1,0 +1,136 @@
+<?php
+
+namespace Support\Helpers;
+
+use App\Account\Settings\Responses\SettingsOverviewResponse;
+use Domain\Company\Models\Company;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Stringable;
+use Str;
+
+/**
+ * @method static isMiscDomain()
+ * @method static isAdminDomain()
+ * @method static isCompanyDomain()
+ * @method static isAccountDomain()
+ * @method static getMiscDomain()
+ * @method static getAdminDomain()
+ * @method static getCompanyDomain()
+ * @method static getAccountDomain()
+ */
+class ApplicationHelper
+{
+    private static string $domain;
+
+    public static function setDomain(): void
+    {
+        $domain = request()->headers->get('origin', request()->getHost());
+
+        self::$domain = str_replace(['http://', 'https://'], '', $domain);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAuthRoute(): string
+    {
+        return route('account.view.auth');
+    }
+
+    /**
+     * @return string
+     */
+    public static function getAdminRoute(): string
+    {
+        return route('admin.view.dashboard');
+    }
+
+    /**
+     * @return string
+     */
+    public static function getSwitcherRoute(): string
+    {
+        return route('company.view.switcher');
+    }
+
+    /**
+     * @param Company $company
+     *
+     * @return string
+     */
+    public static function getCompanyRoute(Company $company): string
+    {
+        return route('company.view.dashboard', $company->slug);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getSettingsRoute(): string
+    {
+        return route('account.view.settings', SettingsOverviewResponse::DEFAULT_PAGE);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getRedirectRoute(): string
+    {
+        if (!Auth::check()) {
+            return self::getAuthRoute();
+        }
+
+        return Auth::user()->isSuperAdmin()
+            ? self::getAdminRoute()
+            : self::getSwitcherRoute();
+    }
+
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return bool|string
+     */
+    public static function __callStatic(string $name, array $arguments)
+    {
+        $name = Str::of($name);
+
+        return match (true) {
+            self::isMethod($name, 'is', 'Domain') => self::isDomain($name->between('is', 'Domain')->lower()),
+            self::isMethod($name, 'get', 'Domain') => self::getDomain($name->between('get', 'Domain')->lower())
+        };
+    }
+
+    /**
+     * @param Stringable $name
+     * @param string     $start
+     * @param string     $end
+     *
+     * @return bool
+     */
+    private static function isMethod(Stringable $name, string $start, string $end): bool
+    {
+        return $name->startsWith($start) && $name->endsWith($end);
+    }
+
+    /**
+     * @param string $application
+     *
+     * @return bool
+     */
+    private static function isDomain(string $application): bool
+    {
+        return self::$domain === self::getDomain($application);
+    }
+
+    /**
+     * @param string $application
+     *
+     * @return string
+     */
+    private static function getDomain(string $application): string
+    {
+        return Config::get("applications.{$application}.routes.domain");
+    }
+}

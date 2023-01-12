@@ -4,7 +4,7 @@ namespace Support\Mixins;
 
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
-use Support\Helpers\DataTable\Build\Paginator;
+use Support\Client\DataTable\Build\Paginator;
 
 /**
  * @mixin Builder

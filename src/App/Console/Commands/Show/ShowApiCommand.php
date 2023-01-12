@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Show;
 
 use Illuminate\Console\Command;
-use Support\Helpers\Application\RouteConstructor;
+use Support\Helpers\RouteHelper;
 
 class ShowApiCommand extends Command
 {
@@ -36,7 +36,7 @@ class ShowApiCommand extends Command
             '<fg=green;options=bold>URI</>'
         );
 
-        RouteConstructor::getApiRoutes($application)
+        RouteHelper::getApiRoutes($application)
             ->sortKeys()
             ->each(function ($uri, $name) {
                 $this->components->twoColumnDetail(

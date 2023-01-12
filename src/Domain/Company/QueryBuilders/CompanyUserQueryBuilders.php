@@ -16,8 +16,8 @@ class CompanyUserQueryBuilders extends Builder
      */
     public function firstWithInvite(Invite $invite): CompanyUser|null
     {
-        return $this->where(CompanyUserTableMap::USER_ID, $invite->user_id)
-            ->where(CompanyUserTableMap::COMPANY_ID, $invite->company_id)
+        return $this->where(CompanyUserTableMap::COL_USER_ID, $invite->user_id)
+            ->where(CompanyUserTableMap::COL_COMPANY_ID, $invite->company_id)
             ->first();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\Generate;
 
-use Error;
+use Config;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
@@ -14,6 +14,7 @@ use ReflectionException;
 use stdClass;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
+use Throwable;
 
 class GenerateMappingCommand extends Command
 {
@@ -33,8 +34,6 @@ class GenerateMappingCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @throws ReflectionException
      *
      * @return int
      */
@@ -57,7 +56,7 @@ class GenerateMappingCommand extends Command
                         $class,
                         "{$mappingData->namespace}\\{$mappingData->filename}"
                     );
-                } catch (Error) {
+                } catch (Throwable) {
                     $this->components->twoColumnDetail(
                         "<fg=red>{$class}</>",
                         '<fg=red>Failed</>'
@@ -141,21 +140,13 @@ class GenerateMappingCommand extends Command
         /** @var Model $model */
         $model = new $class();
         $table = $model->getTable();
+        $constants = Config::get("mapping.{$class}", []);
         $columns = Schema::connection($model->getConnectionName())->getColumnListing($table);
-        $extraConstants = config("mapping.{$class}", []);
 
-        $constants[0] = [
-            'table' => $table,
-        ];
+        array_unshift($constants, ['table' => $table]);
 
         foreach ($columns as $column) {
-            $key = $column;
-
-            if ($key === 'table_id') {
-                $key = "{$key}_";
-            }
-
-            $constants[1][$key] = $column;
+            $constants['col'][$column] = $column;
         }
 
         foreach ($columns as $column) {
@@ -166,11 +157,7 @@ class GenerateMappingCommand extends Command
         foreach ($relationships as $relationship) {
             $name = Str::snake($relationship);
 
-            $constants['relationship'][$name] = $relationship;
-        }
-
-        if (!\is_null($extraConstants)) {
-            $constants = array_merge($constants, $extraConstants);
+            $constants['relation'][$name] = $relationship;
         }
 
         return $constants;
@@ -224,7 +211,8 @@ class GenerateMappingCommand extends Command
                     $key = strtoupper($prefix) . "_{$key}";
                 }
 
-                $data .= "\tpublic const {$key} = ";
+                $data .= "    ";
+                $data .= "public const {$key} = ";
                 $data .= $this->getValue($value);
                 $data .= ";\n";
             }

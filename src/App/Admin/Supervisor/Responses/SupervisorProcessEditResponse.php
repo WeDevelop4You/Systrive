@@ -6,9 +6,9 @@ use App\Admin\Supervisor\Forms\SupervisorProcessForm;
 use App\Admin\Supervisor\Resources\SupervisorProcessResource;
 use Domain\Supervisor\Models\Supervisor;
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Popups\Modals\FormModal;
-use Support\Response\Response;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Popups\Modals\FormModal;
+use Support\Client\Response;
 
 class SupervisorProcessEditResponse extends AbstractResponse
 {
@@ -34,7 +34,7 @@ class SupervisorProcessEditResponse extends AbstractResponse
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
                             'supervisor/update',
-                            route('admin.admin.supervisor.process.edit', [
+                            route('admin.supervisor.process.edit', [
                                 $this->supervisor->id,
                             ])
                         )

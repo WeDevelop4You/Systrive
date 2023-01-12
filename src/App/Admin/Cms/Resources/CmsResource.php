@@ -20,9 +20,9 @@ class CmsResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            CmsTableMap::ID => $this->id,
-            CmsTableMap::NAME => $this->name,
-            CmsTableMap::DATABASE => $this->database,
+            CmsTableMap::COL_ID => $this->id,
+            CmsTableMap::COL_NAME => $this->name,
+            CmsTableMap::COL_DATABASE => $this->database,
         ];
     }
 }

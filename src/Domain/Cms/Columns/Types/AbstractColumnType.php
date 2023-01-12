@@ -11,11 +11,14 @@ use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
+use Illuminate\Database\Schema\ForeignIdColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Utils\InputColWrapper;
+use Support\Client\Components\Layouts\ColComponent;
+use Support\Client\DataTable\Build\Column;
 
 abstract class AbstractColumnType
 {
@@ -40,13 +43,21 @@ abstract class AbstractColumnType
     /**
      * @return Collection
      */
-    final public static function options(): Collection
+    final public static function getOptions(): Collection
     {
         $instance = new static();
 
-        return $instance->getOptions()->map(
-            fn (AbstractColumnOption $option) => $option->setPrefix($instance->getType())
+        return $instance->options()->map(
+            fn (AbstractColumnOption $option) => $option->setPrefix($instance->type())
         );
+    }
+
+    /**
+     * @return string
+     */
+    private function getKey(): string
+    {
+        return $this->column->key;
     }
 
     /**
@@ -58,32 +69,61 @@ abstract class AbstractColumnType
     }
 
     /**
-     * @param string     $key
-     * @param mixed|null $default
+     * @return array
+     */
+    private function getArguments(): array
+    {
+        return $this->getProperties()->filter(
+            fn (AbstractColumnOption $option) => $option instanceof ArgumentColumnOption
+        )->mapWithKeys(
+            fn (ArgumentColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
+        )->prepend($this->getKey(), 'column')->toArray();
+    }
+
+    /**
+     * @param Blueprint $table
      *
-     * @return mixed
+     * @return ColumnDefinition|ForeignIdColumnDefinition
      */
-    final protected function getPropertyValue(string $key, mixed $default = null): mixed
+    final public function getDefinition(Blueprint $table): ColumnDefinition|ForeignIdColumnDefinition
     {
-        return Collection::json(
-            $this->column->getRawOriginal(CmsColumnTableMap::PROPERTIES) ?? ''
-        )->get("{$this->getType()}_{$key}", $default);
+        $column = App::call([$table, $this->type()], $this->getArguments());
+
+        $this->getProperties()->filter(
+            fn (AbstractColumnOption $option) => $option instanceof PropertyColumnOption
+        )->each(function (PropertyColumnOption $option) use ($column, $table) {
+            $original = $this->getPropertyValue($option->getKey());
+
+            if ($option->isDirty($original)) {
+                $option->getProperty($column, $table, $this->column);
+            }
+        });
+
+        return $column;
     }
 
-    /**
-     * @return mixed
-     */
-    final protected function getDefaultValue(): mixed
+    final public function getColumnComponent(): Column
     {
-        return $this->getPropertyValue('default');
+        return $this->columnComponent();
     }
 
-    /**
-     * @return int
-     */
-    final public function getColValue(): int
+    final public function getInputComponent(CmsModel $model, bool $readonly = false): InputColWrapper
     {
-        return $this->getPropertyValue('row_col', 12);
+        $input = $this->inputComponent($model)->setReadonly($readonly);
+        $col = ColComponent::create()->setMdCol($this->getPropertyValue('row_col', 12));
+
+        return InputColWrapper::create()->setCol($col)->setInput($input);
+    }
+
+    final public function getValidations(FormRequest $request): array
+    {
+        return $this->getProperties()
+            ->filter(fn (AbstractColumnOption $option) => $option instanceof ValidationColumnOption)
+            ->map(fn (ValidationColumnOption $option) => $option->getValidation($request))
+            ->add($this->validation($request))
+            ->flatten()
+            ->filter()
+            ->toArray();
     }
 
     /**
@@ -100,74 +140,53 @@ abstract class AbstractColumnType
     }
 
     /**
-     * @param Blueprint $table
+     * @param string     $key
+     * @param mixed|null $default
      *
-     * @return ColumnDefinition
+     * @return mixed
      */
-    final public function getBlueprint(Blueprint $table): ColumnDefinition
+    final protected function getPropertyValue(string $key, mixed $default = null): mixed
     {
-        $arguments = $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof ArgumentColumnOption
-        )->mapWithKeys(
-            fn (ArgumentColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
-        )->toArray();
-
-        $column = App::call(
-            [$table, $this->getType()],
-            ['column' => $this->column->key, ...$arguments]
-        );
-
-        $this->getProperties()
-            ->filter(fn (AbstractColumnOption $option) => $option instanceof PropertyColumnOption)
-            ->each(function (PropertyColumnOption $option) use ($column, $table) {
-                $original = $this->getPropertyValue($option->getKey());
-
-                if ($option->isDirty($original)) {
-                    $option->getProperty($column, $table, $this->column);
-                }
-            });
-
-        return $column;
-    }
-
-    final public function getRule(FormRequest $request): array
-    {
-        return $this->getProperties()
-            ->filter(fn (AbstractColumnOption $option) => $option instanceof ValidationColumnOption)
-            ->map(fn (ValidationColumnOption $option) => $option->getValidation($request))
-            ->add($this->getValidation($request))
-            ->flatten()
-            ->filter()
-            ->toArray();
+        return Collection::json(
+            $this->column->getRawOriginal(CmsColumnTableMap::COL_PROPERTIES) ?? ''
+        )->get("{$this->type()}_{$key}", $default);
     }
 
     /**
-     * @return Collection
+     * @return mixed
      */
-    abstract protected function getOptions(): Collection;
+    final protected function getPropertyValueDefault(): mixed
+    {
+        return $this->getPropertyValue('default');
+    }
 
     /**
      *
      * @return string
      */
-    abstract protected function getType(): string;
+    abstract protected function type(): string;
+
+    /**
+     * @return Collection
+     */
+    abstract protected function options(): Collection;
 
     /**
      * @return Column
      */
-    abstract public function getColumnComponent(): Column;
+    abstract protected function columnComponent(): Column;
 
     /**
      * @param CmsModel $model
      *
      * @return AbstractInputComponent
      */
-    abstract public function getFormComponent(CmsModel $model): AbstractInputComponent;
+    abstract protected function inputComponent(CmsModel $model): AbstractInputComponent;
 
     /**
      * @param FormRequest $request
      *
      * @return array
      */
-    abstract protected function getValidation(FormRequest $request): array;
+    abstract protected function validation(FormRequest $request): array;
 }

@@ -29,10 +29,8 @@
          */
         public function handle(): int
         {
-            $data = Vesta::api()->get(VestaCommand::GET_DNS_TEMPLATES);
+            $data = Vesta::api()->get(VestaCommand::GET_SYSTEM_CONFIG);
 
             dd($data);
-
-            return 1;
         }
     }

@@ -2,7 +2,7 @@
 
     namespace Support\Abstracts;
 
-    use Support\Response\Response;
+    use Support\Client\Response;
 
     abstract class AbstractResponse
     {

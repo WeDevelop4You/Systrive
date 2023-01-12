@@ -2,14 +2,13 @@
 
 namespace App\Admin\Company\Responses;
 
-use App\Admin\Company\Resources\CompanyEditResource;
+use App\Admin\Company\Forms\CompanyForm;
+use App\Admin\Company\Resources\CompanyResource;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\Form\FormType;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Forms\CustomFormComponent;
-use Support\Response\Components\Popups\Modals\FormModal;
-use Support\Response\Response;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Popups\Modals\FormModal;
+use Support\Client\Response;
 
 class CompanyEditResponse extends AbstractResponse
 {
@@ -30,21 +29,18 @@ class CompanyEditResponse extends AbstractResponse
     protected function handle(): Response
     {
         return Response::create()
-            ->addData(CompanyEditResource::make($this->company))
+            ->addData(CompanyResource::make($this->company))
             ->addPopup(
                 FormModal::create('companies/form')
                     ->setPersistent()
                     ->setTitle(trans('word.edit.edit'))
-                    ->setForm(
-                        CustomFormComponent::create()
-                            ->setType(FormType::COMPANY)
-                    )
+                    ->setForm(CompanyForm::create($this->company, true))
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()
                             ->dispatch(
                                 'companies/update',
-                                route('admin.admin.company.edit', [
+                                route('admin.company.edit', [
                                     $this->company->id,
                                 ])
                             ),

@@ -2,11 +2,11 @@
 
 namespace Domain\Role\Seeders;
 
+use Domain\Permission\Models\Permission;
 use Domain\Role\DataTransferObjects\RoleData;
 use Domain\Role\Mappings\RoleTableMap;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Permission;
 use Support\Abstracts\AbstractSeeder;
 
 class RoleSeeder extends AbstractSeeder

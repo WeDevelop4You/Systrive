@@ -3,7 +3,7 @@
 namespace Domain\Cms\Columns\Options;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Response\Components\Layouts\ColComponent;
+use Support\Client\Components\Layouts\ColComponent;
 
 abstract class AbstractColumnOption
 {
@@ -65,6 +65,11 @@ abstract class AbstractColumnOption
         return "properties.{$this->getKey()}";
     }
 
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
     final protected function getOtherFormKey(string $type): string
     {
         return "properties.{$this->prefix}_{$type}";
@@ -75,7 +80,7 @@ abstract class AbstractColumnOption
      */
     final protected function getVuexNameSpace(): string
     {
-        return 'company/cms/table/columns/form';
+        return 'cms/table/columns/form';
     }
 
     /**

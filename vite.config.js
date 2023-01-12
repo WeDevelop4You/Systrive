@@ -13,10 +13,13 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
-                'resources/admin/js/app.js',
-                'resources/admin/sass/TinyMCE/skin.scss',
-                'resources/admin/sass/TinyMCE/content.scss',
-                'resources/admin/sass/TinyMCE/skin.shadowdom.scss'
+                'resources/App/Admin/App.js',
+                'resources/App/Account/App.js',
+                'resources/App/Company/App.js',
+
+                'resources/Support/Scss/TinyMCE/skin.scss',
+                'resources/Support/Scss/TinyMCE/content.scss',
+                'resources/Support/Scss/TinyMCE/skin.shadowdom.scss'
             ],
         }),
         vue({
@@ -37,7 +40,7 @@ export default defineConfig({
         preprocessorOptions: {
             sass: {
                 additionalData: [
-                    '@import "./resources/admin/sass/variables"',
+                    '@import "./resources/Support/Scss/Variables"',
                     '',
                 ].join('\n'),
             },

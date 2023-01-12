@@ -4,8 +4,8 @@
 
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
 
     class LogoutAction
     {

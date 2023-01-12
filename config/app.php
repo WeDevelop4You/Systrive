@@ -125,6 +125,11 @@ return [
 
     'security' => env('SECURITY_ENABLED', true),
 
+    'api' => [
+        'filename' => 'Api.json',
+        'store_path' => resource_path('Support/Config'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -173,9 +178,10 @@ return [
          */
         Support\Providers\AppServiceProvider::class,
         Support\Providers\AuthServiceProvider::class,
-        // Support\Providers\BroadcastServiceProvider::class,
+        Support\Providers\BladeServiceProvider::class,
         Support\Providers\EventServiceProvider::class,
         Support\Providers\RouteServiceProvider::class,
+        Support\Providers\BroadcastServiceProvider::class,
 
     ],
 

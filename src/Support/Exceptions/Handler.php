@@ -2,16 +2,18 @@
 
 namespace Support\Exceptions;
 
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
-use ReflectionException;
 use Spatie\Permission\Exceptions\UnauthorizedException;
 use Support\Exceptions\Handlers\ModelNotFoundExceptionHandler;
 use Support\Exceptions\Handlers\QueryExceptionHandler;
 use Support\Exceptions\Handlers\UnauthorizedExceptionHandler;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -40,7 +42,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected array $handlers = [
-//        QueryException::class => QueryExceptionHandler::class,
+        QueryException::class => QueryExceptionHandler::class,
         UnauthorizedException::class => UnauthorizedExceptionHandler::class,
         ModelNotFoundException::class => ModelNotFoundExceptionHandler::class,
     ];
@@ -53,7 +55,11 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         foreach ($this->handlers as $exception => $handler) {
-            $this->map($exception, fn () => new $handler());
+            $this->map($exception, fn (Exception $e) => new $handler(
+                $e->getMessage(),
+                is_int($e->getCode()) ? $e->getCode() : 0,
+                $e->getPrevious()
+            ));
         }
 
         $this->reportable(function (Throwable $e) {
@@ -64,25 +70,15 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Try to render a response from request and exception via render callbacks.
-     *
-     * @param Request   $request
+     * @param           $request
      * @param Throwable $e
      *
-     * @throws ReflectionException
+     * @throws Throwable
      *
-     * @return mixed|void
+     * @return JsonResponse|Response|SymfonyResponse
      */
-    protected function renderViaCallbacks($request, Throwable $e)
+    public function render($request, Throwable $e): Response|JsonResponse|SymfonyResponse
     {
-        if (method_exists($e, 'render')) {
-            $response = $e->render($request);
-
-            if ($response) {
-                return $response;
-            }
-        }
-
-        return parent::renderViaCallbacks($request, $e);
+        return parent::render($request, $this->mapException($e));
     }
 }

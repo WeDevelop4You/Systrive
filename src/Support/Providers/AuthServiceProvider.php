@@ -11,23 +11,12 @@ use Illuminate\Validation\Rules\Password;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-    ];
-
-    /**
      * Register any authentication / authorization services.
      *
      * @return void
      */
     public function boot(): void
     {
-        $this->registerPolicies();
-
         Password::defaults(function () {
             return Password::min(10)
                 ->mixedCase()
@@ -37,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         ResetPassword::createUrlUsing(function (User $user, string $token) {
-            return route('admin.reset.password.link', [
+            return route('account.view.reset.password', [
                 $token,
                 Crypt::encryptString($user->email),
             ]);

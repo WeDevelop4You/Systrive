@@ -8,9 +8,9 @@ use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\AbstractInputComponent;
-use Support\Response\Components\Forms\Inputs\NumberInputComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\NumberInputComponent;
+use Support\Client\DataTable\Build\Column;
 
 class IntegerColumnType extends AbstractColumnType
 {
@@ -20,7 +20,7 @@ class IntegerColumnType extends AbstractColumnType
         'gte:-2147483648',
     ];
 
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make([
             new NullableColumnOption(),
@@ -34,7 +34,7 @@ class IntegerColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'integer';
     }
@@ -42,7 +42,7 @@ class IntegerColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
@@ -52,19 +52,19 @@ class IntegerColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getFormComponent(CmsModel $model): AbstractInputComponent
+    protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return NumberInputComponent::create()
             ->setKey($this->column->key)
             ->setLabel($this->column->label)
-            ->setDefaultValue($this->getDefaultValue())
+            ->setDefaultValue($this->getPropertyValueDefault())
             ->setValue($model->getAttribute($this->column->key));
     }
 
     /**
      * @inheritDoc
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return $this->validation;
     }

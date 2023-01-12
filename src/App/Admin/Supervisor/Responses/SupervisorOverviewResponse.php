@@ -4,22 +4,23 @@ namespace App\Admin\Supervisor\Responses;
 
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\IconButtonComponent;
+use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Layouts\ColComponent;
+use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Misc\CardHeaderComponent;
+use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Overviews\CardComponent;
+use Support\Client\Components\Overviews\ListComponent;
+use Support\Client\Components\Overviews\ListItems\ListItemBadgeComponent;
+use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
+use Support\Client\Components\Overviews\ListItems\ListItemUpTimerComponent;
+use Support\Client\Components\Utils\TooltipComponent;
+use Support\Client\Response;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\IconButtonComponent;
-use Support\Response\Components\Buttons\MultipleButtonComponent;
-use Support\Response\Components\Icons\IconComponent;
-use Support\Response\Components\Items\ItemBadgeComponent;
-use Support\Response\Components\Items\ItemTextComponent;
-use Support\Response\Components\Items\ItemUpTimerComponent;
-use Support\Response\Components\Layouts\ColComponent;
-use Support\Response\Components\Layouts\RowComponent;
-use Support\Response\Components\Overviews\CardComponent;
-use Support\Response\Components\Overviews\ListComponent;
-use Support\Response\Components\Utils\TooltipComponent;
-use Support\Response\Response;
 use Support\Services\Supervisor;
 
 class SupervisorOverviewResponse extends AbstractResponse
@@ -41,50 +42,52 @@ class SupervisorOverviewResponse extends AbstractResponse
     {
         return ColComponent::create()
             ->setComponent(
-                CardComponent::create()
-                    ->setTitle(trans('Supervisors'))
-                    ->setHeaderButton(
-                        MultipleButtonComponent::create()
-                            ->setButtons([
-                                IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
-                                    ->setAction(
-                                        RequestAction::create()
-                                            ->post(route('admin.admin.supervisor.process.start'))
-                                            ->setOnSuccessAction($this->getOverviewAction())
-                                    )
-                                    ->setTooltip(
-                                        TooltipComponent::create()
-                                            ->setTop()
-                                            ->setText(trans('word.supervisor.start.all'))
-                                    ),
-                                IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
-                                    ->setAction(
-                                        RequestAction::create()
-                                            ->post(route('admin.admin.supervisor.process.stop'))
-                                            ->setOnSuccessAction($this->getOverviewAction())
-                                    )
-                                    ->setTooltip(
-                                        TooltipComponent::create()
-                                            ->setTop()
-                                            ->setText(trans('word.supervisor.stop.all'))
-                                    ),
-                                IconButtonComponent::create()
-                                    ->setIcon(IconComponent::create()->setType(IconType::FAS_COG))
-                                    ->setAction(
-                                        VuexAction::create()->dispatch(
-                                            'supervisor/show',
-                                            route('admin.admin.supervisor.show')
+                CardComponent::create()->setHeader(
+                    CardHeaderComponent::create()
+                        ->setTitle(trans('Supervisors'))
+                        ->setButton(
+                            MultipleButtonComponent::create()
+                                ->setButtons([
+                                    IconButtonComponent::create()
+                                        ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
+                                        ->setAction(
+                                            RequestAction::create()
+                                                ->post(route('admin.supervisor.process.start'))
+                                                ->setOnSuccessAction($this->getOverviewAction())
                                         )
-                                    )
-                                    ->setTooltip(
-                                        TooltipComponent::create()
-                                            ->setTop()
-                                            ->setText(trans('word.settings'))
-                                    ),
-                            ])
-                    )
+                                        ->setTooltip(
+                                            TooltipComponent::create()
+                                                ->setTop()
+                                                ->setText(trans('word.supervisor.start.all'))
+                                        ),
+                                    IconButtonComponent::create()
+                                        ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
+                                        ->setAction(
+                                            RequestAction::create()
+                                                ->post(route('admin.supervisor.process.stop'))
+                                                ->setOnSuccessAction($this->getOverviewAction())
+                                        )
+                                        ->setTooltip(
+                                            TooltipComponent::create()
+                                                ->setTop()
+                                                ->setText(trans('word.supervisor.stop.all'))
+                                        ),
+                                    IconButtonComponent::create()
+                                        ->setIcon(IconComponent::create()->setType(IconType::FAS_COG))
+                                        ->setAction(
+                                            VuexAction::create()->dispatch(
+                                                'supervisor/show',
+                                                route('admin.supervisor.show')
+                                            )
+                                        )
+                                        ->setTooltip(
+                                            TooltipComponent::create()
+                                                ->setTop()
+                                                ->setText(trans('word.settings'))
+                                        ),
+                                ])
+                        )
+                )
             );
     }
 
@@ -107,10 +110,13 @@ class SupervisorOverviewResponse extends AbstractResponse
     private function createCard(object $process): CardComponent
     {
         return CardComponent::create()
-            ->setTitle($process->name)
-            ->setHeaderButton(
-                MultipleButtonComponent::create()
-                    ->setButtons($this->createActions($process))
+            ->setHeader(
+                CardHeaderComponent::create()
+                    ->setTitle($process->name)
+                    ->setButton(
+                        MultipleButtonComponent::create()
+                            ->setButtons($this->createActions($process))
+                    )
             )
             ->addBody(
                 ListComponent::create()->addItems($this->createList($process))
@@ -132,30 +138,30 @@ class SupervisorOverviewResponse extends AbstractResponse
         };
 
         $list = [
-            ItemBadgeComponent::create()
+            ListItemBadgeComponent::create()
                 ->setOutlined()
                 ->setColor($color)
                 ->setLabel(trans('word.status'))
                 ->setValue(Supervisor::getProcessState($process->state)),
-            ItemTextComponent::create()
+            ListItemContentComponent::create()
                 ->setLabel(trans('word.group'))
                 ->setValue($process->group),
         ];
 
         if ($process->state === 20) {
-            $list[] = ItemUpTimerComponent::create()
+            $list[] = ListItemUpTimerComponent::create()
                 ->setLabel(trans('word.uptime'))
                 ->setValue($process->start);
         }
 
         if (!empty($process->spawnerr)) {
-            $list[] = ItemTextComponent::create()
+            $list[] = ListItemContentComponent::create()
                 ->setLabel(trans('word.error.description'))
                 ->setValue($process->spawnerr);
         }
 
         if ($process->pid !== 0) {
-            $list[] = ItemTextComponent::create()
+            $list[] = ListItemContentComponent::create()
                 ->setLabel(trans('word.pid'))
                 ->setValue($process->pid);
         }
@@ -176,7 +182,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_SYNC))
                     ->setAction(
                         RequestAction::create()
-                            ->post(route('admin.admin.supervisor.process.restart', [
+                            ->post(route('admin.supervisor.process.restart', [
                                 $process->name,
                             ]))
                             ->setOnSuccessAction($this->getOverviewAction())
@@ -190,7 +196,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
                     ->setAction(
                         RequestAction::create()
-                            ->post(route('admin.admin.supervisor.process.stop', [
+                            ->post(route('admin.supervisor.process.stop', [
                                 $process->name,
                             ]))
                             ->setOnSuccessAction($this->getOverviewAction())
@@ -208,7 +214,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
                 ->setAction(
                     RequestAction::create()
-                        ->post(route('admin.admin.supervisor.process.start', [
+                        ->post(route('admin.supervisor.process.start', [
                             $process->name,
                         ]))
                         ->setOnSuccessAction($this->getOverviewAction())
@@ -229,7 +235,7 @@ class SupervisorOverviewResponse extends AbstractResponse
         return VuexAction::create()
             ->dispatch(
                 'supervisor/overview/component',
-                route('admin.admin.supervisor.overview')
+                route('admin.supervisor.overview')
             );
     }
 }

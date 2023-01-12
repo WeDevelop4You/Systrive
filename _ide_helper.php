@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 9.33.0.
+ * Generated for Laravel 9.43.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1687,6 +1687,17 @@
                         $instance->bootstrap();
         }
                     /**
+         * Bootstrap the application without booting service providers.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function bootstrapWithoutBootingProviders()
+        {            //Method inherited from \Illuminate\Foundation\Console\Kernel         
+                        /** @var \App\ConsoleKernel $instance */
+                        $instance->bootstrapWithoutBootingProviders();
+        }
+                    /**
          * Set the Artisan application instance.
          *
          * @param \Illuminate\Console\Application $artisan
@@ -2005,7 +2016,7 @@
          * Attempt to authenticate a user with credentials and additional callbacks.
          *
          * @param array $credentials
-         * @param array|callable $callbacks
+         * @param array|callable|null $callbacks
          * @param bool $remember
          * @return bool 
          * @static 
@@ -4389,6 +4400,18 @@
         {
                         \Illuminate\Config\Repository::flushMacros();
         }
+                    /**
+         * 
+         *
+         * @param string $key
+         * @return \Collection 
+         * @see \Support\Mixins\ConfigMixin::collect()
+         * @static 
+         */ 
+        public static function collect($key)
+        {
+                        return \Illuminate\Config\Repository::collect($key);
+        }
          
     }
             /**
@@ -4989,7 +5012,7 @@
                     /**
          * Return all of the created connections.
          *
-         * @return \Illuminate\Database\array<string, \Illuminate\Database\Connection>
+         * @return array<string, \Illuminate\Database\Connection> 
          * @static 
          */ 
         public static function getConnections()
@@ -9213,7 +9236,7 @@
      *
      * @method static mixed reset(array $credentials, \Closure $callback)
      * @method static string sendResetLink(array $credentials, \Closure $callback = null)
-     * @method static \Illuminate\Contracts\Auth\CanResetPassword getUser(array $credentials)
+     * @method static \Illuminate\Contracts\Auth\CanResetPassword|null getUser(array $credentials)
      * @method static string createToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
      * @method static void deleteToken(\Illuminate\Contracts\Auth\CanResetPassword $user)
      * @method static bool tokenExists(\Illuminate\Contracts\Auth\CanResetPassword $user, string $token)
@@ -10838,6 +10861,7 @@
                     /**
          * Gets the list of trusted proxies.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getTrustedProxies()
@@ -10869,6 +10893,7 @@
                     /**
          * Gets the list of trusted host patterns.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getTrustedHosts()
@@ -11283,6 +11308,7 @@
                     /**
          * Gets the mime types associated with the format.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getMimeTypes($format)
@@ -11302,7 +11328,7 @@
                     /**
          * Associates a format with mime types.
          *
-         * @param string|array $mimeTypes The associated mime types (the preferred one must be the first as it will be used as the content type)
+         * @param string|string[] $mimeTypes The associated mime types (the preferred one must be the first as it will be used as the content type)
          * @static 
          */ 
         public static function setFormat($format, $mimeTypes)
@@ -11338,14 +11364,26 @@
                         return $instance->setRequestFormat($format);
         }
                     /**
-         * Gets the format associated with the request.
+         * Gets the usual name of the format associated with the request's media type (provided in the Content-Type header).
          *
+         * @deprecated since Symfony 6.2, use getContentTypeFormat() instead
          * @static 
          */ 
         public static function getContentType()
         {            //Method inherited from \Symfony\Component\HttpFoundation\Request         
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->getContentType();
+        }
+                    /**
+         * Gets the usual name of the format associated with the request's media type (provided in the Content-Type header).
+         *
+         * @see Request::$formats
+         * @static 
+         */ 
+        public static function getContentTypeFormat()
+        {            //Method inherited from \Symfony\Component\HttpFoundation\Request         
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->getContentTypeFormat();
         }
                     /**
          * Sets the default locale.
@@ -11451,6 +11489,7 @@
          *
          * @param bool $asResource If true, a resource will be returned
          * @return string|resource 
+         * @psalm-return ($asResource is true ? resource : string)
          * @static 
          */ 
         public static function getContent($asResource = false)
@@ -11507,6 +11546,7 @@
                     /**
          * Gets a list of languages acceptable by the client browser ordered in the user browser preferences.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getLanguages()
@@ -11517,6 +11557,7 @@
                     /**
          * Gets a list of charsets acceptable by the client browser in preferable order.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getCharsets()
@@ -11527,6 +11568,7 @@
                     /**
          * Gets a list of encodings acceptable by the client browser in preferable order.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getEncodings()
@@ -11537,6 +11579,7 @@
                     /**
          * Gets a list of content types acceptable by the client browser in preferable order.
          *
+         * @return string[] 
          * @static 
          */ 
         public static function getAcceptableContentTypes()
@@ -11949,6 +11992,20 @@
         {
                         /** @var \Illuminate\Http\Request $instance */
                         return $instance->missing($key);
+        }
+                    /**
+         * Apply the callback if the request is missing the given input item key.
+         *
+         * @param string $key
+         * @param callable $callback
+         * @param callable|null $default
+         * @return $this|mixed 
+         * @static 
+         */ 
+        public static function whenMissing($key, $callback, $default = null)
+        {
+                        /** @var \Illuminate\Http\Request $instance */
+                        return $instance->whenMissing($key, $callback, $default);
         }
                     /**
          * Get the keys for all of the input and files.
@@ -12607,6 +12664,7 @@
      * @method static \Illuminate\Routing\RouteRegistrar scopeBindings()
      * @method static \Illuminate\Routing\RouteRegistrar where(array $where)
      * @method static \Illuminate\Routing\RouteRegistrar withoutMiddleware(array|string $middleware)
+     * @method static \Illuminate\Routing\RouteRegistrar withoutScopedBindings()
      * @see \Illuminate\Routing\Router
      */ 
         class Route {
@@ -12825,17 +12883,71 @@
                         return $instance->apiResource($name, $controller, $options);
         }
                     /**
+         * Register an array of singleton resource controllers.
+         *
+         * @param array $singletons
+         * @param array $options
+         * @return void 
+         * @static 
+         */ 
+        public static function singletons($singletons, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        $instance->singletons($singletons, $options);
+        }
+                    /**
+         * Route a singleton resource to a controller.
+         *
+         * @param string $name
+         * @param string $controller
+         * @param array $options
+         * @return \Illuminate\Routing\PendingSingletonResourceRegistration 
+         * @static 
+         */ 
+        public static function singleton($name, $controller, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->singleton($name, $controller, $options);
+        }
+                    /**
+         * Register an array of API singleton resource controllers.
+         *
+         * @param array $singletons
+         * @param array $options
+         * @return void 
+         * @static 
+         */ 
+        public static function apiSingletons($singletons, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        $instance->apiSingletons($singletons, $options);
+        }
+                    /**
+         * Route an API singleton resource to a controller.
+         *
+         * @param string $name
+         * @param string $controller
+         * @param array $options
+         * @return \Illuminate\Routing\PendingSingletonResourceRegistration 
+         * @static 
+         */ 
+        public static function apiSingleton($name, $controller, $options = [])
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->apiSingleton($name, $controller, $options);
+        }
+                    /**
          * Create a route group with shared attributes.
          *
          * @param array $attributes
          * @param \Closure|array|string $routes
-         * @return void 
+         * @return \Illuminate\Routing\Router 
          * @static 
          */ 
         public static function group($attributes, $routes)
         {
                         /** @var \Illuminate\Routing\Router $instance */
-                        $instance->group($attributes, $routes);
+                        return $instance->group($attributes, $routes);
         }
                     /**
          * Merge the given array with the last group stack.
@@ -13104,6 +13216,19 @@
         {
                         /** @var \Illuminate\Routing\Router $instance */
                         return $instance->pushMiddlewareToGroup($group, $middleware);
+        }
+                    /**
+         * Remove the given middleware from the specified group.
+         *
+         * @param string $group
+         * @param string $middleware
+         * @return \Illuminate\Routing\Router 
+         * @static 
+         */ 
+        public static function removeMiddlewareFromGroup($group, $middleware)
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->removeMiddlewareFromGroup($group, $middleware);
         }
                     /**
          * Flush the router's middleware groups.
@@ -13498,19 +13623,6 @@
                     /**
          * 
          *
-         * @see \Support\Helpers\Application\RouteConstructor::createDataTableMacro()
-         * @param string $controller
-         * @param string $name
-         * @param string $prefix
-         * @static 
-         */ 
-        public static function dataTable($controller, $name, $prefix = '')
-        {
-                        return \Illuminate\Routing\Router::dataTable($controller, $name, $prefix);
-        }
-                    /**
-         * 
-         *
          * @see \Laravel\Ui\AuthRouteMethods::auth()
          * @param mixed $options
          * @static 
@@ -13548,6 +13660,19 @@
         public static function emailVerification()
         {
                         return \Illuminate\Routing\Router::emailVerification();
+        }
+                    /**
+         * 
+         *
+         * @see \Support\Providers\RouteServiceProvider::createDataTableMacro()
+         * @param string $controller
+         * @param string $name
+         * @param string $prefix
+         * @static 
+         */ 
+        public static function dataTable($controller, $name, $prefix = '')
+        {
+                        return \Illuminate\Routing\Router::dataTable($controller, $name, $prefix);
         }
          
     }
@@ -14540,6 +14665,18 @@
                         return $instance->getHandler();
         }
                     /**
+         * Set the underlying session handler implementation.
+         *
+         * @param \SessionHandlerInterface $handler
+         * @return void 
+         * @static 
+         */ 
+        public static function setHandler($handler)
+        {
+                        /** @var \Illuminate\Session\Store $instance */
+                        $instance->setHandler($handler);
+        }
+                    /**
          * Determine if the session handler needs a request.
          *
          * @return bool 
@@ -14574,7 +14711,7 @@
          * Get a filesystem instance.
          *
          * @param string|null $name
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function drive($name = null)
@@ -14586,7 +14723,7 @@
          * Get a filesystem instance.
          *
          * @param string|null $name
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function disk($name = null)
@@ -14597,7 +14734,7 @@
                     /**
          * Get a default cloud filesystem instance.
          *
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function cloud()
@@ -14609,7 +14746,7 @@
          * Build an on-demand disk.
          *
          * @param string|array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function build($config)
@@ -14621,7 +14758,7 @@
          * Create an instance of the local driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function createLocalDriver($config)
@@ -14633,7 +14770,7 @@
          * Create an instance of the ftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function createFtpDriver($config)
@@ -14645,7 +14782,7 @@
          * Create an instance of the sftp driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function createSftpDriver($config)
@@ -14669,7 +14806,7 @@
          * Create a scoped driver.
          *
          * @param array $config
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function createScopedDriver($config)
@@ -14762,40 +14899,89 @@
                         return $instance->setApplication($app);
         }
                     /**
+         * Get the URL for the file at the given path.
+         *
+         * @param string $path
+         * @return string 
+         * @throws \RuntimeException
+         * @static 
+         */ 
+        public static function url($path)
+        {
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
+                        return $instance->url($path);
+        }
+                    /**
+         * Determine if temporary URLs can be generated.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function providesTemporaryUrls()
+        {
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
+                        return $instance->providesTemporaryUrls();
+        }
+                    /**
+         * Get a temporary URL for the file at the given path.
+         *
+         * @param string $path
+         * @param \DateTimeInterface $expiration
+         * @param array $options
+         * @return string 
+         * @static 
+         */ 
+        public static function temporaryUrl($path, $expiration, $options = [])
+        {
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
+                        return $instance->temporaryUrl($path, $expiration, $options);
+        }
+                    /**
+         * Get the underlying S3 client.
+         *
+         * @return \Aws\S3\S3Client 
+         * @static 
+         */ 
+        public static function getClient()
+        {
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
+                        return $instance->getClient();
+        }
+                    /**
          * Assert that the given file or directory exists.
          *
          * @param string|array $path
          * @param string|null $content
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function assertExists($path, $content = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->assertExists($path, $content);
         }
                     /**
          * Assert that the given file or directory does not exist.
          *
          * @param string|array $path
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function assertMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->assertMissing($path);
         }
                     /**
          * Assert that the given directory is empty.
          *
          * @param string $path
-         * @return \Illuminate\Filesystem\FilesystemAdapter 
+         * @return \Illuminate\Filesystem\AwsS3V3Adapter 
          * @static 
          */ 
         public static function assertDirectoryEmpty($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->assertDirectoryEmpty($path);
         }
                     /**
@@ -14806,8 +14992,8 @@
          * @static 
          */ 
         public static function exists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->exists($path);
         }
                     /**
@@ -14818,8 +15004,8 @@
          * @static 
          */ 
         public static function missing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->missing($path);
         }
                     /**
@@ -14830,8 +15016,8 @@
          * @static 
          */ 
         public static function fileExists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->fileExists($path);
         }
                     /**
@@ -14842,8 +15028,8 @@
          * @static 
          */ 
         public static function fileMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->fileMissing($path);
         }
                     /**
@@ -14854,8 +15040,8 @@
          * @static 
          */ 
         public static function directoryExists($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->directoryExists($path);
         }
                     /**
@@ -14866,8 +15052,8 @@
          * @static 
          */ 
         public static function directoryMissing($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->directoryMissing($path);
         }
                     /**
@@ -14878,8 +15064,8 @@
          * @static 
          */ 
         public static function path($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->path($path);
         }
                     /**
@@ -14890,8 +15076,8 @@
          * @static 
          */ 
         public static function get($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->get($path);
         }
                     /**
@@ -14905,8 +15091,8 @@
          * @static 
          */ 
         public static function response($path, $name = null, $headers = [], $disposition = 'inline')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->response($path, $name, $headers, $disposition);
         }
                     /**
@@ -14918,8 +15104,8 @@
          * @static 
          */ 
         public static function download($path, $name = null, $headers = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->download($path, $name, $headers);
         }
                     /**
@@ -14932,8 +15118,8 @@
          * @static 
          */ 
         public static function put($path, $contents, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->put($path, $contents, $options);
         }
                     /**
@@ -14946,8 +15132,8 @@
          * @static 
          */ 
         public static function putFile($path, $file, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->putFile($path, $file, $options);
         }
                     /**
@@ -14961,8 +15147,8 @@
          * @static 
          */ 
         public static function putFileAs($path, $file, $name, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->putFileAs($path, $file, $name, $options);
         }
                     /**
@@ -14973,8 +15159,8 @@
          * @static 
          */ 
         public static function getVisibility($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->getVisibility($path);
         }
                     /**
@@ -14986,8 +15172,8 @@
          * @static 
          */ 
         public static function setVisibility($path, $visibility)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->setVisibility($path, $visibility);
         }
                     /**
@@ -15001,8 +15187,8 @@
          */ 
         public static function prepend($path, $data, $separator = '
 ')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->prepend($path, $data, $separator);
         }
                     /**
@@ -15016,8 +15202,8 @@
          */ 
         public static function append($path, $data, $separator = '
 ')
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->append($path, $data, $separator);
         }
                     /**
@@ -15028,8 +15214,8 @@
          * @static 
          */ 
         public static function delete($paths)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->delete($paths);
         }
                     /**
@@ -15041,8 +15227,8 @@
          * @static 
          */ 
         public static function copy($from, $to)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->copy($from, $to);
         }
                     /**
@@ -15054,8 +15240,8 @@
          * @static 
          */ 
         public static function move($from, $to)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->move($from, $to);
         }
                     /**
@@ -15066,9 +15252,21 @@
          * @static 
          */ 
         public static function size($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->size($path);
+        }
+                    /**
+         * Get the checksum for a file.
+         *
+         * @return string|false 
+         * @throws UnableToProvideChecksum
+         * @static 
+         */ 
+        public static function checksum($path, $options = [])
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
+                        return $instance->checksum($path, $options);
         }
                     /**
          * Get the mime-type of a given file.
@@ -15078,8 +15276,8 @@
          * @static 
          */ 
         public static function mimeType($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->mimeType($path);
         }
                     /**
@@ -15090,8 +15288,8 @@
          * @static 
          */ 
         public static function lastModified($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->lastModified($path);
         }
                     /**
@@ -15102,8 +15300,8 @@
          * @static 
          */ 
         public static function readStream($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->readStream($path);
         }
                     /**
@@ -15116,48 +15314,9 @@
          * @static 
          */ 
         public static function writeStream($path, $resource, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->writeStream($path, $resource, $options);
-        }
-                    /**
-         * Get the URL for the file at the given path.
-         *
-         * @param string $path
-         * @return string 
-         * @throws \RuntimeException
-         * @static 
-         */ 
-        public static function url($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->url($path);
-        }
-                    /**
-         * Determine if temporary URLs can be generated.
-         *
-         * @return bool 
-         * @static 
-         */ 
-        public static function providesTemporaryUrls()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->providesTemporaryUrls();
-        }
-                    /**
-         * Get a temporary URL for the file at the given path.
-         *
-         * @param string $path
-         * @param \DateTimeInterface $expiration
-         * @param array $options
-         * @return string 
-         * @throws \RuntimeException
-         * @static 
-         */ 
-        public static function temporaryUrl($path, $expiration, $options = [])
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
-                        return $instance->temporaryUrl($path, $expiration, $options);
         }
                     /**
          * Get an array of all files in a directory.
@@ -15168,8 +15327,8 @@
          * @static 
          */ 
         public static function files($directory = null, $recursive = false)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->files($directory, $recursive);
         }
                     /**
@@ -15180,8 +15339,8 @@
          * @static 
          */ 
         public static function allFiles($directory = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->allFiles($directory);
         }
                     /**
@@ -15193,8 +15352,8 @@
          * @static 
          */ 
         public static function directories($directory = null, $recursive = false)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->directories($directory, $recursive);
         }
                     /**
@@ -15205,8 +15364,8 @@
          * @static 
          */ 
         public static function allDirectories($directory = null)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->allDirectories($directory);
         }
                     /**
@@ -15217,8 +15376,8 @@
          * @static 
          */ 
         public static function makeDirectory($path)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->makeDirectory($path);
         }
                     /**
@@ -15229,8 +15388,8 @@
          * @static 
          */ 
         public static function deleteDirectory($directory)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->deleteDirectory($directory);
         }
                     /**
@@ -15240,8 +15399,8 @@
          * @static 
          */ 
         public static function getDriver()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->getDriver();
         }
                     /**
@@ -15251,8 +15410,8 @@
          * @static 
          */ 
         public static function getAdapter()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->getAdapter();
         }
                     /**
@@ -15262,8 +15421,8 @@
          * @static 
          */ 
         public static function getConfig()
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->getConfig();
         }
                     /**
@@ -15274,8 +15433,8 @@
          * @static 
          */ 
         public static function buildTemporaryUrlsUsing($callback)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         $instance->buildTemporaryUrlsUsing($callback);
         }
                     /**
@@ -15291,7 +15450,7 @@
          */ 
         public static function when($value = null, $callback = null, $default = null)
         {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->when($value, $callback, $default);
         }
                     /**
@@ -15307,7 +15466,7 @@
          */ 
         public static function unless($value = null, $callback = null, $default = null)
         {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->unless($value, $callback, $default);
         }
                     /**
@@ -15319,8 +15478,8 @@
          * @static 
          */ 
         public static function macro($name, $macro)
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::macro($name, $macro);
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        \Illuminate\Filesystem\AwsS3V3Adapter::macro($name, $macro);
         }
                     /**
          * Mix another object into the class.
@@ -15332,8 +15491,8 @@
          * @static 
          */ 
         public static function mixin($mixin, $replace = true)
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::mixin($mixin, $replace);
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        \Illuminate\Filesystem\AwsS3V3Adapter::mixin($mixin, $replace);
         }
                     /**
          * Checks if macro is registered.
@@ -15343,8 +15502,8 @@
          * @static 
          */ 
         public static function hasMacro($name)
-        {
-                        return \Illuminate\Filesystem\FilesystemAdapter::hasMacro($name);
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        return \Illuminate\Filesystem\AwsS3V3Adapter::hasMacro($name);
         }
                     /**
          * Flush the existing macros.
@@ -15353,8 +15512,8 @@
          * @static 
          */ 
         public static function flushMacros()
-        {
-                        \Illuminate\Filesystem\FilesystemAdapter::flushMacros();
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        \Illuminate\Filesystem\AwsS3V3Adapter::flushMacros();
         }
                     /**
          * Dynamically handle calls to the class.
@@ -15366,8 +15525,8 @@
          * @static 
          */ 
         public static function macroCall($method, $parameters)
-        {
-                        /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
+        {            //Method inherited from \Illuminate\Filesystem\FilesystemAdapter         
+                        /** @var \Illuminate\Filesystem\AwsS3V3Adapter $instance */
                         return $instance->macroCall($method, $parameters);
         }
          
@@ -16677,6 +16836,65 @@
                         $instance->callCreator($view);
         }
                     /**
+         * Start injecting content into a fragment.
+         *
+         * @param string $fragment
+         * @return void 
+         * @static 
+         */ 
+        public static function startFragment($fragment)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        $instance->startFragment($fragment);
+        }
+                    /**
+         * Stop injecting content into a fragment.
+         *
+         * @return string 
+         * @throws \InvalidArgumentException
+         * @static 
+         */ 
+        public static function stopFragment()
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->stopFragment();
+        }
+                    /**
+         * Get the contents of a fragment.
+         *
+         * @param string $name
+         * @param string|null $default
+         * @return mixed 
+         * @static 
+         */ 
+        public static function getFragment($name, $default = null)
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->getFragment($name, $default);
+        }
+                    /**
+         * Get the entire array of rendered fragments.
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getFragments()
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        return $instance->getFragments();
+        }
+                    /**
+         * Flush all of the fragments.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function flushFragments()
+        {
+                        /** @var \Illuminate\View\Factory $instance */
+                        $instance->flushFragments();
+        }
+                    /**
          * Start injecting content into a section.
          *
          * @param string $section
@@ -17026,14 +17244,39 @@
                     /**
          * 
          *
-         * @see \Support\Mixins\CollectionMixin::json()
          * @param string $value
-         * @return static 
+         * @return \Illuminate\Support\Collection 
+         * @see \Support\Mixins\CollectionMixin::json()
          * @static 
          */ 
         public static function json($value)
         {
                         return \Illuminate\Support\Collection::json($value);
+        }
+                    /**
+         * 
+         *
+         * @param callable $callable
+         * @return void 
+         * @see \Support\Mixins\CollectionMixin::eachCollect()
+         * @static 
+         */ 
+        public static function eachCollect($callable)
+        {
+                        \Illuminate\Support\Collection::eachCollect($callable);
+        }
+                    /**
+         * 
+         *
+         * @param string $key
+         * @param \Closure|string|null $default
+         * @return \Illuminate\Support\Collection 
+         * @see \Support\Mixins\CollectionMixin::getCollect()
+         * @static 
+         */ 
+        public static function getCollect($key, $default = null)
+        {
+                        return \Illuminate\Support\Collection::getCollect($key, $default);
         }
          
     }
@@ -17148,7 +17391,7 @@
                     /**
          * Return all of the created connections.
          *
-         * @return \GrahamCampbell\Manager\array<string,object> 
+         * @return array<string,object> 
          * @static 
          */ 
         public static function getConnections()
@@ -17174,42 +17417,8 @@
 
     namespace GrahamCampbell\GitLab\Facades { 
             /**
-     * This is the gitlab manager class.
+     * This is the gitlab facade class.
      *
-     * @method array<string,\Gitlab\Client>                   getConnections()
-     * @method \Gitlab\Api\DeployKeys                         deployKeys()
-     * @method \Gitlab\Api\Deployments                        deployments()
-     * @method \Gitlab\Api\Environments                       environments()
-     * @method \Gitlab\Api\Groups                             groups()
-     * @method \Gitlab\Api\GroupsBoards                       groupsBoards()
-     * @method \Gitlab\Api\GroupsEpics                        groupsEpics()
-     * @method \Gitlab\Api\GroupsMilestones                   groupsMilestones()
-     * @method \Gitlab\Api\IssueBoards                        issueBoards()
-     * @method \Gitlab\Api\IssueLinks                         issueLinks()
-     * @method \Gitlab\Api\Issues                             issues()
-     * @method \Gitlab\Api\IssuesStatistics                   issuesStatistics()
-     * @method \Gitlab\Api\Jobs                               jobs()
-     * @method \Gitlab\Api\Keys                               keys()
-     * @method \Gitlab\Api\MergeRequests                      mergeRequests()
-     * @method \Gitlab\Api\Milestones                         milestones()
-     * @method \Gitlab\Api\ProjectNamespaces                  namespaces()
-     * @method \Gitlab\Api\Projects                           projects()
-     * @method \Gitlab\Api\Repositories                       repositories()
-     * @method \Gitlab\Api\RepositoryFiles                    repositoryFiles()
-     * @method \Gitlab\Api\Schedules                          schedules()
-     * @method \Gitlab\Api\Snippets                           snippets()
-     * @method \Gitlab\Api\SystemHooks                        systemHooks()
-     * @method \Gitlab\Api\Users                              users()
-     * @method \Gitlab\Api\Tags                               tags()
-     * @method \Gitlab\Api\Version                            version()
-     * @method \Gitlab\Api\Wiki                               wiki()
-     * @method \Gitlab\Api\ApiInterface                       api(string $name)
-     * @method void                                           authenticate(string $token, string $authMethod, string|null $sudo = null)
-     * @method void                                           setUrl(string $url)
-     * @method \Psr\Http\Message\ResponseInterface|null       getLastResponse()
-     * @method \Gitlab\HttpClient\Plugin\History              getResponseHistory()
-     * @method \Http\Client\Common\HttpMethodsClientInterface getHttpClient()
-     * @method \Http\Message\StreamFactory                    getStreamFactory()
      * @author Graham Campbell <hello@gjcampbell.co.uk>
      */ 
         class GitLab {
@@ -17314,7 +17523,7 @@
                     /**
          * Return all of the created connections.
          *
-         * @return \GrahamCampbell\Manager\array<string,object> 
+         * @return array<string,object> 
          * @static 
          */ 
         public static function getConnections()
@@ -17332,86 +17541,6 @@
         {            //Method inherited from \GrahamCampbell\Manager\AbstractManager         
                         /** @var \GrahamCampbell\GitLab\GitLabManager $instance */
                         return $instance->getConfig();
-        }
-         
-    }
-     
-}
-
-    namespace hisorange\BrowserDetect { 
-            /**
-     * Facading class to mask the service behind the "Browser" class.
-     *
-     * @method static bool isMobile()
-     * @method static bool isTablet()
-     * @method static bool isDesktop()
-     * @method static bool isChrome()
-     * @method static bool isFirefox()
-     * @method static bool isOpera()
-     * @method static bool isSafari()
-     * @method static bool isIE()
-     * @method static bool isEdge()
-     * @method static bool isWindows()
-     * @method static bool isAndroid()
-     * @method static bool isMac()
-     * @method static bool isLinux()
-     * @method static bool isInApp()
-     * @method static bool isBot()
-     * @method static bool isIEVersion()
-     * @method static string browserEngine()
-     * @method static string browserName()
-     * @method static string browserVersion()
-     * @method static string deviceFamily()
-     * @method static string deviceModel()
-     * @method static string deviceType()
-     * @method static string mobileGrade()
-     * @method static string platformName()
-     * @method static string platformVersion()
-     * @method static string userAgent()
-     * @method static string|null platformFamily()
-     * @method static string|null browserFamily()
-     * @method static int browserVersionMajor()
-     * @method static int browserVersionMinor()
-     * @method static int browserVersionPatch()
-     * @method static int platformVersionMajor()
-     * @method static int platformVersionMinor()
-     * @method static int platformVersionPatch()
-     * @example Browser::isMobile();
-     * @package hisorange\BrowserDetect
-     */ 
-        class Facade {
-                    /**
-         * Read the applied final config.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function config()
-        {
-                        /** @var \hisorange\BrowserDetect\Parser $instance */
-                        return $instance->config();
-        }
-                    /**
-         * 
-         *
-         * @inheritdoc 
-         * @static 
-         */ 
-        public static function detect()
-        {
-                        /** @var \hisorange\BrowserDetect\Parser $instance */
-                        return $instance->detect();
-        }
-                    /**
-         * 
-         *
-         * @inheritdoc 
-         * @static 
-         */ 
-        public static function parse($agent)
-        {
-                        /** @var \hisorange\BrowserDetect\Parser $instance */
-                        return $instance->parse($agent);
         }
          
     }
@@ -17919,7 +18048,7 @@
                     /**
          * 
          *
-         * @return \Spatie\FlareClient\array<int, FlareMiddleware|class-string<FlareMiddleware>>
+         * @return array<int, FlareMiddleware|class-string<FlareMiddleware>> 
          * @static 
          */ 
         public static function getMiddleware()
@@ -17980,7 +18109,7 @@
                     /**
          * 
          *
-         * @param \Spatie\FlareClient\FlareMiddleware\FlareMiddleware|\Spatie\FlareClient\array<FlareMiddleware>|\Spatie\FlareClient\class-string<FlareMiddleware> $middleware
+         * @param \Spatie\FlareClient\FlareMiddleware\FlareMiddleware|array<FlareMiddleware>|\Spatie\FlareClient\class-string<FlareMiddleware> $middleware
          * @return \Spatie\FlareClient\Flare 
          * @static 
          */ 
@@ -17992,7 +18121,7 @@
                     /**
          * 
          *
-         * @return \Spatie\FlareClient\array<int,FlareMiddleware|\Spatie\FlareClient\class-string<FlareMiddleware>> 
+         * @return array<int,FlareMiddleware|class-string<FlareMiddleware>> 
          * @static 
          */ 
         public static function getMiddlewares()
@@ -18152,7 +18281,7 @@
          *
          * @param string $groupName
          * @param mixed $default
-         * @return \Spatie\FlareClient\array<int, mixed>
+         * @return array<int, mixed> 
          * @static 
          */ 
         public static function getGroup($groupName = 'context', $default = [])
@@ -18182,6 +18311,29 @@
         {
                         /** @var \Spatie\FlareClient\Flare $instance */
                         return $instance->group($groupName, $properties);
+        }
+         
+    }
+     
+}
+
+    namespace Illuminate\Config { 
+            /**
+     * 
+     *
+     */ 
+        class Repository {
+                    /**
+         * 
+         *
+         * @param string $key
+         * @return \Collection 
+         * @see \Support\Mixins\ConfigMixin::collect()
+         * @static 
+         */ 
+        public static function collect($key)
+        {
+                        return \Illuminate\Config\Repository::collect($key);
         }
          
     }
@@ -18267,19 +18419,6 @@
                     /**
          * 
          *
-         * @see \Support\Helpers\Application\RouteConstructor::createDataTableMacro()
-         * @param string $controller
-         * @param string $name
-         * @param string $prefix
-         * @static 
-         */ 
-        public static function dataTable($controller, $name, $prefix = '')
-        {
-                        return \Illuminate\Routing\Router::dataTable($controller, $name, $prefix);
-        }
-                    /**
-         * 
-         *
          * @see \Laravel\Ui\AuthRouteMethods::auth()
          * @param mixed $options
          * @static 
@@ -18317,6 +18456,19 @@
         public static function emailVerification()
         {
                         return \Illuminate\Routing\Router::emailVerification();
+        }
+                    /**
+         * 
+         *
+         * @see \Support\Providers\RouteServiceProvider::createDataTableMacro()
+         * @param string $controller
+         * @param string $name
+         * @param string $prefix
+         * @static 
+         */ 
+        public static function dataTable($controller, $name, $prefix = '')
+        {
+                        return \Illuminate\Routing\Router::dataTable($controller, $name, $prefix);
         }
          
     }
@@ -18370,56 +18522,6 @@
         public static function fastPaginate($perPage = 10, $page = 1)
         {
                         return \Illuminate\Database\Eloquent\Relations\Relation::fastPaginate($perPage, $page);
-        }
-         
-    }
-     
-}
-
-    namespace Illuminate\Console\Scheduling { 
-            /**
-     * 
-     *
-     */ 
-        class Schedule {
-                    /**
-         * 
-         *
-         * @see \Support\Mixins\ScheduleMixin::recordJob()
-         * @param \Support\Enums\ScheduleType $type
-         * @param string $job
-         * @param array $arguments
-         * @static 
-         */ 
-        public static function recordJob($type, $job, $arguments = [])
-        {
-                        return \Illuminate\Console\Scheduling\Schedule::recordJob($type, $job, $arguments);
-        }
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class CallbackEvent {
-         
-    }
-            /**
-     * 
-     *
-     */ 
-        class Event {
-                    /**
-         * 
-         *
-         * @see \Support\Mixins\CallbackEventMixin::withChain()
-         * @param callable $callback
-         * @return static 
-         * @static 
-         */ 
-        public static function withChain($callback)
-        {
-                        return \Illuminate\Console\Scheduling\Event::withChain($callback);
         }
          
     }
@@ -20121,7 +20223,7 @@ namespace  {
                 /**
              * Set the table which the query is targeting.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $table
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder|string $table
              * @param string|null $as
              * @return \Illuminate\Database\Query\Builder 
              * @static 
@@ -21635,6 +21737,20 @@ namespace  {
             }
              
                 /**
+             * Get a single expression value from the first result of a query.
+             *
+             * @param string $expression
+             * @param array $bindings
+             * @return mixed 
+             * @static 
+             */ 
+            public static function rawValue($expression, $bindings = [])
+            {
+                                /** @var \Illuminate\Database\Query\Builder $instance */
+                                return $instance->rawValue($expression, $bindings);
+            }
+             
+                /**
              * Get the count of the total records for the paginator.
              *
              * @param array $columns
@@ -22192,7 +22308,6 @@ namespace  {
             class URL extends \Illuminate\Support\Facades\URL {}
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
-            class Browser extends \hisorange\BrowserDetect\Facade {}
             class Socialite extends \Laravel\Socialite\Facades\Socialite {}
             class Sentry extends \Sentry\Laravel\Facade {}
             class OpenGraph extends \shweshi\OpenGraph\Facades\OpenGraphFacade {}

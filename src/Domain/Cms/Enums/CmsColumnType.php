@@ -7,6 +7,7 @@ use Domain\Cms\Columns\Types\BooleanColumnType;
 use Domain\Cms\Columns\Types\DateColumnType;
 use Domain\Cms\Columns\Types\DatetimeColumnType;
 use Domain\Cms\Columns\Types\DecimalColumnType;
+use Domain\Cms\Columns\Types\FileColumnType;
 use Domain\Cms\Columns\Types\IdColumnType;
 use Domain\Cms\Columns\Types\IntegerColumnType;
 use Domain\Cms\Columns\Types\RichTextColumnType;
@@ -26,6 +27,7 @@ enum CmsColumnType: int
     case TIME = 3;
     case DATE = 4;
     case FILE = 5;
+    case IMAGE = 6;
     case STRING = 9;
     case BOOLEAN = 10;
     case INTEGER = 11;
@@ -35,10 +37,9 @@ enum CmsColumnType: int
     case RICH_TEXT = 15;
 
     private const HIDDEN_CASES = [
-        self::ID,
         // TODO implement later
-        self::FILE,
         self::JSON,
+        self::IMAGE,
         self::RELATION,
     ];
 
@@ -54,6 +55,7 @@ enum CmsColumnType: int
             self::TIME => trans('word.time'),
             self::DATE => trans('word.date'),
             self::FILE => trans('word.file'),
+            self::IMAGE => trans('word.image'),
             self::STRING => trans('word.string'),
             self::BOOLEAN => trans('word.boolean'),
             self::INTEGER => trans('word.integer'),
@@ -77,7 +79,8 @@ enum CmsColumnType: int
             self::JSON => throw new Exception('To be implemented'),
             self::TIME => TimeColumnType::class,
             self::DATE => DateColumnType::class,
-            self::FILE => throw new Exception('To be implemented'),
+            self::FILE => FileColumnType::class,
+            self::IMAGE => throw new Exception('To be implemented'),
             self::STRING => StringColumnType::class,
             self::BOOLEAN => BooleanColumnType::class,
             self::INTEGER => IntegerColumnType::class,
@@ -91,8 +94,6 @@ enum CmsColumnType: int
     /**
      * @param CmsColumn $column
      *
-     * @throws Exception
-     *
      * @return AbstractColumnType
      */
     public function create(CmsColumn $column): AbstractColumnType
@@ -101,13 +102,11 @@ enum CmsColumnType: int
     }
 
     /**
-     * @throws Exception
-     *
      * @return Collection
      */
-    public function options(): Collection
+    public function getOptions(): Collection
     {
-        return App::call([$this->getClassname(), 'options']);
+        return App::call([$this->getClassname(), 'getOptions']);
     }
 
     public static function getVisibleValues(): array
@@ -121,16 +120,5 @@ enum CmsColumnType: int
         }
 
         return $types;
-    }
-
-    public static function getHiddenValues(): array
-    {
-        $values = [];
-
-        foreach (self::HIDDEN_CASES as $case) {
-            $values[] = $case->value;
-        }
-
-        return $values;
     }
 }

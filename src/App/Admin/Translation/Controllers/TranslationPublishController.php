@@ -3,8 +3,8 @@
     namespace App\Admin\Translation\Controllers;
 
     use Illuminate\Http\JsonResponse;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
     use WeDevelop4You\TranslationFinder\Classes\Manager;
     use WeDevelop4You\TranslationFinder\Exceptions\FailedToBuildTranslationFileException;
 

@@ -2,11 +2,12 @@
 
 namespace Domain\Company\Enums;
 
-use Domain\Company\States\AbstractCompanyUserState;
-use Domain\Company\States\CompanyUserAcceptedState;
-use Domain\Company\States\CompanyUserExpiredState;
-use Domain\Company\States\CompanyUserRequestedState;
+use Domain\Company\states\AbstractCompanyUserState;
+use Domain\Company\states\CompanyUserAcceptedState;
+use Domain\Company\states\CompanyUserExpiredState;
+use Domain\Company\states\CompanyUserRequestedState;
 use Domain\Invite\Models\Invite;
+use Illuminate\Support\Arr;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Traits\DatabaseEnumSearch;
 
@@ -24,10 +25,18 @@ enum CompanyUserStatusTypes: int
     public static function getTranslations(): array
     {
         return [
-              self::REQUESTED->value => trans('database.company.user.requested'),
-              self::EXPIRED->value => trans('database.company.user.expired'),
-              self::ACCEPTED->value => trans('database.company.user.accepted'),
+              self::REQUESTED->value => trans('word.company.user.requested'),
+              self::EXPIRED->value => trans('word.company.user.expired'),
+              self::ACCEPTED->value => trans('word.company.user.accepted'),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getTranslation(): string
+    {
+        return Arr::get(self::getTranslations(), $this->value, '');
     }
 
     /**

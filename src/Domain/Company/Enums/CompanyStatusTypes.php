@@ -2,10 +2,10 @@
 
 namespace Domain\Company\Enums;
 
-use Domain\Company\States\AbstractCompanyState;
-use Domain\Company\States\CompanyCompletedState;
-use Domain\Company\States\CompanyExpiredState;
-use Domain\Company\States\CompanyInvitedState;
+use Domain\Company\states\AbstractCompanyState;
+use Domain\Company\states\CompanyCompletedState;
+use Domain\Company\states\CompanyExpiredState;
+use Domain\Company\states\CompanyInvitedState;
 use Domain\Invite\Models\Invite;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Traits\DatabaseEnumSearch;
@@ -21,9 +21,9 @@ enum CompanyStatusTypes: int
     public static function getTranslations(): array
     {
         return [
-              self::INVITED->value => trans('database.company.invited'),
-              self::EXPIRED->value => trans('database.company.expired'),
-              self::COMPLETED->value => trans('database.company.completed'),
+            self::INVITED->value => trans('database.company.invited'),
+            self::EXPIRED->value => trans('database.company.expired'),
+            self::COMPLETED->value => trans('database.company.completed'),
         ];
     }
 

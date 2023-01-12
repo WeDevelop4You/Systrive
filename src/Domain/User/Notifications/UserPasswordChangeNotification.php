@@ -44,6 +44,6 @@ class UserPasswordChangeNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage())
             ->subject(trans('Password Changed'))
-            ->markdown('admin::mail.password');
+            ->markdown('account::mail.password');
     }
 }

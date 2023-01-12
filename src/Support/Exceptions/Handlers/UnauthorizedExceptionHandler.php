@@ -2,30 +2,61 @@
 
     namespace Support\Exceptions\Handlers;
 
+    use Domain\Company\Models\Company;
     use Exception;
     use Illuminate\Http\JsonResponse;
-    use Support\Response\Actions\RouteAction;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Illuminate\Http\RedirectResponse;
+    use Illuminate\Http\Request;
+    use Support\Client\Actions\RouteAction;
+    use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
+    use Support\Helpers\ApplicationHelper;
     use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class UnauthorizedExceptionHandler extends Exception
     {
         /**
-         * @param $request
+         * @param Request $request
          *
-         * @return false|JsonResponse
+         * @return JsonResponse|RedirectResponse
          */
-        public function render($request): bool|JsonResponse
+        public function render(Request $request): JsonResponse|RedirectResponse
         {
-            if ($request->is('api/*') && $request->routeIs('admin.*')) {
-                return Response::create()
-                    ->addAction(RouteAction::create()->goToLastRoute())
-                    ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.user.not.allowed')))
-                    ->setStatusCode(ResponseCode::HTTP_FORBIDDEN)
-                    ->toJson();
+            $response = Response::create()
+                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.user.not.allowed')))
+                ->setStatusCode(ResponseCode::HTTP_FORBIDDEN);
+
+            if (!$request->expectsJson()) {
+                return $response->toSession()
+                    ->addRedirect(ApplicationHelper::getRedirectRoute())
+                    ->toRedirect();
             }
 
-            return false;
+            if ($request->isMethod('GET')) {
+                $response->addAction(RouteAction::create()->goTo($this->getRoute($request)));
+            }
+
+            return $response->toJson();
+        }
+
+        private function getRoute(Request $request): VueRouteHelper
+        {
+            if (ApplicationHelper::isAdminDomain()) {
+                return VueRouteHelper::createDashboard();
+            }
+
+            if (ApplicationHelper::isAccountDomain()) {
+                return VueRouteHelper::createAccountSettings();
+            }
+
+            if (!$request->route()->hasParameter('company')) {
+                return VueRouteHelper::createSwitcher();
+            }
+
+            /** @var Company $company */
+            $company = $request->route()->parameter('company');
+
+            return VueRouteHelper::createCompany($company);
         }
     }

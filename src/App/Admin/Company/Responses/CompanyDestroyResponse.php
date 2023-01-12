@@ -4,9 +4,9 @@ namespace App\Admin\Company\Responses;
 
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Components\Popups\Modals\DeleteModal;
-use Support\Response\Response;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Components\Popups\Modals\DeleteModal;
+use Support\Client\Response;
 
 class CompanyDestroyResponse extends AbstractResponse
 {
@@ -28,14 +28,20 @@ class CompanyDestroyResponse extends AbstractResponse
     {
         return Response::create()
             ->addPopup(
-                DeleteModal::create('companies')
+                DeleteModal::create('companies/dataTable', !\is_null($this->company->deleted_at))
+                    ->addFooterForceDeleteButton(
+                        RequestAction::create()->delete(
+                            route('admin.company.destroy.force', [
+                                $this->company->id,
+                            ])
+                        )
+                    )
                     ->addFooterDeleteButton(
-                        RequestAction::create()
-                            ->delete(
-                                route('admin.admin.company.destroy', [
-                                    $this->company->id,
-                                ])
-                            )
+                        RequestAction::create()->delete(
+                            route('admin.company.destroy', [
+                                $this->company->id,
+                            ])
+                        ),
                     )
                     ->addFooterCancelButton()
             );

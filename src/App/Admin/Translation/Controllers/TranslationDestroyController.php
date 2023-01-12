@@ -4,8 +4,8 @@
 
     use App\Admin\Translation\Responses\TranslationDestroyResponse;
     use Illuminate\Http\JsonResponse;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationDestroyController

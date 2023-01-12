@@ -5,12 +5,12 @@ namespace Domain\Cms\Columns\Types;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\DataTable\Build\Column;
 
 class IdColumnType extends AbstractColumnType
 {
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make();
     }
@@ -18,7 +18,7 @@ class IdColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'id';
     }
@@ -26,7 +26,7 @@ class IdColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::id();
     }
@@ -34,7 +34,7 @@ class IdColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getFormComponent(CmsModel $model): AbstractInputComponent
+    protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         //
     }
@@ -42,7 +42,7 @@ class IdColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return [];
     }

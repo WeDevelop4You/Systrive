@@ -6,15 +6,15 @@ class CmsTableMap
 {
     public const TABLE = 'cms';
 
-    public const ID = 'id';
-    public const COMPANY_ID = 'company_id';
-    public const NAME = 'name';
-    public const DATABASE = 'database';
-    public const USERNAME = 'username';
-    public const PASSWORD = 'password';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
-    public const DELETED_AT = 'deleted_at';
+    public const COL_ID = 'id';
+    public const COL_COMPANY_ID = 'company_id';
+    public const COL_NAME = 'name';
+    public const COL_DATABASE = 'database';
+    public const COL_USERNAME = 'username';
+    public const COL_PASSWORD = 'password';
+    public const COL_CREATED_AT = 'created_at';
+    public const COL_UPDATED_AT = 'updated_at';
+    public const COL_DELETED_AT = 'deleted_at';
 
     public const TABLE_ID = 'cms.id';
     public const TABLE_COMPANY_ID = 'cms.company_id';
@@ -26,5 +26,5 @@ class CmsTableMap
     public const TABLE_UPDATED_AT = 'cms.updated_at';
     public const TABLE_DELETED_AT = 'cms.deleted_at';
 
-    public const RELATIONSHIP_COMPANY = 'company';
+    public const RELATION_COMPANY = 'company';
 }

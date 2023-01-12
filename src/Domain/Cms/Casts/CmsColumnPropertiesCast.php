@@ -49,7 +49,7 @@ class CmsColumnPropertiesCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes): string
     {
-        $key = Arr::get($attributes, CmsColumnTableMap::KEY);
+        $key = Arr::get($attributes, CmsColumnTableMap::COL_KEY);
 
         if (\in_array($key, CmsTableTableMap::REQUIRED_COLUMNS)) {
             return '[]';
@@ -99,10 +99,10 @@ class CmsColumnPropertiesCast implements CastsAttributes
      */
     private function getOptions(array $attributes): Collection
     {
-        $type = Arr::get($attributes, CmsColumnTableMap::TYPE);
+        $type = Arr::get($attributes, CmsColumnTableMap::COL_TYPE);
 
         if (!\is_null($type)) {
-            return CmsColumnType::from($type)->options() ;
+            return CmsColumnType::from($type)->getOptions() ;
         }
 
         return Collection::make();

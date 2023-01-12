@@ -17,7 +17,7 @@
          */
         public function updated(CompanyUser $companyUser): bool
         {
-            if ($companyUser->wasChanged(CompanyUserTableMap::IS_OWNER)) {
+            if ($companyUser->wasChanged(CompanyUserTableMap::COL_IS_OWNER)) {
                 setCompanyId($companyUser->company_id);
 
                 $user = $companyUser->user ?: User::withTrashed()->find($companyUser->user_id);

@@ -2,8 +2,8 @@
 
     namespace Domain\Invite\Observers;
 
-    use Domain\Company\States\CompanyExpiredState;
-    use Domain\Company\States\CompanyUserExpiredState;
+    use Domain\Company\states\CompanyExpiredState;
+    use Domain\Company\states\CompanyUserExpiredState;
     use Domain\Invite\Models\Invite;
 
     class InviteCreatedObserver

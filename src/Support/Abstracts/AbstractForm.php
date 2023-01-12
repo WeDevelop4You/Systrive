@@ -2,16 +2,16 @@
 
 namespace Support\Abstracts;
 
-use Support\Response\Components\Forms\AbstractFormComponent;
+use Support\Client\Components\Forms\FormComponent;
 
 abstract class AbstractForm
 {
     /**
      * @param ...$arguments
      *
-     * @return AbstractFormComponent
+     * @return FormComponent
      */
-    public static function create(...$arguments): AbstractFormComponent
+    public static function create(...$arguments): FormComponent
     {
         $instance = new static(...$arguments);
 
@@ -19,7 +19,7 @@ abstract class AbstractForm
     }
 
     /**
-     * @return AbstractFormComponent
+     * @return FormComponent
      */
-    abstract protected function handle(): AbstractFormComponent;
+    abstract protected function handle(): FormComponent;
 }

@@ -14,5 +14,5 @@ yarn-error.log
 /.idea
 /.vscode
 .php-cs-fixer.cache
-
-!/node_modules/vuetifyjs-mix-extension/index.js
+.DS_Store
+/.fleet

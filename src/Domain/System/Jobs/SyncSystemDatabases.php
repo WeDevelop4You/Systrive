@@ -27,10 +27,18 @@ class SyncSystemDatabases extends AbstractVestaSync
      */
     public function __construct(System $system)
     {
-        $this->database = $system->databases;
+        $this->data = $system->databases;
         $this->system = $system->withoutRelations();
 
         $this->onQueue('system');
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return "Sync system databases for: {$this->system->username}";
     }
 
     /**
@@ -43,7 +51,7 @@ class SyncSystemDatabases extends AbstractVestaSync
 
     protected function initialize(): void
     {
-        $this->vesta = Vesta::api()->get(
+        $this->syncData = Vesta::api()->get(
             VestaCommand::GET_USER_DATABASES,
             $this->system->username
         );
@@ -56,7 +64,7 @@ class SyncSystemDatabases extends AbstractVestaSync
      */
     protected function contains(SystemDatabase|Model $model): bool
     {
-        return $this->vesta->keys()->contains($model->name);
+        return $this->syncData->keys()->contains($model->name);
     }
 
     /**
@@ -66,7 +74,7 @@ class SyncSystemDatabases extends AbstractVestaSync
      */
     protected function reject(SystemDatabase|Model $model): Collection
     {
-        return $this->vesta;
+        return $this->syncData;
     }
 
     /**
@@ -76,19 +84,19 @@ class SyncSystemDatabases extends AbstractVestaSync
     {
         $database = new SystemDatabase();
 
-        $databases = $this->vesta->map(function (array $data, string $name) use ($database) {
+        $databases = $this->syncData->map(function (array $data, string $name) use ($database) {
             $database->name = $name;
             $database->system_id = $this->system->id;
 
             return $database->attributesToArray();
         })->toArray();
 
-        SystemDatabase::upsert($databases, SystemDatabaseTableMap::NAME);
+        SystemDatabase::upsert($databases, SystemDatabaseTableMap::COL_NAME);
 
         $this->system->load('databases');
 
         $usage = $this->system->databases->map(function (SystemDatabase $systemDatabase) {
-            $database = $this->vesta->get($systemDatabase->name);
+            $database = $this->syncData->get($systemDatabase->name);
 
             return SystemStatisticHelper::create($systemDatabase)
                 ->setType(SystemUsageStatisticTypes::DISK)

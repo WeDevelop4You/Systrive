@@ -51,7 +51,7 @@ return [
     ],
 
     'supervisor' => [
-        'url' => env('SUPERVISOR_URL', 'supervisor.siberhost.nl'),
+        'url' => env('SUPERVISOR_URL', 'supervisor.systrive.nl'),
         'port' => env('SUPERVISOR_PORT', 80),
         'username' => env('SUPERVISOR_USERNAME'),
         'password' => env('SUPERVISOR_PASSWORD'),

@@ -6,7 +6,7 @@ use App\Admin\Supervisor\DataTables\SupervisorTable;
 use Domain\Supervisor\Models\Supervisor;
 use Illuminate\Http\JsonResponse;
 use Support\Abstracts\Controllers\AbstractTableController;
-use Support\Helpers\DataTable\Build\DataTable;
+use Support\Client\DataTable\Table;
 
 class SupervisorTableController extends AbstractTableController
 {
@@ -25,7 +25,7 @@ class SupervisorTableController extends AbstractTableController
      */
     public function action(): JsonResponse
     {
-        return DataTable::create($this->structure())
+        return Table::create($this->structure())
             ->withoutQuery(Supervisor::all())
             ->export();
     }

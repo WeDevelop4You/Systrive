@@ -8,10 +8,10 @@ use Domain\Cms\Actions\CmsCreateAction;
 use Domain\Cms\DataTransferObjects\CmsData;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
+use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+use Support\Client\Response;
 use Support\Exceptions\Custom\UnknownResponseCodeException;
-use Support\Exceptions\Custom\VestaCommandException;
-use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-use Support\Response\Response;
+use Support\Exceptions\Custom\Vesta\VestaCommandException;
 use Support\Services\Vesta;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 

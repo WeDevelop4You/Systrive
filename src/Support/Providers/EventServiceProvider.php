@@ -2,23 +2,15 @@
 
 namespace Support\Providers;
 
-use Domain\Cms\Models\CmsColumn;
-use Domain\Company\Models\Company;
-use Domain\Company\Models\CompanyUser;
-use Domain\Invite\Models\Invite;
-use Domain\Permission\Observers\PermissionCreatedObserver;
-use Domain\Supervisor\Models\Supervisor;
-use Domain\User\Models\User;
+use Domain\Monitor\Listeners\MonitorCreate;
+use Domain\Monitor\Listeners\MonitorFailed;
+use Domain\Monitor\Listeners\MonitorProcessed;
+use Domain\Monitor\Listeners\MonitorProcessing;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Events\JobQueued;
-use Spatie\Permission\Models\Permission;
-use Support\Listeners\CreateJobOperator;
-use Support\Listeners\EndJobOperator;
-use Support\Listeners\FailedJobOperator;
-use Support\Listeners\StartJobOperator;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,16 +21,16 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         JobQueued::class => [
-            CreateJobOperator::class,
+            MonitorCreate::class
         ],
         JobProcessing::class => [
-            StartJobOperator::class,
+            MonitorProcessing::class,
         ],
         JobProcessed::class => [
-            EndJobOperator::class,
+            MonitorProcessed::class,
         ],
         JobFailed::class => [
-            FailedJobOperator::class,
+            MonitorFailed::class,
         ],
     ];
 
@@ -49,15 +41,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        User::observe(User::getObservers());
-        Invite::observe(Invite::getObservers());
-        Company::observe(Company::getObservers());
-        CmsColumn::observe(CmsColumn::getObservers());
-        Supervisor::observe(Supervisor::getObservers());
-        CompanyUser::observe(CompanyUser::getObservers());
 
-        Permission::observe([
-            PermissionCreatedObserver::class,
-        ]);
     }
 }

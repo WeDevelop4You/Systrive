@@ -28,7 +28,7 @@
          */
         public function handle(): int
         {
-            SyncSupervisorConfigs::dispatch();
+            SyncSupervisorConfigs::dispatchSync();
 
             return 1;
         }

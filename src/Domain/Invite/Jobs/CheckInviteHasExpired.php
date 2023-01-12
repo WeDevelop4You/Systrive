@@ -6,8 +6,8 @@
     use Domain\Company\Enums\CompanyUserStatusTypes;
     use Domain\Company\Mappings\CompanyTableMap;
     use Domain\Company\Mappings\CompanyUserTableMap;
-    use Domain\Company\States\CompanyInvitedState;
-    use Domain\Company\States\CompanyUserRequestedState;
+    use Domain\Company\states\CompanyInvitedState;
+    use Domain\Company\states\CompanyUserRequestedState;
     use Domain\Invite\Mappings\InviteTableMap;
     use Domain\Invite\Models\Invite;
     use Domain\User\Mappings\UserTableMap;
@@ -33,8 +33,8 @@
         public function handle(): void
         {
             $relationshipCompanyUsers = createRelationshipString(
-                InviteTableMap::RELATIONSHIP_COMPANY,
-                CompanyTableMap::RELATIONSHIP_USERS
+                InviteTableMap::RELATION_COMPANY,
+                CompanyTableMap::RELATION_USERS
             );
 
             Invite::whereExpired()
@@ -42,7 +42,7 @@
                     $query->whereColumn(UserTableMap::TABLE_ID, InviteTableMap::TABLE_USER_ID)
                         ->where(CompanyUserTableMap::TABLE_STATUS, CompanyUserStatusTypes::REQUESTED)
                         ->withTrashed();
-                })->orWhereHas(InviteTableMap::RELATIONSHIP_COMPANY, function (Builder $query) {
+                })->orWhereHas(InviteTableMap::RELATION_COMPANY, function (Builder $query) {
                     $query->whereColumn(CompanyTableMap::TABLE_ID, InviteTableMap::TABLE_COMPANY_ID)
                         ->where(CompanyTableMap::TABLE_STATUS, CompanyStatusTypes::INVITED);
                 })->get()->each(function (Invite $invite) {

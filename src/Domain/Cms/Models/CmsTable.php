@@ -8,27 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Domain\Cms\Models\CmsTable.
+ * Domain\Cms\Models\CmsTable
  *
- * @property int                             $id
- * @property string                          $label
- * @property string                          $name
- * @property int                             $editable
- * @property int                             $is_table
+ * @property int $id
+ * @property string $label
+ * @property string $name
+ * @property bool $editable
+ * @property bool $is_table
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Domain\Cms\Models\CmsColumn[]|\Illuminate\Database\Eloquent\Collection $columns
- *
+ * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $columns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $formColumns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $tableColumns
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable query()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereEditable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereIsTable($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereLabel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class CmsTable extends Model
@@ -44,20 +45,44 @@ class CmsTable extends Model
     protected $table = 'cms_tables';
 
     protected $fillable = [
-        CmsTableTableMap::LABEL,
-        CmsTableTableMap::NAME,
-        CmsTableTableMap::EDITABLE,
-        CmsTableTableMap::IS_TABLE,
+        CmsTableTableMap::COL_LABEL,
+        CmsTableTableMap::COL_NAME,
+        CmsTableTableMap::COL_EDITABLE,
+        CmsTableTableMap::COL_IS_TABLE,
     ];
 
     protected $casts = [
-        CmsTableTableMap::EDITABLE => 'boolean',
-        CmsTableTableMap::IS_TABLE => 'boolean',
+        CmsTableTableMap::COL_EDITABLE => 'boolean',
+        CmsTableTableMap::COL_IS_TABLE => 'boolean',
     ];
 
     public function columns(): HasMany
     {
-        return $this->hasMany(CmsColumn::class, CmsColumnTableMap::TABLE_ID_);
+        return $this->hasMany(CmsColumn::class, CmsColumnTableMap::COL_TABLE_ID);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function formColumns(): HasMany
+    {
+        return $this->columns()->editable()->sorted();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function tableColumns(): HasMany
+    {
+        return $this->columns()->visible()->sorted();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function fileColumns(): HasMany
+    {
+        return $this->columns()->visible()->fileType();
     }
 
     /**
@@ -71,7 +96,7 @@ class CmsTable extends Model
      */
     public function resolveChildRouteBinding($childType, $value, $field): ?Model
     {
-        if (\in_array($childType, ['item'])) {
+        if ($childType == 'item') {
             return match ($childType) {
                 'item' => CmsModel::where($field ?? CmsModel::getModel()->getKeyName(), $value)->firstOrFail(),
             };

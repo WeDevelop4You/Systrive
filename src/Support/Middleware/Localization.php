@@ -20,13 +20,9 @@ class Localization
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        if (Auth::check()) {
-            $locale = Auth::user()->locale;
-        } else {
-            $locale = Session::get('locale', App::getFallbackLocale());
-        }
-
-        App::setLocale($locale);
+        App::setLocale(
+            Auth::check() ? Auth::user()->locale : Session::get('locale', App::getFallbackLocale())
+        );
 
         return $next($request);
     }

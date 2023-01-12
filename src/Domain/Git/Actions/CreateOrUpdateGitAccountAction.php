@@ -22,7 +22,7 @@ class CreateOrUpdateGitAccountAction
         /** @var GitAccount $gitAccount */
         $gitAccount = Auth::user()
             ->gitAccounts()
-            ->where(GitAccountTableMap::SERVICE, $this->service)
+            ->where(GitAccountTableMap::COL_SERVICE, $this->service)
             ->firstOrNew();
 
         $gitAccount->service = $this->service;

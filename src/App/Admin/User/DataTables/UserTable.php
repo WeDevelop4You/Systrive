@@ -7,13 +7,13 @@
     use Illuminate\Database\Eloquent\Builder;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
+    use Support\Client\Actions\RequestAction;
+    use Support\Client\Actions\VuexAction;
+    use Support\Client\Components\Buttons\IconButtonComponent;
+    use Support\Client\Components\Buttons\MultipleButtonComponent;
+    use Support\Client\Components\Misc\Icons\IconComponent;
+    use Support\Client\DataTable\Build\Column;
     use Support\Enums\Component\IconType;
-    use Support\Helpers\DataTable\Build\Column;
-    use Support\Response\Actions\RequestAction;
-    use Support\Response\Actions\VuexAction;
-    use Support\Response\Components\Buttons\IconButtonComponent;
-    use Support\Response\Components\Buttons\MultipleButtonComponent;
-    use Support\Response\Components\Icons\IconComponent;
 
     class UserTable extends AbstractTable
     {
@@ -64,7 +64,7 @@
                                     ->setAction(
                                         VuexAction::create()->dispatch(
                                             'users/edit',
-                                            route('admin.admin.user.edit', [
+                                            route('admin.user.edit', [
                                                 $data->id,
                                             ])
                                         )
@@ -73,7 +73,7 @@
                                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                     ->setAction(
                                         RequestAction::create()
-                                            ->get(route('admin.admin.user.destroy', [
+                                            ->get(route('admin.user.destroy', [
                                                 $data->id,
                                             ]))
                                     ),

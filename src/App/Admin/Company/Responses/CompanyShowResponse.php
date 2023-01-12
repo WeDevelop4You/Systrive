@@ -2,25 +2,26 @@
 
 namespace App\Admin\Company\Responses;
 
-use App\Admin\Company\Resources\CompanyResource;
-use App\Admin\Company\Role\Responses\CompanyRoleOverviewResponse;
-use App\Admin\Company\User\Responses\CompanyUserOverviewResponse;
+use App\Company\Dashboard\Resources\CompanyResource;
+use App\Company\Role\Responses\RoleOverviewResponse;
+use App\Company\User\Responses\UserOverviewResponse;
 use Domain\Company\Enums\CompanyModuleTypes;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Layouts\ColComponent;
+use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Misc\CardHeaderComponent;
+use Support\Client\Components\Overviews\CardComponent;
+use Support\Client\Components\Overviews\ListComponent;
+use Support\Client\Components\Overviews\ListItems\ListItemBadgeComponent;
+use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
+use Support\Client\Components\Overviews\ListItems\ListItemURLComponent;
+use Support\Client\Components\Overviews\Tables\ServerTableComponent;
+use Support\Client\Components\Popups\Modals\ShowModal;
+use Support\Client\Response;
 use Support\Enums\Component\Vuetify\VuetifyColor;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\ButtonComponent;
-use Support\Response\Components\Items\ItemBadgeComponent;
-use Support\Response\Components\Items\ItemTextComponent;
-use Support\Response\Components\Items\ItemURLComponent;
-use Support\Response\Components\Layouts\ColComponent;
-use Support\Response\Components\Layouts\RowComponent;
-use Support\Response\Components\Overviews\CardComponent;
-use Support\Response\Components\Overviews\ListComponent;
-use Support\Response\Components\Overviews\Tables\ServerTableComponent;
-use Support\Response\Components\Popups\Modals\ShowModal;
-use Support\Response\Response;
 
 class CompanyShowResponse extends AbstractResponse
 {
@@ -78,26 +79,29 @@ class CompanyShowResponse extends AbstractResponse
     private function createInfoList(): CardComponent
     {
         return CardComponent::create()
-            ->setTitle(trans('word.details'))
+            ->setHeader(
+                CardHeaderComponent::create()
+                    ->setTitle(trans('word.details'))
+            )
             ->addBody(
                 ListComponent::create()
                     ->addItems([
-                        ItemTextComponent::create()
+                        ListItemContentComponent::create()
                             ->setLabel(trans('word.id'))
                             ->setValue($this->company->id),
-                        ItemTextComponent::create()
+                        ListItemContentComponent::create()
                             ->setLabel(trans('word.name.name'))
                             ->setValue($this->company->name),
-                        ItemTextComponent::create()
+                        ListItemContentComponent::create()
                             ->setLabel(trans('word.email.email'))
                             ->setValue($this->company->email),
-                        ItemURLComponent::create()
+                        ListItemURLComponent::create()
                             ->setLabel(trans('word.domain.domain'))
                             ->setValue($this->company->domain),
                     ])
                     ->addDivider()
                     ->addItems([
-                        ItemTextComponent::create()
+                        ListItemContentComponent::create()
                             ->setCondition($this->company->hasSystemModule(true))
                             ->setLabel(trans('word.system.system'))
                             ->setValue($this->company->system?->username),
@@ -120,7 +124,7 @@ class CompanyShowResponse extends AbstractResponse
                 $value = trans('word.disabled.disabled');
             }
 
-            return ItemBadgeComponent::create()
+            return ListItemBadgeComponent::create()
                 ->setLabel(CompanyModuleTypes::from($module)->trans())
                 ->setValue($value)
                 ->setColor($color)
@@ -128,7 +132,10 @@ class CompanyShowResponse extends AbstractResponse
         })->toArray();
 
         return CardComponent::create()
-            ->setTitle(trans('word.modules'))
+            ->setHeader(
+                CardHeaderComponent::create()
+                    ->setTitle(trans('word.modules'))
+            )
             ->addBody(
                 ListComponent::create()->addItems($modules)
             )
@@ -145,8 +152,8 @@ class CompanyShowResponse extends AbstractResponse
             ->setComponent(
                 RowComponent::create()
                     ->setCols([
-                        ColComponent::create()->setComponent(CompanyUserOverviewResponse::table($this->company)),
-                        ColComponent::create()->setComponent(CompanyRoleOverviewResponse::table($this->company)),
+                        ColComponent::create()->setComponent(UserOverviewResponse::table($this->company)),
+                        ColComponent::create()->setComponent(RoleOverviewResponse::table($this->company)),
                     ])
                     ->addColIf(
                         $this->company->hasCMSModule(true) || $this->company->cms()->count(),
@@ -164,10 +171,10 @@ class CompanyShowResponse extends AbstractResponse
             ->setSearchable()
             ->setTitle(trans('word.cms.databases'))
             ->setVuexNamespace('company/cms/dataTable')
-            ->setHeaderUrl(route('admin.sa.company.cms.table.headers', [
+            ->setHeaderRoute(route('admin.company.cms.table.headers', [
                 $this->company->id,
             ]))
-            ->setItemsUrl(route('admin.sa.company.cms.table.items', [
+            ->setItemsRoute(route('admin.company.cms.table.items', [
                 $this->company->id,
             ]))
             ->setPrependComponent(
@@ -177,7 +184,7 @@ class CompanyShowResponse extends AbstractResponse
                     ->setTitle(trans('word.create.create'))
                     ->setAction(VuexAction::create()->dispatch(
                         'company/cms/create',
-                        route('admin.sa.company.cms.create', $this->company->id)
+                        route('admin.company.cms.create', $this->company->id)
                     ))
             );
     }

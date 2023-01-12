@@ -2,16 +2,23 @@
 
     namespace Domain\User\Actions;
 
+    use Domain\User\Models\UserSecurity;
+    use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Auth;
-    use Support\Helpers\SecurityHelper;
 
     class EnableUserAccountSecurityAction
     {
-        public function __invoke(int $oneTimePassword): void
+        public function __invoke(): void
         {
-            $security = Auth::user()->security;
-            $security->enabled = true;
+            /** @var UserSecurity $security */
+            $security = Auth::user()->security()->firstOrFail();
 
-            SecurityHelper::create($security)->setRecoveryCodes();
+            $security->enabled = true;
+            $security->recovery_codes = Collection::times(
+                8,
+                fn () => $security->generateRecoveryCode()
+            )->toArray();
+
+            $security->save();
         }
     }

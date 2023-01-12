@@ -20,10 +20,10 @@ class CmsCreateResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            CmsTableMap::NAME => null,
-            CmsTableMap::DATABASE => null,
-            CmsTableMap::USERNAME => null,
-            CmsTableMap::PASSWORD => null,
+            CmsTableMap::COL_NAME => null,
+            CmsTableMap::COL_DATABASE => null,
+            CmsTableMap::COL_USERNAME => null,
+            CmsTableMap::COL_PASSWORD => null,
             'system' => $this->system->username,
         ];
     }

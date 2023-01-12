@@ -16,25 +16,25 @@
         public function whereType(InviteTypes $type): InviteQueryBuilders
         {
             return match ($type) {
-                InviteTypes::USER => $this->whereUserType(),
-                InviteTypes::COMPANY => $this->whereCompanyType(),
+                InviteTypes::USER => $this->whereTypeUser(),
+                InviteTypes::COMPANY => $this->whereTypeCompany(),
             };
         }
 
         /**
          * @return InviteQueryBuilders
          */
-        public function whereUserType(): InviteQueryBuilders
+        public function whereTypeUser(): InviteQueryBuilders
         {
-            return $this->where(InviteTableMap::TYPE, InviteTypes::USER);
+            return $this->where(InviteTableMap::COL_TYPE, InviteTypes::USER);
         }
 
         /**
          * @return InviteQueryBuilders
          */
-        public function whereCompanyType(): InviteQueryBuilders
+        public function whereTypeCompany(): InviteQueryBuilders
         {
-            return $this->where(InviteTableMap::TYPE, InviteTypes::COMPANY);
+            return $this->where(InviteTableMap::COL_TYPE, InviteTypes::COMPANY);
         }
 
         /**
@@ -42,7 +42,7 @@
          */
         public function whereExpired(): InviteQueryBuilders
         {
-            return $this->where(InviteTableMap::CREATED_AT, '<', Carbon::now()->subDays(7)->toDateTimeString());
+            return $this->where(InviteTableMap::COL_CREATED_AT, '<', Carbon::now()->subDays(7)->toDateTimeString());
         }
 
         /**
@@ -52,7 +52,7 @@
          */
         public function whereUserByEmail(string $email): InviteQueryBuilders
         {
-            return $this->whereHas(InviteTableMap::RELATIONSHIP_USER, function (UserQueryBuilders $query) use ($email) {
+            return $this->whereHas(InviteTableMap::RELATION_USER, function (UserQueryBuilders $query) use ($email) {
                 $query->where(UserTableMap::TABLE_EMAIL, $email)->withTrashed();
             });
         }
@@ -65,8 +65,8 @@
          */
         public function whereInviteByUserAndCompany(User $user, Company $company): InviteQueryBuilders
         {
-            return $this->where(InviteTableMap::USER_ID, $user->id)
-                ->where(InviteTableMap::COMPANY_ID, $company->id);
+            return $this->where(InviteTableMap::COL_USER_ID, $user->id)
+                ->where(InviteTableMap::COL_COMPANY_ID, $company->id);
         }
 
         /**
@@ -77,6 +77,6 @@
          */
         public function whereInviteByEmailAndCompany(string $email, Company $company): InviteQueryBuilders
         {
-            return $this->whereUserByEmail($email)->where(InviteTableMap::COMPANY_ID, $company->id);
+            return $this->whereUserByEmail($email)->where(InviteTableMap::COL_COMPANY_ID, $company->id);
         }
     }

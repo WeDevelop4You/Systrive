@@ -2,7 +2,7 @@
 
     namespace Support\Enums\Component\Vuetify;
 
-    use Support\Response\Components\Utils\ThemeComponent;
+    use Support\Client\Components\Utils\ThemeComponent;
 
     enum VuetifyColor: string
     {

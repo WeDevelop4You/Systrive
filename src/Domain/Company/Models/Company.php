@@ -12,6 +12,8 @@ use Domain\Company\Mappings\CompanyUserTableMap;
 use Domain\Company\Observers\CompanyDeletedObserver;
 use Domain\Company\Observers\CompanySavingObserver;
 use Domain\Company\QueryBuilders\CompanyQueryBuilders;
+use Domain\Company\Scopes\CompanySoftDeletingScope;
+use Domain\Company\Scopes\CompanyViewScope;
 use Domain\Invite\Models\Invite;
 use Domain\Role\Models\Role;
 use Domain\System\Models\System;
@@ -19,87 +21,99 @@ use Domain\User\Collections\UserCollections;
 use Domain\User\Mappings\UserTableMap;
 use Domain\User\Models\User;
 use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Support\Traits\Observers;
 
 /**
- * Domain\Company\Models\Company.
+ * Domain\Company\Models\Company
  *
- * @property int                            $id
- * @property string                         $name
- * @property string                         $slug
- * @property string|null                    $email
- * @property string|null                    $domain
- * @property string|null                    $information
- * @property CompanyStatusTypes             $status
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $email
+ * @property string|null $domain
+ * @property CompanyStatusTypes $status
  * @property \Illuminate\Support\Collection $modules
- * @property mixed|null                     $preferences
- * @property Carbon|null                    $created_at
- * @property Carbon|null                    $updated_at
- * @property-read Cms[]|Collection $cms
+ * @property mixed|null $preferences
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection|Cms[] $cms
  * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
  * @property-read Collection|Invite[] $invites
  * @property-read User|null $owner
  * @property-read Collection|Role[] $roles
  * @property-read System|null $system
  * @property-read System|null $systems
- * @property-read User[]|UserCollections $users
- * @property-read User[]|UserCollections $whereOwner
- *
- * @method static CompanyCollections|static[]  all($columns = ['*'])
- * @method static CompanyCollections|static[]  get($columns = ['*'])
+ * @property-read UserCollections|User[] $users
+ * @method static CompanyCollections|static[] all($columns = ['*'])
+ * @method static CompanyCollections|static[] get($columns = ['*'])
  * @method static CompanyQueryBuilders|Company newModelQuery()
  * @method static CompanyQueryBuilders|Company newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Company onlyTrashed()
  * @method static CompanyQueryBuilders|Company query()
  * @method static CompanyQueryBuilders|Company whereCreatedAt($value)
+ * @method static CompanyQueryBuilders|Company whereDeletedAt($value)
  * @method static CompanyQueryBuilders|Company whereDomain($value)
  * @method static CompanyQueryBuilders|Company whereEmail($value)
  * @method static CompanyQueryBuilders|Company whereId($value)
- * @method static CompanyQueryBuilders|Company whereInformation($value)
  * @method static CompanyQueryBuilders|Company whereModules($value)
  * @method static CompanyQueryBuilders|Company whereName($value)
  * @method static CompanyQueryBuilders|Company wherePreferences($value)
  * @method static CompanyQueryBuilders|Company whereSlug($value)
  * @method static CompanyQueryBuilders|Company whereStatus($value)
  * @method static CompanyQueryBuilders|Company whereUpdatedAt($value)
- * @method static CompanyQueryBuilders|Company whereUser(\Domain\User\Models\User $user)
- *
+ * @method static \Illuminate\Database\Query\Builder|Company withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Company withoutTrashed()
  * @mixin Eloquent
  */
 class Company extends Model
 {
+    use Prunable;
     use Observers;
+    use SoftDeletes;
 
     protected $table = 'companies';
 
     protected $fillable = [
-        CompanyTableMap::NAME,
-        CompanyTableMap::EMAIL,
-        CompanyTableMap::DOMAIN,
-        CompanyTableMap::INFORMATION,
-        CompanyTableMap::STATUS,
-        CompanyTableMap::MODULES,
-        CompanyTableMap::PREFERENCES,
+        CompanyTableMap::COL_NAME,
+        CompanyTableMap::COL_EMAIL,
+        CompanyTableMap::COL_DOMAIN,
+        CompanyTableMap::COL_STATUS,
+        CompanyTableMap::COL_MODULES,
+        CompanyTableMap::COL_PREFERENCES,
     ];
 
     protected $casts = [
-        CompanyTableMap::STATUS => CompanyStatusTypes::class,
-        CompanyTableMap::MODULES => CompanyModulesCast::class,
-        CompanyTableMap::PREFERENCES => AsCollection::class,
+        CompanyTableMap::COL_STATUS => CompanyStatusTypes::class,
+        CompanyTableMap::COL_MODULES => CompanyModulesCast::class,
+        CompanyTableMap::COL_PREFERENCES => AsCollection::class,
     ];
 
-    protected array $observers = [
+    protected static array $observers = [
         CompanySavingObserver::class,
         CompanyDeletedObserver::class,
     ];
+
+    /**
+     * @return Company|Builder
+     */
+    public function prunable(): Company|Builder
+    {
+        return static::withoutGlobalScope(CompanyViewScope::class)
+            ->whereDate(CompanyTableMap::COL_DELETED_AT, '<', Carbon::now()->subDays(31));
+    }
 
     /**
      * @param CompanyModuleTypes $type
@@ -143,16 +157,18 @@ class Company extends Model
     }
 
     /**
-     * @return BelongsToMany
+     * @param User $user
+     *
+     * @return HasOneThrough
      */
-    public function users(): BelongsToMany
+    public function user(User $user): HasOneThrough
     {
-        return $this->belongsToMany(User::class)
-            ->using(CompanyUser::class)
-            ->withPivot(
-                CompanyUserTableMap::STATUS,
-                CompanyUserTableMap::IS_OWNER
-            );
+        return $this->hasOneThrough(
+            User::class,
+            CompanyUser::class,
+            secondKey: UserTableMap::COL_ID,
+            secondLocalKey: CompanyUserTableMap::COL_USER_ID
+        )->where(UserTableMap::COL_ID, $user->id)->withTrashed();
     }
 
     /**
@@ -163,40 +179,22 @@ class Company extends Model
         return $this->hasOneThrough(
             User::class,
             CompanyUser::class,
-            secondKey: UserTableMap::ID,
-            secondLocalKey: CompanyUserTableMap::USER_ID
+            secondKey: UserTableMap::COL_ID,
+            secondLocalKey: CompanyUserTableMap::COL_USER_ID
         )->where(CompanyUserTableMap::TABLE_IS_OWNER, true)->withTrashed();
     }
 
     /**
      * @return BelongsToMany
      */
-    public function whereOwner(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->users()->wherePivot(CompanyUserTableMap::IS_OWNER, true)->withTrashed();
-    }
-
-    /**
-     * @param string $email
-     *
-     * @return BelongsToMany
-     */
-    public function whereUserByEmail(string $email): BelongsToMany
-    {
-        return $this->users()->where(UserTableMap::EMAIL, $email);
-    }
-
-    /**
-     * @param User $user
-     * @param bool $value
-     *
-     * @return int
-     */
-    public function updateOwnership(User $user, bool $value = false): int
-    {
-        return $this->users()->updateExistingPivot($user->id, [
-            CompanyUserTableMap::IS_OWNER => $value,
-        ]);
+        return $this->belongsToMany(User::class)
+            ->using(CompanyUser::class)
+            ->withPivot(
+                CompanyUserTableMap::COL_STATUS,
+                CompanyUserTableMap::COL_IS_OWNER
+            );
     }
 
     /**
@@ -250,6 +248,39 @@ class Company extends Model
     }
 
     /**
+     * @param User $user
+     * @param bool $value
+     *
+     * @return int
+     */
+    public function updateOwnership(User $user, bool $value): int
+    {
+        return $this->users()->updateExistingPivot($user->id, [
+            CompanyUserTableMap::COL_IS_OWNER => $value,
+        ]);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return int
+     */
+    public function giveOwnership(User $user): int
+    {
+        return $this->updateOwnership($user, true);
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return int
+     */
+    public function removeOwnership(User $user): int
+    {
+        return $this->updateOwnership($user, false);
+    }
+
+    /**
      * @param $query
      *
      * @return CompanyQueryBuilders
@@ -267,5 +298,21 @@ class Company extends Model
     public function newCollection(array $models = []): CompanyCollections
     {
         return new CompanyCollections($models);
+    }
+
+    /**
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        self::addGlobalScope(new CompanyViewScope());
+    }
+
+    /**
+     * @return void
+     */
+    public static function bootSoftDeletes(): void
+    {
+        self::addGlobalScope(new CompanySoftDeletingScope());
     }
 }

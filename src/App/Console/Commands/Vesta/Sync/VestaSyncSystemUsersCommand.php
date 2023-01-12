@@ -2,7 +2,7 @@
 
     namespace App\Console\Commands\Vesta\Sync;
 
-    use Domain\System\Jobs\SyncSystem;
+    use Domain\System\Jobs\SyncSystemUsers;
     use Illuminate\Console\Command;
 
     class VestaSyncSystemUsersCommand extends Command
@@ -28,7 +28,7 @@
          */
         public function handle(): int
         {
-            SyncSystem::dispatch();
+            SyncSystemUsers::dispatch();
 
             return 1;
         }

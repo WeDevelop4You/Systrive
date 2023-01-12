@@ -4,8 +4,8 @@ namespace Domain\Cms\Columns\Options;
 
 use Domain\Cms\Columns\Options\Attributes\ArgumentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Response\Components\Forms\Inputs\NumberInputComponent;
-use Support\Response\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\NumberInputComponent;
+use Support\Client\Components\Layouts\ColComponent;
 
 class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColumnOption
 {

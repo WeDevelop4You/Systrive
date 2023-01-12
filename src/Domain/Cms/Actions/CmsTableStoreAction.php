@@ -31,7 +31,7 @@ class CmsTableStoreAction
         try {
             $schema->create($data->name, function (Blueprint $table) use ($data) {
                 $data->columns->each(function (CmsColumn $column) use ($table) {
-                    $column->template()->getBlueprint($table);
+                    $column->type()->getDefinition($table);
                 });
             });
 
@@ -40,11 +40,12 @@ class CmsTableStoreAction
             $table = new CmsTable();
             $table->name = $data->name;
             $table->label = $data->label;
+            $table->is_table = $data->isTable;
             $table->editable = $data->editable;
             $table->save();
 
             $data->columns->each(function (CmsColumn $column) use ($table) {
-                $column->offsetUnset(CmsColumnTableMap::ORIGINAL_KEY);
+                $column->offsetUnset(CmsColumnTableMap::COL_ORIGINAL_KEY);
 
                 $column->table_id = $table->id;
                 $column->save();

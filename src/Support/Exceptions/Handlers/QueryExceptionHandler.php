@@ -5,8 +5,8 @@
     use Exception;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Facades\App;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
     use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class QueryExceptionHandler extends Exception

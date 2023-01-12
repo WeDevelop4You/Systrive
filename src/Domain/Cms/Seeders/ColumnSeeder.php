@@ -17,25 +17,25 @@ class ColumnSeeder extends AbstractSeeder
     {
         return Collection::make([
             CmsColumn::make([
-                CmsColumnTableMap::KEY => 'id',
-                CmsColumnTableMap::LABEL => 'ID',
-                CmsColumnTableMap::EDITABLE => false,
-                CmsColumnTableMap::DELETABLE => false,
-                CmsColumnTableMap::TYPE => CmsColumnType::ID,
+                CmsColumnTableMap::COL_KEY => 'id',
+                CmsColumnTableMap::COL_LABEL => 'ID',
+                CmsColumnTableMap::COL_EDITABLE => false,
+                CmsColumnTableMap::COL_DELETABLE => false,
+                CmsColumnTableMap::COL_TYPE => CmsColumnType::ID,
             ]),
             CmsColumn::make([
-                CmsColumnTableMap::KEY => 'created_at',
-                CmsColumnTableMap::LABEL => 'Create at',
-                CmsColumnTableMap::EDITABLE => false,
-                CmsColumnTableMap::DELETABLE => false,
-                CmsColumnTableMap::TYPE => CmsColumnType::DATETIME,
+                CmsColumnTableMap::COL_KEY => 'created_at',
+                CmsColumnTableMap::COL_LABEL => 'Create at',
+                CmsColumnTableMap::COL_EDITABLE => false,
+                CmsColumnTableMap::COL_DELETABLE => false,
+                CmsColumnTableMap::COL_TYPE => CmsColumnType::DATETIME,
             ]),
             CmsColumn::make([
-                CmsColumnTableMap::KEY => 'updated_at',
-                CmsColumnTableMap::LABEL => 'Update at',
-                CmsColumnTableMap::EDITABLE => false,
-                CmsColumnTableMap::DELETABLE => false,
-                CmsColumnTableMap::TYPE => CmsColumnType::DATETIME,
+                CmsColumnTableMap::COL_KEY => 'updated_at',
+                CmsColumnTableMap::COL_LABEL => 'Update at',
+                CmsColumnTableMap::COL_EDITABLE => false,
+                CmsColumnTableMap::COL_DELETABLE => false,
+                CmsColumnTableMap::COL_TYPE => CmsColumnType::DATETIME,
             ]),
         ]);
     }

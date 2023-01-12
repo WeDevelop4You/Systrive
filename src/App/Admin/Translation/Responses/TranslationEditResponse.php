@@ -2,14 +2,13 @@
 
 namespace App\Admin\Translation\Responses;
 
-use App\Admin\Translation\Resources\TranslationKeyResource;
+use App\Admin\Translation\Forms\TranslationForm;
+use App\Admin\Translation\Resources\TranslationResource;
+use Domain\Translation\Models\TranslationKey;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\Form\FormType;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Forms\CustomFormComponent;
-use Support\Response\Components\Popups\Modals\FormModal;
-use Support\Response\Response;
-use WeDevelop4You\TranslationFinder\Models\TranslationKey;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Popups\Modals\FormModal;
+use Support\Client\Response;
 
 class TranslationEditResponse extends AbstractResponse
 {
@@ -30,20 +29,17 @@ class TranslationEditResponse extends AbstractResponse
     protected function handle(): Response
     {
         return Response::create()
-            ->addData(TranslationKeyResource::make($this->translationKey))
+            ->addData(TranslationResource::make($this->translationKey))
             ->addPopup(
                 FormModal::create('translations/form')
                     ->setPersistent()
                     ->setTitle(trans('word.edit.edit'))
-                    ->setForm(
-                        CustomFormComponent::create()
-                            ->setType(FormType::TRANSLATION)
-                    )
+                    ->setForm(TranslationForm::create($this->translationKey))
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
                             'translations/update',
-                            route('admin.admin.translation.edit', [
+                            route('admin.translation.edit', [
                                 $this->translationKey->id,
                             ])
                         )

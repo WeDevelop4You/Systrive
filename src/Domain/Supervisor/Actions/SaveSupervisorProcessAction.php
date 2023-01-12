@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Support\Exceptions\Custom\ActionErrorException;
 use Support\Exceptions\Custom\ShellCommandFailedException;
-use Support\Services\ShellCommand;
 use Support\Services\Supervisor as SupervisorService;
+use Support\Services\Terminal;
 
 class SaveSupervisorProcessAction
 {
@@ -46,7 +46,7 @@ class SaveSupervisorProcessAction
 
         if (App::isProduction()) {
             try {
-                $output = ShellCommand::execute('supervisorctl reread');
+                $output = Terminal::execute('supervisorctl reread');
 
                 if ($output->startsWith('ERROR: ')) {
                     throw new ShellCommandFailedException(
@@ -65,3 +65,4 @@ class SaveSupervisorProcessAction
         $this->supervisor->save();
     }
 }
+

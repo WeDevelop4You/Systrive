@@ -1,22 +1,32 @@
 <?php
 
-    namespace App\Admin\Translation\Resources;
+namespace App\Admin\Translation\Resources;
 
-    use Illuminate\Http\Request;
-    use Illuminate\Http\Resources\Json\JsonResource;
+use Domain\Translation\Models\TranslationKey;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use WeDevelop4You\TranslationFinder\Models\Translation;
 
-    class TranslationResource extends JsonResource
+/**
+ * @mixin TranslationKey
+ */
+class TranslationResource extends JsonResource
+{
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function toArray($request): array
     {
-        /**
-         * @param Request $request
-         *
-         * @return array
-         */
-        public function toArray($request): array
-        {
-            return [
-                'locale' => $this->locale,
-                'translation' => $this->translation,
-            ];
-        }
+        return [
+            'id' => $this->id,
+            'translations' => $this->translations->mapWithKeys(function (Translation $translation) {
+                return  [$translation->locale => [
+                    'locale' => $translation->locale,
+                    'translation' => $translation->translation,
+                ]];
+            }),
+        ];
     }
+}

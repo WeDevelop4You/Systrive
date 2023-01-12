@@ -11,8 +11,6 @@ use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommand;
 use Support\Services\Vesta;
 
-;
-
 class SyncSystemDNS extends AbstractVestaSync
 {
     /**
@@ -27,12 +25,23 @@ class SyncSystemDNS extends AbstractVestaSync
      */
     public function __construct(System $system)
     {
-        $this->database = $system->dns;
+        $this->data = $system->dns;
         $this->system = $system->withoutRelations();
 
         $this->onQueue('system');
     }
 
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return "Sync system DNS for: {$this->system->username}";
+    }
+
+    /**
+     * @return string
+     */
     public function uniqueId(): string
     {
         return "{$this->system->username}_DNS";
@@ -40,7 +49,7 @@ class SyncSystemDNS extends AbstractVestaSync
 
     protected function initialize(): void
     {
-        $this->vesta = Vesta::api()->get(
+        $this->syncData = Vesta::api()->get(
             VestaCommand::GET_USER_DNS_DOMAINS,
             $this->system->username
         )->keys();
@@ -53,7 +62,7 @@ class SyncSystemDNS extends AbstractVestaSync
      */
     protected function contains(SystemDNS|Model $model): bool
     {
-        return $this->vesta->contains($model->name);
+        return $this->syncData->contains($model->name);
     }
 
     /**
@@ -63,7 +72,7 @@ class SyncSystemDNS extends AbstractVestaSync
      */
     protected function reject(SystemDNS|Model $model): Collection
     {
-        return $this->vesta->reject($model->name);
+        return $this->syncData->reject($model->name);
     }
 
     /**
@@ -73,7 +82,7 @@ class SyncSystemDNS extends AbstractVestaSync
     {
         $dns = new SystemDNS();
 
-        $nameservers = $this->vesta->map(function (string $domainName) use ($dns) {
+        $nameservers = $this->syncData->map(function (string $domainName) use ($dns) {
             $dns->name = $domainName;
             $dns->system_id = $this->system->id;
 
@@ -81,7 +90,7 @@ class SyncSystemDNS extends AbstractVestaSync
         })->toArray();
 
         SystemDNS::upsert($nameservers, [
-            SystemDNSTableMap::NAME,
+            SystemDNSTableMap::COL_NAME,
         ]);
     }
 }

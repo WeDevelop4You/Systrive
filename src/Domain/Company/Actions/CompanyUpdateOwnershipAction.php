@@ -12,34 +12,32 @@
          * ChangeCompanyOwnershipAction constructor.
          *
          * @param User|null $oldOwner
-         * @param string    $newOwnerEmail
+         * @param User      $newOwner
          * @param bool      $removeOwner
          */
         public function __construct(
-            private ?User $oldOwner,
-            private string $newOwnerEmail,
-            private bool $removeOwner = false
+            private readonly ?User $oldOwner,
+            private readonly User  $newOwner,
+            private readonly bool  $removeOwner = false
         ) {
             //
         }
 
-        public function __invoke(Company $company)
+        public function __invoke(Company $company): void
         {
-            $newOwner = $company->whereUserByEmail($this->newOwnerEmail)->first();
+            if (!$company->user($this->newOwner)->exists()) {
+                $companyUserData = CompanyUserData::createForUser($this->newOwner);
 
-            if (\is_null($newOwner)) {
-                $companyUserData = new CompanyUserData([], [], $this->newOwnerEmail);
-
-                $newOwner = (new CompanyUserStoreInviteAction($company))($companyUserData);
+                (new CompanyInviteUserAction($company))($companyUserData);
             }
 
-            $company->updateOwnership($newOwner, true);
+            $company->giveOwnership($this->newOwner);
 
             if ($this->oldOwner instanceof User) {
                 if ($this->removeOwner) {
                     $company->users()->detach($this->oldOwner->id);
                 } else {
-                    $company->updateOwnership($this->oldOwner);
+                    $company->removeOwnership($this->oldOwner);
                 }
             }
         }

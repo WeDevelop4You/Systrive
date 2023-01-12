@@ -3,8 +3,9 @@
 namespace Domain\Invite\Models;
 
 use Domain\Company\Models\Company;
-use Domain\Company\States\AbstractCompanyState;
-use Domain\Company\States\AbstractCompanyUserState;
+use Domain\Company\Scopes\CompanyViewScope;
+use Domain\Company\states\AbstractCompanyState;
+use Domain\Company\states\AbstractCompanyUserState;
 use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Mappings\InviteTableMap;
 use Domain\Invite\Observers\InviteCreatedObserver;
@@ -18,31 +19,29 @@ use Illuminate\Support\Carbon;
 use Support\Traits\Observers;
 
 /**
- * Domain\Invite\Models\Invite.
+ * Domain\Invite\Models\Invite
  *
- * @property int         $company_id
- * @property int         $user_id
- * @property string      $token
+ * @property int $company_id
+ * @property int $user_id
+ * @property string $token
  * @property InviteTypes $type
- * @property mixed       $created_at
+ * @property mixed $created_at
  * @property-read Company $company
  * @property-read User $user
- *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
  * @method static InviteQueryBuilders|Invite query()
  * @method static InviteQueryBuilders|Invite whereCompanyId($value)
- * @method static InviteQueryBuilders|Invite whereCompanyType()
  * @method static InviteQueryBuilders|Invite whereCreatedAt($value)
  * @method static InviteQueryBuilders|Invite whereExpired()
  * @method static InviteQueryBuilders|Invite whereInviteByEmailAndCompany(string $email, \Domain\Company\Models\Company $company)
  * @method static InviteQueryBuilders|Invite whereInviteByUserAndCompany(\Domain\User\Models\User $user, \Domain\Company\Models\Company $company)
  * @method static InviteQueryBuilders|Invite whereToken($value)
  * @method static InviteQueryBuilders|Invite whereType($value)
+ * @method static InviteQueryBuilders|Invite whereTypeCompany()
+ * @method static InviteQueryBuilders|Invite whereTypeUser()
  * @method static InviteQueryBuilders|Invite whereUserByEmail(string $email)
  * @method static InviteQueryBuilders|Invite whereUserId($value)
- * @method static InviteQueryBuilders|Invite whereUserType()
- *
  * @mixin Eloquent
  */
 class Invite extends Model
@@ -59,18 +58,18 @@ class Invite extends Model
      * @var array
      */
     protected $fillable = [
-        InviteTableMap::TOKEN,
-        InviteTableMap::TYPE,
-        InviteTableMap::USER_ID,
-        InviteTableMap::COMPANY_ID,
+        InviteTableMap::COL_TOKEN,
+        InviteTableMap::COL_TYPE,
+        InviteTableMap::COL_USER_ID,
+        InviteTableMap::COL_COMPANY_ID,
     ];
 
     protected $casts = [
-        InviteTableMap::TYPE => InviteTypes::class,
+        InviteTableMap::COL_TYPE => InviteTypes::class,
     ];
 
-    protected array $observers = [
-        'created' => InviteCreatedObserver::class,
+    protected static array $observers = [
+         InviteCreatedObserver::class,
     ];
 
     public static function boot()
@@ -87,7 +86,7 @@ class Invite extends Model
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withoutGlobalScope(CompanyViewScope::class);
     }
 
     /**

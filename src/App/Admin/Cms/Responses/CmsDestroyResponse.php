@@ -5,9 +5,9 @@ namespace App\Admin\Cms\Responses;
 use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Components\Popups\Modals\DeleteModal;
-use Support\Response\Response;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Components\Popups\Modals\DeleteModal;
+use Support\Client\Response;
 
 class CmsDestroyResponse extends AbstractResponse
 {
@@ -28,7 +28,7 @@ class CmsDestroyResponse extends AbstractResponse
                 DeleteModal::create('company/cms/dataTable')
                     ->addFooterDeleteButton(
                         RequestAction::create()->delete(
-                            route('admin.sa.company.cms.destroy', [
+                            route('admin.company.cms.destroy', [
                                 $this->company->id,
                                 $this->cms->id,
                             ])

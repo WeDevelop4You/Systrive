@@ -4,11 +4,13 @@
 
     use Exception;
     use Illuminate\Http\JsonResponse;
+    use Illuminate\Http\RedirectResponse;
     use Illuminate\Http\Request;
-    use Illuminate\Support\Str;
-    use Support\Response\Actions\RouteAction;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Support\Client\Actions\RouteAction;
+    use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
+    use Support\Helpers\ApplicationHelper;
     use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
     class ModelNotFoundExceptionHandler extends Exception
@@ -16,32 +18,35 @@
         /**
          * @param Request $request
          *
-         * @return false|JsonResponse
+         * @return JsonResponse|RedirectResponse
          */
-        public function render(Request $request): bool|JsonResponse
+        public function render(Request $request): JsonResponse|RedirectResponse
         {
-//            if ($request->is('api/*') && $request->routeIs('admin.*')) {
-            $response = new Response();
+            $response = Response::create()->addPopup(
+                SimpleNotificationComponent::create()->setText(trans('response.error.model.not.found')),
+                ResponseCode::HTTP_NOT_FOUND
+            );
 
-            switch ($request->getMethod()) {
-                case 'DELETE':
-                    $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.delete')));
+            if ($request->expectsJson()) {
+                switch ($request->getMethod()) {
+                    case 'DELETE':
+                        $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.delete')));
 
-                    break;
-                case 'GET':
-                    $lastRouteName = $request->header('X-Last-Route-Name', '');
+                        break;
+                    case 'GET':
+                        if (ApplicationHelper::isCompanyDomain() && $request->routeIs('company.search')) {
+                            $response->addAction(RouteAction::create()->goTo(VueRouteHelper::createSwitcher()))
+                                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.company.not.found')));
 
-                    if (Str::startsWith($lastRouteName, ['company.'])) {
-                        $response->addAction(RouteAction::create()->goToDashboard());
-                    }
-                    // no break
-                default:
-                    $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.model.not.found')));
+                            break;
+                        }
+                }
+
+                return $response->toJson();
             }
 
-            return $response->setStatusCode(ResponseCode::HTTP_NOT_FOUND)->toJson();
-//            }
-//
-//            return false;
+            return $response->toSession()
+                ->addRedirect(ApplicationHelper::getRedirectRoute())
+                ->toRedirect();
         }
     }

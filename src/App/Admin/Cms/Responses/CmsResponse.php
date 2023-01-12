@@ -2,14 +2,13 @@
 
 namespace App\Admin\Cms\Responses;
 
+use App\Admin\Cms\Forms\CmsForm;
 use App\Admin\Cms\Resources\CmsCreateResource;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
-use Support\Enums\Component\Form\FormType;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Forms\CustomFormComponent;
-use Support\Response\Components\Popups\Modals\FormModal;
-use Support\Response\Response;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Popups\Modals\FormModal;
+use Support\Client\Response;
 
 class CmsResponse extends AbstractResponse
 {
@@ -30,12 +29,12 @@ class CmsResponse extends AbstractResponse
                 FormModal::create('company/cms/form')
                     ->setPersistent()
                     ->setTitle(trans('word.create.create'))
-                    ->setForm(CustomFormComponent::create()->setType(FormType::CMS))
+                    ->setForm(CmsForm::create($this->company))
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
-                            'company/cms/store',
-                            route('admin.sa.company.cms.create', $this->company->id)
+                            'cms/store',
+                            route('admin.company.cms.create', $this->company->id)
                         )
                     )
             );

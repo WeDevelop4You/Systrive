@@ -7,17 +7,17 @@ use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
+use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\AbstractInputComponent;
-use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Response\Components\Icons\IconComponent;
 
 class BooleanColumnType extends AbstractColumnType
 {
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make([
             new DefaultBooleanColumnOption(),
@@ -28,7 +28,7 @@ class BooleanColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'boolean';
     }
@@ -36,7 +36,7 @@ class BooleanColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
@@ -58,19 +58,19 @@ class BooleanColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getFormComponent(CmsModel $model): AbstractInputComponent
+    protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return CheckboxInputComponent::create()
             ->setKey($this->column->key)
             ->setLabel($this->column->label)
-            ->setDefaultValue($this->getDefaultValue())
+            ->setDefaultValue($this->getPropertyValueDefault())
             ->setValue($model->getAttribute($this->column->key));
     }
 
     /**
      * @inheritDoc
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return ['boolean'];
     }

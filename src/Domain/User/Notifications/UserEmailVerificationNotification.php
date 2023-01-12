@@ -55,7 +55,7 @@ class UserEmailVerificationNotification extends Notification implements ShouldQu
     public function toMail(User $notifiable): MailMessage
     {
         return (new MailMessage())->markdown(
-            'admin::mail.email',
+            'account::mail.email',
             [
                 'url' => '',
             ]

@@ -7,8 +7,8 @@ use Domain\Cms\Actions\CmsDestroyAction;
 use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
-use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-use Support\Response\Response;
+use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+use Support\Client\Response;
 
 class CmsDestroyController
 {

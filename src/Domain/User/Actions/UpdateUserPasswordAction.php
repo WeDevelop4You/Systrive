@@ -18,7 +18,7 @@
         public function __invoke(string $password): void
         {
             $this->user->forceFill([
-                UserTableMap::PASSWORD => Hash::make($password),
+                UserTableMap::COL_PASSWORD => Hash::make($password),
             ])->setRememberToken(Str::random(60));
 
             $this->user->save();

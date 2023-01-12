@@ -1,4 +1,4 @@
-import Component from "../../helpers/Components/Component";
+import Component from "../../Helpers/Components/Component";
 
 export default {
     props: {

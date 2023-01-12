@@ -1,7 +1,7 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import {Store, install} from "vuex";
 
-Vue.use(Vuex)
+Vue.use(install)
 
 // Modules
 import Locales from "./Modules/locales";
@@ -16,7 +16,7 @@ import Popups from "../../../Support/Store/Modules/popups";
 import Locale from "../../../Support/Store/Modules/locale";
 import Navigation from "../../../Support/Store/Modules/navigation";
 
-export default new Vuex.Store({
+export default new Store({
     modules: {
         auth: Auth,
         locale: Locale,

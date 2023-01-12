@@ -43,8 +43,7 @@
     // highlightSelectionMatches
     import 'codemirror/addon/scroll/annotatescrollbar.js'
     import 'codemirror/addon/search/matchesonscrollbar.js'
-    import 'codemirror/addon/search/searchcursor.js'
-    import 'codemirror/addon/search/match-highlighter.js'
+        import 'codemirror/addon/search/match-highlighter.js'
 
     // keyMap
     import 'codemirror/mode/clike/clike.js'
@@ -52,8 +51,7 @@
     import 'codemirror/addon/comment/comment.js'
     import 'codemirror/addon/dialog/dialog.js'
     import 'codemirror/addon/dialog/dialog.css'
-    import 'codemirror/addon/search/searchcursor.js'
-    import 'codemirror/addon/search/search.js'
+        import 'codemirror/addon/search/search.js'
     import 'codemirror/keymap/sublime.js'
 
     import ErrorMessage from "../../Misc/ErrorMessage.vue";

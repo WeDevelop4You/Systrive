@@ -37,7 +37,7 @@ export default [
             {
                 path: '/:companyName',
                 name: 'dashboard',
-                component: () => import('../../../Support/components/Overviews/Page.vue'),
+                component: () => import('../../../Support/Components/Overviews/Page.vue'),
                 meta: {
                     page: 'company',
                     breadcrumbs: ({app, route}) => {

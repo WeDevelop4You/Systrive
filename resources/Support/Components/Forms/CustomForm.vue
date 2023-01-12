@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import LazyImportProperties from "../../helpers/LazyImportConfig";
+    import LazyImportProperties from "../../Helpers/LazyImportConfig";
     import ComponentError from "../ComponentError.vue";
     import ComponentBase from "../Base/ComponentBase";
 

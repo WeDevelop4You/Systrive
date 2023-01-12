@@ -1,1 +1,0 @@
-import{n as r}from"./75131b1e.js";import{f as t}from"./e49d6570.js";const o={name:"SkeletonCard"};var a=function(){var n=this,e=n._self._c;return e(t,{staticClass:"rounded-lg",attrs:{elevation:n.$config.elevation,type:"card-heading"}})},s=[],l=r(o,a,s,!1,null,null,null,null);const m=l.exports;export{m as S};

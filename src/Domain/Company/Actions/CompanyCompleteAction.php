@@ -31,13 +31,10 @@
             $company = $this->company;
             $company->email = $completeCompanyData->email;
             $company->domain = $completeCompanyData->domain;
-            $company->information = $completeCompanyData->information;
             $company->status = CompanyStatusTypes::COMPLETED;
             $company->save();
 
-            Invite::whereInviteByUserAndCompany(Auth::user(), $company)
-                ->whereCompanyType()
-                ->delete();
+            Invite::whereInviteByUserAndCompany(Auth::user(), $company)->whereTypeCompany()->delete();
 
             return $company;
         }

@@ -37,9 +37,17 @@ class CmsModel extends Model
 
         $this->setTable($table->name);
         $this->fillable(
-            $table->columns->pluck(CmsColumnTableMap::KEY)->toArray()
+            $table->columns()->pluck(CmsColumnTableMap::COL_KEY)->toArray()
         );
 
         parent::__construct($attributes);
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasFiles(): bool
+    {
+        return false;
     }
 }

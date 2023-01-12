@@ -3,9 +3,13 @@
 namespace Support\Services;
 
 use Config;
+use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\Cms as CmsDatabase;
 use Domain\Cms\Models\CmsTable;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use Support\Services\Cms as CmsService;
 
 class Cms
 {
@@ -46,8 +50,8 @@ class Cms
             Config::set('database.connections.cms', [
                 ...$default,
                 'database' => $cms->database,
-                'username' => $cms->username->decryptString(),
-                'password' => $cms->password->decryptString(),
+                'username' => $cms->username->decrypt,
+                'password' => $cms->password->decrypt,
             ]);
 
             DB::connection('cms')->reconnect();
@@ -64,7 +68,7 @@ class Cms
      */
     public static function findAndSetTable(int|string $id, string $key): void
     {
-        $table = CmsTable::where($key, $id)->first();
+        $table = CmsTable::where($key, $id)->with(CmsTableTableMap::RELATION_COLUMNS)->first();
 
         if ($table instanceof CmsTable) {
             self::setTable($table);

@@ -4,12 +4,12 @@ namespace App\Admin\Translation\Responses;
 
 use Domain\Translation\Mappings\TranslationKeyTableMap;
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\ButtonComponent;
-use Support\Response\Components\Forms\Inputs\SelectInputComponent;
-use Support\Response\Components\Overviews\Tables\ServerTableComponent;
-use Support\Response\Response;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Forms\Inputs\SelectInputComponent;
+use Support\Client\Components\Overviews\Tables\ServerTableComponent;
+use Support\Client\Response;
 use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
 class TranslationOverviewResponse extends AbstractResponse
@@ -25,10 +25,10 @@ class TranslationOverviewResponse extends AbstractResponse
                     ->setSearchable()
                     ->setTitle(trans('word.translations'))
                     ->setVuexNamespace('translations/dataTable')
-                    ->setHeaderUrl(route('admin.admin.translation.table.headers', [
+                    ->setHeaderRoute(route('admin.translation.table.headers', [
                         'frontend',
                     ]))
-                    ->setItemsUrl(route('admin.admin.translation.table.items', [
+                    ->setItemsRoute(route('admin.translation.table.items', [
                         'frontend',
                     ]))
                     ->setPrependComponent(
@@ -39,11 +39,11 @@ class TranslationOverviewResponse extends AbstractResponse
                             ->setLabel(trans('word.environments'))
                             ->setAdditionalStyling('max-width: 150px')
                             ->setVuexNamespace('translations/environmentForm')
-                            ->setKey(TranslationKeyTableMap::ENVIRONMENT)
+                            ->setKey(TranslationKeyTableMap::COL_ENVIRONMENT)
                             ->setItems(
-                                TranslationKey::select(TranslationKeyTableMap::ENVIRONMENT)
+                                TranslationKey::select(TranslationKeyTableMap::COL_ENVIRONMENT)
                                     ->distinct()
-                                    ->pluck(TranslationKeyTableMap::ENVIRONMENT)
+                                    ->pluck(TranslationKeyTableMap::COL_ENVIRONMENT)
                                     ->toArray()
                             )
                             ->setChangeAction(
@@ -59,7 +59,7 @@ class TranslationOverviewResponse extends AbstractResponse
                             ->setTitle(trans('word.publish'))
                             ->setAction(
                                 RequestAction::create()
-                                    ->post(route('admin.admin.translation.publish'))
+                                    ->post(route('admin.translation.publish'))
                             )
                     )
             );

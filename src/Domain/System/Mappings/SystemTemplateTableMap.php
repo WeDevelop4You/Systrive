@@ -6,13 +6,13 @@ class SystemTemplateTableMap
 {
     public const TABLE = 'system_templates';
 
-    public const ID = 'id';
-    public const VALUE = 'value';
-    public const NAME = 'name';
-    public const TYPE = 'type';
-    public const IS_PUBLIC = 'is_public';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
+    public const COL_ID = 'id';
+    public const COL_VALUE = 'value';
+    public const COL_NAME = 'name';
+    public const COL_TYPE = 'type';
+    public const COL_IS_PUBLIC = 'is_public';
+    public const COL_CREATED_AT = 'created_at';
+    public const COL_UPDATED_AT = 'updated_at';
 
     public const TABLE_ID = 'system_templates.id';
     public const TABLE_VALUE = 'system_templates.value';

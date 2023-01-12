@@ -6,11 +6,11 @@ class SupervisorTableMap
 {
     public const TABLE = 'supervisor';
 
-    public const ID = 'id';
-    public const NAME = 'name';
-    public const FILENAME = 'filename';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
+    public const COL_ID = 'id';
+    public const COL_NAME = 'name';
+    public const COL_FILENAME = 'filename';
+    public const COL_CREATED_AT = 'created_at';
+    public const COL_UPDATED_AT = 'updated_at';
 
     public const TABLE_ID = 'supervisor.id';
     public const TABLE_NAME = 'supervisor.name';

@@ -4,9 +4,9 @@ namespace App\Admin\Supervisor\Responses;
 
 use Domain\Supervisor\Models\Supervisor;
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Components\Popups\Modals\DeleteModal;
-use Support\Response\Response;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Components\Popups\Modals\DeleteModal;
+use Support\Client\Response;
 
 class SupervisorProcessDestroyResponse extends AbstractResponse
 {
@@ -26,7 +26,7 @@ class SupervisorProcessDestroyResponse extends AbstractResponse
                 DeleteModal::create('supervisor')
                     ->addFooterDeleteButton(
                         RequestAction::create()->delete(
-                            route('admin.admin.supervisor.process.destroy', [
+                            route('admin.supervisor.process.destroy', [
                                 $this->supervisor->id,
                             ])
                         )

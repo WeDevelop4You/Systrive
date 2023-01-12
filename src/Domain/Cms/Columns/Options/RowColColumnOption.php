@@ -4,9 +4,9 @@ namespace Domain\Cms\Columns\Options;
 
 use Domain\Cms\Columns\Options\Attributes\ComponentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Response\Components\Forms\Inputs\SelectInputComponent;
-use Support\Response\Components\Forms\Utils\KeyValueObject;
-use Support\Response\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\SelectInputComponent;
+use Support\Client\Components\Forms\Utils\KeyValueObject;
+use Support\Client\Components\Layouts\ColComponent;
 
 class RowColColumnOption extends AbstractColumnOption implements ComponentColumnOption
 {
@@ -50,6 +50,9 @@ class RowColColumnOption extends AbstractColumnOption implements ComponentColumn
         return ['required', 'integer', 'between:1,12'];
     }
 
+    /**
+     * @return array
+     */
     private function getItems(): array
     {
         foreach (range(1, 12) as $col) {

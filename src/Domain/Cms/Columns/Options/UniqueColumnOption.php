@@ -14,8 +14,8 @@ use Illuminate\Validation\Rule;
 
 use function PHPUnit\Framework\isEmpty;
 
-use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Response\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
+use Support\Client\Components\Layouts\ColComponent;
 
 class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnOption
 {

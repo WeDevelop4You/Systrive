@@ -3,53 +3,54 @@
 namespace Domain\Cms\Models;
 
 use Domain\Cms\Mappings\CmsTableMap;
+use Domain\Cms\Observers\CmsForceDeletedObserver;
 use Domain\Company\Models\Company;
 use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 use Support\Casts\EncryptionCast;
 use Support\Helpers\DecryptHelper;
 use Support\Services\Cms as CmsService;
+use Support\Traits\Observers;
 
 /**
- * Domain\Cms\Models\Cms.
+ * Domain\Cms\Models\Cms
  *
- * @property int           $id
- * @property int|null      $company_id
- * @property string        $name
- * @property string        $database
+ * @property int $id
+ * @property int|null $company_id
+ * @property string $name
+ * @property string $database
  * @property DecryptHelper $username
  * @property DecryptHelper $password
- * @property Carbon|null   $created_at
- * @property Carbon|null   $updated_at
- * @property Carbon|null   $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property-read Company|null $company
- *
- * @method static Builder|Cms                            newModelQuery()
- * @method static Builder|Cms                            newQuery()
- * @method static \Illuminate\Database\Query\Builder|Cms onlyTrashed()
- * @method static Builder|Cms                            query()
- * @method static Builder|Cms                            whereCompanyId($value)
- * @method static Builder|Cms                            whereCreatedAt($value)
- * @method static Builder|Cms                            whereDatabase($value)
- * @method static Builder|Cms                            whereDeletedAt($value)
- * @method static Builder|Cms                            whereId($value)
- * @method static Builder|Cms                            whereName($value)
- * @method static Builder|Cms                            wherePassword($value)
- * @method static Builder|Cms                            whereUpdatedAt($value)
- * @method static Builder|Cms                            whereUsername($value)
- * @method static \Illuminate\Database\Query\Builder|Cms withTrashed()
- * @method static \Illuminate\Database\Query\Builder|Cms withoutTrashed()
- *
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms newQuery()
+ * @method static Builder|Cms onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereCompanyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereDatabase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUsername($value)
+ * @method static Builder|Cms withTrashed()
+ * @method static Builder|Cms withoutTrashed()
  * @mixin Eloquent
  */
 class Cms extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Prunable, Observers;
 
     /**
      * @var string
@@ -57,22 +58,34 @@ class Cms extends Model
     protected $table = 'cms';
 
     protected $fillable = [
-        CmsTableMap::COMPANY_ID,
-        CmsTableMap::NAME,
-        CmsTableMap::DATABASE,
-        CmsTableMap::USERNAME,
-        CmsTableMap::PASSWORD,
+        CmsTableMap::COL_COMPANY_ID,
+        CmsTableMap::COL_NAME,
+        CmsTableMap::COL_DATABASE,
+        CmsTableMap::COL_USERNAME,
+        CmsTableMap::COL_PASSWORD,
     ];
 
     protected $hidden = [
-        CmsTableMap::USERNAME,
-        CmsTableMap::PASSWORD,
+        CmsTableMap::COL_USERNAME,
+        CmsTableMap::COL_PASSWORD,
     ];
 
     protected $casts = [
-        CmsTableMap::USERNAME => EncryptionCast::class,
-        CmsTableMap::PASSWORD => EncryptionCast::class,
+        CmsTableMap::COL_USERNAME => EncryptionCast::class,
+        CmsTableMap::COL_PASSWORD => EncryptionCast::class,
     ];
+
+    protected static array $observers = [
+        CmsForceDeletedObserver::class
+    ];
+
+    /**
+     * @return Builder
+     */
+    public function prunable(): Builder
+    {
+        return static::whereDate(CmsTableMap::COL_DELETED_AT, '<', Carbon::now()->subDays(31));
+    }
 
     /**
      * @return BelongsTo

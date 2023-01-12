@@ -4,14 +4,14 @@
 
     use Illuminate\Database\Eloquent\Builder;
     use Support\Abstracts\AbstractTable;
+    use Support\Client\Actions\RequestAction;
+    use Support\Client\Actions\VuexAction;
+    use Support\Client\Components\Buttons\IconButtonComponent;
+    use Support\Client\Components\Buttons\MultipleButtonComponent;
+    use Support\Client\Components\Misc\GroupBadgesComponent;
+    use Support\Client\Components\Misc\Icons\IconComponent;
+    use Support\Client\DataTable\Build\Column;
     use Support\Enums\Component\IconType;
-    use Support\Helpers\DataTable\Build\Column;
-    use Support\Response\Actions\RequestAction;
-    use Support\Response\Actions\VuexAction;
-    use Support\Response\Components\Buttons\IconButtonComponent;
-    use Support\Response\Components\Buttons\MultipleButtonComponent;
-    use Support\Response\Components\Icons\IconComponent;
-    use Support\Response\Components\Items\ItemGroupBadgesComponent;
     use WeDevelop4You\TranslationFinder\Models\Translation;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
@@ -34,7 +34,7 @@
                     ->setSortable()
                     ->setSearchable()
                     ->setFormat(function (TranslationKey $data, string $key) {
-                        return ItemGroupBadgesComponent::create()
+                        return GroupBadgesComponent::create()
                             ->convertArray(
                                 $data->getAttribute($key)
                                     ->map(fn (string $value) => ucfirst($value))
@@ -52,7 +52,7 @@
                     })
                     ->setDivider()
                     ->setFormat(function (TranslationKey $data, string $key) {
-                        return ItemGroupBadgesComponent::create()
+                        return GroupBadgesComponent::create()
                             ->convertArray(
                                 $data->getAttribute($key)
                                     ->pluck('locale')
@@ -70,7 +70,7 @@
                                         VuexAction::create()
                                             ->dispatch(
                                                 'translations/edit',
-                                                route('admin.admin.translation.edit', [
+                                                route('admin.translation.edit', [
                                                     $data->id,
                                                 ])
                                             )
@@ -79,7 +79,7 @@
                                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                     ->setAction(
                                         RequestAction::create()
-                                            ->get(route('admin.admin.translation.destroy', [
+                                            ->get(route('admin.translation.destroy', [
                                                 $data->id,
                                             ]))
                                     ),

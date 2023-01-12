@@ -39,9 +39,7 @@ class CmsTableUpdateAction
     {
         try {
             $this->table($data);
-            $this->columns(
-                $data->columns
-            );
+            $this->columns($data->columns);
         } catch (Exception $e) {
             throw $e;
         }
@@ -60,11 +58,11 @@ class CmsTableUpdateAction
         $this->table->label = $data->label;
         $this->table->editable = $data->editable;
 
-        $dirtyName = $this->table->isDirty(CmsTableTableMap::NAME);
-        $dirtyLabel = $this->table->isDirty(CmsTableTableMap::LABEL);
+        $dirtyName = $this->table->isDirty(CmsTableTableMap::COL_NAME);
+        $dirtyLabel = $this->table->isDirty(CmsTableTableMap::COL_LABEL);
 
         if ($dirtyName) {
-            $original = $this->table->getOriginal(CmsTableTableMap::NAME);
+            $original = $this->table->getOriginal(CmsTableTableMap::COL_NAME);
 
             $this->schema->rename($original, $this->table->name);
         }
@@ -88,58 +86,55 @@ class CmsTableUpdateAction
 
         $columns->map(function (CmsColumn $column) use ($existingColumns) {
             $existingColumn = $existingColumns->firstWhere(
-                CmsColumnTableMap::KEY,
-                $column->getAttribute(CmsColumnTableMap::ORIGINAL_KEY)
+                CmsColumnTableMap::COL_KEY,
+                $column->getAttribute(CmsColumnTableMap::COL_ORIGINAL_KEY)
             );
 
             if ($existingColumn instanceof CmsColumn) {
-                if (\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
-                    $existingColumn->after = $column->after;
-
-                    return $existingColumn;
+                if (!\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                    $existingColumn->key = $column->key;
+                    $existingColumn->type = $column->type;
+                    $existingColumn->label = $column->label;
+                    $existingColumn->editable = $column->editable;
+                    $existingColumn->properties = $column->properties;
                 }
 
-                $existingColumn->key = $column->key;
-                $existingColumn->type = $column->type;
-                $existingColumn->label = $column->label;
                 $existingColumn->after = $column->after;
-                $existingColumn->editable = $column->editable;
-                $existingColumn->properties = $column->properties;
+                $existingColumn->hidden = $column->hidden;
 
                 return $existingColumn;
             }
 
             $column->table_id = $this->table->id;
 
-            $column->offsetUnset(CmsColumnTableMap::ORIGINAL_KEY);
+            $column->offsetUnset(CmsColumnTableMap::COL_ORIGINAL_KEY);
 
             return $column;
         })
-            ->sortBy(CmsColumnTableMap::AFTER)
+            ->sortBy(CmsColumnTableMap::COL_AFTER)
             ->each(function (CmsColumn $column, int $index) use (&$after) {
                 $this->schema->table($this->table->name, function (Blueprint $table) use ($column, $index, $after) {
-                    $exist = $column->exists;
-                    $template = $column->template();
+                    $type = $column->type();
 
-                    $dirtyKey = $column->isDirty(CmsColumnTableMap::KEY);
-                    $dirtyType = $column->isDirty(CmsColumnTableMap::TYPE);
-                    $dirtyAfter = $column->isDirty(CmsColumnTableMap::AFTER);
+                    $dirtyKey = $column->isDirty(CmsColumnTableMap::COL_KEY);
+                    $dirtyType = $column->isDirty(CmsColumnTableMap::COL_TYPE);
+                    $dirtyAfter = $column->isDirty(CmsColumnTableMap::COL_AFTER);
 
-                    if ($dirtyKey && $exist) {
-                        $original = $column->getOriginal(CmsColumnTableMap::KEY);
+                    if ($dirtyKey && $column->exists) {
+                        $original = $column->getOriginal(CmsColumnTableMap::COL_KEY);
 
                         $table->renameColumn($original, $column->key);
                     }
 
-                    if ($dirtyType || $dirtyAfter || $template->isPropertiesDirty()) {
-                        $blueprint = $template->getBlueprint($table);
+                    if ($dirtyType || $dirtyAfter || $type->isPropertiesDirty()) {
+                        $definition = $type->getDefinition($table);
 
                         if ($dirtyAfter) {
-                            $index > 0 ? $blueprint->after($after) : $blueprint->first();
+                            $index > 0 ? $definition->after($after) : $definition->first();
                         }
 
-                        if ($exist) {
-                            $blueprint->change();
+                        if ($column->exists) {
+                            $definition->change();
                         }
                     }
                 });
@@ -157,7 +152,7 @@ class CmsTableUpdateAction
      */
     private function deleteColumns(Collection $columns): Collection|array
     {
-        $keys = $columns->pluck(CmsColumnTableMap::ORIGINAL_KEY)->toArray();
+        $keys = $columns->pluck(CmsColumnTableMap::COL_ORIGINAL_KEY)->toArray();
 
         return $this->table->columns->filter(function (CmsColumn $column) use ($keys) {
             if (

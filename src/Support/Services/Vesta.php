@@ -3,11 +3,13 @@
     namespace Support\Services;
 
     use CurlHandle;
+    use Illuminate\Support\Arr;
     use Illuminate\Support\Collection;
     use Support\Enums\VestaCommand;
     use Support\Exceptions\Custom\UnknownResponseCodeException;
-    use Support\Exceptions\Custom\VestaCommandException;
-    use Support\Exceptions\Custom\VestaCredentialsNotSetException;
+    use Support\Exceptions\Custom\Vesta\VestaCommandException;
+    use Support\Exceptions\Custom\Vesta\VestaConnectionFailedException;
+    use Support\Exceptions\Custom\Vesta\VestaCredentialsNotSetException;
 
     class Vesta
     {
@@ -45,8 +47,22 @@
          */
         private function __construct()
         {
-            $this->checkCredentials();
-            $this->initialize();
+            if (\is_null(config('services.vesta.hostname')) ||
+                \is_null(config('services.vesta.username')) ||
+                \is_null(config('services.vesta.password'))
+            ) {
+                throw new VestaCredentialsNotSetException('Not all credentials are set for vesta api');
+            }
+
+            $hostname = config('services.vesta.hostname');
+
+            $curl = curl_init("https://{$hostname}:8083/api/");
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_POST, true);
+
+            $this->curl = $curl;
         }
 
         /**
@@ -61,17 +77,16 @@
          * @param VestaCommand $command
          * @param array        $parameters
          *
+         * @throws VestaConnectionFailedException
          * @return Collection
          */
         public function get(VestaCommand $command, ...$parameters): Collection
         {
             $parameters = [...$parameters, 'json'];
 
-            $this->createRequestData($command->value, $parameters);
+            $this->setData($command->value, $parameters);
 
-            $data = json_decode($this->execute(), true);
-
-            return Collection::make($data);
+            return Collection::json($this->execute());
         }
 
         /**
@@ -79,54 +94,25 @@
          * @param array        $parameters
          *
          * @throws VestaCommandException
-         *
+         * @throws VestaConnectionFailedException
          * @return bool
          */
-        public function post(VestaCommand $command, array $parameters): bool
+        public function post(VestaCommand $command, ...$parameters): bool
         {
-            $parameters = ['returncode' => 'yes', ...$parameters];
+            $parameters = ['returncode' => 'yes', ...Arr::flatten($parameters)];
 
-            $this->createRequestData($command->value, $parameters);
+            $this->setData($command->value, $parameters);
 
             $response = (int) $this->execute();
 
-            if (!$response) {
+            if ($response === self::SUCCESS) {
                 return true;
             }
 
             throw new VestaCommandException('Something went wrong executing the command', $response);
         }
 
-        /**
-         * @throws VestaCredentialsNotSetException
-         */
-        private function checkCredentials(): void
-        {
-            if (\is_null(config('services.vesta.hostname')) ||
-                \is_null(config('services.vesta.username')) ||
-                \is_null(config('services.vesta.password'))
-            ) {
-                throw new VestaCredentialsNotSetException('Not all credentials are set for vesta api');
-            }
-        }
-
-        private function initialize(): void
-        {
-            $hostname = config('services.vesta.hostname');
-
-            $url = "https://{$hostname}:8083/api/";
-
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($curl, CURLOPT_POST, true);
-
-            $this->curl = $curl;
-        }
-
-        private function createRequestData(string $command, array $parameters): void
+        private function setData(string $command, array $parameters): void
         {
             $number = 1;
             $data = [
@@ -150,11 +136,21 @@
         }
 
         /**
+         * @throws VestaConnectionFailedException
          * @return bool|string
          */
         private function execute(): bool|string
         {
-            return curl_exec($this->curl);
+            $data = curl_exec($this->curl);
+            $error = curl_error($this->curl);
+
+            curl_close($this->curl);
+
+            if ($data === false) {
+                throw new VestaConnectionFailedException($error);
+            }
+
+            return $data;
         }
 
         /**

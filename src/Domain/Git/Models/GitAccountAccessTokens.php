@@ -6,16 +6,15 @@ use Domain\Git\Mappings\GitAccountAccessTokensTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\Git\Models\GitAccountAccessTokens.
+ * Domain\Git\Models\GitAccountAccessTokens
  *
- * @property int                             $id
- * @property int                             $git_account_id
- * @property string                          $token
- * @property string|null                     $refresh_token
- * @property int|null                        $expires_in
+ * @property int $id
+ * @property int $git_account_id
+ * @property string $token
+ * @property string|null $refresh_token
+ * @property int|null $expires_in
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens query()
@@ -26,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereRefreshToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class GitAccountAccessTokens extends Model
@@ -39,8 +37,8 @@ class GitAccountAccessTokens extends Model
      * @var array
      */
     protected $fillable = [
-        GitAccountAccessTokensTableMap::TOKEN,
-        GitAccountAccessTokensTableMap::REFRESH_TOKEN,
-        GitAccountAccessTokensTableMap::EXPIRES_IN,
+        GitAccountAccessTokensTableMap::COL_TOKEN,
+        GitAccountAccessTokensTableMap::COL_REFRESH_TOKEN,
+        GitAccountAccessTokensTableMap::COL_EXPIRES_IN,
     ];
 }

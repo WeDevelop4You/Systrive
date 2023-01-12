@@ -7,16 +7,16 @@ use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Str;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\AbstractInputComponent;
-use Support\Response\Components\Forms\Inputs\RichTextareaInputComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\RichTextareaInputComponent;
+use Support\Client\DataTable\Build\Column;
 
 class RichTextColumnType extends AbstractColumnType
 {
     /**
      * @inheritDoc
      */
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make([
             new NullableColumnOption(),
@@ -26,7 +26,7 @@ class RichTextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'longText';
     }
@@ -34,7 +34,7 @@ class RichTextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
@@ -47,7 +47,7 @@ class RichTextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getFormComponent(CmsModel $model): AbstractInputComponent
+    protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return RichTextareaInputComponent::create()
             ->setKey($this->column->key)
@@ -58,7 +58,7 @@ class RichTextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return ['string'];
     }

@@ -2,7 +2,7 @@
 
     namespace Domain\Company\Actions;
 
-    use Domain\Company\DataTransferObjects\CompanyData;
+    use Domain\Company\DataTransferObjects\CompanyUpdateData;
     use Domain\Company\Models\Company;
     use Illuminate\Support\Arr;
 
@@ -22,13 +22,14 @@
         }
 
         /**
-         * @param CompanyData $companyData
+         * @param CompanyUpdateData $companyData
          *
          * @return Company
          */
-        public function __invoke(CompanyData $companyData): Company
+        public function __invoke(CompanyUpdateData $companyData): Company
         {
             $company = $this->company;
+            $owner = $this->company->owner;
 
             $company->name = $companyData->name;
             $company->email = $companyData->email;
@@ -36,16 +37,10 @@
             $company->modules = $companyData->modules->mapWithKeys(function (array $data, string $module) {
                 return [$module => Arr::get($data, 'value', false)];
             });
-            $company->save();
+            $this->company->save();
 
-            $owner = $company->whereOwner()->first();
-
-            if (\is_null($owner) || $owner->email !== $companyData->owner) {
-                (new CompanyUpdateOwnershipAction(
-                    $owner,
-                    $companyData->owner,
-                    $this->removeOwner
-                ))($company);
+            if (\is_null($owner) || $owner->is($companyData->owner)) {
+                (new CompanyUpdateOwnershipAction($owner, $companyData->owner, $this->removeOwner))($company);
             }
 
             return $company;

@@ -13,8 +13,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Support\Services\Supervisor as SupervisorService;
 
-;
-
 class SyncSupervisorConfigs implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable;

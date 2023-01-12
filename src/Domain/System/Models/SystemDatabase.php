@@ -8,15 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * Domain\System\Models\SystemDatabase.
+ * Domain\System\Models\SystemDatabase
  *
- * @property int                             $id
- * @property int                             $system_id
- * @property string                          $name
+ * @property int $id
+ * @property int $system_id
+ * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Domain\System\Models\SystemUsageStatistic[]|\Illuminate\Database\Eloquent\Collection $usageStatistics
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemUsageStatistic[] $usageStatistics
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase query()
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class SystemDatabase extends Model
@@ -33,8 +31,8 @@ class SystemDatabase extends Model
     protected $table = 'system_databases';
 
     protected $fillable = [
-        SystemDatabaseTableMap::NAME,
-        SystemDatabaseTableMap::SYSTEM_ID,
+        SystemDatabaseTableMap::COL_NAME,
+        SystemDatabaseTableMap::COL_SYSTEM_ID,
     ];
 
     /**

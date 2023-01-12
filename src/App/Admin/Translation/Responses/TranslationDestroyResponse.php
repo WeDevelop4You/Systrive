@@ -3,9 +3,9 @@
 namespace App\Admin\Translation\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Components\Popups\Modals\DeleteModal;
-use Support\Response\Response;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Components\Popups\Modals\DeleteModal;
+use Support\Client\Response;
 use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
 class TranslationDestroyResponse extends AbstractResponse
@@ -31,7 +31,7 @@ class TranslationDestroyResponse extends AbstractResponse
                 DeleteModal::create('translations')
                     ->addFooterDeleteButton(
                         RequestAction::create()
-                            ->delete(route('admin.admin.translation.destroy', [
+                            ->delete(route('admin.translation.destroy', [
                                 $this->translationKey->id,
                             ]))
                     )

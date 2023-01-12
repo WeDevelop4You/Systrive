@@ -4,13 +4,13 @@ namespace App\Admin\Supervisor\DataTables;
 
 use Domain\Supervisor\Models\Supervisor;
 use Support\Abstracts\AbstractTable;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\IconButtonComponent;
+use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\IconButtonComponent;
-use Support\Response\Components\Buttons\MultipleButtonComponent;
-use Support\Response\Components\Icons\IconComponent;
 
 class SupervisorTable extends AbstractTable
 {
@@ -32,7 +32,7 @@ class SupervisorTable extends AbstractTable
                                 ->setAction(
                                     VuexAction::create()->dispatch(
                                         'supervisor/edit',
-                                        route('admin.admin.supervisor.process.edit', [
+                                        route('admin.supervisor.process.edit', [
                                             $data->id,
                                         ])
                                     )
@@ -41,7 +41,7 @@ class SupervisorTable extends AbstractTable
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                 ->setAction(
                                     RequestAction::create()->get(
-                                        route('admin.admin.supervisor.process.destroy', [
+                                        route('admin.supervisor.process.destroy', [
                                             $data->id,
                                         ])
                                     )

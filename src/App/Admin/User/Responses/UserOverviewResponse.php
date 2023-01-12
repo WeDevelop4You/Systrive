@@ -3,8 +3,8 @@
 namespace App\Admin\User\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Components\Overviews\Tables\ServerTableComponent;
-use Support\Response\Response;
+use Support\Client\Components\Overviews\Tables\ServerTableComponent;
+use Support\Client\Response;
 
 class UserOverviewResponse extends AbstractResponse
 {
@@ -19,8 +19,8 @@ class UserOverviewResponse extends AbstractResponse
                     ->setSearchable()
                     ->setTitle(trans('word.users'))
                     ->setVuexNamespace('users/dataTable')
-                    ->setHeaderUrl(route('admin.admin.user.table.headers'))
-                    ->setItemsUrl(route('admin.admin.user.table.items'))
+                    ->setHeaderRoute(route('admin.user.table.headers'))
+                    ->setItemsRoute(route('admin.user.table.items'))
             );
     }
 }

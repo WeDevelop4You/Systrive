@@ -1,1 +1,0 @@
-import{c as s}from"./20f47019.js";import{n as a}from"./75131b1e.js";import"./89ae458c.js";const r={name:"Badge",mixins:[s]};var t=function(){var e=this,n=e._self._c;return n("p",{class:e.value.data.classes},[e._v(" "+e._s(e.value.content.value)+" ")])},o=[],l=a(r,t,o,!1,null,null,null,null);const p=l.exports;export{p as default};

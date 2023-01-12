@@ -2,15 +2,13 @@
 
 namespace Support\Traits;
 
+/**
+ * @property array $observers
+ */
 trait Observers
 {
-    /**
-     * @return array
-     */
-    public static function getObservers(): array
+    public static function bootObservers(): void
     {
-        $instance = new static();
-
-        return $instance->observers ?? [];
+        static::observe(static::$observers ?? []);
     }
 }

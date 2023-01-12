@@ -7,13 +7,13 @@ use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Str;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\AbstractInputComponent;
-use Support\Response\Components\Forms\Inputs\TextareaInputComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\TextareaInputComponent;
+use Support\Client\DataTable\Build\Column;
 
 class TextColumnType extends AbstractColumnType
 {
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make([
             new NullableColumnOption(),
@@ -23,7 +23,7 @@ class TextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'text';
     }
@@ -31,7 +31,7 @@ class TextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
@@ -44,7 +44,7 @@ class TextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getFormComponent(CmsModel $model): AbstractInputComponent
+    protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return TextareaInputComponent::create()
             ->setAutoGrow()
@@ -56,7 +56,7 @@ class TextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return ['string'];
     }

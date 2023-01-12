@@ -3,8 +3,8 @@
 namespace Domain\Invite\Enums;
 
 use Domain\Company\Models\CompanyUser;
-use Domain\Company\States\AbstractCompanyState;
-use Domain\Company\States\AbstractCompanyUserState;
+use Domain\Company\states\AbstractCompanyState;
+use Domain\Company\states\AbstractCompanyUserState;
 use Domain\Invite\Jobs\SendCompanyInvite;
 use Domain\Invite\Jobs\SendInviteToUser;
 use Domain\Invite\Models\Invite;

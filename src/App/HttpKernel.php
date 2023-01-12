@@ -14,7 +14,6 @@ class HttpKernel extends Kernel
      * @var array
      */
     protected $middleware = [
-        \Support\Middleware\BotDetection::class,
         \Support\Middleware\TrustHosts::class,
         \Support\Middleware\TrustProxies::class,
         \Fruitcake\Cors\HandleCors::class,
@@ -44,7 +43,7 @@ class HttpKernel extends Kernel
         \Domain\Cms\Middleware\InitialiseCmsTable::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
-        \Support\Middleware\InitialiseCompany::class,
+        \Support\Middleware\AuthenticateRoles::class,
     ];
 
     /**
@@ -70,7 +69,6 @@ class HttpKernel extends Kernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Support\Middleware\Localization::class,
-            \Support\Middleware\InitialiseCompany::class,
         ],
     ];
 
@@ -84,6 +82,7 @@ class HttpKernel extends Kernel
     protected $routeMiddleware = [
         'auth' => \Support\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.role' => \Support\Middleware\AuthenticateRoles::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Support\Middleware\RedirectIfAuthenticated::class,

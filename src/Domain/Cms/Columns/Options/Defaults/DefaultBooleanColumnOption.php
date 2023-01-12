@@ -3,8 +3,8 @@
 namespace Domain\Cms\Columns\Options\Defaults;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Response\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
+use Support\Client\Components\Layouts\ColComponent;
 
 class DefaultBooleanColumnOption extends AbstractDefaultColumnOption
 {

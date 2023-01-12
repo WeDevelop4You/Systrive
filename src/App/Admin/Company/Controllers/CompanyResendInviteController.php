@@ -5,8 +5,8 @@
     use Domain\Company\Models\Company;
     use Domain\Invite\Models\Invite;
     use Illuminate\Http\JsonResponse;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
 
     class CompanyResendInviteController
     {

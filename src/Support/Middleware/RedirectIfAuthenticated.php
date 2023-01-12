@@ -5,7 +5,7 @@ namespace Support\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Support\Providers\RouteServiceProvider;
+use Support\Helpers\ApplicationHelper;
 
 class RedirectIfAuthenticated
 {
@@ -24,7 +24,13 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $route = match ($request->route()->getDomain()) {
+                    ApplicationHelper::getAdminDomain() => ApplicationHelper::getAdminRoute(),
+                    ApplicationHelper::getCompanyDomain() => ApplicationHelper::getSwitcherRoute(),
+                    ApplicationHelper::getAccountDomain() => ApplicationHelper::getSettingsRoute(),
+                };
+
+                return redirect($route);
             }
         }
 

@@ -7,15 +7,15 @@ use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;
 use Illuminate\Support\Carbon;
 use Support\Abstracts\AbstractTable;
+use Support\Client\Actions\RequestAction;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\IconButtonComponent;
+use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Utils\TooltipComponent;
+use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Actions\RequestAction;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\IconButtonComponent;
-use Support\Response\Components\Buttons\MultipleButtonComponent;
-use Support\Response\Components\Icons\IconComponent;
-use Support\Response\Components\Utils\TooltipComponent;
 
 class CmsTable extends AbstractTable
 {
@@ -40,7 +40,7 @@ class CmsTable extends AbstractTable
                 ->setSearchable(),
             Column::create(trans('word.username'), 'username')
                 ->setFormat(function (Cms $data) {
-                    return $data->username->decryptString();
+                    return $data->username->decrypt;
                 }),
             Column::create(trans('word.created_at'), 'created_at')
                 ->setSortable()
@@ -60,7 +60,7 @@ class CmsTable extends AbstractTable
                         return null;
                     }
 
-                    $deletedDate = Carbon::now()->startOfDay()->addDays(31);
+                    $deletedDate = $date->startOfDay()->addDays(31);
 
                     return $deletedDate->diffForHumans(Carbon::now()->startOfDay(), [
                         'syntax' => CarbonInterface::DIFF_ABSOLUTE,
@@ -95,7 +95,7 @@ class CmsTable extends AbstractTable
                     )
                     ->setAction(
                         RequestAction::create()
-                            ->get(route('admin.sa.company.cms.destroy', [
+                            ->get(route('admin.company.cms.destroy', [
                                 $this->company->id,
                                 $data->id,
                             ]))
@@ -105,7 +105,7 @@ class CmsTable extends AbstractTable
                 !\is_null($data->deleted_at),
                 IconButtonComponent::create()
                     ->setColorOnHover(VuetifyColor::ACCENT)
-                    ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH_RESTORE))
+                    ->setIcon(IconComponent::create()->setType(IconType::FAS_UNDO_ALT))
                     ->setTooltip(
                         TooltipComponent::create()
                             ->setTop()
@@ -113,11 +113,11 @@ class CmsTable extends AbstractTable
                     )
                     ->setAction(
                         RequestAction::create()
-                            ->put(route('admin.sa.company.cms.restore', [
+                            ->put(route('admin.company.cms.restore', [
                                 $this->company->id,
                                 $data->id,
                             ]))->setOnSuccessAction(
-                                VuexAction::create()->refreshTable('company/cms/dataTable')
+                                VuexAction::create()->refreshTable('cms/dataTable')
                             )
                     ),
             );

@@ -2,8 +2,8 @@
 
     namespace Domain\Authentication\Actions;
 
-    use Domain\Company\Actions\CompanyUserUpdateInviteToAcceptedAction;
     use Domain\Company\Models\Company;
+    use Domain\Invite\Actions\CompanyUserUpdateInviteToAcceptedAction;
     use Domain\Invite\Actions\ValidateInviteTokenAction;
     use Domain\Invite\DataTransferObject\InviteData;
     use Domain\Invite\Enums\InviteTypes;
@@ -15,11 +15,12 @@
     use Domain\User\Models\User;
     use Illuminate\Database\Eloquent\ModelNotFoundException;
     use Illuminate\Support\Carbon;
+    use Illuminate\Support\Facades\App;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Session;
+    use Support\Client\Actions\VuexAction;
+    use Support\Client\Response;
     use Support\Enums\SessionKeyType;
-    use Support\Response\Actions\RequestAction;
-    use Support\Response\Response;
 
     class RegisterUserAction
     {
@@ -65,8 +66,6 @@
         /**
          * @param UserProfileData $userProfileData
          *
-         * @throws InvalidTokenException
-         *
          * @return void
          */
         public function __invoke(UserProfileData $userProfileData): void
@@ -74,6 +73,7 @@
             (new UpdateUserProfileAction($this->user))($userProfileData);
             (new UpdateUserPasswordAction($this->user))($this->password);
 
+            $this->user->locale = App::getLocale();
             $this->user->email_verified_at = Carbon::now();
             $this->user->restore();
 
@@ -85,8 +85,6 @@
         }
 
         /**
-         * @throws InvalidTokenException
-         *
          * @return void
          */
         private function InviteTypeAction(): void
@@ -98,15 +96,13 @@
                     break;
                 case InviteTypes::COMPANY:
                     Response::create()
-                        ->addAction(
-                            RequestAction::create()
-                            ->get(route('admin.company.create', [$this->company->id, $this->inviteData->token]))
-                        )
+                        ->addAction(VuexAction::create()->dispatch(
+                            'complete',
+                            route('company.complete', [$this->company->id, $this->inviteData->token])
+                        ))
                         ->toSession(SessionKeyType::KEEP);
 
                     break;
-                default:
-                    throw new InvalidTokenException();
             }
         }
     }

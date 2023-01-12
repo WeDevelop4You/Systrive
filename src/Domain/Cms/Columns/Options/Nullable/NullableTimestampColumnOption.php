@@ -6,8 +6,8 @@ use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Support\Carbon;
-use Support\Response\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Response\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
+use Support\Client\Components\Layouts\ColComponent;
 
 class NullableTimestampColumnOption extends AbstractNullableColumnOption
 {

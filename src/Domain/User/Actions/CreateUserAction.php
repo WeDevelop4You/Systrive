@@ -14,13 +14,10 @@ class CreateUserAction
      */
     public function __invoke(string $email): User
     {
-        $user = User::withTrashed()->whereEmail($email)->firstOrNew();
-
-        if (!$user->exists) {
-            $user->email = $email;
-            $user->deleted_at = Carbon::now();
-            $user->save();
-        }
+        $user = new User();
+        $user->email = $email;
+        $user->deleted_at = Carbon::now();
+        $user->save();
 
         return $user;
     }

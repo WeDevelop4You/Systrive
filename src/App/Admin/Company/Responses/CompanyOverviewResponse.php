@@ -3,10 +3,10 @@
 namespace App\Admin\Company\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\ButtonComponent;
-use Support\Response\Components\Overviews\Tables\ServerTableComponent;
-use Support\Response\Response;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Overviews\Tables\ServerTableComponent;
+use Support\Client\Response;
 
 class CompanyOverviewResponse extends AbstractResponse
 {
@@ -21,16 +21,17 @@ class CompanyOverviewResponse extends AbstractResponse
                     ->setSearchable()
                     ->setTitle(trans('word.companies'))
                     ->setVuexNamespace('companies/dataTable')
-                    ->setHeaderUrl(route('admin.admin.company.table.headers'))
-                    ->setItemsUrl(route('admin.admin.company.table.items'))
+                    ->setHeaderRoute(route('admin.company.table.headers'))
+                    ->setItemsRoute(route('admin.company.table.items'))
                     ->setPrependComponent(
                         ButtonComponent::create()
+                            ->setSize()
                             ->setColor()
-                            ->setTitle(trans('word.create.create'))
+                            ->setTitle(trans('word.invite.invite'))
                             ->setAction(
                                 VuexAction::create()
                                     ->dispatch('companies/create', route(
-                                        'admin.admin.company.invite'
+                                        'admin.company.invite'
                                     ))
                             )
                     )

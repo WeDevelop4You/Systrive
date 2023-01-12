@@ -10,11 +10,17 @@ class UserUpdatingObserver
 {
     public function updating(User $user): void
     {
-        if ($user->isDirty(UserTableMap::EMAIL)) {
+        if ($user->isDirty(UserTableMap::COL_EMAIL)) {
             $user->email_verified_at = null;
+
+            // TODO Send verification email
         }
 
-        if ($user->isDirty(UserTableMap::PASSWORD) && !\is_null($user->password)) {
+        if (
+            !\is_null($user->password) &&
+            $user->isDirty(UserTableMap::COL_PASSWORD) &&
+            !\is_null($user->getOriginal(UserTableMap::COL_PASSWORD))
+        ) {
             $user->notify(new UserPasswordChangeNotification());
         }
     }

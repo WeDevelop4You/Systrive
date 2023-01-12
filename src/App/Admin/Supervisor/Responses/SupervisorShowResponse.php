@@ -3,11 +3,11 @@
 namespace App\Admin\Supervisor\Responses;
 
 use Support\Abstracts\AbstractResponse;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Buttons\ButtonComponent;
-use Support\Response\Components\Overviews\Tables\LocaleTableComponent;
-use Support\Response\Components\Popups\Modals\ShowModal;
-use Support\Response\Response;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Overviews\Tables\LocaleTableComponent;
+use Support\Client\Components\Popups\Modals\ShowModal;
+use Support\Client\Response;
 
 class SupervisorShowResponse extends AbstractResponse
 {
@@ -26,11 +26,11 @@ class SupervisorShowResponse extends AbstractResponse
                             ->setFlat()
                             ->setSearchable()
                             ->setVuexNamespace('supervisor/dataTable')
-                            ->setHeaderUrl(
-                                route('admin.admin.supervisor.table.headers')
+                            ->setHeaderRoute(
+                                route('admin.supervisor.table.headers')
                             )
-                            ->setItemsUrl(
-                                route('admin.admin.supervisor.table.items')
+                            ->setItemsRoute(
+                                route('admin.supervisor.table.items')
                             )
                             ->setPrependComponent(
                                 ButtonComponent::create()
@@ -39,7 +39,7 @@ class SupervisorShowResponse extends AbstractResponse
                                     ->setAction(
                                         VuexAction::create()->dispatch(
                                             'supervisor/create',
-                                            route('admin.admin.supervisor.process.create')
+                                            route('admin.supervisor.process.create')
                                         )
                                     )
                             )

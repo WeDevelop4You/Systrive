@@ -2,34 +2,52 @@
 
     namespace App\Admin\Company\Requests;
 
-    use Illuminate\Foundation\Http\FormRequest;
-    use Illuminate\Support\Facades\Auth;
+    use Domain\Company\Models\Company;
+    use Illuminate\Support\Arr;
     use Illuminate\Validation\Rule;
+    use Support\Abstracts\AbstractRequest;
 
-    class CompanyUpdateRequest extends FormRequest
+    /**
+     * @property Company          $company
+     * @property array|int|string $owner
+     */
+    class CompanyUpdateRequest extends AbstractRequest
     {
-        /**
-         * @return array
-         */
-        public function rules(): array
+        protected function isUpdating(): bool
         {
-            $ifSuperAdmin = Rule::requiredIf(Auth::user()->hasRole('super_admin'));
+            return \is_int($this->owner);
+        }
 
+        protected function defaultRules(): array
+        {
             return [
-                'name' => [$ifSuperAdmin, Rule::unique('companies')->ignore($this->company)],
+                'name' => ['required', Rule::unique('companies')->ignore($this->company)],
                 'email' => ['required', 'email'],
                 'domain' => ['nullable', 'url'],
+                'owner' => ['required'],
                 'modules' => ['required', 'array'],
-                'information' => ['nullable', 'string'],
                 'remove_owner' => ['sometimes', 'boolean'],
-                'owner' => [$ifSuperAdmin, 'email'],
+            ];
+        }
+
+        protected function storeRules(): array
+        {
+            return [
+                'owner' => ['email'],
+            ];
+        }
+
+        protected function updateRules(): array
+        {
+            return [
+                'owner' => ['required', Rule::exists('users', 'id')],
             ];
         }
 
         protected function prepareForValidation()
         {
             $this->merge([
-                'owner' => $this?->owner['value'] ?? null,
+                'owner' => Arr::get($this->owner, 'value', fn () => $this->owner),
             ]);
         }
     }

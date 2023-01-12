@@ -7,7 +7,7 @@ use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Support\Abstracts\Controllers\AbstractTableController;
-use Support\Helpers\DataTable\Build\DataTable;
+use Support\Client\DataTable\Table;
 
 class CmsTableController extends AbstractTableController
 {
@@ -30,7 +30,7 @@ class CmsTableController extends AbstractTableController
      */
     public function action(Company $company): JsonResponse
     {
-        return DataTable::create($this->structure($company))
+        return Table::create($this->structure($company))
             ->query(Cms::whereCompanyId($company->id)->withTrashed())
             ->export();
     }

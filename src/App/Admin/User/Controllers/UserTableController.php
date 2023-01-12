@@ -6,7 +6,7 @@
     use Domain\User\Models\User;
     use Illuminate\Http\JsonResponse;
     use Support\Abstracts\Controllers\AbstractTableController;
-    use Support\Helpers\DataTable\Build\DataTable;
+    use Support\Client\DataTable\Table;
 
     class UserTableController extends AbstractTableController
     {
@@ -25,7 +25,7 @@
          */
         public function action(): JsonResponse
         {
-            return DataTable::create($this->getDataTable())
+            return Table::create($this->structure())
                 ->query(User::withTrashed())
                 ->export();
         }

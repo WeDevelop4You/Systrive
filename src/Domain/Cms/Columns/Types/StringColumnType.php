@@ -11,15 +11,15 @@ use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\TextInputComponent;
+use Support\Client\Components\Forms\Inputs\TextInputComponent;
+use Support\Client\DataTable\Build\Column;
 
 class StringColumnType extends AbstractColumnType
 {
     /**
      * @return Collection
      */
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make([
             new NullableColumnOption(),
@@ -33,7 +33,7 @@ class StringColumnType extends AbstractColumnType
     /**
      * @return string
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'string';
     }
@@ -41,7 +41,7 @@ class StringColumnType extends AbstractColumnType
     /**
      * @return Column
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
@@ -53,7 +53,7 @@ class StringColumnType extends AbstractColumnType
      *
      * @return TextInputComponent
      */
-    public function getFormComponent(CmsModel $model): TextInputComponent
+    protected function inputComponent(CmsModel $model): TextInputComponent
     {
         return TextInputComponent::create()
             ->setKey($this->column->key)
@@ -66,7 +66,7 @@ class StringColumnType extends AbstractColumnType
      *
      * @return string[]
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return ['string'];
     }

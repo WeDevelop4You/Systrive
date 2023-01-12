@@ -312,8 +312,5 @@ return [
     | The specified commands should run after migrations are finished running.
     |
     */
-    'post_migrate' => [
-         'ide-helper:models -R',
-    ],
-
+    'post_migrate' => [],
 ];

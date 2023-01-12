@@ -6,13 +6,17 @@ class CmsTableTableMap
 {
     public const TABLE = 'cms_tables';
 
-    public const ID = 'id';
-    public const LABEL = 'label';
-    public const NAME = 'name';
-    public const EDITABLE = 'editable';
-    public const IS_TABLE = 'is_table';
-    public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
+    public const REQUIRED_COLUMNS = ['id', 'created_at', 'updated_at'];
+
+    public const USED_NAMES = ['cms_tables', 'cms_columns', 'cms_files', 'migrations'];
+
+    public const COL_ID = 'id';
+    public const COL_LABEL = 'label';
+    public const COL_NAME = 'name';
+    public const COL_EDITABLE = 'editable';
+    public const COL_IS_TABLE = 'is_table';
+    public const COL_CREATED_AT = 'created_at';
+    public const COL_UPDATED_AT = 'updated_at';
 
     public const TABLE_ID = 'cms_tables.id';
     public const TABLE_LABEL = 'cms_tables.label';
@@ -22,9 +26,5 @@ class CmsTableTableMap
     public const TABLE_CREATED_AT = 'cms_tables.created_at';
     public const TABLE_UPDATED_AT = 'cms_tables.updated_at';
 
-    public const RELATIONSHIP_COLUMNS = 'columns';
-
-    public const REQUIRED_COLUMNS = ['id', 'created_at', 'updated_at'];
-
-    public const USED_NAMES = ['cms_tables', 'cms_columns', 'migrations'];
+    public const RELATION_COLUMNS = 'columns';
 }

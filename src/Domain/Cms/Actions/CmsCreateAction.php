@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Support\Enums\VestaCommand;
-use Support\Exceptions\Custom\VestaCommandException;
+use Support\Exceptions\Custom\Vesta\VestaCommandException;
+use Support\Exceptions\Custom\Vesta\VestaConnectionFailedException;
 use Support\Services\Cms as CmsService;
 use Support\Services\Vesta;
 
@@ -35,6 +36,7 @@ class CmsCreateAction
      * @param CmsData $data
      *
      * @throws VestaCommandException
+     * @throws VestaConnectionFailedException
      *
      * @return Cms
      */
@@ -42,12 +44,10 @@ class CmsCreateAction
     {
         Vesta::api()->post(
             VestaCommand::CREATE_DATABASE,
-            [
-                $this->company->system->username,
-                $this->removePrefix($data->database),
-                $this->removePrefix($data->username),
-                $data->password,
-            ]
+            $this->company->system->username,
+            $this->removePrefix($data->database),
+            $this->removePrefix($data->username),
+            $data->password,
         );
 
         $cms = new CMS();

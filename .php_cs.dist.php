@@ -65,7 +65,7 @@
             __DIR__ . '/database',
         ])
         ->name('*.php')
-        ->notName('*.blade.php')
+        ->notName(['*.blade.php', 'TargetType.php'])
         ->ignoreDotFiles(true)
         ->ignoreVCS(true);
 

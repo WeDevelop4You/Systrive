@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\System\SystemTemplateType;
 use Support\Enums\VestaCommand;
+use Support\Exceptions\Custom\Vesta\VestaConnectionFailedException;
 use Support\Services\Vesta;
 
 class SyncSystemTemplates extends AbstractVestaSync
@@ -24,17 +25,26 @@ class SyncSystemTemplates extends AbstractVestaSync
     /**
      * @return string
      */
+    public function getName(): string
+    {
+        return "Sync system templates";
+    }
+
+    /**
+     * @return string
+     */
     public function uniqueId(): string
     {
         return "system_templates";
     }
 
     /**
+     * @throws VestaConnectionFailedException
      * @return void
      */
     protected function initialize(): void
     {
-        $this->database = SystemTemplate::all();
+        $this->data = SystemTemplate::all();
         $webTemplates = Vesta::api()->get(
             VestaCommand::GET_WEB_TEMPLATES
         )->crossJoin([SystemTemplateType::WEB->value]);
@@ -47,14 +57,14 @@ class SyncSystemTemplates extends AbstractVestaSync
             VestaCommand::GET_PROXY_TEMPLATES
         )->crossJoin([SystemTemplateType::PROXY->value]);
 
-        $this->vesta = Collection::make([
+        $this->syncData = Collection::make([
             ...$webTemplates,
             ...$dnsTemplates,
             ...$proxyTemplates,
         ])->map(function (array $data) {
             return [
-                SystemTemplateTableMap::TYPE => $data[1],
-                SystemTemplateTableMap::VALUE => strtolower($data[0]),
+                SystemTemplateTableMap::COL_TYPE => $data[1],
+                SystemTemplateTableMap::COL_VALUE => strtolower($data[0]),
             ];
         });
     }
@@ -66,7 +76,7 @@ class SyncSystemTemplates extends AbstractVestaSync
      */
     protected function contains(SystemTemplate|Model $model): bool
     {
-        return $this->vesta->contains(SystemTemplateTableMap::VALUE, $model->value);
+        return $this->syncData->contains(SystemTemplateTableMap::COL_VALUE, $model->value);
     }
 
     /**
@@ -76,10 +86,10 @@ class SyncSystemTemplates extends AbstractVestaSync
      */
     protected function reject(SystemTemplate|Model $model): Collection
     {
-        return $this->vesta->reject(function ($data) use ($model) {
+        return $this->syncData->reject(function ($data) use ($model) {
             return (
-                $model->type === $data[SystemTemplateTableMap::TYPE] &&
-                $model->value === $data[SystemTemplateTableMap::VALUE]
+                $model->type === $data[SystemTemplateTableMap::COL_TYPE] &&
+                $model->value === $data[SystemTemplateTableMap::COL_VALUE]
             );
         });
     }
@@ -89,9 +99,8 @@ class SyncSystemTemplates extends AbstractVestaSync
      */
     protected function save(): void
     {
-        $systemTemplate = new SystemTemplate();
-
-        $systemTemplates = $this->vesta->map(function (array $data) use ($systemTemplate) {
+        $systemTemplates = $this->syncData->map(function (array $data) {
+            $systemTemplate = new SystemTemplate();
             $systemTemplate->fill($data);
 
             return $systemTemplate->attributesToArray();
@@ -100,8 +109,8 @@ class SyncSystemTemplates extends AbstractVestaSync
         SystemTemplate::upsert(
             $systemTemplates,
             [
-                SystemTemplateTableMap::TYPE,
-                SystemTemplateTableMap::VALUE,
+                SystemTemplateTableMap::COL_TYPE,
+                SystemTemplateTableMap::COL_VALUE,
             ]
         );
     }

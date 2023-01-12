@@ -5,7 +5,7 @@
     use App\Admin\Translation\DataTables\TranslationTable;
     use Illuminate\Http\JsonResponse;
     use Support\Abstracts\Controllers\AbstractTableController;
-    use Support\Helpers\DataTable\Build\DataTable;
+    use Support\Client\DataTable\Table;
     use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 
     class TranslationTableController extends AbstractTableController
@@ -19,7 +19,7 @@
          */
         public function index(string $environment): JsonResponse
         {
-            $this->headers();
+            return $this->headers();
         }
 
         /**
@@ -29,7 +29,7 @@
          */
         public function action(string $environment): JsonResponse
         {
-            return DataTable::create($this->structure())
+            return Table::create($this->structure())
                 ->query(TranslationKey::whereEnvironment($environment)->with('translations'))
                 ->export();
         }

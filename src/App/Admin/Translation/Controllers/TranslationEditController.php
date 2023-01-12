@@ -4,11 +4,11 @@
 
     use App\Admin\Translation\Requests\TranslationUpdateRequest;
     use App\Admin\Translation\Responses\TranslationEditResponse;
+    use Domain\Translation\Models\TranslationKey;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Support\Collection;
-    use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Response\Response;
-    use WeDevelop4You\TranslationFinder\Models\TranslationKey;
+    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+    use Support\Client\Response;
 
     class TranslationEditController
     {

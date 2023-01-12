@@ -21,6 +21,7 @@ class CreateCompaniesTable extends Migration
             $table->string('domain')->nullable();
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

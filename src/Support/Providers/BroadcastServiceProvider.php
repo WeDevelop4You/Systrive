@@ -2,8 +2,8 @@
 
 namespace Support\Providers;
 
-use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Finder\Finder;
 
 class BroadcastServiceProvider extends ServiceProvider
 {
@@ -14,8 +14,13 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Broadcast::routes();
+        $files = Finder::create()
+            ->in(application_path())
+            ->name('channels.php')
+            ->files();
 
-        require base_path('routes/channels.php');
+        foreach ($files as $file) {
+            include $file->getRealPath();
+        }
     }
 }

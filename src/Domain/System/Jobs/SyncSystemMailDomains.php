@@ -13,8 +13,6 @@ use Support\Enums\VestaCommand;
 use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
 
-;
-
 class SyncSystemMailDomains extends AbstractVestaSync
 {
     /**
@@ -29,10 +27,18 @@ class SyncSystemMailDomains extends AbstractVestaSync
      */
     public function __construct(System $system)
     {
-        $this->database = $system->mailDomains;
+        $this->data = $system->mailDomains;
         $this->system = $system->withoutRelations();
 
         $this->onQueue('system');
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return "Sync system mail domains for: {$this->system->username}";
     }
 
     /**
@@ -45,7 +51,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
 
     protected function initialize(): void
     {
-        $this->vesta = Vesta::api()->get(
+        $this->syncData = Vesta::api()->get(
             VestaCommand::GET_USER_MAIL_DOMAINS,
             $this->system->username
         );
@@ -58,7 +64,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
      */
     protected function contains(SystemMailDomain|Model $model): bool
     {
-        return $this->vesta->keys()->contains($model->name);
+        return $this->syncData->keys()->contains($model->name);
     }
 
     /**
@@ -68,7 +74,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
      */
     protected function reject(SystemMailDomain|Model $model): Collection
     {
-        return $this->vesta;
+        return $this->syncData;
     }
 
     /**
@@ -78,19 +84,19 @@ class SyncSystemMailDomains extends AbstractVestaSync
     {
         $mailDomain = new SystemMailDomain();
 
-        $mailDomains = $this->vesta->map(function (array $data, string $name) use ($mailDomain) {
+        $mailDomains = $this->syncData->map(function (array $data, string $name) use ($mailDomain) {
             $mailDomain->name = $name;
             $mailDomain->system_id = $this->system->id;
 
             return $mailDomain->attributesToArray();
         })->toArray();
 
-        SystemMailDomain::upsert($mailDomains, SystemMailDomainTableMap::NAME);
+        SystemMailDomain::upsert($mailDomains, SystemMailDomainTableMap::COL_NAME);
 
         $this->system->load('mailDomains');
 
         $usage = $this->system->mailDomains->map(function (SystemMailDomain $systemMailDomain) {
-            $mailDomain = $this->vesta->get($systemMailDomain->name);
+            $mailDomain = $this->syncData->get($systemMailDomain->name);
 
             return SystemStatisticHelper::create($systemMailDomain)
                 ->setType(SystemUsageStatisticTypes::DISK)

@@ -3,7 +3,7 @@
 namespace App\Console\Commands\Generate;
 
 use Illuminate\Console\Command;
-use Support\Helpers\Application\RouteConstructor;
+use Support\Helpers\RouteHelper;
 
 class GenerateApiCommand extends Command
 {
@@ -12,7 +12,7 @@ class GenerateApiCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:api {application}';
+    protected $signature = 'generate:api';
 
     /**
      * The console command description.
@@ -27,20 +27,13 @@ class GenerateApiCommand extends Command
     private array $routes;
 
     /**
-     * @var string
-     */
-    private string $application;
-
-    /**
      * Execute the console command.
      *
      * @return int
      */
     public function handle(): int
     {
-        $this->application = strtolower($this->argument('application'));
-
-        $this->routes = RouteConstructor::getApiRoutes($this->application)->toArray();
+        $this->routes = RouteHelper::getApiRoutes()->toArray();
 
         if (!$this->generateFile()) {
             $this->error('No path or filename set in applications config');
@@ -58,8 +51,8 @@ class GenerateApiCommand extends Command
      */
     private function generateFile(): bool
     {
-        $path = config("applications.{$this->application}.api.store_path");
-        $filename = config("applications.{$this->application}.api.filename");
+        $path = config("app.api.store_path");
+        $filename = config("app.api.filename");
         $output = stripslashes(json_encode($this->routes, JSON_PRETTY_PRINT));
 
         if (\is_null($path) || \is_null($filename)) {

@@ -32,7 +32,7 @@ abstract class AbstractGit
         /** @var GitAccount $account */
         $account = Auth::user()
             ->gitAccounts()
-            ->where(GitAccountTableMap::SERVICE, $this->getService())
+            ->where(GitAccountTableMap::COL_SERVICE, $this->getService())
             ->firstOrFail();
 
         $this->account = $account;

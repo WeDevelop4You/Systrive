@@ -72,11 +72,11 @@ if (!function_exists('createBase64Image')) {
 
 if (!function_exists('prep_url')) {
     /**
-     * @param   string  the URL
+     * @param string $str
      *
      * @return string
      */
-    function prep_url($str = ''): string
+    function prep_url(string $str = ''): string
     {
         if ($str === 'http://' || $str === '') {
             return '';
@@ -89,5 +89,41 @@ if (!function_exists('prep_url')) {
         }
 
         return $str;
+    }
+}
+
+if (!function_exists('src_path')) {
+    function src_path(string $path = ''): string
+    {
+        $path = 'src'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
+
+        return app()->basePath($path);
+    }
+}
+
+if (!function_exists('application_path')) {
+    function application_path($path = ''): string
+    {
+        $path = 'App'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
+
+        return src_path($path);
+    }
+}
+
+if (!function_exists('domain_path')) {
+    function domain_path($path = ''): string
+    {
+        $path = 'Domain'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
+
+        return src_path($path);
+    }
+}
+
+if (!function_exists('support_path')) {
+    function support_path($path = ''): string
+    {
+        $path = 'Support'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
+
+        return src_path($path);
     }
 }

@@ -19,7 +19,7 @@ class EncryptionCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes): DecryptHelper
     {
-        return new DecryptHelper($value);
+        return new DecryptHelper($value, $this->isArray);
     }
 
     /**
@@ -28,9 +28,9 @@ class EncryptionCast implements CastsAttributes
     public function set($model, string $key, $value, array $attributes): mixed
     {
         if ($value instanceof DecryptHelper) {
-            return $value->getEncrypt();
+            return $value->encrypt;
         }
 
-        return $this->isArray ? Crypt::encrypt($value) : Crypt::encryptString($value);
+        return Crypt::encrypt($value, $this->isArray);
     }
 }

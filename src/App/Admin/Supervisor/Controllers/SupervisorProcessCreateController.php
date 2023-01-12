@@ -8,10 +8,10 @@ use Domain\Supervisor\Actions\SaveSupervisorProcessAction;
 use Domain\Supervisor\DataTransferObjects\SupervisorProcessData;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Support\Client\Actions\VuexAction;
+use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+use Support\Client\Response;
 use Support\Exceptions\Custom\ActionErrorException;
-use Support\Response\Actions\VuexAction;
-use Support\Response\Components\Popups\Notifications\SimpleNotificationComponent;
-use Support\Response\Response;
 
 class SupervisorProcessCreateController
 {
@@ -50,7 +50,7 @@ class SupervisorProcessCreateController
             ->addAction(
                 VuexAction::create()->dispatch(
                     'supervisor/overview/component',
-                    route('admin.admin.supervisor.overview')
+                    route('admin.supervisor.overview')
                 )
             )
             ->toJson();

@@ -3,23 +3,17 @@
 namespace Support\Providers;
 
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
-use Illuminate\Console\Scheduling\CallbackEvent;
-use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use ReflectionException;
-use Support\Helpers\Application\BladeConstructor;
-use Support\Helpers\Application\RouteConstructor;
+use Support\Helpers\ApplicationHelper;
 use Support\Mixins\BuilderMixin;
-use Support\Mixins\CallbackEventMixin;
 use Support\Mixins\CollectionMixin;
+use Support\Mixins\ConfigMixin;
 use Support\Mixins\RelationMixin;
-use Support\Mixins\ScheduleMixin;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,14 +27,6 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
         }
-
-        if ($this->app->isProduction()) {
-            URL::forceScheme('https');
-        }
-
-        if (!Route::hasMacro('dataTable')) {
-            RouteConstructor::createDataTableMacro();
-        }
     }
 
     /**
@@ -52,17 +38,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        ApplicationHelper::setDomain();
+
+        Config::mixin(new ConfigMixin());
         Builder::mixin(new BuilderMixin());
         Relation::mixin(new RelationMixin());
-        Schedule::mixin(new ScheduleMixin());
         Collection::mixin(new CollectionMixin());
-        CallbackEvent::mixin(new CallbackEventMixin());
-
-        Collection::make(config('applications'))->each(function (array $config, string $application) {
-            $application = strtolower($application);
-
-            BladeConstructor::create($this->app, $application);
-            RouteConstructor::create(Collection::make(Arr::get($config, 'routes')), $application);
-        });
     }
 }

@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Support\Helpers\DataTable\Build\Column;
-use Support\Response\Components\Forms\Inputs\DatetimePickerInputComponent;
+use Support\Client\Components\Forms\Inputs\DatetimePickerInputComponent;
+use Support\Client\DataTable\Build\Column;
 
 class DatetimeColumnType extends AbstractColumnType
 {
@@ -19,7 +19,7 @@ class DatetimeColumnType extends AbstractColumnType
         'string', 'date_format:Y-m-d H:i:s',
     ];
 
-    protected function getOptions(): Collection
+    protected function options(): Collection
     {
         return Collection::make([
             new NullableTimestampColumnOption(
@@ -35,7 +35,7 @@ class DatetimeColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'dateTime';
     }
@@ -43,7 +43,7 @@ class DatetimeColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getColumnComponent(): Column
+    protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
             ->setSortable()
@@ -66,7 +66,7 @@ class DatetimeColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    public function getFormComponent(CmsModel $model): DatetimePickerInputComponent
+    protected function inputComponent(CmsModel $model): DatetimePickerInputComponent
     {
         return DatetimePickerInputComponent::create()
             ->setUseSeconds()
@@ -79,7 +79,7 @@ class DatetimeColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function getValidation(FormRequest $request): array
+    protected function validation(FormRequest $request): array
     {
         return $this->validation;
     }

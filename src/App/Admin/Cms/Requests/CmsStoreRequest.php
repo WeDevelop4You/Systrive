@@ -4,37 +4,41 @@ namespace App\Admin\Cms\Requests;
 
 use Domain\Cms\Mappings\CmsTableMap;
 use Domain\Company\Models\Company;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
+use Support\Abstracts\AbstractRequest;
 
 /**
- * @property Company $company
+ * @property Company          $company
+ * @property array|int|string $username
  */
-class CmsStoreRequest extends FormRequest
+class CmsStoreRequest extends AbstractRequest
 {
-    /**
-     * @return array
-     */
-    public function rules(): array
+    protected function isUpdating(): bool
     {
-        $rules = [
+        return \is_int($this->username);
+    }
+
+    protected function defaultRules(): array
+    {
+        return [
             'name' => ['required', 'string'],
             'database' => ['required', 'string', "max:{$this->max(64)}"],
         ];
+    }
 
-        if (\is_int($this->username)) {
-            return [
-                ...$rules,
-                'username' => Rule::exists('cms', CmsTableMap::ID)
-                    ->where(CmsTableMap::COMPANY_ID, $this->company->id),
-            ];
-        }
-
+    protected function storeRules(): array
+    {
         return [
-            ...$rules,
             'username' => ['required', 'string', "max:{$this->max(32)}"],
             'password' => ['required', 'string', 'max:100'],
+        ];
+    }
+
+    protected function updateRules(): array
+    {
+        return [
+            'username' => Rule::exists('cms', CmsTableMap::COL_ID)->where(CmsTableMap::COL_COMPANY_ID, $this->company->id),
         ];
     }
 

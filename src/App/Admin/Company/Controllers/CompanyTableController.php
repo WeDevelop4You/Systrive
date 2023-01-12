@@ -6,7 +6,7 @@
     use Domain\Company\Models\Company;
     use Illuminate\Http\JsonResponse;
     use Support\Abstracts\Controllers\AbstractTableController;
-    use Support\Helpers\DataTable\Build\DataTable;
+    use Support\Client\DataTable\Table;
 
     class CompanyTableController extends AbstractTableController
     {
@@ -25,8 +25,8 @@
          */
         public function action(): JsonResponse
         {
-            return DataTable::create($this->structure())
-                ->query(Company::with('owner'))
+            return Table::create($this->structure())
+                ->query(Company::withTrashed()->with('owner'))
                 ->export();
         }
     }

@@ -4,7 +4,7 @@
 
     use Illuminate\Support\Collection;
     use Illuminate\Support\Facades\Auth;
-    use Support\Helpers\DataTable\Build\Column;
+    use Support\Client\DataTable\Build\Column;
 
     abstract class AbstractTable
     {

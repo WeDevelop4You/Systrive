@@ -2,6 +2,7 @@
 
     namespace App\Admin\Company\DataTables;
 
+    use Carbon\CarbonInterface;
     use Domain\Company\Enums\CompanyStatusTypes;
     use Domain\Company\Mappings\CompanyTableMap;
     use Domain\Company\Mappings\CompanyUserTableMap;
@@ -9,19 +10,21 @@
     use Domain\User\Mappings\UserTableMap;
     use Domain\User\Models\UserProfile;
     use Illuminate\Database\Eloquent\Builder;
+    use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\DB;
     use Support\Abstracts\AbstractTable;
+    use Support\Client\Actions\RequestAction;
+    use Support\Client\Actions\VuexAction;
+    use Support\Client\Components\Buttons\IconButtonComponent;
+    use Support\Client\Components\Buttons\MultipleButtonComponent;
+    use Support\Client\Components\Misc\BadgeComponent;
+    use Support\Client\Components\Misc\Icons\IconComponent;
+    use Support\Client\Components\Utils\TooltipComponent;
+    use Support\Client\DataTable\Build\Column;
     use Support\Enums\Component\IconType;
     use Support\Enums\Component\Vuetify\VuetifyColor;
     use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
-    use Support\Helpers\DataTable\Build\Column;
-    use Support\Response\Actions\RequestAction;
-    use Support\Response\Actions\VuexAction;
-    use Support\Response\Components\Buttons\IconButtonComponent;
-    use Support\Response\Components\Buttons\MultipleButtonComponent;
-    use Support\Response\Components\Icons\IconComponent;
-    use Support\Response\Components\Items\ItemBadgeComponent;
-    use Support\Response\Components\Utils\TooltipComponent;
+    use Support\Helpers\ApplicationHelper;
 
     class CompanyTable extends AbstractTable
     {
@@ -41,16 +44,16 @@
                 Column::create(trans('word.full_name'), 'full_name', 'owner.full_name')
                     ->setSortable(function (Builder $query, string $direction) {
                         $query->orderBy(UserProfile::orWhereHas('user', function (Builder $query) {
-                            $query->whereHas(CompanyTableMap::RELATIONSHIP_COMPANY_USER, function (Builder $query) {
-                                $query->where(CompanyUserTableMap::IS_OWNER, true)
-                                    ->whereColumn(CompanyUserTableMap::COMPANY_ID, CompanyTableMap::ID);
+                            $query->whereHas(CompanyTableMap::RELATION_COMPANY_USER, function (Builder $query) {
+                                $query->where(CompanyUserTableMap::COL_IS_OWNER, true)
+                                    ->whereColumn(CompanyUserTableMap::COL_COMPANY_ID, CompanyTableMap::COL_ID);
                             })->withTrashed();
                         })->selectRaw("CONCAT_WS(' ', first_name, middle_name, last_name)"), $direction);
                     })
                     ->setSearchable(function (Builder $query, string $search) {
-                        $query->orWhereHas(CompanyTableMap::RELATIONSHIP_USERS, function (Builder $query) use ($search) {
-                            $query->where(CompanyUserTableMap::IS_OWNER, true)
-                                ->whereHas(UserTableMap::RELATIONSHIP_PROFILE, function (Builder $query) use ($search) {
+                        $query->orWhereHas(CompanyTableMap::RELATION_USERS, function (Builder $query) use ($search) {
+                            $query->where(CompanyUserTableMap::COL_IS_OWNER, true)
+                                ->whereHas(UserTableMap::RELATION_PROFILE, function (Builder $query) use ($search) {
                                     $query->where(DB::raw("CONCAT_WS(' ', first_name, middle_name, last_name)"), 'like', "%{$search}%");
                                 })->withTrashed();
                         });
@@ -60,17 +63,40 @@
                     ->setSearchable(CompanyStatusTypes::class)
                     ->setAlignment(VuetifyTableAlignmentType::CENTER)
                     ->setFormat(function (Company $data) {
-                        return ItemBadgeComponent::create()
-                            ->setValue($data->status->getTranslation())
-                            ->setColor($data->status->getColor())
-                            ->setOutlined();
+                        if (\is_null($data->deleted_at)) {
+                            return BadgeComponent::create()
+                                ->setValue($data->status->getTranslation())
+                                ->setColor($data->status->getColor())
+                                ->setOutlined();
+                        }
+
+                        return null;
                     }),
                 Column::create(trans('word.created_at'), 'created_at')
+                    ->setSortable()
+                    ->setSearchable()
+                    ->setFormat(function (Company $data, string $key) {
+                        return $data->getAttribute($key)->toDatetimeString();
+                    }),
+                Column::create(trans('word.deleted_in'), 'deleted_at')
                     ->setSortable()
                     ->setDivider()
                     ->setSearchable()
                     ->setFormat(function (Company $data, string $key) {
-                        return $data->getAttribute($key)->toDatetimeString();
+                        /** @var Carbon|null $date */
+                        $date = $data->getAttribute($key);
+
+                        if (\is_null($date)) {
+                            return null;
+                        }
+
+                        $deletedDate = $date->startOfDay()->addDays(31);
+
+                        return $deletedDate->diffForHumans(Carbon::now()->startOfDay(), [
+                            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+                            'skip' => ['m', 'w'],
+                            'minimumUnit' => 'd',
+                        ]);
                     }),
                 Column::actions()
                     ->setFormat(function (Company $data) {
@@ -86,9 +112,11 @@
          */
         private function createActions(Company $data): MultipleButtonComponent
         {
+            $isNotDeleted = \is_null($data->deleted_at);
+
             return MultipleButtonComponent::create()
                 ->addButtonIf(
-                    $data->status === CompanyStatusTypes::EXPIRED,
+                    $data->status === CompanyStatusTypes::EXPIRED && $isNotDeleted,
                     IconButtonComponent::create()
                         ->setIcon(IconComponent::create()->setType(IconType::FAS_PAPER_PLANE))
                         ->setColorOnHover(VuetifyColor::PRIMARY)
@@ -100,7 +128,7 @@
                         ->setAction(
                             RequestAction::create()
                                 ->post(
-                                    route('admin.admin.company.invite.resend', [
+                                    route('admin.company.invite.resend', [
                                         $data->id,
                                     ])
                                 )
@@ -109,7 +137,7 @@
                                 )
                         ),
                 )
-                ->setButtons([
+                ->addButton(
                     IconButtonComponent::create()
                         ->setIcon(IconComponent::create()->setType(IconType::FAS_EYE))
                         ->setColorOnHover(VuetifyColor::INFO)
@@ -122,11 +150,13 @@
                             VuexAction::create()
                                 ->dispatch(
                                     'companies/show',
-                                    route('admin.admin.company.show', [
+                                    route('admin.company.show', [
                                         $data->id,
                                     ])
                                 )
                         ),
+                )
+                ->addButton(
                     IconButtonComponent::create()
                         ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                         ->setColorOnHover(VuetifyColor::WARNING)
@@ -138,11 +168,43 @@
                         ->setAction(
                             VuexAction::create()->dispatch(
                                 'companies/edit',
-                                route('admin.admin.company.edit', [
+                                route('admin.company.edit', [
                                     $data->id,
                                 ])
                             )
                         ),
+                )
+                ->addButton(
+                    IconButtonComponent::create()
+                        ->setColorOnHover(VuetifyColor::ACCENT)
+                        ->setIcon(IconComponent::create()->setType(IconType::FAS_EXTERNAL_LINK_ALT))
+                        ->setTooltip(
+                            TooltipComponent::create()
+                                ->setTop()
+                                ->setText(trans('word.view.view'))
+                        )
+                        ->setHref(ApplicationHelper::getCompanyRoute($data))
+                )
+                ->addButtonIf(
+                    !$isNotDeleted,
+                    IconButtonComponent::create()
+                        ->setColorOnHover(VuetifyColor::ACCENT)
+                        ->setIcon(IconComponent::create()->setType(IconType::FAS_UNDO_ALT))
+                        ->setTooltip(
+                            TooltipComponent::create()
+                                ->setTop()
+                                ->setText(trans('word.restore.restore'))
+                        )
+                        ->setAction(
+                            RequestAction::create()
+                                ->put(route('admin.company.restore', [
+                                    $data->id,
+                                ]))->setOnSuccessAction(
+                                    VuexAction::create()->refreshTable('companies/dataTable')
+                                )
+                        )
+                )
+                ->addButton(
                     IconButtonComponent::create()
                         ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                         ->setColorOnHover(VuetifyColor::ERROR)
@@ -153,10 +215,10 @@
                         )
                         ->setAction(
                             RequestAction::create()
-                                ->get(route('admin.admin.company.destroy', [
+                                ->get(route('admin.company.destroy', [
                                     $data->id,
                                 ]))
                         ),
-                ]);
+                );
         }
     }

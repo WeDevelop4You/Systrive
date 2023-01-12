@@ -78,6 +78,7 @@
          * @param array        $parameters
          *
          * @throws VestaConnectionFailedException
+         *
          * @return Collection
          */
         public function get(VestaCommand $command, ...$parameters): Collection
@@ -95,6 +96,7 @@
          *
          * @throws VestaCommandException
          * @throws VestaConnectionFailedException
+         *
          * @return bool
          */
         public function post(VestaCommand $command, ...$parameters): bool
@@ -137,6 +139,7 @@
 
         /**
          * @throws VestaConnectionFailedException
+         *
          * @return bool|string
          */
         private function execute(): bool|string

@@ -7,5 +7,5 @@ interface ShouldBeNamed
     /**
      * @return string
      */
-    public function getName() : string;
+    public function getName(): string;
 }

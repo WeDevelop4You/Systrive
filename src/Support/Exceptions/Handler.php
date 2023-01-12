@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
         foreach ($this->handlers as $exception => $handler) {
             $this->map($exception, fn (Exception $e) => new $handler(
                 $e->getMessage(),
-                is_int($e->getCode()) ? $e->getCode() : 0,
+                \is_int($e->getCode()) ? $e->getCode() : 0,
                 $e->getPrevious()
             ));
         }

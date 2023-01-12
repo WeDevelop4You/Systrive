@@ -15,7 +15,8 @@ class SyncSystemUsers extends AbstractVestaSync
 {
     private bool $withData;
 
-    public function __construct(bool $withData = false) {
+    public function __construct(bool $withData = false)
+    {
         $this->withData = $withData;
         $this->onQueue('system');
     }

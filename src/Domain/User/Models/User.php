@@ -30,46 +30,48 @@ use Spatie\Permission\Traits\HasRoles;
 use Support\Traits\Observers;
 
 /**
- * Domain\User\Models\User
+ * Domain\User\Models\User.
  *
- * @property int $id
- * @property string $email
- * @property string $locale
+ * @property int         $id
+ * @property string      $email
+ * @property string      $locale
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \Domain\Company\Collections\CompanyCollections|Company[] $companies
- * @property-read \Illuminate\Database\Eloquent\Collection|CompanyUser[] $companyUser
+ * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
+ * @property-read CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
  * @property-read string|null $full_name
- * @property-read \Illuminate\Database\Eloquent\Collection|GitAccount[] $gitAccounts
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Permission\Models\Permission[] $permissions
+ * @property-read GitAccount[]|\Illuminate\Database\Eloquent\Collection $gitAccounts
+ * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
+ * @property-read \Domain\Permission\Models\Permission[]|\Illuminate\Database\Eloquent\Collection $permissions
  * @property-read \Domain\User\Models\UserProfile|null $profile
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
+ * @property-read \Domain\Role\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
  * @property-read \Domain\User\Models\UserSecurity|null $security
- * @method static UserCollections|static[] all($columns = ['*'])
+ *
+ * @method static UserCollections|static[]        all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
- * @method static UserCollections|static[] get($columns = ['*'])
- * @method static UserQueryBuilders|User newModelQuery()
- * @method static UserQueryBuilders|User newQuery()
- * @method static Builder|User onlyTrashed()
- * @method static UserQueryBuilders|User permission($permissions)
- * @method static UserQueryBuilders|User query()
- * @method static UserQueryBuilders|User role($roles, $guard = null)
- * @method static UserQueryBuilders|User whereCreatedAt($value)
- * @method static UserQueryBuilders|User whereDeletedAt($value)
- * @method static UserQueryBuilders|User whereEmail($value)
- * @method static UserQueryBuilders|User whereEmailVerifiedAt($value)
- * @method static UserQueryBuilders|User whereId($value)
- * @method static UserQueryBuilders|User whereLocale($value)
- * @method static UserQueryBuilders|User wherePassword($value)
- * @method static UserQueryBuilders|User whereRememberToken($value)
- * @method static UserQueryBuilders|User whereUpdatedAt($value)
- * @method static Builder|User withTrashed()
- * @method static Builder|User withoutTrashed()
+ * @method static UserCollections|static[]        get($columns = ['*'])
+ * @method static UserQueryBuilders|User          newModelQuery()
+ * @method static UserQueryBuilders|User          newQuery()
+ * @method static Builder|User                    onlyTrashed()
+ * @method static UserQueryBuilders|User          permission($permissions)
+ * @method static UserQueryBuilders|User          query()
+ * @method static UserQueryBuilders|User          role($roles, $guard = null)
+ * @method static UserQueryBuilders|User          whereCreatedAt($value)
+ * @method static UserQueryBuilders|User          whereDeletedAt($value)
+ * @method static UserQueryBuilders|User          whereEmail($value)
+ * @method static UserQueryBuilders|User          whereEmailVerifiedAt($value)
+ * @method static UserQueryBuilders|User          whereId($value)
+ * @method static UserQueryBuilders|User          whereLocale($value)
+ * @method static UserQueryBuilders|User          wherePassword($value)
+ * @method static UserQueryBuilders|User          whereRememberToken($value)
+ * @method static UserQueryBuilders|User          whereUpdatedAt($value)
+ * @method static Builder|User                    withTrashed()
+ * @method static Builder|User                    withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail

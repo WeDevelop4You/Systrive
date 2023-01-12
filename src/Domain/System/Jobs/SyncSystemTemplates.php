@@ -40,6 +40,7 @@ class SyncSystemTemplates extends AbstractVestaSync
 
     /**
      * @throws VestaConnectionFailedException
+     *
      * @return void
      */
     protected function initialize(): void

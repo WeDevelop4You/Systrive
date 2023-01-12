@@ -15,7 +15,7 @@ class FileColumnType extends AbstractColumnType
     protected function options(): Collection
     {
         return Collection::make([
-            new RowColColumnOption()
+            new RowColColumnOption(),
         ]);
     }
 
@@ -33,7 +33,7 @@ class FileColumnType extends AbstractColumnType
     protected function columnComponent(): Column
     {
         return Column::create($this->column->label, $this->column->key)
-            ->setFormat(function(CmsModel $data) {
+            ->setFormat(function (CmsModel $data) {
                 return 'test';
             });
     }

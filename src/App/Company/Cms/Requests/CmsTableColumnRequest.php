@@ -15,12 +15,12 @@ use Support\Abstracts\AbstractRequest;
  * @property string $key
  * @property string $hidden
  * @property string $editable
- * @property int $type
+ * @property int    $type
  */
 class CmsTableColumnRequest extends AbstractRequest
 {
     /**
-     * Required columns doesn't have properties
+     * Required columns doesn't have properties.
      *
      * @return bool
      */

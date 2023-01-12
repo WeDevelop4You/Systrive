@@ -12,6 +12,5 @@ class CmsTableItemFileUploader
 {
     public function action(CmsTableItemFileRequest $request, Company $company, Cms $cms, CmsTable $table): JsonResponse
     {
-
     }
 }

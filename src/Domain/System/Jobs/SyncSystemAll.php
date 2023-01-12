@@ -2,7 +2,6 @@
 
 namespace Domain\System\Jobs;
 
-use Domain\System\Models\System;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;

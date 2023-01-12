@@ -6,17 +6,18 @@ use Domain\Cms\Mappings\CmsFileTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\Cms\Models\CmsFile
+ * Domain\Cms\Models\CmsFile.
  *
- * @property int $id
- * @property string $table_type
- * @property int $table_id
- * @property string $table_key
- * @property string $path
- * @property string $type
- * @property int $size
+ * @property int                             $id
+ * @property string                          $table_type
+ * @property int                             $table_id
+ * @property string                          $table_key
+ * @property string                          $path
+ * @property string                          $type
+ * @property int                             $size
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile query()
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereTableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CmsFile extends Model

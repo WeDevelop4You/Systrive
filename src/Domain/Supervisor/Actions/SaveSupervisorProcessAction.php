@@ -65,4 +65,3 @@ class SaveSupervisorProcessAction
         $this->supervisor->save();
     }
 }
-

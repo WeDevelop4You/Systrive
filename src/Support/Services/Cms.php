@@ -6,10 +6,7 @@ use Config;
 use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\Cms as CmsDatabase;
 use Domain\Cms\Models\CmsTable;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Support\Services\Cms as CmsService;
 
 class Cms
 {

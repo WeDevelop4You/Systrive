@@ -18,7 +18,7 @@ class CmsTableItemFileRequest extends FormRequest
     {
         return [
             'key' => ['required', Rule::in([])],
-            'file' => ''
+            'file' => '',
         ];
     }
 }

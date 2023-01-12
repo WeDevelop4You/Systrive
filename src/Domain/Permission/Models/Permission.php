@@ -7,16 +7,17 @@ use Spatie\Permission\Models\Permission as PermissionSpatie;
 use Support\Traits\Observers;
 
 /**
- * Domain\Permission\Models\Permission
+ * Domain\Permission\Models\Permission.
  *
- * @property int $id
- * @property string $name
- * @property string $guard_name
+ * @property int                             $id
+ * @property string                          $name
+ * @property string                          $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
+ * @property-read \Domain\Role\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
  * @property-read \Domain\User\Collections\UserCollections|\Domain\User\Models\User[] $users
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission permission($permissions)
@@ -27,6 +28,7 @@ use Support\Traits\Observers;
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Permission extends PermissionSpatie
@@ -34,6 +36,6 @@ class Permission extends PermissionSpatie
     use Observers;
 
     protected static array $observers = [
-        PermissionCreatedObserver::class
+        PermissionCreatedObserver::class,
     ];
 }

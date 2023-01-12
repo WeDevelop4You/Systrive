@@ -52,7 +52,8 @@ class Table
      *
      * @param AbstractTable $table
      */
-    private function __construct(AbstractTable $table) {
+    private function __construct(AbstractTable $table)
+    {
         $this->columns = $table->getColumns();
         $this->request = RequestFacades::instance();
     }

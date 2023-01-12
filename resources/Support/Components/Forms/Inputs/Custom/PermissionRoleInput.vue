@@ -66,7 +66,6 @@
 
 <script>
     import FormComponentBase from "../../../Base/FormComponentBase";
-    import {mapGetters} from "vuex";
 
     export default {
         name: "PermissionRoleInput",

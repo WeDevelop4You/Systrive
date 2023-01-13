@@ -4,7 +4,7 @@ namespace Support\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Support\Facades\Crypt;
-use Support\Helpers\DecryptHelper;
+use Support\Utils\Decrypt;
 
 class EncryptionCast implements CastsAttributes
 {
@@ -17,9 +17,9 @@ class EncryptionCast implements CastsAttributes
     /**
      * @inheritDoc
      */
-    public function get($model, string $key, $value, array $attributes): DecryptHelper
+    public function get($model, string $key, $value, array $attributes): Decrypt
     {
-        return new DecryptHelper($value, $this->isArray);
+        return new Decrypt($value, $this->isArray);
     }
 
     /**
@@ -27,7 +27,7 @@ class EncryptionCast implements CastsAttributes
      */
     public function set($model, string $key, $value, array $attributes): mixed
     {
-        if ($value instanceof DecryptHelper) {
+        if ($value instanceof Decrypt) {
             return $value->encrypt;
         }
 

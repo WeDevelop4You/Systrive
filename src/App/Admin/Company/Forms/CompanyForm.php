@@ -57,7 +57,10 @@ class CompanyForm extends AbstractForm
                                 })->toArray()
                             )
                             ->setHideDetails(
-                                Logic::create('owner.value', $this->ownerId)->condition('auto', true)
+                                Logic::condition('owner.value')
+                                    ->setValues($this->ownerId)
+                                    ->setTrueValue('auto')
+                                    ->setFalseValue(true)
                             )
                     ),
                 InputColWrapper::create()
@@ -69,7 +72,7 @@ class CompanyForm extends AbstractForm
                             ->setErrorKey('owner')
                             ->setLabel(trans('word.remove.owner'))
                             ->addHiddenLogic(
-                                Logic::create('owner.value', $this->ownerId)->contain()
+                                Logic::if('owner.value')->setCompressing($this->ownerId)
                             )
                     ),
                 InputColWrapper::create()

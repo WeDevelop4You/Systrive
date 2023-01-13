@@ -10,7 +10,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class RoleEditResponse extends AbstractResponse
 {
@@ -35,14 +35,14 @@ class RoleEditResponse extends AbstractResponse
         return Response::create()
             ->addData(RoleResource::make($this->role))
             ->addPopup(
-                FormModal::create(VuexNamespaceHelper::createCompanyWhenAdmin('roles/form'))
+                FormModal::create(VuexNamespace::createCompanyWhenAdmin('roles/form'))
                     ->setPersistent()
                     ->setTitle(trans('word.edit.edit'))
                     ->setForm(RoleForm::create())
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
-                            VuexNamespaceHelper::createCompanyWhenAdmin('roles/update'),
+                            VuexNamespace::createCompanyWhenAdmin('roles/update'),
                             route('company.role.edit', [
                                 $this->company->id,
                                 $this->role->id,

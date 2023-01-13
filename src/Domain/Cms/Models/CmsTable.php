@@ -88,6 +88,14 @@ class CmsTable extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function fillableColumns(): HasMany
+    {
+        return $this->columns()->editable()->fileType(false);
+    }
+
+    /**
      * Retrieve the child model for a bound value.
      *
      * @param string      $childType

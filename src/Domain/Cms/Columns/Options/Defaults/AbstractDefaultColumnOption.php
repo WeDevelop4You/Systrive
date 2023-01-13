@@ -2,19 +2,20 @@
 
 namespace Domain\Cms\Columns\Options\Defaults;
 
+use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class AbstractDefaultColumnOption extends AbstractColumnOption implements PropertyColumnOption
+abstract class AbstractDefaultColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption
 {
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return "default";
     }
@@ -22,7 +23,7 @@ abstract class AbstractDefaultColumnOption extends AbstractColumnOption implemen
     /**
      * @inheritDoc
      */
-    public function getDefault(): mixed
+    protected function defaultValue(): mixed
     {
         return null;
     }
@@ -41,13 +42,5 @@ abstract class AbstractDefaultColumnOption extends AbstractColumnOption implemen
     public function isDirty(mixed $value): bool
     {
         return $this->getValue() !== $value;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidation(FormRequest $request): array|string|object
-    {
-        return '';
     }
 }

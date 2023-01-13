@@ -20,7 +20,7 @@ use Support\Abstracts\AbstractRequest;
 class CmsTableColumnRequest extends AbstractRequest
 {
     /**
-     * Required columns doesn't have properties.
+     * Required/default columns doesn't have properties.
      *
      * @return bool
      */
@@ -44,10 +44,9 @@ class CmsTableColumnRequest extends AbstractRequest
 
     protected function storeRules(): array
     {
-        $optionRules = CmsColumnType::from($this->type)->getOptions()
-            ->mapWithKeys(function (AbstractColumnOption $option) {
-                return [$option->getFormKey() => $option->getRequirements($this)];
-            })->toArray();
+        $optionRules = CmsColumnType::from($this->type)->getOptions()->mapWithKeys(
+            fn (AbstractColumnOption $option) => $option->getRequirements($this)
+        )->toArray();
 
         return [
             CmsColumnTableMap::COL_PROPERTIES => ['present', 'array'],

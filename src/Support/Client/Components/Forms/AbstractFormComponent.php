@@ -3,14 +3,14 @@
 namespace Support\Client\Components\Forms;
 
 use Support\Client\Components\Component;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 abstract class AbstractFormComponent extends Component
 {
     /**
-     * @param string|VuexNamespaceHelper $vuexNamespace
+     * @param string|VuexNamespace $vuexNamespace
      *
      * @return static
      */
-    abstract public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static;
+    abstract public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static;
 }

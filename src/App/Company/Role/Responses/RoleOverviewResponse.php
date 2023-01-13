@@ -8,7 +8,7 @@ use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Buttons\ButtonComponent;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class RoleOverviewResponse extends AbstractResponse
 {
@@ -41,7 +41,7 @@ class RoleOverviewResponse extends AbstractResponse
         return ServerTableComponent::create()
             ->setSearchable()
             ->setTitle(trans('word.role.role'))
-            ->setVuexNamespace(VuexNamespaceHelper::createCompanyWhenAdmin('roles/dataTable'))
+            ->setVuexNamespace(VuexNamespace::createCompanyWhenAdmin('roles/dataTable'))
             ->setHeaderRoute(route('company.role.table.headers', [
                 $company->id,
             ]))
@@ -55,7 +55,7 @@ class RoleOverviewResponse extends AbstractResponse
                     ->setTitle(trans('word.create.create'))
                     ->setAction(
                         VuexAction::create()->dispatch(
-                            VuexNamespaceHelper::createCompanyWhenAdmin('roles/create'),
+                            VuexNamespace::createCompanyWhenAdmin('roles/create'),
                             route('company.role.create', [
                                 $company->id,
                             ])

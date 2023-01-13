@@ -18,7 +18,7 @@
     import DropdownFormComponentBase from "../../Base/DropdownFormComponentBase";
 
     export default {
-        name: "ComboboxInput",
+        name: "SelectInput",
 
         extends: DropdownFormComponentBase,
 

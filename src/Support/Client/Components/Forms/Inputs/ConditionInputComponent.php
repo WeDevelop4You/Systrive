@@ -3,7 +3,7 @@
 namespace Support\Client\Components\Forms\Inputs;
 
 use Support\Client\Components\Component;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class ConditionInputComponent extends Component
 {
@@ -21,11 +21,11 @@ class ConditionInputComponent extends Component
     }
 
     /**
-     * @param string|VuexNamespaceHelper $vuexNamespace
+     * @param string|VuexNamespace $vuexNamespace
      *
      * @return static
      */
-    public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static
+    public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {
         $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 

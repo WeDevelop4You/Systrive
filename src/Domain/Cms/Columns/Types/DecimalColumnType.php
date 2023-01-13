@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Columns\Types;
 
+use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\Defaults\DefaultIntegerColumnOption;
 use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
 use Domain\Cms\Columns\Options\PlacesColumnOption;
@@ -71,12 +72,12 @@ class DecimalColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return [
+        return new Validations([
             'numeric',
             new NumericFormatRule($this->getTotalValue(), $this->getPlacesValue()),
-        ];
+        ]);
     }
 
     public function getTotalValue()

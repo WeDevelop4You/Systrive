@@ -8,7 +8,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Components\Popups\Modals\DeleteModal;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class RoleDestroyResponse extends AbstractResponse
 {
@@ -32,7 +32,7 @@ class RoleDestroyResponse extends AbstractResponse
     {
         return Response::create()
             ->addPopup(
-                DeleteModal::create(VuexNamespaceHelper::createCompanyWhenAdmin('roles/dataTable'))
+                DeleteModal::create(VuexNamespace::createCompanyWhenAdmin('roles/dataTable'))
                     ->addFooterDeleteButton(
                         RequestAction::create()
                             ->delete(route('company.role.destroy', [

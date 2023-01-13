@@ -6,8 +6,10 @@ use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Client\Components\Layouts\ColComponent;
+use Support\Utils\Validations;
 
 class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
 {
@@ -22,10 +24,15 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
         //
     }
 
+    protected function col(): int
+    {
+        return 6;
+    }
+
     /**
      * @inheritDoc
      */
-    public function getDefault(): bool
+    protected function defaultValue(): bool
     {
         return false;
     }
@@ -45,23 +52,16 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
     /**
      * @inheritDoc
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                CheckboxInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setVuexNamespace($this->getVuexNamespace())
-                    ->setLabel(trans('word.default.use.current'))
-            );
+        return CheckboxInputComponent::create()->setLabel(trans('word.default.use.current'));
     }
 
     /**
      * @inheritDoc
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['nullable', ...$this->requirements];
+        return new Validations(['nullable', ...$this->requirements]);
     }
 }

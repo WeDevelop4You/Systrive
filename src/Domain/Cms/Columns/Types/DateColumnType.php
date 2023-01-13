@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\DatePickerInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class DateColumnType extends AbstractColumnType
 {
@@ -78,8 +79,8 @@ class DateColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return $this->validation;
+        return new Validations($this->validation);
     }
 }

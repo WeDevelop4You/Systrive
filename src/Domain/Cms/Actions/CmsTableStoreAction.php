@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Actions;
 
+use Domain\Cms\Columns\Attributes\CustomColumn;
 use Domain\Cms\DataTransferObjects\CmsTableData;
 use Domain\Cms\Exceptions\CmsRollbackException;
 use Domain\Cms\Exceptions\CmsTableCreateException;
@@ -31,7 +32,11 @@ class CmsTableStoreAction
         try {
             $schema->create($data->name, function (Blueprint $table) use ($data) {
                 $data->columns->each(function (CmsColumn $column) use ($table) {
-                    $column->type()->getDefinition($table);
+                    $type = $column->type();
+
+                    if (!$type instanceof CustomColumn) {
+                        $type->getDefinition($table);
+                    }
                 });
             });
 

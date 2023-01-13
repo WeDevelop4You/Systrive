@@ -2,32 +2,35 @@ import {get as _get} from "lodash";
 
 
 class Logic {
-    constructor({key, type, values, returnValue}) {
-        this.key = key;
+    constructor({type, data}) {
         this.type = type;
-        this.values = values;
-        this.returnValue = returnValue;
+        this.data = data;
     }
 
     call(data) {
-        const value = _get(data, this.key)
+        const value = _get(data, this.data.key)
 
         switch (this.type) {
             case 'contain': return this.#contain(value)
+            case 'statement': return this.#statement(value)
             case 'condition': return this.#condition(value)
         }
     }
 
-    #condition(value) {
-        if (this.values.includes(value)) {
-            return this.returnValue.trueValue
-        }
-
-        return this.returnValue.falseValue
+    #contain(value) {
+        return this.data.values.includes(value) === this.data.condition
     }
 
-    #contain(value) {
-        return this.values.includes(value) === this.returnValue
+    #statement(value) {
+        return (value === this.data.compressing) === this.data.condition
+    }
+
+    #condition(value) {
+        if (this.data.values.includes(value)) {
+            return this.data.trueValue
+        }
+
+        return this.data.falseValue
     }
 }
 

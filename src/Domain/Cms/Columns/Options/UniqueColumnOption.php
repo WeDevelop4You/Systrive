@@ -3,7 +3,9 @@
 namespace Domain\Cms\Columns\Options;
 
 use Doctrine\DBAL\Exception;
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
+use Domain\Cms\Columns\Attributes\Validation;
+use Support\Utils\Validations;
+use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,18 +13,20 @@ use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
-
-use function PHPUnit\Framework\isEmpty;
-
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 
-class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnOption
+class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
 {
+    protected function col(): int
+    {
+        return 6;
+    }
+
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'unique';
     }
@@ -30,7 +34,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnO
     /**
      * @inheritDoc
      */
-    public function getDefault(): bool
+    protected function defaultValue(): bool
     {
         return false;
     }
@@ -46,7 +50,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnO
 
         if ($this->getValue()) {
             $columnDefinition->unique($index);
-        } elseif (!isEmpty($column->table_id)) {
+        } elseif (!empty($column->table_id)) {
             $indexes = Schema::connection('cms')
                 ->getConnection()
                 ->getDoctrineSchemaManager()
@@ -69,33 +73,28 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnO
     /**
      * @inheritDoc
      */
-    public function getValidation(FormRequest $request): array|string|object
+    public function getValidation(FormRequest $request): Validations
     {
-        return $this->getValue()
-            ? Rule::unique(CmsModel::class)->ignore($request->item)
-            : false;
+        $validation = $this->getValue()
+            ? [Rule::unique(CmsModel::class)->ignore($request->item)]
+            : [];
+
+        return new Validations($validation);
     }
 
     /**
      * @inheritDoc
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                CheckboxInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setLabel(trans('word.unique'))
-                    ->setVuexNamespace($this->getVuexNameSpace())
-            );
+        return CheckboxInputComponent::create()->setLabel(trans('word.unique'));
     }
 
     /**
      * @inheritDoc
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['boolean', 'nullable'];
+        return new Validations(['boolean', 'nullable']);
     }
 }

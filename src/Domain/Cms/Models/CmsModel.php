@@ -37,7 +37,7 @@ class CmsModel extends Model
 
         $this->setTable($table->name);
         $this->fillable(
-            $table->columns()->pluck(CmsColumnTableMap::COL_KEY)->toArray()
+            $table->fillableColumns()->pluck(CmsColumnTableMap::COL_KEY)->toArray()
         );
 
         parent::__construct($attributes);

@@ -3,7 +3,7 @@
 namespace Support\Client\Components\Forms;
 
 use Support\Enums\Component\Form\FormType;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class CustomFormComponent extends AbstractFormComponent
 {
@@ -26,11 +26,11 @@ class CustomFormComponent extends AbstractFormComponent
     }
 
     /**
-     * @param string|VuexNamespaceHelper $vuexNamespace
+     * @param string|VuexNamespace $vuexNamespace
      *
      * @return static
      */
-    public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static
+    public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {
         $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 

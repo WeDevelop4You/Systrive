@@ -2,6 +2,9 @@
 
 namespace Support\Client\Components\Forms\Inputs;
 
+use Illuminate\Support\Collection;
+use Symfony\Component\Mime\MimeTypes;
+
 class FileInputComponent extends AbstractInputComponent
 {
     /**
@@ -20,6 +23,21 @@ class FileInputComponent extends AbstractInputComponent
     protected function getComponentName(): string
     {
         return 'FileInputComponent';
+    }
+
+    /**
+     * @param array $extensions
+     *
+     * @return $this
+     */
+    public function setAccept(array $extensions): static
+    {
+        return $this->setAttribute(
+            'accept',
+            Collection::make($extensions)->map(
+                fn (string $extension) => (new MimeTypes())->getMimeTypes($extension)
+            )->unique()->toArray()
+        );
     }
 
     /**

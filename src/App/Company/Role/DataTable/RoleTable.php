@@ -13,7 +13,7 @@
     use Support\Client\DataTable\Build\Column;
     use Support\Enums\Component\IconType;
     use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
-    use Support\Helpers\VuexNamespaceHelper;
+    use Support\Utils\VuexNamespace;
 
     class RoleTable extends AbstractTable
     {
@@ -59,7 +59,7 @@
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()->dispatch(
-                                        VuexNamespaceHelper::createCompanyWhenAdmin('roles/edit'),
+                                        VuexNamespace::createCompanyWhenAdmin('roles/edit'),
                                         route('company.role.edit', $params)
                                     )
                                 )

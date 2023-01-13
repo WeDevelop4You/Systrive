@@ -2,10 +2,11 @@
 
 namespace Domain\Cms\Columns\Types;
 
+use Domain\Cms\Columns\Attributes\DirtyColumn;
+use Domain\Cms\Columns\Attributes\Validation;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Attributes\ArgumentColumnOption;
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
-use Domain\Cms\Columns\Options\Attributes\ValidationColumnOption;
+use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsModel;
@@ -19,6 +20,7 @@ use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 abstract class AbstractColumnType
 {
@@ -69,29 +71,23 @@ abstract class AbstractColumnType
     }
 
     /**
-     * @return array
-     */
-    private function getArguments(): array
-    {
-        return $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof ArgumentColumnOption
-        )->mapWithKeys(
-            fn (ArgumentColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
-        )->prepend($this->getKey(), 'column')->toArray();
-    }
-
-    /**
      * @param Blueprint $table
      *
      * @return ColumnDefinition|ForeignIdColumnDefinition
      */
     final public function getDefinition(Blueprint $table): ColumnDefinition|ForeignIdColumnDefinition
     {
-        $column = App::call([$table, $this->type()], $this->getArguments());
+        $arguments = $this->getProperties()->filter(
+            fn (AbstractColumnOption $option) => $option instanceof ArgumentDirtyColumnOption
+        )->mapWithKeys(
+            fn (ArgumentDirtyColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
+        )->prepend($this->getKey(), 'column')->toArray();
+
+        $column = App::call([$table, $this->type()], $arguments);
 
         $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof PropertyColumnOption
-        )->each(function (PropertyColumnOption $option) use ($column, $table) {
+            fn (AbstractColumnOption $option) => $option instanceof PropertyDirtyColumnOption
+        )->each(function (PropertyDirtyColumnOption $option) use ($column, $table) {
             $original = $this->getPropertyValue($option->getKey());
 
             if ($option->isDirty($original)) {
@@ -102,6 +98,9 @@ abstract class AbstractColumnType
         return $column;
     }
 
+    /**
+     * @return Column
+     */
     final public function getColumnComponent(): Column
     {
         return $this->columnComponent();
@@ -115,15 +114,20 @@ abstract class AbstractColumnType
         return InputColWrapper::create()->setCol($col)->setInput($input);
     }
 
+    /**
+     * @param FormRequest $request
+     *
+     * @return array
+     */
     final public function getValidations(FormRequest $request): array
     {
-        return $this->getProperties()
-            ->filter(fn (AbstractColumnOption $option) => $option instanceof ValidationColumnOption)
-            ->map(fn (ValidationColumnOption $option) => $option->getValidation($request))
-            ->add($this->validation($request))
-            ->flatten()
-            ->filter()
-            ->toArray();
+        $validations = $this->validation($request);
+
+        $this->getProperties()
+             ->filter(fn (AbstractColumnOption $option) => $option instanceof Validation)
+             ->each(fn (Validation $option) => $validations->add($option->getValidation($request)));
+
+        return $validations->toArray($this->getKey());
     }
 
     /**
@@ -135,7 +139,7 @@ abstract class AbstractColumnType
             ->filter(function (AbstractColumnOption $option) {
                 $original = $this->getPropertyValue($option->getKey());
 
-                return $option instanceof ValidationColumnOption && $option->isDirty($original);
+                return $option instanceof DirtyColumn && $option->isDirty($original);
             })->isNotEmpty();
     }
 
@@ -186,7 +190,7 @@ abstract class AbstractColumnType
     /**
      * @param FormRequest $request
      *
-     * @return array
+     * @return validations
      */
-    abstract protected function validation(FormRequest $request): array;
+    abstract protected function validation(FormRequest $request): validations;
 }

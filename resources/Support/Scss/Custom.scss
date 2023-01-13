@@ -47,9 +47,11 @@ $border-color-hover: var(--v-theme-border-hover-color);
     display: grid;
 }
 
-.col:has(.v-input-hidden)
-{
-    display:none !important;
+.col,
+[class*=col-] {
+    &:has(> .v-input-hidden) {
+        display: none !important;
+    }
 }
 
 .gap-3 {

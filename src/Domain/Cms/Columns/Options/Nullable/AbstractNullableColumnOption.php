@@ -2,19 +2,21 @@
 
 namespace Domain\Cms\Columns\Options\Nullable;
 
+use Domain\Cms\Columns\Attributes\Validation;
+use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyColumnOption
+abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
 {
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'nullable';
     }
@@ -22,7 +24,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     /**
      * @inheritDoc
      */
-    public function getDefault(): bool
+    protected function defaultValue(): bool
     {
         return false;
     }
@@ -46,16 +48,16 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     /**
      * @inheritDoc
      */
-    public function getValidation(FormRequest $request): string
+    public function getValidation(FormRequest $request): Validations
     {
-        return $this->getValue() ? 'nullable' : 'required';
+        return new Validations([$this->getValue() ? 'nullable' : 'required']);
     }
 
     /**
      * @inheritDoc
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['boolean', 'nullable'];
+        return new Validations(['boolean', 'nullable']);
     }
 }

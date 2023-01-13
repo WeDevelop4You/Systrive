@@ -2,12 +2,12 @@
 
 namespace App\Company\Cms\Requests;
 
-use Domain\Cms\Models\CmsTable;
+use Domain\Cms\Columns\Attributes\CustomValidation;
+use Domain\Cms\Models\CmsColumn;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
- * @property CmsTable $table
+ * @property CmsColumn $column
  */
 class CmsTableItemFileRequest extends FormRequest
 {
@@ -16,9 +16,12 @@ class CmsTableItemFileRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'key' => ['required', Rule::in([])],
-            'file' => '',
-        ];
+        $type = $this->column->type();
+
+        if ($type instanceof CustomValidation) {
+            return $type->getCustomValidation($this)->toArray('file');
+        }
+
+        return [];
     }
 }

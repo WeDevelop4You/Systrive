@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {get} from 'lodash'
+    import {get as _get} from 'lodash'
     import LCol from "../../Layouts/Col.vue";
     import ComponentBase from "../../Base/ComponentBase";
 
@@ -34,7 +34,7 @@
             },
 
             cols() {
-                return get(this.data, this.value.data.path)
+                return _get(this.data, this.value.data.path)
             }
         }
     }

@@ -6,14 +6,14 @@
     use Domain\Invite\Enums\InviteTypes;
     use Domain\Invite\Models\Invite;
     use Domain\User\Models\User;
-    use Support\Helpers\TokenGeneratorHelper;
+    use Support\Utils\TokenGenerator;
 
     class CreateInviteAction
     {
         /**
-         * @var TokenGeneratorHelper
+         * @var TokenGenerator
          */
-        private TokenGeneratorHelper $token;
+        private TokenGenerator $token;
 
         /**
          * CreateInviteAction constructor.
@@ -27,7 +27,7 @@
             private readonly Company $company,
             private readonly InviteTypes $type,
         ) {
-            $this->token = TokenGeneratorHelper::create();
+            $this->token = TokenGenerator::create();
 
             Invite::whereInviteByUserAndCompany($user, $company)
                 ->whereType($this->type)

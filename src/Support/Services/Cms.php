@@ -18,7 +18,7 @@ class Cms
     /**
      * @var CmsDatabase|null
      */
-    private static ?CmsDatabase $database = null;
+    private static ?CmsDatabase $cms = null;
 
     /**
      * @param int $id
@@ -41,7 +41,7 @@ class Cms
      */
     public static function createConnection(CmsDatabase $cms): void
     {
-        if ($cms->isNot(self::$database)) {
+        if ($cms->isNot(self::$cms)) {
             $default = Config::get('database.connections.cms', []);
 
             Config::set('database.connections.cms', [
@@ -53,7 +53,7 @@ class Cms
 
             DB::connection('cms')->reconnect();
 
-            self::$database = $cms;
+            self::$cms = $cms;
         }
     }
 
@@ -70,6 +70,14 @@ class Cms
         if ($table instanceof CmsTable) {
             self::setTable($table);
         }
+    }
+
+    /**
+     * @return CmsDatabase|null
+     */
+    public static function getCms(): ?CmsDatabase
+    {
+        return self::$cms;
     }
 
     /**

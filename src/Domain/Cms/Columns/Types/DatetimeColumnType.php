@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Columns\Types;
 
+use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\Defaults\DefaultTimestampColumnOption;
 use Domain\Cms\Columns\Options\Nullable\NullableTimestampColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
@@ -79,8 +80,8 @@ class DatetimeColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return $this->validation;
+        return new Validations($this->validation);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Columns\Types;
 
+use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\Defaults\DefaultBooleanColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
@@ -70,8 +71,8 @@ class BooleanColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return ['boolean'];
+        return new Validations(['boolean']);
     }
 }

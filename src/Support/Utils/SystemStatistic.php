@@ -1,13 +1,13 @@
 <?php
 
-    namespace Support\Helpers;
+    namespace Support\Utils;
 
     use Domain\System\Enums\SystemUsageStatisticTypes;
     use Domain\System\Models\SystemUsageStatistic;
     use Illuminate\Database\Eloquent\Model;
     use Illuminate\Support\Carbon;
 
-    class SystemStatisticHelper
+    class SystemStatistic
     {
         private SystemUsageStatistic $systemUsageStatistic;
 
@@ -26,9 +26,9 @@
         /**
          * @param Model $model
          *
-         * @return SystemStatisticHelper
+         * @return SystemStatistic
          */
-        public static function create(Model $model): SystemStatisticHelper
+        public static function create(Model $model): SystemStatistic
         {
             return new static($model);
         }
@@ -38,7 +38,7 @@
          *
          * @return $this
          */
-        public function setType(SystemUsageStatisticTypes $type): SystemStatisticHelper
+        public function setType(SystemUsageStatisticTypes $type): SystemStatistic
         {
             $this->systemUsageStatistic->type = $type;
 
@@ -50,7 +50,7 @@
          *
          * @return $this
          */
-        public function setTotal(int $total): SystemStatisticHelper
+        public function setTotal(int $total): SystemStatistic
         {
             $this->systemUsageStatistic->total = $total;
 

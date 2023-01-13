@@ -47,7 +47,7 @@ class CmsColumnCollections extends Collection
     public function createFormRules(FormRequest $request): CollectionBase
     {
         return $this->mapWithKeys(function (CmsColumn $column) use ($request) {
-            return [$column->key => $column->type()->getValidations($request)];
+            return $column->type()->getValidations($request);
         });
     }
 }

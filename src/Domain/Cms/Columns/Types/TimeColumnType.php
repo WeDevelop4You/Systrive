@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\TimePickerInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class TimeColumnType extends AbstractColumnType
 {
@@ -79,8 +80,8 @@ class TimeColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return $this->validation;
+        return new Validations($this->validation);
     }
 }

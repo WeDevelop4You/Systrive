@@ -20,7 +20,7 @@
     use Support\Client\DataTable\Build\Column;
     use Support\Enums\Component\IconType;
     use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
-    use Support\Helpers\VuexNamespaceHelper;
+    use Support\Utils\VuexNamespace;
 
     class UserTable extends AbstractTable
     {
@@ -94,7 +94,7 @@
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()->dispatch(
-                                        VuexNamespaceHelper::createCompanyWhenAdmin("users/edit"),
+                                        VuexNamespace::createCompanyWhenAdmin("users/edit"),
                                         route('company.user.edit', $params)
                                     )
                                 )

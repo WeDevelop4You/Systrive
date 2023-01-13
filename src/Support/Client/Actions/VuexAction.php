@@ -4,17 +4,17 @@
 
     use Ramsey\Uuid\UuidInterface;
     use Support\Client\Components\Popups\Modals\DialogComponent;
-    use Support\Helpers\VuexNamespaceHelper;
+    use Support\Utils\VuexNamespace;
 
     class VuexAction extends Action
     {
         /**
-         * @param string|VuexNamespaceHelper $vuexNamespace
-         * @param mixed|null                 $params
+         * @param string|VuexNamespace $vuexNamespace
+         * @param mixed|null           $params
          *
          * @return VuexAction
          */
-        public function commit(string|VuexNamespaceHelper $vuexNamespace, mixed $params = null): VuexAction
+        public function commit(string|VuexNamespace $vuexNamespace, mixed $params = null): VuexAction
         {
             $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 
@@ -25,12 +25,12 @@
         }
 
         /**
-         * @param string|VuexNamespaceHelper $vuexNamespace
-         * @param mixed                      $params
+         * @param string|VuexNamespace $vuexNamespace
+         * @param mixed                $params
          *
          * @return VuexAction
          */
-        public function dispatch(string|VuexNamespaceHelper $vuexNamespace, mixed $params = null): VuexAction
+        public function dispatch(string|VuexNamespace $vuexNamespace, mixed $params = null): VuexAction
         {
             $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 
@@ -41,21 +41,21 @@
         }
 
         /**
-         * @param string|VuexNamespaceHelper $vuexNamespace
+         * @param string|VuexNamespace $vuexNamespace
          *
          * @return VuexAction
          */
-        public function refreshTable(string|VuexNamespaceHelper $vuexNamespace): VuexAction
+        public function refreshTable(string|VuexNamespace $vuexNamespace): VuexAction
         {
             return $this->dispatch("{$vuexNamespace}/getItems");
         }
 
         /**
-         * @param string|VuexNamespaceHelper $vuexNamespace
+         * @param string|VuexNamespace $vuexNamespace
          *
          * @return VuexAction
          */
-        public function resetTable(string|VuexNamespaceHelper $vuexNamespace): VuexAction
+        public function resetTable(string|VuexNamespace $vuexNamespace): VuexAction
         {
             return $this->dispatch("{$vuexNamespace}/reset");
         }

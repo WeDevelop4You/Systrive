@@ -4,7 +4,8 @@ namespace Domain\Cms\Columns\Options\Defaults;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Utils\Validations;
 
 class DefaultIntegerColumnOption extends AbstractDefaultColumnOption
 {
@@ -22,22 +23,16 @@ class DefaultIntegerColumnOption extends AbstractDefaultColumnOption
     /**
      * @inheritDoc
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setComponent(
-                NumberInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setVuexNamespace($this->getVuexNamespace())
-                    ->setLabel(trans('word.default.value'))
-            );
+        return NumberInputComponent::create()->setLabel(trans('word.default.value'));
     }
 
     /**
      * @inheritDoc
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['nullable', ...$this->requirements];
+        return new Validations(['nullable', ...$this->requirements]);
     }
 }

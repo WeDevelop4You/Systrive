@@ -13,6 +13,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\TextInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class StringColumnType extends AbstractColumnType
 {
@@ -64,10 +65,10 @@ class StringColumnType extends AbstractColumnType
     /**
      * @param FormRequest $request
      *
-     * @return string[]
+     * @return validations
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return ['string'];
+        return new Validations(['string']);
     }
 }

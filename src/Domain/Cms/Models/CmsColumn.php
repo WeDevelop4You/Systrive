@@ -142,15 +142,16 @@ class CmsColumn extends Model
 
     /**
      * @param Builder $query
+     * @param bool    $not
      *
      * @return Builder
      */
-    public function scopeFileType(Builder $query): Builder
+    public function scopeFileType(Builder $query, bool $not = true): Builder
     {
         return $query->whereIn(CmsColumnTableMap::COL_TYPE, [
             CmsColumnType::FILE->value,
             CmsColumnType::IMAGE->value,
-        ]);
+        ], not: !$not);
     }
 
     /**

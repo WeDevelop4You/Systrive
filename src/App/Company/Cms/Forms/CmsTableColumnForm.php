@@ -59,7 +59,7 @@ class CmsTableColumnForm extends AbstractForm
                             ->setLabel(trans('word.hidden'))
                             ->setKey(CmsColumnTableMap::COL_HIDDEN)
                             ->addHiddenLogic(
-                                Logic::create('type.value', CmsColumnType::RICH_TEXT->value)->contain()
+                                Logic::if('type.value')->setCompressing(CmsColumnType::RICH_TEXT->value)
                             )
                     ),
                 InputColWrapper::create()
@@ -111,7 +111,7 @@ class CmsTableColumnForm extends AbstractForm
                     ->setText($columnType->trans())
                     ->setValue($columnType->value)
                     ->setAdditionalData($columnType->getOptions()->map(
-                        fn (AbstractColumnOption $option) => $option->getFormComponent($this->isEditing)->export()
+                        fn (AbstractColumnOption $option) => $option->getInputComponent($this->isEditing)->export()
                     ))
                     ->setDisabled($columnType === CmsColumnType::ID);
             })->toArray();

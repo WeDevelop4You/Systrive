@@ -11,14 +11,14 @@ use Support\Client\Components\Buttons\ButtonComponent;
 use Support\Client\Components\Buttons\MultipleButtonComponent;
 use Support\Client\Components\Forms\AbstractFormComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class FormModal extends AbstractModal
 {
     /**
-     * @var string|VuexNamespaceHelper|null
+     * @var string|VuexNamespace|null
      */
-    private readonly string|null|VuexNamespaceHelper $vuexNamespace;
+    private readonly string|null|VuexNamespace $vuexNamespace;
 
     /**
      * @var CardHeaderComponent
@@ -33,14 +33,14 @@ class FormModal extends AbstractModal
     /**
      * FormModal constructor.
      *
-     * @param string|VuexNamespaceHelper|null $vuexNamespace
-     * @param string|null                     $dataTableVuexNamespace
-     * @param bool                            $withoutDataTableRefresh
+     * @param string|VuexNamespace|null $vuexNamespace
+     * @param string|null               $dataTableVuexNamespace
+     * @param bool                      $withoutDataTableRefresh
      */
     protected function __construct(
-        string|null|VuexNamespaceHelper $vuexNamespace = null,
-        private readonly ?string $dataTableVuexNamespace = null,
-        private readonly bool $withoutDataTableRefresh = false
+        string|null|VuexNamespace $vuexNamespace = null,
+        private readonly ?string  $dataTableVuexNamespace = null,
+        private readonly bool     $withoutDataTableRefresh = false
     ) {
         parent::__construct();
 

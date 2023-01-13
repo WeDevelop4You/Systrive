@@ -2,12 +2,14 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Options\Attributes\ArgumentColumnOption;
+use Domain\Cms\Columns\Attributes\Validation;
+use Support\Utils\Validations;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
 
-class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColumnOption
+class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption, Validation
 {
     public function __construct(
         private readonly int $default
@@ -17,7 +19,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColu
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'max_length';
     }
@@ -25,7 +27,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColu
     /**
      * @inheritDoc
      */
-    public function getDefault(): int
+    protected function defaultValue(): int
     {
         return $this->default;
     }
@@ -49,9 +51,9 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColu
     /**
      * @inheritDoc
      */
-    public function getValidation(FormRequest $request): array|string
+    public function getValidation(FormRequest $request): Validations
     {
-        return "max:{$this->getValue()}";
+        return new Validations(["max:{$this->getValue()}"]);
     }
 
     /**
@@ -59,23 +61,18 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColu
      *
      * @inheritDoc
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setComponent(
-                NumberInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setDefaultValue($this->getDefault())
-                    ->setLabel(trans('word.max.length'))
-                    ->setVuexNamespace($this->getVuexNameSpace())
-            );
+        return NumberInputComponent::create()
+            ->setDefaultValue($this->defaultValue())
+            ->setLabel(trans('word.max.length'));
     }
 
     /**
      * @inheritDoc
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['required', 'integer', "between:1,{$this->default}"];
+        return new Validations(['required', 'integer', "between:1,{$this->default}"]);
     }
 }

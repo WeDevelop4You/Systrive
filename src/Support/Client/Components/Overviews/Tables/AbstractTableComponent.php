@@ -4,7 +4,7 @@ namespace Support\Client\Components\Overviews\Tables;
 
 use Illuminate\Support\Arr;
 use Support\Client\Components\Component;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 abstract class AbstractTableComponent extends Component
 {
@@ -32,11 +32,11 @@ abstract class AbstractTableComponent extends Component
     }
 
     /**
-     * @param string|VuexNamespaceHelper $vuexNamespace
+     * @param string|VuexNamespace $vuexNamespace
      *
      * @return $this
      */
-    public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static
+    public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {
         $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 

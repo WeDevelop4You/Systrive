@@ -2,12 +2,13 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Options\Attributes\ArgumentColumnOption;
+use Support\Utils\Validations;
+use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 
-class TotalColumnOption extends AbstractColumnOption implements ArgumentColumnOption
+class TotalColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption
 {
     public function __construct(
         private readonly array $requirements,
@@ -16,10 +17,15 @@ class TotalColumnOption extends AbstractColumnOption implements ArgumentColumnOp
         //
     }
 
+    protected function col(): int
+    {
+        return 6;
+    }
+
     /**
      * @inheritDoc
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'total';
     }
@@ -27,7 +33,7 @@ class TotalColumnOption extends AbstractColumnOption implements ArgumentColumnOp
     /**
      * @inheritDoc
      */
-    public function getDefault(): ?int
+    protected function defaultValue(): ?int
     {
         return $this->default;
     }
@@ -51,32 +57,18 @@ class TotalColumnOption extends AbstractColumnOption implements ArgumentColumnOp
     /**
      * @inheritDoc
      */
-    public function getValidation(FormRequest $request): array|string|object
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return [];
+        return NumberInputComponent::create()
+            ->setLabel(trans('word.total.numbers'))
+            ->setDefaultValue($this->defaultValue());
     }
 
     /**
      * @inheritDoc
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function requirements(FormRequest $request): Validations
     {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                NumberInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setLabel(trans('word.total.numbers'))
-                    ->setVuexNamespace($this->getVuexNamespace())
-                    ->setDefaultValue($this->getDefault())
-            );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getRequirements(FormRequest $request): array
-    {
-        return ['nullable', ...$this->requirements];
+        return new Validations(['nullable', ...$this->requirements]);
     }
 }

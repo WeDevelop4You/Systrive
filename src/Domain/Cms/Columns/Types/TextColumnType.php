@@ -10,6 +10,7 @@ use Str;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\TextareaInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class TextColumnType extends AbstractColumnType
 {
@@ -56,8 +57,8 @@ class TextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return ['string'];
+        return new Validations(['string']);
     }
 }

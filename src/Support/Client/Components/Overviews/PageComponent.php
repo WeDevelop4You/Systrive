@@ -3,7 +3,7 @@
 namespace Support\Client\Components\Overviews;
 
 use Support\Client\Components\Component;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class PageComponent extends Component
 {
@@ -16,11 +16,11 @@ class PageComponent extends Component
     }
 
     /**
-     * @param string|VuexNamespaceHelper $vuexNamespace
+     * @param string|VuexNamespace $vuexNamespace
      *
      * @return static
      */
-    public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static
+    public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {
         $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 

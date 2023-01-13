@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Columns\Options\Nullable;
 
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
@@ -15,6 +16,11 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
         private readonly ?string $type
     ) {
         //
+    }
+
+    protected function col(): int
+    {
+        return 6;
     }
 
     /**
@@ -42,19 +48,13 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
      *
      * @inheritDoc
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                CheckboxInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setLabel(trans('word.nullable'))
-                    ->setVuexNamespace($this->getVuexNameSpace())
-                    ->setHintIf(
-                        $isEditing,
-                        trans('text.time.not.null.use.now')
-                    )
+        return CheckboxInputComponent::create()
+            ->setLabel(trans('word.nullable'))
+            ->setHintIf(
+                $isEditing,
+                trans('text.time.not.null.use.now')
             );
     }
 }

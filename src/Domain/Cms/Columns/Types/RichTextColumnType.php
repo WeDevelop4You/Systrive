@@ -10,6 +10,7 @@ use Str;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\RichTextareaInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class RichTextColumnType extends AbstractColumnType
 {
@@ -58,8 +59,8 @@ class RichTextColumnType extends AbstractColumnType
     /**
      * @inheritDoc
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return ['string'];
+        return new Validations(['string']);
     }
 }

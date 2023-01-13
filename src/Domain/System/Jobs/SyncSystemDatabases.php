@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommand;
-use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
+use Support\Utils\SystemStatistic;
 
 class SyncSystemDatabases extends AbstractVestaSync
 {
@@ -98,7 +98,7 @@ class SyncSystemDatabases extends AbstractVestaSync
         $usage = $this->system->databases->map(function (SystemDatabase $systemDatabase) {
             $database = $this->syncData->get($systemDatabase->name);
 
-            return SystemStatisticHelper::create($systemDatabase)
+            return SystemStatistic::create($systemDatabase)
                 ->setType(SystemUsageStatisticTypes::DISK)
                 ->setTotal($database['U_DISK'])
                 ->toArray();

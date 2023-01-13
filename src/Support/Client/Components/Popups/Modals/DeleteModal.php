@@ -11,7 +11,7 @@ use Support\Client\Components\Buttons\MultipleButtonComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
 use Support\Enums\Component\Vuetify\VuetifyColor;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class DeleteModal extends AbstractModal
 {
@@ -33,12 +33,12 @@ class DeleteModal extends AbstractModal
     /**
      * DeleteModal constructor.
      *
-     * @param string|VuexNamespaceHelper|null $vuexNamespace
-     * @param bool                            $deleted
+     * @param string|VuexNamespace|null $vuexNamespace
+     * @param bool                      $deleted
      */
     protected function __construct(
-        string|null|VuexNamespaceHelper $vuexNamespace = null,
-        private readonly bool $deleted = false,
+        string|null|VuexNamespace $vuexNamespace = null,
+        private readonly bool     $deleted = false,
     ) {
         parent::__construct();
 

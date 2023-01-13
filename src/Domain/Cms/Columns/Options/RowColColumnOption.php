@@ -4,9 +4,9 @@ namespace Domain\Cms\Columns\Options;
 
 use Domain\Cms\Columns\Options\Types\ComponentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\SelectInputComponent;
 use Support\Client\Components\Forms\Utils\KeyValueObject;
-use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Utils\Validations;
 
 class RowColColumnOption extends AbstractColumnOption implements ComponentColumnOption

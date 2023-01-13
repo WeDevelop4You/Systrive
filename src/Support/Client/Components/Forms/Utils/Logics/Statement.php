@@ -5,7 +5,7 @@ namespace Support\Client\Components\Forms\Utils\Logics;
 class Statement extends AbstractLogic
 {
     /**
-     * Contain constructor
+     * Contain constructor.
      *
      * @param string $key
      * @param bool   $condition

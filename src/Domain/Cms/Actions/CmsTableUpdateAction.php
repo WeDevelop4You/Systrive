@@ -78,7 +78,7 @@ class CmsTableUpdateAction
     /**
      * @param Collection $columns
      *
-     * @return Collection[]|array
+     * @return array|Collection[]
      */
     private function partitionColumns(Collection $columns): array
     {

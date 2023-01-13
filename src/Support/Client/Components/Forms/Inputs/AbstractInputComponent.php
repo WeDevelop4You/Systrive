@@ -174,7 +174,7 @@ abstract class AbstractInputComponent extends Component
     }
 
     /**
-     * @param bool|AbstractLogic|string $condition
+     * @param AbstractLogic|bool|string $condition
      *
      * @return $this
      */

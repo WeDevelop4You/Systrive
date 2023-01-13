@@ -3,13 +3,13 @@
 namespace Domain\Cms\Columns\Options\Nullable;
 
 use Domain\Cms\Columns\Attributes\Validation;
-use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Utils\Validations;
 
 abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
 {

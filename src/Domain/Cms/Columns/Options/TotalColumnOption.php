@@ -2,11 +2,11 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\NumberInputComponent;
+use Support\Utils\Validations;
 
 class TotalColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption
 {

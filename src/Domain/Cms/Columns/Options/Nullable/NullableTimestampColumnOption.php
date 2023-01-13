@@ -2,13 +2,12 @@
 
 namespace Domain\Cms\Columns\Options\Nullable;
 
-use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Support\Carbon;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
 
 class NullableTimestampColumnOption extends AbstractNullableColumnOption
 {

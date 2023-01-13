@@ -26,7 +26,7 @@ class CmsTableItemSaveController
     {
         $model = CmsModel::latest()->firstOrNew()->fill($request->validated());
 
-        
+
 
         if ($model->isDirty()) {
             $success = $model->replicate()->save();

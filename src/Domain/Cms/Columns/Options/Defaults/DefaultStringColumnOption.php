@@ -7,7 +7,6 @@ use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\TextInputComponent;
 use Support\Utils\Validations;
 
-
 class DefaultStringColumnOption extends AbstractDefaultColumnOption
 {
     /**

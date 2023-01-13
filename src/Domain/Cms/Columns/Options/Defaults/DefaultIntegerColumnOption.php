@@ -3,8 +3,8 @@
 namespace Domain\Cms\Columns\Options\Defaults;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
+use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Utils\Validations;
 
 class DefaultIntegerColumnOption extends AbstractDefaultColumnOption

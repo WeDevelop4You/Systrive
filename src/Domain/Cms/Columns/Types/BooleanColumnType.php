@@ -2,7 +2,6 @@
 
 namespace Domain\Cms\Columns\Types;
 
-use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\Defaults\DefaultBooleanColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
@@ -15,6 +14,7 @@ use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
+use Support\Utils\Validations;
 
 class BooleanColumnType extends AbstractColumnType
 {

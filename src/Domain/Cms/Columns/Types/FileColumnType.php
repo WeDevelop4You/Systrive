@@ -68,7 +68,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
                 $cms->company_id,
                 $cms->id,
                 $table->id,
-                $this->column->id
+                $this->column->id,
             ]))
             ->setAccept($this->getPropertyValue('types'))
             ->setMultiple(
@@ -86,7 +86,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
             ['array'],
             ['*' => [
                 'name' => new Validations(['required', 'string']),
-                'identifier' => new Validations(['required', 'string'])
+                'identifier' => new Validations(['required', 'string']),
             ]]
         );
     }
@@ -100,7 +100,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
             'required',
             File::types($this->getPropertyValue('types', []))
                 ->max($this->getPropertyValue('size', 5120))
-                ->min(1)
+                ->min(1),
         ]);
     }
 }

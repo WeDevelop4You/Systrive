@@ -10,7 +10,6 @@ class Storage
 {
     private function __construct()
     {
-
     }
 
     /**
@@ -22,9 +21,9 @@ class Storage
     }
 
     /**
-     * @param File|UploadedFile|string $file
+     * @param File|string|UploadedFile $file
      *
-     * @return string|false
+     * @return false|string
      */
     public function preUpload(File|UploadedFile|string $file): string|bool
     {
@@ -33,11 +32,9 @@ class Storage
 
     public function upload()
     {
-
     }
 
     public function uploadTmp()
     {
-
     }
 }

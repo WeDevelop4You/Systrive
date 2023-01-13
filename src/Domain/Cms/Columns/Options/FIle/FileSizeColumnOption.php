@@ -38,7 +38,7 @@ class FileSizeColumnOption extends AbstractColumnOption implements ComponentColu
     }
 
     /**
-     * max file size 10MB
+     * max file size 10MB.
      *
      * @inheritDoc
      */

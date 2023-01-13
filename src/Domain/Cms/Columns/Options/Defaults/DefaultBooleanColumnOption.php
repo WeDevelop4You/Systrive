@@ -2,8 +2,8 @@
 
 namespace Domain\Cms\Columns\Options\Defaults;
 
-use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Utils\Validations;
 

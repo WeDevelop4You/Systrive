@@ -18,7 +18,7 @@ class Validations
     private array $validations;
 
     /**
-     * Validations constructor
+     * Validations constructor.
      *
      * @param array $validations
      * @param array $additional

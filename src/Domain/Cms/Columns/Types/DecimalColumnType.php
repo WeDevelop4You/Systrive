@@ -2,7 +2,6 @@
 
 namespace Domain\Cms\Columns\Types;
 
-use Support\Utils\Validations;
 use Domain\Cms\Columns\Options\Defaults\DefaultIntegerColumnOption;
 use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
 use Domain\Cms\Columns\Options\PlacesColumnOption;
@@ -15,6 +14,7 @@ use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class DecimalColumnType extends AbstractColumnType
 {

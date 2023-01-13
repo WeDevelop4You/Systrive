@@ -32,7 +32,7 @@ class CmsTableItemFileUploader
 
             $path = Storage::create()->preUpload($file);
 
-            if (is_string($path)) {
+            if (\is_string($path)) {
                 return Response::create()->addData([
                     'identifier' => $path,
                     'name' => $file->getClientOriginalName(),

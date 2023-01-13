@@ -21,15 +21,15 @@ use Support\Utils\Decrypt;
 /**
  * Domain\Cms\Models\Cms.
  *
- * @property int               $id
- * @property int|null          $company_id
- * @property string            $name
- * @property string            $database
- * @property Decrypt           $username
- * @property Decrypt           $password
- * @property Carbon|null       $created_at
- * @property Carbon|null       $updated_at
- * @property Carbon|null       $deleted_at
+ * @property int         $id
+ * @property int|null    $company_id
+ * @property string      $name
+ * @property string      $database
+ * @property Decrypt     $username
+ * @property Decrypt     $password
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property-read Company|null $company
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newModelQuery()

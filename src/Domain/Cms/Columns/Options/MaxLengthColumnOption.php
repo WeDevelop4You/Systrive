@@ -3,11 +3,11 @@
 namespace Domain\Cms\Columns\Options;
 
 use Domain\Cms\Columns\Attributes\Validation;
-use Support\Utils\Validations;
-use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
+use Support\Utils\Validations;
 
 class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption, Validation
 {

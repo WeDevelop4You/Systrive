@@ -10,7 +10,7 @@ abstract class AbstractLogic
     private array $data = [];
 
     /**
-     * Contain constructor
+     * Contain constructor.
      *
      * @param string $key
      */

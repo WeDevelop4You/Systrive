@@ -1,1 +1,0 @@
-import{n as r}from"./75131b1e.js";const _={name:"Profile"};var s=function(){var n=this,e=n._self._c;return e("div",[n._v(" "+n._s(n.$auth.user())+" ")])},l=[],o=r(_,s,l,!1,null,null,null,null);const c=o.exports;export{c as default};

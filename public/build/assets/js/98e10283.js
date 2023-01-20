@@ -1,1 +1,0 @@
-import{c as e,_ as r}from"./e49d6570.js";import{n as t}from"./75131b1e.js";const s={name:"Icon",mixins:[e],props:{color:{type:String,default:void 0}}};var _=function(){var n=this,o=n._self._c;return o(r,{attrs:{color:n.color}},[n._v(" "+n._s(n.value.content.type)+" ")])},c=[],l=t(s,_,c,!1,null,null,null,null);const m=l.exports;export{m as I};

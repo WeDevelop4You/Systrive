@@ -1,0 +1,1 @@
+import{C as e}from"./5ecbb865.js";import o from"./fb26d87e.js";const a={components:{ViewLayer:o},data(){return{overview:new e({})}},created(){this.load()},methods:{load(){this.overview.data.route=this.getRoute}}};export{a as V};

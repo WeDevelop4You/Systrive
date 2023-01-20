@@ -1,0 +1,1 @@
+import{n as s}from"./75131b1e.js";const t={name:"Company",props:{response:{required:!0,type:Array}},created(){this.response.forEach(e=>{this.$responseChain(e)}),this.$auth.load(),this.$store.dispatch("navigation/sub")}};var a=function(){var r=this,n=r._self._c;return n("router-view")},o=[],i=s(t,a,o,!1,null,null,null,null);const c=i.exports;export{c as default};

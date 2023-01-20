@@ -1,1 +1,0 @@
-import{V as n}from"./e60bc734.js";const o=n.extend({name:"v-list-item-action",functional:!0,render(e,{data:t,children:i=[]}){return t.staticClass=t.staticClass?`v-list-item__action ${t.staticClass}`:"v-list-item__action",i.filter(s=>s.isComment===!1&&s.text!==" ").length>1&&(t.staticClass+=" v-list-item__action--stack"),e("div",t,i)}});export{o as _};

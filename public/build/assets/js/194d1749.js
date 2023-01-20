@@ -1,1 +1,0 @@
-import{C as r}from"./97d45361.js";import{n as t}from"./75131b1e.js";import"./e60bc734.js";const o={name:"Empty",extends:r};var s=function(){var n=this,e=n._self._c;return e("div")},a=[],m=t(o,s,a,!1,null,null,null,null);const f=m.exports;export{f as default};

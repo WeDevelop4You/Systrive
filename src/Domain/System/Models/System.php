@@ -24,6 +24,7 @@ use Illuminate\Support\Carbon;
  * @property-read \Domain\System\Models\SystemDNS[]|\Illuminate\Database\Eloquent\Collection $dns
  * @property-read \Domain\System\Models\SystemDomain[]|\Illuminate\Database\Eloquent\Collection $domains
  * @property-read \Domain\System\Models\SystemMailDomain[]|\Illuminate\Database\Eloquent\Collection $mailDomains
+ *
  * @method static Builder|System newModelQuery()
  * @method static Builder|System newQuery()
  * @method static Builder|System query()
@@ -32,6 +33,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|System whereId($value)
  * @method static Builder|System whereUpdatedAt($value)
  * @method static Builder|System whereUsername($value)
+ *
  * @mixin Eloquent
  */
 class System extends Model

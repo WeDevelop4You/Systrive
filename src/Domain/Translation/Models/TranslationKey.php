@@ -16,6 +16,7 @@ use WeDevelop4You\TranslationFinder\Models\TranslationKey as TranslationKeyWeDev
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\WeDevelop4You\TranslationFinder\Models\TranslationSource[] $sources
  * @property-read \Illuminate\Database\Eloquent\Collection|\WeDevelop4You\TranslationFinder\Models\Translation[] $translations
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey query()
@@ -26,6 +27,7 @@ use WeDevelop4You\TranslationFinder\Models\TranslationKey as TranslationKeyWeDev
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey whereTags($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class TranslationKey extends TranslationKeyWeDevelop4You

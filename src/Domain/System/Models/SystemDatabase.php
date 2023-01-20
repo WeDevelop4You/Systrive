@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\System\Models\SystemUsageStatistic[]|\Illuminate\Database\Eloquent\Collection $usageStatistics
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase query()
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDatabase whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class SystemDatabase extends Model

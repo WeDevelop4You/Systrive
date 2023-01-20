@@ -8,7 +8,6 @@ use Domain\Company\states\AbstractCompanyState;
 use Domain\Company\states\AbstractCompanyUserState;
 use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Mappings\InviteTableMap;
-use Domain\Invite\Observers\InviteCreatedObserver;
 use Domain\Invite\QueryBuilders\InviteQueryBuilders;
 use Domain\User\Models\User;
 use Eloquent;
@@ -16,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
-use Support\Traits\Observers;
 
 /**
  * Domain\Invite\Models\Invite.
@@ -28,6 +26,7 @@ use Support\Traits\Observers;
  * @property mixed       $created_at
  * @property-read Company $company
  * @property-read User $user
+ *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
  * @method static InviteQueryBuilders|Invite query()
@@ -42,6 +41,7 @@ use Support\Traits\Observers;
  * @method static InviteQueryBuilders|Invite whereTypeUser()
  * @method static InviteQueryBuilders|Invite whereUserByEmail(string $email)
  * @method static InviteQueryBuilders|Invite whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class Invite extends Model

@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read \Domain\System\Models\SystemUsageStatistic[]|\Illuminate\Database\Eloquent\Collection $usageStatistics
+ *
  * @method static Builder|SystemDomain newModelQuery()
  * @method static Builder|SystemDomain newQuery()
  * @method static Builder|SystemDomain query()
@@ -27,6 +28,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|SystemDomain whereName($value)
  * @method static Builder|SystemDomain whereSystemId($value)
  * @method static Builder|SystemDomain whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class SystemDomain extends Model

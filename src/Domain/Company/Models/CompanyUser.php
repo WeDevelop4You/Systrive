@@ -4,14 +4,11 @@ namespace Domain\Company\Models;
 
 use Domain\Company\Enums\CompanyUserStatusTypes;
 use Domain\Company\Mappings\CompanyUserTableMap;
-use Domain\Company\Observers\CompanyUserDeletingObserver;
-use Domain\Company\Observers\CompanyUserUpdatedObserver;
 use Domain\Company\QueryBuilders\CompanyUserQueryBuilders;
 use Domain\User\Models\User;
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Support\Traits\Observers;
 
 /**
  * Domain\Company\Models\CompanyUser.
@@ -22,6 +19,7 @@ use Support\Traits\Observers;
  * @property int                         $is_owner
  * @property CompanyUserStatusTypes|null $status
  * @property-read User $user
+ *
  * @method static CompanyUserQueryBuilders|CompanyUser firstWithInvite(\Domain\Invite\Models\Invite $invite)
  * @method static CompanyUserQueryBuilders|CompanyUser newModelQuery()
  * @method static CompanyUserQueryBuilders|CompanyUser newQuery()
@@ -31,6 +29,7 @@ use Support\Traits\Observers;
  * @method static CompanyUserQueryBuilders|CompanyUser whereIsOwner($value)
  * @method static CompanyUserQueryBuilders|CompanyUser whereStatus($value)
  * @method static CompanyUserQueryBuilders|CompanyUser whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class CompanyUser extends Pivot

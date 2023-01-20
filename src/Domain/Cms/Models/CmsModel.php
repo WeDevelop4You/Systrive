@@ -4,14 +4,10 @@ namespace Domain\Cms\Models;
 
 use Domain\Cms\Collections\CmsFileCollection;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Mappings\CmsFileTableMap;
-use Domain\Cms\Observers\CmsModelDeletedObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Support\Services\Cms;
-use Support\Traits\Observers;
 
 /**
  * CmsColumnTableMap.
@@ -41,7 +37,7 @@ class CmsModel extends Model
      * @var string[]
      */
     protected $with = [
-        'files'
+        'files',
     ];
 
     /**

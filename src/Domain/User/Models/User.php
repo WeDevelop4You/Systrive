@@ -11,7 +11,6 @@ use Domain\Git\Models\GitAccount;
 use Domain\Role\Mappings\RoleTableMap;
 use Domain\User\Collections\UserCollection;
 use Domain\User\Mappings\UserTableMap;
-use Domain\User\Observers\UserUpdatingObserver;
 use Domain\User\QueryBuilders\UserQueryBuilders;
 use Eloquent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -27,7 +26,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
-use Support\Traits\Observers;
 
 /**
  * Domain\User\Models\User.
@@ -50,9 +48,10 @@ use Support\Traits\Observers;
  * @property-read \Domain\User\Models\UserProfile|null $profile
  * @property-read \Domain\Role\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
  * @property-read \Domain\User\Models\UserSecurity|null $security
- * @method static UserCollection|static[]        all($columns = ['*'])
+ *
+ * @method static UserCollection|static[]         all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
- * @method static UserCollection|static[]        get($columns = ['*'])
+ * @method static UserCollection|static[]         get($columns = ['*'])
  * @method static UserQueryBuilders|User          newModelQuery()
  * @method static UserQueryBuilders|User          newQuery()
  * @method static Builder|User                    onlyTrashed()
@@ -70,6 +69,7 @@ use Support\Traits\Observers;
  * @method static UserQueryBuilders|User          whereUpdatedAt($value)
  * @method static Builder|User                    withTrashed()
  * @method static Builder|User                    withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail

@@ -11,7 +11,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
@@ -51,7 +50,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
 
         if ($this->getValue()) {
             $columnDefinition->unique($index);
-        } elseif (!empty($column->table_id)) {
+        } elseif (! empty($column->table_id)) {
             if (Arr::has($column->table->indexes(), $index)) {
                 $table->dropUnique($index);
             }

@@ -18,9 +18,10 @@ class CmsTableStoreAction
     /**
      * @param CmsTableData $data
      *
+     * @return CmsTable
+     *
      * @throws CmsTableException
      * @throws Throwable
-     * @return CmsTable
      */
     public function __invoke(CmsTableData $data): CmsTable
     {

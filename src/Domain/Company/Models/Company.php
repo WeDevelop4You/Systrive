@@ -9,8 +9,6 @@ use Domain\Company\Enums\CompanyModuleTypes;
 use Domain\Company\Enums\CompanyStatusTypes;
 use Domain\Company\Mappings\CompanyTableMap;
 use Domain\Company\Mappings\CompanyUserTableMap;
-use Domain\Company\Observers\CompanyDeletedObserver;
-use Domain\Company\Observers\CompanySavingObserver;
 use Domain\Company\QueryBuilders\CompanyQueryBuilders;
 use Domain\Company\Scopes\CompanySoftDeletingScope;
 use Domain\Company\Scopes\CompanyViewScope;
@@ -35,7 +33,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use Support\Traits\Observers;
 
 /**
  * Domain\Company\Models\Company.
@@ -48,9 +45,9 @@ use Support\Traits\Observers;
  * @property CompanyStatusTypes             $status
  * @property \Illuminate\Support\Collection $modules
  * @property mixed|null                     $preferences
- * @property Carbon|null                                          $created_at
- * @property Carbon|null                                          $updated_at
- * @property Carbon|null                                          $deleted_at
+ * @property Carbon|null                    $created_at
+ * @property Carbon|null                    $updated_at
+ * @property Carbon|null                    $deleted_at
  * @property-read Cms[]|Collection                                $cms
  * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
  * @property-read Collection|Invite[]                             $invites
@@ -59,6 +56,7 @@ use Support\Traits\Observers;
  * @property-read System|null                                     $system
  * @property-read System|null                                     $systems
  * @property-read User[]|UserCollection                           $users
+ *
  * @method static CompanyCollections|static[]                all($columns = ['*'])
  * @method static CompanyCollections|static[]                get($columns = ['*'])
  * @method static CompanyQueryBuilders|Company               newModelQuery()
@@ -78,6 +76,7 @@ use Support\Traits\Observers;
  * @method static CompanyQueryBuilders|Company               whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Company withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Company withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Company extends Model
@@ -301,7 +300,7 @@ class Company extends Model
      */
     public function storagePath(): Stringable
     {
-        return Str::of("companies/")
+        return Str::of('companies/')
             ->append(md5($this->id));
     }
 

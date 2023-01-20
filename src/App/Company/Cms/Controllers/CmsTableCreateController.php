@@ -6,7 +6,6 @@ use App\Company\Cms\Requests\CmsTableRequest;
 use App\Company\Cms\Responses\CmsTableCreateResponse;
 use Domain\Cms\Actions\CmsTableStoreAction;
 use Domain\Cms\DataTransferObjects\CmsTableData;
-use Domain\Cms\Exceptions\CmsRollbackException;
 use Domain\Cms\Exceptions\CmsTableException;
 use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;

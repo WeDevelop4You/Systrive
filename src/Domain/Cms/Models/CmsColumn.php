@@ -2,22 +2,17 @@
 
 namespace Domain\Cms\Models;
 
-use Doctrine\DBAL\Exception;
 use Domain\Cms\Casts\CmsColumnPropertiesCast;
 use Domain\Cms\Collections\CmsColumnCollection;
 use Domain\Cms\Columns\Types\AbstractColumnType;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Observers\CmsColumnDeletingObserver;
-use Domain\Cms\Observers\CmsColumnSavingObserver;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Schema;
-use Support\Traits\Observers;
 
 /**
  * Domain\Cms\Models\CmsColumn.
@@ -35,27 +30,30 @@ use Support\Traits\Observers;
  * @property Carbon|null   $created_at
  * @property Carbon|null   $updated_at
  * @property-read \Domain\Cms\Models\CmsTable $table
+ *
  * @method static CmsColumnCollection|static[] all($columns = ['*'])
- * @method static Builder|CmsColumn             editable()
+ * @method static Builder|CmsColumn            editable()
  * @method static CmsColumnCollection|static[] get($columns = ['*'])
- * @method static Builder|CmsColumn             newModelQuery()
- * @method static Builder|CmsColumn             newQuery()
- * @method static Builder|CmsColumn             query()
- * @method static Builder|CmsColumn             sorted()
- * @method static Builder|CmsColumn             visible()
- * @method static Builder|CmsColumn             whereAfter($value)
- * @method static Builder|CmsColumn             whereCreatedAt($value)
- * @method static Builder|CmsColumn             whereDeletable($value)
- * @method static Builder|CmsColumn             whereEditable($value)
- * @method static Builder|CmsColumn             whereHidden($value)
- * @method static Builder|CmsColumn             whereId($value)
- * @method static Builder|CmsColumn             whereKey($value)
- * @method static Builder|CmsColumn             whereLabel($value)
- * @method static Builder|CmsColumn             whereProperties($value)
- * @method static Builder|CmsColumn             whereTableId($value)
- * @method static Builder|CmsColumn             whereType($value)
- * @method static Builder|CmsColumn             whereUpdatedAt($value)
+ * @method static Builder|CmsColumn            newModelQuery()
+ * @method static Builder|CmsColumn            newQuery()
+ * @method static Builder|CmsColumn            query()
+ * @method static Builder|CmsColumn            sorted()
+ * @method static Builder|CmsColumn            visible()
+ * @method static Builder|CmsColumn            whereAfter($value)
+ * @method static Builder|CmsColumn            whereCreatedAt($value)
+ * @method static Builder|CmsColumn            whereDeletable($value)
+ * @method static Builder|CmsColumn            whereEditable($value)
+ * @method static Builder|CmsColumn            whereHidden($value)
+ * @method static Builder|CmsColumn            whereId($value)
+ * @method static Builder|CmsColumn            whereKey($value)
+ * @method static Builder|CmsColumn            whereLabel($value)
+ * @method static Builder|CmsColumn            whereProperties($value)
+ * @method static Builder|CmsColumn            whereTableId($value)
+ * @method static Builder|CmsColumn            whereType($value)
+ * @method static Builder|CmsColumn            whereUpdatedAt($value)
+ *
  * @mixin Eloquent
+ *
  * @method static Builder|CmsColumn fileType(bool $not = true)
  */
 class CmsColumn extends Model

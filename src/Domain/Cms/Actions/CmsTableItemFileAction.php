@@ -60,9 +60,10 @@ class CmsTableItemFileAction
     }
 
     /**
+     * @return CmsTableItemFileAction
+     *
      * @throws TooManyFilesException
      * @throws CmsTableItemException
-     * @return CmsTableItemFileAction
      */
     public function __invoke(): CmsTableItemFileAction
     {
@@ -103,9 +104,9 @@ class CmsTableItemFileAction
      * @param CmsModel $model
      * @param bool     $replicate
      *
-     * @throws Throwable
-     *
      * @return void
+     *
+     * @throws Throwable
      */
     public function save(CmsModel $model, bool $replicate = false): void
     {
@@ -120,7 +121,7 @@ class CmsTableItemFileAction
         }
 
         $this->saves->each(function (CmsFile $file) use ($model, $replicate) {
-            if (!$file->exists) {
+            if (! $file->exists) {
                 $file->path = Storage::putFile(Cms::getCms()->storagePath(), $file->path);
             }
 
@@ -153,12 +154,13 @@ class CmsTableItemFileAction
     /**
      * @param int $id
      *
-     * @throws CmsTableItemException
      * @return CmsFile
+     *
+     * @throws CmsTableItemException
      */
     private function getFile(int $id): CmsFile
     {
-        $file =  $this->model->files->firstWhere(CmsFileTableMap::COL_ID, $id);
+        $file = $this->model->files->firstWhere(CmsFileTableMap::COL_ID, $id);
 
         if ($file instanceof CmsFile) {
             return $file;

@@ -6,7 +6,6 @@ use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\UnableToDeleteDirectory;
-use League\Flysystem\UnableToDeleteFile;
 use Sentry;
 use Support\Enums\VestaCommand;
 use Support\Exceptions\Custom\Vesta\VestaCommandException;

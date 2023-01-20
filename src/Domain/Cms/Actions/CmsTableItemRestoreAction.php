@@ -15,9 +15,10 @@ class CmsTableItemRestoreAction
     /**
      * @param CmsModel $model
      *
+     * @return void
+     *
      * @throws CmsTableItemException
      * @throws Throwable
-     * @return void
      */
     public function __invoke(CmsModel $model): void
     {
@@ -30,7 +31,7 @@ class CmsTableItemRestoreAction
             $active->files->each->delete();
 
             $model->load([
-                'files' => fn (MorphMany $query) => $query->withTrashed()
+                'files' => fn (MorphMany $query) => $query->withTrashed(),
             ]);
 
             $model->created_at = Carbon::now();

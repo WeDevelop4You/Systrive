@@ -7,7 +7,6 @@ use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Components\Overviews\Tables\LocaleTableComponent;
-use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Components\Popups\Modals\ShowModal;
 use Support\Client\Response;
 
@@ -48,13 +47,13 @@ class CmsTableItemHistoryResponse extends AbstractResponse
                                 $this->company->id,
                                 $this->cms->id,
                                 $this->table->id,
-                                'history'
+                                'history',
                             ]))
                             ->setItemsRoute(route('company.cms.table.item.table.items', [
                                 $this->company->id,
                                 $this->cms->id,
                                 $this->table->id,
-                                'history'
+                                'history',
                             ]))
                     )
             );

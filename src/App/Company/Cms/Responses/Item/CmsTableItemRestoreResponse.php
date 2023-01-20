@@ -52,7 +52,7 @@ class CmsTableItemRestoreResponse extends AbstractResponse
                     ->setForm(FormComponent::create()->setItems(
                         $this->table->formColumns->createFormStructure(
                             $this->model->load([
-                                'files' => fn (MorphMany $query) => $query->withTrashed()
+                                'files' => fn (MorphMany $query) => $query->withTrashed(),
                             ]),
                             true
                         )->toArray()

@@ -47,7 +47,7 @@ class CmsTableItemTableController extends AbstractTableController
                     if ($isHistory) {
                         $query->withTrashed();
                     }
-                }
+                },
             ])->select(
                 $table->selectableColumns()
                     ->pluck(CmsColumnTableMap::COL_KEY)

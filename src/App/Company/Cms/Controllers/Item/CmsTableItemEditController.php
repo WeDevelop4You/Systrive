@@ -36,8 +36,9 @@ class CmsTableItemEditController
      * @param CmsTable            $table
      * @param CmsModel            $item
      *
-     * @throws \Throwable
      * @return JsonResponse
+     *
+     * @throws \Throwable
      */
     public function action(CmsTableItemRequest $request, Company $company, Cms $cms, CmsTable $table, CmsModel $item): JsonResponse
     {
@@ -55,7 +56,7 @@ class CmsTableItemEditController
         }
 
         if ($item->isDirty()) {
-            if (!$item->save()) {
+            if (! $item->save()) {
                 return $error;
             }
         }

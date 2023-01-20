@@ -14,16 +14,17 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Domain\Cms\Models\CmsTable.
  *
- * @property int                                                                             $id
- * @property string                                                                          $label
- * @property string                                                                          $name
- * @property bool                                                                            $editable
- * @property bool                                                                            $is_table
- * @property \Illuminate\Support\Carbon|null                                                 $created_at
- * @property \Illuminate\Support\Carbon|null                                                 $updated_at
+ * @property int                             $id
+ * @property string                          $label
+ * @property string                          $name
+ * @property bool                            $editable
+ * @property bool                            $is_table
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $columns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $formColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $tableColumns
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable query()
@@ -34,7 +35,9 @@ use Illuminate\Support\Facades\Schema;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereLabel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
+ *
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $fileColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $fillableColumns
  */
@@ -80,16 +83,17 @@ class CmsTable extends Model
      */
     public function isBackup(): bool
     {
-        return !$this->is_table;
+        return ! $this->is_table;
     }
 
     /**
-     * @throws Exception
      * @return array
+     *
+     * @throws Exception
      */
     public function indexes(): array
     {
-        if (!isset($this->indexes)) {
+        if (! isset($this->indexes)) {
             $this->indexes = Schema::connection('cms')
                 ->getConnection()
                 ->getDoctrineSchemaManager()

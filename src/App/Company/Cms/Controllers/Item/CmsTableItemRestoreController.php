@@ -10,7 +10,6 @@ use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Carbon;
 use Sentry;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\VuexAction;
@@ -64,9 +63,9 @@ class CmsTableItemRestoreController
                     route('company.cms.table.search', [
                         $company->id,
                         $cms->id,
-                        $table->name
+                        $table->name,
                     ])
-                )
+                ),
             ])
         )->toJson();
     }

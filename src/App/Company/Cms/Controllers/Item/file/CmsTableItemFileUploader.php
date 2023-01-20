@@ -12,7 +12,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
-use Support\Utils\TmpStorage;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CmsTableItemFileUploader

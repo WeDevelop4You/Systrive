@@ -21,6 +21,7 @@ use Support\Casts\EncryptionCast;
  * @property bool                            $enabled
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity query()
@@ -30,6 +31,7 @@ use Support\Casts\EncryptionCast;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereSecretKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class UserSecurity extends Model

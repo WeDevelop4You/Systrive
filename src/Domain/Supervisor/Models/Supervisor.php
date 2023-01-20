@@ -3,11 +3,9 @@
 namespace Domain\Supervisor\Models;
 
 use Domain\Supervisor\Mappings\SupervisorTableMap;
-use Domain\Supervisor\Observers\SupervisorDeletingObserver;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Support\Services\Supervisor as SupervisorService;
-use Support\Traits\Observers;
 
 /**
  * Domain\Supervisor\Models\Supervisor.
@@ -17,6 +15,7 @@ use Support\Traits\Observers;
  * @property string                          $filename
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor query()
@@ -25,6 +24,7 @@ use Support\Traits\Observers;
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Supervisor extends Model

@@ -130,13 +130,13 @@ class CmsTableOverviewResponse extends AbstractResponse
                     $this->company->id,
                     $this->cms->id,
                     $this->table->id,
-                    'default'
+                    'default',
                 ]))
                 ->setItemsRoute(route('company.cms.table.item.table.items', [
                     $this->company->id,
                     $this->cms->id,
                     $this->table->id,
-                    'default'
+                    'default',
                 ]))
                 ->setPrependComponent(
                     ButtonComponent::create()

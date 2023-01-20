@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS query()
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereSystemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|SystemDNS whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class SystemDNS extends Model

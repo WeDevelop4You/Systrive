@@ -73,9 +73,9 @@ class Handler extends ExceptionHandler
      * @param           $request
      * @param Throwable $e
      *
-     * @throws Throwable
-     *
      * @return JsonResponse|Response|SymfonyResponse
+     *
+     * @throws Throwable
      */
     public function render($request, Throwable $e): Response|JsonResponse|SymfonyResponse
     {

@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Columns\Types;
 
+use App\Company\Cms\Resources\CmsTableItemFileResource;
 use Domain\Cms\Columns\Attributes\CustomValidation;
 use Domain\Cms\Columns\Attributes\FileColumn;
 use Domain\Cms\Columns\Options\FIle\FileExtensionColumnOption;
@@ -17,6 +18,7 @@ use Illuminate\Validation\Rules\File;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\FileInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Rules\FileExistRule;
 use Support\Services\Cms;
 use Support\Utils\Validations;
 
@@ -35,7 +37,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -43,18 +45,17 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
-            ->setFormat(function (CmsModel $data) {
-                return 'test';
-            });
+        return Column::create($this->getLabel(), $this->getKey())->setFormat(
+            fn (CmsModel $data) => $data->files->column($this->getKey())->count()
+        );
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
@@ -62,15 +63,19 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
         $table = Cms::getTable();
 
         return FileInputComponent::create()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
+            ->setDefaultValue([])
+            ->setAccept($this->getPropertyValue('types'))
             ->setUploaderRoute(route('company.cms.table.column.file', [
                 $cms->company_id,
                 $cms->id,
                 $table->id,
                 $this->column->id,
             ]))
-            ->setAccept($this->getPropertyValue('types'))
+            ->setValue(
+                $model->files->column($this->getKey())
+                    ->mapInto(CmsTableItemFileResource::class)
+                    ->toArray()
+            )
             ->setMultiple(
                 $this->getPropertyValue('multiple', false),
                 $this->getPropertyValue('max', 5)
@@ -78,7 +83,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function validation(FormRequest $request): validations
     {
@@ -86,13 +91,17 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
             ['array'],
             ['*' => [
                 'name' => new Validations(['required', 'string']),
-                'identifier' => new Validations(['required', 'string']),
+                'identifier' => new Validations([
+                    "required_without:{$this->getKey()}.*.id",
+                    'string',
+                    new FileExistRule(),
+                ]),
             ]]
         );
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getCustomValidation(FormRequest $request): Validations
     {

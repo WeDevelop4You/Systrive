@@ -12,7 +12,7 @@ class ListItemUpTimerComponent extends Component implements ListItemComponent
     use ComponentWithClasses;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

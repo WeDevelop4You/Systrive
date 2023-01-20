@@ -44,7 +44,7 @@ class StringColumnType extends AbstractColumnType
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
+        return Column::create($this->getLabel(), $this->getKey())
             ->setSortable()
             ->setSearchable();
     }
@@ -57,9 +57,7 @@ class StringColumnType extends AbstractColumnType
     protected function inputComponent(CmsModel $model): TextInputComponent
     {
         return TextInputComponent::create()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
-            ->setValue($model->getAttribute($this->column->key));
+            ->setValue($model->getAttribute($this->getKey()));
     }
 
     /**

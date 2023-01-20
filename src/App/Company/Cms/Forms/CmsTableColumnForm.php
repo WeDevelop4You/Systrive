@@ -34,7 +34,7 @@ class CmsTableColumnForm extends AbstractForm
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {
@@ -94,7 +94,7 @@ class CmsTableColumnForm extends AbstractForm
                             ->setDisabled($this->isEditable)
                     ),
                 InputColWrapper::create()
-                    ->setCondition(!$this->isEditable)
+                    ->setCondition(! $this->isEditable)
                     ->setInput(
                         ConditionInputComponent::create()
                             ->setPath('type.additional')

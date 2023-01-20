@@ -16,7 +16,9 @@ use Support\Traits\DatabaseEnumSearch;
 class Column
 {
     private $sortCallback = null;
+
     private $searchCallback = null;
+
     private $formatCallback = null;
 
     /**
@@ -116,7 +118,7 @@ class Column
      */
     public function hasSortCallback(): bool
     {
-        return !\is_null($this->sortCallback);
+        return ! \is_null($this->sortCallback);
     }
 
     /**
@@ -137,7 +139,7 @@ class Column
         $this->isSearchable = true;
         $this->searchCallback = $callback;
 
-        if (!\is_null($callback) && !\is_callable($callback) && \is_string($callback)) {
+        if (! \is_null($callback) && ! \is_callable($callback) && \is_string($callback)) {
             $this->isEnumSearch = (
                 enum_exists($callback) && \in_array(
                     DatabaseEnumSearch::class,
@@ -154,7 +156,7 @@ class Column
      */
     public function hasSearchCallback(): bool
     {
-        return !\is_null($this->searchCallback);
+        return ! \is_null($this->searchCallback);
     }
 
     /**

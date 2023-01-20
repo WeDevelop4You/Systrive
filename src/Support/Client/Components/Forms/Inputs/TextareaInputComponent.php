@@ -5,7 +5,7 @@ namespace Support\Client\Components\Forms\Inputs;
 class TextareaInputComponent extends AbstractInputComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

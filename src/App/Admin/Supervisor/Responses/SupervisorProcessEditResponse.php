@@ -19,7 +19,7 @@ class SupervisorProcessEditResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

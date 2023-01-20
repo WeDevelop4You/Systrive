@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Company\Company\Controllers\CompanyCompleteController;
 
 Route::prefix('complete/{token}')->controller(CompanyCompleteController::class)->group(function () {

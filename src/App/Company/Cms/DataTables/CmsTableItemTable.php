@@ -35,11 +35,11 @@ class CmsTableItemTable extends AbstractTable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): array
     {
-        $this->table->tableColumns->createTableStructure()->add(
+        return $this->table->tableColumns->createTableStructure()->add(
             Column::actions()->setFormat(function (CmsModel $data) {
                 return $this->table->is_table
                     ? $this->createEditActions($data)

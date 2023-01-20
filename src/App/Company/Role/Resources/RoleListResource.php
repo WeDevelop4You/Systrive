@@ -1,23 +1,23 @@
 <?php
 
-    namespace App\Company\Role\Resources;
+namespace App\Company\Role\Resources;
 
-    use Illuminate\Http\Request;
-    use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-    class RoleListResource extends JsonResource
+class RoleListResource extends JsonResource
+{
+    /**
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function toArray($request): array
     {
-        /**
-         * @param Request $request
-         *
-         * @return array
-         */
-        public function toArray($request): array
-        {
-            return [
-                'id' => $this->id,
-                'name' => $this->name,
-                'permissions' => $this->permissions()->pluck('id'),
-            ];
-        }
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'permissions' => $this->permissions()->pluck('id'),
+        ];
     }
+}

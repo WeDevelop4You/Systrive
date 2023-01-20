@@ -11,7 +11,7 @@ use Support\Enums\Component\TargetType;
 class NavigationItemComponent extends AbstractNavigationItemComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

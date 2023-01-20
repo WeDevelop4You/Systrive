@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Company\System\Dns\Controllers\SystemDNSOverviewController;
 use App\Company\System\Dns\Controllers\SystemDNSRecordTableController;
 

@@ -26,7 +26,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $updated_at
  * @property-read string $full_name
  * @property-read \Domain\User\Models\User $user
- *
  * @method static Builder|UserProfile newModelQuery()
  * @method static Builder|UserProfile newQuery()
  * @method static Builder|UserProfile query()
@@ -40,7 +39,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|UserProfile wherePreferences($value)
  * @method static Builder|UserProfile whereUpdatedAt($value)
  * @method static Builder|UserProfile whereUserId($value)
- *
  * @mixin Eloquent
  */
 class UserProfile extends Model
@@ -68,7 +66,7 @@ class UserProfile extends Model
      */
     public function getFullNameAttribute(): string
     {
-        return $this->first_name . ($this->middle_name ? " $this->middle_name " : ' ') . $this->last_name;
+        return $this->first_name.($this->middle_name ? " $this->middle_name " : ' ').$this->last_name;
     }
 
     /**

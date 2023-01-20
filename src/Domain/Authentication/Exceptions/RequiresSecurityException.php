@@ -1,9 +1,9 @@
 <?php
 
-    namespace Domain\Authentication\Exceptions;
+namespace Domain\Authentication\Exceptions;
 
-    use Exception;
+use Exception;
 
-    class RequiresSecurityException extends Exception
-    {
-    }
+class RequiresSecurityException extends Exception
+{
+}

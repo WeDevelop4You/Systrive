@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Schema;
 class CmsTableUpdateAction
 {
     public const REFRESH_ALL = 1;
+
     public const REFRESH_TABLE = 2;
 
     private readonly Builder $schema;
@@ -32,9 +33,9 @@ class CmsTableUpdateAction
     /**
      * @param CmsTableData $data
      *
-     * @throws Exception
-     *
      * @return int
+     *
+     * @throws Exception
      */
     public function __invoke(CmsTableData $data): int
     {
@@ -124,7 +125,7 @@ class CmsTableUpdateAction
                 );
 
                 if ($existingColumn instanceof CmsColumn) {
-                    if (!\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                    if (! \in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
                         $existingColumn->key = $column->key;
                         $existingColumn->type = $column->type;
                         $existingColumn->label = $column->label;
@@ -140,15 +141,13 @@ class CmsTableUpdateAction
 
                 $column->table_id = $this->table->id;
 
-                $column->offsetUnset(CmsColumnTableMap::COL_ORIGINAL_KEY);
-
                 return $column;
             })
             ->sortBy(CmsColumnTableMap::COL_AFTER)
             ->each(function (CmsColumn $column, int $index) use (&$after) {
                 $type = $column->type();
 
-                if (!$type instanceof CustomColumn) {
+                if (! $type instanceof CustomColumn) {
                     $this->schema->table($this->table->name, function (Blueprint $table) use ($type, $column, $index, $after) {
                         $dirtyKey = $column->isDirty(CmsColumnTableMap::COL_KEY);
                         $dirtyType = $column->isDirty(CmsColumnTableMap::COL_TYPE);

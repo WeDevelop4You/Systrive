@@ -12,7 +12,7 @@ use Support\Enums\Component\Form\FormPermissionInputType;
 class RoleForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

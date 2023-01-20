@@ -21,7 +21,7 @@ class DefaultIntegerColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -29,7 +29,7 @@ class DefaultIntegerColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

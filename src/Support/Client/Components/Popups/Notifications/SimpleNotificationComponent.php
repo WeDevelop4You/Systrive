@@ -1,11 +1,11 @@
 <?php
 
-    namespace Support\Client\Components\Popups\Notifications;
+namespace Support\Client\Components\Popups\Notifications;
 
-    class SimpleNotificationComponent extends AbstractNotificationComponent
+class SimpleNotificationComponent extends AbstractNotificationComponent
+{
+    protected function getComponentName(): string
     {
-        protected function getComponentName(): string
-        {
-            return 'SimpleNotificationComponent';
-        }
+        return 'SimpleNotificationComponent';
     }
+}

@@ -4,6 +4,7 @@ namespace Support\Utils;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\NestedRules;
 
 class Validations
 {
@@ -13,17 +14,17 @@ class Validations
     private array $additional;
 
     /**
-     * @var array
+     * @var array|NestedRules
      */
-    private array $validations;
+    private array|NestedRules $validations;
 
     /**
      * Validations constructor.
      *
-     * @param array $validations
-     * @param array $additional
+     * @param array|NestedRules $validations
+     * @param array             $additional
      */
-    public function __construct(array $validations, array $additional = [])
+    public function __construct(array|NestedRules $validations, array $additional = [])
     {
         $this->validations = $validations;
         $this->additional = Arr::dot($additional);

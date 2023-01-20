@@ -23,7 +23,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -31,7 +31,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): ?int
     {
@@ -39,7 +39,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getArgumentKey(): string
     {
@@ -47,7 +47,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {
@@ -55,7 +55,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -65,7 +65,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

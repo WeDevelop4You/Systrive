@@ -15,7 +15,7 @@ class ColComponent extends Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

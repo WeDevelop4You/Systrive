@@ -15,7 +15,7 @@ class EncryptionCast implements CastsAttributes
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function get($model, string $key, $value, array $attributes): Decrypt
     {
@@ -23,7 +23,7 @@ class EncryptionCast implements CastsAttributes
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function set($model, string $key, $value, array $attributes): mixed
     {

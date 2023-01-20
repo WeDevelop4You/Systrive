@@ -28,7 +28,7 @@ class FormComponent extends AbstractFormComponent
     private array $classes = [];
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {
@@ -36,7 +36,7 @@ class FormComponent extends AbstractFormComponent
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {

@@ -10,7 +10,7 @@ use Support\Utils\Validations;
 class DefaultStringColumnOption extends AbstractDefaultColumnOption
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -18,7 +18,7 @@ class DefaultStringColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

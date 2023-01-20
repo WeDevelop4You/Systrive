@@ -18,7 +18,7 @@ class PasswordForm extends AbstractForm
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

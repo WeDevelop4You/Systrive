@@ -20,7 +20,7 @@ class Condition extends AbstractLogic
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {

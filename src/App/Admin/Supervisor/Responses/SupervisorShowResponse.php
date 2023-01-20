@@ -12,7 +12,7 @@ use Support\Client\Response;
 class SupervisorShowResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

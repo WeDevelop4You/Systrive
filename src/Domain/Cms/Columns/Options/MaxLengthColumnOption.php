@@ -17,7 +17,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirt
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -25,7 +25,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirt
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): int
     {
@@ -33,7 +33,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirt
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {
@@ -49,7 +49,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirt
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getValidation(FormRequest $request): Validations
     {
@@ -59,7 +59,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirt
     /**
      * @param bool $isEditing *
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -69,7 +69,7 @@ class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirt
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

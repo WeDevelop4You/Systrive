@@ -1,19 +1,19 @@
 <?php
 
-    namespace Domain\Company\Observers;
+namespace Domain\Company\Observers;
 
-    use Domain\Company\Models\Company;
+use Domain\Company\Models\Company;
 
-    class CompanyDeletedObserver
+class CompanyDeletedObserver
+{
+    /**
+     * @param Company $company
+     *
+     * @return void
+     */
+    public function deleted(Company $company): void
     {
-        /**
-         * @param Company $company
-         *
-         * @return void
-         */
-        public function deleted(Company $company): void
-        {
-            $company->roles()->delete();
-            $company->invites()->delete();
-        }
+        $company->roles()->delete();
+        $company->invites()->delete();
     }
+}

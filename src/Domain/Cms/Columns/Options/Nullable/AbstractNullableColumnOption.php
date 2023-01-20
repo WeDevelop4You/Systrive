@@ -14,7 +14,7 @@ use Support\Utils\Validations;
 abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -22,7 +22,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): bool
     {
@@ -30,7 +30,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
     {
@@ -38,7 +38,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {
@@ -46,7 +46,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getValidation(FormRequest $request): Validations
     {
@@ -54,7 +54,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

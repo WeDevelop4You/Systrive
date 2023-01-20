@@ -22,7 +22,7 @@ class SyncSupervisorConfigs implements ShouldQueue, ShouldBeUnique
 
     public function uniqueId(): string
     {
-        return "supervisor_configs";
+        return 'supervisor_configs';
     }
 
     public function handle(): void
@@ -39,7 +39,7 @@ class SyncSupervisorConfigs implements ShouldQueue, ShouldBeUnique
             }
         });
 
-        Arr::map($configs, function ($file) use ($configs) {
+        Arr::map($configs, function ($file) {
             $uuid = Str::uuid();
 
             SupervisorService::file()->move($file, "{$uuid}.conf");

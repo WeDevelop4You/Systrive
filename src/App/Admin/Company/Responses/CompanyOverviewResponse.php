@@ -11,7 +11,7 @@ use Support\Client\Response;
 class CompanyOverviewResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

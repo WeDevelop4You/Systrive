@@ -25,9 +25,9 @@ enum CompanyUserStatusTypes: int
     public static function getTranslations(): array
     {
         return [
-              self::REQUESTED->value => trans('word.company.user.requested'),
-              self::EXPIRED->value => trans('word.company.user.expired'),
-              self::ACCEPTED->value => trans('word.company.user.accepted'),
+            self::REQUESTED->value => trans('word.company.user.requested'),
+            self::EXPIRED->value => trans('word.company.user.expired'),
+            self::ACCEPTED->value => trans('word.company.user.accepted'),
         ];
     }
 

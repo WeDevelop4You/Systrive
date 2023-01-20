@@ -8,7 +8,7 @@ use Support\Enums\Component\ChartType;
 class ChartComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

@@ -1,9 +1,9 @@
 <?php
 
-    namespace Domain\User\QueryBuilders;
+namespace Domain\User\QueryBuilders;
 
-    use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
-    class UserQueryBuilders extends Builder
-    {
-    }
+class UserQueryBuilders extends Builder
+{
+}

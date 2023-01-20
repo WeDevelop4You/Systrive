@@ -9,7 +9,7 @@ use Support\Client\DataTable\Build\Column;
 class SystemMailDomainAddressTable extends AbstractTable
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): array
     {

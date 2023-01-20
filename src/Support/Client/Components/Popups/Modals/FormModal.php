@@ -39,8 +39,8 @@ class FormModal extends AbstractModal
      */
     protected function __construct(
         string|null|VuexNamespace $vuexNamespace = null,
-        private readonly ?string  $dataTableVuexNamespace = null,
-        private readonly bool     $withoutDataTableRefresh = false
+        private readonly ?string $dataTableVuexNamespace = null,
+        private readonly bool $withoutDataTableRefresh = false
     ) {
         parent::__construct();
 
@@ -169,7 +169,7 @@ class FormModal extends AbstractModal
                 VuexAction::create()->commit("{$this->vuexNamespace}/resetForm")
             )
             ->addActionIf(
-                !$this->withoutDataTableRefresh,
+                ! $this->withoutDataTableRefresh,
                 VuexAction::create()->refreshTable($this->getDataTableVuexNamespace())
             );
         }
@@ -189,7 +189,7 @@ class FormModal extends AbstractModal
      */
     private function hasVuexNamespace(): bool
     {
-        return !\is_null($this->vuexNamespace);
+        return ! \is_null($this->vuexNamespace);
     }
 
     /**
@@ -197,7 +197,7 @@ class FormModal extends AbstractModal
      */
     private function getDataTableVuexNamespace(): string
     {
-        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace) . '/dataTable';
+        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace).'/dataTable';
     }
 
     /**

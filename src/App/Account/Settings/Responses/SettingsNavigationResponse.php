@@ -16,7 +16,7 @@ use Support\Enums\Component\IconType;
 class SettingsNavigationResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -42,10 +42,10 @@ class SettingsNavigationResponse extends AbstractResponse
                                             ->setTitle(trans('word.security'))
                                             ->setPrepend(IconComponent::create()->setType(IconType::FAS_SHIELD_ALT))
                                             ->setRoute(VueRouteHelper::createAccountSettings('security')),
-//                                        NavigationItemComponent::create()
-//                                            ->setTitle(trans('word.git.account'))
-//                                            ->setPrepend(IconComponent::create()->setType(IconType::FAB_GIT_ALT))
-//                                            ->setRoute(VueRouteHelper::createAccountSettings('git')),
+                                        //                                        NavigationItemComponent::create()
+                                        //                                            ->setTitle(trans('word.git.account'))
+                                        //                                            ->setPrepend(IconComponent::create()->setType(IconType::FAB_GIT_ALT))
+                                        //                                            ->setRoute(VueRouteHelper::createAccountSettings('git')),
                                     ])
                             )
                     )

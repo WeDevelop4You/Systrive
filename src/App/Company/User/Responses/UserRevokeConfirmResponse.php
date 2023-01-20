@@ -20,7 +20,7 @@ class UserRevokeConfirmResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

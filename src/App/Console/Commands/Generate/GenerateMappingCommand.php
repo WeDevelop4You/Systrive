@@ -99,9 +99,9 @@ class GenerateMappingCommand extends Command
     /**
      * @param string $class
      *
-     * @throws ReflectionException
-     *
      * @return stdClass
+     *
+     * @throws ReflectionException
      */
     private function createMappingData(string $class): stdClass
     {
@@ -116,7 +116,7 @@ class GenerateMappingCommand extends Command
         $path = Str::of($class)
             ->replace('\\', '/')
             ->before('/Models')
-            ->prepend(base_path() . '/src/')
+            ->prepend(base_path().'/src/')
             ->append("/Mappings/{$filename}.php");
 
         $mapping = new stdClass();
@@ -131,9 +131,9 @@ class GenerateMappingCommand extends Command
     /**
      * @param string $class
      *
-     * @throws ReflectionException
-     *
      * @return array
+     *
+     * @throws ReflectionException
      */
     private function getConstants(string $class): array
     {
@@ -172,13 +172,12 @@ class GenerateMappingCommand extends Command
 
         return collect($reflector->getMethods())
             ->filter(
-                fn ($method) =>
-                !empty($method->getReturnType()) &&
+                fn ($method) => ! empty($method->getReturnType()) &&
                 Str::contains(
                     $method->getReturnType(),
                     'Illuminate\Database\Eloquent\Relations'
                 ) &&
-                !Str::contains(
+                ! Str::contains(
                     $method->getName(),
                     ['where'],
                     true
@@ -193,14 +192,14 @@ class GenerateMappingCommand extends Command
         $filesystem = new Filesystem();
         $basePath = $mapping->path->beforeLast('/');
 
-        if (!file_exists($basePath)) {
+        if (! file_exists($basePath)) {
             mkdir($basePath, 0755, true);
         }
 
         $data = "<?php\n\n";
         $data .= "namespace {$mapping->namespace};\n\n";
         $data .= "class {$mapping->filename}\n";
-        $data .= "{";
+        $data .= '{';
 
         foreach ($mapping->constants as $prefix => $constants) {
             $data .= "\n";
@@ -208,10 +207,10 @@ class GenerateMappingCommand extends Command
                 $key = strtoupper($key);
 
                 if (\is_string($prefix)) {
-                    $key = strtoupper($prefix) . "_{$key}";
+                    $key = strtoupper($prefix)."_{$key}";
                 }
 
-                $data .= "    ";
+                $data .= '    ';
                 $data .= "public const {$key} = ";
                 $data .= $this->getValue($value);
                 $data .= ";\n";

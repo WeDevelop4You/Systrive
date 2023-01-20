@@ -18,7 +18,7 @@ use Support\Enums\Component\Vuetify\VuetifySizeType;
 class LoginResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

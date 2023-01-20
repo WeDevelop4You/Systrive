@@ -8,7 +8,7 @@ use Support\Utils\VuexNamespace;
 class PageComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

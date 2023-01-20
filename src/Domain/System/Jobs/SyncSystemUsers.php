@@ -26,7 +26,7 @@ class SyncSystemUsers extends AbstractVestaSync
      */
     public function getName(): string
     {
-        return "Sync system users";
+        return 'Sync system users';
     }
 
     /**
@@ -34,7 +34,7 @@ class SyncSystemUsers extends AbstractVestaSync
      */
     public function uniqueId(): string
     {
-        return "system_users";
+        return 'system_users';
     }
 
     /**

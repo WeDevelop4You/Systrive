@@ -5,7 +5,7 @@ namespace Support\Client\Components\Navbar\Navigations\Items;
 class NavigationContentItemComponent extends AbstractNavigationItemComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

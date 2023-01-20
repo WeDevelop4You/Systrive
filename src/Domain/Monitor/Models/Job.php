@@ -19,7 +19,6 @@ use Illuminate\Support\Carbon;
  * @property int|null $reserved_at
  * @property int      $available_at
  * @property Carbon   $created_at
- *
  * @method static Builder|Job newModelQuery()
  * @method static Builder|Job newQuery()
  * @method static Builder|Job query()
@@ -30,7 +29,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Job wherePayload($value)
  * @method static Builder|Job whereQueue($value)
  * @method static Builder|Job whereReservedAt($value)
- *
  * @mixin Eloquent
  */
 class Job extends Model

@@ -1,9 +1,9 @@
 <?php
 
-    namespace Support\Exceptions\Custom\Vesta;
+namespace Support\Exceptions\Custom\Vesta;
 
-    use Exception;
+use Exception;
 
-    class VestaCredentialsNotSetException extends Exception
-    {
-    }
+class VestaCredentialsNotSetException extends Exception
+{
+}

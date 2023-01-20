@@ -17,7 +17,6 @@ use Support\Traits\Observers;
  * @property string                          $filename
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor query()
@@ -26,22 +25,15 @@ use Support\Traits\Observers;
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Supervisor whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Supervisor extends Model
 {
-    use Observers;
-
     protected $table = SupervisorTableMap::TABLE;
 
     protected $fillable = [
         SupervisorTableMap::COL_NAME,
         SupervisorTableMap::COL_FILENAME,
-    ];
-
-    protected static array $observers = [
-        SupervisorDeletingObserver::class,
     ];
 
     /**

@@ -17,7 +17,7 @@ class MultipleFileColumnOption extends AbstractColumnOption implements Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -25,7 +25,7 @@ class MultipleFileColumnOption extends AbstractColumnOption implements Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): bool
     {
@@ -33,7 +33,7 @@ class MultipleFileColumnOption extends AbstractColumnOption implements Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -41,7 +41,7 @@ class MultipleFileColumnOption extends AbstractColumnOption implements Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

@@ -38,7 +38,7 @@ class DeleteModal extends AbstractModal
      */
     protected function __construct(
         string|null|VuexNamespace $vuexNamespace = null,
-        private readonly bool     $deleted = false,
+        private readonly bool $deleted = false,
     ) {
         parent::__construct();
 
@@ -175,7 +175,7 @@ class DeleteModal extends AbstractModal
      */
     private function hasVuexNamespace(): bool
     {
-        return !\is_null($this->vuexNamespace);
+        return ! \is_null($this->vuexNamespace);
     }
 
     /**

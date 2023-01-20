@@ -15,7 +15,7 @@ use Support\Utils\Validations;
 class RichTextColumnType extends AbstractColumnType
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function options(): Collection
     {
@@ -25,7 +25,7 @@ class RichTextColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -33,31 +33,29 @@ class RichTextColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
+        return Column::create($this->getLabel(), $this->getKey())
             ->setSortable()
             ->setSearchable()
             ->setFormat(function (CmsModel $data) {
-                return Str::words($data->getAttribute($this->column->key), 3);
+                return Str::words($data->getAttribute($this->getKey()), 3);
             });
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return RichTextareaInputComponent::create()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
-            ->setValue($model->getAttribute($this->column->key));
+            ->setValue($model->getAttribute($this->getKey()));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function validation(FormRequest $request): validations
     {

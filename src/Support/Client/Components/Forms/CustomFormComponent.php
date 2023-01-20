@@ -8,7 +8,7 @@ use Support\Utils\VuexNamespace;
 class CustomFormComponent extends AbstractFormComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

@@ -11,7 +11,7 @@ use Support\Client\Components\Forms\Utils\InputColWrapper;
 class OneTimePasswordForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

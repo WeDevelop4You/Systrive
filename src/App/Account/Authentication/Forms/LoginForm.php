@@ -12,7 +12,7 @@ use Support\Client\Components\Forms\Utils\InputColWrapper;
 class LoginForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

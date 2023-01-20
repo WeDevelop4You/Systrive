@@ -18,7 +18,7 @@ class FileInputComponent extends AbstractInputComponent
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {
@@ -61,6 +61,16 @@ class FileInputComponent extends AbstractInputComponent
     public function setUploaderRoute(string $route): static
     {
         return $this->setData('uploaderRoute', $route);
+    }
+
+    /**
+     * @param bool $condition
+     *
+     * @return $this
+     */
+    public function setReadonly(bool $condition = true): static
+    {
+        return $this->setDisabled($condition);
     }
 
     /**

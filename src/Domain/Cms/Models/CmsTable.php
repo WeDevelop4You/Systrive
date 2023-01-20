@@ -2,25 +2,28 @@
 
 namespace Domain\Cms\Models;
 
+use Doctrine\DBAL\Exception;
 use Domain\Cms\Mappings\CmsColumnTableMap;
+use Domain\Cms\Mappings\CmsFileTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * Domain\Cms\Models\CmsTable.
  *
- * @property int                             $id
- * @property string                          $label
- * @property string                          $name
- * @property bool                            $editable
- * @property bool                            $is_table
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $columns
- * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $formColumns
- * @property-read \Domain\Cms\Collections\CmsColumnCollections|\Domain\Cms\Models\CmsColumn[] $tableColumns
- *
+ * @property int                                                                             $id
+ * @property string                                                                          $label
+ * @property string                                                                          $name
+ * @property bool                                                                            $editable
+ * @property bool                                                                            $is_table
+ * @property \Illuminate\Support\Carbon|null                                                 $created_at
+ * @property \Illuminate\Support\Carbon|null                                                 $updated_at
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $columns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $formColumns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $tableColumns
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable query()
@@ -31,11 +34,17 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereLabel($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereUpdatedAt($value)
- *
  * @mixin \Eloquent
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $fileColumns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $fillableColumns
  */
 class CmsTable extends Model
 {
+    /**
+     * @var array
+     */
+    protected array $indexes;
+
     /**
      * @var string
      */
@@ -57,6 +66,38 @@ class CmsTable extends Model
         CmsTableTableMap::COL_EDITABLE => 'boolean',
         CmsTableTableMap::COL_IS_TABLE => 'boolean',
     ];
+
+    /**
+     * @return string
+     */
+    public function identifier(): string
+    {
+        return md5($this->id);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBackup(): bool
+    {
+        return !$this->is_table;
+    }
+
+    /**
+     * @throws Exception
+     * @return array
+     */
+    public function indexes(): array
+    {
+        if (!isset($this->indexes)) {
+            $this->indexes = Schema::connection('cms')
+                ->getConnection()
+                ->getDoctrineSchemaManager()
+                ->listTableIndexes($this->name);
+        }
+
+        return $this->indexes;
+    }
 
     public function columns(): HasMany
     {
@@ -84,7 +125,7 @@ class CmsTable extends Model
      */
     public function fileColumns(): HasMany
     {
-        return $this->columns()->visible()->fileType();
+        return $this->columns()->editable()->fileType();
     }
 
     /**
@@ -93,6 +134,22 @@ class CmsTable extends Model
     public function fillableColumns(): HasMany
     {
         return $this->columns()->editable()->fileType(false);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function selectableColumns(): HasMany
+    {
+        return $this->columns()->visible()->fileType(false);
+    }
+
+    public function files(): Builder
+    {
+        return CmsFile::where(
+            CmsFileTableMap::COL_TABLE_TYPE,
+            $this->identifier()
+        );
     }
 
     /**

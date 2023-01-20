@@ -21,7 +21,6 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null               $created_at
  * @property Carbon|null               $updated_at
  * @property-read Eloquent|Model $statisticFrom
- *
  * @method static Builder|SystemUsageStatistic newModelQuery()
  * @method static Builder|SystemUsageStatistic newQuery()
  * @method static Builder|SystemUsageStatistic query()
@@ -32,7 +31,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|SystemUsageStatistic whereTotal($value)
  * @method static Builder|SystemUsageStatistic whereType($value)
  * @method static Builder|SystemUsageStatistic whereUpdatedAt($value)
- *
  * @mixin Eloquent
  */
 class SystemUsageStatistic extends Model

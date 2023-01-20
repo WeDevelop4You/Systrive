@@ -1,25 +1,25 @@
 <?php
 
-    namespace App\Admin\Company\Controllers;
+namespace App\Admin\Company\Controllers;
 
-    use Domain\Company\Models\Company;
-    use Illuminate\Http\JsonResponse;
-    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Client\Response;
+use Domain\Company\Models\Company;
+use Illuminate\Http\JsonResponse;
+use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+use Support\Client\Response;
 
-    class CompanyRestoreController
+class CompanyRestoreController
+{
+    /**
+     * @param Company $company
+     *
+     * @return JsonResponse
+     */
+    public function action(Company $company): JsonResponse
     {
-        /**
-         * @param Company $company
-         *
-         * @return JsonResponse
-         */
-        public function action(Company $company): JsonResponse
-        {
-            $company->restore();
+        $company->restore();
 
-            return Response::create()
-                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.restored')))
-                ->toJson();
-        }
+        return Response::create()
+            ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.restored')))
+            ->toJson();
     }
+}

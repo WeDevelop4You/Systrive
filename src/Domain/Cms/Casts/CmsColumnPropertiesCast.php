@@ -94,8 +94,8 @@ class CmsColumnPropertiesCast implements CastsAttributes
     {
         $type = Arr::get($attributes, CmsColumnTableMap::COL_TYPE);
 
-        if (!\is_null($type)) {
-            return CmsColumnType::from($type)->getOptions() ;
+        if (! \is_null($type)) {
+            return CmsColumnType::from($type)->getOptions();
         }
 
         return Collection::make();

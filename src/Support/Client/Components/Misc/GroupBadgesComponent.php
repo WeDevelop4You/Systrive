@@ -10,7 +10,7 @@ class GroupBadgesComponent extends Component
     use ComponentWithClasses;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

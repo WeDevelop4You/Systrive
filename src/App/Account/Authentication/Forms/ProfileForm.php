@@ -14,7 +14,7 @@ use Support\Client\Components\Forms\Utils\KeyValueObject;
 class ProfileForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

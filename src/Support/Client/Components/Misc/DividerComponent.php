@@ -7,7 +7,7 @@ use Support\Client\Components\Component;
 class DividerComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

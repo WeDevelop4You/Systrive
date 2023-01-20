@@ -7,7 +7,7 @@ use Support\Client\Actions\VuexAction;
 class OneTimePasswordInputComponent extends AbstractInputComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

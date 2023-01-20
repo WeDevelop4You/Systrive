@@ -21,7 +21,7 @@ class UserForm extends AbstractForm
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {
@@ -30,7 +30,7 @@ class UserForm extends AbstractForm
         return FormComponent::create()
             ->setItems([
                 InputColWrapper::create()
-                    ->setCondition(!$this->isEditing)
+                    ->setCondition(! $this->isEditing)
                     ->setInput(
                         TextInputComponent::create()
                             ->setKey('email')

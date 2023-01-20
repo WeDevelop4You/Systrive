@@ -24,7 +24,6 @@ use Support\Traits\ModelBroadcastRateLimit;
  * @property int|null                        $ended
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor query()
@@ -36,7 +35,6 @@ use Support\Traits\ModelBroadcastRateLimit;
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Monitor whereUuid($value)
- *
  * @mixin \Eloquent
  */
 class Monitor extends Model
@@ -44,7 +42,7 @@ class Monitor extends Model
     use BroadcastsEvents;
     use ModelBroadcastRateLimit;
 
-    protected $table = "monitors";
+    protected $table = 'monitors';
 
     protected $dateFormat = 'Y-m-d H:i:s.v';
 
@@ -81,9 +79,9 @@ class Monitor extends Model
      *
      * @param string $event
      *
-     * @throws InvalidArgumentException
-     *
      * @return array|Channel
+     *
+     * @throws InvalidArgumentException
      */
     public function broadcastOn($event): Channel|array
     {

@@ -10,6 +10,7 @@ use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\Rule;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
@@ -24,7 +25,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -32,7 +33,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): bool
     {
@@ -40,7 +41,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      *
      * @throws Exception
      */
@@ -51,19 +52,14 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
         if ($this->getValue()) {
             $columnDefinition->unique($index);
         } elseif (!empty($column->table_id)) {
-            $indexes = Schema::connection('cms')
-                ->getConnection()
-                ->getDoctrineSchemaManager()
-                ->listTableIndexes($column->table->name);
-
-            if (\array_key_exists($index, $indexes)) {
+            if (Arr::has($column->table->indexes(), $index)) {
                 $table->dropUnique($index);
             }
         }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {
@@ -71,7 +67,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getValidation(FormRequest $request): Validations
     {
@@ -83,7 +79,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -91,7 +87,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

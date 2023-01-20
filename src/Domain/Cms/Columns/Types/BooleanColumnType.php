@@ -27,7 +27,7 @@ class BooleanColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -35,16 +35,16 @@ class BooleanColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
+        return Column::create($this->getLabel(), $this->getKey())
             ->setSortable()
             ->setSearchable()
             ->setAlignment(VuetifyTableAlignmentType::CENTER)
             ->setFormat(function (CmsModel $data) {
-                if ($data->getAttribute($this->column->key)) {
+                if ($data->getAttribute($this->getKey())) {
                     return IconComponent::create()
                         ->setType(IconType::FAS_CHECK)
                         ->setColor(VuetifyColor::SUCCESS);
@@ -57,19 +57,17 @@ class BooleanColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return CheckboxInputComponent::create()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
             ->setDefaultValue($this->getPropertyValueDefault())
-            ->setValue($model->getAttribute($this->column->key));
+            ->setValue($model->getAttribute($this->getKey()));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function validation(FormRequest $request): validations
     {

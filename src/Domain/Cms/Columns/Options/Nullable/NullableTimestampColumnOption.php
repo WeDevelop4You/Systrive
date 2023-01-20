@@ -23,7 +23,7 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
     {
@@ -45,7 +45,7 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
     /**
      * @param bool $isEditing
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {

@@ -16,7 +16,7 @@ use Support\Utils\Validations;
 abstract class AbstractExtension extends AbstractColumnOption implements ComponentColumnOption, AdditionalValidation
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -24,7 +24,7 @@ abstract class AbstractExtension extends AbstractColumnOption implements Compone
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): array
     {
@@ -32,7 +32,7 @@ abstract class AbstractExtension extends AbstractColumnOption implements Compone
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -47,7 +47,7 @@ abstract class AbstractExtension extends AbstractColumnOption implements Compone
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

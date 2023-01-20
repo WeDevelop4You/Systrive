@@ -83,7 +83,7 @@ Route::scopeBindings()->middleware('permission.company:cms.view')->group(functio
                 });
 
             Route::prefix('items')->group(function () {
-                Route::dataTable(CmsTableItemTableController::class, 'cms.table.item');
+                Route::dataTable(CmsTableItemTableController::class, 'cms.table.item', '{type}');
 
                 Route::prefix('create')
                     ->middleware('permission.company:cms.create')

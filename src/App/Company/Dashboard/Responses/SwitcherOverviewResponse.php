@@ -31,7 +31,7 @@ use Support\Enums\Component\Vuetify\VuetifyJustifyType;
 class SwitcherOverviewResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -130,7 +130,6 @@ class SwitcherOverviewResponse extends AbstractResponse
                     )
             )->setCloseAction(VuexAction::create()->closeModal($dialog->getIdentifier()))
         );
-
 
         if ($company->status !== CompanyStatusTypes::COMPLETED) {
             if ($company->owner->is(Auth::user())) {

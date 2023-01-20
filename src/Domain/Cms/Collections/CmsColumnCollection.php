@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection as CollectionBase;
 
-class CmsColumnCollections extends Collection
+class CmsColumnCollection extends Collection
 {
     /**
      * @return CollectionBase

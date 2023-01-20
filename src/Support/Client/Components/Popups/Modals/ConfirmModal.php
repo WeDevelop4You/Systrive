@@ -86,8 +86,8 @@ class ConfirmModal extends AbstractModal
      * @return ConfirmModal
      */
     public function addFooterCancelButton(
-        Action         $action,
-        ?string        $title = null,
+        Action $action,
+        ?string $title = null,
         ModalCloseType $close = ModalCloseType::NEVER
     ): ConfirmModal {
         if (ModalCloseType::isSuccess($close)) {
@@ -113,8 +113,8 @@ class ConfirmModal extends AbstractModal
      * @return ConfirmModal
      */
     public function addFooterSubmitButton(
-        Action         $action,
-        ?string        $title = null,
+        Action $action,
+        ?string $title = null,
         ModalCloseType $close = ModalCloseType::NEVER
     ): ConfirmModal {
         if (ModalCloseType::isSuccess($close)) {

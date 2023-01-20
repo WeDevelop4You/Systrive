@@ -15,7 +15,7 @@ class DefaultBooleanColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): bool
     {
@@ -23,7 +23,7 @@ class DefaultBooleanColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -31,7 +31,7 @@ class DefaultBooleanColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

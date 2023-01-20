@@ -7,7 +7,7 @@ use Support\Client\Components\Types\ModalComponentType;
 class VerticalStepperComponent extends AbstractStepperComponent implements ModalComponentType
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

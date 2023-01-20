@@ -7,7 +7,7 @@ use Support\Client\Components\Component;
 class CustomComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

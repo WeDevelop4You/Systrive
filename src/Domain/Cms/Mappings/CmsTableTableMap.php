@@ -27,4 +27,8 @@ class CmsTableTableMap
     public const TABLE_UPDATED_AT = 'cms_tables.updated_at';
 
     public const RELATION_COLUMNS = 'columns';
+    public const RELATION_FORM_COLUMNS = 'formColumns';
+    public const RELATION_TABLE_COLUMNS = 'tableColumns';
+    public const RELATION_FILE_COLUMNS = 'fileColumns';
+    public const RELATION_FILLABLE_COLUMNS = 'fillableColumns';
 }

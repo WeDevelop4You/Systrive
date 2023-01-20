@@ -4,11 +4,10 @@ namespace Domain\Cms\Actions;
 
 use Domain\Cms\Columns\Attributes\CustomColumn;
 use Domain\Cms\DataTransferObjects\CmsTableData;
-use Domain\Cms\Exceptions\CmsRollbackException;
-use Domain\Cms\Exceptions\CmsTableCreateException;
-use Domain\Cms\Mappings\CmsColumnTableMap;
+use Domain\Cms\Exceptions\CmsTableException;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsTable;
+use Exception;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -19,9 +18,8 @@ class CmsTableStoreAction
     /**
      * @param CmsTableData $data
      *
-     * @throws CmsTableCreateException
-     * @throws CmsRollbackException
-     *
+     * @throws CmsTableException
+     * @throws Throwable
      * @return CmsTable
      */
     public function __invoke(CmsTableData $data): CmsTable
@@ -34,7 +32,7 @@ class CmsTableStoreAction
                 $data->columns->each(function (CmsColumn $column) use ($table) {
                     $type = $column->type();
 
-                    if (!$type instanceof CustomColumn) {
+                    if (! $type instanceof CustomColumn) {
                         $type->getDefinition($table);
                     }
                 });
@@ -50,8 +48,6 @@ class CmsTableStoreAction
             $table->save();
 
             $data->columns->each(function (CmsColumn $column) use ($table) {
-                $column->offsetUnset(CmsColumnTableMap::COL_ORIGINAL_KEY);
-
                 $column->table_id = $table->id;
                 $column->save();
             });
@@ -59,18 +55,12 @@ class CmsTableStoreAction
             $db->commit();
 
             return $table;
-        } catch (Throwable $e) {
-            $exception = new CmsTableCreateException('sometime went wrong while creating a table', previous: $e);
+        } catch (Exception $e) {
+            $db->rollBack();
 
-            try {
-                $db->rollBack();
-            } catch (Throwable) {
-                $exception = new CmsRollbackException("The database couldn't rollback", previous: $exception);
-            }
-
+            throw new CmsTableException('Something went wrong while creating table', previous: $e);
+        } finally {
             $schema->dropIfExists($data->name);
-
-            throw $exception;
         }
     }
 }

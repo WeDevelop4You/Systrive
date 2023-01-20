@@ -5,7 +5,7 @@ namespace Domain\Cms\Columns\Options\FIle;
 class ImageExtensionColumnOption extends AbstractExtension
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function extensions(): array
     {

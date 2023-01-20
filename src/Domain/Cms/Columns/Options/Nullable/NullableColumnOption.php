@@ -15,7 +15,7 @@ class NullableColumnOption extends AbstractNullableColumnOption
     /**
      * @param bool $isEditing
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {

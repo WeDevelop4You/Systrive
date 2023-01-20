@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Console\Commands\Show;
+namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Support\Helpers\RouteHelper;
 
-class ShowApiCommand extends Command
+class RouteShowApiCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'show:api {application}';
+    protected $signature = 'route:api {application? : show the api routes from a application}';
 
     /**
      * The console command description.
@@ -28,15 +28,13 @@ class ShowApiCommand extends Command
      */
     public function handle(): int
     {
-        $application = strtolower($this->argument('application'));
-
         $this->newLine();
         $this->components->twoColumnDetail(
             '<fg=green;options=bold>Name</>',
             '<fg=green;options=bold>URI</>'
         );
 
-        RouteHelper::getApiRoutes($application)
+        RouteHelper::getApiRoutes($this->argument('application'))
             ->sortKeys()
             ->each(function ($uri, $name) {
                 $this->components->twoColumnDetail(

@@ -28,7 +28,6 @@ use Support\Traits\Observers;
  * @property mixed       $created_at
  * @property-read Company $company
  * @property-read User $user
- *
  * @method static InviteQueryBuilders|Invite newModelQuery()
  * @method static InviteQueryBuilders|Invite newQuery()
  * @method static InviteQueryBuilders|Invite query()
@@ -43,13 +42,10 @@ use Support\Traits\Observers;
  * @method static InviteQueryBuilders|Invite whereTypeUser()
  * @method static InviteQueryBuilders|Invite whereUserByEmail(string $email)
  * @method static InviteQueryBuilders|Invite whereUserId($value)
- *
  * @mixin Eloquent
  */
 class Invite extends Model
 {
-    use Observers;
-
     public $timestamps = false;
 
     protected $table = 'invites';
@@ -68,10 +64,6 @@ class Invite extends Model
 
     protected $casts = [
         InviteTableMap::COL_TYPE => InviteTypes::class,
-    ];
-
-    protected static array $observers = [
-         InviteCreatedObserver::class,
     ];
 
     public static function boot()

@@ -27,50 +27,65 @@
                 :key="index"
                 :cols="12"
             >
-                <v-card
-                    outlined
-                    class="file"
+                <v-row
+                    no-gutters
+                    align="center"
                 >
-                    <div
-                        v-if="file.identifier"
-                        class="d-flex flex-no-wrap"
+                    <v-col
+                        cols="auto"
+                        class="text-center"
+                        style="width: 24px; margin-right: 9px"
                     >
-                        <v-icon
-                            class="my-3 ml-3"
-                            size="40"
-                            v-text="icon(file.type)"
-                        />
-                        <div>
-                            <v-card-title
-                                class="text-body-1"
-                                v-text="file.name"
-                            />
-                            <v-card-subtitle
-                                class="text-caption"
-                                v-text="format(file.size)"
-                            />
-                        </div>
-                        <v-spacer />
-                        <v-card-actions>
-                            <v-btn
-                                icon
-                                class="my-3 mr-3"
-                                @click="remove(file, index)"
+                        {{ index + 1 }}
+                    </v-col>
+                    <v-col>
+                        <v-card
+                            outlined
+                            class="file"
+                        >
+                            <div
+                                v-if="file.identifier || file.id"
+                                class="d-flex flex-no-wrap"
                             >
-                                <v-icon>fas fa-trash</v-icon>
-                            </v-btn>
-                        </v-card-actions>
-                    </div>
-                    <v-card-text v-else>
-                        <v-progress-linear
-                            :value="file.progress"
-                            stream
-                            color="primary"
-                            buffer-value="0"
-                            class="ma-5 w-auto"
-                        />
-                    </v-card-text>
-                </v-card>
+                                <v-icon
+                                    class="my-3 ml-3"
+                                    size="40"
+                                    v-text="icon(file.type)"
+                                />
+                                <div>
+                                    <v-card-title
+                                        class="text-body-1"
+                                        v-text="file.name"
+                                    />
+                                    <v-card-subtitle
+                                        class="text-caption"
+                                        v-text="format(file.size)"
+                                    />
+                                </div>
+                                <v-spacer />
+                                <v-card-actions>
+                                    <v-btn
+                                        :disabled="isDisabled"
+                                        icon
+                                        class="my-3 mr-3"
+                                        @click="remove(file, index)"
+                                    >
+                                        <v-icon>fas fa-trash</v-icon>
+                                    </v-btn>
+                                </v-card-actions>
+                            </div>
+                            <v-card-text v-else>
+                                <v-progress-linear
+                                    :value="file.progress"
+                                    stream
+                                    color="primary"
+                                    buffer-value="0"
+                                    class="ma-5 w-auto"
+                                />
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-col>
             <v-col cols="12">
                 <div
@@ -114,6 +129,10 @@
 
                 return this.format(this.files.map(item => item.size).reduce((prev, next) => prev + next))
             }
+        },
+
+        mounted() {
+            this.files = this.getValue
         },
 
         methods: {
@@ -176,7 +195,7 @@
                 if (this.isset(file, 'id')) {
                     this.deletedFiles.push(file.id)
 
-                    this.data['deleted_files'] = {
+                    this.data['delete_files'] = {
                         [this.key]: this.deletedFiles
                     }
                 }

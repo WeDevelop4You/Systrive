@@ -11,15 +11,15 @@ use Illuminate\Database\Schema\ColumnDefinition;
 abstract class AbstractDefaultColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
-        return "default";
+        return 'default';
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): mixed
     {
@@ -27,7 +27,7 @@ abstract class AbstractDefaultColumnOption extends AbstractColumnOption implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
     {
@@ -35,7 +35,7 @@ abstract class AbstractDefaultColumnOption extends AbstractColumnOption implemen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {

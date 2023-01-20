@@ -10,7 +10,7 @@ class SelectInputComponent extends AbstractInputComponent
     use InputComponentWithDropdown;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

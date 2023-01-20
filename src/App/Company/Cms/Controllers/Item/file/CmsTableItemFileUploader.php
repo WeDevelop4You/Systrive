@@ -9,9 +9,10 @@ use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
-use Support\Utils\Storage;
+use Support\Utils\TmpStorage;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class CmsTableItemFileUploader
@@ -30,7 +31,7 @@ class CmsTableItemFileUploader
         if ($column->type() instanceof FileColumn) {
             $file = $request->file('file');
 
-            $path = Storage::create()->preUpload($file);
+            $path = Storage::disk('tmp')->putFile('', $file);
 
             if (\is_string($path)) {
                 return Response::create()->addData([

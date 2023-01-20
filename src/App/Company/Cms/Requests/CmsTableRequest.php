@@ -17,7 +17,7 @@ use Support\Abstracts\AbstractRequest;
 class CmsTableRequest extends AbstractRequest
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultRules(): array
     {
@@ -46,7 +46,7 @@ class CmsTableRequest extends AbstractRequest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function storeRules(): array
     {
@@ -57,7 +57,7 @@ class CmsTableRequest extends AbstractRequest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function updateRules(): array
     {

@@ -7,7 +7,7 @@ use Support\Client\Components\Component;
 class TooltipComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $expires_in
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens query()
@@ -26,7 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereRefreshToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|GitAccountAccessTokens whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class GitAccountAccessTokens extends Model

@@ -57,15 +57,23 @@ abstract class AbstractColumnType
     /**
      * @return string
      */
-    private function getKey(): string
+    protected function getKey(): string
     {
         return $this->column->key;
     }
 
     /**
+     * @return string
+     */
+    protected function getLabel(): string
+    {
+        return $this->column->label;
+    }
+
+    /**
      * @return Collection
      */
-    private function getProperties(): Collection
+    protected function getProperties(): Collection
     {
         return $this->column->properties;
     }
@@ -108,10 +116,17 @@ abstract class AbstractColumnType
 
     final public function getInputComponent(CmsModel $model, bool $readonly = false): InputColWrapper
     {
-        $input = $this->inputComponent($model)->setReadonly($readonly);
-        $col = ColComponent::create()->setMdCol($this->getPropertyValue('row_col', 12));
-
-        return InputColWrapper::create()->setCol($col)->setInput($input);
+        return InputColWrapper::create()
+            ->setCol(
+                ColComponent::create()
+                    ->setMdCol($this->getPropertyValue('row_col', 12))
+            )
+            ->setInput(
+                $this->inputComponent($model)
+                    ->setReadonly($readonly)
+                    ->setKey($this->getKey())
+                    ->setLabel($this->getLabel())
+            );
     }
 
     /**
@@ -131,6 +146,19 @@ abstract class AbstractColumnType
     }
 
     /**
+     * @param string     $key
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    final public function getPropertyValue(string $key, mixed $default = null): mixed
+    {
+        return Collection::json(
+            $this->column->getRawOriginal(CmsColumnTableMap::COL_PROPERTIES) ?? ''
+        )->get("{$this->type()}_{$key}", $default);
+    }
+
+    /**
      * @return bool
      */
     final public function isPropertiesDirty(): bool
@@ -144,19 +172,6 @@ abstract class AbstractColumnType
     }
 
     /**
-     * @param string     $key
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    final protected function getPropertyValue(string $key, mixed $default = null): mixed
-    {
-        return Collection::json(
-            $this->column->getRawOriginal(CmsColumnTableMap::COL_PROPERTIES) ?? ''
-        )->get("{$this->type()}_{$key}", $default);
-    }
-
-    /**
      * @return mixed
      */
     final protected function getPropertyValueDefault(): mixed
@@ -165,7 +180,6 @@ abstract class AbstractColumnType
     }
 
     /**
-     *
      * @return string
      */
     abstract protected function type(): string;

@@ -36,7 +36,7 @@ class CmsTableOverviewResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -130,11 +130,13 @@ class CmsTableOverviewResponse extends AbstractResponse
                     $this->company->id,
                     $this->cms->id,
                     $this->table->id,
+                    'default'
                 ]))
                 ->setItemsRoute(route('company.cms.table.item.table.items', [
                     $this->company->id,
                     $this->cms->id,
                     $this->table->id,
+                    'default'
                 ]))
                 ->setPrependComponent(
                     ButtonComponent::create()
@@ -156,7 +158,7 @@ class CmsTableOverviewResponse extends AbstractResponse
 
     private function createForm(): ColComponent
     {
-        $modal = CmsModel::latest()->firstOrNew()->replicate();
+        $modal = CmsModel::latest()->firstOrNew();
 
         return ColComponent::create()->setComponent(
             CardComponent::create()

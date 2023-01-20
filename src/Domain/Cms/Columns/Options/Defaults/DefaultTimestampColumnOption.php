@@ -29,7 +29,7 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): bool
     {
@@ -37,7 +37,7 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
     {
@@ -49,7 +49,7 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -57,7 +57,7 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

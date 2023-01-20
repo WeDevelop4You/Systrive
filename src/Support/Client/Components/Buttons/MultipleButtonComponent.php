@@ -15,7 +15,7 @@ class MultipleButtonComponent extends Component
     use ComponentWithIfStatement;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

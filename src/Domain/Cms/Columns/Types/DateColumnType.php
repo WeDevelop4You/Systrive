@@ -34,7 +34,7 @@ class DateColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -42,18 +42,18 @@ class DateColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
+        return Column::create($this->getLabel(), $this->getKey())
             ->setSortable()
             ->setSearchable()
             ->setFormat(function (Model $data, string $key) {
                 $value = $data->getAttribute($key);
 
-                if (!\is_null($value)) {
-                    if (!$value instanceof Carbon) {
+                if (! \is_null($value)) {
+                    if (! $value instanceof Carbon) {
                         $value = new Carbon($value);
                     }
 
@@ -65,19 +65,17 @@ class DateColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): DatePickerInputComponent
     {
         return DatePickerInputComponent::create()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
-            ->setValue($model->getAttribute($this->column->key))
+            ->setValue($model->getAttribute($this->getKey()))
             ->setClearable($this->getPropertyValue('nullable', true));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function validation(FormRequest $request): validations
     {

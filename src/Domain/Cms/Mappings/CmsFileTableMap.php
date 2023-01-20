@@ -11,6 +11,7 @@ class CmsFileTableMap
     public const COL_TABLE_ID = 'table_id';
     public const COL_TABLE_KEY = 'table_key';
     public const COL_PATH = 'path';
+    public const COL_NAME = 'name';
     public const COL_TYPE = 'type';
     public const COL_SIZE = 'size';
     public const COL_CREATED_AT = 'created_at';
@@ -21,6 +22,7 @@ class CmsFileTableMap
     public const TABLE_TABLE_ID = 'cms_files.table_id';
     public const TABLE_TABLE_KEY = 'cms_files.table_key';
     public const TABLE_PATH = 'cms_files.path';
+    public const TABLE_NAME = 'cms_files.name';
     public const TABLE_TYPE = 'cms_files.type';
     public const TABLE_SIZE = 'cms_files.size';
     public const TABLE_CREATED_AT = 'cms_files.created_at';

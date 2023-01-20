@@ -53,6 +53,6 @@ class CmsStoreRequest extends AbstractRequest
     {
         $subtract = \strlen("{$this->company->system->username}_");
 
-        return $total - $subtract ;
+        return $total - $subtract;
     }
 }

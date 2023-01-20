@@ -8,7 +8,7 @@ use Support\Utils\VuexNamespace;
 class ConditionInputComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

@@ -4,6 +4,7 @@ namespace App\Account\Settings\Controllers\Type;
 
 use Domain\User\Models\UserSecurity;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class SettingsRecoveryCodeController
@@ -18,7 +19,7 @@ class SettingsRecoveryCodeController
         if ($security instanceof UserSecurity) {
             $appName = config('app.name');
 
-            return response()->streamDownload(
+            return Response::streamDownload(
                 function () use ($security) {
                     echo implode("\n", $security->recovery_codes->decrypt);
                 },

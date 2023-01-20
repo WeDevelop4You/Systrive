@@ -27,7 +27,7 @@ class SyncSystemTemplates extends AbstractVestaSync
      */
     public function getName(): string
     {
-        return "Sync system templates";
+        return 'Sync system templates';
     }
 
     /**
@@ -35,13 +35,13 @@ class SyncSystemTemplates extends AbstractVestaSync
      */
     public function uniqueId(): string
     {
-        return "system_templates";
+        return 'system_templates';
     }
 
     /**
-     * @throws VestaConnectionFailedException
-     *
      * @return void
+     *
+     * @throws VestaConnectionFailedException
      */
     protected function initialize(): void
     {
@@ -88,10 +88,9 @@ class SyncSystemTemplates extends AbstractVestaSync
     protected function reject(SystemTemplate|Model $model): Collection
     {
         return $this->syncData->reject(function ($data) use ($model) {
-            return (
+            return
                 $model->type === $data[SystemTemplateTableMap::COL_TYPE] &&
-                $model->value === $data[SystemTemplateTableMap::COL_VALUE]
-            );
+                $model->value === $data[SystemTemplateTableMap::COL_VALUE];
         });
     }
 

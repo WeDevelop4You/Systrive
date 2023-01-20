@@ -16,7 +16,7 @@ use Support\Utils\Validations;
 class MaxFileColumnOption extends AbstractColumnOption implements ComponentColumnOption, Validation
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -24,7 +24,7 @@ class MaxFileColumnOption extends AbstractColumnOption implements ComponentColum
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): int
     {
@@ -32,7 +32,7 @@ class MaxFileColumnOption extends AbstractColumnOption implements ComponentColum
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getValidation(FormRequest $request): Validations
     {
@@ -40,7 +40,7 @@ class MaxFileColumnOption extends AbstractColumnOption implements ComponentColum
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -54,7 +54,7 @@ class MaxFileColumnOption extends AbstractColumnOption implements ComponentColum
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

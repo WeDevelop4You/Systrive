@@ -127,7 +127,7 @@ class Table
      */
     public function export(): JsonResponse
     {
-        if (!$this->withoutQuery) {
+        if (! $this->withoutQuery) {
             $this->paginate();
         }
 

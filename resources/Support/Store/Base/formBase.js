@@ -68,7 +68,7 @@ export default function (options) {
                 state.isEditing = true
             },
 
-            resetForm(state) {
+            resetForm(state, wait = 300) {
                 if (!options.disableLoader) {
                     app.$state.resetForm()
                 }
@@ -79,7 +79,7 @@ export default function (options) {
                     state.error = false
                     state.isReady = options.isReady
                     state.isEditing = options.isEditing
-                }, 300)
+                }, wait)
             },
 
             setType(state, type) {

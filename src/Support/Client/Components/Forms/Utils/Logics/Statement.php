@@ -19,7 +19,7 @@ class Statement extends AbstractLogic
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {

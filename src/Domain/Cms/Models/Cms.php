@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use Support\Casts\EncryptionCast;
 use Support\Services\Cms as CmsService;
 use Support\Traits\Observers;
@@ -31,7 +33,6 @@ use Support\Utils\Decrypt;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Company|null $company
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newQuery()
  * @method static Builder|Cms                               onlyTrashed()
@@ -47,14 +48,12 @@ use Support\Utils\Decrypt;
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUsername($value)
  * @method static Builder|Cms                               withTrashed()
  * @method static Builder|Cms                               withoutTrashed()
- *
  * @mixin Eloquent
  */
 class Cms extends Model
 {
     use SoftDeletes;
     use Prunable;
-    use Observers;
 
     /**
      * @var string
@@ -77,10 +76,6 @@ class Cms extends Model
     protected $casts = [
         CmsTableMap::COL_USERNAME => EncryptionCast::class,
         CmsTableMap::COL_PASSWORD => EncryptionCast::class,
-    ];
-
-    protected static array $observers = [
-        CmsForceDeletedObserver::class,
     ];
 
     /**
@@ -107,6 +102,15 @@ class Cms extends Model
         CmsService::createConnection($this);
 
         return CmsTable::all();
+    }
+
+    /**
+     * @return Stringable
+     */
+    public function storagePath(): Stringable
+    {
+        return $this->company->storagePath()
+            ->append('/cms/', md5($this->id));
     }
 
     /**

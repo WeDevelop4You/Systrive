@@ -12,7 +12,7 @@ use Support\Utils\Validations;
 class RowColColumnOption extends AbstractColumnOption implements ComponentColumnOption
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -20,7 +20,7 @@ class RowColColumnOption extends AbstractColumnOption implements ComponentColumn
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): int
     {
@@ -28,7 +28,7 @@ class RowColColumnOption extends AbstractColumnOption implements ComponentColumn
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -39,7 +39,7 @@ class RowColColumnOption extends AbstractColumnOption implements ComponentColumn
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

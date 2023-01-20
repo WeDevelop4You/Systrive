@@ -9,7 +9,7 @@ use Support\Enums\Component\NavigationCustomItemType;
 class NavigationCustomItemComponent extends AbstractNavigationItemComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

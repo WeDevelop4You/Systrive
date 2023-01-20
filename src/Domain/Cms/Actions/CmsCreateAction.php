@@ -35,10 +35,10 @@ class CmsCreateAction
     /**
      * @param CmsData $data
      *
+     * @return Cms
+     *
      * @throws VestaCommandException
      * @throws VestaConnectionFailedException
-     *
-     * @return Cms
      */
     public function __invoke(CmsData $data): Cms
     {
@@ -60,8 +60,8 @@ class CmsCreateAction
 
         CmsService::createConnection($cms);
 
-        if (App::isLocal() && !\defined('STDIN')) {
-            \define('STDIN', fopen("php://stdin", "r"));
+        if (App::isLocal() && ! \defined('STDIN')) {
+            \define('STDIN', fopen('php://stdin', 'r'));
         }
 
         Artisan::call('migrate', [

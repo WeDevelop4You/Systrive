@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class CompanyModulesCast implements CastsAttributes
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function get($model, string $key, $value, array $attributes): Collection
     {
@@ -24,7 +24,7 @@ class CompanyModulesCast implements CastsAttributes
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function set($model, string $key, $value, array $attributes): string
     {

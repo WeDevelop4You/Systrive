@@ -20,7 +20,7 @@ class Contain extends AbstractLogic
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {

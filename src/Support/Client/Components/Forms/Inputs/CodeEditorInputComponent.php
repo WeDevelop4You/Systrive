@@ -5,7 +5,7 @@ namespace Support\Client\Components\Forms\Inputs;
 class CodeEditorInputComponent extends AbstractInputComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

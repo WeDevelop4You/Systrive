@@ -12,7 +12,7 @@ use Support\Utils\Validations;
 class FileSizeColumnOption extends AbstractColumnOption implements ComponentColumnOption
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -20,7 +20,7 @@ class FileSizeColumnOption extends AbstractColumnOption implements ComponentColu
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): int
     {
@@ -28,19 +28,19 @@ class FileSizeColumnOption extends AbstractColumnOption implements ComponentColu
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
         return NumberInputComponent::create()
             ->setDefaultValue($this->defaultValue())
-            ->setLabel(trans('word.size.file') . ' (KB)');
+            ->setLabel(trans('word.size.file').' (KB)');
     }
 
     /**
      * max file size 10MB.
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

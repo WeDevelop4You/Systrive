@@ -37,7 +37,7 @@ class RegistrationController
                 $invite = (new ValidateInviteTokenAction())($inviteData);
 
                 return RegistrationResponse::create($invite)->toJson();
-            } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
+            } catch (DecryptException|ModelNotFoundException|InvalidTokenException) {
                 $response = Response::create()->addPopup(
                     SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')),
                     ResponseCode::HTTP_BAD_REQUEST
@@ -76,7 +76,7 @@ class RegistrationController
                     ->toSession();
 
                 return $response->addRedirect(ApplicationHelper::getRedirectRoute())->toJson();
-            } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
+            } catch (DecryptException|ModelNotFoundException|InvalidTokenException) {
             }
         }
 

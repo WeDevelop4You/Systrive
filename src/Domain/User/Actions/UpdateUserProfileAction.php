@@ -26,7 +26,7 @@ class UpdateUserProfileAction
         $userProfile->gender = $userProfileData->gender;
         $userProfile->birth_date = $userProfileData->birth_date;
 
-        if (!$userProfile->exists) {
+        if (! $userProfile->exists) {
             $userProfile->preferences = Collection::make([
                 UserPreferences::DARK_MODE->value => true,
             ]);

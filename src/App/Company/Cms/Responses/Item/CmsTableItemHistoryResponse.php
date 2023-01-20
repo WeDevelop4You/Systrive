@@ -6,6 +6,7 @@ use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
+use Support\Client\Components\Overviews\Tables\LocaleTableComponent;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Components\Popups\Modals\ShowModal;
 use Support\Client\Response;
@@ -28,7 +29,7 @@ class CmsTableItemHistoryResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -38,19 +39,22 @@ class CmsTableItemHistoryResponse extends AbstractResponse
                     ->setWidth(1300)
                     ->setTitle(trans('word.history.history'))
                     ->addComponent(
-                        ServerTableComponent::create()
+                        LocaleTableComponent::create()
                             ->setFlat()
                             ->setSearchable()
+                            ->setDisablePagination()
                             ->setVuexNamespace('cms/table/items/dataTable')
                             ->setHeaderRoute(route('company.cms.table.item.table.headers', [
                                 $this->company->id,
                                 $this->cms->id,
                                 $this->table->id,
+                                'history'
                             ]))
                             ->setItemsRoute(route('company.cms.table.item.table.items', [
                                 $this->company->id,
                                 $this->cms->id,
                                 $this->table->id,
+                                'history'
                             ]))
                     )
             );

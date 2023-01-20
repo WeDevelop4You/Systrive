@@ -2,8 +2,9 @@
 
 namespace Domain\Cms\Models;
 
+use Doctrine\DBAL\Exception;
 use Domain\Cms\Casts\CmsColumnPropertiesCast;
-use Domain\Cms\Collections\CmsColumnCollections;
+use Domain\Cms\Collections\CmsColumnCollection;
 use Domain\Cms\Columns\Types\AbstractColumnType;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Support\Traits\Observers;
 
 /**
@@ -33,10 +35,9 @@ use Support\Traits\Observers;
  * @property Carbon|null   $created_at
  * @property Carbon|null   $updated_at
  * @property-read \Domain\Cms\Models\CmsTable $table
- *
- * @method static CmsColumnCollections|static[] all($columns = ['*'])
+ * @method static CmsColumnCollection|static[] all($columns = ['*'])
  * @method static Builder|CmsColumn             editable()
- * @method static CmsColumnCollections|static[] get($columns = ['*'])
+ * @method static CmsColumnCollection|static[] get($columns = ['*'])
  * @method static Builder|CmsColumn             newModelQuery()
  * @method static Builder|CmsColumn             newQuery()
  * @method static Builder|CmsColumn             query()
@@ -54,13 +55,11 @@ use Support\Traits\Observers;
  * @method static Builder|CmsColumn             whereTableId($value)
  * @method static Builder|CmsColumn             whereType($value)
  * @method static Builder|CmsColumn             whereUpdatedAt($value)
- *
  * @mixin Eloquent
+ * @method static Builder|CmsColumn fileType(bool $not = true)
  */
 class CmsColumn extends Model
 {
-    use Observers;
-
     /**
      * @var string
      */
@@ -89,17 +88,23 @@ class CmsColumn extends Model
         CmsColumnTableMap::COL_PROPERTIES => CmsColumnPropertiesCast::class,
     ];
 
-    protected static array $observers = [
-        CmsColumnSavingObserver::class,
-        CmsColumnDeletingObserver::class,
-    ];
-
     /**
      * @return AbstractColumnType
      */
     public function type(): AbstractColumnType
     {
         return $this->type->create($this);
+    }
+
+    /**
+     * @param string     $key
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function property(string $key, mixed $default = null): mixed
+    {
+        return $this->type()->getPropertyValue($key, $default);
     }
 
     /**
@@ -151,7 +156,7 @@ class CmsColumn extends Model
         return $query->whereIn(CmsColumnTableMap::COL_TYPE, [
             CmsColumnType::FILE->value,
             CmsColumnType::IMAGE->value,
-        ], not: !$not);
+        ], not: ! $not);
     }
 
     /**
@@ -159,10 +164,10 @@ class CmsColumn extends Model
      *
      * @param array $models
      *
-     * @return CmsColumnCollections
+     * @return CmsColumnCollection
      */
-    public function newCollection(array $models = []): CmsColumnCollections
+    public function newCollection(array $models = []): CmsColumnCollection
     {
-        return new CmsColumnCollections($models);
+        return new CmsColumnCollection($models);
     }
 }

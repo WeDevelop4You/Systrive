@@ -9,7 +9,7 @@ use Support\Client\Response;
 class UserOverviewResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

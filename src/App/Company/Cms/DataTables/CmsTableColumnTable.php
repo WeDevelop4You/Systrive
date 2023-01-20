@@ -27,7 +27,7 @@ class CmsTableColumnTable extends AbstractTable
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): array
     {

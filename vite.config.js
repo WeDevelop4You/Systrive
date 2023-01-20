@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue2';
 import laravel from 'laravel-vite-plugin';
+// eslint-disable-next-line import/no-unresolved
 import Components from 'unplugin-vue-components/vite';
+// eslint-disable-next-line import/no-unresolved
 import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
 
 export default defineConfig({

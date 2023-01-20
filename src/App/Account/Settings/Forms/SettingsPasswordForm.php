@@ -12,7 +12,7 @@ use Support\Client\Components\Misc\CustomComponent;
 class SettingsPasswordForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

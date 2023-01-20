@@ -1,12 +1,12 @@
 <?php
 
-    namespace Support\Enums;
+namespace Support\Enums;
 
-    enum RequestMethodType: string
-    {
-        case GET = 'GET';
-        case POST = 'POST';
-        case PUT = 'PUT';
-        case PATCH = 'PATCH';
-        case DELETE = 'DELETE';
-    }
+enum RequestMethodType: string
+{
+    case GET = 'GET';
+    case POST = 'POST';
+    case PUT = 'PUT';
+    case PATCH = 'PATCH';
+    case DELETE = 'DELETE';
+}

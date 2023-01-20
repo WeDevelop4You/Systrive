@@ -67,9 +67,9 @@ enum CmsColumnType: int
     }
 
     /**
-     * @throws Exception
-     *
      * @return string
+     *
+     * @throws Exception
      */
     private function getClassname(): string
     {
@@ -114,7 +114,7 @@ enum CmsColumnType: int
         $types = [];
 
         foreach (self::cases() as $case) {
-            if (!\in_array($case, self::HIDDEN_CASES)) {
+            if (! \in_array($case, self::HIDDEN_CASES)) {
                 $types[] = $case;
             }
         }

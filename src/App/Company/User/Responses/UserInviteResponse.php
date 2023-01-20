@@ -9,7 +9,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class UserInviteResponse extends AbstractResponse
 {
@@ -20,21 +20,21 @@ class UserInviteResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
         return Response::create()
             ->addData(UserCreateResource::make(null))
             ->addPopup(
-                FormModal::create(VuexNamespaceHelper::createCompanyWhenAdmin('users/form'))
+                FormModal::create(VuexNamespace::createCompanyWhenAdmin('users/form'))
                     ->setPersistent()
                     ->setTitle(trans('word.invite.invite'))
                     ->setForm(UserForm::create($this->company))
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
-                            VuexNamespaceHelper::createCompanyWhenAdmin('users/store'),
+                            VuexNamespace::createCompanyWhenAdmin('users/store'),
                             route('company.user.invite', [
                                 $this->company->id,
                             ])

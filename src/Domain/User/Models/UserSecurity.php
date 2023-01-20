@@ -15,12 +15,12 @@ use Support\Casts\EncryptionCast;
 /**
  * Domain\User\Models\UserSecurity.
  *
- * @property int                                 $user_id
- * @property \Support\Helpers\DecryptHelper      $secret_key
- * @property \Support\Helpers\DecryptHelper|null $recovery_codes
- * @property bool                                $enabled
- * @property \Illuminate\Support\Carbon|null     $created_at
- * @property \Illuminate\Support\Carbon|null     $updated_at
+ * @property int                             $user_id
+ * @property \Support\Utils\Decrypt          $secret_key
+ * @property \Support\Utils\Decrypt|null     $recovery_codes
+ * @property bool                            $enabled
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSecurity newQuery()

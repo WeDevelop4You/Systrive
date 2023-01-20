@@ -1,13 +1,13 @@
 <?php
 
-    namespace Domain\Role\DataTransferObjects;
+namespace Domain\Role\DataTransferObjects;
 
-    final class RoleData
-    {
-        public function __construct(
+final class RoleData
+{
+    public function __construct(
             public string $name,
             public array $permissions
         ) {
             //
-        }
     }
+}

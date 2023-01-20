@@ -8,7 +8,7 @@ use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Buttons\ButtonComponent;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class UserOverviewResponse extends AbstractResponse
 {
@@ -24,7 +24,7 @@ class UserOverviewResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -43,7 +43,7 @@ class UserOverviewResponse extends AbstractResponse
             ->setSearchable()
             ->setTitle(trans('word.user.access'))
             ->setVuexNamespace(
-                VuexNamespaceHelper::createCompanyWhenAdmin('users/dataTable')
+                VuexNamespace::createCompanyWhenAdmin('users/dataTable')
             )
             ->setHeaderRoute(route('company.user.table.headers', $company->id))
             ->setItemsRoute(route('company.user.table.items', $company->id))
@@ -55,7 +55,7 @@ class UserOverviewResponse extends AbstractResponse
                     ->setAction(
                         VuexAction::create()
                             ->dispatch(
-                                VuexNamespaceHelper::createCompanyWhenAdmin('users/create'),
+                                VuexNamespace::createCompanyWhenAdmin('users/create'),
                                 route('company.user.invite', $company->id)
                             )
                     )

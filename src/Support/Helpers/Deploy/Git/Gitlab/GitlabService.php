@@ -8,7 +8,7 @@ use Support\Helpers\Deploy\Git\Abstracts\AbstractGitService;
 class GitlabService extends AbstractGitService
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function repository(): AbstractGitRepository
     {

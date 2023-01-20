@@ -14,7 +14,7 @@ use Spatie\Permission\Models\Role as RoleSpatie;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Permission\Models\Permission[]|\Illuminate\Database\Eloquent\Collection $permissions
- * @property-read \Domain\User\Collections\UserCollections|\Domain\User\Models\User[] $users
+ * @property-read \Domain\User\Collections\UserCollection|\Domain\User\Models\User[]              $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()

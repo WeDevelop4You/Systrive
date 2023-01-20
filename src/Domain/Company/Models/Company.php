@@ -9,15 +9,13 @@ use Domain\Company\Enums\CompanyModuleTypes;
 use Domain\Company\Enums\CompanyStatusTypes;
 use Domain\Company\Mappings\CompanyTableMap;
 use Domain\Company\Mappings\CompanyUserTableMap;
-use Domain\Company\Observers\CompanyDeletedObserver;
-use Domain\Company\Observers\CompanySavingObserver;
 use Domain\Company\QueryBuilders\CompanyQueryBuilders;
 use Domain\Company\Scopes\CompanySoftDeletingScope;
 use Domain\Company\Scopes\CompanyViewScope;
 use Domain\Invite\Models\Invite;
 use Domain\Role\Models\Role;
 use Domain\System\Models\System;
-use Domain\User\Collections\UserCollections;
+use Domain\User\Collections\UserCollection;
 use Domain\User\Mappings\UserTableMap;
 use Domain\User\Models\User;
 use Eloquent;
@@ -33,7 +31,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Support\Traits\Observers;
+use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 /**
  * Domain\Company\Models\Company.
@@ -49,14 +48,14 @@ use Support\Traits\Observers;
  * @property Carbon|null                    $created_at
  * @property Carbon|null                    $updated_at
  * @property Carbon|null                    $deleted_at
- * @property-read Cms[]|Collection $cms
+ * @property-read Cms[]|Collection                                $cms
  * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
- * @property-read Collection|Invite[] $invites
- * @property-read User|null $owner
- * @property-read Collection|Role[] $roles
- * @property-read System|null $system
- * @property-read System|null $systems
- * @property-read User[]|UserCollections $users
+ * @property-read Collection|Invite[]                             $invites
+ * @property-read User|null                                       $owner
+ * @property-read Collection|Role[]                               $roles
+ * @property-read System|null                                     $system
+ * @property-read System|null                                     $systems
+ * @property-read User[]|UserCollection                           $users
  *
  * @method static CompanyCollections|static[]                all($columns = ['*'])
  * @method static CompanyCollections|static[]                get($columns = ['*'])
@@ -83,7 +82,6 @@ use Support\Traits\Observers;
 class Company extends Model
 {
     use Prunable;
-    use Observers;
     use SoftDeletes;
 
     protected $table = 'companies';
@@ -103,11 +101,6 @@ class Company extends Model
         CompanyTableMap::COL_PREFERENCES => AsCollection::class,
     ];
 
-    protected static array $observers = [
-        CompanySavingObserver::class,
-        CompanyDeletedObserver::class,
-    ];
-
     /**
      * @return Builder|Company
      */
@@ -125,7 +118,7 @@ class Company extends Model
      */
     public function hasModule(CompanyModuleTypes $type, bool $excludeSuperAdmin = false): bool
     {
-        if (!$excludeSuperAdmin && Auth::user()->isSuperAdmin()) {
+        if (! $excludeSuperAdmin && Auth::user()->isSuperAdmin()) {
             return true;
         }
 
@@ -300,6 +293,15 @@ class Company extends Model
     public function newCollection(array $models = []): CompanyCollections
     {
         return new CompanyCollections($models);
+    }
+
+    /**
+     * @return Stringable
+     */
+    public function storagePath(): Stringable
+    {
+        return Str::of('companies/')
+            ->append(md5($this->id));
     }
 
     /**

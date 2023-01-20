@@ -31,9 +31,9 @@ class GitlabRepository extends AbstractGitRepository
     }
 
     /**
-     * @throws Exception
-     *
      * @return array
+     *
+     * @throws Exception
      */
     public function all(): array
     {
@@ -56,9 +56,9 @@ class GitlabRepository extends AbstractGitRepository
     /**
      * @param string $identifier
      *
-     * @throws Exception
-     *
      * @return array
+     *
+     * @throws Exception
      */
     public function getBranches(string $identifier): array
     {

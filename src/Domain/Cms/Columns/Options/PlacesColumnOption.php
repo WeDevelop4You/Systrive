@@ -2,12 +2,13 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Options\Attributes\ArgumentColumnOption;
+use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
+use Support\Utils\Validations;
 
-class PlacesColumnOption extends AbstractColumnOption implements ArgumentColumnOption
+class PlacesColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption
 {
     public function __construct(
         private readonly array $requirements,
@@ -16,24 +17,29 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentColumnO
         //
     }
 
+    protected function col(): int
+    {
+        return 6;
+    }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'places';
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getDefault(): ?int
+    protected function defaultValue(): ?int
     {
         return $this->default;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getArgumentKey(): string
     {
@@ -41,7 +47,7 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentColumnO
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {
@@ -49,36 +55,22 @@ class PlacesColumnOption extends AbstractColumnOption implements ArgumentColumnO
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getValidation(FormRequest $request): array|string|object
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return [];
+        return NumberInputComponent::create()
+            ->setLabel(trans('word.total.after.dot'))
+            ->setDefaultValue($this->defaultValue());
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getFormComponent(bool $isEditing): ColComponent
-    {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                NumberInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setLabel(trans('word.total.after.dot'))
-                    ->setVuexNamespace($this->getVuexNamespace())
-                    ->setDefaultValue($this->getDefault())
-            );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
         $totalKey = $this->getOtherFormKey('total');
 
-        return ['nullable', "lt:{$totalKey}", ...$this->requirements];
+        return new Validations(['nullable', "lt:{$totalKey}", ...$this->requirements]);
     }
 }

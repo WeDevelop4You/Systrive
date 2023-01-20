@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseCode;
 class SettingsTwoFactorAuthenticationResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -74,12 +74,12 @@ class SettingsTwoFactorAuthenticationResponse extends AbstractResponse
     /**
      * @param UuidInterface $identifier
      *
+     * @return StepperItemComponent
+     *
      * @throws IncompatibleWithGoogleAuthenticatorException
      * @throws InvalidAlgorithmException
      * @throws InvalidCharactersException
      * @throws SecretKeyTooShortException
-     *
-     * @return StepperItemComponent
      */
     private function createQrCode(UuidInterface $identifier): StepperItemComponent
     {
@@ -122,25 +122,25 @@ class SettingsTwoFactorAuthenticationResponse extends AbstractResponse
                     ->setValue(trans('text.verify.2fa')),
                 SettingsTwoFactorAuthenticationForm::create($identifier)
                     ->setVuexNamespace('settings/twoFactorAuthentication/form'),
-                 MultipleButtonComponent::create()
-                     ->setClass('gap-3')
-                     ->setButtons([
-                         ButtonComponent::create()
-                             ->setType()
-                             ->setTitle(trans('word.back.back'))
-                             ->setAction(VuexAction::create()->commit(
-                                 'settings/twoFactorAuthentication/stepper/back'
-                             )),
-                         ButtonComponent::create()
-                             ->setColor()
-                             ->setTitle(trans('word.verify.verify'))
-                             ->setAction(
-                                 VuexAction::create()->dispatch(
-                                     'settings/twoFactorAuthentication/send',
-                                     route('account.settings.2fa.validate')
-                                 )->setCloseModalOnSuccessAction($identifier)
-                             ),
-                     ]),
+                MultipleButtonComponent::create()
+                    ->setClass('gap-3')
+                    ->setButtons([
+                        ButtonComponent::create()
+                            ->setType()
+                            ->setTitle(trans('word.back.back'))
+                            ->setAction(VuexAction::create()->commit(
+                                'settings/twoFactorAuthentication/stepper/back'
+                            )),
+                        ButtonComponent::create()
+                            ->setColor()
+                            ->setTitle(trans('word.verify.verify'))
+                            ->setAction(
+                                VuexAction::create()->dispatch(
+                                    'settings/twoFactorAuthentication/send',
+                                    route('account.settings.2fa.validate')
+                                )->setCloseModalOnSuccessAction($identifier)
+                            ),
+                    ]),
             ]);
     }
 }

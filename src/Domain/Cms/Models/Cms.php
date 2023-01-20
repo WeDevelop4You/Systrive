@@ -3,7 +3,6 @@
 namespace Domain\Cms\Models;
 
 use Domain\Cms\Mappings\CmsTableMap;
-use Domain\Cms\Observers\CmsForceDeletedObserver;
 use Domain\Company\Models\Company;
 use Eloquent;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,23 +12,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Stringable;
 use Support\Casts\EncryptionCast;
-use Support\Helpers\DecryptHelper;
 use Support\Services\Cms as CmsService;
-use Support\Traits\Observers;
+use Support\Utils\Decrypt;
 
 /**
  * Domain\Cms\Models\Cms.
  *
- * @property int           $id
- * @property int|null      $company_id
- * @property string        $name
- * @property string        $database
- * @property DecryptHelper $username
- * @property DecryptHelper $password
- * @property Carbon|null   $created_at
- * @property Carbon|null   $updated_at
- * @property Carbon|null   $deleted_at
+ * @property int         $id
+ * @property int|null    $company_id
+ * @property string      $name
+ * @property string      $database
+ * @property Decrypt     $username
+ * @property Decrypt     $password
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property-read Company|null $company
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newModelQuery()
@@ -54,7 +53,6 @@ class Cms extends Model
 {
     use SoftDeletes;
     use Prunable;
-    use Observers;
 
     /**
      * @var string
@@ -77,10 +75,6 @@ class Cms extends Model
     protected $casts = [
         CmsTableMap::COL_USERNAME => EncryptionCast::class,
         CmsTableMap::COL_PASSWORD => EncryptionCast::class,
-    ];
-
-    protected static array $observers = [
-        CmsForceDeletedObserver::class,
     ];
 
     /**
@@ -107,6 +101,15 @@ class Cms extends Model
         CmsService::createConnection($this);
 
         return CmsTable::all();
+    }
+
+    /**
+     * @return Stringable
+     */
+    public function storagePath(): Stringable
+    {
+        return $this->company->storagePath()
+            ->append('/cms/', md5($this->id));
     }
 
     /**

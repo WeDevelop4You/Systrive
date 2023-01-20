@@ -12,7 +12,7 @@ use Support\Abstracts\AbstractSeeder;
 class RoleSeeder extends AbstractSeeder
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handler(): Collection
     {

@@ -5,7 +5,7 @@ namespace Support\Client\Components\Forms\Inputs;
 class RichTextareaInputComponent extends AbstractInputComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

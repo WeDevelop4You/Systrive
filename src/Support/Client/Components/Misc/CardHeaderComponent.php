@@ -27,7 +27,7 @@ class CardHeaderComponent extends Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

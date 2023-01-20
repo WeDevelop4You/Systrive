@@ -6,8 +6,8 @@ use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Support\Carbon;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
 
 class NullableTimestampColumnOption extends AbstractNullableColumnOption
 {
@@ -17,8 +17,13 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
         //
     }
 
+    protected function col(): int
+    {
+        return 6;
+    }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
     {
@@ -40,21 +45,15 @@ class NullableTimestampColumnOption extends AbstractNullableColumnOption
     /**
      * @param bool $isEditing
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                CheckboxInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setLabel(trans('word.nullable'))
-                    ->setVuexNamespace($this->getVuexNameSpace())
-                    ->setHintIf(
-                        $isEditing,
-                        trans('text.time.not.null.use.now')
-                    )
+        return CheckboxInputComponent::create()
+            ->setLabel(trans('word.nullable'))
+            ->setHintIf(
+                $isEditing,
+                trans('text.time.not.null.use.now')
             );
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class IdColumnType extends AbstractColumnType
 {
@@ -16,7 +17,7 @@ class IdColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -24,7 +25,7 @@ class IdColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
@@ -32,7 +33,7 @@ class IdColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
@@ -40,10 +41,10 @@ class IdColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return [];
+        return new Validations([]);
     }
 }

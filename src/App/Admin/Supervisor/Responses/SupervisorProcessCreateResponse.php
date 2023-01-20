@@ -11,7 +11,7 @@ use Support\Client\Response;
 class SupervisorProcessCreateResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

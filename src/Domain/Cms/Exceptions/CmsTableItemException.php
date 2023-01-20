@@ -4,6 +4,6 @@ namespace Domain\Cms\Exceptions;
 
 use Exception;
 
-class CmsRollbackException extends Exception
+class CmsTableItemException extends Exception
 {
 }

@@ -13,7 +13,7 @@ use Support\Enums\Component\Vuetify\VuetifyButtonType;
 class RecoveryCodeResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

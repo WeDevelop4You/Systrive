@@ -7,7 +7,7 @@ use Support\Client\Components\Misc\Icons\IconComponent;
 class CollapseNavigationComponent extends AbstractNavigationComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

@@ -12,9 +12,9 @@ class Terminal
     /**
      * @param $cmd
      *
-     * @throws ShellCommandFailedException
-     *
      * @return Stringable
+     *
+     * @throws ShellCommandFailedException
      */
     public static function execute($cmd): Stringable
     {

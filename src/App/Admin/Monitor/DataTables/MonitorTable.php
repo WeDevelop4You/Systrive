@@ -18,7 +18,7 @@ use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
 class MonitorTable extends AbstractTable
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): array
     {
@@ -38,10 +38,10 @@ class MonitorTable extends AbstractTable
                 }),
             Column::create(trans('word.duration.duration'), 'duration')
                 ->setSortable(function (Builder $query, string $direction) {
-                    return $query->orderBy(DB::raw("`ended` - `started`"), $direction);
+                    return $query->orderBy(DB::raw('`ended` - `started`'), $direction);
                 })
                 ->setSearchable(function (Builder $query, string $search) {
-                    return $query->orWhere(DB::raw("`ended` - `started`"), 'like', "%{$search}%");
+                    return $query->orWhere(DB::raw('`ended` - `started`'), 'like', "%{$search}%");
                 })
                 ->setAlignment(VuetifyTableAlignmentType::CENTER)
                 ->setFormat(function (Monitor $data) {

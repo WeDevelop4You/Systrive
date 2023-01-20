@@ -22,9 +22,9 @@ final class CompanyInviteData
      * @param array      $modules
      */
     public function __construct(
-        public readonly string      $name,
+        public readonly string $name,
         private readonly string|int $owner,
-        private readonly array      $modules
+        private readonly array $modules
     ) {
         //
     }
@@ -34,7 +34,7 @@ final class CompanyInviteData
      */
     private function getUser(): User
     {
-        if (!isset($this->user)) {
+        if (! isset($this->user)) {
             $this->user = \is_int($this->owner)
                 ? User::find($this->owner)
                 : (new CreateUserAction())($this->owner);

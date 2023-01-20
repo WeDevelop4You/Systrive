@@ -1,12 +1,13 @@
 <?php
 
-namespace Domain\Cms\Columns\Options\Attributes;
+namespace Domain\Cms\Columns\Options\Types;
 
+use Domain\Cms\Columns\Attributes\DirtyColumn;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 
-interface PropertyColumnOption extends ValidationColumnOption
+interface PropertyDirtyColumnOption extends DirtyColumn
 {
     /**
      * @param ColumnDefinition $columnDefinition

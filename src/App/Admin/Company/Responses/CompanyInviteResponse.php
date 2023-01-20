@@ -13,7 +13,7 @@ use Support\Client\Response;
 class CompanyInviteResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

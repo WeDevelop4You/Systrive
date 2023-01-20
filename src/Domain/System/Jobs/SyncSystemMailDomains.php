@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommand;
-use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
+use Support\Utils\SystemStatistic;
 
 class SyncSystemMailDomains extends AbstractVestaSync
 {
@@ -98,7 +98,7 @@ class SyncSystemMailDomains extends AbstractVestaSync
         $usage = $this->system->mailDomains->map(function (SystemMailDomain $systemMailDomain) {
             $mailDomain = $this->syncData->get($systemMailDomain->name);
 
-            return SystemStatisticHelper::create($systemMailDomain)
+            return SystemStatistic::create($systemMailDomain)
                 ->setType(SystemUsageStatisticTypes::DISK)
                 ->setTotal($mailDomain['U_DISK'])
                 ->toArray();

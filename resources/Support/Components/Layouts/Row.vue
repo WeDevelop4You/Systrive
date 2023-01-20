@@ -1,7 +1,5 @@
 <template>
-    <v-row
-        v-bind="component.attributes"
-    >
+    <v-row v-bind="component.attributes">
         <l-col
             v-for="component in component.data.cols"
             :key="component.identifier"

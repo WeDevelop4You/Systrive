@@ -4,6 +4,7 @@ namespace App\Company\Cms\Controllers\Item;
 
 use App\Company\Cms\Requests\CmsTableItemRequest;
 use App\Company\Cms\Responses\Item\CmsTableItemCreateResponse;
+use Domain\Cms\Actions\CmsTableItemFileAction;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;
@@ -34,22 +35,33 @@ class CmsTableItemCreateController
      * @param CmsTable            $table
      *
      * @return JsonResponse
+     *
+     * @throws \Throwable
      */
     public function action(CmsTableItemRequest $request, Company $company, Cms $cms, CmsTable $table): JsonResponse
     {
+        $error = Response::create()->addPopup(
+            SimpleNotificationComponent::create()->setText(trans('response.error.saved')),
+            ResponseCode::HTTP_BAD_REQUEST
+        )->toJson();
+
         $model = new CmsModel($request->validated());
 
+        try {
+            $files = (new CmsTableItemFileAction($request, $table, $model))();
+        } catch (\Exception) {
+            return $error;
+        }
+
         if ($model->save()) {
+            $files->save($model);
+
             return Response::create()
                 ->addPopup(
                     SimpleNotificationComponent::create()->setText(trans('response.success.saved'))
                 )->toJson();
         }
 
-        return Response::create()
-            ->addPopup(
-                SimpleNotificationComponent::create()->setText(trans('response.error.saved')),
-                ResponseCode::HTTP_BAD_REQUEST
-            )->toJson();
+        return $error;
     }
 }

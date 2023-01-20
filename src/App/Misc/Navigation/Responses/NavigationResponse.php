@@ -22,7 +22,7 @@ use Support\Helpers\ApplicationHelper;
 class NavigationResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

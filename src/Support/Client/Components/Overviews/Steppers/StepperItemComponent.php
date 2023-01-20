@@ -20,7 +20,7 @@ class StepperItemComponent extends Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

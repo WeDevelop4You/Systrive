@@ -10,7 +10,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class RoleCreateResponse extends AbstractResponse
 {
@@ -26,21 +26,21 @@ class RoleCreateResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
         return Response::create()
             ->addData(RoleResource::make(new Role()))
             ->addPopup(
-                FormModal::create(VuexNamespaceHelper::createCompanyWhenAdmin('roles/form'))
+                FormModal::create(VuexNamespace::createCompanyWhenAdmin('roles/form'))
                     ->setPersistent()
                     ->setTitle(trans('word.create.create'))
                     ->setForm(RoleForm::create())
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
-                            VuexNamespaceHelper::createCompanyWhenAdmin('roles/store'),
+                            VuexNamespace::createCompanyWhenAdmin('roles/store'),
                             route('company.role.create', [
                                 $this->company->id,
                             ])

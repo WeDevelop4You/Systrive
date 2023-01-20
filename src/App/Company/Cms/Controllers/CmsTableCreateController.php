@@ -6,8 +6,7 @@ use App\Company\Cms\Requests\CmsTableRequest;
 use App\Company\Cms\Responses\CmsTableCreateResponse;
 use Domain\Cms\Actions\CmsTableStoreAction;
 use Domain\Cms\DataTransferObjects\CmsTableData;
-use Domain\Cms\Exceptions\CmsRollbackException;
-use Domain\Cms\Exceptions\CmsTableCreateException;
+use Domain\Cms\Exceptions\CmsTableException;
 use Domain\Cms\Models\Cms;
 use Domain\Company\Models\Company;
 use Illuminate\Http\JsonResponse;
@@ -19,6 +18,7 @@ use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
+use Throwable;
 
 class CmsTableCreateController
 {
@@ -46,7 +46,7 @@ class CmsTableCreateController
 
         try {
             $table = (new CmsTableStoreAction())($data);
-        } catch (CmsTableCreateException|CmsRollbackException $e) {
+        } catch (CmsTableException|Throwable $e) {
             Sentry::captureException($e);
 
             return Response::create()

@@ -2,6 +2,7 @@ import Vue from "vue";
 import items from "./items";
 import columns from "./columns";
 import formBase from "../../../../../Support/Store/Base/formBase";
+import overviewBase from "../../../../../Support/Store/Base/overviewBase";
 
 const app = Vue.prototype
 
@@ -60,6 +61,7 @@ export default {
 
     modules: {
         form: formBase(),
+        overview: overviewBase(),
 
         items: items,
         columns: columns

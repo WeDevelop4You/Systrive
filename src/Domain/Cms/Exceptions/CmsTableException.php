@@ -4,6 +4,6 @@ namespace Domain\Cms\Exceptions;
 
 use Exception;
 
-class CmsTableCreateException extends Exception
+class CmsTableException extends Exception
 {
 }

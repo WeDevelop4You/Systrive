@@ -41,7 +41,7 @@ class GenerateTranslationCommand extends Command
         $data = $this->importFiles();
         $data .= "export default {\n";
         $data .= $this->createLocalesList();
-        $data .= "}";
+        $data .= '}';
 
         $this->filesystem->put(resource_path('admin/js/config/translations.js'), $data);
     }

@@ -35,7 +35,6 @@ class ResetPasswordRequest extends FormRequest
             $email = '';
         }
 
-
         return $this->merge([
             'email' => $email,
         ]);

@@ -3,19 +3,16 @@
 namespace Domain\Cms\Models;
 
 use Domain\Cms\Casts\CmsColumnPropertiesCast;
-use Domain\Cms\Collections\CmsColumnCollections;
+use Domain\Cms\Collections\CmsColumnCollection;
 use Domain\Cms\Columns\Types\AbstractColumnType;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Observers\CmsColumnDeletingObserver;
-use Domain\Cms\Observers\CmsColumnSavingObserver;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
-use Support\Traits\Observers;
 
 /**
  * Domain\Cms\Models\CmsColumn.
@@ -34,33 +31,33 @@ use Support\Traits\Observers;
  * @property Carbon|null   $updated_at
  * @property-read \Domain\Cms\Models\CmsTable $table
  *
- * @method static CmsColumnCollections|static[] all($columns = ['*'])
- * @method static Builder|CmsColumn             editable()
- * @method static CmsColumnCollections|static[] get($columns = ['*'])
- * @method static Builder|CmsColumn             newModelQuery()
- * @method static Builder|CmsColumn             newQuery()
- * @method static Builder|CmsColumn             query()
- * @method static Builder|CmsColumn             sorted()
- * @method static Builder|CmsColumn             visible()
- * @method static Builder|CmsColumn             whereAfter($value)
- * @method static Builder|CmsColumn             whereCreatedAt($value)
- * @method static Builder|CmsColumn             whereDeletable($value)
- * @method static Builder|CmsColumn             whereEditable($value)
- * @method static Builder|CmsColumn             whereHidden($value)
- * @method static Builder|CmsColumn             whereId($value)
- * @method static Builder|CmsColumn             whereKey($value)
- * @method static Builder|CmsColumn             whereLabel($value)
- * @method static Builder|CmsColumn             whereProperties($value)
- * @method static Builder|CmsColumn             whereTableId($value)
- * @method static Builder|CmsColumn             whereType($value)
- * @method static Builder|CmsColumn             whereUpdatedAt($value)
+ * @method static CmsColumnCollection|static[] all($columns = ['*'])
+ * @method static Builder|CmsColumn            editable()
+ * @method static CmsColumnCollection|static[] get($columns = ['*'])
+ * @method static Builder|CmsColumn            newModelQuery()
+ * @method static Builder|CmsColumn            newQuery()
+ * @method static Builder|CmsColumn            query()
+ * @method static Builder|CmsColumn            sorted()
+ * @method static Builder|CmsColumn            visible()
+ * @method static Builder|CmsColumn            whereAfter($value)
+ * @method static Builder|CmsColumn            whereCreatedAt($value)
+ * @method static Builder|CmsColumn            whereDeletable($value)
+ * @method static Builder|CmsColumn            whereEditable($value)
+ * @method static Builder|CmsColumn            whereHidden($value)
+ * @method static Builder|CmsColumn            whereId($value)
+ * @method static Builder|CmsColumn            whereKey($value)
+ * @method static Builder|CmsColumn            whereLabel($value)
+ * @method static Builder|CmsColumn            whereProperties($value)
+ * @method static Builder|CmsColumn            whereTableId($value)
+ * @method static Builder|CmsColumn            whereType($value)
+ * @method static Builder|CmsColumn            whereUpdatedAt($value)
  *
  * @mixin Eloquent
+ *
+ * @method static Builder|CmsColumn fileType(bool $not = true)
  */
 class CmsColumn extends Model
 {
-    use Observers;
-
     /**
      * @var string
      */
@@ -89,17 +86,23 @@ class CmsColumn extends Model
         CmsColumnTableMap::COL_PROPERTIES => CmsColumnPropertiesCast::class,
     ];
 
-    protected static array $observers = [
-        CmsColumnSavingObserver::class,
-        CmsColumnDeletingObserver::class,
-    ];
-
     /**
      * @return AbstractColumnType
      */
     public function type(): AbstractColumnType
     {
         return $this->type->create($this);
+    }
+
+    /**
+     * @param string     $key
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    public function property(string $key, mixed $default = null): mixed
+    {
+        return $this->type()->getPropertyValue($key, $default);
     }
 
     /**
@@ -142,15 +145,16 @@ class CmsColumn extends Model
 
     /**
      * @param Builder $query
+     * @param bool    $not
      *
      * @return Builder
      */
-    public function scopeFileType(Builder $query): Builder
+    public function scopeFileType(Builder $query, bool $not = true): Builder
     {
         return $query->whereIn(CmsColumnTableMap::COL_TYPE, [
             CmsColumnType::FILE->value,
             CmsColumnType::IMAGE->value,
-        ]);
+        ], not: ! $not);
     }
 
     /**
@@ -158,10 +162,10 @@ class CmsColumn extends Model
      *
      * @param array $models
      *
-     * @return CmsColumnCollections
+     * @return CmsColumnCollection
      */
-    public function newCollection(array $models = []): CmsColumnCollections
+    public function newCollection(array $models = []): CmsColumnCollection
     {
-        return new CmsColumnCollections($models);
+        return new CmsColumnCollection($models);
     }
 }

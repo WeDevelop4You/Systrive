@@ -1,27 +1,27 @@
 <?php
 
-    namespace Domain\Company\Actions;
+namespace Domain\Company\Actions;
 
-    use Domain\Company\Models\Company;
-    use Domain\User\Models\User;
+use Domain\Company\Models\Company;
+use Domain\User\Models\User;
 
-    class CompanyRevokeUserAction
-    {
-        public function __construct(
+class CompanyRevokeUserAction
+{
+    public function __construct(
             public Company $company,
         ) {
             //
-        }
-
-        /**
-         * @param User $user
-         *
-         * @return User
-         */
-        public function __invoke(User $user): User
-        {
-            $this->company->users()->detach($user->id);
-
-            return $user;
-        }
     }
+
+    /**
+     * @param User $user
+     *
+     * @return User
+     */
+    public function __invoke(User $user): User
+    {
+        $this->company->users()->detach($user->id);
+
+        return $user;
+    }
+}

@@ -17,7 +17,7 @@ use Support\Enums\Component\Vuetify\VuetifySizeType;
 class OneTimePasswordResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

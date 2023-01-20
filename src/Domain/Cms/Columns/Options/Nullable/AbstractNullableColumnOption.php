@@ -2,33 +2,35 @@
 
 namespace Domain\Cms\Columns\Options\Nullable;
 
+use Domain\Cms\Columns\Attributes\Validation;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Utils\Validations;
 
-abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyColumnOption
+abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'nullable';
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getDefault(): bool
+    protected function defaultValue(): bool
     {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getProperty(ColumnDefinition $columnDefinition, Blueprint $table, CmsColumn $column): void
     {
@@ -36,7 +38,7 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function isDirty(mixed $value): bool
     {
@@ -44,18 +46,18 @@ abstract class AbstractNullableColumnOption extends AbstractColumnOption impleme
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getValidation(FormRequest $request): string
+    public function getValidation(FormRequest $request): Validations
     {
-        return $this->getValue() ? 'nullable' : 'required';
+        return new Validations([$this->getValue() ? 'nullable' : 'required']);
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['boolean', 'nullable'];
+        return new Validations(['boolean', 'nullable']);
     }
 }

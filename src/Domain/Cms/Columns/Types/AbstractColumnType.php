@@ -2,10 +2,11 @@
 
 namespace Domain\Cms\Columns\Types;
 
+use Domain\Cms\Columns\Attributes\DirtyColumn;
+use Domain\Cms\Columns\Attributes\Validation;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Attributes\ArgumentColumnOption;
-use Domain\Cms\Columns\Options\Attributes\PropertyColumnOption;
-use Domain\Cms\Columns\Options\Attributes\ValidationColumnOption;
+use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsModel;
@@ -19,6 +20,7 @@ use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 abstract class AbstractColumnType
 {
@@ -55,29 +57,25 @@ abstract class AbstractColumnType
     /**
      * @return string
      */
-    private function getKey(): string
+    protected function getKey(): string
     {
         return $this->column->key;
     }
 
     /**
-     * @return Collection
+     * @return string
      */
-    private function getProperties(): Collection
+    protected function getLabel(): string
     {
-        return $this->column->properties;
+        return $this->column->label;
     }
 
     /**
-     * @return array
+     * @return Collection
      */
-    private function getArguments(): array
+    protected function getProperties(): Collection
     {
-        return $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof ArgumentColumnOption
-        )->mapWithKeys(
-            fn (ArgumentColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
-        )->prepend($this->getKey(), 'column')->toArray();
+        return $this->column->properties;
     }
 
     /**
@@ -87,11 +85,17 @@ abstract class AbstractColumnType
      */
     final public function getDefinition(Blueprint $table): ColumnDefinition|ForeignIdColumnDefinition
     {
-        $column = App::call([$table, $this->type()], $this->getArguments());
+        $arguments = $this->getProperties()->filter(
+            fn (AbstractColumnOption $option) => $option instanceof ArgumentDirtyColumnOption
+        )->mapWithKeys(
+            fn (ArgumentDirtyColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
+        )->prepend($this->getKey(), 'column')->toArray();
+
+        $column = App::call([$table, $this->type()], $arguments);
 
         $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof PropertyColumnOption
-        )->each(function (PropertyColumnOption $option) use ($column, $table) {
+            fn (AbstractColumnOption $option) => $option instanceof PropertyDirtyColumnOption
+        )->each(function (PropertyDirtyColumnOption $option) use ($column, $table) {
             $original = $this->getPropertyValue($option->getKey());
 
             if ($option->isDirty($original)) {
@@ -102,6 +106,9 @@ abstract class AbstractColumnType
         return $column;
     }
 
+    /**
+     * @return Column
+     */
     final public function getColumnComponent(): Column
     {
         return $this->columnComponent();
@@ -109,21 +116,46 @@ abstract class AbstractColumnType
 
     final public function getInputComponent(CmsModel $model, bool $readonly = false): InputColWrapper
     {
-        $input = $this->inputComponent($model)->setReadonly($readonly);
-        $col = ColComponent::create()->setMdCol($this->getPropertyValue('row_col', 12));
-
-        return InputColWrapper::create()->setCol($col)->setInput($input);
+        return InputColWrapper::create()
+            ->setCol(
+                ColComponent::create()
+                    ->setMdCol($this->getPropertyValue('row_col', 12))
+            )
+            ->setInput(
+                $this->inputComponent($model)
+                    ->setReadonly($readonly)
+                    ->setKey($this->getKey())
+                    ->setLabel($this->getLabel())
+            );
     }
 
+    /**
+     * @param FormRequest $request
+     *
+     * @return array
+     */
     final public function getValidations(FormRequest $request): array
     {
-        return $this->getProperties()
-            ->filter(fn (AbstractColumnOption $option) => $option instanceof ValidationColumnOption)
-            ->map(fn (ValidationColumnOption $option) => $option->getValidation($request))
-            ->add($this->validation($request))
-            ->flatten()
-            ->filter()
-            ->toArray();
+        $validations = $this->validation($request);
+
+        $this->getProperties()
+             ->filter(fn (AbstractColumnOption $option) => $option instanceof Validation)
+             ->each(fn (Validation $option) => $validations->add($option->getValidation($request)));
+
+        return $validations->toArray($this->getKey());
+    }
+
+    /**
+     * @param string     $key
+     * @param mixed|null $default
+     *
+     * @return mixed
+     */
+    final public function getPropertyValue(string $key, mixed $default = null): mixed
+    {
+        return Collection::json(
+            $this->column->getRawOriginal(CmsColumnTableMap::COL_PROPERTIES) ?? ''
+        )->get("{$this->type()}_{$key}", $default);
     }
 
     /**
@@ -135,21 +167,8 @@ abstract class AbstractColumnType
             ->filter(function (AbstractColumnOption $option) {
                 $original = $this->getPropertyValue($option->getKey());
 
-                return $option instanceof ValidationColumnOption && $option->isDirty($original);
+                return $option instanceof DirtyColumn && $option->isDirty($original);
             })->isNotEmpty();
-    }
-
-    /**
-     * @param string     $key
-     * @param mixed|null $default
-     *
-     * @return mixed
-     */
-    final protected function getPropertyValue(string $key, mixed $default = null): mixed
-    {
-        return Collection::json(
-            $this->column->getRawOriginal(CmsColumnTableMap::COL_PROPERTIES) ?? ''
-        )->get("{$this->type()}_{$key}", $default);
     }
 
     /**
@@ -161,7 +180,6 @@ abstract class AbstractColumnType
     }
 
     /**
-     *
      * @return string
      */
     abstract protected function type(): string;
@@ -186,7 +204,7 @@ abstract class AbstractColumnType
     /**
      * @param FormRequest $request
      *
-     * @return array
+     * @return validations
      */
-    abstract protected function validation(FormRequest $request): array;
+    abstract protected function validation(FormRequest $request): validations;
 }

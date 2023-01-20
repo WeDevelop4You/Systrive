@@ -20,7 +20,7 @@ class SystemTemplateListController
     {
         $query = SystemTemplate::whereType($type);
 
-        if (!Auth::user()->isSuperAdmin()) {
+        if (! Auth::user()->isSuperAdmin()) {
             $query->whereIsPublic(true);
         }
 

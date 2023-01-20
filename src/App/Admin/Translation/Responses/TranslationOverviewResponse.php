@@ -15,7 +15,7 @@ use WeDevelop4You\TranslationFinder\Models\TranslationKey;
 class TranslationOverviewResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

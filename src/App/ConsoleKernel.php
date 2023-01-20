@@ -30,9 +30,15 @@ class ConsoleKernel extends Kernel
             ->dailyAt('3:00')
             ->withoutOverlapping();
 
-        $schedule->command('model:prune', [
-            '--model' => [Company::class, Cms::class],
-        ])->name('Clean database')->dailyAt('3:00');
+        $schedule->command('model:prune', ['--model' => [Company::class, Cms::class]])
+            ->name('Clean database')
+            ->dailyAt('3:00')
+            ->runInBackground();
+
+        $schedule->command('storage:clear-tmp')
+            ->name('Clear tmp folder')
+            ->dailyAt('3:00')
+            ->runInBackground();
     }
 
     /**
@@ -42,7 +48,7 @@ class ConsoleKernel extends Kernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__ . '/Console/Commands');
+        $this->load(__DIR__.'/Console/Commands');
 
         require base_path('routes/console.php');
     }

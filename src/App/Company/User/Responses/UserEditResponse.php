@@ -10,7 +10,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class UserEditResponse extends AbstractResponse
 {
@@ -22,21 +22,21 @@ class UserEditResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
         return Response::create()
             ->addData(UserEditResource::make($this->user))
             ->addPopup(
-                FormModal::create(VuexNamespaceHelper::createCompanyWhenAdmin('users/form'))
+                FormModal::create(VuexNamespace::createCompanyWhenAdmin('users/form'))
                     ->setPersistent()
                     ->setTitle(trans('word.edit.edit'))
                     ->setForm(UserForm::create($this->company, true))
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(
                         VuexAction::create()->dispatch(
-                            VuexNamespaceHelper::createCompanyWhenAdmin('users/update'),
+                            VuexNamespace::createCompanyWhenAdmin('users/update'),
                             route('company.user.edit', [
                                 $this->company->id,
                                 $this->user->id,

@@ -15,7 +15,7 @@ use Support\Enums\Component\IconType;
 class SupervisorTable extends AbstractTable
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): array
     {

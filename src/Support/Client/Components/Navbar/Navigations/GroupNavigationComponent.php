@@ -8,7 +8,7 @@ namespace Support\Client\Components\Navbar\Navigations;
 class GroupNavigationComponent extends AbstractNavigationComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

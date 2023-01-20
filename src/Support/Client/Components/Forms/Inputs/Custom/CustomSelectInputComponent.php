@@ -8,7 +8,7 @@ use Support\Enums\Component\Form\FormSelectInputType;
 class CustomSelectInputComponent extends SelectInputComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

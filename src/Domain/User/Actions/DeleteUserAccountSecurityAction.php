@@ -1,13 +1,13 @@
 <?php
 
-    namespace Domain\User\Actions;
+namespace Domain\User\Actions;
 
-    use Domain\User\Models\User;
+use Domain\User\Models\User;
 
-    class DeleteUserAccountSecurityAction
+class DeleteUserAccountSecurityAction
+{
+    public function __invoke(User $user): void
     {
-        public function __invoke(User $user): void
-        {
-            $user->security()->delete();
-        }
+        $user->security()->delete();
     }
+}

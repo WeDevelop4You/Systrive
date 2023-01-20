@@ -22,7 +22,7 @@ class AuthenticateRoles
         if (Auth::check()) {
             setCompanyId();
 
-            if (!Auth::user()->isSuperAdmin() && $request->route()->hasParameter('company')) {
+            if (! Auth::user()->isSuperAdmin() && $request->route()->hasParameter('company')) {
                 $company = $request->route()->parameter('company');
 
                 setCompanyId($company instanceof Company ? $company->id : $company);

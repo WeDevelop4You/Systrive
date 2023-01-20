@@ -14,7 +14,7 @@ use Support\Enums\Component\IconType;
 class NavigationResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

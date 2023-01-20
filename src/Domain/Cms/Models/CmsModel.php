@@ -2,8 +2,11 @@
 
 namespace Domain\Cms\Models;
 
+use Domain\Cms\Collections\CmsFileCollection;
 use Domain\Cms\Mappings\CmsColumnTableMap;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Support\Services\Cms;
 
 /**
@@ -12,19 +15,35 @@ use Support\Services\Cms;
  * @property int                             $id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read CmsFileCollection|\Domain\Cms\Models\CmsFile[] $files
  *
- * @method static \Illuminate\Database\Eloquent\Builder|CmsModel newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsModel newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsModel query()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsModel whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsModel whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsModel whereUpdatedAt($value)
+ * @method static Builder|CmsModel newModelQuery()
+ * @method static Builder|CmsModel newQuery()
+ * @method static Builder|CmsModel query()
+ * @method static Builder|CmsModel whereCreatedAt($value)
+ * @method static Builder|CmsModel whereId($value)
+ * @method static Builder|CmsModel whereUpdatedAt($value)
  *
  * @mixin \Eloquent
  */
 class CmsModel extends Model
 {
+    /**
+     * @var string
+     */
     protected $connection = 'cms';
+
+    /**
+     * @var string[]
+     */
+    protected $with = [
+        'files',
+    ];
+
+    /**
+     * @var string
+     */
+    protected readonly string $identifier;
 
     /**
      * CmsModel constructor.
@@ -35,19 +54,28 @@ class CmsModel extends Model
     {
         $table = Cms::getTable();
 
-        $this->setTable($table->name);
-        $this->fillable(
-            $table->columns()->pluck(CmsColumnTableMap::COL_KEY)->toArray()
-        );
+        if ($table instanceof CmsTable) {
+            $this->setTable($table->name);
+            $this->fillable(
+                $table->fillableColumns()->pluck(CmsColumnTableMap::COL_KEY)->toArray()
+            );
+
+            $this->identifier = $table->identifier();
+        }
 
         parent::__construct($attributes);
     }
 
-    /**
-     * @return bool
-     */
-    public function hasFiles(): bool
+    public function getMorphClass(): string
     {
-        return false;
+        return $this->identifier;
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function files(): MorphMany
+    {
+        return $this->morphMany(CmsFile::class, 'table');
     }
 }

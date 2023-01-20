@@ -1,9 +1,9 @@
 <?php
 
-    namespace Domain\Invite\Exceptions;
+namespace Domain\Invite\Exceptions;
 
-    use Exception;
+use Exception;
 
-    class InviteNewUserException extends Exception
-    {
-    }
+class InviteNewUserException extends Exception
+{
+}

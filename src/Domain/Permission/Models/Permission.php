@@ -2,9 +2,7 @@
 
 namespace Domain\Permission\Models;
 
-use Domain\Permission\Observers\PermissionCreatedObserver;
 use Spatie\Permission\Models\Permission as PermissionSpatie;
-use Support\Traits\Observers;
 
 /**
  * Domain\Permission\Models\Permission.
@@ -14,9 +12,9 @@ use Support\Traits\Observers;
  * @property string                          $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|Permission[]               $permissions
  * @property-read \Domain\Role\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
- * @property-read \Domain\User\Collections\UserCollections|\Domain\User\Models\User[] $users
+ * @property-read \Domain\User\Collections\UserCollection|\Domain\User\Models\User[]  $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()
@@ -33,9 +31,4 @@ use Support\Traits\Observers;
  */
 class Permission extends PermissionSpatie
 {
-    use Observers;
-
-    protected static array $observers = [
-        PermissionCreatedObserver::class,
-    ];
 }

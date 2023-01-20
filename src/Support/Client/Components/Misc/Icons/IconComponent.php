@@ -5,7 +5,7 @@ namespace Support\Client\Components\Misc\Icons;
 class IconComponent extends AbstractIconComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

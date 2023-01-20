@@ -6,7 +6,7 @@ use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class FormComponent extends AbstractFormComponent
 {
@@ -28,7 +28,7 @@ class FormComponent extends AbstractFormComponent
     private array $classes = [];
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {
@@ -36,9 +36,9 @@ class FormComponent extends AbstractFormComponent
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static
+    public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {
         $this->vuexNamespace = optional($vuexNamespace)->export() ?: $vuexNamespace;
 

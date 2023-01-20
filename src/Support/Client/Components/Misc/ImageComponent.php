@@ -10,7 +10,7 @@ class ImageComponent extends Component
     use ComponentWithClasses;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

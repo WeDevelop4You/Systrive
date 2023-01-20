@@ -19,9 +19,9 @@ class MonitorCreate
      *
      * @param JobQueued $event
      *
-     * @throws ReflectionException
-     *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function handle(JobQueued $event): void
     {

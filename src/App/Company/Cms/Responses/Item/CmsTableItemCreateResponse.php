@@ -23,7 +23,7 @@ class CmsTableItemCreateResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

@@ -57,7 +57,7 @@ class BladeServiceProvider extends ServiceProvider
         $finder = new Finder();
 
         $filter = function (SplFileInfo $file) {
-            if (!\in_array($file->getBasename(), ['Views', 'views'])) {
+            if (! \in_array($file->getBasename(), ['Views', 'views'])) {
                 return false;
             }
 
@@ -84,7 +84,7 @@ class BladeServiceProvider extends ServiceProvider
         $finder = new Finder();
 
         $filter = function (SplFileInfo $file) {
-            if (!str_ends_with($file->getPath(), 'components')) {
+            if (! str_ends_with($file->getPath(), 'components')) {
                 return false;
             }
 

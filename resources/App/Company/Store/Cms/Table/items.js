@@ -13,6 +13,8 @@ export default {
         },
 
         create({commit}, route) {
+            commit('form/resetForm', 0)
+
             app.$api.call({
                 url: route,
                 method: "GET"
@@ -34,6 +36,8 @@ export default {
         },
 
         edit({commit}, route) {
+            commit('form/resetForm', 0)
+
             app.$api.call({
                 url: route,
                 method: "GET"

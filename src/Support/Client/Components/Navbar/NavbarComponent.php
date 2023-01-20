@@ -8,7 +8,7 @@ use Support\Client\Components\Navbar\Navigations\AbstractNavigationComponent;
 class NavbarComponent extends Component
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

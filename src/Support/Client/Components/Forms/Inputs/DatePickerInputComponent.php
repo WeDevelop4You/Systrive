@@ -16,7 +16,7 @@ class DatePickerInputComponent extends AbstractInputComponent
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

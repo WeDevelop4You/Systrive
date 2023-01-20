@@ -1,10 +1,10 @@
 <?php
 
-namespace Support\Helpers;
+namespace Support\Utils;
 
 use Illuminate\Support\Facades\Crypt;
 
-class DecryptHelper
+class Decrypt
 {
     public readonly mixed $decrypt;
 

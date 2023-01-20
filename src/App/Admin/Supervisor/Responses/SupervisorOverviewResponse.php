@@ -154,7 +154,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                 ->setValue($process->start);
         }
 
-        if (!empty($process->spawnerr)) {
+        if (! empty($process->spawnerr)) {
             $list[] = ListItemContentComponent::create()
                 ->setLabel(trans('word.error.description'))
                 ->setValue($process->spawnerr);

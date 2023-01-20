@@ -2,52 +2,48 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Options\Attributes\ComponentColumnOption;
+use Domain\Cms\Columns\Options\Types\ComponentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\SelectInputComponent;
 use Support\Client\Components\Forms\Utils\KeyValueObject;
-use Support\Client\Components\Layouts\ColComponent;
+use Support\Utils\Validations;
 
 class RowColColumnOption extends AbstractColumnOption implements ComponentColumnOption
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function getType(): string
+    protected function type(): string
     {
         return 'row_col';
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getDefault(): int
+    protected function defaultValue(): int
     {
         return 12;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setComponent(
-                SelectInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setItems($this->getItems())
-                    ->setDefaultValue($this->getDefault())
-                    ->setVuexNamespace($this->getVuexNameSpace())
-                    ->setLabel(trans('word.field.component.length'))
-            );
+        return SelectInputComponent::create()
+            ->setItems($this->getItems())
+            ->setDefaultValue($this->defaultValue())
+            ->setLabel(trans('word.field.component.length'));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['required', 'integer', 'between:1,12'];
+        return new Validations(['required', 'integer', 'between:1,12']);
     }
 
     /**

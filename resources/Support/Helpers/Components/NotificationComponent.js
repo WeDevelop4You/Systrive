@@ -13,7 +13,7 @@ class NotificationComponent extends Component
         }
 
         this.setDisplayTime(
-            component.data.displayTime || app.$config.notification.displayTime
+            component.data?.displayTime || app.$config.notification.displayTime
         )
     }
 
@@ -37,7 +37,7 @@ class NotificationComponent extends Component
             attributes: {
                 type: type
             },
-            componentName: 'SimpleNotification'
+            componentName: 'SimpleNotificationComponent'
         }, true)
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-    namespace Domain\Invite\Exceptions;
+namespace Domain\Invite\Exceptions;
 
-    use Exception;
+use Exception;
 
-    class InvalidTokenException extends Exception
-    {
-    }
+class InvalidTokenException extends Exception
+{
+}

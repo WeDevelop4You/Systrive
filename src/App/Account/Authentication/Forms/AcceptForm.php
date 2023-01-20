@@ -12,7 +12,7 @@ use Support\Client\Components\Misc\ContentComponent;
 class AcceptForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

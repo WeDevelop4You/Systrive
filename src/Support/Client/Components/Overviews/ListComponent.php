@@ -25,7 +25,7 @@ class ListComponent extends Component
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {
@@ -78,7 +78,7 @@ class ListComponent extends Component
             return $this;
         }
 
-        if (!\is_null($this->title)) {
+        if (! \is_null($this->title)) {
             $this->setData('list', ['subheader' => $this->title], true)
                 ->setData('hasSubheader', true);
 
@@ -93,7 +93,7 @@ class ListComponent extends Component
 
         return $this->setData(
             'list',
-            ['items' => $itemList, 'columns' => round(12 / $columns),],
+            ['items' => $itemList, 'columns' => round(12 / $columns)],
             true
         );
     }

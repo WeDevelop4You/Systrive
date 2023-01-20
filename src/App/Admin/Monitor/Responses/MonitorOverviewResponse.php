@@ -9,7 +9,7 @@ use Support\Client\Response;
 class MonitorOverviewResponse extends AbstractResponse
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

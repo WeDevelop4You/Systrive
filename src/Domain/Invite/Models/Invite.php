@@ -8,7 +8,6 @@ use Domain\Company\states\AbstractCompanyState;
 use Domain\Company\states\AbstractCompanyUserState;
 use Domain\Invite\Enums\InviteTypes;
 use Domain\Invite\Mappings\InviteTableMap;
-use Domain\Invite\Observers\InviteCreatedObserver;
 use Domain\Invite\QueryBuilders\InviteQueryBuilders;
 use Domain\User\Models\User;
 use Eloquent;
@@ -16,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
-use Support\Traits\Observers;
 
 /**
  * Domain\Invite\Models\Invite.
@@ -48,8 +46,6 @@ use Support\Traits\Observers;
  */
 class Invite extends Model
 {
-    use Observers;
-
     public $timestamps = false;
 
     protected $table = 'invites';
@@ -68,10 +64,6 @@ class Invite extends Model
 
     protected $casts = [
         InviteTableMap::COL_TYPE => InviteTypes::class,
-    ];
-
-    protected static array $observers = [
-         InviteCreatedObserver::class,
     ];
 
     public static function boot()

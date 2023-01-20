@@ -1,25 +1,25 @@
 <?php
 
-    namespace Support\Abstracts;
+namespace Support\Abstracts;
 
-    use Support\Client\Response;
+use Support\Client\Response;
 
-    abstract class AbstractResponse
+abstract class AbstractResponse
+{
+    /**
+     * @param ...$arguments
+     *
+     * @return Response
+     */
+    public static function create(...$arguments): Response
     {
-        /**
-         * @param ...$arguments
-         *
-         * @return Response
-         */
-        public static function create(...$arguments): Response
-        {
-            $instance = new static(...$arguments);
+        $instance = new static(...$arguments);
 
-            return $instance->handle();
-        }
-
-        /**
-         * @return Response
-         */
-        abstract protected function handle(): Response;
+        return $instance->handle();
     }
+
+    /**
+     * @return Response
+     */
+    abstract protected function handle(): Response;
+}

@@ -31,9 +31,9 @@ class CmsCreateController
      * @param CmsStoreRequest $request
      * @param Company         $company
      *
-     * @throws UnknownResponseCodeException
-     *
      * @return JsonResponse
+     *
+     * @throws UnknownResponseCodeException
      */
     public function action(CmsStoreRequest $request, Company $company): JsonResponse
     {

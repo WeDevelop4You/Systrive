@@ -10,7 +10,7 @@ use Support\Client\Components\Forms\Utils\InputColWrapper;
 class CompanyForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

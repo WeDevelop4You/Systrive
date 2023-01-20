@@ -1,23 +1,23 @@
 <?php
 
-    namespace Domain\Company\Observers;
+namespace Domain\Company\Observers;
 
-    use Domain\Company\Models\CompanyUser;
+use Domain\Company\Models\CompanyUser;
 
-    class CompanyUserDeletingObserver
+class CompanyUserDeletingObserver
+{
+    /**
+     * @param CompanyUser $companyUser
+     *
+     * @return void
+     */
+    public function deleting(CompanyUser $companyUser): void
     {
-        /**
-         * @param CompanyUser $companyUser
-         *
-         * @return void
-         */
-        public function deleting(CompanyUser $companyUser): void
-        {
-            setCompanyId($companyUser->company_id);
+        setCompanyId($companyUser->company_id);
 
-            $user = $companyUser->user;
+        $user = $companyUser->user;
 
-            $user->syncRoles([]);
-            $user->syncPermissions([]);
-        }
+        $user->syncRoles([]);
+        $user->syncPermissions([]);
     }
+}

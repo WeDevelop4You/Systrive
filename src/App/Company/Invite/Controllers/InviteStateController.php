@@ -29,7 +29,7 @@ class InviteStateController
             $invite = (new ValidateInviteTokenAction())(new InviteData($company->id, $token, $encryptEmail));
 
             $response = InviteStateResponse::create($invite, $token, $encryptEmail);
-        } catch (DecryptException | ModelNotFoundException | InvalidTokenException) {
+        } catch (DecryptException|ModelNotFoundException|InvalidTokenException) {
             $response = Response::create()
                 ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.invalid.token')))
                 ->setStatusCode(ResponseCode::HTTP_BAD_REQUEST)

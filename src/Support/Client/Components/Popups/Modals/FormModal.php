@@ -11,14 +11,14 @@ use Support\Client\Components\Buttons\ButtonComponent;
 use Support\Client\Components\Buttons\MultipleButtonComponent;
 use Support\Client\Components\Forms\AbstractFormComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Utils\VuexNamespace;
 
 class FormModal extends AbstractModal
 {
     /**
-     * @var string|VuexNamespaceHelper|null
+     * @var string|VuexNamespace|null
      */
-    private readonly string|null|VuexNamespaceHelper $vuexNamespace;
+    private readonly string|null|VuexNamespace $vuexNamespace;
 
     /**
      * @var CardHeaderComponent
@@ -33,12 +33,12 @@ class FormModal extends AbstractModal
     /**
      * FormModal constructor.
      *
-     * @param string|VuexNamespaceHelper|null $vuexNamespace
-     * @param string|null                     $dataTableVuexNamespace
-     * @param bool                            $withoutDataTableRefresh
+     * @param string|VuexNamespace|null $vuexNamespace
+     * @param string|null               $dataTableVuexNamespace
+     * @param bool                      $withoutDataTableRefresh
      */
     protected function __construct(
-        string|null|VuexNamespaceHelper $vuexNamespace = null,
+        string|null|VuexNamespace $vuexNamespace = null,
         private readonly ?string $dataTableVuexNamespace = null,
         private readonly bool $withoutDataTableRefresh = false
     ) {
@@ -169,7 +169,7 @@ class FormModal extends AbstractModal
                 VuexAction::create()->commit("{$this->vuexNamespace}/resetForm")
             )
             ->addActionIf(
-                !$this->withoutDataTableRefresh,
+                ! $this->withoutDataTableRefresh,
                 VuexAction::create()->refreshTable($this->getDataTableVuexNamespace())
             );
         }
@@ -189,7 +189,7 @@ class FormModal extends AbstractModal
      */
     private function hasVuexNamespace(): bool
     {
-        return !\is_null($this->vuexNamespace);
+        return ! \is_null($this->vuexNamespace);
     }
 
     /**
@@ -197,7 +197,7 @@ class FormModal extends AbstractModal
      */
     private function getDataTableVuexNamespace(): string
     {
-        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace) . '/dataTable';
+        return $this->dataTableVuexNamespace ?: \dirname($this->vuexNamespace).'/dataTable';
     }
 
     /**

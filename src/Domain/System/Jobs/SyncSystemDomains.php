@@ -12,8 +12,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractVestaSync;
 use Support\Enums\VestaCommand;
-use Support\Helpers\SystemStatisticHelper;
 use Support\Services\Vesta;
+use Support\Utils\SystemStatistic;
 
 class SyncSystemDomains extends AbstractVestaSync
 {
@@ -110,11 +110,11 @@ class SyncSystemDomains extends AbstractVestaSync
                 )->sum(SystemUsageStatisticTableMap::COL_TOTAL);
 
             return [
-                SystemStatisticHelper::create($systemDomain)
+                SystemStatistic::create($systemDomain)
                     ->setType(SystemUsageStatisticTypes::DISK)
                     ->setTotal($domain['U_DISK'])
                     ->toArray(),
-                SystemStatisticHelper::create($systemDomain)
+                SystemStatistic::create($systemDomain)
                     ->setType(SystemUsageStatisticTypes::BANDWIDTH)
                     ->setTotal($domain['U_BANDWIDTH'] - $totalMonthUsages)
                     ->toArray(),

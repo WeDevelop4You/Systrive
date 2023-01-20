@@ -8,9 +8,9 @@ use Support\Services\Supervisor;
 class ReloadSupervisorAction
 {
     /**
-     * @throws Exception
-     *
      * @return array
+     *
+     * @throws Exception
      */
     public function __invoke(): array
     {

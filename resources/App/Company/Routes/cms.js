@@ -6,16 +6,17 @@ export default [
         props: {
             value: {
                 data: {
+                    vuexNamespace: 'cms/table/overview',
                     route: ({app, route}) => app.$api.companyRoute(
                         'company.cms.table.search',
                         app.$store.getters['cms/id'],
                         route.params.tableName
                     ),
                     updateOnRouteChange: (to, from) => {
-                        const isSameCms = to.params.cmsName === from.params.cmsName
-                        const isNotSameTable = to.params.tableName !== from.params.tableName
+                        const isCms = to.params.cmsName === from.params.cmsName
+                        const isNotTable = to.params.tableName !== from.params.tableName
 
-                        return isSameCms && isNotSameTable
+                        return isCms && isNotTable
                     }
                 }
             }

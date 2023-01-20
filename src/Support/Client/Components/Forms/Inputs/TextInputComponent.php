@@ -9,7 +9,7 @@ class TextInputComponent extends AbstractInputComponent
     use InputComponentWithCounter;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

@@ -5,8 +5,8 @@ namespace Support\Client\Components\Forms\Inputs;
 use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Attributes\ComponentWithIfStatement;
 use Support\Client\Components\Component;
-use Support\Client\Components\Forms\Utils\Logic;
-use Support\Helpers\VuexNamespaceHelper;
+use Support\Client\Components\Forms\Utils\Logics\AbstractLogic;
+use Support\Utils\VuexNamespace;
 
 /**
  * @method setHintIf(bool $condition, string $text, bool $withInput = false)
@@ -69,11 +69,11 @@ abstract class AbstractInputComponent extends Component
     }
 
     /**
-     * @param string|VuexNamespaceHelper $vuexNamespace
+     * @param string|VuexNamespace $vuexNamespace
      *
      * @return static
      */
-    public function setVuexNamespace(string|VuexNamespaceHelper $vuexNamespace): static
+    public function setVuexNamespace(string|VuexNamespace $vuexNamespace): static
     {
         $value = optional($vuexNamespace)->export() ?: $vuexNamespace;
 
@@ -174,11 +174,11 @@ abstract class AbstractInputComponent extends Component
     }
 
     /**
-     * @param bool|Logic|string $condition
+     * @param AbstractLogic|bool|string $condition
      *
      * @return $this
      */
-    public function setHideDetails(bool|string|Logic $condition = true): static
+    public function setHideDetails(bool|string|AbstractLogic $condition = true): static
     {
         $value = optional($condition)->export() ?: $condition;
 
@@ -194,11 +194,11 @@ abstract class AbstractInputComponent extends Component
     }
 
     /**
-     * @param Logic $logic
+     * @param AbstractLogic $logic
      *
      * @return $this
      */
-    public function addHiddenLogic(Logic $logic): static
+    public function addHiddenLogic(AbstractLogic $logic): static
     {
         return $this->setData('hiddenLogic', $logic->export(), true);
     }

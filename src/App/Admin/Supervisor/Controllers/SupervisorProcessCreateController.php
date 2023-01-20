@@ -26,9 +26,9 @@ class SupervisorProcessCreateController
     /**
      * @param SupervisorProcessRequest $request
      *
-     * @throws Exception
-     *
      * @return JsonResponse
+     *
+     * @throws Exception
      */
     public function action(SupervisorProcessRequest $request): JsonResponse
     {

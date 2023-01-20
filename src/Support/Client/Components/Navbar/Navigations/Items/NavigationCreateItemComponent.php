@@ -8,7 +8,7 @@ use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
 class NavigationCreateItemComponent extends AbstractNavigationItemComponent
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

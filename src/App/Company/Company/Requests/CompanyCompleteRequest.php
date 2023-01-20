@@ -1,19 +1,19 @@
 <?php
 
-    namespace App\Company\Company\Requests;
+namespace App\Company\Company\Requests;
 
-    use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-    class CompanyCompleteRequest extends FormRequest
+class CompanyCompleteRequest extends FormRequest
+{
+    /**
+     * @return array
+     */
+    public function rules(): array
     {
-        /**
-         * @return array
-         */
-        public function rules(): array
-        {
-            return [
-                'email' => ['required', 'email'],
-                'domain' => ['nullable', 'url'],
-            ];
-        }
+        return [
+            'email' => ['required', 'email'],
+            'domain' => ['nullable', 'url'],
+        ];
     }
+}

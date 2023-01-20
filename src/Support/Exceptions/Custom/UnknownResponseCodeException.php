@@ -1,9 +1,9 @@
 <?php
 
-    namespace Support\Exceptions\Custom;
+namespace Support\Exceptions\Custom;
 
-    use Exception;
+use Exception;
 
-    class UnknownResponseCodeException extends Exception
-    {
-    }
+class UnknownResponseCodeException extends Exception
+{
+}

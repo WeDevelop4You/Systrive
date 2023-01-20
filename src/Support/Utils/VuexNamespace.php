@@ -1,11 +1,12 @@
 <?php
 
-namespace Support\Helpers;
+namespace Support\Utils;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use Support\Helpers\ApplicationHelper;
 
-class VuexNamespaceHelper
+class VuexNamespace
 {
     /**
      * VuexNamespaceHelper constructor.

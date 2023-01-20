@@ -44,7 +44,7 @@ class Monitor extends Model
     use BroadcastsEvents;
     use ModelBroadcastRateLimit;
 
-    protected $table = "monitors";
+    protected $table = 'monitors';
 
     protected $dateFormat = 'Y-m-d H:i:s.v';
 
@@ -81,9 +81,9 @@ class Monitor extends Model
      *
      * @param string $event
      *
-     * @throws InvalidArgumentException
-     *
      * @return array|Channel
+     *
+     * @throws InvalidArgumentException
      */
     public function broadcastOn($event): Channel|array
     {

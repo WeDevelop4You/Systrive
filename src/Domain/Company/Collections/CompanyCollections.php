@@ -1,9 +1,9 @@
 <?php
 
-    namespace Domain\Company\Collections;
+namespace Domain\Company\Collections;
 
-    use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection;
 
-    class CompanyCollections extends Collection
-    {
-    }
+class CompanyCollections extends Collection
+{
+}

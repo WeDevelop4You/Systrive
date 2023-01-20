@@ -39,7 +39,7 @@ class SystemDNSOverviewResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {

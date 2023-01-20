@@ -17,7 +17,7 @@ class RowComponent extends Component
     use ComponentWithIfStatement;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

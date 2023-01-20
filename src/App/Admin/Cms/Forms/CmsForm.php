@@ -46,7 +46,7 @@ class CmsForm extends AbstractForm
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {
@@ -90,7 +90,7 @@ class CmsForm extends AbstractForm
                             ->setKey('password')
                             ->setLabel(trans('word.password.password'))
                             ->addHiddenLogic(
-                                Logic::create('username.value', $this->databases->pluck('id')->toArray())->contain()
+                                Logic::contain('username.value')->setValues($this->databases->pluck('id')->toArray())
                             )
                     ),
             ]);

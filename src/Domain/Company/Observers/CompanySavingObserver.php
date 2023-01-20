@@ -1,19 +1,19 @@
 <?php
 
-    namespace Domain\Company\Observers;
+namespace Domain\Company\Observers;
 
-    use Domain\Company\Models\Company;
-    use Illuminate\Support\Str;
+use Domain\Company\Models\Company;
+use Illuminate\Support\Str;
 
-    class CompanySavingObserver
+class CompanySavingObserver
+{
+    /**
+     * @param Company $company
+     *
+     * @return void
+     */
+    public function saving(Company $company): void
     {
-        /**
-         * @param Company $company
-         *
-         * @return void
-         */
-        public function saving(Company $company): void
-        {
-            $company->slug = Str::slug($company->name);
-        }
+        $company->slug = Str::slug($company->name);
     }
+}

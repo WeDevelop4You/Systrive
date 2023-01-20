@@ -13,7 +13,7 @@ class CustomPermissionInputComponent extends AbstractInputComponent
     /**
      * Keys always are 'roles' and 'permissions'.
      *
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {

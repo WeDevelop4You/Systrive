@@ -2,75 +2,59 @@
 
 namespace Support\Client\Components\Forms\Utils;
 
-use Illuminate\Support\Arr;
+use Support\Client\Components\Forms\Utils\Logics\Condition;
+use Support\Client\Components\Forms\Utils\Logics\Contain;
+use Support\Client\Components\Forms\Utils\Logics\Statement;
 
 class Logic
 {
     /**
-     * @var string
+     * @param string $key
+     *
+     * @return Contain
      */
-    private string $type;
-
-    private bool|array $returnValue;
-
-    private function __construct(
-        private readonly string $key,
-        private readonly array $values,
-    ) {
-        //
+    public static function contain(string $key): Contain
+    {
+        return new Contain($key);
     }
 
     /**
      * @param string $key
-     * @param        ...$values
      *
-     * @return static
+     * @return Contain
      */
-    public static function create(string $key, ...$values): static
+    public static function except(string $key): Contain
     {
-        return new static($key, Arr::flatten($values));
+        return new Contain($key, false);
     }
 
     /**
-     * @param mixed $trueValue
-     * @param mixed $falseValue
+     * @param string $key
      *
-     * @return $this
+     * @return Statement
      */
-    public function condition(mixed $trueValue, mixed $falseValue): static
+    public static function if(string $key): Statement
     {
-        $this->type = 'condition';
-        $this->returnValue = [
-            'trueValue' => $trueValue,
-            'falseValue' => $falseValue,
-        ];
-
-        return $this;
-    }
-
-    public function contain(bool $condition = true): static
-    {
-        $this->type = 'contain';
-        $this->returnValue = $condition;
-
-        return $this;
-    }
-
-    public function except(): static
-    {
-        return $this->contain(false);
+        return new Statement($key);
     }
 
     /**
-     * @return array
+     * @param string $key
+     *
+     * @return Statement
      */
-    public function export(): array
+    public static function unless(string $key): Statement
     {
-        return [
-            'key' => $this->key,
-            'type' => $this->type,
-            'values' => $this->values,
-            'returnValue' => $this->returnValue,
-        ];
+        return new Statement($key, false);
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return Condition
+     */
+    public static function condition(string $key): Condition
+    {
+        return new Condition($key);
     }
 }

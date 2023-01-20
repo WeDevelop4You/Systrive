@@ -1,25 +1,25 @@
 <?php
 
-    namespace App\Admin\User\Controllers;
+namespace App\Admin\User\Controllers;
 
-    use Domain\User\Models\User;
-    use Illuminate\Http\JsonResponse;
-    use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
-    use Support\Client\Response;
+use Domain\User\Models\User;
+use Illuminate\Http\JsonResponse;
+use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
+use Support\Client\Response;
 
-    class UserForceDestroyController
+class UserForceDestroyController
+{
+    /**
+     * @param User $user
+     *
+     * @return JsonResponse
+     */
+    public function action(User $user): JsonResponse
     {
-        /**
-         * @param User $user
-         *
-         * @return JsonResponse
-         */
-        public function action(User $user): JsonResponse
-        {
-            $user->forceDelete();
+        $user->forceDelete();
 
-            return Response::create()
-                ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.permanently.deleted')))
-                ->toJson();
-        }
+        return Response::create()
+            ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.success.permanently.deleted')))
+            ->toJson();
     }
+}

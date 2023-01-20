@@ -16,7 +16,7 @@ use Support\Client\Components\Layouts\ColComponent;
 class SettingsPersonalForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

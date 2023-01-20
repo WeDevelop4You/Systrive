@@ -23,16 +23,10 @@ class CmsColumnPropertiesCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes): Collection
     {
-        if (isset($model->type)) {
-            $value = Collection::json($value ?? '');
-
+        if (Arr::has($attributes, CmsColumnTableMap::COL_TYPE)) {
             return $this->getOptions($attributes)
                 ->map(function (AbstractColumnOption $option) use ($value) {
-                    $option->setValue(
-                        $value->get($option->getKey(), $option->getDefault())
-                    );
-
-                    return $option;
+                    return $option->setProperties(Collection::json($value ?? ''));
                 });
         }
 
@@ -66,8 +60,7 @@ class CmsColumnPropertiesCast implements CastsAttributes
                 $key = $option->getKey();
 
                 return [$key => $value->get($key, $option->getDefault())];
-            })
-            ->toJson();
+            })->toJson();
     }
 
     /**
@@ -101,8 +94,8 @@ class CmsColumnPropertiesCast implements CastsAttributes
     {
         $type = Arr::get($attributes, CmsColumnTableMap::COL_TYPE);
 
-        if (!\is_null($type)) {
-            return CmsColumnType::from($type)->getOptions() ;
+        if (! \is_null($type)) {
+            return CmsColumnType::from($type)->getOptions();
         }
 
         return Collection::make();

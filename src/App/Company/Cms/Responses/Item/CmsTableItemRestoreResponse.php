@@ -6,6 +6,7 @@ use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;
 use Domain\Company\Models\Company;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
@@ -34,7 +35,7 @@ class CmsTableItemRestoreResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -49,7 +50,12 @@ class CmsTableItemRestoreResponse extends AbstractResponse
                     ->setWidth(800)
                     ->setTitle('word.show.show')
                     ->setForm(FormComponent::create()->setItems(
-                        $this->table->formColumns->createFormStructure($this->model, true)->toArray()
+                        $this->table->formColumns->createFormStructure(
+                            $this->model->load([
+                                'files' => fn (MorphMany $query) => $query->withTrashed(),
+                            ]),
+                            true
+                        )->toArray()
                     ))
                     ->addFooterCancelButton()
                     ->addFooter(

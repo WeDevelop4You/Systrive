@@ -77,7 +77,7 @@ class ApplicationHelper
      */
     public static function getRedirectRoute(): string
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             return self::getAuthRoute();
         }
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection as CollectionBase;
 
-class CmsColumnCollections extends Collection
+class CmsColumnCollection extends Collection
 {
     /**
      * @return CollectionBase
@@ -47,7 +47,7 @@ class CmsColumnCollections extends Collection
     public function createFormRules(FormRequest $request): CollectionBase
     {
         return $this->mapWithKeys(function (CmsColumn $column) use ($request) {
-            return [$column->key => $column->type()->getValidations($request)];
+            return $column->type()->getValidations($request);
         });
     }
 }

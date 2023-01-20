@@ -3,39 +3,38 @@
 namespace Domain\Cms\Columns\Options\Defaults;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Client\Components\Layouts\ColComponent;
+use Support\Utils\Validations;
 
 class DefaultBooleanColumnOption extends AbstractDefaultColumnOption
 {
+    protected function col(): int
+    {
+        return 6;
+    }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getDefault(): bool
+    protected function defaultValue(): bool
     {
         return false;
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getFormComponent(bool $isEditing): ColComponent
+    protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return ColComponent::create()
-            ->setMdCol(6)
-            ->setComponent(
-                CheckboxInputComponent::create()
-                    ->setKey($this->getFormKey())
-                    ->setVuexNamespace($this->getVuexNamespace())
-                    ->setLabel(trans('word.default.use.current'))
-            );
+        return CheckboxInputComponent::create()->setLabel(trans('word.default.use.current'));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getRequirements(FormRequest $request): array
+    protected function requirements(FormRequest $request): Validations
     {
-        return ['nullable', 'boolean'];
+        return new Validations(['nullable', 'boolean']);
     }
 }

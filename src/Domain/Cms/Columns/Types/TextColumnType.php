@@ -10,6 +10,7 @@ use Str;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\TextareaInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class TextColumnType extends AbstractColumnType
 {
@@ -21,7 +22,7 @@ class TextColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -29,35 +30,33 @@ class TextColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
+        return Column::create($this->getLabel(), $this->getKey())
             ->setSortable()
             ->setSearchable()
             ->setFormat(function (CmsModel $data) {
-                return Str::words($data->getAttribute($this->column->key), 3);
+                return Str::words($data->getAttribute($this->getKey()), 3);
             });
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return TextareaInputComponent::create()
             ->setAutoGrow()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
-            ->setValue($model->getAttribute($this->column->key));
+            ->setValue($model->getAttribute($this->getKey()));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return ['string'];
+        return new Validations(['string']);
     }
 }

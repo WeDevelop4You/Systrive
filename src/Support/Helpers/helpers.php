@@ -2,7 +2,7 @@
 
 use Spatie\Permission\PermissionRegistrar;
 
-if (!function_exists('instanceofArray')) {
+if (! function_exists('instanceofArray')) {
     /**
      * @param       $needed
      * @param array $classes
@@ -21,7 +21,7 @@ if (!function_exists('instanceofArray')) {
     }
 }
 
-if (!function_exists('createRelationshipString')) {
+if (! function_exists('createRelationshipString')) {
     /**
      * @param mixed ...$relationships
      *
@@ -33,7 +33,7 @@ if (!function_exists('createRelationshipString')) {
     }
 }
 
-if (!function_exists('alias')) {
+if (! function_exists('alias')) {
     /**
      * @param string $alias
      * @param string $column
@@ -46,7 +46,7 @@ if (!function_exists('alias')) {
     }
 }
 
-if (!function_exists('setCompanyId')) {
+if (! function_exists('setCompanyId')) {
     /**
      * @param int $id
      *
@@ -58,7 +58,7 @@ if (!function_exists('setCompanyId')) {
     }
 }
 
-if (!function_exists('createBase64Image')) {
+if (! function_exists('createBase64Image')) {
     /**
      * @param string $base64
      *
@@ -70,7 +70,7 @@ if (!function_exists('createBase64Image')) {
     }
 }
 
-if (!function_exists('prep_url')) {
+if (! function_exists('prep_url')) {
     /**
      * @param string $str
      *
@@ -84,7 +84,7 @@ if (!function_exists('prep_url')) {
 
         $url = parse_url($str);
 
-        if (!$url || !isset($url['scheme'])) {
+        if (! $url || ! isset($url['scheme'])) {
             return 'http://'.$str;
         }
 
@@ -92,7 +92,7 @@ if (!function_exists('prep_url')) {
     }
 }
 
-if (!function_exists('src_path')) {
+if (! function_exists('src_path')) {
     function src_path(string $path = ''): string
     {
         $path = 'src'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
@@ -101,7 +101,7 @@ if (!function_exists('src_path')) {
     }
 }
 
-if (!function_exists('application_path')) {
+if (! function_exists('application_path')) {
     function application_path($path = ''): string
     {
         $path = 'App'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
@@ -110,7 +110,7 @@ if (!function_exists('application_path')) {
     }
 }
 
-if (!function_exists('domain_path')) {
+if (! function_exists('domain_path')) {
     function domain_path($path = ''): string
     {
         $path = 'Domain'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');
@@ -119,7 +119,7 @@ if (!function_exists('domain_path')) {
     }
 }
 
-if (!function_exists('support_path')) {
+if (! function_exists('support_path')) {
     function support_path($path = ''): string
     {
         $path = 'Support'.($path != '' ? DIRECTORY_SEPARATOR.$path : '');

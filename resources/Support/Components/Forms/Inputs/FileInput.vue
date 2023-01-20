@@ -24,41 +24,68 @@
         >
             <v-col
                 v-for="(file, index) in files"
-                :key="file"
+                :key="index"
                 :cols="12"
             >
-                <v-card
-                    outlined
-                    class="file"
+                <v-row
+                    no-gutters
+                    align="center"
                 >
-                    <div class="d-flex flex-no-wrap">
-                        <v-icon
-                            class="my-3 ml-3"
-                            size="40"
-                            v-text="icon(file.type)"
-                        />
-                        <div>
-                            <v-card-title
-                                class="text-body-1"
-                                v-text="file.name"
-                            />
-                            <v-card-subtitle
-                                class="text-caption"
-                                v-text="format(file.size)"
-                            />
-                        </div>
-                        <v-spacer />
-                        <v-card-actions>
-                            <v-btn
-                                icon
-                                class="my-3 mr-3"
-                                @click="remove(index)"
+                    <v-col
+                        cols="auto"
+                        class="text-center"
+                        style="width: 24px; margin-right: 9px"
+                    >
+                        {{ index + 1 }}
+                    </v-col>
+                    <v-col>
+                        <v-card
+                            outlined
+                            class="file"
+                        >
+                            <div
+                                v-if="file.identifier || file.id"
+                                class="d-flex flex-no-wrap"
                             >
-                                <v-icon>fas fa-trash</v-icon>
-                            </v-btn>
-                        </v-card-actions>
-                    </div>
-                </v-card>
+                                <v-icon
+                                    class="my-3 ml-3"
+                                    size="40"
+                                    v-text="icon(file.type)"
+                                />
+                                <div>
+                                    <v-card-title
+                                        class="text-body-1"
+                                        v-text="file.name"
+                                    />
+                                    <v-card-subtitle
+                                        class="text-caption"
+                                        v-text="format(file.size)"
+                                    />
+                                </div>
+                                <v-spacer />
+                                <v-card-actions>
+                                    <v-btn
+                                        :disabled="isDisabled"
+                                        icon
+                                        class="my-3 mr-3"
+                                        @click="remove(file, index)"
+                                    >
+                                        <v-icon>fas fa-trash</v-icon>
+                                    </v-btn>
+                                </v-card-actions>
+                            </div>
+                            <v-card-text v-else>
+                                <v-progress-linear
+                                    :value="file.progress"
+                                    stream
+                                    color="primary"
+                                    buffer-value="0"
+                                    class="ma-5 w-auto"
+                                />
+                            </v-card-text>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-col>
             <v-col cols="12">
                 <div
@@ -73,6 +100,7 @@
 <script>
     import numeral from "numeral"
     import FormComponentBase from "../../Base/FormComponentBase";
+    import NotificationComponent from "../../../Helpers/Components/NotificationComponent";
 
     export default {
         name: "FileInput",
@@ -82,6 +110,7 @@
         data() {
             return {
                 files: [],
+                deletedFiles: [],
                 max: this.value.data.max ?? 1
             }
         },
@@ -102,33 +131,78 @@
             }
         },
 
+        mounted() {
+            this.files = this.getValue
+        },
+
         methods: {
             addFiles(files) {
                 if (files instanceof Array) {
                     files.forEach((file) => {
                         if (this.files.length < this.max) {
-                            this.files.push({
-                                name: file.name,
-                                size: file.size,
-                                type: file.type
-                            })
+                            this.uploader(file)
                         }
                     })
                 } else {
-                    this.$set(this.files, 0, {
-                        name: files.name,
-                        size: files.size,
-                        type: files.type
-                    })
+                    this.uploader(files)
                 }
             },
 
             uploader(file) {
-                console.log(file)
+                const index = this.createProgress(file.size)
+
+                this.$api.call({
+                    url: this.component.data.uploaderRoute,
+                    method: 'POST',
+                    data: this.createFormData(file),
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        this.files.at(index).progress = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                    }
+                }).then((response) => {
+                    this.$set(this.files, index, response.data.data)
+
+                    this.setValue(this.files)
+                }).catch((error) => {
+                    this.files.splice(index, 1)
+
+                    this.$store.dispatch(
+                        'popups/addPopup',
+                        NotificationComponent.createSimple(error.response.data.errors[this.key][0])
+                    )
+                })
             },
 
-            remove(index) {
+            createProgress(size) {
+                const total = this.files.push({
+                    size: size,
+                    progress: 0
+                })
+
+                return total - 1
+            },
+
+            createFormData(file) {
+                const form = new FormData()
+                form.append('file', file)
+
+                return form
+            },
+
+            remove(file, index) {
+                if (this.isset(file, 'id')) {
+                    this.deletedFiles.push(file.id)
+
+                    this.data['delete_files'] = {
+                        [this.key]: this.deletedFiles
+                    }
+                }
+
                 this.files.splice(index, 1)
+
+                this.setValue(this.files)
             },
 
             format(size) {

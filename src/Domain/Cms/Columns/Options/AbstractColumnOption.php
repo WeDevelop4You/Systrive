@@ -3,39 +3,22 @@
 namespace Domain\Cms\Columns\Options;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Collection;
+use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Layouts\ColComponent;
+use Support\Utils\Validations;
 
 abstract class AbstractColumnOption
 {
     /**
-     * @var mixed
+     * @var Collection
      */
-    private mixed $value;
+    private Collection $properties;
 
     /**
      * @var string
      */
     private string $prefix;
-
-    /**
-     * @return mixed
-     */
-    final public function getValue(): mixed
-    {
-        return $this->value ?? $this->getDefault();
-    }
-
-    /**
-     * @param mixed $value
-     *
-     * @return $this
-     */
-    final public function setValue(mixed $value): static
-    {
-        $this->value = $value;
-
-        return $this;
-    }
 
     /**
      * @param string $prefix
@@ -50,19 +33,105 @@ abstract class AbstractColumnOption
     }
 
     /**
-     * @return string
+     * @param Collection $values
+     *
+     * @return $this
      */
-    final public function getKey(): string
+    final public function setProperties(Collection $values): static
     {
-        return "{$this->prefix}_{$this->getType()}";
+        $this->properties = $values;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    protected function getProperties(string $key, mixed $default = null): mixed
+    {
+        return $this->properties->get($key, $default);
     }
 
     /**
      * @return string
      */
-    final public function getFormKey(): string
+    final public function getKey(): string
+    {
+        return "{$this->prefix}_{$this->type()}";
+    }
+
+    /**
+     * @return mixed
+     */
+    final public function getValue(): mixed
+    {
+        return $this->getProperties(
+            $this->getKey(),
+            $this->defaultValue()
+        );
+    }
+
+    /**
+     * @return mixed
+     */
+    final public function getDefault(): mixed
+    {
+        return $this->defaultValue();
+    }
+
+    /**
+     * @param bool $isEditing
+     *
+     * @return ColComponent
+     */
+    final public function getInputComponent(bool $isEditing): ColComponent
+    {
+        return ColComponent::create()
+            ->setMdCol($this->col())
+            ->setComponent(
+                $this->inputComponent($isEditing)
+                    ->setKey($this->getFormKey())
+                    ->setVuexNamespace('cms/table/columns/form')
+            );
+    }
+
+    /**
+     * @param FormRequest $request
+     *
+     * @return array
+     */
+    final public function getRequirements(FormRequest $request): array
+    {
+        return $this->requirements($request)->toArray($this->getFormKey());
+    }
+
+    /**
+     * @return int
+     */
+    protected function col(): int
+    {
+        return 12;
+    }
+
+    /**
+     * @return string
+     */
+    final protected function getFormKey(): string
     {
         return "properties.{$this->getKey()}";
+    }
+
+    /**
+     * @param string $type
+     *
+     * @return string
+     */
+    final protected function getOtherKey(string $type): string
+    {
+        return "{$this->prefix}_{$type}";
     }
 
     /**
@@ -78,34 +147,26 @@ abstract class AbstractColumnOption
     /**
      * @return string
      */
-    final protected function getVuexNameSpace(): string
-    {
-        return 'cms/table/columns/form';
-    }
-
-    /**
-     * @return string
-     */
-    abstract protected function getType(): string;
+    abstract protected function type(): string;
 
     /**
      * @return mixed
      */
-    abstract public function getDefault(): mixed;
+    abstract protected function defaultValue(): mixed;
 
     /**
      * @param bool $isEditing
      *
-     * @return ColComponent
+     * @return AbstractInputComponent
      */
-    abstract public function getFormComponent(bool $isEditing): ColComponent;
+    abstract protected function inputComponent(bool $isEditing): AbstractInputComponent;
 
     /**
      * validation for creating and editing columns properties.
      *
      * @param FormRequest $request
      *
-     * @return array
+     * @return Validations
      */
-    abstract public function getRequirements(FormRequest $request): array;
+    abstract protected function requirements(FormRequest $request): Validations;
 }

@@ -32,9 +32,9 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @throws ReflectionException
-     *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function boot(): void
     {

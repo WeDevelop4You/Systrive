@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Utils\Validations;
 
 class IntegerColumnType extends AbstractColumnType
 {
@@ -32,7 +33,7 @@ class IntegerColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -40,32 +41,30 @@ class IntegerColumnType extends AbstractColumnType
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function columnComponent(): Column
     {
-        return Column::create($this->column->label, $this->column->key)
+        return Column::create($this->getLabel(), $this->getKey())
             ->setSortable()
             ->setSearchable();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(CmsModel $model): AbstractInputComponent
     {
         return NumberInputComponent::create()
-            ->setKey($this->column->key)
-            ->setLabel($this->column->label)
             ->setDefaultValue($this->getPropertyValueDefault())
-            ->setValue($model->getAttribute($this->column->key));
+            ->setValue($model->getAttribute($this->getKey()));
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function validation(FormRequest $request): array
+    protected function validation(FormRequest $request): validations
     {
-        return $this->validation;
+        return new Validations($this->validation);
     }
 }

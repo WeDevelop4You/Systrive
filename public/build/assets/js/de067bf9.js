@@ -1,1 +1,0 @@
-import{V as a,x as t}from"./6208e2c9.js";const e={absolute:Boolean,bottom:Boolean,fixed:Boolean,left:Boolean,right:Boolean,top:Boolean};function n(o=[]){return a.extend({name:"positionable",props:o.length?t(e,o):e})}const s=n();export{s as P,n as f};

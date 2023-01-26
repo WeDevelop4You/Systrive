@@ -35,48 +35,46 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
 /**
- * Domain\Company\Models\Company.
+ * Domain\Company\Models\Company
  *
- * @property int                            $id
- * @property string                         $name
- * @property string                         $slug
- * @property string|null                    $email
- * @property string|null                    $domain
- * @property CompanyStatusTypes             $status
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $email
+ * @property string|null $domain
+ * @property CompanyStatusTypes $status
  * @property \Illuminate\Support\Collection $modules
- * @property mixed|null                     $preferences
- * @property Carbon|null                    $created_at
- * @property Carbon|null                    $updated_at
- * @property Carbon|null                    $deleted_at
- * @property-read Cms[]|Collection                                $cms
+ * @property mixed|null $preferences
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property-read Collection|Cms[] $cms
  * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
- * @property-read Collection|Invite[]                             $invites
- * @property-read User|null                                       $owner
- * @property-read Collection|Role[]                               $roles
- * @property-read System|null                                     $system
- * @property-read System|null                                     $systems
- * @property-read User[]|UserCollection                           $users
- *
- * @method static CompanyCollections|static[]                all($columns = ['*'])
- * @method static CompanyCollections|static[]                get($columns = ['*'])
- * @method static CompanyQueryBuilders|Company               newModelQuery()
- * @method static CompanyQueryBuilders|Company               newQuery()
+ * @property-read Collection|Invite[] $invites
+ * @property-read User|null $owner
+ * @property-read Collection|Role[] $roles
+ * @property-read System|null $system
+ * @property-read System|null $systems
+ * @property-read UserCollection|User[] $users
+ * @method static CompanyCollections|static[] all($columns = ['*'])
+ * @method static CompanyCollections|static[] get($columns = ['*'])
+ * @method static CompanyQueryBuilders|Company newModelQuery()
+ * @method static CompanyQueryBuilders|Company newQuery()
  * @method static \Illuminate\Database\Query\Builder|Company onlyTrashed()
- * @method static CompanyQueryBuilders|Company               query()
- * @method static CompanyQueryBuilders|Company               whereCreatedAt($value)
- * @method static CompanyQueryBuilders|Company               whereDeletedAt($value)
- * @method static CompanyQueryBuilders|Company               whereDomain($value)
- * @method static CompanyQueryBuilders|Company               whereEmail($value)
- * @method static CompanyQueryBuilders|Company               whereId($value)
- * @method static CompanyQueryBuilders|Company               whereModules($value)
- * @method static CompanyQueryBuilders|Company               whereName($value)
- * @method static CompanyQueryBuilders|Company               wherePreferences($value)
- * @method static CompanyQueryBuilders|Company               whereSlug($value)
- * @method static CompanyQueryBuilders|Company               whereStatus($value)
- * @method static CompanyQueryBuilders|Company               whereUpdatedAt($value)
+ * @method static CompanyQueryBuilders|Company query()
+ * @method static CompanyQueryBuilders|Company whereCreatedAt($value)
+ * @method static CompanyQueryBuilders|Company whereDeletedAt($value)
+ * @method static CompanyQueryBuilders|Company whereDomain($value)
+ * @method static CompanyQueryBuilders|Company whereEmail($value)
+ * @method static CompanyQueryBuilders|Company whereId($value)
+ * @method static CompanyQueryBuilders|Company whereModules($value)
+ * @method static CompanyQueryBuilders|Company whereName($value)
+ * @method static CompanyQueryBuilders|Company wherePreferences($value)
+ * @method static CompanyQueryBuilders|Company whereSlug($value)
+ * @method static CompanyQueryBuilders|Company whereStatus($value)
+ * @method static CompanyQueryBuilders|Company whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Company withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Company withoutTrashed()
- *
  * @mixin Eloquent
  */
 class Company extends Model

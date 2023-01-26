@@ -25,20 +25,20 @@ class ConsoleKernel extends Kernel
             ->everyFiveMinutes()
             ->withoutOverlapping();
 
+        $schedule->command('model:prune', ['--model' => [Company::class, Cms::class]])
+            ->name('Clean database')
+            ->everyFiveMinutes()
+            ->runInBackground();
+
+        $schedule->command('storage:clear', ['disk' => 'tmp'])
+            ->name('Clear tmp folder')
+            ->everyFiveMinutes()
+            ->runInBackground();
+
         $schedule->job(SyncSystemAll::class)
             ->name('System')
             ->dailyAt('3:00')
             ->withoutOverlapping();
-
-        $schedule->command('model:prune', ['--model' => [Company::class, Cms::class]])
-            ->name('Clean database')
-            ->dailyAt('3:00')
-            ->runInBackground();
-
-        $schedule->command('storage:clear-tmp')
-            ->name('Clear tmp folder')
-            ->dailyAt('3:00')
-            ->runInBackground();
     }
 
     /**

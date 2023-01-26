@@ -3,10 +3,22 @@
 namespace Support\Client\Components\Forms\Inputs\Custom;
 
 use Support\Client\Components\Forms\Inputs\SelectInputComponent;
-use Support\Enums\Component\Form\FormSelectInputType;
+use Support\Client\Components\Types\CustomInputComponent;
+use Support\Enums\Component\Inputs\CustomInputType;
+use Support\Exceptions\Custom\InvalidInputTypeException;
 
-class CustomSelectInputComponent extends SelectInputComponent
+class CustomSelectInputComponent extends SelectInputComponent implements CustomInputComponent
 {
+    /**
+     * CustomSelectInputComponent constructor
+     */
+    protected function __construct()
+    {
+        parent::__construct();
+
+        $this->setType();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -16,12 +28,12 @@ class CustomSelectInputComponent extends SelectInputComponent
     }
 
     /**
-     * @param FormSelectInputType $inputType
+     * @param CustomInputType|null $inputType
      *
-     * @return CustomSelectInputComponent
+     * @return $this
      */
-    public function setType(FormSelectInputType $inputType): CustomSelectInputComponent
+    public function setType(CustomInputType|null $inputType = null): static
     {
-        return $this->setData('type', $inputType->value);
+        return $this->setData('type', 'SelectColumnInputComponent');
     }
 }

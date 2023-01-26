@@ -12,17 +12,6 @@ use Support\Utils\Validations;
 
 class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
 {
-    /**
-     * DefaultTimestampColumnOption constructor.
-     *
-     * @param array $requirements
-     */
-    public function __construct(
-        private readonly array $requirements,
-    ) {
-        //
-    }
-
     protected function col(): int
     {
         return 6;
@@ -61,6 +50,6 @@ class DefaultTimestampColumnOption extends AbstractDefaultColumnOption
      */
     protected function requirements(FormRequest $request): Validations
     {
-        return new Validations(['nullable', ...$this->requirements]);
+        return new Validations(['nullable', 'boolean']);
     }
 }

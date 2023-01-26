@@ -81,7 +81,7 @@
             >
                 <v-btn icon>
                     <v-icon
-                        @click="load"
+                        @click="getItems"
                     >
                         fas fa-sync-alt
                     </v-icon>

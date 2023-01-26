@@ -12,12 +12,9 @@ import domain from "./System/domain";
 import database from "./System/database";
 import mailDomain from "./System/mail_domain";
 
-import Auth from "../../../Support/Store/Modules/auth";
-import Locale from "../../../Support/Store/Modules/locale";
-import Popups from "../../../Support/Store/Modules/popups";
 import Roles from "../../../Support/Store/Modules/Company/roles";
 import Users from "../../../Support/Store/Modules/Company/users";
-import Navigation from "../../../Support/Store/Modules/navigation";
+
 import OverviewBase from "../../../Support/Store/Base/overviewBase";
 
 const app = Vue.prototype
@@ -89,12 +86,8 @@ export default new Store({
         switcher: OverviewBase(),
 
         cms: Cms,
-        auth: Auth,
         users: Users,
         roles: Roles,
-        locale: Locale,
-        popups: Popups,
-        navigation: Navigation,
 
         system: {
             namespaced: true,

@@ -1,7 +1,7 @@
 <template>
     <v-text-field
         v-bind="component.attributes"
-        :value="getValue"
+        :value="input"
         :disabled="isDisabled"
         :label="component.content.label"
         :error-messages="errorMessages"

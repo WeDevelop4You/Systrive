@@ -13,19 +13,14 @@ import Provider from "../../Support/Plugins/Provider";
 import Breadcrumbs from "../../Support/Providers/Breadcrumbs";
 
 Vue.use(Provider, {
-    loader: () => {
-        const store = Store
-        const router = Router
-        const app = Vue.prototype
-        const vuetify = Vuetify.framework
-
+    store: Store,
+    router: Router,
+    vuetify: Vuetify.framework,
+    loader: ({app, store, router, vuetify}) => {
         app.$api = new Api(app)
         app.$auth = new Auth(store)
-
-        app.$breadcrumbs = Vue.observable(new Breadcrumbs(app, router, vuetify))
-    },
-    store: Store,
-    router: Router
+        app.$breadcrumbs = new Breadcrumbs(app, store, router, vuetify)
+    }
 })
 
 Vue.use(VueFlags, {

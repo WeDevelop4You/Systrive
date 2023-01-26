@@ -2,7 +2,7 @@
 
 namespace App\Company\Cms\Requests;
 
-use Domain\Cms\Columns\Attributes\CustomValidation;
+use Domain\Cms\Columns\Attributes\SubValidation;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -18,8 +18,8 @@ class CmsTableItemFileRequest extends FormRequest
     {
         $type = $this->column->type();
 
-        if ($type instanceof CustomValidation) {
-            return $type->getCustomValidation($this)->toArray('file');
+        if ($type instanceof SubValidation) {
+            return $type->getSubValidation($this)->toArray('file');
         }
 
         return [];

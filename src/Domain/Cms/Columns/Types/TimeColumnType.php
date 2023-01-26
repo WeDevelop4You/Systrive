@@ -3,7 +3,7 @@
 namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Columns\Options\Defaults\DefaultTimestampColumnOption;
-use Domain\Cms\Columns\Options\Nullable\NullableTimestampColumnOption;
+use Domain\Cms\Columns\Options\Nullables\NullableTimestampColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Eloquent\Model;
@@ -16,19 +16,13 @@ use Support\Utils\Validations;
 
 class TimeColumnType extends AbstractColumnType
 {
-    private array $validation = [
-        'string', 'date_format:H:i:s',
-    ];
-
     protected function options(): Collection
     {
         return Collection::make([
             new NullableTimestampColumnOption(
                 'time'
             ),
-            new DefaultTimestampColumnOption(
-                $this->validation
-            ),
+            new DefaultTimestampColumnOption(),
             new RowColColumnOption(),
         ]);
     }
@@ -80,6 +74,6 @@ class TimeColumnType extends AbstractColumnType
      */
     protected function validation(FormRequest $request): validations
     {
-        return new Validations($this->validation);
+        return new Validations(['string', 'date_format:H:i:s']);
     }
 }

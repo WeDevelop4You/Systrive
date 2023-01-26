@@ -12,19 +12,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\System\Models\System.
+ * Domain\System\Models\System
  *
- * @property int         $id
- * @property int|null    $company_id
- * @property string      $username
+ * @property int $id
+ * @property int|null $company_id
+ * @property string $username
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Company|null $company
- * @property-read \Domain\System\Models\SystemDatabase[]|\Illuminate\Database\Eloquent\Collection $databases
- * @property-read \Domain\System\Models\SystemDNS[]|\Illuminate\Database\Eloquent\Collection $dns
- * @property-read \Domain\System\Models\SystemDomain[]|\Illuminate\Database\Eloquent\Collection $domains
- * @property-read \Domain\System\Models\SystemMailDomain[]|\Illuminate\Database\Eloquent\Collection $mailDomains
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemDatabase[] $databases
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemDNS[] $dns
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemDomain[] $domains
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemMailDomain[] $mailDomains
  * @method static Builder|System newModelQuery()
  * @method static Builder|System newQuery()
  * @method static Builder|System query()
@@ -33,7 +32,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|System whereId($value)
  * @method static Builder|System whereUpdatedAt($value)
  * @method static Builder|System whereUsername($value)
- *
  * @mixin Eloquent
  */
 class System extends Model

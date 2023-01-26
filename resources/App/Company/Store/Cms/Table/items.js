@@ -1,6 +1,5 @@
 import Vue from "vue";
 import FormBase from "../../../../../Support/Store/Base/formBase";
-import DataTableBase from "../../../../../Support/Store/Base/dataTableBase";
 
 const app = Vue.prototype
 
@@ -62,6 +61,5 @@ export default {
     modules: {
         form: FormBase(),
         restoreForm: FormBase(),
-        dataTable: DataTableBase()
     }
 }

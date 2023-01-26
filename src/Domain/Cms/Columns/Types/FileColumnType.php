@@ -3,13 +3,13 @@
 namespace Domain\Cms\Columns\Types;
 
 use App\Company\Cms\Resources\CmsTableItemFileResource;
-use Domain\Cms\Columns\Attributes\CustomValidation;
 use Domain\Cms\Columns\Attributes\FileColumn;
-use Domain\Cms\Columns\Options\FIle\FileExtensionColumnOption;
+use Domain\Cms\Columns\Attributes\SubValidation;
+use Domain\Cms\Columns\Options\FIle\Extensions\FileExtensionColumnOption;
 use Domain\Cms\Columns\Options\FIle\FileSizeColumnOption;
 use Domain\Cms\Columns\Options\FIle\MaxFileColumnOption;
 use Domain\Cms\Columns\Options\FIle\MultipleFileColumnOption;
-use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
+use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
@@ -22,7 +22,7 @@ use Support\Rules\FileExistRule;
 use Support\Services\Cms;
 use Support\Utils\Validations;
 
-class FileColumnType extends AbstractColumnType implements FileColumn, CustomValidation
+class FileColumnType extends AbstractColumnType implements FileColumn, SubValidation
 {
     protected function options(): Collection
     {
@@ -74,6 +74,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
             ->setValue(
                 $model->files->column($this->getKey())
                     ->mapInto(CmsTableItemFileResource::class)
+                    ->values()
                     ->toArray()
             )
             ->setMultiple(
@@ -103,13 +104,13 @@ class FileColumnType extends AbstractColumnType implements FileColumn, CustomVal
     /**
      * {@inheritDoc}
      */
-    public function getCustomValidation(FormRequest $request): Validations
+    public function getSubValidation(FormRequest $request): Validations
     {
         return new Validations([
-            'required',
             File::types($this->getPropertyValue('types', []))
                 ->max($this->getPropertyValue('size', 5120))
-                ->min(1),
+                ->rules(['required'])
+                ->min(1)
         ]);
     }
 }

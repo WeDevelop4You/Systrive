@@ -1,6 +1,20 @@
 <?php
 
 return [
+    'main' => [
+        'path' => application_path('Main'),
+        'routes' => [
+            'files' => [
+                [
+                    'filename' => 'web.php',
+                    'middleware' => 'web',
+                ],
+            ],
+            'plurals' => [
+                'index' => ''
+            ]
+        ]
+    ],
     'account' => [
         'path' => application_path('Account'),
         'routes' => [

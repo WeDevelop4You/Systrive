@@ -3,19 +3,18 @@
         v-show="isHidden"
         ref="number"
         v-bind="component.attributes"
-        v-model="number"
+        :value="input"
         :disabled="isDisabled"
         :label="component.content.label"
         :error-messages="errorMessages"
         :hide-details="hideDetails"
         :class="[{'v-input-hidden': !isHidden}, component.attributes.class]"
-        @input="format($event)"
+        @input="handler($event)"
     />
 </template>
 
 
 <script>
-import {set as _set} from "lodash";
 import FormComponentBase from "../../Base/FormComponentBase";
 
 export default {
@@ -38,33 +37,32 @@ export default {
         const isNumeric = this.component.data.isNumeric || false
 
         this.isNumeric = isNumeric
-        this.number = this.getValue
-        this.original = this.getValue
+        this.original = this.input
         this.total = this.component.data.total
         this.places = this.component.data.places
         this.regex = isNumeric ? '[^0-9.]' : '[^0-9]'
     },
 
     methods: {
-        format(value) {
+        handler(value) {
             this.$nextTick(() => {
                 const target = this.$refs.number.$refs.input
                 const currentCursorPosition = target.selectionStart
 
-                let formattedValue = value.replace(',', '.').replace(new RegExp(this.regex, 'g'), '')
+                let format = this.format(value)
 
                 if (this.isNumeric) {
-                    formattedValue = this.formatNumeric(formattedValue);
+                    format = this.formatNumeric(format);
                 }
 
                 if (value.startsWith('-')) {
-                    formattedValue = `-${formattedValue}`
+                    format = `-${format}`
                 }
 
-                this.setValue(formattedValue)
+                this.setValue(format)
 
                 this.$nextTick(() => {
-                    const isDirty = formattedValue !== value
+                    const isDirty = format !== value
                     const newCursorPosition = currentCursorPosition - isDirty
 
                     target.setSelectionRange(currentCursorPosition, newCursorPosition, 'none')
@@ -74,10 +72,14 @@ export default {
             this.clearError(this.key)
         },
 
+        format(value) {
+            return value.replace(',', '.').replace(new RegExp(this.regex, 'g'), '')
+        },
+
         setValue(value) {
-            this.number = value
             this.original = value
-            this.data = Object.assign({}, _set(this.data, this.key, value))
+
+            this.setData(this.key, value)
         },
 
         formatNumeric(value) {

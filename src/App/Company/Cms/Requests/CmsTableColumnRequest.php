@@ -20,6 +20,19 @@ use Support\Abstracts\AbstractRequest;
 class CmsTableColumnRequest extends AbstractRequest
 {
     /**
+     * @var string|null
+     */
+    private string|null $prefix = null;
+
+    /**
+     * @param string|null $prefix
+     */
+    public function setPrefix(string|null $prefix): void
+    {
+        $this->prefix = $prefix;
+    }
+
+    /**
      * Required/default columns doesn't have properties.
      *
      * @return bool
@@ -44,12 +57,14 @@ class CmsTableColumnRequest extends AbstractRequest
 
     protected function storeRules(): array
     {
-        $optionRules = CmsColumnType::from($this->type)->getOptions()->mapWithKeys(
-            fn (AbstractColumnOption $option) => $option->getRequirements($this)
-        )->toArray();
+        $optionRules = CmsColumnType::from($this->type)
+            ->options($this->prefix)
+            ->mapWithKeys(
+                fn (AbstractColumnOption $option) => $option->getRequirements($this)
+            )->toArray();
 
         return [
-            CmsColumnTableMap::COL_PROPERTIES => ['present', 'array'],
+            CmsColumnTableMap::COL_PROPERTIES => ['required', 'array'],
             ...$optionRules,
         ];
     }

@@ -22,6 +22,10 @@ return [
     ],
 
     \Domain\Cms\Models\CmsTable::class => [
+        'col' => [
+            'columns' => 'columns',
+            'columns_all' => 'columns.*',
+        ],
         'required' => [
             'columns' => ['id', 'created_at', 'updated_at'],
         ],

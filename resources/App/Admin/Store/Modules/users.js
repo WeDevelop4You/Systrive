@@ -1,5 +1,4 @@
 // import Vue from 'vue';
-import dataTableBase from "../../../../Support/Store/Base/dataTableBase";
 
 // const app = Vue.prototype
 
@@ -15,8 +14,4 @@ export default {
             console.log(route)
         }
     },
-
-    modules: {
-        dataTable: dataTableBase()
-    }
 }

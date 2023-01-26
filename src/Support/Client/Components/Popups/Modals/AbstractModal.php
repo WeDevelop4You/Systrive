@@ -4,6 +4,7 @@ namespace Support\Client\Components\Popups\Modals;
 
 use Ramsey\Uuid\UuidInterface;
 use Support\Client\Components\Overviews\CardComponent;
+use Support\Client\Components\Popups\DialogComponent;
 
 abstract class AbstractModal
 {

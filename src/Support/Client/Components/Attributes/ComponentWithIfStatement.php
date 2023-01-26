@@ -17,14 +17,16 @@ trait ComponentWithIfStatement
      */
     public function __call(string $name, array $arguments): static
     {
-        $method = [$this, Str::before($name, 'If')];
+        if (Str::endsWith($name, 'If')) {
+            $method = [$this, Str::before($name, 'If')];
 
-        if (Reflector::isCallable($method)) {
-            if (\is_bool($arguments[0]) && isset($arguments[1])) {
-                return $arguments[0] ? \call_user_func_array($method, \array_slice($arguments, 1)) : $this;
+            if (method_exists(...$method)) {
+                if (\is_bool($arguments[0]) && isset($arguments[1])) {
+                    return $arguments[0] ? \call_user_func_array($method, \array_slice($arguments, 1)) : $this;
+                }
+
+                throw new InvalidArgumentException();
             }
-
-            throw new InvalidArgumentException();
         }
 
         throw new BadMethodCallException();

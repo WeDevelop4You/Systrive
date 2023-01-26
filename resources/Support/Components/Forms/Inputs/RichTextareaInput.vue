@@ -6,7 +6,7 @@
         <editor
             :init="options"
             :disabled="component.attributes.readonly"
-            :initial-value="getValue"
+            :initial-value="input"
             cloud-channel="6"
             model-events="change keydown blur paste"
             api-key="4mucpk15n7x2rj2rvd1s4hi4rtoilzvknnv52ts7tclhl0i3"

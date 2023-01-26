@@ -15,46 +15,43 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 /**
- * Domain\Cms\Models\CmsColumn.
+ * Domain\Cms\Models\CmsColumn
  *
- * @property int           $id
- * @property int           $table_id
- * @property string        $label
- * @property string        $key
+ * @property int $id
+ * @property int $table_id
+ * @property string $label
+ * @property string $key
  * @property CmsColumnType $type
- * @property int           $after
- * @property int           $hidden
- * @property int           $editable
- * @property bool          $deletable
- * @property Collection    $properties
- * @property Carbon|null   $created_at
- * @property Carbon|null   $updated_at
+ * @property int $after
+ * @property int $hidden
+ * @property int $editable
+ * @property bool $deletable
+ * @property Collection $properties
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read \Domain\Cms\Models\CmsTable $table
- *
  * @method static CmsColumnCollection|static[] all($columns = ['*'])
- * @method static Builder|CmsColumn            editable()
- * @method static CmsColumnCollection|static[] get($columns = ['*'])
- * @method static Builder|CmsColumn            newModelQuery()
- * @method static Builder|CmsColumn            newQuery()
- * @method static Builder|CmsColumn            query()
- * @method static Builder|CmsColumn            sorted()
- * @method static Builder|CmsColumn            visible()
- * @method static Builder|CmsColumn            whereAfter($value)
- * @method static Builder|CmsColumn            whereCreatedAt($value)
- * @method static Builder|CmsColumn            whereDeletable($value)
- * @method static Builder|CmsColumn            whereEditable($value)
- * @method static Builder|CmsColumn            whereHidden($value)
- * @method static Builder|CmsColumn            whereId($value)
- * @method static Builder|CmsColumn            whereKey($value)
- * @method static Builder|CmsColumn            whereLabel($value)
- * @method static Builder|CmsColumn            whereProperties($value)
- * @method static Builder|CmsColumn            whereTableId($value)
- * @method static Builder|CmsColumn            whereType($value)
- * @method static Builder|CmsColumn            whereUpdatedAt($value)
- *
- * @mixin Eloquent
- *
+ * @method static Builder|CmsColumn editable()
  * @method static Builder|CmsColumn fileType(bool $not = true)
+ * @method static CmsColumnCollection|static[] get($columns = ['*'])
+ * @method static Builder|CmsColumn newModelQuery()
+ * @method static Builder|CmsColumn newQuery()
+ * @method static Builder|CmsColumn query()
+ * @method static Builder|CmsColumn sorted()
+ * @method static Builder|CmsColumn visible()
+ * @method static Builder|CmsColumn whereAfter($value)
+ * @method static Builder|CmsColumn whereCreatedAt($value)
+ * @method static Builder|CmsColumn whereDeletable($value)
+ * @method static Builder|CmsColumn whereEditable($value)
+ * @method static Builder|CmsColumn whereHidden($value)
+ * @method static Builder|CmsColumn whereId($value)
+ * @method static Builder|CmsColumn whereKey($value)
+ * @method static Builder|CmsColumn whereLabel($value)
+ * @method static Builder|CmsColumn whereProperties($value)
+ * @method static Builder|CmsColumn whereTableId($value)
+ * @method static Builder|CmsColumn whereType($value)
+ * @method static Builder|CmsColumn whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class CmsColumn extends Model
 {

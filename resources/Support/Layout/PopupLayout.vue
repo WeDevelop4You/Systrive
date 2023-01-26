@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-for="(modal, index) in modals">
-            <modal
+            <Dialog
                 :key="index"
                 :value="modal"
             />
@@ -37,13 +37,13 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import Modal from "../Components/Popups/Modal.vue";
+    import Dialog from "../Components/Popups/Dialog.vue";
 
     export default {
-        name: "Index",
+        name: "Popups",
 
         components: {
-            Modal,
+            Dialog,
             SimpleNotificationComponent: () => import('../Components/Popups/Notifications/Simple.vue'),
         },
 

@@ -11,29 +11,24 @@ import Auth from "../../Support/Providers/Auth";
 import State from "../../Support/Providers/State";
 import Loader from "../../Support/Providers/Loader";
 import Provider from "../../Support/Plugins/Provider";
-import WebSocket from "../../Support/Providers/WebSocket";
 import Breadcrumbs from "../../Support/Providers/Breadcrumbs";
+import EchoWebSocket from "../../Support/Providers/EchoWebSocket";
 
 Vue.use(Provider, {
-    loader: () => {
-        const store = Store
-        const router = Router
-        const app = Vue.prototype
-        const vuetify = Vuetify.framework
-
+    store: Store,
+    router: Router,
+    vuetify: Vuetify.framework,
+    loader: ({app, store, router, vuetify}) => {
         // First load Api
         app.$api = new Api(app, store)
 
         app.$auth = new Auth(store)
         app.$state = new State(router)
         app.$loader = new Loader(app, store, router, vuetify)
+        app.$breadcrumbs = new Breadcrumbs(app, store, router, vuetify)
 
-        app.$breadcrumbs = Vue.observable(new Breadcrumbs(app, router, vuetify))
-
-        new WebSocket(app)
-    },
-    store: Store,
-    router: Router
+        new EchoWebSocket(app)
+    }
 })
 
 Vue.config.productionTip = false

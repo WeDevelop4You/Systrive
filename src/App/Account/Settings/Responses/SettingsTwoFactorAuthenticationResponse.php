@@ -19,7 +19,7 @@ use Support\Client\Components\Misc\ContentComponent;
 use Support\Client\Components\Misc\ImageComponent;
 use Support\Client\Components\Overviews\Steppers\StepperItemComponent;
 use Support\Client\Components\Overviews\Steppers\VerticalStepperComponent;
-use Support\Client\Components\Popups\Modals\DialogComponent;
+use Support\Client\Components\Popups\DialogComponent;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;

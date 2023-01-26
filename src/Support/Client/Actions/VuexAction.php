@@ -3,7 +3,7 @@
 namespace Support\Client\Actions;
 
 use Ramsey\Uuid\UuidInterface;
-use Support\Client\Components\Popups\Modals\DialogComponent;
+use Support\Client\Components\Popups\DialogComponent;
 use Support\Utils\VuexNamespace;
 
 class VuexAction extends Action

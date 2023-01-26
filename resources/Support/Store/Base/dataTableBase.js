@@ -3,37 +3,27 @@ import {arrayMoveMutable} from "array-move";
 
 const app = Vue.prototype
 
-export default () => {
+export default (options) => {
     return {
         namespaced: true,
 
         state: () => ({
-            status: 'loading',
-
             items: [],
             headers: [],
             customItems: [],
             meta: {
                 total: -1,
                 params: {},
-                routes: {
-                    items: '',
-                    headers: '',
-                },
+                routes: options.routes,
             },
         }),
 
         mutations: {
-            setRoutes(state, routes) {
-                state.meta.routes = routes
-            },
-
             setItemRoute(state, route) {
                 state.meta.routes.items = route
             },
 
             setParams(state, params) {
-                state.status = 'set_params'
                 state.meta.params = params
             },
 
@@ -72,8 +62,8 @@ export default () => {
                 state.meta.total = total
             },
 
-            resetParams(state) {
-                state.status = 'reset_params'
+            resetParams() {
+                options.resetCallback.call(this)
             },
 
             reset(state) {
@@ -81,7 +71,6 @@ export default () => {
                 state.headers = []
                 state.customItems = []
                 state.meta.total = -1
-                state.status = 'loading'
             }
         },
 
@@ -109,7 +98,7 @@ export default () => {
 
         actions: {
             getHeaders({state, commit}) {
-                app.$api.call({
+                return app.$api.call({
                     url: state.meta.routes.headers,
                     method: "GET"
                 }).then((response) => {

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import FormBase from "../../Base/formBase";
-import dataTableBase from "../../Base/dataTableBase";
 import NotificationComponent from "../../../Helpers/Components/NotificationComponent";
 import {STATE_CREATE, STATE_EDIT} from "../../../Config/RouteState";
 
@@ -80,6 +79,5 @@ export default {
 
     modules: {
         form: FormBase(),
-        dataTable: dataTableBase()
     }
 }

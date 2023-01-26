@@ -43,15 +43,33 @@ abstract class AbstractColumnType
     }
 
     /**
+     * @param bool        $onlyInputs
+     * @param string|null $prefix
+     *
      * @return Collection
      */
-    final public static function getOptions(): Collection
+    final public static function additionalForm(bool $onlyInputs = false, string|null $prefix = null): Collection
     {
         $instance = new static();
 
-        return $instance->options()->map(
-            fn (AbstractColumnOption $option) => $option->setPrefix($instance->type())
-        );
+        $type = $instance->type();
+        $options = $instance->options();
+
+        if ($onlyInputs) {
+            $options = $options->whereInstanceOf(AbstractColumnOption::class);
+        }
+
+        return $options->map(function ($option) use ($type, $prefix) {
+            if ($option instanceof AbstractColumnOption) {
+                $option->setPrefix($type);
+
+                if (!is_null($prefix)) {
+                    $option->setFormPrefix($prefix);
+                }
+            }
+
+            return $option;
+        });
     }
 
     /**
@@ -114,6 +132,12 @@ abstract class AbstractColumnType
         return $this->columnComponent();
     }
 
+    /**
+     * @param CmsModel $model
+     * @param bool     $readonly
+     *
+     * @return InputColWrapper
+     */
     final public function getInputComponent(CmsModel $model, bool $readonly = false): InputColWrapper
     {
         return InputColWrapper::create()

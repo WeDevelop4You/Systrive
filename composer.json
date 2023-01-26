@@ -18,6 +18,7 @@
         "graham-campbell/gitlab": "^5.6",
         "guzzlehttp/guzzle": "^7.0.1",
         "ihor/supervisor-xml-rpc": "^0.2.1",
+        "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^5.5",

@@ -29,8 +29,9 @@ export default {
             }
         },
 
-        getValue() {
-            return _get(this.data, this.key)
+        input() {
+            // return _get(this.data, this.key)
+            return this.getValue()
         },
 
         error() {
@@ -71,10 +72,10 @@ export default {
     },
 
     created() {
-        if (this.getValue === undefined) {
+        if (this.input === undefined) {
             const value = this.value.content.value ?? this.value.content.defaultValue
 
-            this.setValue(value)
+            this.setData(this.key, value)
         }
     },
 
@@ -83,11 +84,19 @@ export default {
             return this.$refs[this.key]
         },
 
-        setValue(value) {
-            this.clearError(this.key)
-            this.createHint(value)
+        getValue() {
+            return _get(this.data, this.key)
+        },
 
-            this.data = Object.assign({}, _set(this.data, this.key, value))
+        setValue(value) {
+            this.createHint(value)
+            this.clearError(this.key)
+
+            this.setData(this.key, value)
+        },
+
+        setData(key, value) {
+            this.$set(this, 'data', _set(this.data, key, value))
         },
 
         createHint(value) {

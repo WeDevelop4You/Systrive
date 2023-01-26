@@ -52,9 +52,9 @@ abstract class Component
      * @param string     $key
      * @param mixed|null $default
      *
-     * @return array
+     * @return mixed
      */
-    protected function getData(string $key, mixed $default = null): array
+    protected function getData(string $key, mixed $default = null): mixed
     {
         return $this->data[$key] ?? $default;
     }
@@ -77,9 +77,9 @@ abstract class Component
      * @param string     $key
      * @param mixed|null $default
      *
-     * @return array
+     * @return mixed
      */
-    protected function getContent(string $key, mixed $default = null): array
+    protected function getContent(string $key, mixed $default = null): mixed
     {
         return $this->content[$key] ?? $default;
     }
@@ -101,9 +101,9 @@ abstract class Component
      * @param string     $key
      * @param mixed|null $default
      *
-     * @return array
+     * @return mixed
      */
-    protected function getAttribute(string $key, mixed $default = null): array
+    protected function getAttribute(string $key, mixed $default = null): mixed
     {
         return $this->attributes[$key] ?? $default;
     }

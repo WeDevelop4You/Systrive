@@ -3,6 +3,7 @@
 namespace Domain\Cms\Actions;
 
 use Domain\Cms\Columns\Attributes\CustomColumn;
+use Domain\Cms\Columns\Attributes\FileColumn;
 use Domain\Cms\DataTransferObjects\CmsTableData;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
@@ -98,10 +99,12 @@ class CmsTableUpdateAction
     private function deleteColumns(Collection $columns): void
     {
         $columns->each(function (CmsColumn $column) {
-            $this->schema->table(
-                $this->table->name,
-                fn (Blueprint $table) => $table->dropColumn($column->key)
-            );
+            if (!$column->type() instanceof CustomColumn) {
+                $this->schema->table(
+                    $this->table->name,
+                    fn (Blueprint $table) => $table->dropColumn($column->key)
+                );
+            }
 
             $column->delete();
         });

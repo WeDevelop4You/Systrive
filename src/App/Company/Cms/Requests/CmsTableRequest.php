@@ -10,6 +10,8 @@ use Domain\Cms\Rules\ArrayMustContainRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Support\Abstracts\AbstractRequest;
+use Support\Utils\Validations;
+use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * @property CmsTable $table
@@ -30,18 +32,25 @@ class CmsTableRequest extends AbstractRequest
             ],
             CmsTableTableMap::COL_LABEL => ['required', 'string'],
             CmsTableTableMap::COL_EDITABLE => ['required', 'boolean'],
-            'columns' => [
+            CmsTableTableMap::COL_COLUMNS => [
                 'required', 'array', "min:{$minimal}",
-                new ArrayMustContainRule(CmsTableTableMap::REQUIRED_COLUMNS, CmsColumnTableMap::COL_KEY),
+                new ArrayMustContainRule(CmsTableTableMap::REQUIRED_COLUMNS, CmsColumnTableMap::COL_KEY)
             ],
-            'columns.*.original_key' => ['required', 'string'],
-            'columns.*.key' => ['required', 'string', 'alpha_dash', 'max:64', 'distinct:ignore_case'],
-            'columns.*.type' => ['required', new Enum(CmsColumnType::class)],
-            'columns.*.label' => ['required', 'string'],
-            'columns.*.after' => ['required', 'integer'],
-            'columns.*.hidden' => ['required', 'boolean'],
-            'columns.*.editable' => ['required', 'boolean'],
-            'columns.*.properties' => ['present', 'array'],
+            CmsTableTableMap::COL_COLUMNS_ALL => Rule::forEach(function ($value, $attribute) {
+                /** @var CmsTableColumnRequest $clone */
+                $clone = self::createFrom($this, new CmsTableColumnRequest);
+                $clone->setPrefix($attribute);
+                $clone->json->replace($value);
+                $clone->request->replace($value);
+                $clone->content = json_encode($value);
+
+                return [
+                    ...$clone->rules(),
+                    'key' => ['required', 'string', 'alpha_dash', 'max:64', 'distinct:ignore_case'],
+                    'after' => ['required', 'integer'],
+                    'original_key' => ['required', 'string'],
+                ];
+            })
         ];
     }
 

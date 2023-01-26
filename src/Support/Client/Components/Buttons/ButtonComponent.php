@@ -44,9 +44,7 @@ class ButtonComponent extends AbstractButtonComponent
      */
     public function setColor(VuetifyColor|ThemeComponent $color = VuetifyColor::PRIMARY): ButtonComponent
     {
-        $value = $color instanceof ThemeComponent
-            ? $color->export()
-            : $color->value;
+        $value = $color instanceof ThemeComponent ? $color->export() : $color->value;
 
         return $this->setAttribute('color', $value);
     }

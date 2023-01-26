@@ -11,15 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * Domain\Company\Models\CompanyUser.
+ * Domain\Company\Models\CompanyUser
  *
- * @property int                         $id
- * @property int                         $user_id
- * @property int                         $company_id
- * @property int                         $is_owner
+ * @property int $id
+ * @property int $user_id
+ * @property int $company_id
+ * @property int $is_owner
  * @property CompanyUserStatusTypes|null $status
  * @property-read User $user
- *
  * @method static CompanyUserQueryBuilders|CompanyUser firstWithInvite(\Domain\Invite\Models\Invite $invite)
  * @method static CompanyUserQueryBuilders|CompanyUser newModelQuery()
  * @method static CompanyUserQueryBuilders|CompanyUser newQuery()
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @method static CompanyUserQueryBuilders|CompanyUser whereIsOwner($value)
  * @method static CompanyUserQueryBuilders|CompanyUser whereStatus($value)
  * @method static CompanyUserQueryBuilders|CompanyUser whereUserId($value)
- *
  * @mixin Eloquent
  */
 class CompanyUser extends Pivot

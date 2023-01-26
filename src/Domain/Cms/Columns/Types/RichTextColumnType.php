@@ -2,7 +2,7 @@
 
 namespace Domain\Cms\Columns\Types;
 
-use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
+use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;

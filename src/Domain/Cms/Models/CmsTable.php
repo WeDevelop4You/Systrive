@@ -12,34 +12,32 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Domain\Cms\Models\CmsTable.
+ * Domain\Cms\Models\CmsTable
  *
- * @property int                             $id
- * @property string                          $label
- * @property string                          $name
- * @property bool                            $editable
- * @property bool                            $is_table
+ * @property int $id
+ * @property string $label
+ * @property string $name
+ * @property bool $editable
+ * @property bool $is_table
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $columns
- * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $formColumns
- * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $tableColumns
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable query()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereEditable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereIsTable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereLabel($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CmsTable whereUpdatedAt($value)
- *
- * @mixin \Eloquent
- *
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $fileColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $fillableColumns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $formColumns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $selectableColumns
+ * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $tableColumns
+ * @method static Builder|CmsTable newModelQuery()
+ * @method static Builder|CmsTable newQuery()
+ * @method static Builder|CmsTable query()
+ * @method static Builder|CmsTable whereCreatedAt($value)
+ * @method static Builder|CmsTable whereEditable($value)
+ * @method static Builder|CmsTable whereId($value)
+ * @method static Builder|CmsTable whereIsTable($value)
+ * @method static Builder|CmsTable whereLabel($value)
+ * @method static Builder|CmsTable whereName($value)
+ * @method static Builder|CmsTable whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class CmsTable extends Model
 {

@@ -2,6 +2,7 @@
 
 namespace Domain\Cms\Enums;
 
+use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Columns\Types\AbstractColumnType;
 use Domain\Cms\Columns\Types\BooleanColumnType;
 use Domain\Cms\Columns\Types\DateColumnType;
@@ -9,6 +10,7 @@ use Domain\Cms\Columns\Types\DatetimeColumnType;
 use Domain\Cms\Columns\Types\DecimalColumnType;
 use Domain\Cms\Columns\Types\FileColumnType;
 use Domain\Cms\Columns\Types\IdColumnType;
+use Domain\Cms\Columns\Types\ImageColumnType;
 use Domain\Cms\Columns\Types\IntegerColumnType;
 use Domain\Cms\Columns\Types\RichTextColumnType;
 use Domain\Cms\Columns\Types\StringColumnType;
@@ -39,7 +41,6 @@ enum CmsColumnType: int
     private const HIDDEN_CASES = [
         // TODO implement later
         self::JSON,
-        self::IMAGE,
         self::RELATION,
     ];
 
@@ -68,25 +69,23 @@ enum CmsColumnType: int
 
     /**
      * @return string
-     *
-     * @throws Exception
      */
     private function getClassname(): string
     {
         return match ($this) {
             self::ID => IdColumnType::class,
             self::TEXT => TextColumnType::class,
-            self::JSON => throw new Exception('To be implemented'),
+//            self::JSON => throw new Exception('To be implemented'),
             self::TIME => TimeColumnType::class,
             self::DATE => DateColumnType::class,
             self::FILE => FileColumnType::class,
-            self::IMAGE => throw new Exception('To be implemented'),
+            self::IMAGE => ImageColumnType::class,
             self::STRING => StringColumnType::class,
             self::BOOLEAN => BooleanColumnType::class,
             self::INTEGER => IntegerColumnType::class,
             self::DECIMAL => DecimalColumnType::class,
             self::DATETIME => DatetimeColumnType::class,
-            self::RELATION => throw new Exception('To be implemented'),
+//            self::RELATION => throw new \Exception('To be implemented'),
             self::RICH_TEXT => RichTextColumnType::class,
         };
     }
@@ -104,9 +103,19 @@ enum CmsColumnType: int
     /**
      * @return Collection
      */
-    public function getOptions(): Collection
+    public function additionalForm(): Collection
     {
-        return App::call([$this->getClassname(), 'getOptions']);
+        return App::call([$this->getClassname(), 'additionalForm']);
+    }
+
+    /**
+     * @param string|null $prefix
+     *
+     * @return Collection
+     */
+    public function options(string|null $prefix = null): Collection
+    {
+        return App::call([$this->getClassname(), 'additionalForm'], ['onlyInputs' => true, 'prefix' => $prefix]);
     }
 
     public static function getVisibleValues(): array

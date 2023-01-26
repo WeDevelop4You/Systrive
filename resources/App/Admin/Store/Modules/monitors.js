@@ -1,9 +1,4 @@
-import DataTableBase from "../../../../Support/Store/Base/dataTableBase";
-
+// Needs to exist to register Datatable
 export default {
     namespaced: true,
-
-    modules: {
-        dataTable: DataTableBase()
-    }
 }

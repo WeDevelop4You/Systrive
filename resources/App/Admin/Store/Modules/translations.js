@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import dataTableBase from "../../../../Support/Store/Base/dataTableBase";
 import FormBase from "../../../../Support/Store/Base/formBase";
 import {STATE_EDIT} from "../../../../Support/Config/RouteState";
 
@@ -50,7 +49,6 @@ export default {
 
     modules: {
         form: FormBase(),
-        dataTable: dataTableBase(),
         environmentForm: FormBase(),
     },
 }

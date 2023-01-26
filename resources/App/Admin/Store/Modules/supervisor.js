@@ -2,7 +2,6 @@ import Vue from "vue";
 import OverviewBase from "../../../../Support/Store/Base/overviewBase";
 import FormBase from "../../../../Support/Store/Base/formBase";
 import ShowBase from "../../../../Support/Store/Base/showBase";
-import DataTableBase from "../../../../Support/Store/Base/dataTableBase";
 import {STATE_CREATE, STATE_EDIT, STATE_SHOW} from "../../../../Support/Config/RouteState";
 
 const app = Vue.prototype
@@ -91,6 +90,5 @@ export default {
         show: ShowBase(),
         form: FormBase(),
         overview: OverviewBase(),
-        dataTable: DataTableBase()
     }
 }

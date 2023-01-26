@@ -2,23 +2,28 @@
 
 namespace Domain\Cms\Columns\Options;
 
+use Domain\Cms\Columns\Attributes\ComponentOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Utils\Validations;
 
-abstract class AbstractColumnOption
+abstract class AbstractColumnOption implements ComponentOption
 {
     /**
      * @var Collection
      */
     private Collection $properties;
-
     /**
      * @var string
      */
     private string $prefix;
+
+    /**
+     * @var string
+     */
+    private string $formPrefix = 'properties';
 
     /**
      * @param string $prefix
@@ -28,6 +33,18 @@ abstract class AbstractColumnOption
     final public function setPrefix(string $prefix): static
     {
         $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    /**
+     * @param string $prefix
+     *
+     * @return $this
+     */
+    final public function setFormPrefix(string $prefix): static
+    {
+        $this->formPrefix = "{$prefix}.{$this->formPrefix}";
 
         return $this;
     }
@@ -87,7 +104,7 @@ abstract class AbstractColumnOption
      *
      * @return ColComponent
      */
-    final public function getInputComponent(bool $isEditing): ColComponent
+    final public function getComponent(bool $isEditing): ColComponent
     {
         return ColComponent::create()
             ->setMdCol($this->col())
@@ -141,7 +158,7 @@ abstract class AbstractColumnOption
      */
     final protected function getOtherFormKey(string $type): string
     {
-        return "properties.{$this->prefix}_{$type}";
+        return "{$this->formPrefix}.{$this->getOtherKey($type)}";
     }
 
     /**

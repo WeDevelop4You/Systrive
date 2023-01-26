@@ -8,23 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Domain\Cms\Models\CmsFile.
+ * Domain\Cms\Models\CmsFile
  *
- * @property int                             $id
- * @property string                          $table_type
- * @property int                             $table_id
- * @property string                          $table_key
- * @property string                          $path
- * @property string                          $type
- * @property int                             $size
+ * @property int $id
+ * @property string $table_type
+ * @property int $table_id
+ * @property string $table_key
+ * @property string $path
+ * @property string $name
+ * @property string $type
+ * @property int $size
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static CmsFileCollection|static[] all($columns = ['*'])
+ * @method static CmsFileCollection|static[] get($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile newQuery()
+ * @method static \Illuminate\Database\Query\Builder|CmsFile onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile query()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile wherePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereTableId($value)
@@ -32,21 +38,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereTableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereUpdatedAt($value)
- *
+ * @method static \Illuminate\Database\Query\Builder|CmsFile withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|CmsFile withoutTrashed()
  * @mixin \Eloquent
- *
- * @property string $name
- *
- * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereName($value)
- *
- * @property \Illuminate\Support\Carbon|null $deleted_at
- *
- * @method static \Illuminate\Database\Query\Builder|CmsFile    onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereDeletedAt($value)
- * @method static \Illuminate\Database\Query\Builder|CmsFile    withTrashed()
- * @method static \Illuminate\Database\Query\Builder|CmsFile    withoutTrashed()
- * @method static CmsFileCollection|static[]                    all($columns = ['*'])
- * @method static CmsFileCollection|static[]                    get($columns = ['*'])
  */
 class CmsFile extends Model
 {

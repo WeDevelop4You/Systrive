@@ -2,6 +2,7 @@ export default {
     components: {
         TextInputComponent: () => import('../Components/Forms/Inputs/TextInput.vue'),
         FileInputComponent: () => import('../Components/Forms/Inputs/FileInput.vue'),
+        ImageInputComponent: () => import('../Components/Forms/Inputs/ImageInput.vue'),
         SelectInputComponent: () => import('../Components/Forms/Inputs/SelectInput.vue'),
         NumberInputComponent: () => import('../Components/Forms/Inputs/NumberInput.vue'),
         CustomInputComponent: () => import('../Components/Forms/Inputs/CustomInput.vue'),

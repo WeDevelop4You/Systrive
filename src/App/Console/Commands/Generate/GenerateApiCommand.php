@@ -35,7 +35,7 @@ class GenerateApiCommand extends Command
     {
         $this->routes = RouteHelper::getApiRoutes()->toArray();
 
-        if (! $this->generateFile()) {
+        if (!$this->generateFile()) {
             $this->error('No path or filename set in applications config');
 
             return 0;
@@ -59,7 +59,7 @@ class GenerateApiCommand extends Command
             return false;
         }
 
-        if (! file_exists($path)) {
+        if (!file_exists($path)) {
             mkdir($path, 0755, true);
         }
 

@@ -30,9 +30,9 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Domain\User\Models\User
  *
- * @property int $id
- * @property string $email
- * @property string $locale
+ * @property int         $id
+ * @property string      $email
+ * @property string      $locale
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
@@ -48,26 +48,28 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read \Domain\User\Models\UserProfile|null $profile
  * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
  * @property-read \Domain\User\Models\UserSecurity|null $security
- * @method static UserCollection|static[] all($columns = ['*'])
+ *
+ * @method static UserCollection|static[]         all($columns = ['*'])
  * @method static \Database\Factories\UserFactory factory(...$parameters)
- * @method static UserCollection|static[] get($columns = ['*'])
- * @method static UserQueryBuilders|User newModelQuery()
- * @method static UserQueryBuilders|User newQuery()
- * @method static Builder|User onlyTrashed()
- * @method static UserQueryBuilders|User permission($permissions)
- * @method static UserQueryBuilders|User query()
- * @method static UserQueryBuilders|User role($roles, $guard = null)
- * @method static UserQueryBuilders|User whereCreatedAt($value)
- * @method static UserQueryBuilders|User whereDeletedAt($value)
- * @method static UserQueryBuilders|User whereEmail($value)
- * @method static UserQueryBuilders|User whereEmailVerifiedAt($value)
- * @method static UserQueryBuilders|User whereId($value)
- * @method static UserQueryBuilders|User whereLocale($value)
- * @method static UserQueryBuilders|User wherePassword($value)
- * @method static UserQueryBuilders|User whereRememberToken($value)
- * @method static UserQueryBuilders|User whereUpdatedAt($value)
- * @method static Builder|User withTrashed()
- * @method static Builder|User withoutTrashed()
+ * @method static UserCollection|static[]         get($columns = ['*'])
+ * @method static UserQueryBuilders|User          newModelQuery()
+ * @method static UserQueryBuilders|User          newQuery()
+ * @method static Builder|User                    onlyTrashed()
+ * @method static UserQueryBuilders|User          permission($permissions)
+ * @method static UserQueryBuilders|User          query()
+ * @method static UserQueryBuilders|User          role($roles, $guard = null)
+ * @method static UserQueryBuilders|User          whereCreatedAt($value)
+ * @method static UserQueryBuilders|User          whereDeletedAt($value)
+ * @method static UserQueryBuilders|User          whereEmail($value)
+ * @method static UserQueryBuilders|User          whereEmailVerifiedAt($value)
+ * @method static UserQueryBuilders|User          whereId($value)
+ * @method static UserQueryBuilders|User          whereLocale($value)
+ * @method static UserQueryBuilders|User          wherePassword($value)
+ * @method static UserQueryBuilders|User          whereRememberToken($value)
+ * @method static UserQueryBuilders|User          whereUpdatedAt($value)
+ * @method static Builder|User                    withTrashed()
+ * @method static Builder|User                    withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail

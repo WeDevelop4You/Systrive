@@ -26,8 +26,9 @@ class CustomPermissionInputComponent extends AbstractInputComponent implements C
     /**
      * @param CustomInputType|null $inputType
      *
-     * @throws InvalidInputTypeException
      * @return $this
+     *
+     * @throws InvalidInputTypeException
      */
     public function setType(CustomInputType|null $inputType = null): static
     {

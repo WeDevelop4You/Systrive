@@ -110,7 +110,7 @@ class FileColumnType extends AbstractColumnType implements FileColumn, SubValida
             File::types($this->getPropertyValue('types', []))
                 ->max($this->getPropertyValue('size', 5120))
                 ->rules(['required'])
-                ->min(1)
+                ->min(1),
         ]);
     }
 }

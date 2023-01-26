@@ -15,6 +15,7 @@ use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
 use Support\Exceptions\Custom\TooManyFilesException;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
+use Throwable;
 
 class CmsTableItemSaveController
 {
@@ -26,7 +27,7 @@ class CmsTableItemSaveController
      *
      * @return JsonResponse
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function action(CmsTableItemRequest $request, Company $company, Cms $cms, CmsTable $table): JsonResponse
     {
@@ -53,7 +54,7 @@ class CmsTableItemSaveController
 
             $success = $newModel->save();
 
-            if (! $success) {
+            if (!$success) {
                 return $error;
             }
 

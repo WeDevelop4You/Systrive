@@ -2,16 +2,12 @@
 
 namespace App\Company\Cms\Requests;
 
-use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\CmsTable;
 use Domain\Cms\Rules\ArrayMustContainRule;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 use Support\Abstracts\AbstractRequest;
-use Support\Utils\Validations;
-use Symfony\Component\HttpFoundation\InputBag;
 
 /**
  * @property CmsTable $table
@@ -34,7 +30,7 @@ class CmsTableRequest extends AbstractRequest
             CmsTableTableMap::COL_EDITABLE => ['required', 'boolean'],
             CmsTableTableMap::COL_COLUMNS => [
                 'required', 'array', "min:{$minimal}",
-                new ArrayMustContainRule(CmsTableTableMap::REQUIRED_COLUMNS, CmsColumnTableMap::COL_KEY)
+                new ArrayMustContainRule(CmsTableTableMap::REQUIRED_COLUMNS, CmsColumnTableMap::COL_KEY),
             ],
             CmsTableTableMap::COL_COLUMNS_ALL => Rule::forEach(function ($value, $attribute) {
                 /** @var CmsTableColumnRequest $clone */
@@ -50,7 +46,7 @@ class CmsTableRequest extends AbstractRequest
                     'after' => ['required', 'integer'],
                     'original_key' => ['required', 'string'],
                 ];
-            })
+            }),
         ];
     }
 

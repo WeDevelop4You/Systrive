@@ -16,7 +16,7 @@ class CmsMigrateCommand extends Command
     {
         $database = $this->argument('cms');
 
-        if (! \is_null($database)) {
+        if (!\is_null($database)) {
             $cms = Cms::whereDatabase($database)->first();
 
             if ($cms instanceof Cms) {

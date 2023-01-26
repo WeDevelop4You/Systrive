@@ -60,7 +60,7 @@ class CmsCreateAction
 
         CmsService::createConnection($cms);
 
-        if (App::isLocal() && ! \defined('STDIN')) {
+        if (App::isLocal() && !\defined('STDIN')) {
             \define('STDIN', fopen('php://stdin', 'r'));
         }
 

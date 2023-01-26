@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
+use Throwable;
 
 class CmsTableItemEditController
 {
@@ -38,7 +39,7 @@ class CmsTableItemEditController
      *
      * @return JsonResponse
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function action(CmsTableItemRequest $request, Company $company, Cms $cms, CmsTable $table, CmsModel $item): JsonResponse
     {
@@ -56,7 +57,7 @@ class CmsTableItemEditController
         }
 
         if ($item->isDirty()) {
-            if (! $item->save()) {
+            if (!$item->save()) {
                 return $error;
             }
         }

@@ -2,9 +2,6 @@
 
 namespace Support\Client\Components\Forms\Inputs;
 
-use Illuminate\Support\Collection;
-use Symfony\Component\Mime\MimeTypes;
-
 class FileInputComponent extends AbstractFileInputComponent
 {
     /**

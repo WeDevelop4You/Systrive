@@ -21,7 +21,7 @@ class NumericFormatRule implements Rule
      */
     public function passes($attribute, $value): bool
     {
-        if (! $this->places) {
+        if (!$this->places) {
             return \strlen($value) <= $this->total;
         }
 

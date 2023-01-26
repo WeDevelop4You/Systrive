@@ -5,7 +5,6 @@ namespace Support\Client\Components\Forms\Inputs\Custom;
 use Support\Client\Components\Forms\Inputs\SelectInputComponent;
 use Support\Client\Components\Types\CustomInputComponent;
 use Support\Enums\Component\Inputs\CustomInputType;
-use Support\Exceptions\Custom\InvalidInputTypeException;
 
 class CustomSelectInputComponent extends SelectInputComponent implements CustomInputComponent
 {

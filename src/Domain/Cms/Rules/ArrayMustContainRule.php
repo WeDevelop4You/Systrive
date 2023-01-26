@@ -29,7 +29,7 @@ class ArrayMustContainRule implements Rule
         }
 
         foreach ($this->items as $item) {
-            if (! \in_array($item, $value)) {
+            if (!\in_array($item, $value)) {
                 return false;
             }
         }

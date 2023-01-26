@@ -45,7 +45,7 @@ class CmsTableColumnCreateController
     public function action(CmsTableColumnRequest $request, Company $company, Cms $cms): JsonResponse
     {
         $column = new CmsColumn($request->validated());
-        $column->deletable = ! \in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS);
+        $column->deletable = !\in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS);
 
         $items = Rows::create(
             Collection::make([$column]),

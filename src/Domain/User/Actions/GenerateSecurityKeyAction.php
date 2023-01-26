@@ -31,7 +31,7 @@ class GenerateSecurityKeyAction
         $user = Auth::user();
         $security = $user->security()->firstOrNew();
 
-        if ($security instanceof UserSecurity && ! $security->enabled) {
+        if ($security instanceof UserSecurity && !$security->enabled) {
             $google2fa = new Google2FA();
             $google2fa->setAlgorithm(Constants::SHA512);
 

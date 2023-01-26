@@ -17,7 +17,7 @@ class HeightDimensionColumnOption extends AbstractColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -25,7 +25,7 @@ class HeightDimensionColumnOption extends AbstractColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): string
     {
@@ -33,7 +33,7 @@ class HeightDimensionColumnOption extends AbstractColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
@@ -42,7 +42,7 @@ class HeightDimensionColumnOption extends AbstractColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {
@@ -55,7 +55,7 @@ class HeightDimensionColumnOption extends AbstractColumnOption
                 $this->getOtherFormKey('dimension_width'),
                 $this->getOtherFormKey('aspect_ratio_width'),
                 $this->getOtherFormKey('aspect_ratio_height'),
-            )
+            ),
         ]);
     }
 }

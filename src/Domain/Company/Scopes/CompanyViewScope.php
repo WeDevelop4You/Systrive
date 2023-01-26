@@ -34,7 +34,7 @@ class CompanyViewScope implements Scope
         if (Auth::check()) {
             setCompanyId();
 
-            if (! Auth::user()->isSuperAdmin()) {
+            if (!Auth::user()->isSuperAdmin()) {
                 $builder->where(CompanyTableMap::TABLE_STATUS, CompanyStatusTypes::COMPLETED)
                     ->whereHas('users', function (Builder $query) {
                         $query->where(UserTableMap::TABLE_ID, Auth::id())

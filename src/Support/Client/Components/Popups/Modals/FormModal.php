@@ -169,7 +169,7 @@ class FormModal extends AbstractModal
                 VuexAction::create()->commit("{$this->vuexNamespace}/resetForm")
             )
             ->addActionIf(
-                ! $this->withoutDataTableRefresh,
+                !$this->withoutDataTableRefresh,
                 VuexAction::create()->refreshTable($this->getDataTableVuexNamespace())
             );
         }
@@ -189,7 +189,7 @@ class FormModal extends AbstractModal
      */
     private function hasVuexNamespace(): bool
     {
-        return ! \is_null($this->vuexNamespace);
+        return !\is_null($this->vuexNamespace);
     }
 
     /**

@@ -8,7 +8,7 @@ use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 class WidthAspectRatioColumnOption extends AbstractAspectRatio
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function type(): string
     {
@@ -16,7 +16,7 @@ class WidthAspectRatioColumnOption extends AbstractAspectRatio
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultValue(): int
     {
@@ -24,7 +24,7 @@ class WidthAspectRatioColumnOption extends AbstractAspectRatio
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {

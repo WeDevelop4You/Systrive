@@ -11,9 +11,9 @@ return [
                 ],
             ],
             'plurals' => [
-                'index' => ''
-            ]
-        ]
+                'index' => '',
+            ],
+        ],
     ],
     'account' => [
         'path' => application_path('Account'),

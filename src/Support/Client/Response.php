@@ -172,7 +172,7 @@ class Response
     {
         $response = [];
 
-        if (! empty($this->errors)) {
+        if (!empty($this->errors)) {
             $response['errors'] = $this->errors;
         }
 

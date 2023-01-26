@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Domain\Cms\Models\CmsTable
  *
- * @property int $id
- * @property string $label
- * @property string $name
- * @property bool $editable
- * @property bool $is_table
+ * @property int                             $id
+ * @property string                          $label
+ * @property string                          $name
+ * @property bool                            $editable
+ * @property bool                            $is_table
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $columns
@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Schema;
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $formColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $selectableColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection|\Domain\Cms\Models\CmsColumn[] $tableColumns
+ *
  * @method static Builder|CmsTable newModelQuery()
  * @method static Builder|CmsTable newQuery()
  * @method static Builder|CmsTable query()
@@ -37,6 +38,7 @@ use Illuminate\Support\Facades\Schema;
  * @method static Builder|CmsTable whereLabel($value)
  * @method static Builder|CmsTable whereName($value)
  * @method static Builder|CmsTable whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CmsTable extends Model
@@ -81,7 +83,7 @@ class CmsTable extends Model
      */
     public function isBackup(): bool
     {
-        return ! $this->is_table;
+        return !$this->is_table;
     }
 
     /**
@@ -91,7 +93,7 @@ class CmsTable extends Model
      */
     public function indexes(): array
     {
-        if (! isset($this->indexes)) {
+        if (!isset($this->indexes)) {
             $this->indexes = Schema::connection('cms')
                 ->getConnection()
                 ->getDoctrineSchemaManager()

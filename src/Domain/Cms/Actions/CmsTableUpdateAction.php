@@ -3,7 +3,6 @@
 namespace Domain\Cms\Actions;
 
 use Domain\Cms\Columns\Attributes\CustomColumn;
-use Domain\Cms\Columns\Attributes\FileColumn;
 use Domain\Cms\DataTransferObjects\CmsTableData;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
@@ -128,7 +127,7 @@ class CmsTableUpdateAction
                 );
 
                 if ($existingColumn instanceof CmsColumn) {
-                    if (! \in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                    if (!\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
                         $existingColumn->key = $column->key;
                         $existingColumn->type = $column->type;
                         $existingColumn->label = $column->label;
@@ -150,7 +149,7 @@ class CmsTableUpdateAction
             ->each(function (CmsColumn $column, int $index) use (&$after) {
                 $type = $column->type();
 
-                if (! $type instanceof CustomColumn) {
+                if (!$type instanceof CustomColumn) {
                     $this->schema->table($this->table->name, function (Blueprint $table) use ($type, $column, $index, $after) {
                         $dirtyKey = $column->isDirty(CmsColumnTableMap::COL_KEY);
                         $dirtyType = $column->isDirty(CmsColumnTableMap::COL_TYPE);

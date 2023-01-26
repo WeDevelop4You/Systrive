@@ -14,7 +14,7 @@ abstract class AbstractAspectRatio extends AbstractColumnOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function requirements(FormRequest $request): Validations
     {

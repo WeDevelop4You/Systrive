@@ -35,7 +35,7 @@ class ListItemURLComponent extends Component implements ListItemComponent
      */
     public function setValue(mixed $value): static
     {
-        if (! empty($value)) {
+        if (!empty($value)) {
             $value = prep_url($value);
         }
 

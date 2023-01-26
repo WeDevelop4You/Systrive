@@ -33,7 +33,7 @@ class CmsTableStoreAction
                 $data->columns->each(function (CmsColumn $column) use ($table) {
                     $type = $column->type();
 
-                    if (! $type instanceof CustomColumn) {
+                    if (!$type instanceof CustomColumn) {
                         $type->getDefinition($table);
                     }
                 });

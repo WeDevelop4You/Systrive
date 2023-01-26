@@ -25,7 +25,7 @@ class ValidateInviteTokenAction
             ->first();
 
         if ($invite instanceof Invite) {
-            if (! $invite->isExpired() && Hash::check($inviteData->token, $invite->token)) {
+            if (!$invite->isExpired() && Hash::check($inviteData->token, $invite->token)) {
                 return $invite;
             }
 

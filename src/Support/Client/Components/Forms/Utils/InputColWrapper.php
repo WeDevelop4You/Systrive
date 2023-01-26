@@ -82,7 +82,7 @@ class InputColWrapper
 
     public function export(?string $vuexNamespace = null): ColComponent
     {
-        if (! \is_null($vuexNamespace) && $this->input instanceof AbstractInputComponent) {
+        if (!\is_null($vuexNamespace) && $this->input instanceof AbstractInputComponent) {
             $this->input->setVuexNamespace($vuexNamespace);
         }
 

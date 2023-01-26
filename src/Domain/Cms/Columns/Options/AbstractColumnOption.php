@@ -15,6 +15,7 @@ abstract class AbstractColumnOption implements ComponentOption
      * @var Collection
      */
     private Collection $properties;
+
     /**
      * @var string
      */

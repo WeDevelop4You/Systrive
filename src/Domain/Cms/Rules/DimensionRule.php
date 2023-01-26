@@ -2,7 +2,6 @@
 
 namespace Domain\Cms\Rules;
 
-use Closure;
 use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Arr;
@@ -30,13 +29,13 @@ class DimensionRule implements DataAwareRule, Rule
         private readonly string $aspectRatioHeightKey,
         private readonly bool $isWidth = false
     ) {
-
     }
 
     /**
      * Set the data under validation.
      *
-     * @param  array  $data
+     * @param array $data
+     *
      * @return $this
      */
     public function setData($data): static

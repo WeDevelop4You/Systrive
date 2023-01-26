@@ -52,7 +52,7 @@ class ShowModal extends AbstractModal
                     VuexAction::create()->closeModal($this->modal->getIdentifier())
                 )
                 ->addActionIf(
-                    ! \is_null($this->vuexNamespace),
+                    !\is_null($this->vuexNamespace),
                     VuexAction::create()->commit("{$this->vuexNamespace}/resetShow"),
                 )
         );

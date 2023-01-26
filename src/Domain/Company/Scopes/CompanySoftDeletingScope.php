@@ -13,7 +13,7 @@ class CompanySoftDeletingScope extends SoftDeletingScope
     {
         setCompanyId();
 
-        if (! Auth::check() || ! Auth::user()->isSuperAdmin()) {
+        if (!Auth::check() || !Auth::user()->isSuperAdmin()) {
             parent::apply($builder, $model);
         }
     }

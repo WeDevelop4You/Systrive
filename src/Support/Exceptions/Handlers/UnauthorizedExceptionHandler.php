@@ -27,7 +27,7 @@ class UnauthorizedExceptionHandler extends Exception
             ->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.user.not.allowed')))
             ->setStatusCode(ResponseCode::HTTP_FORBIDDEN);
 
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             return $response->toSession()
                 ->addRedirect(ApplicationHelper::getRedirectRoute())
                 ->toRedirect();
@@ -50,7 +50,7 @@ class UnauthorizedExceptionHandler extends Exception
             return VueRouteHelper::createAccountSettings();
         }
 
-        if (! $request->route()->hasParameter('company')) {
+        if (!$request->route()->hasParameter('company')) {
             return VueRouteHelper::createSwitcher();
         }
 

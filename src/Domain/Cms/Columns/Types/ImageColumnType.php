@@ -127,7 +127,7 @@ class ImageColumnType extends AbstractColumnType implements FileColumn, SubValid
             File::types($this->getPropertyValue('types', []))
                 ->max($this->getPropertyValue('size', 5120))
                 ->rules(['required', 'image'])
-                ->min(1)
+                ->min(1),
         ]);
     }
 }

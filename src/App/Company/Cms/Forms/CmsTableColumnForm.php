@@ -17,7 +17,6 @@ use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Forms\Utils\KeyValueObject;
 use Support\Client\Components\Forms\Utils\Logic;
 use Support\Client\Components\Layouts\ColComponent;
-use Support\Enums\Component\Inputs\CustomSelectInputType;
 
 class CmsTableColumnForm extends AbstractForm
 {
@@ -93,7 +92,7 @@ class CmsTableColumnForm extends AbstractForm
                             ->setDisabled($this->isEditable)
                     ),
                 InputColWrapper::create()
-                    ->setCondition(! $this->isEditable)
+                    ->setCondition(!$this->isEditable)
                     ->setInput(
                         ConditionInputComponent::create()
                             ->setPath('type.additional')

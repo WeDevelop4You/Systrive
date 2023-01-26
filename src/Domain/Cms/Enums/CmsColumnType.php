@@ -2,7 +2,6 @@
 
 namespace Domain\Cms\Enums;
 
-use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Columns\Types\AbstractColumnType;
 use Domain\Cms\Columns\Types\BooleanColumnType;
 use Domain\Cms\Columns\Types\DateColumnType;
@@ -123,7 +122,7 @@ enum CmsColumnType: int
         $types = [];
 
         foreach (self::cases() as $case) {
-            if (! \in_array($case, self::HIDDEN_CASES)) {
+            if (!\in_array($case, self::HIDDEN_CASES)) {
                 $types[] = $case;
             }
         }

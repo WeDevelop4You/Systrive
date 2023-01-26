@@ -19,7 +19,7 @@ class CustomDimensionInputComponent extends NumberInputComponent implements Cust
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function getComponentName(): string
     {
@@ -27,7 +27,7 @@ class CustomDimensionInputComponent extends NumberInputComponent implements Cust
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function setType(CustomInputType|null $inputType = null): static
     {

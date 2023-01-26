@@ -46,8 +46,8 @@ class DateColumnType extends AbstractColumnType
             ->setFormat(function (Model $data, string $key) {
                 $value = $data->getAttribute($key);
 
-                if (! \is_null($value)) {
-                    if (! $value instanceof Carbon) {
+                if (!\is_null($value)) {
+                    if (!$value instanceof Carbon) {
                         $value = new Carbon($value);
                     }
 

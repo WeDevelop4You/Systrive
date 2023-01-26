@@ -15,7 +15,7 @@ class LabelColumnOption implements ComponentOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getComponent(bool $isEditing): ColComponent
     {

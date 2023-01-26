@@ -5,7 +5,6 @@ namespace Domain\Cms\Columns\Options;
 use Domain\Cms\Columns\Attributes\ComponentOption;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Misc\HintComponent;
-use Support\Client\Components\Misc\LabelComponent;
 
 class HintColumnOption implements ComponentOption
 {
@@ -16,7 +15,7 @@ class HintColumnOption implements ComponentOption
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function getComponent(bool $isEditing): ColComponent
     {

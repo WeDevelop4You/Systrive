@@ -186,7 +186,7 @@ class CompanyTable extends AbstractTable
                     ->setHref(ApplicationHelper::getCompanyRoute($data))
             )
             ->addButtonIf(
-                ! $isNotDeleted,
+                !$isNotDeleted,
                 IconButtonComponent::create()
                     ->setColorOnHover(VuetifyColor::ACCENT)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_UNDO_ALT))

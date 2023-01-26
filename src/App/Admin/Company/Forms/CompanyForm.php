@@ -49,7 +49,7 @@ class CompanyForm extends AbstractForm
                                 User::withTrashed()->with('profile')->get()->map(function (User $user) {
                                     $text = Str::of($user->email);
 
-                                    if (! \is_null($user->full_name)) {
+                                    if (!\is_null($user->full_name)) {
                                         $text = $text->append(', (', $user->full_name, ')');
                                     }
 

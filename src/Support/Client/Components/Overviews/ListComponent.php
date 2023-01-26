@@ -78,7 +78,7 @@ class ListComponent extends Component
             return $this;
         }
 
-        if (! \is_null($this->title)) {
+        if (!\is_null($this->title)) {
             $this->setData('list', ['subheader' => $this->title], true)
                 ->setData('hasSubheader', true);
 

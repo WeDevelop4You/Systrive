@@ -28,7 +28,7 @@ class Breadcrumbs {
     }
 
     remove() {
-        this.#store.commit('breadcrumbs/remove', item)
+        this.#store.commit('breadcrumbs/remove')
 
         return this
     }

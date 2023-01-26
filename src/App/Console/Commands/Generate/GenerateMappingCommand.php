@@ -202,7 +202,6 @@ class GenerateMappingCommand extends Command
         $data .= '{';
 
         foreach ($mapping->constants as $prefix => $constants) {
-            $data .= "\n";
             foreach ($constants as $key => $value) {
                 $key = strtoupper($key);
 

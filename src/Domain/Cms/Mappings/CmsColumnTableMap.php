@@ -5,7 +5,6 @@ namespace Domain\Cms\Mappings;
 class CmsColumnTableMap
 {
     public const TABLE = 'cms_columns';
-
     public const COL_ORIGINAL_KEY = 'original_key';
     public const COL_ID = 'id';
     public const COL_TABLE_ID = 'table_id';
@@ -19,7 +18,6 @@ class CmsColumnTableMap
     public const COL_PROPERTIES = 'properties';
     public const COL_CREATED_AT = 'created_at';
     public const COL_UPDATED_AT = 'updated_at';
-
     public const TABLE_ID = 'cms_columns.id';
     public const TABLE_TABLE_ID = 'cms_columns.table_id';
     public const TABLE_LABEL = 'cms_columns.label';
@@ -32,6 +30,5 @@ class CmsColumnTableMap
     public const TABLE_PROPERTIES = 'cms_columns.properties';
     public const TABLE_CREATED_AT = 'cms_columns.created_at';
     public const TABLE_UPDATED_AT = 'cms_columns.updated_at';
-
     public const RELATION_TABLE = 'table';
 }

@@ -5,7 +5,6 @@ namespace Domain\Monitor\Mappings;
 class JobTableMap
 {
     public const TABLE = 'jobs';
-
     public const COL_ID = 'id';
     public const COL_QUEUE = 'queue';
     public const COL_PAYLOAD = 'payload';
@@ -13,7 +12,6 @@ class JobTableMap
     public const COL_RESERVED_AT = 'reserved_at';
     public const COL_AVAILABLE_AT = 'available_at';
     public const COL_CREATED_AT = 'created_at';
-
     public const TABLE_ID = 'jobs.id';
     public const TABLE_QUEUE = 'jobs.queue';
     public const TABLE_PAYLOAD = 'jobs.payload';

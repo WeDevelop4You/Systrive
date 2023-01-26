@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use ReflectionException;
 use Support\Helpers\ApplicationHelper;
@@ -26,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->isLocal()) {
             $this->app->register(IdeHelperServiceProvider::class);
+        }
+
+        if ($this->app->isProduction()) {
+            URL::forceScheme('https');
         }
     }
 

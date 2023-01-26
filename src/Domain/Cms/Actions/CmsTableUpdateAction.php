@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Schema;
 class CmsTableUpdateAction
 {
     public const REFRESH_ALL = 1;
-
     public const REFRESH_TABLE = 2;
 
     private readonly Builder $schema;

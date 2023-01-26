@@ -14,45 +14,25 @@ use Support\Exceptions\Custom\Vesta\VestaCredentialsNotSetException;
 class Vesta
 {
     public const SUCCESS = 0;
-
     public const ERROR_ARGS = 1;
-
     public const ERROR_INVALID = 2;
-
     public const ERROR_NOT_EXIST = 3;
-
     public const ERROR_EXISTS = 4;
-
     public const ERROR_SUSPENDED = 5;
-
     public const ERROR_UNSUSPENDED = 6;
-
     public const ERROR_INUSE = 7;
-
     public const ERROR_LIMIT = 8;
-
     public const ERROR_PASSWORD = 9;
-
     public const ERROR_FORBIDDEN = 10;
-
     public const ERROR_DISABLED = 11;
-
     public const ERROR_PARSING = 12;
-
     public const ERROR_DISK = 13;
-
     public const ERROR_LA = 14;
-
     public const ERROR_CONNECT = 15;
-
     public const ERROR_FTP = 16;
-
     public const ERROR_DB = 17;
-
     public const ERROR_RRD = 18;
-
     public const ERROR_UPDATE = 19;
-
     public const ERROR_RESTART = 20;
 
     /**

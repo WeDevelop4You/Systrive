@@ -15,10 +15,8 @@ enum VuetifyColor: string
     case WARNING = 'warning';
     case TRANSPARENT = 'transparent';
     case NONE = 'undefined';
-
     case DARK_BACKGROUND = '#121212';
     case DARK_HEADER = '#272727';
-
     case LIGHT_HEADER = '#f5f5f5';
     case LIGHT_GRAY = '#777777';
 

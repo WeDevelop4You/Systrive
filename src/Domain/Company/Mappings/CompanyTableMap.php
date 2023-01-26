@@ -5,7 +5,6 @@ namespace Domain\Company\Mappings;
 class CompanyTableMap
 {
     public const TABLE = 'companies';
-
     public const COL_ID = 'id';
     public const COL_NAME = 'name';
     public const COL_SLUG = 'slug';
@@ -17,7 +16,6 @@ class CompanyTableMap
     public const COL_CREATED_AT = 'created_at';
     public const COL_UPDATED_AT = 'updated_at';
     public const COL_DELETED_AT = 'deleted_at';
-
     public const TABLE_ID = 'companies.id';
     public const TABLE_NAME = 'companies.name';
     public const TABLE_SLUG = 'companies.slug';
@@ -29,7 +27,6 @@ class CompanyTableMap
     public const TABLE_CREATED_AT = 'companies.created_at';
     public const TABLE_UPDATED_AT = 'companies.updated_at';
     public const TABLE_DELETED_AT = 'companies.deleted_at';
-
     public const RELATION_USER = 'user';
     public const RELATION_OWNER = 'owner';
     public const RELATION_USERS = 'users';

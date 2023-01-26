@@ -1,0 +1,1 @@
+import{C as e}from"./dfc93a5e.js";import{n as t}from"./75131b1e.js";import"./feafbc55.js";const a={name:"Hint",extends:e};var o=function(){var n=this,s=n._self._c;return s("div",{staticClass:"v-messages"},[s("div",{staticClass:"v-messages__message"},[n._v(" "+n._s(n.component.content.hint)+" ")])])},r=[],_=t(a,o,r,!1,null,null,null,null);const v=_.exports;export{v as default};

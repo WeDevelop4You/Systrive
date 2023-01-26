@@ -1,0 +1,1 @@
+import{n as s}from"./75131b1e.js";const r={name:"Dashboard"};var e=function(){var a=this,n=a._self._c;return n("h1",[n("i",{staticClass:"las la-bars"}),a._v(a._s(a.$vuetify.lang.t("$vuetify.word.dashboard")))])},t=[],l=s(r,e,t,!1,null,null,null,null);const c=l.exports;export{c as default};

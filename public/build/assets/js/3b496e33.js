@@ -1,0 +1,1 @@
+import{F as e}from"./11811950.js";const n={extends:e,mounted(){this.isset(this.component.attributes,"return-object")&&(this.input instanceof Object||this.setValue(this.component.data.items.find(t=>t.value===this.input)))}};export{n as D};

@@ -1,0 +1,1 @@
+import{V as s}from"./feafbc55.js";function a(e="value",i="input"){return s.extend({name:"toggleable",model:{prop:e,event:i},props:{[e]:{required:!1}},data(){return{isActive:!!this[e]}},watch:{[e](t){this.isActive=!!t},isActive(t){!!t!==this[e]&&this.$emit(i,t)}}})}const c=a(),n=c;export{n as T,a as f};

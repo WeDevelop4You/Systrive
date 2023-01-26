@@ -1,6 +1,8 @@
 <template>
     <div class="v-messages">
-        <div class="v-messages__message">{{ component.content.hint }}</div>
+        <div class="v-messages__message">
+            {{ component.content.hint }}
+        </div>
     </div>
 </template>
 

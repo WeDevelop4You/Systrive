@@ -1,1 +1,0 @@
-import{n}from"./75131b1e.js";const s={name:"Auth",props:{response:{required:!0,type:Array}},created(){this.$vuetify.theme.dark=!0,this.response.forEach(e=>{this.$responseChain(e)})}};var o=function(){var r=this,t=r._self._c;return t("router-view",{key:r.$route.name})},a=[],u=n(s,o,a,!1,null,null,null,null);const i=u.exports;export{i as default};

@@ -4,6 +4,7 @@ return [
     'main' => [
         'path' => application_path('Main'),
         'routes' => [
+            'domain' => env('DOMAIN_MAIN'),
             'files' => [
                 [
                     'filename' => 'web.php',

@@ -3,11 +3,24 @@ import Actions from "../Providers/Actions";
 import DialogComponent from "../Helpers/Components/DialogComponent";
 import NotificationComponent from "../Helpers/Components/NotificationComponent";
 
+// Store modules
+import Auth from "../Store/Modules/auth";
+import Locale from "../Store/Modules/locale";
+import Popups from "../Store/Modules/popups";
+import Navigation from "../Store/Modules/navigation";
+
 export default function install(vue, options) {
     const app = vue.prototype
     const store = options.store
     const router = options.router
     const loader = options.loader
+    const vuetify = options.vuetify
+
+    // Default store modules
+    store.registerModule('auth', Auth)
+    store.registerModule('locale', Locale)
+    store.registerModule('popups', Popups)
+    store.registerModule('navigation', Navigation)
 
     // Default providers
     app.$config = new Config()
@@ -15,7 +28,7 @@ export default function install(vue, options) {
     app.$request = vue.observable({total: 0})
 
     // Loader per domain
-    loader.call(this)
+    loader.call(this, {app, store, router, vuetify})
 
     /**
      *  @param {string} data.redirect

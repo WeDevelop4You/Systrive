@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 /**
- * Domain\Cms\Models\CmsColumn.
+ * Domain\Cms\Models\CmsColumn
  *
  * @property int           $id
  * @property int           $table_id
@@ -33,6 +33,7 @@ use Illuminate\Support\Collection;
  *
  * @method static CmsColumnCollection|static[] all($columns = ['*'])
  * @method static Builder|CmsColumn            editable()
+ * @method static Builder|CmsColumn            fileType(bool $not = true)
  * @method static CmsColumnCollection|static[] get($columns = ['*'])
  * @method static Builder|CmsColumn            newModelQuery()
  * @method static Builder|CmsColumn            newQuery()
@@ -53,8 +54,6 @@ use Illuminate\Support\Collection;
  * @method static Builder|CmsColumn            whereUpdatedAt($value)
  *
  * @mixin Eloquent
- *
- * @method static Builder|CmsColumn fileType(bool $not = true)
  */
 class CmsColumn extends Model
 {
@@ -154,7 +153,7 @@ class CmsColumn extends Model
         return $query->whereIn(CmsColumnTableMap::COL_TYPE, [
             CmsColumnType::FILE->value,
             CmsColumnType::IMAGE->value,
-        ], not: ! $not);
+        ], not: !$not);
     }
 
     /**

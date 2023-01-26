@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Support\Services\Supervisor as SupervisorService;
 
 /**
- * Domain\Supervisor\Models\Supervisor.
+ * Domain\Supervisor\Models\Supervisor
  *
  * @property int                             $id
  * @property string                          $name

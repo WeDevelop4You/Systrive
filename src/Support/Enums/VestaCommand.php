@@ -17,14 +17,10 @@ enum VestaCommand: string
     case GET_USER_MAIL_DOMAIN = 'v-list-mail-domain';
     case GET_USER_MAIL_DOMAINS = 'v-list-mail-domains';
     case GET_USER_MAIL_ADDRESSES = 'v-list-mail-accounts';
-
     case GET_WEB_TEMPLATES = 'v-list-web-templates';
     case GET_DNS_TEMPLATES = 'v-list-dns-templates';
     case GET_PROXY_TEMPLATES = 'v-list-web-templates-proxy';
-
     case CREATE_DATABASE = 'v-add-database';
-
     case DELETE_DATABASE = 'v-delete-database';
-
     case TEST = '';
 }

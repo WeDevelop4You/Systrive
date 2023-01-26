@@ -2,7 +2,6 @@ import Vue from "vue";
 import {arrayMoveMutable} from 'array-move';
 import {cloneDeep as _cloneDeep} from "lodash";
 import FormBase from "../../../../../Support/Store/Base/formBase";
-import dataTableBase from "../../../../../Support/Store/Base/dataTableBase";
 
 const app = Vue.prototype
 
@@ -150,6 +149,5 @@ export default {
 
     modules: {
         form: FormBase(),
-        dataTable: dataTableBase()
     }
 }

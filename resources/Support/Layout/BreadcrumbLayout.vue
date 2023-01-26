@@ -13,13 +13,15 @@
 </template>
 
 <script>
+    import {mapGetters} from "vuex";
+
     export default {
         name: "Breadcrumb",
 
         computed: {
-            items() {
-                return this.$breadcrumbs.items
-            }
+            ...mapGetters({
+                items: 'breadcrumbs/items'
+            })
         }
     }
 </script>

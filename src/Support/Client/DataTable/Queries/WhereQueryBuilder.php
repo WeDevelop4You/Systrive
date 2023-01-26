@@ -78,10 +78,10 @@ class WhereQueryBuilder
                         } else {
                             App::call($searchCallback, ['query' => &$subQuery, 'search' => $this->search]);
                         }
-                    } elseif (! $hasRelation || $selectedColumn) {
+                    } elseif (!$hasRelation || $selectedColumn) {
                         $whereColumn = $selectedColumn ?? $key;
 
-                        if (! $hasRelation) {
+                        if (!$hasRelation) {
                             $whereColumn = Schema::hasColumn($this->query->getModel()->getTable(), $whereColumn) ? $this->query->getModel()->getTable().'.'.$whereColumn : $whereColumn;
                         }
 

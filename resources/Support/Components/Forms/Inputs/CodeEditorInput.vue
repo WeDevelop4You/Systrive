@@ -9,7 +9,7 @@
             <div class="v-input__slot">
                 <fieldset />
                 <codemirror
-                    :value="getValue"
+                    :value="input"
                     :options="options"
                     @focus="focused = true"
                     @blur="focused = false"

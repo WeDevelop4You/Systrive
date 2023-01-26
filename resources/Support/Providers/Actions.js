@@ -6,10 +6,6 @@ export default class Actions
         this.#setDefault(store, router)
     }
 
-    add(name, callback) {
-        this.#actions.set(name, callback)
-    }
-
     call(action) {
         if (action) {
             if (this.#actions.has(action?.name)) {
@@ -31,6 +27,10 @@ export default class Actions
         }
 
         return undefined;
+    }
+
+    add(name, callback) {
+        this.#actions.set(name, callback)
     }
 
     #returnIsPromise(func = null) {

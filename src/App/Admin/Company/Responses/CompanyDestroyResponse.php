@@ -28,7 +28,7 @@ class CompanyDestroyResponse extends AbstractResponse
     {
         return Response::create()
             ->addPopup(
-                DeleteModal::create('companies/dataTable', ! \is_null($this->company->deleted_at))
+                DeleteModal::create('companies/dataTable', !\is_null($this->company->deleted_at))
                     ->addFooterForceDeleteButton(
                         RequestAction::create()->delete(
                             route('admin.company.destroy.force', [

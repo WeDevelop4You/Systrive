@@ -28,7 +28,7 @@
     import ViewBase from "../../../Support/Views/ViewBase";
     import Popup from "../../../Support/Layout/PopupLayout.vue";
     import SvgMountain from "../../../Support/Components/Svg/Mountain.vue";
-    import LocaleDropdown from "../../../Support/Components/Custom/LocaleDropdown.vue";
+    import LocaleDropdown from "../../../Support/Components/Misc/Custom/LocaleDropdown.vue";
 
     export default {
         name: "Auth",

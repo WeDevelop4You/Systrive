@@ -5,16 +5,16 @@ namespace Domain\Permission\Models;
 use Spatie\Permission\Models\Permission as PermissionSpatie;
 
 /**
- * Domain\Permission\Models\Permission.
+ * Domain\Permission\Models\Permission
  *
  * @property int                             $id
  * @property string                          $name
  * @property string                          $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|Permission[]               $permissions
- * @property-read \Domain\Role\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
- * @property-read \Domain\User\Collections\UserCollection|\Domain\User\Models\User[]  $users
+ * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
+ * @property-read \Domain\User\Collections\UserCollection|\Domain\User\Models\User[] $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()

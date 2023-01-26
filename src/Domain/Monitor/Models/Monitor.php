@@ -14,7 +14,7 @@ use Psr\SimpleCache\InvalidArgumentException;
 use Support\Traits\ModelBroadcastRateLimit;
 
 /**
- * Domain\Monitor\Models\Monitor.
+ * Domain\Monitor\Models\Monitor
  *
  * @property int                             $id
  * @property string                          $uuid

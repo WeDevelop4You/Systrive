@@ -13,7 +13,7 @@ use PragmaRX\Google2FA\Google2FA;
 use Support\Casts\EncryptionCast;
 
 /**
- * Domain\User\Models\UserSecurity.
+ * Domain\User\Models\UserSecurity
  *
  * @property int                             $user_id
  * @property \Support\Utils\Decrypt          $secret_key

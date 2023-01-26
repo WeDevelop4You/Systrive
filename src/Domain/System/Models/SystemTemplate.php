@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 use Support\Enums\System\SystemTemplateType;
 
 /**
- * Domain\System\Models\SystemTemplate.
+ * Domain\System\Models\SystemTemplate
  *
  * @property int                $id
  * @property string             $value

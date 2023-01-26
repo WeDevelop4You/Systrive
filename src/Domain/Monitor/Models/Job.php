@@ -10,7 +10,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\Monitor\Models\Job.
+ * Domain\Monitor\Models\Job
  *
  * @property int      $id
  * @property string   $queue

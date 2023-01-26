@@ -60,11 +60,11 @@ class ColumnHelper
         return \count(array_filter($searchColumns ?? [], function ($searchColumn) use ($column) {
             $hasWildcard = Str::endsWith($searchColumn, '*');
 
-            if (! $hasWildcard) {
+            if (!$hasWildcard) {
                 return false;
             }
 
-            if (! self::hasRelation($column)) {
+            if (!self::hasRelation($column)) {
                 return true;
             }
 
@@ -123,7 +123,7 @@ class ColumnHelper
         $relationName = self::parseRelation($column);
         $fieldName = self::parseField($column);
 
-        if (! $hasRelation) {
+        if (!$hasRelation) {
             return null;
         }
 
@@ -137,7 +137,7 @@ class ColumnHelper
             $possibleTable = null;
         }
 
-        if (! \is_null($possibleTable)) {
+        if (!\is_null($possibleTable)) {
             $possibleSelectColumn = $possibleTable.'.'.$fieldName;
 
             $possibleMatch = self::hasMatch($possibleSelectColumn, $select);

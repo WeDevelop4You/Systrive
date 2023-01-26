@@ -65,7 +65,7 @@ class BadgeComponent extends Component
             ? ['no', 'disabled']
             : ['yes', 'enabled'];
 
-        if (! empty($value) && \in_array($value, $activeValues)) {
+        if (!empty($value) && \in_array($value, $activeValues)) {
             return $this->setColor(VuetifyColor::SUCCESS)
                 ->setValue(trans('word.active.active'));
         }

@@ -5,7 +5,7 @@ namespace Domain\Translation\Models;
 use WeDevelop4You\TranslationFinder\Models\TranslationKey as TranslationKeyWeDevelop4You;
 
 /**
- * Domain\Translation\Models\TranslationKey.
+ * Domain\Translation\Models\TranslationKey
  *
  * @property int                             $id
  * @property string                          $environment

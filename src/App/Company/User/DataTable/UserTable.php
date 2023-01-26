@@ -99,7 +99,7 @@ class UserTable extends AbstractTable
                                 )
                             )
                     )->addButtonIf(
-                        ! $pivot->is_owner && $canRevoke,
+                        !$pivot->is_owner && $canRevoke,
                         IconButtonComponent::create()
                             ->setIcon(IconComponent::create()->setType(IconType::FAS_USER_MINUS))
                             ->setAction(

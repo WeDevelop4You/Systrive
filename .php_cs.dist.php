@@ -35,7 +35,8 @@ $rules = [
     'cast_spaces' => true,
     'class_attributes_separation' => [
         'elements' => [
-            'const' => 'one',
+            'case' => 'none',
+            'const' => 'none',
             'method' => 'one',
             'property' => 'one',
             'trait_import' => 'none',
@@ -60,6 +61,11 @@ $rules = [
     'function_declaration' => true,
     'function_typehint_space' => true,
     'general_phpdoc_tag_rename' => true,
+    'global_namespace_import' => [
+        'import_classes' => true,
+        'import_constants' => false,
+        'import_functions' => false
+    ],
     'heredoc_to_nowdoc' => true,
     'include' => true,
     'increment_style' => ['style' => 'post'],
@@ -126,7 +132,6 @@ $rules = [
     'no_whitespace_before_comma_in_array' => true,
     'no_whitespace_in_blank_line' => true,
     'normalize_index_brace' => true,
-    'not_operator_with_successor_space' => true,
     'object_operator_without_whitespace' => true,
     'ordered_imports' => ['sort_algorithm' => 'alpha'],
     'psr_autoloading' => false,

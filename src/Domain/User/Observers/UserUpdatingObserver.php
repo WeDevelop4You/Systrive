@@ -17,9 +17,9 @@ class UserUpdatingObserver
         }
 
         if (
-            ! \is_null($user->password) &&
+            !\is_null($user->password) &&
             $user->isDirty(UserTableMap::COL_PASSWORD) &&
-            ! \is_null($user->getOriginal(UserTableMap::COL_PASSWORD))
+            !\is_null($user->getOriginal(UserTableMap::COL_PASSWORD))
         ) {
             $user->notify(new UserPasswordChangeNotification());
         }

@@ -19,6 +19,7 @@ use App\Company\Cms\Controllers\Item\CmsTableItemRestoreController;
 use App\Company\Cms\Controllers\Item\CmsTableItemSaveController;
 use App\Company\Cms\Controllers\Item\CmsTableItemTableController;
 use App\Company\Cms\Controllers\Item\file\CmsTableItemFileUploader;
+use App\Company\Cms\Controllers\Item\file\CmsTableItemImageUploader;
 
 Route::scopeBindings()->middleware('permission.company:cms.view')->group(function () {
     Route::get('{cms:database}/search', [CmsSearchController::class, 'index'])->name('cms.search');
@@ -56,9 +57,12 @@ Route::scopeBindings()->middleware('permission.company:cms.view')->group(functio
             });
 
         Route::prefix('{table}')->middleware('cms.table')->group(function () {
-            Route::post('columns/{column}/file', [CmsTableItemFileUploader::class, 'action'])
+            Route::prefix('columns/{column}')
                 ->middleware('permission.company:cms.table.create|cms.table.edit')
-                ->name('cms.table.column.file');
+                ->group(function () {
+                    Route::post('file', [CmsTableItemFileUploader::class, 'action'])->name('cms.table.column.file');
+                    Route::post('image', [CmsTableItemImageUploader::class, 'action'])->name('cms.table.column.image');
+                });
 
             Route::middleware('permission.company:cms.table.edit')->group(function () {
                 Route::get('confirm/save', [CmsTableConfirmController::class, 'index'])->name('cms.table.confirm');

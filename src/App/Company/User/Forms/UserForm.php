@@ -9,7 +9,7 @@ use Support\Client\Components\Forms\FormComponent;
 use Support\Client\Components\Forms\Inputs\Custom\CustomPermissionInputComponent;
 use Support\Client\Components\Forms\Inputs\TextInputComponent;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
-use Support\Enums\Component\Form\FormPermissionInputType;
+use Support\Enums\Component\Inputs\CustomPermissionInputType;
 
 class UserForm extends AbstractForm
 {
@@ -30,7 +30,7 @@ class UserForm extends AbstractForm
         return FormComponent::create()
             ->setItems([
                 InputColWrapper::create()
-                    ->setCondition(! $this->isEditing)
+                    ->setCondition(!$this->isEditing)
                     ->setInput(
                         TextInputComponent::create()
                             ->setKey('email')
@@ -41,7 +41,7 @@ class UserForm extends AbstractForm
                         CustomPermissionInputComponent::create()
                             ->setKey('roles')
                             ->setLabel(trans('word.roles'))
-                            ->setType(FormPermissionInputType::USER)
+                            ->setType(CustomPermissionInputType::USER)
                             ->setRoles(RoleListResource::collection($roles)->toArray(request()))
                     ),
             ]);

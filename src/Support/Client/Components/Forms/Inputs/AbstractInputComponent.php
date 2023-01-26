@@ -126,9 +126,9 @@ abstract class AbstractInputComponent extends Component
     /**
      * @param bool $condition
      *
-     * @return AbstractInputComponent
+     * @return $this
      */
-    public function setError(bool $condition = true): AbstractInputComponent
+    public function setError(bool $condition = true): static
     {
         return $this->setData('error', $condition);
     }

@@ -42,7 +42,7 @@ class UniquePivotRule implements Rule
 
             $relatedModel = $this->relatedQuery->where($column, $value)->firstOrFail();
 
-            return ! $this->pivotQuery->where($this->pivotColumn, $relatedModel->getKey())->exists();
+            return !$this->pivotQuery->where($this->pivotColumn, $relatedModel->getKey())->exists();
         } catch (ModelNotFoundException) {
             return true;
         }

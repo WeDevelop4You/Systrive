@@ -28,7 +28,7 @@ abstract class AbstractTable
      */
     final public function getColumns(): Collection
     {
-        if (! isset($this->columns)) {
+        if (!isset($this->columns)) {
             $this->columns = Collection::make($this->handle());
         }
 

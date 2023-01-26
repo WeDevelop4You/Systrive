@@ -34,7 +34,7 @@ final class CompanyInviteData
      */
     private function getUser(): User
     {
-        if (! isset($this->user)) {
+        if (!isset($this->user)) {
             $this->user = \is_int($this->owner)
                 ? User::find($this->owner)
                 : (new CreateUserAction())($this->owner);

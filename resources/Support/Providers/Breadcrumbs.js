@@ -1,12 +1,50 @@
 import Breadcrumb from "../Helpers/Breadcrumb";
+import BreadcrumbsModule from "../Store/Modules/breadcrumbs";
 
 class Breadcrumbs {
-    #vuetify
-    items = []
+    #store;
+    #vuetify;
 
-    constructor(app, router, vuetify) {
+    constructor(app, store, router, vuetify) {
+        this.#store = store;
         this.#vuetify = vuetify;
 
+        this.#registerModule()
+        this.#createActions(app)
+
+        router.afterEach((to) => {
+            this.#store.commit('breadcrumbs/reset')
+
+            if (to.meta.breadcrumbs instanceof Function) {
+                to.meta.breadcrumbs.call(this, {app, vuetify, route: to})
+            }
+        })
+    }
+
+    add(item) {
+        this.#store.commit('breadcrumbs/add', item)
+
+        return this
+    }
+
+    remove() {
+        this.#store.commit('breadcrumbs/remove')
+
+        return this
+    }
+
+    setDashboard(extend = false) {
+        return this.add(new Breadcrumb(
+            this.#vuetify.lang.t('$vuetify.word.dashboard'),
+            extend ? { name: 'dashboard' } : undefined
+        ))
+    }
+
+    #registerModule() {
+        this.#store.registerModule('breadcrumbs', BreadcrumbsModule)
+    }
+
+    #createActions(app) {
         app.$actions.add(
             'breadcrumbsAddAction',
             (items) => {
@@ -23,40 +61,6 @@ class Breadcrumbs {
                 this.remove()
             }
         )
-        router.afterEach((to) => {
-            const meta = to.meta
-
-            this.items = []
-
-            if (meta.breadcrumbs instanceof Function) {
-                meta.breadcrumbs.call(this, {app, vuetify, route: to})
-            }
-        })
-    }
-
-    add(item) {
-        this.items.push(item)
-
-        return this
-    }
-
-    remove() {
-        const index = this.items.findIndex(
-            (item) => Object.prototype.hasOwnProperty.call(item.additional, 'added')
-        )
-
-        if (index > -1) {
-            this.items.splice(index, this.items.length - index)
-        }
-
-        return this
-    }
-
-    setDashboard(extend = false) {
-        return this.add(new Breadcrumb(
-            this.#vuetify.lang.t('$vuetify.word.dashboard'),
-            extend ? { name: 'dashboard' } : undefined
-        ))
     }
 }
 

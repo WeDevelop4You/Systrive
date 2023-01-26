@@ -6,9 +6,12 @@ use Domain\Permission\Models\Permission;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
-use Support\Enums\Component\Form\FormPermissionInputType;
+use Support\Client\Components\Types\CustomInputComponent;
+use Support\Enums\Component\Inputs\CustomInputType;
+use Support\Enums\Component\Inputs\CustomPermissionInputType;
+use Support\Exceptions\Custom\InvalidInputTypeException;
 
-class CustomPermissionInputComponent extends AbstractInputComponent
+class CustomPermissionInputComponent extends AbstractInputComponent implements CustomInputComponent
 {
     /**
      * Keys always are 'roles' and 'permissions'.
@@ -21,13 +24,19 @@ class CustomPermissionInputComponent extends AbstractInputComponent
     }
 
     /**
-     * @param FormPermissionInputType $inputType
+     * @param CustomInputType|null $inputType
      *
      * @return $this
+     *
+     * @throws InvalidInputTypeException
      */
-    public function setType(FormPermissionInputType $inputType): static
+    public function setType(CustomInputType|null $inputType = null): static
     {
-        return $this->setData('type', $inputType->value);
+        if ($inputType instanceof CustomPermissionInputType) {
+            return $this->setData('type', $inputType->value);
+        }
+
+        throw new InvalidInputTypeException();
     }
 
     /**

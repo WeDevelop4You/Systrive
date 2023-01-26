@@ -2,11 +2,14 @@
 
 namespace Support\Client\Components\Layouts;
 
+use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Component;
 use Support\Enums\Component\Vuetify\VuetifyAlignSelfType;
 
 class ColComponent extends Component
 {
+    use ComponentWithClasses;
+
     protected function __construct()
     {
         parent::__construct();

@@ -4,8 +4,8 @@ import BreadcrumbsProvider from "../../../Support/Providers/Breadcrumbs";
 class Breadcrumbs extends BreadcrumbsProvider {
     #vuetify;
 
-    constructor(app, router, vuetify) {
-        super(app, router, vuetify);
+    constructor(app, store, router, vuetify) {
+        super(app, store, router, vuetify);
 
         this.#vuetify = vuetify;
     }

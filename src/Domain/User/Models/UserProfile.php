@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\User\Models\UserProfile.
+ * Domain\User\Models\UserProfile
  *
  * @property int         $id
  * @property int         $user_id

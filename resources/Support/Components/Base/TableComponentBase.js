@@ -1,7 +1,8 @@
 import MainComponentBase from "./MainComponentBase";
+import DataTableBase from "../../Store/Base/dataTableBase";
 import SkeletonDataTable from "../../Layout/Skeletons/SkeletonDataTable.vue";
-import {Channel} from "laravel-echo";
 import {throttle as _throttle} from "lodash"
+import {Channel} from "laravel-echo";
 
 export default {
     extends: MainComponentBase,
@@ -41,28 +42,36 @@ export default {
     },
 
     created() {
-        this.setup()
+        if (!this.$store.hasModule(this.getPath())) {
+            this.$store.registerModule(this.getPath(), DataTableBase({
+                resetCallback: () => this.resetParams(),
+                routes: {
+                    items: this.component.data.itemsRoute,
+                    headers: this.component.data.headerRoute,
+                }
+            }))
+        }
 
-        this.unwatch = this.$store.watch(
-            (state, getters) => getters[`${this.vuexNamespace}/status`],
-            (status) => {if (status === 'reset_params') this.resetParams()},
-        );
+        this.getHeaders()
+        this.getStateLoaded()
 
-        this.$loader.runStateAction(this.getMainVuexNamespace(this.vuexNamespace))
+        if (this.isset(this.component.data, 'channelRoute')) {
+            this.channel = this.$echo.private(this.component.data.channelRoute)
+
+        }
+    },
+
+    beforeDestroy() {
+        this.$store.unregisterModule(this.getPath())
+
+        if (this.channel instanceof Channel) {
+            this.$echo.leave(this.channel.name)
+        }
     },
 
     methods: {
-        setup() {
-            this.$store.commit(`${this.vuexNamespace}/setRoutes`, {
-                items: this.component.data.itemsRoute,
-                headers: this.component.data.headerRoute,
-            })
-
-            this.$store.dispatch(`${this.vuexNamespace}/getHeaders`)
-
-            if (this.isset(this.component.data, 'channelRoute')) {
-                this.channel = this.$echo.private(this.component.data.channelRoute)
-            }
+        getPath() {
+            return this.vuexNamespace.split('/')
         },
 
         load() {
@@ -79,16 +88,14 @@ export default {
 
         getItems(silence = false) {
             return this.$store.dispatch(`${this.vuexNamespace}/getItems`, silence)
-        }
-    },
+        },
 
-    beforeDestroy() {
-        this.unwatch();
+        getHeaders() {
+            return this.$store.dispatch(`${this.vuexNamespace}/getHeaders`)
+        },
 
-        this.$store.commit(`${this.vuexNamespace}/reset`)
-
-        if (this.channel instanceof Channel) {
-            this.$echo.leave(this.channel.name)
+        getStateLoaded() {
+            this.$loader.runStateAction(this.getMainVuexNamespace(this.vuexNamespace))
         }
     }
 }

@@ -28,7 +28,7 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * Domain\User\Models\User.
+ * Domain\User\Models\User
  *
  * @property int         $id
  * @property string      $email
@@ -39,14 +39,14 @@ use Spatie\Permission\Traits\HasRoles;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read Company[]|\Domain\Company\Collections\CompanyCollections $companies
- * @property-read CompanyUser[]|\Illuminate\Database\Eloquent\Collection $companyUser
+ * @property-read \Domain\Company\Collections\CompanyCollections|Company[] $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection|CompanyUser[] $companyUser
  * @property-read string|null $full_name
- * @property-read GitAccount[]|\Illuminate\Database\Eloquent\Collection $gitAccounts
- * @property-read DatabaseNotification[]|DatabaseNotificationCollection $notifications
- * @property-read \Domain\Permission\Models\Permission[]|\Illuminate\Database\Eloquent\Collection $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection|GitAccount[] $gitAccounts
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Permission\Models\Permission[] $permissions
  * @property-read \Domain\User\Models\UserProfile|null $profile
- * @property-read \Domain\Role\Models\Role[]|\Illuminate\Database\Eloquent\Collection $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
  * @property-read \Domain\User\Models\UserSecurity|null $security
  *
  * @method static UserCollection|static[]         all($columns = ['*'])

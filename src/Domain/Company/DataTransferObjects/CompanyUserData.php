@@ -48,7 +48,7 @@ final class CompanyUserData
      */
     private function getUser(): User
     {
-        if (! isset($this->user)) {
+        if (!isset($this->user)) {
             $this->user = User::withTrashed()
                 ->whereEmail($this->email)
                 ->firstOr(fn (): User => (new CreateUserAction())($this->email));

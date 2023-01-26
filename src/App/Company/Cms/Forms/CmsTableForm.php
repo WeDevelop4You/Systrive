@@ -37,7 +37,7 @@ class CmsTableForm extends AbstractForm
                             ->setLabel(trans('word.editable'))
                     ),
                 InputColWrapper::create()
-                    ->setCondition(! $this->isEditing)
+                    ->setCondition(!$this->isEditing)
                     ->setCol(
                         ColComponent::create()
                             ->setMdCol(6)

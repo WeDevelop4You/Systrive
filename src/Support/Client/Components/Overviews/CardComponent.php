@@ -54,11 +54,11 @@ class CardComponent extends Component implements ModalComponentType
     }
 
     /**
-     * @param int $value
+     * @param string|int $value
      *
      * @return $this
      */
-    public function setWidth(int $value): static
+    public function setWidth(string|int $value): static
     {
         return $this->setAttribute('width', $value);
     }

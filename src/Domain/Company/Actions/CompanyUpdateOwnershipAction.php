@@ -25,7 +25,7 @@ class CompanyUpdateOwnershipAction
 
     public function __invoke(Company $company): void
     {
-        if (! $company->user($this->newOwner)->exists()) {
+        if (!$company->user($this->newOwner)->exists()) {
             $companyUserData = CompanyUserData::createForUser($this->newOwner);
 
             (new CompanyInviteUserAction($company))($companyUserData);

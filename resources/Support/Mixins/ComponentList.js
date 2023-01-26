@@ -8,7 +8,7 @@ export default {
     components: {
         RowComponent: () => import('../Components/Layouts/Row.vue'),
         IconComponent: () => import('../Components/Misc/Icons/Icon.vue'),
-        CustomComponent: () => import('../Components/Custom/Index.vue'),
+        CustomComponent: () => import('../Components/Misc/Custom.vue'),
         NavbarComponent: () => import('../Components/Navbar/Navbar.vue'),
         IconWithTextComponent: () => import('../Components/Misc/Icons/IconWithText.vue'),
 
@@ -19,13 +19,16 @@ export default {
 
         // Items
         URLComponent: () => import('../Components/Misc/URL.vue'),
+        HintComponent: () => import('../Components/Misc/Hint.vue'),
         BadgeComponent: () => import('../Components/Misc/Badge.vue'),
         ImageComponent: () => import('../Components/Misc/Image.vue'),
+        LabelComponent: () => import('../Components/Misc/Label.vue'),
         ContentComponent: () => import('../Components/Misc/Content.vue'),
         UpTimerComponent: () => import('../Components/Misc/UpTimer.vue'),
         RawHtmlComponent: () => import('../Components/Misc/RawHtml.vue'),
         DividerComponent: () => import('../Components/Misc/Divider.vue'),
         GroupBadgesComponent: () => import('../Components/Misc/GroupBadges.vue'),
+        ImageCropperComponent: () => import('../Components/Misc/ImageCropper.vue'),
 
         // Overviews
         CardComponent: () => ({

@@ -18,7 +18,7 @@ use Support\Services\Cms as CmsService;
 use Support\Utils\Decrypt;
 
 /**
- * Domain\Cms\Models\Cms.
+ * Domain\Cms\Models\Cms
  *
  * @property int         $id
  * @property int|null    $company_id

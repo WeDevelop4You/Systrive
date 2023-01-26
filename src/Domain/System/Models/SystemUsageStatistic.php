@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\System\Models\SystemUsageStatistic.
+ * Domain\System\Models\SystemUsageStatistic
  *
  * @property string                    $model_type
  * @property int                       $model_id
@@ -20,7 +20,7 @@ use Illuminate\Support\Carbon;
  * @property string                    $date
  * @property Carbon|null               $created_at
  * @property Carbon|null               $updated_at
- * @property-read Eloquent|Model $statisticFrom
+ * @property-read Model|Eloquent $statisticFrom
  *
  * @method static Builder|SystemUsageStatistic newModelQuery()
  * @method static Builder|SystemUsageStatistic newQuery()

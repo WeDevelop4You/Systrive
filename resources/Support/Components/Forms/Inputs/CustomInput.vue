@@ -12,6 +12,7 @@
         name: "CustomInput",
 
         components: {
+            DimensionInputComponent: () => import('./Custom/DimensionInput.vue'),
             SelectColumnInputComponent: () => import('./Custom/SelectColumnInput.vue'),
             PermissionUserInputComponent: () => import('./Custom/PermissionUserInput.vue'),
             PermissionRoleInputComponent: () => import('./Custom/PermissionRoleInput.vue'),

@@ -7,7 +7,7 @@
         />
         <v-row class="my-0">
             <v-col
-                v-for="(item, index) in getValue"
+                v-for="(item, index) in input"
                 :key="index"
                 class="py-0"
                 cols="auto"

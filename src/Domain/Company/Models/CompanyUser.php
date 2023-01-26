@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- * Domain\Company\Models\CompanyUser.
+ * Domain\Company\Models\CompanyUser
  *
  * @property int                         $id
  * @property int                         $user_id

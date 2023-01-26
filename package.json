@@ -42,6 +42,7 @@
         "psl": "^1.8.0",
         "tinymce": "^6.2.0",
         "uuid": "^8.3.2",
+        "vue-advanced-cropper": "^1.11.6",
         "vue-chartjs": "^3.5.1",
         "vue-codemirror": "^4.0.6",
         "vue-fragment": "^1.5.2",

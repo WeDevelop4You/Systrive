@@ -1,5 +1,5 @@
 import { Line } from 'vue-chartjs'
-import _ from "lodash";
+import { merge as _merge } from "lodash";
 
 export default {
     extends: Line,
@@ -53,7 +53,7 @@ export default {
 
     computed: {
         options() {
-            let options = _.merge(this.defaultOptions, this.customOptions)
+            let options = _merge(this.defaultOptions, this.customOptions)
 
             const zeroLineColor =  this.$vuetify.theme.dark ? '#545454' : '#dfdfdf'
             const gridLinesColor =  this.$vuetify.theme.dark ? '#393939' : '#e5e5e5'

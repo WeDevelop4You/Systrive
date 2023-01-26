@@ -22,7 +22,7 @@ use Support\Client\Components\Navbar\Navigations\GroupNavigationComponent;
 use Support\Client\Components\Navbar\Navigations\Items\NavigationContentItemComponent;
 use Support\Client\Components\Navbar\Navigations\Items\NavigationItemComponent;
 use Support\Client\Components\Overviews\CardComponent;
-use Support\Client\Components\Popups\Modals\DialogComponent;
+use Support\Client\Components\Popups\DialogComponent;
 use Support\Client\Response;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\TargetType;

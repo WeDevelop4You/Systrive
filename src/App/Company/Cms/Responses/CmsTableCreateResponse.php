@@ -46,7 +46,7 @@ class CmsTableCreateResponse extends AbstractResponse
      */
     private function getModel(): ShowModal
     {
-        if (! isset($this->model)) {
+        if (!isset($this->model)) {
             $this->model = ShowModal::create();
         }
 

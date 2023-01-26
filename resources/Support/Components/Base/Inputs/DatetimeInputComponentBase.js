@@ -23,8 +23,8 @@ export default {
 
     computed: {
         formatter() {
-            return this.getValue
-                ? format(this.parse(this.getValue), this.format)
+            return this.input
+                ? format(this.parse(this.input), this.format)
                 : null
         },
 
@@ -55,7 +55,7 @@ export default {
 
     methods: {
         init() {
-            let value = this.getValue
+            let value = this.input
 
             if (!value) {
                 this.date = ''

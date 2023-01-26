@@ -23,8 +23,10 @@ class CmsColumnPropertiesCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes): Collection
     {
-        if (Arr::has($attributes, CmsColumnTableMap::COL_TYPE)) {
-            return $this->getOptions($attributes)
+        $type = Arr::get($attributes, CmsColumnTableMap::COL_TYPE);
+
+        if (!is_null($type)) {
+            return CmsColumnType::from($type)->options()
                 ->map(function (AbstractColumnOption $option) use ($value) {
                     return $option->setProperties(Collection::json($value ?? ''));
                 });
@@ -45,17 +47,19 @@ class CmsColumnPropertiesCast implements CastsAttributes
     {
         $key = Arr::get($attributes, CmsColumnTableMap::COL_KEY);
 
-        if (\in_array($key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+        if (in_array($key, CmsTableTableMap::REQUIRED_COLUMNS)) {
             return '[]';
         }
 
         $value = $this->getValue($value);
 
-        if (\is_string($value)) {
+        if (is_string($value)) {
             return $value;
         }
 
-        return $this->getOptions($attributes)
+        $type = Arr::get($attributes, CmsColumnTableMap::COL_TYPE);
+
+        return CmsColumnType::from($type)->options()
             ->mapWithKeys(function (AbstractColumnOption $option) use ($value) {
                 $key = $option->getKey();
 
@@ -83,21 +87,5 @@ class CmsColumnPropertiesCast implements CastsAttributes
         }
 
         return Collection::make($value);
-    }
-
-    /**
-     * @param array $attributes
-     *
-     * @return Collection
-     */
-    private function getOptions(array $attributes): Collection
-    {
-        $type = Arr::get($attributes, CmsColumnTableMap::COL_TYPE);
-
-        if (! \is_null($type)) {
-            return CmsColumnType::from($type)->getOptions();
-        }
-
-        return Collection::make();
     }
 }

@@ -9,16 +9,17 @@ use Symfony\Component\Finder\Finder;
 
 class StorageClearCommand extends Command
 {
-    protected $signature = 'storage:clear-tmp';
+    protected $signature = 'storage:clear {disk : Storage disk}';
 
     protected $description = 'deletes all the files in tmp';
 
     public function handle()
     {
         $yesterday = Carbon::yesterday()->toDateTimeString();
+        $path = Storage::disk($this->argument('disk'))->path('');
 
         $files = Finder::create()
-            ->in(Storage::disk('tmp')->path(''))
+            ->in($path)
             ->date("<= {$yesterday}")
             ->files();
 

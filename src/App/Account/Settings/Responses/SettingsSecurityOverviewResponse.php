@@ -110,7 +110,7 @@ class SettingsSecurityOverviewResponse extends AbstractResponse
                                         MultipleButtonComponent::create()
                                             ->setClass('gap-3')
                                             ->addButtonIf(
-                                                ! $isEnabled,
+                                                !$isEnabled,
                                                 ButtonComponent::create()
                                                     ->setColor()
                                                     ->setTitle(trans('word.enable.enable'))

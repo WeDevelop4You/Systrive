@@ -36,7 +36,7 @@ class TranslationEditController
             ->each(function (array $translationData) use ($translationKey) {
                 $translationData = (object) $translationData;
 
-                if (! \is_null($translationData->translation)) {
+                if (!\is_null($translationData->translation)) {
                     $translation = $translationKey->translations()->where('locale', $translationData->locale)->firstOrNew();
 
                     $translation->locale = $translationData->locale;

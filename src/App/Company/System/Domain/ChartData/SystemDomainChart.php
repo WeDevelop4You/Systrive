@@ -24,7 +24,7 @@ class SystemDomainChart extends AbstractChart
 
     protected function handle(): void
     {
-        if (! $this->validate()) {
+        if (!$this->validate()) {
             $this->setData([]);
 
             return;

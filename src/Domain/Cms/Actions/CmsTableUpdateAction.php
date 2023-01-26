@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Schema;
 class CmsTableUpdateAction
 {
     public const REFRESH_ALL = 1;
-
     public const REFRESH_TABLE = 2;
 
     private readonly Builder $schema;
@@ -98,10 +97,12 @@ class CmsTableUpdateAction
     private function deleteColumns(Collection $columns): void
     {
         $columns->each(function (CmsColumn $column) {
-            $this->schema->table(
-                $this->table->name,
-                fn (Blueprint $table) => $table->dropColumn($column->key)
-            );
+            if (!$column->type() instanceof CustomColumn) {
+                $this->schema->table(
+                    $this->table->name,
+                    fn (Blueprint $table) => $table->dropColumn($column->key)
+                );
+            }
 
             $column->delete();
         });
@@ -125,7 +126,7 @@ class CmsTableUpdateAction
                 );
 
                 if ($existingColumn instanceof CmsColumn) {
-                    if (! \in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                    if (!\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
                         $existingColumn->key = $column->key;
                         $existingColumn->type = $column->type;
                         $existingColumn->label = $column->label;
@@ -147,7 +148,7 @@ class CmsTableUpdateAction
             ->each(function (CmsColumn $column, int $index) use (&$after) {
                 $type = $column->type();
 
-                if (! $type instanceof CustomColumn) {
+                if (!$type instanceof CustomColumn) {
                     $this->schema->table($this->table->name, function (Blueprint $table) use ($type, $column, $index, $after) {
                         $dirtyKey = $column->isDirty(CmsColumnTableMap::COL_KEY);
                         $dirtyType = $column->isDirty(CmsColumnTableMap::COL_TYPE);

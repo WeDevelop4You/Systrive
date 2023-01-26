@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
+use Throwable;
 
 class CmsTableItemCreateController
 {
@@ -36,7 +37,7 @@ class CmsTableItemCreateController
      *
      * @return JsonResponse
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function action(CmsTableItemRequest $request, Company $company, Cms $cms, CmsTable $table): JsonResponse
     {

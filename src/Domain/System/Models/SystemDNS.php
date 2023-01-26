@@ -6,7 +6,7 @@ use Domain\System\Mappings\SystemDNSTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\System\Models\SystemDNS.
+ * Domain\System\Models\SystemDNS
  *
  * @property int                             $id
  * @property int                             $system_id

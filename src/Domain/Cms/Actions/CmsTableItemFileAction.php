@@ -121,7 +121,7 @@ class CmsTableItemFileAction
         }
 
         $this->saves->each(function (CmsFile $file) use ($model, $replicate) {
-            if (! $file->exists) {
+            if (!$file->exists) {
                 $file->path = Storage::putFile(Cms::getCms()->storagePath(), $file->path);
             }
 

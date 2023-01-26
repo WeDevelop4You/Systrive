@@ -2,7 +2,7 @@
     <div>
         <v-otp-input
             v-bind="component.attributes"
-            :value="getValue"
+            :value="input"
             @input="setValue"
             @finish="$actions.call(component.data.action)"
         />

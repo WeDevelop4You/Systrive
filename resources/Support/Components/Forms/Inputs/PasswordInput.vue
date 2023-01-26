@@ -2,7 +2,7 @@
     <v-text-field
         v-show="isHidden"
         v-bind="component.attributes"
-        :value="getValue"
+        :value="input"
         :disabled="isDisabled"
         :label="component.content.label"
         :error-messages="errorMessages"

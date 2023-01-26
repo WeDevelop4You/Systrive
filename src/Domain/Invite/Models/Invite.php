@@ -17,7 +17,7 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 
 /**
- * Domain\Invite\Models\Invite.
+ * Domain\Invite\Models\Invite
  *
  * @property int         $company_id
  * @property int         $user_id

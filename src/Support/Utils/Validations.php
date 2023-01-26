@@ -68,9 +68,14 @@ class Validations
     {
         return Collection::make($this->additional)
             ->mapWithKeys(function ($validations, string $suffix) use ($key) {
-                return Collection::wrap($validations)->mapWithKeys(
-                    fn (Validations $validation) => $validation->toArray("{$key}.{$suffix}")
-                );
+                return Collection::wrap($validations)
+                    ->mapWithKeys(function (Validations|NestedRules $validation) use ($key, $suffix) {
+                        if ($validation instanceof Validations) {
+                            return $validation->toArray("{$key}.{$suffix}");
+                        }
+
+                        return ["{$key}.{$suffix}" => $validation];
+                    });
             })
             ->prepend($this->validations, $key)
             ->toArray();

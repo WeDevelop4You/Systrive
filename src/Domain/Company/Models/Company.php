@@ -35,7 +35,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
 /**
- * Domain\Company\Models\Company.
+ * Domain\Company\Models\Company
  *
  * @property int                            $id
  * @property string                         $name
@@ -48,14 +48,14 @@ use Illuminate\Support\Stringable;
  * @property Carbon|null                    $created_at
  * @property Carbon|null                    $updated_at
  * @property Carbon|null                    $deleted_at
- * @property-read Cms[]|Collection                                $cms
+ * @property-read Collection|Cms[] $cms
  * @property-read Collection|\Domain\Company\Models\CompanyUser[] $companyUser
- * @property-read Collection|Invite[]                             $invites
- * @property-read User|null                                       $owner
- * @property-read Collection|Role[]                               $roles
- * @property-read System|null                                     $system
- * @property-read System|null                                     $systems
- * @property-read User[]|UserCollection                           $users
+ * @property-read Collection|Invite[] $invites
+ * @property-read User|null $owner
+ * @property-read Collection|Role[] $roles
+ * @property-read System|null $system
+ * @property-read System|null $systems
+ * @property-read UserCollection|User[] $users
  *
  * @method static CompanyCollections|static[]                all($columns = ['*'])
  * @method static CompanyCollections|static[]                get($columns = ['*'])
@@ -118,7 +118,7 @@ class Company extends Model
      */
     public function hasModule(CompanyModuleTypes $type, bool $excludeSuperAdmin = false): bool
     {
-        if (! $excludeSuperAdmin && Auth::user()->isSuperAdmin()) {
+        if (!$excludeSuperAdmin && Auth::user()->isSuperAdmin()) {
             return true;
         }
 

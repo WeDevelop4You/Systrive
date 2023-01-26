@@ -3,7 +3,7 @@
         v-show="isHidden"
         v-bind="component.attributes"
         :disabled="isDisabled"
-        :input-value="getValue"
+        :input-value="input"
         :error-messages="errorMessages"
         :label="component.content.label"
         :hide-details="hideDetails"

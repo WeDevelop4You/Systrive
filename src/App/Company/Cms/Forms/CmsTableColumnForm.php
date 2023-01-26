@@ -2,7 +2,7 @@
 
 namespace App\Company\Cms\Forms;
 
-use Domain\Cms\Columns\Options\AbstractColumnOption;
+use Domain\Cms\Columns\Attributes\ComponentOption;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Illuminate\Support\Collection;
@@ -17,7 +17,6 @@ use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Forms\Utils\KeyValueObject;
 use Support\Client\Components\Forms\Utils\Logic;
 use Support\Client\Components\Layouts\ColComponent;
-use Support\Enums\Component\Form\FormSelectInputType;
 
 class CmsTableColumnForm extends AbstractForm
 {
@@ -81,7 +80,6 @@ class CmsTableColumnForm extends AbstractForm
                         CustomSelectInputComponent::create()
                             ->setLabel(trans('word.after.column'))
                             ->setKey(CmsColumnTableMap::COL_AFTER)
-                            ->setType(FormSelectInputType::TABLE_COLUMN)
                             ->setDisabled($this->isEditable)
                     ),
                 InputColWrapper::create()
@@ -94,7 +92,7 @@ class CmsTableColumnForm extends AbstractForm
                             ->setDisabled($this->isEditable)
                     ),
                 InputColWrapper::create()
-                    ->setCondition(! $this->isEditable)
+                    ->setCondition(!$this->isEditable)
                     ->setInput(
                         ConditionInputComponent::create()
                             ->setPath('type.additional')
@@ -110,8 +108,8 @@ class CmsTableColumnForm extends AbstractForm
                 return KeyValueObject::create()
                     ->setText($columnType->trans())
                     ->setValue($columnType->value)
-                    ->setAdditionalData($columnType->getOptions()->map(
-                        fn (AbstractColumnOption $option) => $option->getInputComponent($this->isEditing)->export()
+                    ->setAdditionalData($columnType->additionalForm(false)->map(
+                        fn (ComponentOption $option) => $option->getComponent($this->isEditing)->export()
                     ))
                     ->setDisabled($columnType === CmsColumnType::ID);
             })->toArray();

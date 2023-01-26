@@ -6,7 +6,7 @@ use Domain\Git\Mappings\GitAccountAccessTokensTableMap;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Domain\Git\Models\GitAccountAccessTokens.
+ * Domain\Git\Models\GitAccountAccessTokens
  *
  * @property int                             $id
  * @property int                             $git_account_id

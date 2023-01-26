@@ -3,7 +3,7 @@
 namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Columns\Options\Defaults\DefaultIntegerColumnOption;
-use Domain\Cms\Columns\Options\Nullable\NullableColumnOption;
+use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\PlacesColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Columns\Options\TotalColumnOption;

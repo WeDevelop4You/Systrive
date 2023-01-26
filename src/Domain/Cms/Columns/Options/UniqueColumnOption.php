@@ -50,7 +50,7 @@ class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyCo
 
         if ($this->getValue()) {
             $columnDefinition->unique($index);
-        } elseif (! empty($column->table_id)) {
+        } elseif (!empty($column->table_id)) {
             if (Arr::has($column->table->indexes(), $index)) {
                 $table->dropUnique($index);
             }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Domain\Git\Models\GitAccount.
+ * Domain\Git\Models\GitAccount
  *
  * @property int                             $id
  * @property int                             $user_id

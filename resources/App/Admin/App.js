@@ -22,9 +22,9 @@ Vue.use(Provider, {
         // First load Api
         app.$api = new Api(app, store)
 
-        app.$auth = new Auth(store)
         app.$state = new State(router)
-        app.$loader = new Loader(app, store, router, vuetify)
+        app.$auth = new Auth(store, vuetify)
+        app.$loader = new Loader(app, store, router)
         app.$breadcrumbs = new Breadcrumbs(app, store, router, vuetify)
 
         new EchoWebSocket(app)

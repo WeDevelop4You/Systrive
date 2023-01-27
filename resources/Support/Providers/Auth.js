@@ -1,13 +1,18 @@
+import {debounce as _debounce} from "lodash";
+
 class Auth
 {
     #store
+    #vuetify
     #loaded = false
 
-    constructor(store) {
+    constructor(store, vuetify) {
         this.#store = store
+        this.#vuetify = vuetify
+
 
         this.#store.dispatch('getLocale')
-
+        this.#createPreferenceSubscriber()
     }
 
     async load() {
@@ -43,6 +48,31 @@ class Auth
 
     changePreference(type, value) {
         this.#store.commit('auth/setPreference', {type, value})
+    }
+
+    #createPreferenceSubscriber() {
+        const vuetify = this.#vuetify
+        const update = _debounce(() => this.#store.dispatch('auth/updatePreferences'), 1000);
+
+        this.#store.subscribe((mutation) => {
+            if (mutation.type === 'auth/setPreference') {
+                const value = mutation.payload.value
+
+                switch (mutation.payload.type) {
+                    case 'dark_mode':
+                        vuetify.theme.dark = value
+
+                        document.documentElement.setAttribute(
+                            'data-theme',
+                            value ? 'dark' : 'light'
+                        );
+                }
+
+                if (this.isLoaded()) {
+                    update()
+                }
+            }
+        });
     }
 }
 

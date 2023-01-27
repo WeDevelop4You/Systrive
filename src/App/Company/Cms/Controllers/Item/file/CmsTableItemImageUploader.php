@@ -30,16 +30,24 @@ class CmsTableItemImageUploader
     {
         if ($column->type() instanceof FileColumn) {
             $file = $request->file('file');
+            $width = $column->property('dimension_width', false);
+            $height = $column->property('dimension_height', false);
 
             $image = Image::make($file)->crop(
                 $request->get('width'),
                 $request->get('height'),
                 $request->get('left'),
                 $request->get('top'),
-            )->resize(
-                $column->property('dimension_width'),
-                $column->property('dimension_height')
-            )->save();
+            );
+
+            if ($width && $height) {
+                $image->resize(
+                    $width,
+                    $height
+                );
+            }
+
+            $image->save();
 
             $path = Storage::disk('tmp')->putFile('', $image->basePath());
 

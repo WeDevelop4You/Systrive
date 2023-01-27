@@ -18,7 +18,7 @@ Vue.use(Provider, {
     vuetify: Vuetify.framework,
     loader: ({app, store, router, vuetify}) => {
         app.$api = new Api(app)
-        app.$auth = new Auth(store)
+        app.$auth = new Auth(store, vuetify)
         app.$breadcrumbs = new Breadcrumbs(app, store, router, vuetify)
     }
 })

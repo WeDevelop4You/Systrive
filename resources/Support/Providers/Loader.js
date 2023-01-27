@@ -1,4 +1,3 @@
-import {debounce as _debounce} from "lodash";
 import {STATE_ALL, STATE_EDIT, STATE_CREATE, STATE_SHOW} from "../Config/RouteState";
 
 export default class Loader
@@ -6,44 +5,14 @@ export default class Loader
     #app
     #store
     #router
-    #vuetify
     #loadStates = []
 
-    constructor(app, store, router, vuetify) {
+    constructor(app, store, router) {
         this.#app = app;
         this.#store = store;
         this.#router = router;
-        this.#vuetify = vuetify;
 
-
-        this.#createSubscribe()
         // this.#createSubscribeAction()
-    }
-
-    #createSubscribe() {
-        const app = this.#app;
-        const vuetify = this.#vuetify
-        const update = _debounce(() => this.#store.dispatch('auth/updatePreferences'), 1000);
-
-        this.#store.subscribe((mutation) => {
-            if (mutation.type === 'auth/setPreference') {
-                const value = mutation.payload.value
-
-                switch (mutation.payload.type) {
-                    case 'dark_mode':
-                        vuetify.theme.dark = value
-
-                        document.documentElement.setAttribute(
-                            'data-theme',
-                            value ? 'dark' : 'light'
-                        );
-                }
-
-                if (app.$auth.isLoaded()) {
-                    update()
-                }
-            }
-        });
     }
 
     #createSubscribeAction() {

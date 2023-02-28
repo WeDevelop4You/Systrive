@@ -52,7 +52,7 @@ class CmsDeleteMutation extends Mutation
             Entry::create(
                 'id',
                 Type::nonNull(Type::id())
-            )
+            ),
         ];
     }
 

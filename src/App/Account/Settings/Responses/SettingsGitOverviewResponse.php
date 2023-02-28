@@ -16,7 +16,6 @@ use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Misc\IconComponent;
-use Support\Client\Components\Misc\Icons\IconWithTextComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
 use Support\Client\Response;

@@ -35,8 +35,9 @@ class CmsTableApiController
      * @param Cms                $cms
      * @param CmsTable           $table
      *
-     * @throws Throwable
      * @return JsonResponse
+     *
+     * @throws Throwable
      */
     public function action(CmsTableApiRequest $request, Company $company, Cms $cms, CmsTable $table): JsonResponse
     {

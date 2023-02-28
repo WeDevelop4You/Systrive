@@ -32,7 +32,7 @@ class CmsTableApiRequest extends AbstractRequest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function defaultRules(): array
     {
@@ -51,7 +51,7 @@ class CmsTableApiRequest extends AbstractRequest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function storeRules(): array
     {
@@ -59,7 +59,7 @@ class CmsTableApiRequest extends AbstractRequest
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function updateRules(): array
     {

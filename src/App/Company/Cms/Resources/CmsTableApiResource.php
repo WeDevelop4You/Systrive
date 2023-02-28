@@ -48,7 +48,7 @@ class CmsTableApiResource extends JsonResource
     {
         return [
             'title' => $column->key,
-            'value' => (bool) $column->getAttributeValue($field)
+            'value' => (bool) $column->getAttributeValue($field),
         ];
     }
 }

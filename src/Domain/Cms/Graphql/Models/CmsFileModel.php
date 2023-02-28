@@ -46,7 +46,7 @@ class CmsFileModel extends ModelType
                 'url',
                 Type::string(),
                 resolve: fn (CmsFile $root) => Storage::url($root->path)
-            )
+            ),
         ];
     }
 }

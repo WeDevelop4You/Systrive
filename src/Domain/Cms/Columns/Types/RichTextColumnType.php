@@ -4,7 +4,6 @@ namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Models\CmsModel;
-use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ScalarType;
@@ -39,6 +38,7 @@ class RichTextColumnType extends AbstractColumnType
 
     /**
      * {@inheritDoc}
+     *
      * @param string $table
      */
     protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType

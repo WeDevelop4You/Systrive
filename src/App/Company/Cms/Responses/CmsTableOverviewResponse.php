@@ -48,7 +48,7 @@ class CmsTableOverviewResponse extends AbstractResponse
         $response = Response::create()->addComponent(
             RowComponent::create()->setCols([
                 $this->createTopBar(),
-                $this->isTable() ? $this->createTable() : $this->createForm()
+                $this->isTable() ? $this->createTable() : $this->createForm(),
             ])
         );
 
@@ -167,7 +167,7 @@ class CmsTableOverviewResponse extends AbstractResponse
                                         $this->table->id,
                                     ])
                                 )
-                            )
+                            ),
                     ])
             );
     }

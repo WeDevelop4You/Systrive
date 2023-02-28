@@ -12,7 +12,6 @@ use Domain\Cms\Columns\Options\FIle\MultipleFileColumnOption;
 use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Graphql\Models\CmsFileModel;
-use Domain\Cms\Mappings\CmsFileTableMap;
 use Domain\Cms\Models\CmsModel;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\ObjectType;

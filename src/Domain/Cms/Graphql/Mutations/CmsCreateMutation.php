@@ -3,12 +3,9 @@
 namespace Domain\Cms\Graphql\Mutations;
 
 use Domain\Cms\Graphql\Models\CmsItemModel;
-use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Models\CmsTable;
-use GraphQL\Error\Error;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Str;
-use Support\Graphql\Definitions\Entry;
 use Support\Graphql\Definitions\Mutation;
 use Support\Services\Cms;
 

@@ -44,7 +44,7 @@ class CmsTableApiResponse extends AbstractResponse
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): Response
     {
@@ -58,7 +58,7 @@ class CmsTableApiResponse extends AbstractResponse
                         CmsTableApiForm::create($this->table)->setVuexNamespace("{$this->vuexNamespace}/form"),
                         $this->createButtons(),
                         DividerComponent::create()->setClass('my-3'),
-                        CmsApiForm::create()->setVuexNamespace("cms/api/form"),
+                        CmsApiForm::create()->setVuexNamespace('cms/api/form'),
                     ])
             );
     }

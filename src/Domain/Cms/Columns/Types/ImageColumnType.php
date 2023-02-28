@@ -18,9 +18,7 @@ use Domain\Cms\Columns\Options\LabelColumnOption;
 use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Graphql\Models\CmsFileModel;
-use Domain\Cms\Mappings\CmsFileTableMap;
 use Domain\Cms\Models\CmsModel;
-use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ScalarType;
@@ -66,6 +64,7 @@ class ImageColumnType extends AbstractColumnType implements FileColumn, SubValid
 
     /**
      * {@inheritDoc}
+     *
      * @param string $table
      */
     protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
@@ -81,7 +80,6 @@ class ImageColumnType extends AbstractColumnType implements FileColumn, SubValid
     protected function graphqlResolve(): callable|null
     {
         return fn (CmsModel $root) => $root->files->column($this->getKey());
-
     }
 
     /**

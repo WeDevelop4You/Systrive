@@ -4,7 +4,6 @@ namespace Support\Client\Components\Buttons;
 
 use Support\Client\Components\Misc\StringComponent;
 use Support\Client\Components\Utils\ThemeComponent;
-use Support\Client\Definitions\WrapperComponentType;
 use Support\Enums\Component\Vuetify\VuetifyButtonType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 

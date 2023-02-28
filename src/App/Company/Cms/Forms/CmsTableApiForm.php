@@ -29,7 +29,7 @@ class CmsTableApiForm extends AbstractForm
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {

@@ -54,6 +54,7 @@ class DecimalColumnType extends AbstractColumnType
 
     /**
      * {@inheritDoc}
+     *
      * @param string $table
      */
     protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType

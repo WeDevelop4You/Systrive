@@ -6,6 +6,7 @@ use Support\Client\Components\Component;
 use Support\Client\Components\Menu\Items\AbstractMenuItemComponent;
 use Support\Client\Components\Menu\Items\MenuItemComponent;
 use Support\Client\Traits\ComponentWithIfStatement;
+
 /**
  * @method $this addItemIf(bool $condition, MenuItemComponent $navigation)
  */

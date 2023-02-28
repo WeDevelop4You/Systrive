@@ -10,7 +10,7 @@ use Support\Client\Components\Forms\Utils\InputColWrapper;
 class CmsApiForm extends AbstractForm
 {
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function handle(): FormComponent
     {
@@ -26,7 +26,7 @@ class CmsApiForm extends AbstractForm
                     TextInputComponent::create()
                         ->setKey('domains')
                         ->setLabel(trans('word.domains'))
-                )
+                ),
             ]);
     }
 }

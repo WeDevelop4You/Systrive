@@ -2,8 +2,6 @@
 
 namespace Domain\Cms\Observers;
 
-use Domain\Cms\Mappings\CmsFileTableMap;
-use Domain\Cms\Models\CmsFile;
 use Domain\Cms\Models\CmsTable;
 
 class CmsTableSavingObserver

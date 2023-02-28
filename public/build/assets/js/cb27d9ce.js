@@ -1,0 +1,1 @@
+import{V as t}from"./12a8f78c.js";const o=t.extend({name:"ssr-bootable",data:()=>({isBooted:!1}),mounted(){window.requestAnimationFrame(()=>{this.$el.setAttribute("data-booted","true"),this.isBooted=!0})}});export{o as S};

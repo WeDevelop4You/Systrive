@@ -1,0 +1,1 @@
+import{C as t}from"./241d75a0.js";import{n as s}from"./75131b1e.js";import"./bdb3efe6.js";const a={name:"Label",extends:t};var o=function(){var n=this,e=n._self._c;return e("span",{staticClass:"subtitle-2"},[n._v(n._s(n.component.content.label))])},r=[],l=s(a,o,r,!1,null,null,null,null);const p=l.exports;export{p as default};

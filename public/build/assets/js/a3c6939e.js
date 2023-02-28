@@ -1,1 +1,0 @@
-import{C as t}from"./e63a8b3a.js";import{n as o}from"./75131b1e.js";import"./12a8f78c.js";const r={name:"Content",extends:t};var s=function(){var n=this,e=n._self._c;return e("p",[n._v(" "+n._s(n.component.content.value)+" ")])},_=[],a=o(r,s,_,!1,null,null,null,null);const f=a.exports;export{f as default};

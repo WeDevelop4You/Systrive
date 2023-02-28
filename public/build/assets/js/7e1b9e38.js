@@ -1,0 +1,1 @@
+import{C as r}from"./241d75a0.js";import{n as o}from"./75131b1e.js";import{_ as t}from"./4bb33aa7.js";import"./bdb3efe6.js";import"./aec5129c.js";const s={name:"Divider",extends:r};var _=function(){var n=this,e=n._self._c;return e(t,n._b({},"v-divider",n.component.attributes,!1))},i=[],a=o(s,_,i,!1,null,null,null,null);const d=a.exports;export{d as default};

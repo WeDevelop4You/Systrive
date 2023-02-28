@@ -1,0 +1,1 @@
+import{m as e,T as t}from"./aec5129c.js";const n=e(t).extend({name:"v-subheader",props:{inset:Boolean},render(s){return s("div",{staticClass:"v-subheader",class:{"v-subheader--inset":this.inset,...this.themeClasses},attrs:this.$attrs,on:this.$listeners},this.$slots.default)}});export{n as _};

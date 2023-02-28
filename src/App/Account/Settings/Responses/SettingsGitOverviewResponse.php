@@ -11,11 +11,11 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\BreadcrumbAction;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
-use Support\Client\Components\Misc\Icons\IconWithTextComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
 use Support\Client\Response;
@@ -88,21 +88,17 @@ class SettingsGitOverviewResponse extends AbstractResponse
     /**
      * @param GitServiceTypes $gitService
      *
-     * @return ButtonComponent
+     * @return BtnComponentType
      */
-    private function createButton(GitServiceTypes $gitService): ButtonComponent
+    private function createButton(GitServiceTypes $gitService): BtnComponentType
     {
         $account = $this->gitAccounts->firstWhere(GitAccountTableMap::COL_SERVICE, $gitService);
 
         if ($account instanceof GitAccount) {
-            return ButtonComponent::create()
+            return BtnComponentType::create()
                 ->setColor(VuetifyColor::ERROR)
-                ->setTitleWithIcon(
-                    IconWithTextComponent::create()
-                        ->setLeftSide()
-                        ->setText(trans('word.disconnect.disconnect', ['username' => $account->username]))
-                        ->setType($gitService->icon())
-                )
+                ->setIcon(IconComponent::create()->setLeftSide()->setType($gitService->icon()))
+                ->setTitle(trans('word.disconnect.disconnect', ['username' => $account->username]))
                 ->setAction(
                     RequestAction::create()->delete(
                         route('admin.git.services.disconnect', [
@@ -118,14 +114,10 @@ class SettingsGitOverviewResponse extends AbstractResponse
                 );
         }
 
-        return ButtonComponent::create()
+        return BtnComponentType::create()
             ->setColor()
             ->setHref(route('admin.git.login', $gitService->value))
-            ->setTitleWithIcon(
-                IconWithTextComponent::create()
-                    ->setLeftSide()
-                    ->setText(trans('word.connect.connect'))
-                    ->setType($gitService->icon())
-            );
+            ->setIcon(IconComponent::create()->setLeftSide()->setType($gitService->icon()))
+            ->setTitle(trans('word.connect.connect'));
     }
 }

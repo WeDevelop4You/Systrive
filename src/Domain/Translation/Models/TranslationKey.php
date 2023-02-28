@@ -7,15 +7,15 @@ use WeDevelop4You\TranslationFinder\Models\TranslationKey as TranslationKeyWeDev
 /**
  * Domain\Translation\Models\TranslationKey
  *
- * @property int                             $id
- * @property string                          $environment
- * @property string                          $group
- * @property string                          $key
- * @property mixed|null                      $tags
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\WeDevelop4You\TranslationFinder\Models\TranslationSource[] $sources
- * @property-read \Illuminate\Database\Eloquent\Collection|\WeDevelop4You\TranslationFinder\Models\Translation[] $translations
+ * @property int                                                   $id
+ * @property string                                                $environment
+ * @property string                                                $group
+ * @property string                                                $key
+ * @property \Illuminate\Database\Eloquent\Casts\AsCollection|null $tags
+ * @property \Illuminate\Support\Carbon|null                       $created_at
+ * @property \Illuminate\Support\Carbon|null                       $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \WeDevelop4You\TranslationFinder\Models\TranslationSource> $sources
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \WeDevelop4You\TranslationFinder\Models\Translation> $translations
  *
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TranslationKey newQuery()

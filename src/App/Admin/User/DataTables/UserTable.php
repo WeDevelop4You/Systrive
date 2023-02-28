@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 
@@ -57,9 +57,9 @@ class UserTable extends AbstractTable
                 }),
             Column::actions()
                 ->setFormat(function (User $data) {
-                    return MultipleButtonComponent::create()
-                        ->setButtons([
-                            IconButtonComponent::create()
+                    return WrapperComponent::create()
+                        ->setComponents([
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()->dispatch(
@@ -69,7 +69,7 @@ class UserTable extends AbstractTable
                                         ])
                                     )
                                 ),
-                            IconButtonComponent::create()
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                 ->setAction(
                                     RequestAction::create()

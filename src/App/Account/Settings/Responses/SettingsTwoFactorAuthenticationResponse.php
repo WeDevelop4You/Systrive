@@ -12,8 +12,8 @@ use Ramsey\Uuid\UuidInterface;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Misc\ContentComponent;
 use Support\Client\Components\Misc\ImageComponent;
@@ -95,14 +95,14 @@ class SettingsTwoFactorAuthenticationResponse extends AbstractResponse
                     ->setClass('mx-auto')
                     ->setAlt('2fa-qr-code')
                     ->setSource((new GenerateSecurityKeyAction())()),
-                MultipleButtonComponent::create()
+                WrapperComponent::create()
                     ->setClass('gap-3')
-                    ->setButtons([
-                        ButtonComponent::create()
+                    ->setComponents([
+                        BtnComponentType::create()
                             ->setType()
                             ->setTitle(trans('word.cancel.cancel'))
                             ->setAction(VuexAction::create()->closeModal($identifier)),
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.next.next'))
                             ->setAction(VuexAction::create()->commit(
@@ -122,16 +122,16 @@ class SettingsTwoFactorAuthenticationResponse extends AbstractResponse
                     ->setValue(trans('text.verify.2fa')),
                 SettingsTwoFactorAuthenticationForm::create($identifier)
                     ->setVuexNamespace('settings/twoFactorAuthentication/form'),
-                MultipleButtonComponent::create()
+                WrapperComponent::create()
                     ->setClass('gap-3')
-                    ->setButtons([
-                        ButtonComponent::create()
+                    ->setComponents([
+                        BtnComponentType::create()
                             ->setType()
                             ->setTitle(trans('word.back.back'))
                             ->setAction(VuexAction::create()->commit(
                                 'settings/twoFactorAuthentication/stepper/back'
                             )),
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.verify.verify'))
                             ->setAction(

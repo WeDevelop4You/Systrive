@@ -3,7 +3,7 @@
 namespace App\Company\Cms\Controllers\Item\file;
 
 use App\Company\Cms\Requests\CmsTableItemFileRequest;
-use Domain\Cms\Columns\Attributes\FileColumn;
+use Domain\Cms\Columns\Definitions\FileColumn;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsTable;

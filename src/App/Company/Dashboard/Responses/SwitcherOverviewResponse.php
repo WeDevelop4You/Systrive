@@ -11,16 +11,16 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Items\ContentMenuItemComponent;
+use Support\Client\Components\Menu\Items\MenuItemComponent;
+use Support\Client\Components\Menu\MenuComponent;
+use Support\Client\Components\Menu\Types\GroupMenuTypeComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Misc\ContentComponent;
 use Support\Client\Components\Misc\DividerComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Misc\ImageComponent;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
-use Support\Client\Components\Navbar\NavbarComponent;
-use Support\Client\Components\Navbar\Navigations\GroupNavigationComponent;
-use Support\Client\Components\Navbar\Navigations\Items\NavigationContentItemComponent;
-use Support\Client\Components\Navbar\Navigations\Items\NavigationItemComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Popups\DialogComponent;
 use Support\Client\Response;
@@ -69,11 +69,11 @@ class SwitcherOverviewResponse extends AbstractResponse
     }
 
     /**
-     * @return NavbarComponent
+     * @return MenuComponent
      */
-    private function createCompaniesNavigation(): NavbarComponent
+    private function createCompaniesNavigation(): MenuComponent
     {
-        $navbar = NavbarComponent::create()->setNav();
+        $navbar = MenuComponent::create()->setNav();
         $companies = Auth::user()
             ->companies()
             ->withoutGlobalScope(CompanyViewScope::class)
@@ -81,14 +81,14 @@ class SwitcherOverviewResponse extends AbstractResponse
             ->get();
 
         if ($companies->isNotEmpty()) {
-            return $navbar->addItem(
-                GroupNavigationComponent::create()
-                    ->setNavigation(
+            return $navbar->addType(
+                GroupMenuTypeComponent::create()
+                    ->addItems(
                         $companies->sortBy('pivot_status')
                             ->map(function (Company $company) {
                                 $image = "https://avatar.oxro.io/avatar.svg?name={$company->name}&rounded=250&caps=1";
 
-                                $item = NavigationItemComponent::create()
+                                $item = MenuItemComponent::create()
                                     ->setTitle($company->name)
                                     ->setPrepend(ImageComponent::create()->setSource($image)->setSize(28));
 
@@ -100,21 +100,21 @@ class SwitcherOverviewResponse extends AbstractResponse
             );
         }
 
-        return $navbar->addItem(
-            GroupNavigationComponent::create()
-                ->addNavigation(
-                    NavigationContentItemComponent::create()->setTitle(trans('text.no.companies'))
+        return $navbar->addType(
+            GroupMenuTypeComponent::create()
+                ->addItem(
+                    ContentMenuItemComponent::create()->setTitle(trans('text.no.companies'))
                 )
         );
     }
 
     /**
-     * @param NavigationItemComponent $item
-     * @param Company                 $company
+     * @param MenuItemComponent $item
+     * @param Company           $company
      *
      * @return void
      */
-    private function setNavigationStatus(NavigationItemComponent $item, Company $company): void
+    private function setNavigationStatus(MenuItemComponent $item, Company $company): void
     {
         $dialog = DialogComponent::create()->setWidth(500);
         $action = VuexAction::create()->addDialog(
@@ -151,16 +151,16 @@ class SwitcherOverviewResponse extends AbstractResponse
     }
 
     /**
-     * @return NavbarComponent
+     * @return MenuComponent
      */
-    private function createAdminNavigation(): NavbarComponent
+    private function createAdminNavigation(): MenuComponent
     {
-        return NavbarComponent::create()
+        return MenuComponent::create()
             ->setNav()
-            ->addItem(
-                GroupNavigationComponent::create()
-                    ->addNavigation(
-                        NavigationItemComponent::create()
+            ->addType(
+                GroupMenuTypeComponent::create()
+                    ->addItem(
+                        MenuItemComponent::create()
                             ->setTitle(trans('word.admin.admin'))
                             ->setHref(route('admin.view.dashboard'), TargetType::SELF)
                             ->setPrepend(IconComponent::create()->setType(IconType::FAS_USER_SHIELD))

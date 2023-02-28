@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\DB;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\BadgeComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Utils\TooltipComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
@@ -108,16 +108,16 @@ class CompanyTable extends AbstractTable
     /**
      * @param Company $data
      *
-     * @return MultipleButtonComponent
+     * @return WrapperComponent
      */
-    private function createActions(Company $data): MultipleButtonComponent
+    private function createActions(Company $data): WrapperComponent
     {
         $isNotDeleted = \is_null($data->deleted_at);
 
-        return MultipleButtonComponent::create()
-            ->addButtonIf(
+        return WrapperComponent::create()
+            ->addComponentIf(
                 $data->status === CompanyStatusTypes::EXPIRED && $isNotDeleted,
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_PAPER_PLANE))
                     ->setColorOnHover(VuetifyColor::PRIMARY)
                     ->setTooltip(
@@ -138,7 +138,7 @@ class CompanyTable extends AbstractTable
                     ),
             )
             ->addButton(
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_EYE))
                     ->setColorOnHover(VuetifyColor::INFO)
                     ->setTooltip(
@@ -157,7 +157,7 @@ class CompanyTable extends AbstractTable
                     ),
             )
             ->addButton(
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                     ->setColorOnHover(VuetifyColor::WARNING)
                     ->setTooltip(
@@ -175,7 +175,7 @@ class CompanyTable extends AbstractTable
                     ),
             )
             ->addButton(
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::ACCENT)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_EXTERNAL_LINK_ALT))
                     ->setTooltip(
@@ -185,9 +185,9 @@ class CompanyTable extends AbstractTable
                     )
                     ->setHref(ApplicationHelper::getCompanyRoute($data))
             )
-            ->addButtonIf(
+            ->addComponentIf(
                 !$isNotDeleted,
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::ACCENT)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_UNDO_ALT))
                     ->setTooltip(
@@ -205,7 +205,7 @@ class CompanyTable extends AbstractTable
                     )
             )
             ->addButton(
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                     ->setColorOnHover(VuetifyColor::ERROR)
                     ->setTooltip(

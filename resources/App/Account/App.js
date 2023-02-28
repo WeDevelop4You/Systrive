@@ -4,7 +4,6 @@ import 'line-awesome/dist/font-awesome-line-awesome/css/all.min.css'
 import Vue from "vue";
 import Store from './Store'
 import Router from './Plugins/router'
-import VueFlags from "@growthbunker/vueflags";
 import Vuetify from "../../Support/Plugins/Vuetify";
 
 import Api from "../../Support/Providers/Api";
@@ -21,10 +20,6 @@ Vue.use(Provider, {
         app.$auth = new Auth(store, vuetify)
         app.$breadcrumbs = new Breadcrumbs(app, store, router, vuetify)
     }
-})
-
-Vue.use(VueFlags, {
-    iconPath: '/images/flags/',
 })
 
 Vue.config.productionTip = false

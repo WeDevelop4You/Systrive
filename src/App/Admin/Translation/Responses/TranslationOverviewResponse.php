@@ -6,7 +6,7 @@ use Domain\Translation\Mappings\TranslationKeyTableMap;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Forms\Inputs\SelectInputComponent;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Response;
@@ -54,7 +54,7 @@ class TranslationOverviewResponse extends AbstractResponse
                             )
                     )
                     ->setAppendComponent(
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.publish'))
                             ->setAction(

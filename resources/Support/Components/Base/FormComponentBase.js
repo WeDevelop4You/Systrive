@@ -30,7 +30,6 @@ export default {
         },
 
         input() {
-            // return _get(this.data, this.key)
             return this.getValue()
         },
 
@@ -72,7 +71,7 @@ export default {
     },
 
     created() {
-        if (this.input === undefined) {
+        if (this.getValue() === undefined) {
             const value = this.value.content.value ?? this.value.content.defaultValue
 
             this.setData(this.key, value)

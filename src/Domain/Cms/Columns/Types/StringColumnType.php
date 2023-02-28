@@ -7,7 +7,13 @@ use Domain\Cms\Columns\Options\MaxLengthColumnOption;
 use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Columns\Options\UniqueColumnOption;
+use Domain\Cms\Graphql\Inputs\FilterTypes\CmsFilterTypeStringInput;
 use Domain\Cms\Models\CmsModel;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Schema\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
@@ -37,6 +43,27 @@ class StringColumnType extends AbstractColumnType
     protected function type(): string
     {
         return 'string';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $table
+     */
+    protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
+    {
+        return Type::string();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlFilter(): InputObjectType|null
+    {
+        return CmsFilterTypeStringInput::create(
+            $this->getKey(),
+            $this->getPropertyValueNullable()
+        );
     }
 
     /**

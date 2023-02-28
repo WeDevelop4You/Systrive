@@ -2,7 +2,7 @@
 
 namespace Domain\Cms\Actions;
 
-use Domain\Cms\Columns\Attributes\CustomColumn;
+use Domain\Cms\Columns\Definitions\CustomColumn;
 use Domain\Cms\DataTransferObjects\CmsTableData;
 use Domain\Cms\Exceptions\CmsTableException;
 use Domain\Cms\Models\CmsColumn;

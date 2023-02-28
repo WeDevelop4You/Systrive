@@ -3,7 +3,7 @@
 namespace Support\Client\Components\Popups;
 
 use Support\Client\Actions\Action;
-use Support\Client\Components\Types\ModalComponentType;
+use Support\Client\Definitions\ModalComponentType;
 use Support\Enums\Component\PopupType;
 use Support\Enums\Component\Vuetify\VuetifyTransitionType;
 

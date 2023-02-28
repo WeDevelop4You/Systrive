@@ -2,16 +2,16 @@
 
 namespace Domain\Cms\Columns\Options\Nullables;
 
-use Domain\Cms\Columns\Attributes\Validation;
+use Domain\Cms\Columns\Definitions\Validation;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Utils\Validations;
 
-abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
+abstract class AbstractNullableColumnOption extends AbstractColumnOption implements PropertyColumnOption, Validation
 {
     /**
      * {@inheritDoc}

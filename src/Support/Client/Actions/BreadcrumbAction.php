@@ -2,7 +2,7 @@
 
 namespace Support\Client\Actions;
 
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
 
 class BreadcrumbAction extends Action
 {

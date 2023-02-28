@@ -2,7 +2,7 @@
 
 namespace Support\Client\Components\Overviews\Steppers;
 
-use Support\Client\Components\Types\ModalComponentType;
+use Support\Client\Definitions\ModalComponentType;
 
 class VerticalStepperComponent extends AbstractStepperComponent implements ModalComponentType
 {

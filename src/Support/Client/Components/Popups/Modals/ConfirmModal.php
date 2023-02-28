@@ -4,9 +4,9 @@ namespace Support\Client\Components\Popups\Modals;
 
 use Support\Client\Actions\Action;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\AbstractButtonComponent;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\AbstractBtnComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Misc\ContentComponent;
 use Support\Enums\Component\ModalCloseType;
@@ -19,9 +19,9 @@ class ConfirmModal extends AbstractModal
     private CardHeaderComponent $header;
 
     /**
-     * @var MultipleButtonComponent
+     * @var WrapperComponent
      */
-    private MultipleButtonComponent $footer;
+    private WrapperComponent $footer;
 
     protected function initializeModal(): void
     {
@@ -36,7 +36,7 @@ class ConfirmModal extends AbstractModal
             VuexAction::create()->closeModal($this->modal->getIdentifier())
         );
 
-        $this->footer = MultipleButtonComponent::create()->setClass('gap-3');
+        $this->footer = WrapperComponent::create()->setClass('gap-3');
     }
 
     /**
@@ -67,13 +67,13 @@ class ConfirmModal extends AbstractModal
     }
 
     /**
-     * @param AbstractButtonComponent $button
+     * @param AbstractBtnComponent $button
      *
      * @return ConfirmModal
      */
-    private function addFooter(AbstractButtonComponent $button): ConfirmModal
+    private function addFooter(AbstractBtnComponent $button): ConfirmModal
     {
-        $this->footer->addButton($button);
+        $this->footer->addComponent($button);
 
         return $this;
     }
@@ -99,7 +99,7 @@ class ConfirmModal extends AbstractModal
         }
 
         return $this->addFooter(
-            ButtonComponent::create()
+            BtnComponentType::create()
                 ->setAction($action)
                 ->setTitle($title ?: trans('word.cancel.cancel'))
         );
@@ -126,7 +126,7 @@ class ConfirmModal extends AbstractModal
         }
 
         return $this->addFooter(
-            ButtonComponent::create()
+            BtnComponentType::create()
                 ->setColor()
                 ->setAction($action)
                 ->setTitle($title ?: trans('word.accept.accept'))

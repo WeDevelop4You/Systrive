@@ -2,7 +2,7 @@
 
 namespace Domain\Cms\Columns\Options\FIle;
 
-use Domain\Cms\Columns\Attributes\Validation;
+use Domain\Cms\Columns\Definitions\Validation;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Columns\Options\Types\ComponentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;

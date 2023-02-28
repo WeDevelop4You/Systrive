@@ -14,16 +14,16 @@ use Illuminate\Support\Carbon;
 /**
  * Domain\User\Models\UserProfile
  *
- * @property int         $id
- * @property int         $user_id
- * @property string      $first_name
- * @property string|null $middle_name
- * @property string      $last_name
- * @property string      $gender
- * @property Carbon      $birth_date
- * @property mixed|null  $preferences
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property int               $id
+ * @property int               $user_id
+ * @property string            $first_name
+ * @property string|null       $middle_name
+ * @property string            $last_name
+ * @property string            $gender
+ * @property Carbon            $birth_date
+ * @property AsCollection|null $preferences
+ * @property Carbon|null       $created_at
+ * @property Carbon|null       $updated_at
  * @property-read string $full_name
  * @property-read \Domain\User\Models\User $user
  *

@@ -30,6 +30,7 @@
         "sentry/sentry-laravel": "^2.14",
         "shweshi/opengraph": "^1.0",
         "spatie/laravel-permission": "^5.1",
+        "webonyx/graphql-php": "^15.1",
         "wedevelop4you/laravel-translation-finder": "dev-master"
     },
     "require-dev": {

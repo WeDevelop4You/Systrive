@@ -92,6 +92,22 @@ return [
         ],
     ],
 
+    'api' => [
+        'path' => application_path('Api'),
+        'routes' => [
+            'domain' => env('DOMAIN_API'),
+            'files' => [
+                [
+                    'filename' => 'api.php',
+                    'middleware' => 'api',
+                ],
+            ],
+            'plurals' => [
+                'v1' => 'v1',
+            ],
+        ],
+    ],
+
     'misc' => [
         'path' => application_path('Misc'),
         'routes' => [

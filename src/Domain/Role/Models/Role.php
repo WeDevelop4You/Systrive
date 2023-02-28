@@ -13,8 +13,8 @@ use Spatie\Permission\Models\Role as RoleSpatie;
  * @property string                          $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Permission\Models\Permission[] $permissions
- * @property-read \Domain\User\Collections\UserCollection|\Domain\User\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\Permission\Models\Permission> $permissions
+ * @property-read \Domain\User\Collections\UserCollection<int, \Domain\User\Models\User> $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()

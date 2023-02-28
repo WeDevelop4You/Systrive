@@ -20,10 +20,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Company|null $company
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemDatabase[] $databases
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemDNS[] $dns
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemDomain[] $domains
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemMailDomain[] $mailDomains
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\System\Models\SystemDatabase> $databases
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\System\Models\SystemDNS> $dns
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\System\Models\SystemDomain> $domains
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\System\Models\SystemMailDomain> $mailDomains
  *
  * @method static Builder|System newModelQuery()
  * @method static Builder|System newQuery()

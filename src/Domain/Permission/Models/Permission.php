@@ -12,9 +12,9 @@ use Spatie\Permission\Models\Permission as PermissionSpatie;
  * @property string                          $guard_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|Permission[] $permissions
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
- * @property-read \Domain\User\Collections\UserCollection|\Domain\User\Models\User[] $users
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Permission> $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\Role\Models\Role> $roles
+ * @property-read \Domain\User\Collections\UserCollection<int, \Domain\User\Models\User> $users
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()

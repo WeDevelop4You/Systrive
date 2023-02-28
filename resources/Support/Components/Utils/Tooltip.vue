@@ -4,7 +4,7 @@
         :disabled="!component.content.text"
     >
         <template #activator="{on}">
-            <slot :tooltip="on" />
+            <slot :on="on" />
         </template>
         {{ component.content.text }}
     </v-tooltip>

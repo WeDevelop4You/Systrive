@@ -10,8 +10,8 @@ use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Overviews\Tables\LocaleTableComponent;
 use Support\Client\Components\Popups\Modals\ShowModal;
 use Support\Client\Response;
@@ -102,7 +102,7 @@ class CmsTableCreateResponse extends AbstractResponse
                 ])
             )
             ->setPrependComponent(
-                ButtonComponent::create()
+                BtnComponentType::create()
                     ->setColor()
                     ->setTitle(trans('word.create.create'))
                     ->setAction(VuexAction::create()->dispatch(
@@ -116,22 +116,22 @@ class CmsTableCreateResponse extends AbstractResponse
     }
 
     /**
-     * @return MultipleButtonComponent
+     * @return WrapperComponent
      */
-    private function createButtons(): MultipleButtonComponent
+    private function createButtons(): WrapperComponent
     {
         $closeAction = ChainAction::create()->setActions([
             VuexAction::create()->commit("{$this->vuexNamespace}/resetForm"),
             VuexAction::create()->closeModal($this->getModel()->getIdentifier()),
         ]);
 
-        return MultipleButtonComponent::create()
+        return WrapperComponent::create()
             ->setClass('gap-3 mt-4')
-            ->setButtons([
-                ButtonComponent::create()
+            ->setComponents([
+                BtnComponentType::create()
                     ->setTitle(trans('word.cancel.cancel'))
                     ->setAction($closeAction),
-                ButtonComponent::create()
+                BtnComponentType::create()
                     ->setColor()
                     ->setTitle(trans('word.save.save'))
                     ->setAction(

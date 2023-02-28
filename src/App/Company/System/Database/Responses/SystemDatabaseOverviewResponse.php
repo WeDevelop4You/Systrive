@@ -6,12 +6,12 @@ use Domain\Company\Models\Company;
 use Domain\System\Models\SystemDatabase;
 use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Overviews\ChartComponent;
 use Support\Client\Components\Overviews\ListComponent;
@@ -62,9 +62,9 @@ class SystemDatabaseOverviewResponse extends AbstractResponse
                         CardHeaderComponent::create()
                             ->setTitle(trans('Details'))
                             ->setButton(
-                                MultipleButtonComponent::create()
-                                    ->addButton(
-                                        IconButtonComponent::create()
+                                WrapperComponent::create()
+                                    ->addComponent(
+                                        IconBtnComponent::create()
                                             ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                     )
                             )

@@ -2,7 +2,7 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Attributes\ComponentOption;
+use Domain\Cms\Columns\Definitions\ComponentOption;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Misc\HintComponent;
 

@@ -69,7 +69,7 @@
     import {mapGetters} from "vuex";
     import Popup from "./PopupLayout.vue";
     import SvgLogoLine from '../Components/Svg/Logo.vue'
-    import Navbar from "../Components/Navbar/Navbar.vue";
+    import Navbar from "../Components/Menu/Menu.vue";
     import Breadcrumb from './BreadcrumbLayout.vue'
 
     export default {

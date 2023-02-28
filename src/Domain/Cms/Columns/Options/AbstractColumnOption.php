@@ -2,7 +2,7 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Attributes\ComponentOption;
+use Domain\Cms\Columns\Definitions\ComponentOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;

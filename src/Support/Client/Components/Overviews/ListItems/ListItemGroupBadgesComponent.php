@@ -2,8 +2,8 @@
 
 namespace Support\Client\Components\Overviews\ListItems;
 
-use Support\Client\Components\Attributes\ComponentAsListItem;
 use Support\Client\Components\Misc\GroupBadgesComponent;
+use Support\Client\Traits\ComponentAsListItem;
 
 class ListItemGroupBadgesComponent extends GroupBadgesComponent implements ListItemComponent
 {

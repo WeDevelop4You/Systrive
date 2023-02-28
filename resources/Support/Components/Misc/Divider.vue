@@ -1,5 +1,5 @@
 <template>
-    <v-divider />
+    <v-divider v-bind="component.attributes" />
 </template>
 
 <script>

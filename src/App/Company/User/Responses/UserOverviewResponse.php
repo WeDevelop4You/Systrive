@@ -5,7 +5,7 @@ namespace App\Company\User\Responses;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Response;
 use Support\Utils\VuexNamespace;
@@ -48,7 +48,7 @@ class UserOverviewResponse extends AbstractResponse
             ->setHeaderRoute(route('company.user.table.headers', $company->id))
             ->setItemsRoute(route('company.user.table.items', $company->id))
             ->setPrependComponent(
-                ButtonComponent::create()
+                BtnComponentType::create()
                     ->setColor()
                     ->setSize()
                     ->setTitle(trans('word.invite.invite'))

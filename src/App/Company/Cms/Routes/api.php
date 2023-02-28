@@ -1,6 +1,7 @@
 <?php
 
 use App\Company\Cms\Controllers\CmsSearchController;
+use App\Company\Cms\Controllers\CmsTableApiController;
 use App\Company\Cms\Controllers\CmsTableConfirmController;
 use App\Company\Cms\Controllers\CmsTableCreateController;
 use App\Company\Cms\Controllers\CmsTableDestroyController;
@@ -67,14 +68,21 @@ Route::scopeBindings()->middleware('permission.company:cms.view')->group(functio
             Route::middleware('permission.company:cms.table.edit')->group(function () {
                 Route::get('confirm/save', [CmsTableConfirmController::class, 'index'])->name('cms.table.confirm');
 
-                Route::prefix('edit')->controller(CmsTableEditController::class)->group(function () {
-                    Route::get('/', 'index')->name('cms.table.edit');
-                    Route::patch('/', 'action')->name('cms.table.edit');
+                Route::prefix('edit')->group(function () {
+                    Route::controller(CmsTableEditController::class)->group(function () {
+                        Route::get('/', 'index')->name('cms.table.edit');
+                        Route::patch('/', 'action')->name('cms.table.edit');
+                    });
 
                     Route::prefix('columns')->group(function () {
                         Route::dataTable(CmsTableColumnTableController::class, 'cms.table.column.edit');
                         Route::get('list', [CmsTableColumnListController::class, 'index'])->name('cms.table.column.edit.list');
                     });
+                });
+
+                Route::prefix('api')->controller(CmsTableApiController::class)->group(function () {
+                    Route::get('/', 'index')->name('cms.table.api');
+                    Route::patch('/', 'action')->name('cms.table.api');
                 });
             });
 

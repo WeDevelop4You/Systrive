@@ -7,8 +7,14 @@ use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\PlacesColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
 use Domain\Cms\Columns\Options\TotalColumnOption;
+use Domain\Cms\Graphql\Inputs\FilterTypes\CmsFilterTypeFloatInput;
 use Domain\Cms\Models\CmsModel;
 use Domain\Cms\Rules\NumericFormatRule;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
@@ -44,6 +50,27 @@ class DecimalColumnType extends AbstractColumnType
     protected function type(): string
     {
         return 'decimal';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $table
+     */
+    protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
+    {
+        return Type::float();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlFilter(): InputObjectType|null
+    {
+        return CmsFilterTypeFloatInput::create(
+            $this->getKey(),
+            $this->getPropertyValueNullable()
+        );
     }
 
     /**

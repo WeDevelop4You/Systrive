@@ -5,7 +5,6 @@ namespace Domain\Cms\Casts;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Support\Arr;
@@ -47,8 +46,8 @@ class CmsColumnPropertiesCast implements CastsAttributes
     {
         $key = Arr::get($attributes, CmsColumnTableMap::COL_KEY);
 
-        if (in_array($key, CmsTableTableMap::REQUIRED_COLUMNS)) {
-            return '[]';
+        if (CmsColumn::isRequired($key)) {
+            return json_encode([]);
         }
 
         $value = $this->getValue($value);

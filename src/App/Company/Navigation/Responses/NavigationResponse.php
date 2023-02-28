@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Misc\Icons\IconComponent;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
-use Support\Client\Components\Navbar\NavbarComponent;
-use Support\Client\Components\Navbar\Navigations\CollapseNavigationComponent;
-use Support\Client\Components\Navbar\Navigations\GroupNavigationComponent;
-use Support\Client\Components\Navbar\Navigations\Items\NavigationCreateItemComponent;
-use Support\Client\Components\Navbar\Navigations\Items\NavigationItemComponent;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Items\CreateMenuItemComponent;
+use Support\Client\Components\Menu\Items\MenuItemComponent;
+use Support\Client\Components\Menu\MenuComponent;
+use Support\Client\Components\Menu\Types\CollapseMenuTypeComponent;
+use Support\Client\Components\Menu\Types\GroupMenuTypeComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Utils\TooltipComponent;
 use Support\Client\Response;
 use Support\Enums\Component\IconType;
@@ -50,9 +50,9 @@ class NavigationResponse extends AbstractResponse
      */
     protected function handle(): Response
     {
-        $navbar = NavbarComponent::create()
+        $navbar = MenuComponent::create()
             ->setShaped()
-            ->addItem($this->createDefaultNavigationItems());
+            ->addType($this->createDefaultNavigationItems());
 
         if (
             $this->company->cms()->exists() &&
@@ -61,7 +61,7 @@ class NavigationResponse extends AbstractResponse
         ) {
             $navbar->addDivider();
             $navbar->addSubheader(trans('word.cms.cms'));
-            $navbar->addItems($this->createCmsNavigationItems());
+            $navbar->addTypes($this->createCmsNavigationItems());
         }
 
         if (
@@ -71,7 +71,7 @@ class NavigationResponse extends AbstractResponse
         ) {
             $navbar->addDivider();
             $navbar->addSubheader(trans('word.system.system'));
-            $navbar->addItems([
+            $navbar->addTypes([
                 $this->createSystemDomainNavigationItems(),
                 $this->createSystemDNSNavigationItems(),
                 $this->createSystemDatabaseNavigationItems(),
@@ -82,7 +82,7 @@ class NavigationResponse extends AbstractResponse
         if (Auth::user()->hasPermission('user.view', 'role.view')) {
             $navbar->addDivider();
             $navbar->addSubheader(trans('word.admin.admin'));
-            $navbar->addItems([
+            $navbar->addTypes([
                 $this->createAdminNavigationItems(),
             ]);
         }
@@ -92,13 +92,13 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return GroupNavigationComponent
+     * @return GroupMenuTypeComponent
      */
-    private function createDefaultNavigationItems(): GroupNavigationComponent
+    private function createDefaultNavigationItems(): GroupMenuTypeComponent
     {
-        return GroupNavigationComponent::create()
-            ->addNavigation(
-                NavigationItemComponent::create()
+        return GroupMenuTypeComponent::create()
+            ->addItem(
+                MenuItemComponent::create()
                     ->setTitle(trans('word.dashboard'))
                     ->setPrepend(IconComponent::create()->setType(IconType::FAS_HOME))
                     ->setRoute(VueRouteHelper::createCompany($this->company))
@@ -109,7 +109,7 @@ class NavigationResponse extends AbstractResponse
     {
         return $this->company->cms->map(function (Cms $cms) {
             $tables = $cms->tables()->map(function (CmsTable $table) use ($cms) {
-                return NavigationItemComponent::create()
+                return MenuItemComponent::create()
                     ->setTitle($table->label)
                     ->setRoute(VueRouteHelper::create()
                         ->setName('cms.table')
@@ -119,7 +119,7 @@ class NavigationResponse extends AbstractResponse
                         ]));
             })->addIf(
                 Auth::user()->isSuperAdmin(),
-                NavigationCreateItemComponent::create()
+                CreateMenuItemComponent::create()
                     ->setAction(
                         VuexAction::create()->dispatch(
                             'cms/table/create',
@@ -136,23 +136,23 @@ class NavigationResponse extends AbstractResponse
                     )
             )->toArray();
 
-            return CollapseNavigationComponent::create()
+            return CollapseMenuTypeComponent::create()
                 ->setTitle($cms->name)
-                ->setNavigation($tables);
+                ->addItems($tables);
         })->toArray();
     }
 
     /**
-     * @return CollapseNavigationComponent
+     * @return CollapseMenuTypeComponent
      */
-    private function createSystemDomainNavigationItems(): CollapseNavigationComponent
+    private function createSystemDomainNavigationItems(): CollapseMenuTypeComponent
     {
-        return CollapseNavigationComponent::create()
+        return CollapseMenuTypeComponent::create()
             ->setTitle(trans('word.domains'))
             ->setIcon(IconComponent::create()->setType(IconType::FAS_GLOBE))
-            ->setNavigation(
+            ->addItems(
                 $this->system->domains->map(function (SystemDomain $domain) {
-                    return NavigationItemComponent::create()
+                    return MenuItemComponent::create()
                         ->setTitle($domain->name)
                         ->setTooltip(
                             TooltipComponent::create()
@@ -170,16 +170,16 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return CollapseNavigationComponent
+     * @return CollapseMenuTypeComponent
      */
-    private function createSystemDNSNavigationItems(): CollapseNavigationComponent
+    private function createSystemDNSNavigationItems(): CollapseMenuTypeComponent
     {
-        return CollapseNavigationComponent::create()
+        return CollapseMenuTypeComponent::create()
             ->setTitle(trans('word.dns'))
             ->setIcon(IconComponent::create()->setType(IconType::FAS_SITEMAP))
-            ->setNavigation(
+            ->addItems(
                 $this->system->dns->map(function (SystemDNS $dns) {
-                    return NavigationItemComponent::create()
+                    return MenuItemComponent::create()
                         ->setTitle($dns->name)
                         ->setRoute(
                             VueRouteHelper::create()
@@ -191,16 +191,16 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return CollapseNavigationComponent
+     * @return CollapseMenuTypeComponent
      */
-    private function createSystemDatabaseNavigationItems(): CollapseNavigationComponent
+    private function createSystemDatabaseNavigationItems(): CollapseMenuTypeComponent
     {
-        return CollapseNavigationComponent::create()
+        return CollapseMenuTypeComponent::create()
             ->setTitle(trans('word.databases'))
             ->setIcon(IconComponent::create()->setType(IconType::FAS_SERVER))
-            ->setNavigation(
+            ->addItems(
                 $this->system->databases->map(function (SystemDatabase $database) {
-                    return NavigationItemComponent::create()
+                    return MenuItemComponent::create()
                         ->setTitle(Str::after($database->name, "{$this->company->name}_"))
                         ->setRoute(
                             VueRouteHelper::create()
@@ -212,16 +212,16 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return CollapseNavigationComponent
+     * @return CollapseMenuTypeComponent
      */
-    private function createSystemMailDomainNavigationItems(): CollapseNavigationComponent
+    private function createSystemMailDomainNavigationItems(): CollapseMenuTypeComponent
     {
-        return CollapseNavigationComponent::create()
+        return CollapseMenuTypeComponent::create()
             ->setTitle(trans('word.mail.domains'))
             ->setIcon(IconComponent::create()->setType(IconType::FAS_MAIL_BULK))
-            ->setNavigation(
+            ->addItems(
                 $this->system->mailDomains->map(function (SystemMailDomain $mailDomain) {
-                    return NavigationItemComponent::create()
+                    return MenuItemComponent::create()
                         ->setTitle($mailDomain->name)
                         ->setRoute(
                             VueRouteHelper::create()
@@ -233,23 +233,23 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return GroupNavigationComponent
+     * @return GroupMenuTypeComponent
      */
-    private function createAdminNavigationItems(): GroupNavigationComponent
+    private function createAdminNavigationItems(): GroupMenuTypeComponent
     {
         $user = Auth::user();
 
-        return GroupNavigationComponent::create()
-            ->addNavigationIf(
+        return GroupMenuTypeComponent::create()
+            ->addItemIf(
                 $user->hasPermission('user.view'),
-                NavigationItemComponent::create()
+                MenuItemComponent::create()
                     ->setTitle(trans('word.users'))
                     ->setPrepend(IconComponent::create()->setType(IconType::FAS_USERS_COG))
                     ->setRoute(VueRouteHelper::create()->setName('admin.users'))
             )
-            ->addNavigationIf(
+            ->addItemIf(
                 $user->hasPermission('role.view'),
-                NavigationItemComponent::create()
+                MenuItemComponent::create()
                     ->setTitle(trans('word.roles'))
                     ->setPrepend(IconComponent::create()->setType(IconType::FAS_USER_SHIELD))
                     ->setRoute(VueRouteHelper::create()->setName('admin.roles'))

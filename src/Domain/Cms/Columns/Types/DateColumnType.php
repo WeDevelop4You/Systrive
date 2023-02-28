@@ -5,7 +5,13 @@ namespace Domain\Cms\Columns\Types;
 use Domain\Cms\Columns\Options\Defaults\DefaultTimestampColumnOption;
 use Domain\Cms\Columns\Options\Nullables\NullableTimestampColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
+use Domain\Cms\Graphql\Inputs\FilterTypes\CmsFilterTypeDatetimeInput;
 use Domain\Cms\Models\CmsModel;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Carbon;
@@ -33,6 +39,27 @@ class DateColumnType extends AbstractColumnType
     protected function type(): string
     {
         return 'date';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $table
+     */
+    protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
+    {
+        return Type::string();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlFilter(): InputObjectType|null
+    {
+        return CmsFilterTypeDatetimeInput::create(
+            $this->getKey(),
+            $this->getPropertyValueNullable()
+        );
     }
 
     /**
@@ -65,7 +92,7 @@ class DateColumnType extends AbstractColumnType
     {
         return DatePickerInputComponent::create()
             ->setValue($model->getAttribute($this->getKey()))
-            ->setClearable($this->getPropertyValue('nullable', true));
+            ->setClearable($this->getPropertyValueNullable());
     }
 
     /**

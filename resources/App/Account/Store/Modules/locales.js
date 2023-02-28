@@ -32,10 +32,10 @@ export default {
         },
 
         change({commit}, locale) {
-            commit('setLocale', locale, {root: true})
+            commit('locale/set', locale, {root: true})
 
             return app.$api.call({
-                url: app.$api.route('account.locale.change', locale),
+                url: app.$api.route('account.locale.change', locale.identifier),
                 method: "PUT",
                 silence: true
             })

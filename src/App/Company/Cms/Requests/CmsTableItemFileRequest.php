@@ -2,7 +2,7 @@
 
 namespace App\Company\Cms\Requests;
 
-use Domain\Cms\Columns\Attributes\SubValidation;
+use Domain\Cms\Columns\Definitions\SubValidation;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Foundation\Http\FormRequest;
 

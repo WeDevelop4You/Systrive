@@ -15,4 +15,12 @@ class TextInputComponent extends AbstractInputComponent
     {
         return 'TextInputComponent';
     }
+
+    /**
+     * @return $this
+     */
+    public function setAppendOuter(): static
+    {
+        return $this;
+    }
 }

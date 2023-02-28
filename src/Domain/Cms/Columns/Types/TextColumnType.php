@@ -3,7 +3,13 @@
 namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
+use Domain\Cms\Graphql\Inputs\FilterTypes\CmsFilterTypeStringInput;
 use Domain\Cms\Models\CmsModel;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Str;
@@ -27,6 +33,27 @@ class TextColumnType extends AbstractColumnType
     protected function type(): string
     {
         return 'text';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param string $table
+     */
+    protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
+    {
+        return Type::string();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlFilter(): InputObjectType|null
+    {
+        return CmsFilterTypeStringInput::create(
+            $this->getKey(),
+            $this->getPropertyValueNullable()
+        );
     }
 
     /**

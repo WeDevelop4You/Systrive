@@ -40,15 +40,15 @@
                 if (files instanceof Array) {
                     files.forEach((file) => {
                         if (this.files.length < this.max) {
-                            this.add(file)
+                            this.create(file)
                         }
                     })
                 } else {
-                    this.add(files)
+                    this.create(files)
                 }
             },
 
-            add(file) {
+            create(file) {
                 const data = this.createFormData(file)
                 const index = this.createProgress(file.size)
 

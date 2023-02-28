@@ -9,9 +9,9 @@ use Illuminate\Support\Carbon;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Utils\TooltipComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
@@ -78,14 +78,14 @@ class CmsTable extends AbstractTable
     /**
      * @param Cms $data
      *
-     * @return MultipleButtonComponent
+     * @return WrapperComponent
      */
-    private function createActions(Cms $data): MultipleButtonComponent
+    private function createActions(Cms $data): WrapperComponent
     {
-        return MultipleButtonComponent::create()
-            ->addButtonIf(
+        return WrapperComponent::create()
+            ->addComponentIf(
                 \is_null($data->deleted_at),
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::ERROR)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                     ->setTooltip(
@@ -101,9 +101,9 @@ class CmsTable extends AbstractTable
                             ]))
                     ),
             )
-            ->addButtonIf(
+            ->addComponentIf(
                 !\is_null($data->deleted_at),
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::ACCENT)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_UNDO_ALT))
                     ->setTooltip(

@@ -2,10 +2,10 @@
 
 namespace Support\Client\Components\Forms\Inputs;
 
-use Support\Client\Components\Attributes\ComponentWithClasses;
-use Support\Client\Components\Attributes\ComponentWithIfStatement;
 use Support\Client\Components\Component;
 use Support\Client\Components\Forms\Utils\Logics\AbstractLogic;
+use Support\Client\Traits\ComponentWithClasses;
+use Support\Client\Traits\ComponentWithIfStatement;
 use Support\Utils\VuexNamespace;
 
 /**

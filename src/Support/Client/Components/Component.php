@@ -5,7 +5,7 @@ namespace Support\Client\Components;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\UuidInterface;
 
-abstract class Component
+class Component
 {
     /**
      * @var UuidInterface
@@ -38,6 +38,14 @@ abstract class Component
     public static function create(): static
     {
         return new static();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getComponentName(): string
+    {
+        return class_basename(static::class);
     }
 
     /**
@@ -131,9 +139,4 @@ abstract class Component
             'componentName' => $this->getComponentName(),
         ];
     }
-
-    /**
-     * @return string
-     */
-    abstract protected function getComponentName(): string;
 }

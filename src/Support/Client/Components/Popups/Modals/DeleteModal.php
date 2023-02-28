@@ -5,9 +5,9 @@ namespace Support\Client\Components\Popups\Modals;
 use Support\Client\Actions\Action;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\AbstractButtonComponent;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\AbstractBtnComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
 use Support\Enums\Component\Vuetify\VuetifyColor;
@@ -26,9 +26,9 @@ class DeleteModal extends AbstractModal
     private CardHeaderComponent $header;
 
     /**
-     * @var MultipleButtonComponent
+     * @var WrapperComponent
      */
-    private MultipleButtonComponent $footer;
+    private WrapperComponent $footer;
 
     /**
      * DeleteModal constructor.
@@ -60,7 +60,7 @@ class DeleteModal extends AbstractModal
             ->setTitle(trans('word.delete.delete'))
             ->setCloseButton(VuexAction::create()->closeModal($this->modal->getIdentifier()));
 
-        $this->footer = MultipleButtonComponent::create()->setClass('gap-3');
+        $this->footer = WrapperComponent::create()->setClass('gap-3');
     }
 
     /**
@@ -92,13 +92,13 @@ class DeleteModal extends AbstractModal
     }
 
     /**
-     * @param AbstractButtonComponent $button
+     * @param AbstractBtnComponent $button
      *
      * @return DeleteModal
      */
-    private function addFooter(AbstractButtonComponent $button): DeleteModal
+    private function addFooter(AbstractBtnComponent $button): DeleteModal
     {
-        $this->footer->addButton($button);
+        $this->footer->addComponent($button);
 
         return $this;
     }
@@ -113,7 +113,7 @@ class DeleteModal extends AbstractModal
     {
         $action->setOnSuccessAction($this->createOnSuccessAction());
 
-        $button = ButtonComponent::create()
+        $button = BtnComponentType::create()
             ->setAction($action)
             ->setTitle($title ?: trans('word.delete.force'));
 
@@ -138,7 +138,7 @@ class DeleteModal extends AbstractModal
         $action->setOnSuccessAction($this->createOnSuccessAction());
 
         return $this->addFooter(
-            ButtonComponent::create()
+            BtnComponentType::create()
                 ->setAction($action)
                 ->setColor(VuetifyColor::ERROR)
                 ->setTitle($title ?: trans('word.delete.delete'))
@@ -151,7 +151,7 @@ class DeleteModal extends AbstractModal
     public function addFooterCancelButton(): DeleteModal
     {
         return $this->addFooter(
-            ButtonComponent::create()
+            BtnComponentType::create()
                 ->setTitle(trans('word.cancel.cancel'))
                 ->setAction(VuexAction::create()->closeModal($this->modal->getIdentifier()))
         );

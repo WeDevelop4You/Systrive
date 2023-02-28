@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\DB;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\BadgeComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
@@ -76,10 +76,10 @@ class UserTable extends AbstractTable
                 $pivot = $data->pivot;
                 $params = [$pivot->company_id, $data->id];
 
-                return MultipleButtonComponent::create()
-                    ->addButtonIf(
+                return WrapperComponent::create()
+                    ->addComponentIf(
                         $pivot->status === CompanyUserStatusTypes::EXPIRED && $canInvite,
-                        IconButtonComponent::create()
+                        IconBtnComponent::create()
                             ->setIcon(IconComponent::create()->setType(IconType::FAS_PAPER_PLANE))
                             ->setAction(
                                 RequestAction::create()
@@ -88,9 +88,9 @@ class UserTable extends AbstractTable
                                         VuexAction::create()->refreshTable('users')
                                     )
                             ),
-                    )->addButtonIf(
+                    )->addComponentIf(
                         $canEdit && ($pivot->is_owner || $data->id !== Auth::id()),
-                        IconButtonComponent::create()
+                        IconBtnComponent::create()
                             ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                             ->setAction(
                                 VuexAction::create()->dispatch(
@@ -98,9 +98,9 @@ class UserTable extends AbstractTable
                                     route('company.user.edit', $params)
                                 )
                             )
-                    )->addButtonIf(
+                    )->addComponentIf(
                         !$pivot->is_owner && $canRevoke,
-                        IconButtonComponent::create()
+                        IconBtnComponent::create()
                             ->setIcon(IconComponent::create()->setType(IconType::FAS_USER_MINUS))
                             ->setAction(
                                 RequestAction::create()

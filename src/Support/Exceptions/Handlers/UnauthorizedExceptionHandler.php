@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Support\Client\Actions\RouteAction;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
 use Support\Helpers\ApplicationHelper;

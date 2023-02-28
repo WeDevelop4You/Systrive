@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string                          $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemUsageStatistic[] $usageStatistics
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\System\Models\SystemUsageStatistic> $usageStatistics
  *
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SystemMailDomain newQuery()

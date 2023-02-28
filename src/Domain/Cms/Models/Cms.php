@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Stringable;
+use Laravel\Sanctum\HasApiTokens;
 use Support\Casts\EncryptionCast;
 use Support\Services\Cms as CmsService;
 use Support\Utils\Decrypt;
@@ -30,10 +31,11 @@ use Support\Utils\Decrypt;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  * @property-read Company|null $company
+ * @property-read Collection<int, \Domain\Api\Models\ApiAccessToken> $tokens
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms newQuery()
- * @method static Builder|Cms                               onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms query()
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereCreatedAt($value)
@@ -44,8 +46,8 @@ use Support\Utils\Decrypt;
  * @method static \Illuminate\Database\Eloquent\Builder|Cms wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cms whereUsername($value)
- * @method static Builder|Cms                               withTrashed()
- * @method static Builder|Cms                               withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Cms withoutTrashed()
  *
  * @mixin Eloquent
  */
@@ -53,6 +55,7 @@ class Cms extends Model
 {
     use SoftDeletes;
     use Prunable;
+    use HasApiTokens;
 
     /**
      * @var string

@@ -2,7 +2,7 @@
 
 namespace App\Company\Cms\Forms;
 
-use Domain\Cms\Columns\Attributes\ComponentOption;
+use Domain\Cms\Columns\Definitions\ComponentOption;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Illuminate\Support\Collection;
@@ -10,7 +10,7 @@ use Support\Abstracts\AbstractForm;
 use Support\Client\Components\Forms\FormComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Client\Components\Forms\Inputs\ConditionInputComponent;
-use Support\Client\Components\Forms\Inputs\Custom\CustomSelectInputComponent;
+use Support\Client\Components\Forms\Inputs\Custom\CustomSelectInputComponentType;
 use Support\Client\Components\Forms\Inputs\SelectInputComponent;
 use Support\Client\Components\Forms\Inputs\TextInputComponent;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
@@ -77,7 +77,7 @@ class CmsTableColumnForm extends AbstractForm
                     ),
                 InputColWrapper::create()
                     ->setInput(
-                        CustomSelectInputComponent::create()
+                        CustomSelectInputComponentType::create()
                             ->setLabel(trans('word.after.column'))
                             ->setKey(CmsColumnTableMap::COL_AFTER)
                             ->setDisabled($this->isEditable)

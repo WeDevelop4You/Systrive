@@ -6,12 +6,12 @@ use Illuminate\Support\Collection;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Overviews\ListComponent;
 use Support\Client\Components\Overviews\ListItems\ListItemBadgeComponent;
@@ -46,9 +46,9 @@ class SupervisorOverviewResponse extends AbstractResponse
                     CardHeaderComponent::create()
                         ->setTitle(trans('Supervisors'))
                         ->setButton(
-                            MultipleButtonComponent::create()
-                                ->setButtons([
-                                    IconButtonComponent::create()
+                            WrapperComponent::create()
+                                ->setComponents([
+                                    IconBtnComponent::create()
                                         ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
                                         ->setAction(
                                             RequestAction::create()
@@ -60,7 +60,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                                                 ->setTop()
                                                 ->setText(trans('word.supervisor.start.all'))
                                         ),
-                                    IconButtonComponent::create()
+                                    IconBtnComponent::create()
                                         ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
                                         ->setAction(
                                             RequestAction::create()
@@ -72,7 +72,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                                                 ->setTop()
                                                 ->setText(trans('word.supervisor.stop.all'))
                                         ),
-                                    IconButtonComponent::create()
+                                    IconBtnComponent::create()
                                         ->setIcon(IconComponent::create()->setType(IconType::FAS_COG))
                                         ->setAction(
                                             VuexAction::create()->dispatch(
@@ -114,8 +114,8 @@ class SupervisorOverviewResponse extends AbstractResponse
                 CardHeaderComponent::create()
                     ->setTitle($process->name)
                     ->setButton(
-                        MultipleButtonComponent::create()
-                            ->setButtons($this->createActions($process))
+                        WrapperComponent::create()
+                            ->setComponents($this->createActions($process))
                     )
             )
             ->addBody(
@@ -178,7 +178,7 @@ class SupervisorOverviewResponse extends AbstractResponse
     {
         if (Supervisor::inProcessRunning($process->state)) {
             return [
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_SYNC))
                     ->setAction(
                         RequestAction::create()
@@ -192,7 +192,7 @@ class SupervisorOverviewResponse extends AbstractResponse
                             ->setTop()
                             ->setText(trans('word.supervisor.restart'))
                     ),
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_STOP))
                     ->setAction(
                         RequestAction::create()
@@ -210,7 +210,7 @@ class SupervisorOverviewResponse extends AbstractResponse
         }
 
         return [
-            IconButtonComponent::create()
+            IconBtnComponent::create()
                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PLAY))
                 ->setAction(
                     RequestAction::create()

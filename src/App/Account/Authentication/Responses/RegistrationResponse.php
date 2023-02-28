@@ -9,10 +9,10 @@ use Domain\Invite\Models\Invite;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RouteAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
 use Support\Client\Components\Misc\CustomComponent;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
 use Support\Client\Components\Overviews\Steppers\StepperItemComponent;
 use Support\Client\Components\Overviews\Steppers\VerticalStepperComponent;
 use Support\Client\Response;
@@ -65,16 +65,16 @@ class RegistrationResponse extends AbstractResponse
                     ->setType('PasswordRequirementsComponent')
                     ->setData('vuexNamespace', 'guest/registration/password'),
                 PasswordForm::create($this->invite->user)->setVuexNamespace('guest/registration/form'),
-                MultipleButtonComponent::create()
+                WrapperComponent::create()
                     ->setClass('gap-3')
-                    ->setButtons([
-                        ButtonComponent::create()
+                    ->setComponents([
+                        BtnComponentType::create()
                             ->setType()
                             ->setTitle(trans('word.cancel.cancel'))
                             ->setAction(
                                 RouteAction::create()->goTo(VueRouteHelper::create()->setName('login'))
                             ),
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.next.next'))
                             ->setAction(
@@ -96,10 +96,10 @@ class RegistrationResponse extends AbstractResponse
             ->setTitle(trans('word.profile.profile'))
             ->setComponents([
                 ProfileForm::create()->setVuexNamespace('guest/registration/form'),
-                MultipleButtonComponent::create()
+                WrapperComponent::create()
                     ->setClass('gap-3')
-                    ->setButtons([
-                        ButtonComponent::create()
+                    ->setComponents([
+                        BtnComponentType::create()
                             ->setType()
                             ->setTitle(trans('word.back.back'))
                             ->setAction(
@@ -107,7 +107,7 @@ class RegistrationResponse extends AbstractResponse
                                     'guest/registration/stepper/back'
                                 )
                             ),
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.next.next'))
                             ->setAction(
@@ -129,10 +129,10 @@ class RegistrationResponse extends AbstractResponse
             ->setTitle(trans('word.accept.accept'))
             ->setComponents([
                 AcceptForm::create()->setVuexNamespace('guest/registration/form'),
-                MultipleButtonComponent::create()
+                WrapperComponent::create()
                     ->setClass('gap-3')
-                    ->setButtons([
-                        ButtonComponent::create()
+                    ->setComponents([
+                        BtnComponentType::create()
                             ->setType()
                             ->setTitle(trans('word.back.back'))
                             ->setAction(
@@ -140,7 +140,7 @@ class RegistrationResponse extends AbstractResponse
                                     'guest/registration/stepper/back'
                                 )
                             ),
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.accept.accept'))
                             ->setAction(

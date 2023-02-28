@@ -3,8 +3,8 @@
 namespace Support\Client\Components\Forms\Inputs;
 
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Misc\ImageCropperComponent;
 use Support\Client\Components\Overviews\CardComponent;
@@ -78,10 +78,10 @@ class ImageInputComponent extends AbstractFileInputComponent
                             ->setAspectRatio($this->width, $this->height)
                     )
                     ->setFooter(
-                        MultipleButtonComponent::create()
+                        WrapperComponent::create()
                             ->setClass('gap-3')
-                            ->setButtons([
-                                ButtonComponent::create()
+                            ->setComponents([
+                                BtnComponentType::create()
                                     ->setType()
                                     ->setTitle(trans('word.cancel.cancel'))
                                     ->setAction(
@@ -89,7 +89,7 @@ class ImageInputComponent extends AbstractFileInputComponent
                                             "{$vuexCropperNamespace}/cancel"
                                         )
                                     ),
-                                ButtonComponent::create()
+                                BtnComponentType::create()
                                     ->setColor()
                                     ->setTitle(trans('word.save.save'))
                                     ->setAction(

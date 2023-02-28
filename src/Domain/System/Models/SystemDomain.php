@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
  * @property string      $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\System\Models\SystemUsageStatistic[] $usageStatistics
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\System\Models\SystemUsageStatistic> $usageStatistics
  *
  * @method static Builder|SystemDomain newModelQuery()
  * @method static Builder|SystemDomain newQuery()

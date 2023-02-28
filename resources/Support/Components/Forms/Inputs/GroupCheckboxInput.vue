@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-show="isHidden">
         <v-subheader
             class="subtitle-1 px-0"
             style="height: 25px"
@@ -8,9 +8,9 @@
         <v-row class="my-0">
             <v-col
                 v-for="(item, index) in input"
+                v-bind="component.data.col.attributes"
                 :key="index"
                 class="py-0"
-                cols="auto"
             >
                 <v-checkbox
                     v-model="item.value"

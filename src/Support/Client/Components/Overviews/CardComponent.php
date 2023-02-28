@@ -2,11 +2,11 @@
 
 namespace Support\Client\Components\Overviews;
 
-use Support\Client\Components\Attributes\ComponentWithIfStatement;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
 use Support\Client\Components\Component;
-use Support\Client\Components\Types\ModalComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Utils\ThemeComponent;
+use Support\Client\Definitions\ModalComponentType;
+use Support\Client\Traits\ComponentWithIfStatement;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 
 /**
@@ -130,11 +130,11 @@ class CardComponent extends Component implements ModalComponentType
     }
 
     /**
-     * @param MultipleButtonComponent $button
+     * @param WrapperComponent $button
      *
      * @return $this
      */
-    public function setFooter(MultipleButtonComponent $button): static
+    public function setFooter(WrapperComponent $button): static
     {
         return $this->setData('footer', $button->export())->setHasFooter();
     }

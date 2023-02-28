@@ -199,7 +199,7 @@ class GenerateMappingCommand extends Command
         $data = "<?php\n\n";
         $data .= "namespace {$mapping->namespace};\n\n";
         $data .= "class {$mapping->filename}\n";
-        $data .= '{';
+        $data .= "{\n";
 
         foreach ($mapping->constants as $prefix => $constants) {
             foreach ($constants as $key => $value) {

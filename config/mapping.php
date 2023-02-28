@@ -26,9 +26,6 @@ return [
             'columns' => 'columns',
             'columns_all' => 'columns.*',
         ],
-        'required' => [
-            'columns' => ['id', 'created_at', 'updated_at'],
-        ],
         'used' => [
             'names' => ['cms_tables', 'cms_columns', 'cms_files', 'migrations'],
         ],
@@ -37,6 +34,15 @@ return [
     \Domain\Cms\Models\CmsColumn::class => [
         'col' => [
             'original_key' => 'original_key',
+            'selectable_all' => 'selectable.*',
+            'creatable_all' => 'creatable.*',
+            'updatable_all' => 'updatable.*',
+        ],
+        'required' => [
+            'columns' => ['id', 'created_at', 'updated_at'],
+        ],
+        'reserve' => [
+            'columns' => ['_and', '_or'],
         ],
     ],
 ];

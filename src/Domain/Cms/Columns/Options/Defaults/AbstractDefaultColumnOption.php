@@ -3,12 +3,12 @@
 namespace Domain\Cms\Columns\Options\Defaults;
 
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 
-abstract class AbstractDefaultColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption
+abstract class AbstractDefaultColumnOption extends AbstractColumnOption implements PropertyColumnOption
 {
     /**
      * {@inheritDoc}

@@ -7,9 +7,9 @@ use Domain\Role\Models\Role;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyTableAlignmentType;
@@ -52,10 +52,10 @@ class RoleTable extends AbstractTable
                 $params = [$data->company_id, $data->id];
                 $isMainRole = $data->name !== RoleTableMap::ROLE_MAIN;
 
-                return MultipleButtonComponent::create()
-                    ->addButtonIf(
+                return WrapperComponent::create()
+                    ->addComponentIf(
                         $canEdit && $isMainRole,
-                        IconButtonComponent::create()
+                        IconBtnComponent::create()
                             ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                             ->setAction(
                                 VuexAction::create()->dispatch(
@@ -64,9 +64,9 @@ class RoleTable extends AbstractTable
                                 )
                             )
                     )
-                    ->addButtonIf(
+                    ->addComponentIf(
                         $canDelete && $isMainRole,
-                        IconButtonComponent::create()
+                        IconBtnComponent::create()
                             ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                             ->setAction(
                                 RequestAction::create()

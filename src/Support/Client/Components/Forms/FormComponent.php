@@ -2,10 +2,10 @@
 
 namespace Support\Client\Components\Forms;
 
-use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Traits\ComponentWithClasses;
 use Support\Utils\VuexNamespace;
 
 class FormComponent extends AbstractFormComponent

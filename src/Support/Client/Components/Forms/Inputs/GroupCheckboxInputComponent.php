@@ -2,6 +2,8 @@
 
 namespace Support\Client\Components\Forms\Inputs;
 
+use Support\Client\Components\Utils\ColOptionsComponent;
+
 class GroupCheckboxInputComponent extends AbstractInputComponent
 {
     /**
@@ -10,5 +12,15 @@ class GroupCheckboxInputComponent extends AbstractInputComponent
     protected function getComponentName(): string
     {
         return 'GroupCheckboxInputComponent';
+    }
+
+    /**
+     * @param ColOptionsComponent $colOptions
+     *
+     * @return $this
+     */
+    public function setColOptions(ColOptionsComponent $colOptions): static
+    {
+        return $this->setData('col', $colOptions->export());
     }
 }

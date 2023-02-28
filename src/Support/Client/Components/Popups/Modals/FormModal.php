@@ -6,10 +6,10 @@ use Illuminate\Support\Arr;
 use Support\Client\Actions\Action;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\AbstractButtonComponent;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\AbstractBtnComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Forms\AbstractFormComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Utils\VuexNamespace;
 
@@ -26,9 +26,9 @@ class FormModal extends AbstractModal
     private CardHeaderComponent $header;
 
     /**
-     * @var MultipleButtonComponent|null
+     * @var WrapperComponent|null
      */
-    private ?MultipleButtonComponent $footer = null;
+    private ?WrapperComponent $footer = null;
 
     /**
      * FormModal constructor.
@@ -119,18 +119,18 @@ class FormModal extends AbstractModal
     }
 
     /**
-     * @param AbstractButtonComponent $button
+     * @param AbstractBtnComponent $button
      *
      * @return FormModal
      */
-    public function addFooter(AbstractButtonComponent $button): FormModal
+    public function addFooter(AbstractBtnComponent $button): FormModal
     {
         if (\is_null($this->footer)) {
-            $this->footer = MultipleButtonComponent::create()
+            $this->footer = WrapperComponent::create()
                 ->setClass('gap-3');
         }
 
-        $this->footer->addButton($button);
+        $this->footer->addComponent($button);
 
         return $this;
     }
@@ -148,7 +148,7 @@ class FormModal extends AbstractModal
         }
 
         return $this->addFooter(
-            ButtonComponent::create()
+            BtnComponentType::create()
                 ->setAction($action)
                 ->setTitle(trans('word.cancel.cancel'))
         );
@@ -177,7 +177,7 @@ class FormModal extends AbstractModal
         $action->setOnSuccessAction($chainActions);
 
         return $this->addFooter(
-            ButtonComponent::create()
+            BtnComponentType::create()
                 ->setColor()
                 ->setAction($action)
                 ->setTitle(trans('word.save.save'))
@@ -207,7 +207,7 @@ class FormModal extends AbstractModal
     {
         $this->card->setHeader($this->header);
 
-        if ($this->footer instanceof MultipleButtonComponent) {
+        if ($this->footer instanceof WrapperComponent) {
             $this->card->setFooter($this->footer);
         }
 

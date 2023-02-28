@@ -2,13 +2,13 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
+use Domain\Cms\Columns\Options\Types\ArgumentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Utils\Validations;
 
-class TotalColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption
+class TotalColumnOption extends AbstractColumnOption implements ArgumentColumnOption
 {
     public function __construct(
         private readonly array $requirements,

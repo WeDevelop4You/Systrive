@@ -4,7 +4,6 @@ namespace Domain\Cms\Observers;
 
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\CmsColumn;
 
 class CmsColumnSavingObserver
@@ -13,7 +12,7 @@ class CmsColumnSavingObserver
     {
         $column->offsetUnset(CmsColumnTableMap::COL_ORIGINAL_KEY);
 
-        if (\in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+        if (CmsColumn::isRequired($column->key)) {
             $column->editable = false;
             $column->deletable = false;
         }

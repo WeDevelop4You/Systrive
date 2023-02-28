@@ -9,10 +9,10 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\BreadcrumbAction;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Misc\CustomComponent;
 use Support\Client\Components\Overviews\CardComponent;
@@ -63,10 +63,10 @@ class SettingsPersonalOverviewResponse extends AbstractResponse
                             ->setVuexNamespace('settings/personal/form')
                     )
                     ->setFooter(
-                        MultipleButtonComponent::create()
+                        WrapperComponent::create()
                             ->setClass('px-2')
-                            ->addButton(
-                                ButtonComponent::create()
+                            ->addComponent(
+                                BtnComponentType::create()
                                     ->setColor()
                                     ->setTitle(trans('word.save.save'))
                                     ->setAction(

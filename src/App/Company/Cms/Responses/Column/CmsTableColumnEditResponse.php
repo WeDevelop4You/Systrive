@@ -3,8 +3,8 @@
 namespace App\Company\Cms\Responses\Column;
 
 use App\Company\Cms\Forms\CmsTableColumnForm;
-use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\Cms;
+use Domain\Cms\Models\CmsColumn;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
@@ -35,7 +35,7 @@ class CmsTableColumnEditResponse extends AbstractResponse
                     ->setTitle('word.edit.column')
                     ->setForm(CmsTableColumnForm::create(
                         $this->isEditing,
-                        \in_array($this->key, CmsTableTableMap::REQUIRED_COLUMNS)
+                        CmsColumn::isRequired($this->key)
                     ))
                     ->addFooterCancelButton()
                     ->addFooterSaveButton(

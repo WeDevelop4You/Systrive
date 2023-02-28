@@ -10,8 +10,7 @@
             v-text="component.content.title"
         />
         <v-spacer />
-        <component
-            :is="component.data.button.componentName"
+        <wrapper
             v-if="component.data.button"
             :value="component.data.button"
         />
@@ -20,13 +19,13 @@
 
 <script>
     import ComponentBase from "../Base/ComponentBase";
-    import MultipleBtnComponent from "../Buttons/MultipleBtn.vue";
+    import Wrapper from "../Layouts/Wrapper.vue";
 
     export default {
         name: "CardHeader",
 
         components: {
-            MultipleBtnComponent,
+            Wrapper,
         },
 
         extends: ComponentBase,

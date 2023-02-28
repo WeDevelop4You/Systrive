@@ -49,7 +49,7 @@ class CmsTableItemTableController extends AbstractTableController
                     }
                 },
             ])->select(
-                $table->selectableColumns()
+                $table->visibleColumns()
                     ->pluck(CmsColumnTableMap::COL_KEY)
                     ->add('id')
                     ->toArray()

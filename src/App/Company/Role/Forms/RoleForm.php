@@ -4,7 +4,7 @@ namespace App\Company\Role\Forms;
 
 use Support\Abstracts\AbstractForm;
 use Support\Client\Components\Forms\FormComponent;
-use Support\Client\Components\Forms\Inputs\Custom\CustomPermissionInputComponent;
+use Support\Client\Components\Forms\Inputs\Custom\CustomPermissionInputComponentType;
 use Support\Client\Components\Forms\Inputs\TextInputComponent;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Enums\Component\Inputs\CustomPermissionInputType;
@@ -26,7 +26,7 @@ class RoleForm extends AbstractForm
                     ),
                 InputColWrapper::create()
                     ->setInput(
-                        CustomPermissionInputComponent::create()
+                        CustomPermissionInputComponentType::create()
                             ->setKey('permission')
                             ->setLabel(trans('word.permission'))
                             ->setType(CustomPermissionInputType::ROLE)

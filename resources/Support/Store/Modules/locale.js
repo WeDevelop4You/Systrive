@@ -5,31 +5,35 @@ const app = Vue.prototype
 const $vuetify = Vuetify.framework
 
 export default {
+    namespaced: true,
+
     state: () => ({
-        locale: $vuetify.lang.defaultLocale,
+        name: '',
+        identifier: $vuetify.lang.defaultLocale,
     }),
 
     mutations: {
-        setLocale(state, locale) {
-            state.locale = locale;
+        set(state, data) {
+            state.name = data.name;
+            state.identifier = data.identifier
 
-            $vuetify.lang.current = locale
+            $vuetify.lang.current = data.identifier;
         },
     },
 
     getters: {
-        locale(state) {
-            return state.locale;
+        data(state) {
+            return state;
         },
     },
 
     actions: {
-        getLocale({commit}) {
+        get({commit}) {
             app.$api.call({
                 url: app.$api.route('account.locale'),
                 method: "GET"
             }).then((response) => {
-                commit('setLocale', response.data.data.locale)
+                commit('set', response.data.data)
             })
         },
     }

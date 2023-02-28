@@ -5,7 +5,9 @@ namespace App\Company\Cms\Requests;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Enums\CmsColumnType;
 use Domain\Cms\Mappings\CmsColumnTableMap;
-use Domain\Cms\Mappings\CmsTableTableMap;
+use Domain\Cms\Models\CmsColumn;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Support\Abstracts\AbstractRequest;
@@ -39,12 +41,15 @@ class CmsTableColumnRequest extends AbstractRequest
      */
     protected function isUpdating(): bool
     {
-        return \in_array($this->key, CmsTableTableMap::REQUIRED_COLUMNS);
+        return CmsColumn::isRequired($this->key);
     }
 
     protected function defaultRules(): array
     {
-        $keys = array_map('strtolower', $this->keys ?? []);
+        $keys = [
+            ...CmsColumnTableMap::RESERVE_COLUMNS,
+            ...Arr::map($this->keys ?? [], [Str::class, 'lower']),
+        ];
 
         return [
             CmsColumnTableMap::COL_KEY => ['required', 'string', 'alpha_dash', 'max:64', Rule::notIn($keys)],

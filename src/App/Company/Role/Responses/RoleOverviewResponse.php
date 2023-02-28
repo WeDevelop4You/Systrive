@@ -5,7 +5,7 @@ namespace App\Company\Role\Responses;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Response;
 use Support\Utils\VuexNamespace;
@@ -49,7 +49,7 @@ class RoleOverviewResponse extends AbstractResponse
                 $company->id,
             ]))
             ->setPrependComponent(
-                ButtonComponent::create()
+                BtnComponentType::create()
                     ->setSize()
                     ->setColor()
                     ->setTitle(trans('word.create.create'))

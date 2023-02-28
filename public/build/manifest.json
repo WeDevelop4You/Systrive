@@ -1,0 +1,17 @@
+{
+  "resources/Support/Scss/TinyMCE/skin.shadowdom.scss": {
+    "file": "assets/css/tinymce/skin.shadowdom.min.css",
+    "src": "resources/Support/Scss/TinyMCE/skin.shadowdom.scss",
+    "isEntry": true
+  },
+  "resources/Support/Scss/TinyMCE/content.scss": {
+    "file": "assets/css/tinymce/content.min.css",
+    "src": "resources/Support/Scss/TinyMCE/content.scss",
+    "isEntry": true
+  },
+  "resources/Support/Scss/TinyMCE/skin.scss": {
+    "file": "assets/css/tinymce/skin.min.css",
+    "src": "resources/Support/Scss/TinyMCE/skin.scss",
+    "isEntry": true
+  }
+}

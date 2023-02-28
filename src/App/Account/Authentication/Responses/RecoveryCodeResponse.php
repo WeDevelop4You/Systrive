@@ -5,7 +5,7 @@ namespace App\Account\Authentication\Responses;
 use App\Account\Authentication\Forms\RecoveryCodeForm;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
 use Support\Enums\Component\Vuetify\VuetifyButtonType;
@@ -30,7 +30,7 @@ class RecoveryCodeResponse extends AbstractResponse
                     ->setTitle(trans('modal.recovery.code'))
                     ->setForm(RecoveryCodeForm::create())
                     ->addFooter(
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('modal.verify.verify'))
                             ->setType(VuetifyButtonType::BLOCK)

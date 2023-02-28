@@ -7,7 +7,7 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\ChainAction;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
 use Support\Enums\Component\Vuetify\VuetifyButtonType;
@@ -33,7 +33,7 @@ class OneTimePasswordResponse extends AbstractResponse
                     ->setTitle(trans('word.verify.title'))
                     ->setForm(OneTimePasswordForm::create())
                     ->addFooter(
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setType(VuetifyButtonType::BLOCK)
                             ->setTitle(trans('modal.verify.verify'))
@@ -45,7 +45,7 @@ class OneTimePasswordResponse extends AbstractResponse
                             )
                     )
                     ->addFooter(
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setSize(VuetifySizeType::X_SMALL)
                             ->setType(VuetifyButtonType::BLOCK)
                             ->setColor(VuetifyColor::TRANSPARENT)

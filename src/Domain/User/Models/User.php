@@ -30,46 +30,44 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Domain\User\Models\User
  *
- * @property int         $id
- * @property string      $email
- * @property string      $locale
+ * @property int $id
+ * @property string $email
+ * @property string $locale
  * @property Carbon|null $email_verified_at
  * @property string|null $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
- * @property-read \Domain\Company\Collections\CompanyCollections|Company[] $companies
- * @property-read \Illuminate\Database\Eloquent\Collection|CompanyUser[] $companyUser
+ * @property-read \Domain\Company\Collections\CompanyCollections<int, Company> $companies
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CompanyUser> $companyUser
  * @property-read string|null $full_name
- * @property-read \Illuminate\Database\Eloquent\Collection|GitAccount[] $gitAccounts
- * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Permission\Models\Permission[] $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, GitAccount> $gitAccounts
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\Permission\Models\Permission> $permissions
  * @property-read \Domain\User\Models\UserProfile|null $profile
- * @property-read \Illuminate\Database\Eloquent\Collection|\Domain\Role\Models\Role[] $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Domain\Role\Models\Role> $roles
  * @property-read \Domain\User\Models\UserSecurity|null $security
- *
- * @method static UserCollection|static[]         all($columns = ['*'])
- * @method static \Database\Factories\UserFactory factory(...$parameters)
- * @method static UserCollection|static[]         get($columns = ['*'])
- * @method static UserQueryBuilders|User          newModelQuery()
- * @method static UserQueryBuilders|User          newQuery()
- * @method static Builder|User                    onlyTrashed()
- * @method static UserQueryBuilders|User          permission($permissions)
- * @method static UserQueryBuilders|User          query()
- * @method static UserQueryBuilders|User          role($roles, $guard = null)
- * @method static UserQueryBuilders|User          whereCreatedAt($value)
- * @method static UserQueryBuilders|User          whereDeletedAt($value)
- * @method static UserQueryBuilders|User          whereEmail($value)
- * @method static UserQueryBuilders|User          whereEmailVerifiedAt($value)
- * @method static UserQueryBuilders|User          whereId($value)
- * @method static UserQueryBuilders|User          whereLocale($value)
- * @method static UserQueryBuilders|User          wherePassword($value)
- * @method static UserQueryBuilders|User          whereRememberToken($value)
- * @method static UserQueryBuilders|User          whereUpdatedAt($value)
- * @method static Builder|User                    withTrashed()
- * @method static Builder|User                    withoutTrashed()
- *
+ * @method static UserCollection<int, static> all($columns = ['*'])
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static UserCollection<int, static> get($columns = ['*'])
+ * @method static UserQueryBuilders|User newModelQuery()
+ * @method static UserQueryBuilders|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
+ * @method static UserQueryBuilders|User permission($permissions)
+ * @method static UserQueryBuilders|User query()
+ * @method static UserQueryBuilders|User role($roles, $guard = null)
+ * @method static UserQueryBuilders|User whereCreatedAt($value)
+ * @method static UserQueryBuilders|User whereDeletedAt($value)
+ * @method static UserQueryBuilders|User whereEmail($value)
+ * @method static UserQueryBuilders|User whereEmailVerifiedAt($value)
+ * @method static UserQueryBuilders|User whereId($value)
+ * @method static UserQueryBuilders|User whereLocale($value)
+ * @method static UserQueryBuilders|User wherePassword($value)
+ * @method static UserQueryBuilders|User whereRememberToken($value)
+ * @method static UserQueryBuilders|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
  * @mixin Eloquent
  */
 class User extends Authenticatable implements MustVerifyEmail

@@ -2,14 +2,14 @@
 
 namespace Domain\Cms\Columns\Options;
 
-use Domain\Cms\Columns\Attributes\Validation;
-use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
+use Domain\Cms\Columns\Definitions\Validation;
+use Domain\Cms\Columns\Options\Types\ArgumentColumnOption;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\NumberInputComponent;
 use Support\Utils\Validations;
 
-class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentDirtyColumnOption, Validation
+class MaxLengthColumnOption extends AbstractColumnOption implements ArgumentColumnOption, Validation
 {
     public function __construct(
         private readonly int $default

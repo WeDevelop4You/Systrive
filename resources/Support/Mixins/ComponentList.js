@@ -6,16 +6,15 @@ import SkeletonDataTable from "../Layout/Skeletons/SkeletonDataTable.vue";
 
 export default {
     components: {
+        IconComponent: () => import('../Components/Misc/Icon.vue'),
         RowComponent: () => import('../Components/Layouts/Row.vue'),
-        IconComponent: () => import('../Components/Misc/Icons/Icon.vue'),
         CustomComponent: () => import('../Components/Misc/Custom.vue'),
-        NavbarComponent: () => import('../Components/Navbar/Navbar.vue'),
-        IconWithTextComponent: () => import('../Components/Misc/Icons/IconWithText.vue'),
+        MenuComponent: () => import('../Components/Menu/Menu.vue'),
+        WrapperComponent: () => import('../Components/Layouts/Wrapper.vue'),
 
         // Buttons
         BtnComponent: () => import('../Components/Buttons/Btn.vue'),
-        IconBtnComponent: () => import('../Components/Buttons/IconBtn.vue'),
-        MultipleBtnComponent: () => import('../Components/Buttons/MultipleBtn.vue'),
+        DropdownBtnComponent: () => import('../Components/Buttons/DropdownBtn.vue'),
 
         // Items
         URLComponent: () => import('../Components/Misc/URL.vue'),

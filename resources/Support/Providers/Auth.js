@@ -11,7 +11,7 @@ class Auth
         this.#vuetify = vuetify
 
 
-        this.#store.dispatch('getLocale')
+        this.#store.dispatch('locale/get')
         this.#createPreferenceSubscriber()
     }
 

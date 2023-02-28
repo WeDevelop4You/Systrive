@@ -2,7 +2,7 @@
 
 namespace Domain\Cms\Actions;
 
-use Domain\Cms\Columns\Attributes\CustomColumn;
+use Domain\Cms\Columns\Definitions\CustomColumn;
 use Domain\Cms\DataTransferObjects\CmsTableData;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Mappings\CmsTableTableMap;
@@ -85,7 +85,7 @@ class CmsTableUpdateAction
         $keys = $columns->pluck(CmsColumnTableMap::COL_ORIGINAL_KEY)->toArray();
 
         return $this->table->columns->partition(function (CmsColumn $column) use ($keys) {
-            return \in_array($column->key, $keys) || \in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS);
+            return \in_array($column->key, $keys) || CmsColumn::isRequired($column->key);
         })->all();
     }
 
@@ -126,7 +126,7 @@ class CmsTableUpdateAction
                 );
 
                 if ($existingColumn instanceof CmsColumn) {
-                    if (!\in_array($existingColumn->key, CmsTableTableMap::REQUIRED_COLUMNS)) {
+                    if (!CmsColumn::isRequired($existingColumn->key)) {
                         $existingColumn->key = $column->key;
                         $existingColumn->type = $column->type;
                         $existingColumn->label = $column->label;

@@ -3,8 +3,8 @@
 namespace Support\Client\Components\Overviews\ListItems;
 
 use Domain\System\Models\SystemTemplate;
-use Support\Client\Components\Attributes\ComponentAsListItem;
 use Support\Client\Components\Misc\ContentComponent;
+use Support\Client\Traits\ComponentAsListItem;
 use Support\Enums\System\SystemTemplateType;
 
 class ListItemContentComponent extends ContentComponent implements ListItemComponent

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\RouteAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
 use Support\Client\Components\Popups\Modals\ConfirmModal;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;

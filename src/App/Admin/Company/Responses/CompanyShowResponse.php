@@ -9,7 +9,7 @@ use Domain\Company\Enums\CompanyModuleTypes;
 use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
@@ -178,7 +178,7 @@ class CompanyShowResponse extends AbstractResponse
                 $this->company->id,
             ]))
             ->setPrependComponent(
-                ButtonComponent::create()
+                BtnComponentType::create()
                     ->setSize()
                     ->setColor()
                     ->setTitle(trans('word.create.create'))

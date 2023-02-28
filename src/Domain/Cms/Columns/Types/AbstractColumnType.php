@@ -2,24 +2,31 @@
 
 namespace Domain\Cms\Columns\Types;
 
-use Domain\Cms\Columns\Attributes\DirtyColumn;
-use Domain\Cms\Columns\Attributes\Validation;
+use Domain\Cms\Columns\Definitions\DirtyColumn;
+use Domain\Cms\Columns\Definitions\Validation;
 use Domain\Cms\Columns\Options\AbstractColumnOption;
-use Domain\Cms\Columns\Options\Types\ArgumentDirtyColumnOption;
-use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
+use Domain\Cms\Columns\Options\Types\ArgumentColumnOption;
+use Domain\Cms\Columns\Options\Types\PropertyColumnOption;
 use Domain\Cms\Mappings\CmsColumnTableMap;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsModel;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Database\Schema\ForeignIdColumnDefinition;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Utils\InputColWrapper;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\DataTable\Build\Column;
+use Support\Graphql\Definitions\Field;
 use Support\Utils\Validations;
 
 abstract class AbstractColumnType
@@ -104,16 +111,16 @@ abstract class AbstractColumnType
     final public function getDefinition(Blueprint $table): ColumnDefinition|ForeignIdColumnDefinition
     {
         $arguments = $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof ArgumentDirtyColumnOption
+            fn (AbstractColumnOption $option) => $option instanceof ArgumentColumnOption
         )->mapWithKeys(
-            fn (ArgumentDirtyColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
+            fn (ArgumentColumnOption $option) => [$option->getArgumentKey() => $option->getValue()]
         )->prepend($this->getKey(), 'column')->toArray();
 
         $column = App::call([$table, $this->type()], $arguments);
 
         $this->getProperties()->filter(
-            fn (AbstractColumnOption $option) => $option instanceof PropertyDirtyColumnOption
-        )->each(function (PropertyDirtyColumnOption $option) use ($column, $table) {
+            fn (AbstractColumnOption $option) => $option instanceof PropertyColumnOption
+        )->each(function (PropertyColumnOption $option) use ($column, $table) {
             $original = $this->getPropertyValue($option->getKey());
 
             if ($option->isDirty($original)) {
@@ -122,6 +129,35 @@ abstract class AbstractColumnType
         });
 
         return $column;
+    }
+
+    /**
+     * @param string $table
+     *
+     * @return array
+     */
+    final public function getGraphqlField(string $table): array
+    {
+        $type = $this->graphqlType($table);
+
+        if ($this->getPropertyValueNullable()) {
+            $type = Type::nonNull($type);
+        }
+
+        return Field::create(
+            $this->getKey(),
+            $type,
+            $this->graphqlArguments(),
+            $this->graphqlResolve()
+        );
+    }
+
+    /**
+     * @return InputObjectType
+     */
+    final public function getGraphqlFilter(): InputObjectType
+    {
+        return $this->graphqlFilter();
     }
 
     /**
@@ -204,14 +240,53 @@ abstract class AbstractColumnType
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    abstract protected function type(): string;
+    final protected function getPropertyValueNullable(): bool
+    {
+        return $this->getPropertyValue('nullable', false);
+    }
 
     /**
      * @return Collection
      */
     abstract protected function options(): Collection;
+
+    /**
+     * @return string
+     */
+    abstract protected function type(): string;
+
+    /**
+     * @param string $table
+     *
+     * @return ListOfType|ObjectType|ScalarType
+     */
+    abstract protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType;
+
+    /**
+     * @return InputObjectType|null
+     */
+    protected function graphqlFilter(): InputObjectType|null
+    {
+        return null;
+    }
+
+    /**
+     * @return array|null
+     */
+    protected function graphqlArguments(): array|null
+    {
+        return null;
+    }
+
+    /**
+     * @return callable|null
+     */
+    protected function graphqlResolve(): callable|null
+    {
+        return null;
+    }
 
     /**
      * @return Column

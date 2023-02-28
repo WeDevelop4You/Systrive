@@ -4,10 +4,10 @@ namespace App\Company\System\Dns\DataTables;
 
 use Illuminate\Support\Str;
 use Support\Abstracts\AbstractTable;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\BadgeComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 
@@ -49,9 +49,9 @@ class SystemDNSRecordTable extends AbstractTable
                 }),
             Column::actions()
                 ->setFormat(function ($data) {
-                    return MultipleButtonComponent::create()
-                        ->setButtons([
-                            IconButtonComponent::create()
+                    return WrapperComponent::create()
+                        ->setComponents([
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH)),
                         ]);
                 }),

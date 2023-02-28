@@ -3,15 +3,21 @@
 namespace Domain\Cms\Columns\Types;
 
 use App\Company\Cms\Resources\CmsTableItemFileResource;
-use Domain\Cms\Columns\Attributes\FileColumn;
-use Domain\Cms\Columns\Attributes\SubValidation;
+use Domain\Cms\Columns\Definitions\FileColumn;
+use Domain\Cms\Columns\Definitions\SubValidation;
 use Domain\Cms\Columns\Options\FIle\Extensions\FileExtensionColumnOption;
 use Domain\Cms\Columns\Options\FIle\FileSizeColumnOption;
 use Domain\Cms\Columns\Options\FIle\MaxFileColumnOption;
 use Domain\Cms\Columns\Options\FIle\MultipleFileColumnOption;
 use Domain\Cms\Columns\Options\Nullables\NullableColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
+use Domain\Cms\Graphql\Models\CmsFileModel;
+use Domain\Cms\Mappings\CmsFileTableMap;
 use Domain\Cms\Models\CmsModel;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rules\File;
@@ -42,6 +48,24 @@ class FileColumnType extends AbstractColumnType implements FileColumn, SubValida
     protected function type(): string
     {
         return 'custom_file';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
+    {
+        return Type::listOf(
+            CmsFileModel::create($table, $this->column)
+        );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlResolve(): callable|null
+    {
+        return fn (CmsModel $root) => $root->files->column($this->getKey());
     }
 
     /**

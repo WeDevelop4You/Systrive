@@ -4,12 +4,18 @@ namespace Domain\Cms\Columns\Types;
 
 use Domain\Cms\Columns\Options\Defaults\DefaultBooleanColumnOption;
 use Domain\Cms\Columns\Options\RowColColumnOption;
+use Domain\Cms\Graphql\Inputs\FilterTypes\CmsFilterTypeBooleanInput;
 use Domain\Cms\Models\CmsModel;
+use GraphQL\Type\Definition\InputObjectType;
+use GraphQL\Type\Definition\ListOfType;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Collection;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
@@ -32,6 +38,23 @@ class BooleanColumnType extends AbstractColumnType
     protected function type(): string
     {
         return 'boolean';
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param string $table
+     */
+    protected function graphqlType(string $table): ObjectType|ListOfType|ScalarType
+    {
+        return Type::boolean();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function graphqlFilter(): InputObjectType|null
+    {
+        return CmsFilterTypeBooleanInput::create($this->getKey());
     }
 
     /**

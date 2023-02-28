@@ -13,6 +13,7 @@ use Domain\Cms\Observers\CmsFileForceDeletedObserver;
 use Domain\Cms\Observers\CmsForceDeletedObserver;
 use Domain\Cms\Observers\CmsModelDeletedObserver;
 use Domain\Cms\Observers\CmsTableDeletedObserver;
+use Domain\Cms\Observers\CmsTableSavingObserver;
 use Domain\Company\Models\Company;
 use Domain\Company\Models\CompanyUser;
 use Domain\Company\Observers\CompanyDeletedObserver;
@@ -77,6 +78,7 @@ class EventServiceProvider extends ServiceProvider
             CmsModelDeletedObserver::class,
         ],
         CmsTable::class => [
+            CmsTableSavingObserver::class,
             CmsTableDeletedObserver::class,
         ],
         Company::class => [

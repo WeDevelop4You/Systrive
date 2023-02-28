@@ -6,7 +6,7 @@ use App\Account\Settings\Responses\SettingsPersonalOverviewResponse;
 use App\Account\Settings\Responses\SettingsSecurityOverviewResponse;
 use Illuminate\Http\JsonResponse;
 use Support\Client\Actions\RouteAction;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
 use Support\Client\Response;
 
 class SettingsPageController

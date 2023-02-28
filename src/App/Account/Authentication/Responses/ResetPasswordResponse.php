@@ -5,8 +5,8 @@ namespace App\Account\Authentication\Responses;
 use App\Account\Authentication\Forms\ResetPasswordForm;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CustomComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Response;
@@ -37,9 +37,9 @@ class ResetPasswordResponse extends AbstractResponse
                         ResetPasswordForm::create()->setVuexNamespace('guest/reset/form')
                     )
                     ->setFooter(
-                        MultipleButtonComponent::create()
-                            ->addButton(
-                                ButtonComponent::create()
+                        WrapperComponent::create()
+                            ->addComponent(
+                                BtnComponentType::create()
                                     ->setColor()
                                     ->setType(VuetifyButtonType::BLOCK)
                                     ->setTitle(trans('word.password.reset'))

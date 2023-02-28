@@ -2,8 +2,8 @@
 
 namespace Support\Client\Components\Misc;
 
-use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Component;
+use Support\Client\Traits\ComponentWithClasses;
 
 class LabelComponent extends Component
 {

@@ -9,10 +9,10 @@ use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\BreadcrumbAction;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Overviews\ListItems\ListItemContentComponent;
@@ -54,10 +54,10 @@ class SettingsSecurityOverviewResponse extends AbstractResponse
                     )
                     ->addBody(SettingsPasswordForm::create()->setVuexNamespace('settings/password/form'))
                     ->setFooter(
-                        MultipleButtonComponent::create()
+                        WrapperComponent::create()
                             ->setClass('px-2')
-                            ->addButton(
-                                ButtonComponent::create()
+                            ->addComponent(
+                                BtnComponentType::create()
                                     ->setColor()
                                     ->setTitle(trans('word.save.save'))
                                     ->setAction(
@@ -107,27 +107,27 @@ class SettingsSecurityOverviewResponse extends AbstractResponse
                                 ColComponent::create()
                                     ->setDefaultCol('auto')
                                     ->setComponent(
-                                        MultipleButtonComponent::create()
+                                        WrapperComponent::create()
                                             ->setClass('gap-3')
-                                            ->addButtonIf(
+                                            ->addComponentIf(
                                                 !$isEnabled,
-                                                ButtonComponent::create()
+                                                BtnComponentType::create()
                                                     ->setColor()
                                                     ->setTitle(trans('word.enable.enable'))
                                                     ->setAction(RequestAction::create()->get(
                                                         route('account.settings.2fa.qrcode')
                                                     ))
                                             )
-                                            ->addButtonIf(
+                                            ->addComponentIf(
                                                 $isEnabled,
-                                                ButtonComponent::create()
+                                                BtnComponentType::create()
                                                     ->setColor()
                                                     ->setTitle(trans('word.downloaded.recovery.codes'))
                                                     ->setHref(route('account.settings.download.recovery.codes'))
                                             )
-                                            ->addButtonIf(
+                                            ->addComponentIf(
                                                 $isEnabled,
-                                                ButtonComponent::create()
+                                                BtnComponentType::create()
                                                     ->setColor(VuetifyColor::ERROR)
                                                     ->setTitle(trans('word.disable.disable'))
                                                     ->setAction(RequestAction::create()->delete(

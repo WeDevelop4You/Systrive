@@ -19,7 +19,6 @@ use Support\Services\Cms;
  *
  * @method static Builder|CmsModel newModelQuery()
  * @method static Builder|CmsModel newQuery()
- * @method static Builder|CmsModel query()
  * @method static Builder|CmsModel whereCreatedAt($value)
  * @method static Builder|CmsModel whereId($value)
  * @method static Builder|CmsModel whereUpdatedAt($value)

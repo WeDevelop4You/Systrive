@@ -6,10 +6,10 @@ use App\Account\Authentication\Forms\LoginForm;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RouteAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\CustomComponent;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Response;
 use Support\Enums\Component\Vuetify\VuetifyButtonType;
@@ -35,10 +35,10 @@ class LoginResponse extends AbstractResponse
                         LoginForm::create()->setVuexNamespace('guest/login/form')
                     )
                     ->setFooter(
-                        MultipleButtonComponent::create()
+                        WrapperComponent::create()
                             ->setClass('gap-3')
-                            ->setButtons([
-                                ButtonComponent::create()
+                            ->setComponents([
+                                BtnComponentType::create()
                                     ->setColor()
                                     ->setType(VuetifyButtonType::BLOCK)
                                     ->setTitle(trans('word.login.login'))
@@ -48,7 +48,7 @@ class LoginResponse extends AbstractResponse
                                             route('account.login')
                                         )
                                     ),
-                                ButtonComponent::create()
+                                BtnComponentType::create()
                                     ->setSize(VuetifySizeType::X_SMALL)
                                     ->setType(VuetifyButtonType::BLOCK)
                                     ->setTitle(trans('word.password.forgot'))

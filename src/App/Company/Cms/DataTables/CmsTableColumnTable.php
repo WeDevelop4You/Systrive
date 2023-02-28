@@ -9,10 +9,10 @@ use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\BadgeComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
@@ -55,9 +55,9 @@ class CmsTableColumnTable extends AbstractTable
                 }),
             Column::actions()
                 ->setFormat(function (CmsColumn $data) {
-                    return MultipleButtonComponent::create()
-                        ->addButton(
-                            IconButtonComponent::create()
+                    return WrapperComponent::create()
+                        ->addComponent(
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setColorOnHover(VuetifyColor::WARNING)
                                 ->setAction(
@@ -71,9 +71,9 @@ class CmsTableColumnTable extends AbstractTable
                                     )
                                 )
                         )
-                        ->addButtonIf(
+                        ->addComponentIf(
                             $data->deletable,
-                            IconButtonComponent::create()
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                 ->setColorOnHover(VuetifyColor::ERROR)
                                 ->setAction(

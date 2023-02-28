@@ -7,12 +7,12 @@ use Domain\Company\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Misc\Icons\IconComponent;
-use Support\Client\Components\Navbar\Helpers\VueRouteHelper;
-use Support\Client\Components\Navbar\NavbarComponent;
-use Support\Client\Components\Navbar\Navigations\GroupNavigationComponent;
-use Support\Client\Components\Navbar\Navigations\Items\NavigationCustomItemComponent;
-use Support\Client\Components\Navbar\Navigations\Items\NavigationItemComponent;
+use Support\Client\Components\Menu\Helpers\VueRouteHelper;
+use Support\Client\Components\Menu\Items\CustomMenuItemComponent;
+use Support\Client\Components\Menu\Items\MenuItemComponent;
+use Support\Client\Components\Menu\MenuComponent;
+use Support\Client\Components\Menu\Types\GroupMenuTypeComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Response;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\NavigationCustomItemType;
@@ -30,29 +30,29 @@ class NavigationResponse extends AbstractResponse
 
         return Response::create()
             ->addComponent(
-                NavbarComponent::create()
+                MenuComponent::create()
                     ->setNav()
-                    ->addItem(
-                        GroupNavigationComponent::create()
-                            ->setNavigation([
+                    ->addType(
+                        GroupMenuTypeComponent::create()
+                            ->addItems([
                                 $this->createSettings(),
                             ])
                     )
                     ->addDivider()
-                    ->addItem(
-                        GroupNavigationComponent::create()
-                            ->addNavigation(
-                                NavigationCustomItemComponent::create()
+                    ->addType(
+                        GroupMenuTypeComponent::create()
+                            ->addItem(
+                                CustomMenuItemComponent::create()
                                     ->setTitle(trans('word.dark.mode'))
                                     ->setType(NavigationCustomItemType::DARK_MODE_SWITCH)
                             )
                     )
                     ->addDivider()
-                    ->addItem(
-                        GroupNavigationComponent::create()
-                            ->addNavigationIf($showSwitcher, $this->createSwitcher())
-                            ->addNavigation(
-                                NavigationItemComponent::create()
+                    ->addType(
+                        GroupMenuTypeComponent::create()
+                            ->addItemIf($showSwitcher, $this->createSwitcher())
+                            ->addItem(
+                                MenuItemComponent::create()
                                     ->setTitle(trans('word.logout'))
                                     ->setPrepend(IconComponent::create()->setType(IconType::FAS_SIGN_OUT_ALT))
                                     ->setAction(
@@ -64,11 +64,11 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return NavigationItemComponent
+     * @return MenuItemComponent
      */
-    private function createSettings(): NavigationItemComponent
+    private function createSettings(): MenuItemComponent
     {
-        $nav = NavigationItemComponent::create()
+        $nav = MenuItemComponent::create()
             ->setTitle(trans('word.settings'))
             ->setPrepend(IconComponent::create()->setType(IconType::FAS_COG));
 
@@ -82,11 +82,11 @@ class NavigationResponse extends AbstractResponse
     }
 
     /**
-     * @return NavigationItemComponent
+     * @return MenuItemComponent
      */
-    private function createSwitcher(): NavigationItemComponent
+    private function createSwitcher(): MenuItemComponent
     {
-        $nav = NavigationItemComponent::create()
+        $nav = MenuItemComponent::create()
             ->setTitle(trans('word.switcher.switcher'))
             ->setPrepend(IconComponent::create()->setType(IconType::FAS_RANDOM));
 

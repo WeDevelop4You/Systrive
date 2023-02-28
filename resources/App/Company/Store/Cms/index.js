@@ -1,4 +1,5 @@
 import Vue from "vue";
+import api from "./api";
 import table from "./Table";
 
 const app = Vue.prototype
@@ -40,6 +41,7 @@ export default {
     },
 
     modules: {
+        api: api,
         table: table,
     }
 }

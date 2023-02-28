@@ -3,12 +3,11 @@
 namespace Support\Client\Components\Misc;
 
 use Support\Client\Actions\Action;
-use Support\Client\Components\Attributes\ComponentWithClasses;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
 use Support\Client\Components\Component;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Utils\ThemeComponent;
+use Support\Client\Traits\ComponentWithClasses;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 
@@ -45,11 +44,11 @@ class CardHeaderComponent extends Component
     }
 
     /**
-     * @param MultipleButtonComponent $button
+     * @param WrapperComponent $button
      *
      * @return $this
      */
-    public function setButton(MultipleButtonComponent $button): static
+    public function setButton(WrapperComponent $button): static
     {
         return $this->setData('button', $button->export());
     }
@@ -62,9 +61,9 @@ class CardHeaderComponent extends Component
     public function setCloseButton(Action $action): static
     {
         return $this->setButton(
-            MultipleButtonComponent::create()
-                ->addButton(
-                    IconButtonComponent::create()
+            WrapperComponent::create()
+                ->addComponent(
+                    IconBtnComponent::create()
                         ->setIcon(IconComponent::create()->setType(IconType::FAS_TIMES))
                         ->setAction($action)
                 )

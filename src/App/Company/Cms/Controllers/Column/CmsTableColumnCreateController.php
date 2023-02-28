@@ -6,7 +6,6 @@ use App\Company\Cms\DataTables\CmsTableColumnTable;
 use App\Company\Cms\Requests\CmsTableColumnRequest;
 use App\Company\Cms\Resources\CmsTableColumnResource;
 use App\Company\Cms\Responses\Column\CmsTableColumnCreateResponse;
-use Domain\Cms\Mappings\CmsTableTableMap;
 use Domain\Cms\Models\Cms;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Company\Models\Company;
@@ -45,7 +44,7 @@ class CmsTableColumnCreateController
     public function action(CmsTableColumnRequest $request, Company $company, Cms $cms): JsonResponse
     {
         $column = new CmsColumn($request->validated());
-        $column->deletable = !\in_array($column->key, CmsTableTableMap::REQUIRED_COLUMNS);
+        $column->deletable = CmsColumn::isRequired($column->key);
 
         $items = Rows::create(
             Collection::make([$column]),

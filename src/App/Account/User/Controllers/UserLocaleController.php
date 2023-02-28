@@ -5,8 +5,10 @@ namespace App\Account\User\Controllers;
 use Domain\User\Actions\UpdateUserLocaleAction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Support\Client\Components\Popups\Notifications\SimpleNotificationComponent;
 use Support\Client\Response;
@@ -23,8 +25,11 @@ class UserLocaleController
             ? Auth::user()->locale
             : Session::get('locale', App::getFallbackLocale());
 
+        $name = Arr::get(Config::get('translation.locales', []), $locale);
+
         return Response::create()->addData([
-            'locale' => $locale,
+            'name' => $name,
+            'identifier' => $locale,
         ])->toJson();
     }
 
@@ -37,7 +42,7 @@ class UserLocaleController
     {
         $response = Response::create();
 
-        if (\in_array($locale, config('translation.locales'))) {
+        if (Arr::has(Config::get('translation.locales', []), $locale)) {
             (new UpdateUserLocaleAction())($locale);
         } else {
             $response->addPopup(SimpleNotificationComponent::create()->setText(trans('response.error.locale')))

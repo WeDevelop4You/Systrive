@@ -1,4 +1,5 @@
 import Vue from "vue";
+import api from "./api";
 import items from "./items";
 import columns from "./columns";
 import formBase from "../../../../../Support/Store/Base/formBase";
@@ -63,6 +64,7 @@ export default {
         form: formBase(),
         overview: overviewBase(),
 
+        api: api,
         items: items,
         columns: columns
     }

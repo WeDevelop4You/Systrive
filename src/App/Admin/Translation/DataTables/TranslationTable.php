@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
 use Support\Client\Components\Misc\GroupBadgesComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
 use WeDevelop4You\TranslationFinder\Models\Translation;
@@ -62,9 +62,9 @@ class TranslationTable extends AbstractTable
                 }),
             Column::actions()
                 ->setFormat(function (TranslationKey $data) {
-                    return MultipleButtonComponent::create()
-                        ->setButtons([
-                            IconButtonComponent::create()
+                    return WrapperComponent::create()
+                        ->setComponents([
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                                 ->setAction(
                                     VuexAction::create()
@@ -75,7 +75,7 @@ class TranslationTable extends AbstractTable
                                             ])
                                         )
                                 ),
-                            IconButtonComponent::create()
+                            IconBtnComponent::create()
                                 ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                 ->setAction(
                                     RequestAction::create()

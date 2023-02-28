@@ -3,8 +3,8 @@
 namespace Domain\Cms\Columns\Options;
 
 use Doctrine\DBAL\Exception;
-use Domain\Cms\Columns\Attributes\Validation;
-use Domain\Cms\Columns\Options\Types\PropertyDirtyColumnOption;
+use Domain\Cms\Columns\Definitions\Validation;
+use Domain\Cms\Columns\Options\Types\PropertyColumnOption;
 use Domain\Cms\Models\CmsColumn;
 use Domain\Cms\Models\CmsModel;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +16,7 @@ use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
 use Support\Client\Components\Forms\Inputs\CheckboxInputComponent;
 use Support\Utils\Validations;
 
-class UniqueColumnOption extends AbstractColumnOption implements PropertyDirtyColumnOption, Validation
+class UniqueColumnOption extends AbstractColumnOption implements PropertyColumnOption, Validation
 {
     protected function col(): int
     {

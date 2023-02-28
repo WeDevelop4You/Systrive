@@ -2,10 +2,10 @@
 
 namespace Support\Client\Components\Overviews\ListItems;
 
-use Support\Client\Components\Attributes\ComponentAsListItem;
-use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Component;
 use Support\Client\Components\Utils\ThemeComponent;
+use Support\Client\Traits\ComponentAsListItem;
+use Support\Client\Traits\ComponentWithClasses;
 use Support\Enums\Component\Vuetify\VuetifyTextColor;
 
 class ListItemURLComponent extends Component implements ListItemComponent

@@ -95,7 +95,7 @@
     import Popup from "./PopupLayout.vue";
     import Breadcrumb from './BreadcrumbLayout.vue'
     import SvgLogoLine from '../Components/Svg/Logo.vue'
-    import Navbar from "../Components/Navbar/Navbar.vue";
+    import Navbar from "../Components/Menu/Menu.vue";
     import SkeletonNavbar from "./Skeletons/SkeletonNavbar.vue";
 
     export default {

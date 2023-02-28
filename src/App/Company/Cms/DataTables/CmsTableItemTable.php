@@ -9,9 +9,9 @@ use Domain\Company\Models\Company;
 use Support\Abstracts\AbstractTable;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Utils\TooltipComponent;
 use Support\Client\DataTable\Build\Column;
 use Support\Enums\Component\IconType;
@@ -51,13 +51,13 @@ class CmsTableItemTable extends AbstractTable
     /**
      * @param CmsModel $data
      *
-     * @return MultipleButtonComponent
+     * @return WrapperComponent
      */
-    private function createEditActions(CmsModel $data): MultipleButtonComponent
+    private function createEditActions(CmsModel $data): WrapperComponent
     {
-        return MultipleButtonComponent::create()
-            ->setButtons([
-                IconButtonComponent::create()
+        return WrapperComponent::create()
+            ->setComponents([
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::WARNING)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
                     ->setTooltip(
@@ -76,7 +76,7 @@ class CmsTableItemTable extends AbstractTable
                             ])
                         )
                     ),
-                IconButtonComponent::create()
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::ERROR)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                     ->setTooltip(
@@ -97,11 +97,11 @@ class CmsTableItemTable extends AbstractTable
             ]);
     }
 
-    private function createViewAction(CmsModel $data): MultipleButtonComponent
+    private function createViewAction(CmsModel $data): WrapperComponent
     {
-        return MultipleButtonComponent::create()
-            ->addButton(
-                IconButtonComponent::create()
+        return WrapperComponent::create()
+            ->addComponent(
+                IconBtnComponent::create()
                     ->setColorOnHover(VuetifyColor::INFO)
                     ->setIcon(IconComponent::create()->setType(IconType::FAS_EYE))
                     ->setTooltip(

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
 use Support\Client\Components\Forms\FormComponent;
 use Support\Client\Components\Popups\Modals\FormModal;
 use Support\Client\Response;
@@ -59,7 +59,7 @@ class CmsTableItemRestoreResponse extends AbstractResponse
                     ))
                     ->addFooterCancelButton()
                     ->addFooter(
-                        ButtonComponent::create()
+                        BtnComponentType::create()
                             ->setColor()
                             ->setTitle(trans('word.restore.restore'))
                             ->setAction(

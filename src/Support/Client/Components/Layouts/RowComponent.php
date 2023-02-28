@@ -2,9 +2,9 @@
 
 namespace Support\Client\Components\Layouts;
 
-use Support\Client\Components\Attributes\ComponentWithClasses;
-use Support\Client\Components\Attributes\ComponentWithIfStatement;
 use Support\Client\Components\Component;
+use Support\Client\Traits\ComponentWithClasses;
+use Support\Client\Traits\ComponentWithIfStatement;
 use Support\Enums\Component\Vuetify\VuetifyAlignType;
 use Support\Enums\Component\Vuetify\VuetifyJustifyType;
 

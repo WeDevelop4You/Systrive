@@ -9,7 +9,7 @@ abstract class AbstractRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules(): array
+    final public function rules(): array
     {
         return array_merge_recursive(
             $this->defaultRules(),

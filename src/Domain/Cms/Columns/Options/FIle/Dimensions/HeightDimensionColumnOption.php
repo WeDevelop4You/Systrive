@@ -6,7 +6,7 @@ use Domain\Cms\Columns\Options\AbstractColumnOption;
 use Domain\Cms\Rules\DimensionRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Support\Client\Components\Forms\Inputs\AbstractInputComponent;
-use Support\Client\Components\Forms\Inputs\Custom\CustomDimensionInputComponent;
+use Support\Client\Components\Forms\Inputs\Custom\CustomDimensionInputComponentType;
 use Support\Utils\Validations;
 
 class HeightDimensionColumnOption extends AbstractColumnOption
@@ -37,7 +37,7 @@ class HeightDimensionColumnOption extends AbstractColumnOption
      */
     protected function inputComponent(bool $isEditing): AbstractInputComponent
     {
-        return CustomDimensionInputComponent::create()
+        return CustomDimensionInputComponentType::create()
             ->setLabel(trans('word.height.height'));
     }
 

@@ -2,9 +2,9 @@
 
 namespace Support\Client\Components\Misc;
 
-use Support\Client\Components\Attributes\ComponentWithClasses;
 use Support\Client\Components\Component;
 use Support\Client\Components\Utils\ThemeComponent;
+use Support\Client\Traits\ComponentWithClasses;
 use Support\Enums\Component\Vuetify\VuetifyColor;
 
 class BadgeComponent extends Component

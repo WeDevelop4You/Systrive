@@ -10,20 +10,25 @@ use Illuminate\Support\Facades\Auth;
 use Support\Abstracts\AbstractResponse;
 use Support\Client\Actions\RequestAction;
 use Support\Client\Actions\VuexAction;
-use Support\Client\Components\Buttons\ButtonComponent;
-use Support\Client\Components\Buttons\IconButtonComponent;
-use Support\Client\Components\Buttons\MultipleButtonComponent;
+use Support\Client\Components\Buttons\BtnComponentType;
+use Support\Client\Components\Buttons\DropdownBtnComponent;
+use Support\Client\Components\Buttons\IconBtnComponent;
 use Support\Client\Components\Forms\FormComponent;
 use Support\Client\Components\Layouts\ColComponent;
 use Support\Client\Components\Layouts\RowComponent;
+use Support\Client\Components\Layouts\WrapperComponent;
+use Support\Client\Components\Menu\Items\MenuItemComponent;
+use Support\Client\Components\Menu\MenuComponent;
+use Support\Client\Components\Menu\Types\GroupMenuTypeComponent;
 use Support\Client\Components\Misc\CardHeaderComponent;
-use Support\Client\Components\Misc\Icons\IconComponent;
+use Support\Client\Components\Misc\IconComponent;
 use Support\Client\Components\Overviews\CardComponent;
 use Support\Client\Components\Overviews\Tables\ServerTableComponent;
 use Support\Client\Components\Utils\TooltipComponent;
 use Support\Client\Response;
 use Support\Enums\Component\IconType;
 use Support\Enums\Component\Vuetify\VuetifyColor;
+use Support\Enums\Component\Vuetify\VuetifyTransitionType;
 
 class CmsTableOverviewResponse extends AbstractResponse
 {
@@ -40,27 +45,21 @@ class CmsTableOverviewResponse extends AbstractResponse
      */
     protected function handle(): Response
     {
-        $response = Response::create();
+        $response = Response::create()->addComponent(
+            RowComponent::create()->setCols([
+                $this->createTopBar(),
+                $this->isTable() ? $this->createTable() : $this->createForm()
+            ])
+        );
 
-        if ($this->table->is_table) {
-            $content = $this->createTable();
-        } else {
-            $content = $this->createForm();
-
+        if (!$this->isTable()) {
             $response->addAction(VuexAction::create()->dispatch(
                 'cms/table/items/init',
                 'form'
             ));
         }
 
-        return $response->addComponent(
-            RowComponent::create()
-                ->addColIf(
-                    Auth::user()->isSuperAdmin(),
-                    $this->createTopBar()
-                )
-                ->addCol($content)
-        );
+        return $response;
     }
 
     /**
@@ -72,28 +71,45 @@ class CmsTableOverviewResponse extends AbstractResponse
             CardComponent::create()
                 ->setHeader(
                     CardHeaderComponent::create()
+                        ->setTitle($this->table->label)
                         ->setButton(
-                            MultipleButtonComponent::create()
-                                ->setButtons([
-                                    IconButtonComponent::create()
-                                        ->setColorOnHover(VuetifyColor::WARNING)
-                                        ->setIcon(IconComponent::create()->setType(IconType::FAS_PEN))
+                            WrapperComponent::create()
+                                ->addComponentIf(
+                                    !$this->isTable(),
+                                    IconBtnComponent::create()
+                                        ->setIcon(
+                                            IconComponent::create()->setType(IconType::FAS_HISTORY)
+                                        )
                                         ->setAction(
-                                            VuexAction::create()->dispatch(
-                                                'cms/table/edit',
-                                                route('company.cms.table.edit', [
+                                            RequestAction::create()->get(
+                                                route('company.cms.table.item.history', [
                                                     $this->company->id,
                                                     $this->cms->id,
                                                     $this->table->id,
                                                 ])
                                             )
                                         )
-                                        ->setTooltip(
-                                            TooltipComponent::create()
-                                                ->setTop()
-                                                ->setText(trans('word.edit.edit'))
-                                        ),
-                                    IconButtonComponent::create()
+                                )
+                                ->addComponentIf(
+                                    Auth::user()->isSuperAdmin(),
+                                    DropdownBtnComponent::create()
+                                        ->setBottom()
+                                        ->setOffsetY()
+                                        ->setTransition(VuetifyTransitionType::SLIDE_Y)
+                                        ->setButton(
+                                            IconBtnComponent::create()
+                                                ->setIcon(IconComponent::create()->setType(IconType::FAS_COG))
+                                                ->setTooltip(
+                                                    TooltipComponent::create()
+                                                        ->setTop()
+                                                        ->setText(trans('word.settings.settings'))
+                                                )
+                                        )
+                                        ->setMenu($this->createMenu())
+                                )
+                                ->addComponentIf(
+                                    Auth::user()->isSuperAdmin(),
+                                    IconBtnComponent::create()
                                         ->setColorOnHover(VuetifyColor::ERROR)
                                         ->setIcon(IconComponent::create()->setType(IconType::FAS_TRASH))
                                         ->setAction(
@@ -109,11 +125,51 @@ class CmsTableOverviewResponse extends AbstractResponse
                                             TooltipComponent::create()
                                                 ->setTop()
                                                 ->setText(trans('word.delete.delete'))
-                                        ),
-                                ])
+                                        )
+                                )
                         )
                 )
         );
+    }
+
+    /**
+     * @return MenuComponent
+     */
+    private function createMenu(): MenuComponent
+    {
+        return MenuComponent::create()
+            ->setNav()
+            ->addType(
+                GroupMenuTypeComponent::create()
+                    ->addItems([
+                        MenuItemComponent::create()
+                            ->setTitle(trans('word.table.table'))
+                            ->setPrepend(IconComponent::create()->setType(IconType::FAS_PEN))
+                            ->setAction(
+                                VuexAction::create()->dispatch(
+                                    'cms/table/edit',
+                                    route('company.cms.table.edit', [
+                                        $this->company->id,
+                                        $this->cms->id,
+                                        $this->table->id,
+                                    ])
+                                )
+                            ),
+                        MenuItemComponent::create()
+                            ->setTitle(trans('word.api.api'))
+                            ->setPrepend(IconComponent::create()->setType(IconType::FAS_CLOUD))
+                            ->setAction(
+                                VuexAction::create()->dispatch(
+                                    'cms/table/api/edit',
+                                    route('company.cms.table.api', [
+                                        $this->company->id,
+                                        $this->cms->id,
+                                        $this->table->id,
+                                    ])
+                                )
+                            )
+                    ])
+            );
     }
 
     /**
@@ -124,7 +180,6 @@ class CmsTableOverviewResponse extends AbstractResponse
         return ColComponent::create()->setComponent(
             ServerTableComponent::create()
                 ->setSearchable()
-                ->setTitle($this->table->label)
                 ->setVuexNamespace('cms/table/items/dataTable')
                 ->setHeaderRoute(route('company.cms.table.item.table.headers', [
                     $this->company->id,
@@ -139,7 +194,7 @@ class CmsTableOverviewResponse extends AbstractResponse
                     'default',
                 ]))
                 ->setPrependComponent(
-                    ButtonComponent::create()
+                    BtnComponentType::create()
                         ->setColor()
                         ->setTitle('word.create.create')
                         ->setAction(
@@ -162,28 +217,6 @@ class CmsTableOverviewResponse extends AbstractResponse
 
         return ColComponent::create()->setComponent(
             CardComponent::create()
-                ->setHeader(
-                    CardHeaderComponent::create()
-                        ->setTitle($this->table->label)
-                        ->setButton(
-                            MultipleButtonComponent::create()
-                                ->addButton(
-                                    IconButtonComponent::create()
-                                        ->setIcon(
-                                            IconComponent::create()->setType(IconType::FAS_HISTORY)
-                                        )
-                                        ->setAction(
-                                            RequestAction::create()->get(
-                                                route('company.cms.table.item.history', [
-                                                    $this->company->id,
-                                                    $this->cms->id,
-                                                    $this->table->id,
-                                                ])
-                                            )
-                                        )
-                                )
-                        )
-                )
                 ->addBody(
                     FormComponent::create()
                         ->setVuexNamespace('cms/table/items/form')
@@ -192,10 +225,10 @@ class CmsTableOverviewResponse extends AbstractResponse
                         )
                 )
                 ->setFooter(
-                    MultipleButtonComponent::create()
+                    WrapperComponent::create()
                         ->setClass('gap-3')
-                        ->addButton(
-                            ButtonComponent::create()
+                        ->addComponent(
+                            BtnComponentType::create()
                                 ->setColor()
                                 ->setTitle(trans('word.save.save'))
                                 ->setAction(
@@ -212,5 +245,10 @@ class CmsTableOverviewResponse extends AbstractResponse
                 )
                 ->addAdditionalBodyClass('px-4')
         );
+    }
+
+    private function isTable(): bool
+    {
+        return $this->table->is_table;
     }
 }

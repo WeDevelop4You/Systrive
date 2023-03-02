@@ -3,21 +3,25 @@
 namespace Support\Helpers;
 
 use App\Account\Settings\Responses\SettingsOverviewResponse;
+use BadMethodCallException;
 use Domain\Company\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Stringable;
 use Str;
 
 /**
- * @method static isMiscDomain()
- * @method static isAdminDomain()
- * @method static isCompanyDomain()
- * @method static isAccountDomain()
- * @method static getMiscDomain()
- * @method static getAdminDomain()
- * @method static getCompanyDomain()
- * @method static getAccountDomain()
+ * @method static bool   isApiDomain()
+ * @method static bool   isMainDomain()
+ * @method static bool   isMiscDomain()
+ * @method static bool   isAdminDomain()
+ * @method static bool   isCompanyDomain()
+ * @method static bool   isAccountDomain()
+ * @method static string getApiDomain()
+ * @method static string getMiscDomain()
+ * @method static string getMainDomain()
+ * @method static string getAdminDomain()
+ * @method static string getCompanyDomain()
+ * @method static string getAccountDomain()
  */
 class ApplicationHelper
 {
@@ -87,34 +91,6 @@ class ApplicationHelper
     }
 
     /**
-     * @param string $name
-     * @param array  $arguments
-     *
-     * @return bool|string
-     */
-    public static function __callStatic(string $name, array $arguments)
-    {
-        $name = Str::of($name);
-
-        return match (true) {
-            self::isMethod($name, 'is', 'Domain') => self::isDomain($name->between('is', 'Domain')->lower()),
-            self::isMethod($name, 'get', 'Domain') => self::getDomain($name->between('get', 'Domain')->lower())
-        };
-    }
-
-    /**
-     * @param Stringable $name
-     * @param string     $start
-     * @param string     $end
-     *
-     * @return bool
-     */
-    private static function isMethod(Stringable $name, string $start, string $end): bool
-    {
-        return $name->startsWith($start) && $name->endsWith($end);
-    }
-
-    /**
      * @param string $application
      *
      * @return bool
@@ -132,5 +108,26 @@ class ApplicationHelper
     private static function getDomain(string $application): string
     {
         return Config::get("applications.{$application}.routes.domain");
+    }
+
+    /**
+     * @param string $name
+     * @param array  $arguments
+     *
+     * @return bool|string
+     */
+    public static function __callStatic(string $name, array $arguments)
+    {
+        $name = Str::of($name);
+
+        if ($name->endsWith('Domain')) {
+            return match (true) {
+                $name->startsWith('is') => self::isDomain($name->between('is', 'Domain')->lower()),
+                $name->startsWith('get') => self::getDomain($name->between('get', 'Domain')->lower()),
+                default => throw new BadMethodCallException()
+            };
+        }
+
+        throw new BadMethodCallException();
     }
 }

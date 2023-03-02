@@ -19,7 +19,8 @@ class CreatePersonalAccessTokensTable extends Migration
             $table->string('name');
             $table->string('token', 64)->unique();
             $table->text('abilities')->nullable();
-            $table->text('domains')->nullable();
+            $table->integer('restriction')->default(0);
+            $table->text('stateful')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
         });

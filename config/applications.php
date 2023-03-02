@@ -99,7 +99,7 @@ return [
             'files' => [
                 [
                     'filename' => 'api.php',
-                    'middleware' => 'api',
+                    'middleware' => 'api.cms',
                 ],
             ],
             'plurals' => [

@@ -4,6 +4,8 @@ namespace Support\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+use Support\Helpers\ApplicationHelper;
 
 class Authenticate extends Middleware
 {
@@ -16,10 +18,10 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request): ?string
     {
-        if (!$request->expectsJson()) {
-            return route('account.view.auth');
+        if ($request->expectsJson() || ApplicationHelper::isApiDomain()) {
+            abort(Response::json(['message' => 'unauthorized'], 401));
         }
 
-        return null;
+        return route('account.view.auth');
     }
 }

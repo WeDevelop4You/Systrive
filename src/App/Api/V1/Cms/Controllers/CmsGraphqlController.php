@@ -18,11 +18,13 @@ use Support\Services\Cms;
 
 class CmsGraphqlController
 {
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
     public function index(Request $request): JsonResponse
     {
-        dd($request->server);
-        dd($request->headers->get('referer') ?: $request->headers->get('origin'));
-
         $token = ApiAccessToken::findToken($request->bearerToken());
 
         Cms::createConnection($token->tokenable);

@@ -70,6 +70,14 @@ class HttpKernel extends Kernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Support\Middleware\Localization::class,
         ],
+
+        'api.cms' => [
+            'throttle:api',
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            'auth:sanctum',
+            \Support\Middleware\EnsureApiRequestsAreStateful::class
+        ]
     ];
 
     /**

@@ -10,20 +10,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Domain\Cms\Models\CmsFile
  *
- * @property int                             $id
- * @property string                          $table_type
- * @property int                             $table_id
- * @property string                          $table_key
- * @property string                          $path
- * @property string                          $name
- * @property string                          $type
- * @property int                             $size
+ * @property int $id
+ * @property string $table_type
+ * @property int $table_id
+ * @property string $table_key
+ * @property string $path
+ * @property string $name
+ * @property string $type
+ * @property int $size
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- *
- * @method static CmsFileCollection<int,                        static> all($columns = ['*'])
- * @method static CmsFileCollection<int,                        static> get($columns = ['*'])
+ * @method static CmsFileCollection<int, static> all($columns = ['*'])
+ * @method static CmsFileCollection<int, static> get($columns = ['*'])
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile onlyTrashed()
@@ -41,7 +40,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CmsFile withoutTrashed()
- *
  * @mixin \Eloquent
  */
 class CmsFile extends Model

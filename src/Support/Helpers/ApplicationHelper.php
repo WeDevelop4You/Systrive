@@ -7,16 +7,15 @@ use BadMethodCallException;
 use Domain\Company\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Stringable;
 use Str;
 
 /**
- * @method static bool isApiDomain()
- * @method static bool isMainDomain()
- * @method static bool isMiscDomain()
- * @method static bool isAdminDomain()
- * @method static bool isCompanyDomain()
- * @method static bool isAccountDomain()
+ * @method static bool   isApiDomain()
+ * @method static bool   isMainDomain()
+ * @method static bool   isMiscDomain()
+ * @method static bool   isAdminDomain()
+ * @method static bool   isCompanyDomain()
+ * @method static bool   isAccountDomain()
  * @method static string getApiDomain()
  * @method static string getMiscDomain()
  * @method static string getMainDomain()

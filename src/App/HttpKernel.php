@@ -76,8 +76,8 @@ class HttpKernel extends Kernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\Session\Middleware\StartSession::class,
             'auth:sanctum',
-            \Support\Middleware\EnsureApiRequestsAreStateful::class
-        ]
+            \Support\Middleware\EnsureApiRequestsAreStateful::class,
+        ],
     ];
 
     /**

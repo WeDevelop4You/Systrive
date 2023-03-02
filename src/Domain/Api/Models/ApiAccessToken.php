@@ -10,18 +10,19 @@ use Laravel\Sanctum\PersonalAccessToken;
 /**
  * Domain\Api\Models\ApiAccessToken
  *
- * @property int $id
- * @property string $tokenable_type
- * @property int $tokenable_id
- * @property string $name
- * @property string $token
- * @property string|null $abilities
- * @property ApiAccessTokenRestrictionType $restriction
- * @property array|null $stateful
- * @property mixed|null $last_used_at
+ * @property int                             $id
+ * @property string                          $tokenable_type
+ * @property int                             $tokenable_id
+ * @property string                          $name
+ * @property string                          $token
+ * @property string|null                     $abilities
+ * @property ApiAccessTokenRestrictionType   $restriction
+ * @property array|null                      $stateful
+ * @property mixed|null                      $last_used_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $tokenable
+ * @property-read \Illuminate\Database\Eloquent\Model|Eloquent $tokenable
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|ApiAccessToken newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApiAccessToken newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ApiAccessToken query()
@@ -36,6 +37,7 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static \Illuminate\Database\Eloquent\Builder|ApiAccessToken whereTokenableId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApiAccessToken whereTokenableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ApiAccessToken whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class ApiAccessToken extends PersonalAccessToken
@@ -50,11 +52,11 @@ class ApiAccessToken extends PersonalAccessToken
         ApiAccessTokenTableMap::COL_RESTRICTION,
         ApiAccessTokenTableMap::COL_LAST_USED_AT,
         ApiAccessTokenTableMap::COL_TOKENABLE_ID,
-        ApiAccessTokenTableMap::COL_TOKENABLE_TYPE
+        ApiAccessTokenTableMap::COL_TOKENABLE_TYPE,
     ];
 
     protected $casts = [
         ApiAccessTokenTableMap::COL_STATEFUL => 'array',
-        ApiAccessTokenTableMap::COL_RESTRICTION => ApiAccessTokenRestrictionType::class
+        ApiAccessTokenTableMap::COL_RESTRICTION => ApiAccessTokenRestrictionType::class,
     ];
 }

@@ -13,14 +13,15 @@ use Illuminate\Support\Carbon;
 /**
  * Domain\System\Models\SystemUsageStatistic
  *
- * @property string $model_type
- * @property int $model_id
+ * @property string                    $model_type
+ * @property int                       $model_id
  * @property SystemUsageStatisticTypes $type
- * @property int $total
- * @property string $date
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property-read Model|\Eloquent $statisticFrom
+ * @property int                       $total
+ * @property string                    $date
+ * @property Carbon|null               $created_at
+ * @property Carbon|null               $updated_at
+ * @property-read Model|Eloquent $statisticFrom
+ *
  * @method static Builder|SystemUsageStatistic newModelQuery()
  * @method static Builder|SystemUsageStatistic newQuery()
  * @method static Builder|SystemUsageStatistic query()
@@ -31,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|SystemUsageStatistic whereTotal($value)
  * @method static Builder|SystemUsageStatistic whereType($value)
  * @method static Builder|SystemUsageStatistic whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class SystemUsageStatistic extends Model

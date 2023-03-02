@@ -40,7 +40,7 @@ class EnsureApiRequestsAreStateful
             return false;
         }
 
-        Str::of($domain)
+        return Str::of($domain)
             ->replaceFirst('https://', '')
             ->replaceFirst('http://', '')
             ->finish('/')

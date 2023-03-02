@@ -12,13 +12,14 @@ use Support\Enums\System\SystemTemplateType;
 /**
  * Domain\System\Models\SystemTemplate
  *
- * @property int $id
- * @property string $value
- * @property string|null $name
+ * @property int                $id
+ * @property string             $value
+ * @property string|null        $name
  * @property SystemTemplateType $type
- * @property int $is_public
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property int                $is_public
+ * @property Carbon|null        $created_at
+ * @property Carbon|null        $updated_at
+ *
  * @method static Builder|SystemTemplate newModelQuery()
  * @method static Builder|SystemTemplate newQuery()
  * @method static Builder|SystemTemplate query()
@@ -29,6 +30,7 @@ use Support\Enums\System\SystemTemplateType;
  * @method static Builder|SystemTemplate whereType($value)
  * @method static Builder|SystemTemplate whereUpdatedAt($value)
  * @method static Builder|SystemTemplate whereValue($value)
+ *
  * @mixin Eloquent
  */
 class SystemTemplate extends Model

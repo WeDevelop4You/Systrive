@@ -17,50 +17,52 @@ use Illuminate\Support\Collection;
 /**
  * Domain\Cms\Models\CmsColumn
  *
- * @property int $id
- * @property int $table_id
- * @property string $label
- * @property string $key
+ * @property int           $id
+ * @property int           $table_id
+ * @property string        $label
+ * @property string        $key
  * @property CmsColumnType $type
- * @property int $after
- * @property int $hidden
- * @property int $editable
- * @property bool $deletable
- * @property int $selectable
- * @property int $creatable
- * @property int $updatable
- * @property Collection $properties
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
+ * @property int           $after
+ * @property int           $hidden
+ * @property int           $editable
+ * @property bool          $deletable
+ * @property int           $selectable
+ * @property int           $creatable
+ * @property int           $updatable
+ * @property Collection    $properties
+ * @property Carbon|null   $created_at
+ * @property Carbon|null   $updated_at
  * @property-read \Domain\Cms\Models\CmsTable $table
+ *
  * @method static CmsColumnCollection<int, static> all($columns = ['*'])
- * @method static Builder|CmsColumn creatable()
- * @method static Builder|CmsColumn deletable()
- * @method static Builder|CmsColumn editable()
- * @method static Builder|CmsColumn fileType(bool $not = true)
+ * @method static Builder|CmsColumn        creatable()
+ * @method static Builder|CmsColumn        deletable()
+ * @method static Builder|CmsColumn        editable()
+ * @method static Builder|CmsColumn        fileType(bool $not = true)
  * @method static CmsColumnCollection<int, static> get($columns = ['*'])
- * @method static Builder|CmsColumn newModelQuery()
- * @method static Builder|CmsColumn newQuery()
- * @method static Builder|CmsColumn query()
- * @method static Builder|CmsColumn selectable()
- * @method static Builder|CmsColumn sorted()
- * @method static Builder|CmsColumn updatable()
- * @method static Builder|CmsColumn visible()
- * @method static Builder|CmsColumn whereAfter($value)
- * @method static Builder|CmsColumn whereCreatable($value)
- * @method static Builder|CmsColumn whereCreatedAt($value)
- * @method static Builder|CmsColumn whereDeletable($value)
- * @method static Builder|CmsColumn whereEditable($value)
- * @method static Builder|CmsColumn whereHidden($value)
- * @method static Builder|CmsColumn whereId($value)
- * @method static Builder|CmsColumn whereKey($value)
- * @method static Builder|CmsColumn whereLabel($value)
- * @method static Builder|CmsColumn whereProperties($value)
- * @method static Builder|CmsColumn whereSelectable($value)
- * @method static Builder|CmsColumn whereTableId($value)
- * @method static Builder|CmsColumn whereType($value)
- * @method static Builder|CmsColumn whereUpdatable($value)
- * @method static Builder|CmsColumn whereUpdatedAt($value)
+ * @method static Builder|CmsColumn        newModelQuery()
+ * @method static Builder|CmsColumn        newQuery()
+ * @method static Builder|CmsColumn        query()
+ * @method static Builder|CmsColumn        selectable()
+ * @method static Builder|CmsColumn        sorted()
+ * @method static Builder|CmsColumn        updatable()
+ * @method static Builder|CmsColumn        visible()
+ * @method static Builder|CmsColumn        whereAfter($value)
+ * @method static Builder|CmsColumn        whereCreatable($value)
+ * @method static Builder|CmsColumn        whereCreatedAt($value)
+ * @method static Builder|CmsColumn        whereDeletable($value)
+ * @method static Builder|CmsColumn        whereEditable($value)
+ * @method static Builder|CmsColumn        whereHidden($value)
+ * @method static Builder|CmsColumn        whereId($value)
+ * @method static Builder|CmsColumn        whereKey($value)
+ * @method static Builder|CmsColumn        whereLabel($value)
+ * @method static Builder|CmsColumn        whereProperties($value)
+ * @method static Builder|CmsColumn        whereSelectable($value)
+ * @method static Builder|CmsColumn        whereTableId($value)
+ * @method static Builder|CmsColumn        whereType($value)
+ * @method static Builder|CmsColumn        whereUpdatable($value)
+ * @method static Builder|CmsColumn        whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class CmsColumn extends Model

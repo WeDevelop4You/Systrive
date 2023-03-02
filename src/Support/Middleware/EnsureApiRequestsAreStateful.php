@@ -47,7 +47,6 @@ class EnsureApiRequestsAreStateful
             ->is(Collection::make($stateful)->map(function ($uri) {
                 return trim($uri).'/*';
             })->all());
-
     }
 
     private function checkIp(Request $request, array $stateful): bool
@@ -61,4 +60,3 @@ class EnsureApiRequestsAreStateful
         return Str::is($stateful, $ip);
     }
 }
-    

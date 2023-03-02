@@ -12,13 +12,14 @@ use Illuminate\Support\Carbon;
 /**
  * Domain\Monitor\Models\Job
  *
- * @property int $id
- * @property string $queue
- * @property array $payload
- * @property int $attempts
+ * @property int      $id
+ * @property string   $queue
+ * @property array    $payload
+ * @property int      $attempts
  * @property int|null $reserved_at
- * @property int $available_at
- * @property Carbon $created_at
+ * @property int      $available_at
+ * @property Carbon   $created_at
+ *
  * @method static Builder|Job newModelQuery()
  * @method static Builder|Job newQuery()
  * @method static Builder|Job query()
@@ -29,6 +30,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Job wherePayload($value)
  * @method static Builder|Job whereQueue($value)
  * @method static Builder|Job whereReservedAt($value)
+ *
  * @mixin Eloquent
  */
 class Job extends Model

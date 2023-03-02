@@ -15,15 +15,15 @@ use Illuminate\Support\Facades\Schema;
 /**
  * Domain\Cms\Models\CmsTable
  *
- * @property int $id
- * @property string $label
- * @property string $name
- * @property string $query
- * @property bool $editable
- * @property bool $queryable
- * @property bool $mutable
- * @property bool $deletable
- * @property bool $is_table
+ * @property int                             $id
+ * @property string                          $label
+ * @property string                          $name
+ * @property string                          $query
+ * @property bool                            $editable
+ * @property bool                            $queryable
+ * @property bool                            $mutable
+ * @property bool                            $deletable
+ * @property bool                            $is_table
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Domain\Cms\Collections\CmsColumnCollection<int, \Domain\Cms\Models\CmsColumn> $columns
@@ -35,22 +35,24 @@ use Illuminate\Support\Facades\Schema;
  * @property-read \Domain\Cms\Collections\CmsColumnCollection<int, \Domain\Cms\Models\CmsColumn> $sortedColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection<int, \Domain\Cms\Models\CmsColumn> $tableColumns
  * @property-read \Domain\Cms\Collections\CmsColumnCollection<int, \Domain\Cms\Models\CmsColumn> $visibleColumns
+ *
  * @method static CmsTableCollection<int, static> all($columns = ['*'])
  * @method static CmsTableCollection<int, static> get($columns = ['*'])
- * @method static Builder|CmsTable newModelQuery()
- * @method static Builder|CmsTable newQuery()
- * @method static Builder|CmsTable query()
- * @method static Builder|CmsTable whereCreatedAt($value)
- * @method static Builder|CmsTable whereDeletable($value)
- * @method static Builder|CmsTable whereEditable($value)
- * @method static Builder|CmsTable whereId($value)
- * @method static Builder|CmsTable whereIsTable($value)
- * @method static Builder|CmsTable whereLabel($value)
- * @method static Builder|CmsTable whereMutable($value)
- * @method static Builder|CmsTable whereName($value)
- * @method static Builder|CmsTable whereQuery($value)
- * @method static Builder|CmsTable whereQueryable($value)
- * @method static Builder|CmsTable whereUpdatedAt($value)
+ * @method static Builder|CmsTable        newModelQuery()
+ * @method static Builder|CmsTable        newQuery()
+ * @method static Builder|CmsTable        query()
+ * @method static Builder|CmsTable        whereCreatedAt($value)
+ * @method static Builder|CmsTable        whereDeletable($value)
+ * @method static Builder|CmsTable        whereEditable($value)
+ * @method static Builder|CmsTable        whereId($value)
+ * @method static Builder|CmsTable        whereIsTable($value)
+ * @method static Builder|CmsTable        whereLabel($value)
+ * @method static Builder|CmsTable        whereMutable($value)
+ * @method static Builder|CmsTable        whereName($value)
+ * @method static Builder|CmsTable        whereQuery($value)
+ * @method static Builder|CmsTable        whereQueryable($value)
+ * @method static Builder|CmsTable        whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class CmsTable extends Model
